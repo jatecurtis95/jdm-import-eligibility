@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JDM Connect — Landed Cost Calculator</title>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0D0F10; font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { useState, useMemo, useEffect, createElement: h } = React;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+// react imported via CDN
+
+// ─── RESPONSIVE STYLE INJECTION ───────────────────────────────────────────────
+// Injects a single <style> block for responsive layout + Google Font
+// (No Tailwind required — works as a standalone React component on Lovable/Vercel)
+var GlobalStyles = function GlobalStyles() {
+  return /*#__PURE__*/React.createElement("style", null, "\n    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');\n    *, *::before, *::after { box-sizing: border-box; }\n    body { margin: 0; background: #0D0F10; }\n    input[type=number]::-webkit-inner-spin-button,\n    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }\n    input[type=number] { -moz-appearance: textfield; }\n    .jdm-layout { display: grid; grid-template-columns: 1fr 1fr; }\n    .jdm-header { padding: 24px 32px; }\n    .jdm-panel { padding: 32px; }\n    .jdm-toggles { display: flex; gap: 24px; flex-wrap: wrap; }\n    @media (max-width: 800px) {\n      .jdm-layout { grid-template-columns: 1fr; }\n      .jdm-header { padding: 16px 20px; }\n      .jdm-panel { padding: 20px; }\n      .jdm-toggles { gap: 16px; }\n    }\n  ");
+};
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+var JPY_AUD_DEFAULT = 0.0105;
+
+// Vehicle size presets
+// sizeKey maps to the size category used for shipping rate lookup
+var VEHICLE_SIZES = [{
+  label: "Kei car / Small hatch — e.g. Cappuccino, Beat, Alto Works",
+  m3: 9,
+  kg: 800
+}, {
+  label: "Standard sedan/hatch — e.g. Skyline R33, WRX, Integra",
+  m3: 12,
+  kg: 1300
+}, {
+  label: "Large sedan / SUV — e.g. Stagea, Legnum, RX300",
+  m3: 15,
+  kg: 1600
+}, {
+  label: "Wagon / Tall SUV — e.g. Alphard, Elgrand, Prado",
+  m3: 18,
+  kg: 2000
+}];
+
+// Dolphin Shipping Australia — rates valid from 11 March 2025 (B/L date)
+// Each port entry is an array of { maxM3, rate } sorted ascending
+var SHIPPING_LINES = [{
+  name: "MOL",
+  origin: "Osaka (Senboku), Nagoya, Yokohama",
+  hybridOk: true,
+  notes: "Port Congestion Surcharge applies from 1 Apr 2025",
+  // congestionSurcharge: <11m³ = $95, 11-20m³ = $150
+  congestionSurcharge: {
+    small: 95,
+    large: 150
+  },
+  ports: {
+    BRISBANE: [{
+      maxM3: 11,
+      rate: 2300
+    }, {
+      maxM3: 20,
+      rate: 2450
+    }],
+    PORT_KEMBLA: [{
+      maxM3: 11,
+      rate: 2300
+    }, {
+      maxM3: 20,
+      rate: 2440
+    }],
+    MELBOURNE: [{
+      maxM3: 11,
+      rate: 2300
+    }, {
+      maxM3: 20,
+      rate: 2445
+    }],
+    ADELAIDE: [{
+      maxM3: 11,
+      rate: 2300
+    }, {
+      maxM3: 20,
+      rate: 2445
+    }],
+    FREMANTLE: [{
+      maxM3: 11,
+      rate: 2450
+    }, {
+      maxM3: 20,
+      rate: 2625
+    }]
+  }
+}, {
+  name: "Armacup",
+  origin: "Osaka, Nagoya, Yokohama",
+  hybridOk: true,
+  heightLimit: "195cm",
+  notes: "Height limit 195cm. No Adelaide service.",
+  ports: {
+    BRISBANE: [{
+      maxM3: 11,
+      rate: 2300
+    }, {
+      maxM3: 20,
+      rate: 2450
+    }],
+    PORT_KEMBLA: [{
+      maxM3: 11,
+      rate: 2300
+    }, {
+      maxM3: 20,
+      rate: 2450
+    }],
+    MELBOURNE: [{
+      maxM3: 11,
+      rate: 2300
+    }, {
+      maxM3: 20,
+      rate: 2450
+    }],
+    // No Adelaide service
+    FREMANTLE: [{
+      maxM3: 11,
+      rate: 2650
+    }, {
+      maxM3: 20,
+      rate: 2750
+    }]
+  }
+}, {
+  name: "K-Line",
+  origin: "Kobe, Nagoya, Yokohama",
+  hybridOk: true,
+  ports: {
+    BRISBANE: [{
+      maxM3: 12,
+      rate: 2285
+    }, {
+      maxM3: 14,
+      rate: 2575
+    }, {
+      maxM3: 16,
+      rate: 2715
+    }, {
+      maxM3: 18,
+      rate: 2915
+    }, {
+      maxM3: 20,
+      rate: 3120
+    }],
+    PORT_KEMBLA: [{
+      maxM3: 12,
+      rate: 2255
+    }, {
+      maxM3: 14,
+      rate: 2495
+    }, {
+      maxM3: 16,
+      rate: 2655
+    }, {
+      maxM3: 18,
+      rate: 2850
+    }, {
+      maxM3: 20,
+      rate: 3055
+    }],
+    MELBOURNE: [{
+      maxM3: 12,
+      rate: 2275
+    }, {
+      maxM3: 14,
+      rate: 2570
+    }, {
+      maxM3: 16,
+      rate: 2685
+    }, {
+      maxM3: 18,
+      rate: 2910
+    }, {
+      maxM3: 20,
+      rate: 3115
+    }],
+    ADELAIDE: [{
+      maxM3: 12,
+      rate: 2215
+    }, {
+      maxM3: 14,
+      rate: 2520
+    }, {
+      maxM3: 16,
+      rate: 2630
+    }, {
+      maxM3: 18,
+      rate: 2825
+    }, {
+      maxM3: 20,
+      rate: 3035
+    }],
+    FREMANTLE: [{
+      maxM3: 12,
+      rate: 2625
+    }, {
+      maxM3: 14,
+      rate: 3045
+    }, {
+      maxM3: 16,
+      rate: 3045
+    }, {
+      maxM3: 18,
+      rate: 3395
+    }, {
+      maxM3: 20,
+      rate: 3395
+    }]
+  }
+}, {
+  name: "NYK",
+  origin: "Nagoya, Yokohama",
+  hybridOk: true,
+  heightLimit: "200cm",
+  notes: "Vehicles over 2m height classified as oversize.",
+  ports: {
+    BRISBANE: [{
+      maxM3: 12,
+      rate: 2350
+    }, {
+      maxM3: 14,
+      rate: 2595
+    }, {
+      maxM3: 16,
+      rate: 2770
+    }, {
+      maxM3: 18,
+      rate: 2950
+    }, {
+      maxM3: 20,
+      rate: 2995
+    }],
+    PORT_KEMBLA: [{
+      maxM3: 12,
+      rate: 2270
+    }, {
+      maxM3: 14,
+      rate: 2570
+    }, {
+      maxM3: 16,
+      rate: 2685
+    }, {
+      maxM3: 18,
+      rate: 2900
+    }, {
+      maxM3: 20,
+      rate: 2995
+    }],
+    MELBOURNE: [{
+      maxM3: 12,
+      rate: 2310
+    }, {
+      maxM3: 14,
+      rate: 2625
+    }, {
+      maxM3: 16,
+      rate: 2725
+    }, {
+      maxM3: 18,
+      rate: 2950
+    }, {
+      maxM3: 20,
+      rate: 2995
+    }],
+    ADELAIDE: [{
+      maxM3: 12,
+      rate: 2295
+    }, {
+      maxM3: 14,
+      rate: 2620
+    }, {
+      maxM3: 16,
+      rate: 2735
+    }, {
+      maxM3: 18,
+      rate: 2950
+    }, {
+      maxM3: 20,
+      rate: 3145
+    }],
+    FREMANTLE: [{
+      maxM3: 12,
+      rate: 2350
+    }, {
+      maxM3: 14,
+      rate: 3045
+    }, {
+      maxM3: 16,
+      rate: 3045
+    }, {
+      maxM3: 18,
+      rate: 3395
+    }, {
+      maxM3: 20,
+      rate: 3395
+    }]
+  }
+}];
+var AU_PORTS = ["FREMANTLE", "BRISBANE", "MELBOURNE", "ADELAIDE", "PORT_KEMBLA"];
+var PORT_LABELS = {
+  FREMANTLE: "Fremantle (WA)",
+  BRISBANE: "Brisbane (QLD)",
+  MELBOURNE: "Melbourne (VIC)",
+  ADELAIDE: "Adelaide (SA)",
+  PORT_KEMBLA: "Port Kembla (NSW)"
+};
+
+// DAFF biosecurity cleaning cost at AU port — only charged if directed by DAFF
+// Brisbane: typically $0 (rarely directed); others: estimated
+var DAFF_CLEANING = {
+  FREMANTLE: 450,
+  MELBOURNE: 450,
+  ADELAIDE: 450,
+  PORT_KEMBLA: 185,
+  BRISBANE: 0
+};
+
+// Port-to-metro delivery (ex-GST) — Dolphin rate sheet
+var DELIVERY_COSTS = {
+  FREMANTLE: 200,
+  BRISBANE: 180,
+  MELBOURNE: 235,
+  ADELAIDE: 180,
+  PORT_KEMBLA: 220 // Sydney, south of Harbour Bridge
+};
+
+// BMSB treatment costs (mandatory Sept–April for applicable origins)
+// Tier by kg tare: ≤3,000kg = light, 3,001–5,000kg = medium, >5,000kg = heavy
+var BMSB = {
+  light: 250,
+  medium: 350,
+  heavy: 580
+};
+
+// ─── CALCULATION HELPERS ─────────────────────────────────────────────────────
+
+/**
+ * Look up the freight rate for a given shipping line, port, and vehicle m³.
+ * Returns null if no service is available.
+ */
+function getShippingRate(line, port, m3) {
+  var ranges = line.ports[port];
+  if (!ranges) return null;
+  var _iterator = _createForOfIteratorHelper(ranges),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var r = _step.value;
+      if (m3 <= r.maxM3) return r.rate;
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  return null; // vehicle too large for this line/port
+}
+
+/**
+ * Calculate Luxury Car Tax (LCT) — FY2025–26
+ * Formula: (GST-inclusive value − threshold) ÷ 1.1 × 0.33
+ * CRITICAL: ÷1.1 strips the embedded GST before applying 33% LCT rate
+ */
+function calcLCT(gstInclusiveValue) {
+  var fuelEfficient = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  // FY2025–26 thresholds
+  var threshold = fuelEfficient ? 91387 : 80567;
+  if (gstInclusiveValue <= threshold) return 0;
+  var excess = gstInclusiveValue - threshold;
+  return excess / 1.1 * 0.33;
+}
+
+/**
+ * Calculate stamp duty by registration state.
+ * Applied to the retail value (post-compliance + LCT).
+ * Update annually — rates are FY2025–26.
+ */
+function calcStampDuty(state, value) {
+  switch (state) {
+    case "WA":
+      {
+        // Sliding scale with flat 6.5% over $50k
+        if (value <= 25000) return value * 0.0275;
+        if (value <= 50000) {
+          var R = 2.75 + (value - 25000) / 6666.66;
+          return value * (R / 100);
+        }
+        return value * 0.065;
+      }
+    case "NSW":
+      {
+        // Two-bracket price-based rate
+        if (value <= 45000) return Math.ceil(value / 100) * 3;
+        return 1350 + Math.ceil((value - 45000) / 100) * 5;
+      }
+    case "VIC":
+      {
+        // Price + emissions brackets (assumes standard petrol JDM)
+        if (value <= 80567) return value / 200 * 8.40;
+        if (value <= 100000) return value / 200 * 10.40;
+        if (value <= 150000) return value / 200 * 14.00;
+        return value / 200 * 18.00;
+      }
+    case "QLD":
+      {
+        // 4-cylinder petrol default (most common JDM)
+        var rate = value <= 100000 ? 3 : 5;
+        return value / 100 * rate;
+      }
+    case "SA":
+      {
+        // Approximate ~4% effective rate for typical JDM price range
+        // Use RevenueSA calculator for exact figure
+        return value * 0.04;
+      }
+    case "NT":
+      return value * 0.03;
+    // Flat 3%
+    case "ACT":
+      {
+        // Class C assumed — most petrol JDM (176–220g CO₂/km)
+        if (value <= 45000) return Math.ceil(value / 100) * 3;
+        return 1350 + Math.ceil((value - 45000) / 100) * 5;
+      }
+    case "TAS":
+      return value * 0.035;
+    // Approximate — use Tas Govt calculator to confirm
+    default:
+      return 0;
+  }
+}
+
+// ─── COMPONENT ───────────────────────────────────────────────────────────────
+
+var JDMCalculator = function JDMCalculator() {
+  var _availableLines$, _availableLines$find, _activeLine$name;
+  // ── Inputs ──────────────────────────────────────────────────────────────────
+  var _useState = useState(""),
+    _useState2 = _slicedToArray(_useState, 2),
+    jpyPrice = _useState2[0],
+    setJpyPrice = _useState2[1];
+  var _useState3 = useState(JPY_AUD_DEFAULT),
+    _useState4 = _slicedToArray(_useState3, 2),
+    fxRate = _useState4[0],
+    setFxRate = _useState4[1];
+  var _useState5 = useState(1),
+    _useState6 = _slicedToArray(_useState5, 2),
+    vehicleSizeIdx = _useState6[0],
+    setVehicleSizeIdx = _useState6[1]; // Default: standard sedan
+  var _useState7 = useState("FREMANTLE"),
+    _useState8 = _slicedToArray(_useState7, 2),
+    destinationPort = _useState8[0],
+    setDestinationPort = _useState8[1];
+  var _useState9 = useState("WA"),
+    _useState0 = _slicedToArray(_useState9, 2),
+    regState = _useState0[0],
+    setRegState = _useState0[1];
+  var _useState1 = useState(false),
+    _useState10 = _slicedToArray(_useState1, 2),
+    isHybrid = _useState10[0],
+    setIsHybrid = _useState10[1];
+  var _useState11 = useState(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    isFuelEfficient = _useState12[0],
+    setIsFuelEfficient = _useState12[1];
+  var _useState13 = useState(false),
+    _useState14 = _slicedToArray(_useState13, 2),
+    bmsbSeason = _useState14[0],
+    setBmsbSeason = _useState14[1];
+  var _useState15 = useState(false),
+    _useState16 = _slicedToArray(_useState15, 2),
+    includeDaff = _useState16[0],
+    setIncludeDaff = _useState16[1];
+  var _useState17 = useState(true),
+    _useState18 = _slicedToArray(_useState17, 2),
+    includeDelivery = _useState18[0],
+    setIncludeDelivery = _useState18[1];
+  var _useState19 = useState(null),
+    _useState20 = _slicedToArray(_useState19, 2),
+    selectedLineName = _useState20[0],
+    setSelectedLineName = _useState20[1]; // null = use cheapest
+  var _useState21 = useState(false),
+    _useState22 = _slicedToArray(_useState21, 2),
+    showLineSelector = _useState22[0],
+    setShowLineSelector = _useState22[1];
+  var _useState23 = useState(1500),
+    _useState24 = _slicedToArray(_useState23, 2),
+    agencyFee = _useState24[0],
+    setAgencyFee = _useState24[1];
+  var _useState25 = useState(3500),
+    _useState26 = _slicedToArray(_useState25, 2),
+    complianceCost = _useState26[0],
+    setComplianceCost = _useState26[1];
+  var vehicleSize = VEHICLE_SIZES[vehicleSizeIdx];
+
+  // Available lines for the selected port + vehicle size, sorted cheapest first
+  var availableLines = useMemo(function () {
+    return SHIPPING_LINES.filter(function (l) {
+      return getShippingRate(l, destinationPort, vehicleSize.m3) !== null;
+    }).map(function (l) {
+      return _objectSpread(_objectSpread({}, l), {}, {
+        rate: getShippingRate(l, destinationPort, vehicleSize.m3)
+      });
+    }).sort(function (a, b) {
+      return a.rate - b.rate;
+    });
+  }, [destinationPort, vehicleSize]);
+  var cheapestLine = (_availableLines$ = availableLines[0]) !== null && _availableLines$ !== void 0 ? _availableLines$ : null;
+  var activeLine = selectedLineName ? (_availableLines$find = availableLines.find(function (l) {
+    return l.name === selectedLineName;
+  })) !== null && _availableLines$find !== void 0 ? _availableLines$find : cheapestLine : cheapestLine;
+
+  // Reset selected line if it's no longer available
+  useEffect(function () {
+    if (selectedLineName && !availableLines.find(function (l) {
+      return l.name === selectedLineName;
+    })) {
+      setSelectedLineName(null);
+    }
+  }, [availableLines, selectedLineName]);
+
+  // ── Calculations ─────────────────────────────────────────────────────────────
+  var calc = useMemo(function () {
+    var purchaseJPY = parseFloat(jpyPrice);
+    if (!jpyPrice || isNaN(purchaseJPY) || purchaseJPY <= 0) return null;
+
+    // Step 1 — Purchase price in AUD
+    var purchaseAUD = purchaseJPY * fxRate;
+
+    // Step 2 — Japan-side costs
+    var auctionFee = Math.round(purchaseAUD * 0.05); // ~5% auction house fee
+    var deregFee = 150; // de-registration / de-compression
+    var japanTransport = 300; // domestic transport to port
+    var exportDocs = 200; // export documentation
+    var totalJapan = purchaseAUD + auctionFee + deregFee + japanTransport + exportDocs;
+
+    // Step 3 — Shipping
+    var freightBase = activeLine ? activeLine.rate : 0;
+    // MOL congestion surcharge: <11m³ = $95, ≥11m³ = $150
+    var congestion = activeLine !== null && activeLine !== void 0 && activeLine.congestionSurcharge ? vehicleSize.m3 < 11 ? activeLine.congestionSurcharge.small : activeLine.congestionSurcharge.large : 0;
+    // BMSB treatment (if BMSB season toggled)
+    var bmsb = bmsbSeason ? vehicleSize.kg <= 3000 ? BMSB.light : vehicleSize.kg <= 5000 ? BMSB.medium : BMSB.heavy : 0;
+    // Marine insurance: ~0.5% of purchase price
+    var marineInsurance = Math.round(purchaseAUD * 0.005);
+    var totalShipping = freightBase + congestion + bmsb + marineInsurance;
+
+    // Step 4 — CIF value (used as duty base)
+    var cifValue = totalJapan + totalShipping;
+
+    // Step 5 — Import duty
+    // CRITICAL: Japanese-origin vehicles are DUTY FREE under JAEPA (0%)
+    // 5% only applies to non-FTA origin vehicles — NOT applicable here
+    var importDuty = 0;
+
+    // Step 6 — GST (10% of CIF + import duty)
+    var gst = Math.round((cifValue + importDuty) * 0.10);
+
+    // Step 7 — Australian border costs
+    var customsEntryFee = 150;
+    var daffCleaning = includeDaff ? DAFF_CLEANING[destinationPort] : 0;
+
+    // Step 8 — Landed at port
+    var landedAtPort = cifValue + importDuty + gst + customsEntryFee + daffCleaning + agencyFee;
+
+    // Step 9 — Post-compliance value
+    var totalWithCompliance = landedAtPort + complianceCost;
+
+    // Step 10 — LCT (FY2025–26)
+    var lct = Math.round(calcLCT(totalWithCompliance, isFuelEfficient));
+    var lctThreshold = isFuelEfficient ? 91387 : 80567;
+
+    // Step 11 — Delivery (port-to-metro, ex-GST + 10% GST)
+    var deliveryExGst = includeDelivery ? DELIVERY_COSTS[destinationPort] : 0;
+    var deliveryGst = Math.round(deliveryExGst * 0.10);
+
+    // Step 12 — Stamp duty (applied to retail value = post-compliance + LCT)
+    var retailValue = totalWithCompliance + lct;
+    var stampDuty = Math.round(calcStampDuty(regState, retailValue));
+
+    // Step 13 — Grand total (drive-away estimate)
+    var grandTotal = totalWithCompliance + lct + deliveryExGst + deliveryGst + stampDuty;
+    return {
+      purchaseAUD: Math.round(purchaseAUD),
+      auctionFee: auctionFee,
+      deregFee: deregFee,
+      japanTransport: japanTransport,
+      exportDocs: exportDocs,
+      totalJapan: Math.round(totalJapan),
+      freightBase: freightBase,
+      congestion: congestion,
+      bmsb: bmsb,
+      marineInsurance: marineInsurance,
+      totalShipping: Math.round(totalShipping),
+      cifValue: Math.round(cifValue),
+      importDuty: importDuty,
+      // always 0 — JAEPA
+      gst: gst,
+      customsEntryFee: customsEntryFee,
+      daffCleaning: daffCleaning,
+      agencyFee: agencyFee,
+      landedAtPort: Math.round(landedAtPort),
+      complianceCost: complianceCost,
+      totalWithCompliance: Math.round(totalWithCompliance),
+      lct: lct,
+      lctThreshold: lctThreshold,
+      deliveryExGst: deliveryExGst,
+      deliveryGst: deliveryGst,
+      retailValue: Math.round(retailValue),
+      stampDuty: stampDuty,
+      grandTotal: Math.round(grandTotal)
+    };
+  }, [jpyPrice, fxRate, vehicleSize, activeLine, bmsbSeason, includeDaff, includeDelivery, agencyFee, complianceCost, isFuelEfficient, regState, destinationPort]);
+
+  // ── Formatters ───────────────────────────────────────────────────────────────
+  var fmt = function fmt(n) {
+    return n == null ? "—" : "$" + Math.round(n).toLocaleString("en-AU");
+  };
+  var fmtN = function fmtN(n) {
+    var dec = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 4;
+    return n == null ? "—" : n.toFixed(dec);
+  };
+
+  // ── AUD preview (live, before full calc) ─────────────────────────────────────
+  var audPreview = jpyPrice && !isNaN(parseFloat(jpyPrice)) ? Math.round(parseFloat(jpyPrice) * fxRate) : null;
+
+  // ── BMSB cost for display ────────────────────────────────────────────────────
+  var bmsbCostDisplay = vehicleSize.kg <= 3000 ? BMSB.light : vehicleSize.kg <= 5000 ? BMSB.medium : BMSB.heavy;
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(GlobalStyles, null), /*#__PURE__*/React.createElement("div", {
+    style: styles.root
+  }, /*#__PURE__*/React.createElement("header", {
+    style: styles.header,
+    className: "jdm-header"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: styles.headerBrand
+  }, "JDM Connect"), /*#__PURE__*/React.createElement("div", {
+    style: styles.headerTitle
+  }, "Landed Cost Calculator")), /*#__PURE__*/React.createElement("div", {
+    style: styles.headerMeta
+  }, /*#__PURE__*/React.createElement("div", null, "Dolphin Shipping rates"), /*#__PURE__*/React.createElement("div", null, "Valid from 11 Mar 2025"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      color: C.gold,
+      marginTop: 4
+    }
+  }, "FY2025\u201326 Tax Rates"))), /*#__PURE__*/React.createElement("div", {
+    className: "jdm-layout",
+    style: styles.layout
+  }, /*#__PURE__*/React.createElement("div", {
+    style: styles.leftPanel,
+    className: "jdm-panel"
+  }, /*#__PURE__*/React.createElement(Section, {
+    label: "01 / Vehicle"
+  }, /*#__PURE__*/React.createElement(Label, null, "Purchase Price (JPY)"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    value: jpyPrice,
+    onChange: function onChange(e) {
+      return setJpyPrice(e.target.value);
+    },
+    placeholder: "e.g. 2500000",
+    style: styles.input
+  }), audPreview != null && /*#__PURE__*/React.createElement("div", {
+    style: styles.goldHint
+  }, "\u2248 ", fmt(audPreview), " AUD"), /*#__PURE__*/React.createElement(Label, null, "JPY \u2192 AUD Exchange Rate"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    step: "0.0001",
+    value: fxRate,
+    onChange: function onChange(e) {
+      var v = parseFloat(e.target.value);
+      setFxRate(isNaN(v) ? JPY_AUD_DEFAULT : v);
+    },
+    style: styles.input
+  }), /*#__PURE__*/React.createElement("div", {
+    style: styles.hint
+  }, "Default: ", JPY_AUD_DEFAULT, " \u2014 update to live rate"), /*#__PURE__*/React.createElement(Label, null, "Vehicle Size / Type"), /*#__PURE__*/React.createElement("select", {
+    value: vehicleSizeIdx,
+    onChange: function onChange(e) {
+      return setVehicleSizeIdx(parseInt(e.target.value));
+    },
+    style: styles.select
+  }, VEHICLE_SIZES.map(function (s, i) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: i,
+      value: i
+    }, s.label);
+  })), /*#__PURE__*/React.createElement("div", {
+    style: styles.hint
+  }, "~", vehicleSize.m3, "m\xB3 \xB7 ~", vehicleSize.kg.toLocaleString(), "kg tare"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 14
+    },
+    className: "jdm-toggles"
+  }, /*#__PURE__*/React.createElement(Toggle, {
+    label: "Hybrid",
+    value: isHybrid,
+    onChange: setIsHybrid
+  }), /*#__PURE__*/React.createElement(Toggle, {
+    label: "Fuel-efficient \u22643.5L/100km",
+    value: isFuelEfficient,
+    onChange: setIsFuelEfficient
+  })), isFuelEfficient && /*#__PURE__*/React.createElement("div", {
+    style: styles.goldHint
+  }, "LCT threshold: $91,387 (fuel-efficient)")), /*#__PURE__*/React.createElement(Section, {
+    label: "02 / Destination"
+  }, /*#__PURE__*/React.createElement(Label, null, "Arrival Port"), /*#__PURE__*/React.createElement("select", {
+    value: destinationPort,
+    onChange: function onChange(e) {
+      setDestinationPort(e.target.value);
+      setSelectedLineName(null);
+    },
+    style: styles.select
+  }, AU_PORTS.map(function (p) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: p,
+      value: p
+    }, PORT_LABELS[p]);
+  })), /*#__PURE__*/React.createElement(Label, null, "Registration State"), /*#__PURE__*/React.createElement("select", {
+    value: regState,
+    onChange: function onChange(e) {
+      return setRegState(e.target.value);
+    },
+    style: styles.select
+  }, [["WA", "Western Australia"], ["NSW", "New South Wales"], ["VIC", "Victoria"], ["QLD", "Queensland"], ["SA", "South Australia"], ["NT", "Northern Territory"], ["ACT", "ACT"], ["TAS", "Tasmania"]].map(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+      k = _ref2[0],
+      v = _ref2[1];
+    return /*#__PURE__*/React.createElement("option", {
+      key: k,
+      value: k
+    }, v);
+  }))), /*#__PURE__*/React.createElement(Section, {
+    label: "03 / Shipping"
+  }, /*#__PURE__*/React.createElement("div", {
+    style: styles.shippingProvider
+  }, "Via Dolphin Shipping Australia (dolphincargo.com.au)"), availableLines.length === 0 ? /*#__PURE__*/React.createElement("div", {
+    style: styles.noService
+  }, "No shipping service available to this port for the selected vehicle size.") : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: _objectSpread(_objectSpread({}, styles.cheapestBox), {}, {
+      border: "1px solid ".concat(!selectedLineName || selectedLineName === (cheapestLine === null || cheapestLine === void 0 ? void 0 : cheapestLine.name) ? C.gold : C.border),
+      cursor: "pointer"
+    }),
+    onClick: function onClick() {
+      return setSelectedLineName(null);
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: styles.cheapestLabel
+  }, "Cheapest Available"), /*#__PURE__*/React.createElement("div", {
+    style: styles.cheapestRow
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: styles.cheapestName
+  }, cheapestLine === null || cheapestLine === void 0 ? void 0 : cheapestLine.name), /*#__PURE__*/React.createElement("div", {
+    style: styles.cheapestOrigin
+  }, "from ", cheapestLine === null || cheapestLine === void 0 ? void 0 : cheapestLine.origin), (cheapestLine === null || cheapestLine === void 0 ? void 0 : cheapestLine.heightLimit) && /*#__PURE__*/React.createElement("div", {
+    style: styles.heightWarning
+  }, "Height limit: ", cheapestLine.heightLimit)), /*#__PURE__*/React.createElement("div", {
+    style: styles.cheapestRate
+  }, fmt(cheapestLine === null || cheapestLine === void 0 ? void 0 : cheapestLine.rate)))), /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return setShowLineSelector(!showLineSelector);
+    },
+    style: styles.compareBtn
+  }, showLineSelector ? "▲ Hide lines" : "▼ Compare all lines"), showLineSelector && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 6,
+      marginBottom: 14
+    }
+  }, availableLines.map(function (l) {
+    var isActive = selectedLineName === l.name || !selectedLineName && l.name === (cheapestLine === null || cheapestLine === void 0 ? void 0 : cheapestLine.name);
+    return /*#__PURE__*/React.createElement("div", {
+      key: l.name,
+      onClick: function onClick() {
+        return setSelectedLineName(selectedLineName === l.name ? null : l.name);
+      },
+      style: _objectSpread(_objectSpread({}, styles.lineRow), {}, {
+        background: isActive ? "#1e2a1a" : C.bgAlt,
+        border: "1px solid ".concat(isActive ? C.gold : C.border)
+      })
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: C.text
+      }
+    }, l.name), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 10,
+        color: "#555",
+        marginTop: 2
+      }
+    }, l.origin), l.heightLimit && /*#__PURE__*/React.createElement("div", {
+      style: styles.heightWarning
+    }, "Height limit: ", l.heightLimit), l.congestionSurcharge && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 10,
+        color: "#888"
+      }
+    }, "+ congestion surcharge (from 1 Apr 2025)")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 14,
+        fontWeight: 700,
+        color: isActive ? C.gold : C.muted
+      }
+    }, fmt(l.rate)));
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 12
+    },
+    className: "jdm-toggles"
+  }, /*#__PURE__*/React.createElement(Toggle, {
+    label: "BMSB season (Sept\u2013Apr)",
+    value: bmsbSeason,
+    onChange: setBmsbSeason
+  }), /*#__PURE__*/React.createElement(Toggle, {
+    label: "DAFF cleaning at port",
+    value: includeDaff,
+    onChange: setIncludeDaff
+  }), /*#__PURE__*/React.createElement(Toggle, {
+    label: "Metro delivery",
+    value: includeDelivery,
+    onChange: setIncludeDelivery
+  })), bmsbSeason && /*#__PURE__*/React.createElement("div", {
+    style: styles.hint
+  }, "BMSB treatment: ", fmt(bmsbCostDisplay), "\xA0 (", vehicleSize.kg <= 3000 ? "≤3,000kg" : vehicleSize.kg <= 5000 ? "3,001–5,000kg" : ">5,000kg", ")"), includeDaff && DAFF_CLEANING[destinationPort] === 0 && /*#__PURE__*/React.createElement("div", {
+    style: styles.hint
+  }, "DAFF cleaning at Brisbane: typically $0 (rarely directed)")), /*#__PURE__*/React.createElement(Section, {
+    label: "04 / Costs",
+    last: true
+  }, /*#__PURE__*/React.createElement(Label, null, "JDM Connect Agency Fee (AUD)"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    value: agencyFee,
+    onChange: function onChange(e) {
+      return setAgencyFee(Math.max(0, parseFloat(e.target.value) || 0));
+    },
+    style: styles.input
+  }), /*#__PURE__*/React.createElement(Label, null, "Compliance Cost (AUD)"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    value: complianceCost,
+    onChange: function onChange(e) {
+      return setComplianceCost(Math.max(0, parseFloat(e.target.value) || 0));
+    },
+    style: styles.input
+  }), /*#__PURE__*/React.createElement("div", {
+    style: styles.hint
+  }, "SEVS/RAW workshop estimate \u2014 varies by vehicle"))), /*#__PURE__*/React.createElement("div", {
+    style: styles.rightPanel,
+    className: "jdm-panel"
+  }, !calc ? /*#__PURE__*/React.createElement("div", {
+    style: styles.emptyState
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      color: "#333",
+      marginBottom: 8
+    }
+  }, "Enter a purchase price to calculate landed cost"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: "#2a2a2a"
+    }
+  }, "All Japan-origin vehicles import duty-free under JAEPA")) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: styles.heroBox
+  }, /*#__PURE__*/React.createElement("div", {
+    style: styles.heroLabel
+  }, "Total Drive-Away Estimate"), /*#__PURE__*/React.createElement("div", {
+    style: styles.heroTotal
+  }, fmt(calc.grandTotal)), /*#__PURE__*/React.createElement("div", {
+    style: styles.heroSub
+  }, regState, " registration \xB7 ", PORT_LABELS[destinationPort])), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 2
+    }
+  }, /*#__PURE__*/React.createElement(GroupHeader, null, "Japan"), /*#__PURE__*/React.createElement(Row, {
+    label: "Purchase price",
+    value: fmt(calc.purchaseAUD),
+    note: "\xA5".concat(parseInt(jpyPrice || 0).toLocaleString("en-AU"), " @ ").concat(fmtN(fxRate))
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "Auction house fee (~5%)",
+    value: fmt(calc.auctionFee)
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "De-registration / de-compression",
+    value: fmt(calc.deregFee)
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "Domestic transport to port",
+    value: fmt(calc.japanTransport)
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "Export documentation",
+    value: fmt(calc.exportDocs)
+  }), /*#__PURE__*/React.createElement(SubTotal, {
+    label: "Subtotal: Japan-side",
+    value: fmt(calc.totalJapan)
+  }), /*#__PURE__*/React.createElement(GroupHeader, null, "Shipping"), /*#__PURE__*/React.createElement(Row, {
+    label: "Ocean freight \u2014 ".concat((_activeLine$name = activeLine === null || activeLine === void 0 ? void 0 : activeLine.name) !== null && _activeLine$name !== void 0 ? _activeLine$name : "—"),
+    value: fmt(calc.freightBase)
+  }), calc.congestion > 0 && /*#__PURE__*/React.createElement(Row, {
+    label: "Port congestion surcharge (MOL)",
+    value: fmt(calc.congestion)
+  }), calc.bmsb > 0 && /*#__PURE__*/React.createElement(Row, {
+    label: "BMSB biosecurity treatment",
+    value: fmt(calc.bmsb)
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "Marine insurance (~0.5%)",
+    value: fmt(calc.marineInsurance)
+  }), /*#__PURE__*/React.createElement(SubTotal, {
+    label: "Subtotal: Shipping",
+    value: fmt(calc.totalShipping)
+  }), /*#__PURE__*/React.createElement(GroupHeader, null, "Australian Border"), /*#__PURE__*/React.createElement(Row, {
+    label: "Import duty",
+    value: "$0",
+    note: "Duty-free \u2014 JAEPA",
+    noteGreen: true
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "GST (10% of CIF + duty)",
+    value: fmt(calc.gst)
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "Customs entry fee",
+    value: fmt(calc.customsEntryFee)
+  }), calc.daffCleaning > 0 && /*#__PURE__*/React.createElement(Row, {
+    label: "DAFF biosecurity cleaning",
+    value: fmt(calc.daffCleaning)
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "JDM Connect agency fee",
+    value: fmt(calc.agencyFee)
+  }), /*#__PURE__*/React.createElement(SubTotal, {
+    label: "Subtotal: Landed at port",
+    value: fmt(calc.landedAtPort)
+  }), /*#__PURE__*/React.createElement(GroupHeader, null, "Compliance & On-Road"), /*#__PURE__*/React.createElement(Row, {
+    label: "Compliance cost (SEVS/RAW)",
+    value: fmt(calc.complianceCost)
+  }), /*#__PURE__*/React.createElement(SubTotal, {
+    label: "Post-compliance value",
+    value: fmt(calc.totalWithCompliance)
+  }), calc.lct > 0 ? /*#__PURE__*/React.createElement(Row, {
+    label: "LCT (33% above ".concat(isFuelEfficient ? "$91,387" : "$80,567", ")"),
+    value: fmt(calc.lct),
+    highlight: true
+  }) : /*#__PURE__*/React.createElement(Row, {
+    label: "LCT \u2014 below ".concat(isFuelEfficient ? "$91,387" : "$80,567", " threshold"),
+    value: "$0",
+    noteGreen: true,
+    note: "No LCT applicable"
+  }), includeDelivery && /*#__PURE__*/React.createElement(Row, {
+    label: "Port-to-metro delivery (".concat(PORT_LABELS[destinationPort], ")"),
+    value: fmt(calc.deliveryExGst + calc.deliveryGst),
+    note: "incl. GST"
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "Stamp duty (".concat(regState, ")"),
+    value: fmt(calc.stampDuty)
+  }), /*#__PURE__*/React.createElement("div", {
+    style: styles.totalDivider
+  }), /*#__PURE__*/React.createElement("div", {
+    style: styles.grandTotalRow
+  }, /*#__PURE__*/React.createElement("span", {
+    style: styles.grandTotalLabel
+  }, "Grand Total"), /*#__PURE__*/React.createElement("span", {
+    style: styles.grandTotalValue
+  }, fmt(calc.grandTotal))), /*#__PURE__*/React.createElement("div", {
+    style: styles.cifNote
+  }, "CIF value used for GST: ", fmt(calc.cifValue))), /*#__PURE__*/React.createElement("div", {
+    style: styles.disclaimers
+  }, /*#__PURE__*/React.createElement("div", {
+    style: styles.disclaimerHeader
+  }, "Important Notes"), /*#__PURE__*/React.createElement("div", null, "\u2022 Shipping: Dolphin Shipping Australia, valid 11 Mar 2025 (dolphincargo.com.au)"), /*#__PURE__*/React.createElement("div", null, "\u2022 Import duty: 0% applies to vehicles manufactured in and shipped directly from Japan (JAEPA). 5% applies to non-FTA origins."), /*#__PURE__*/React.createElement("div", null, "\u2022 LCT thresholds FY2025\u201326: $80,567 standard / $91,387 fuel-efficient (\u22643.5L/100km from 1 Jul 2025)"), /*#__PURE__*/React.createElement("div", null, "\u2022 QLD stamp duty assumes 4-cylinder petrol. SA and TAS stamp duty are approximate."), /*#__PURE__*/React.createElement("div", null, "\u2022 CTP insurance not included \u2014 varies by insurer in NSW, QLD, VIC and ACT"), /*#__PURE__*/React.createElement("div", null, "\u2022 All figures are estimates only. Verify with your customs broker before quoting."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 6,
+      color: "#444"
+    }
+  }, "JDM Connect Pty Ltd ACN 78 675 449 493 \xB7 jdmconnect.com.au"))))), /*#__PURE__*/React.createElement("footer", {
+    style: styles.footer
+  }, "Rates: Dolphin Shipping (valid 11 Mar 2025) \xB7 FY2025\u201326 tax rates \xB7 JDM Connect Pty Ltd ACN 78 675 449 493")));
+}
+
+// ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
+
+function Section(_ref3) {
+  var label = _ref3.label,
+    children = _ref3.children,
+    last = _ref3.last;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: last ? 0 : 28
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: styles.sectionLabel
+  }, label), children);
+}
+function Label(_ref4) {
+  var children = _ref4.children;
+  return /*#__PURE__*/React.createElement("div", {
+    style: styles.label
+  }, children);
+}
+function Toggle(_ref5) {
+  var label = _ref5.label,
+    value = _ref5.value,
+    onChange = _ref5.onChange;
+  return /*#__PURE__*/React.createElement("div", {
+    onClick: function onClick() {
+      return onChange(!value);
+    },
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      cursor: "pointer",
+      userSelect: "none"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 28,
+      height: 16,
+      borderRadius: 8,
+      background: value ? C.gold : C.border,
+      position: "relative",
+      transition: "background 0.2s",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      top: 2,
+      left: value ? 14 : 2,
+      width: 12,
+      height: 12,
+      borderRadius: 6,
+      background: "#fff",
+      transition: "left 0.2s"
+    }
+  })), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: value ? C.gold : C.muted,
+      letterSpacing: "0.04em"
+    }
+  }, label));
+}
+function Row(_ref6) {
+  var label = _ref6.label,
+    value = _ref6.value,
+    note = _ref6.note,
+    noteGreen = _ref6.noteGreen,
+    highlight = _ref6.highlight;
+  return /*#__PURE__*/React.createElement("div", {
+    style: styles.row
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "baseline",
+      gap: 8,
+      flex: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: highlight ? C.red : "#475569",
+      lineHeight: 1.4
+    }
+  }, label), note && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 10,
+      color: noteGreen ? C.green : C.muted,
+      flexShrink: 0
+    }
+  }, note)), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      fontWeight: highlight ? 700 : 400,
+      color: highlight ? C.red : "#475569",
+      flexShrink: 0,
+      marginLeft: 12
+    }
+  }, value));
+}
+function SubTotal(_ref7) {
+  var label = _ref7.label,
+    value = _ref7.value;
+  return /*#__PURE__*/React.createElement("div", {
+    style: styles.subTotal
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      color: C.muted,
+      fontWeight: 700
+    }
+  }, label), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 13,
+      color: C.text,
+      fontWeight: 700
+    }
+  }, value));
+}
+function GroupHeader(_ref8) {
+  var children = _ref8.children;
+  return /*#__PURE__*/React.createElement("div", {
+    style: styles.groupHeader
+  }, children);
+}
+
+// ─── COLOUR TOKENS ────────────────────────────────────────────────────────────
+var C = {
+  bg: "#0D0F10",
+  bgAlt: "#131618",
+  panel: "#1A1C1F",
+  border: "#2A2D32",
+  gold: "#CAA34C",
+  goldHi: "#E4C778",
+  goldLo: "#715723",
+  white: "#F7F8F9",
+  text: "#F7F8F9",
+  muted: "#B6B9BC",
+  dim: "#6F7378",
+  red: "#ef4444",
+  green: "#22c55e"
+};
+
+// ─── STYLE OBJECTS ────────────────────────────────────────────────────────────
+var FONT = "'Inter', 'Helvetica Neue', Arial, sans-serif";
+var MONO = "'DM Mono', 'Courier New', monospace";
+var styles = {
+  root: {
+    fontFamily: FONT,
+    background: C.bg,
+    minHeight: "100vh",
+    color: C.text,
+    fontFamily: FONT
+  },
+  header: {
+    background: "#000000",
+    borderBottom: "1px solid ".concat(C.border),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    gap: 12
+  },
+  headerBrand: {
+    fontSize: 11,
+    letterSpacing: "0.2em",
+    color: C.gold,
+    textTransform: "uppercase",
+    marginBottom: 4
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: 700,
+    letterSpacing: "-0.02em",
+    color: C.white
+  },
+  headerMeta: {
+    fontSize: 11,
+    color: C.muted,
+    textAlign: "right",
+    lineHeight: 1.6
+  },
+  layout: {
+    maxWidth: 1100,
+    margin: "0 auto"
+  },
+  leftPanel: {
+    borderRight: "1px solid ".concat(C.border)
+  },
+  rightPanel: {
+    background: "#131618"
+  },
+  sectionLabel: {
+    fontSize: 10,
+    letterSpacing: "0.18em",
+    color: C.gold,
+    textTransform: "uppercase",
+    marginBottom: 14,
+    borderBottom: "1px solid ".concat(C.border),
+    paddingBottom: 8
+  },
+  label: {
+    fontSize: 10,
+    color: C.muted,
+    letterSpacing: "0.08em",
+    marginTop: 12,
+    marginBottom: 5,
+    textTransform: "uppercase",
+    fontFamily: FONT
+  },
+  input: {
+    background: C.panel,
+    border: "1px solid ".concat(C.border),
+    color: C.text,
+    fontFamily: MONO,
+    fontSize: 13,
+    padding: "9px 10px",
+    borderRadius: 3,
+    width: "100%",
+    outline: "none"
+  },
+  select: {
+    background: C.panel,
+    border: "1px solid ".concat(C.border),
+    color: C.text,
+    fontFamily: FONT,
+    fontSize: 13,
+    padding: "9px 28px 9px 10px",
+    borderRadius: 3,
+    width: "100%",
+    outline: "none",
+    cursor: "pointer",
+    appearance: "none",
+    backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23CAA34C'/%3E%3C/svg%3E\")",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right 10px center"
+  },
+  hint: {
+    fontSize: 10,
+    color: C.muted,
+    marginTop: 4,
+    lineHeight: 1.5
+  },
+  goldHint: {
+    fontSize: 11,
+    color: C.gold,
+    marginTop: 5
+  },
+  shippingProvider: {
+    fontSize: 11,
+    color: C.muted,
+    marginBottom: 12
+  },
+  cheapestBox: {
+    background: C.panel,
+    borderRadius: 4,
+    border: "1px solid ".concat(C.border),
+    padding: "12px 14px",
+    marginBottom: 10
+  },
+  cheapestLabel: {
+    fontSize: 9,
+    color: C.gold,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    marginBottom: 8
+  },
+  cheapestRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 12
+  },
+  cheapestName: {
+    fontSize: 14,
+    fontWeight: 700,
+    color: C.white
+  },
+  cheapestOrigin: {
+    fontSize: 10,
+    color: C.muted,
+    marginTop: 2
+  },
+  cheapestRate: {
+    fontSize: 18,
+    fontWeight: 700,
+    color: C.gold,
+    flexShrink: 0
+  },
+  heightWarning: {
+    fontSize: 10,
+    color: C.red,
+    marginTop: 2
+  },
+  compareBtn: {
+    background: "transparent",
+    border: "1px solid ".concat(C.border),
+    color: C.muted,
+    fontSize: 11,
+    padding: "6px 12px",
+    cursor: "pointer",
+    borderRadius: 3,
+    letterSpacing: "0.05em",
+    marginBottom: 10,
+    fontFamily: FONT
+  },
+  lineRow: {
+    borderRadius: 3,
+    padding: "10px 12px",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 12
+  },
+  noService: {
+    color: C.red,
+    fontSize: 12,
+    padding: "10px 0"
+  },
+  emptyState: {
+    paddingTop: 60,
+    textAlign: "center"
+  },
+  heroBox: {
+    background: "linear-gradient(135deg, #1a1400, #211a00)",
+    border: "1px solid ".concat(C.gold),
+    borderRadius: 6,
+    padding: "24px",
+    marginBottom: 24,
+    textAlign: "center"
+  },
+  heroLabel: {
+    fontSize: 10,
+    color: C.gold,
+    letterSpacing: "0.2em",
+    textTransform: "uppercase",
+    marginBottom: 10
+  },
+  heroTotal: {
+    fontSize: 38,
+    fontWeight: 700,
+    color: C.goldHi,
+    letterSpacing: "-0.02em",
+    fontFamily: MONO
+  },
+  heroSub: {
+    fontSize: 11,
+    color: C.muted,
+    marginTop: 8
+  },
+  row: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+    padding: "5px 0",
+    borderBottom: "1px solid ".concat(C.border)
+  },
+  subTotal: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+    padding: "8px 0",
+    marginBottom: 4,
+    marginTop: 2,
+    borderTop: "1px solid ".concat(C.border)
+  },
+  groupHeader: {
+    fontSize: 9,
+    letterSpacing: "0.15em",
+    color: C.gold,
+    textTransform: "uppercase",
+    marginTop: 18,
+    marginBottom: 4
+  },
+  totalDivider: {
+    height: 1,
+    background: C.gold,
+    margin: "14px 0"
+  },
+  grandTotalRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+    padding: "4px 0 8px"
+  },
+  grandTotalLabel: {
+    fontSize: 14,
+    fontWeight: 700,
+    color: C.gold,
+    letterSpacing: "0.05em",
+    textTransform: "uppercase"
+  },
+  grandTotalValue: {
+    fontSize: 22,
+    fontWeight: 700,
+    color: C.white
+  },
+  cifNote: {
+    fontSize: 10,
+    color: "#444",
+    paddingBottom: 4,
+    marginTop: 2
+  },
+  disclaimers: {
+    marginTop: 24,
+    padding: "14px 16px",
+    background: C.panel,
+    borderRadius: 4,
+    fontSize: 10,
+    color: "#555",
+    lineHeight: 1.8
+  },
+  disclaimerHeader: {
+    color: C.muted,
+    marginBottom: 8,
+    fontWeight: 700,
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
+    fontSize: 9
+  },
+  footer: {
+    borderTop: "1px solid ".concat(C.border),
+    padding: "14px 32px",
+    fontSize: 10,
+    color: "#333",
+    textAlign: "center",
+    maxWidth: 1100,
+    margin: "0 auto"
+  }
+};
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(h(JDMCalculator));
+</script>
+</body>
+</html>
