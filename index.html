@@ -228,7 +228,12 @@ function expB(s){if(!s)return'<span class="b bx">—</span>';const m=mu(s);if(m<
 function cB(l){if(!l)return'<span class="b bx">—</span>';if(l==='Complies')return'<span class="b bg" title="Fully meets all Australian Design Rules — straightforward to import and register.">✓ Fully Complies</span>';if(l.includes('Minor'))return'<span class="b by" title="Substantially complies — has minor, inconsequential differences from ADRs. Still fully importable; compliance workshop addresses these during the RAW process.">⚠ Minor Non-Compliance</span>';return'<span class="b by" title="Partially complies — more workshop work may be needed, but still approved for import under the MRE scheme.">~ Partial Compliance</span>';}
 function stB(s){if(!s)return'';if(s==='In Force')return'<span class="b bg">In Force</span>';if(/revoked/i.test(s))return'<span class="b br">Revoked</span>';return`<span class="b bx">${s}</span>`;}
 function catB(c){return`<span class="b bz">${e((c||'').replace(/^[A-Z]+ - /,''))}</span>`;}
-function regB(type){if(type==='both')return'<span class="b bb">MRE + SEVS</span>';if(type==='mre')return'<span class="b bm">MRE</span>';return'<span class="b bs">SEVS</span>';}
+function regB(type,make,model){
+  const mk=e(make||''),md=e(model||'');
+  if(type==='both')return`<span style="display:inline-flex;gap:5px"><a class="b bm" style="cursor:pointer;text-decoration:none" onclick="event.stopPropagation();xjump('${mk}','${md}','mre')">MRE</a><a class="b bs" style="cursor:pointer;text-decoration:none" onclick="event.stopPropagation();xjump('${mk}','${md}','sev')">SEVS</a></span>`;
+  if(type==='mre')return'<span class="b bm">MRE</span>';
+  return'<span class="b bs">SEVS</span>';
+}
 function xB(r,isMRE){const k=_ck(r,'Model');if(isMRE&&_sevMap[k])return`<span class="b bp xr" style="cursor:pointer" onclick="xjump('${e(r['Make'])}','${e(r['Model'])}','sev')">Also on SEVS ↗</span>`;if(!isMRE&&_mreMap[k])return`<span class="b bp xr" style="cursor:pointer" onclick="xjump('${e(r['Make'])}','${e(r['Model'])}','mre')">Also on MRE ↗</span>`;return'';}
 function xjump(make,model,dest){sw(dest);document.getElementById('si').value=model;af();}
 
@@ -303,7 +308,7 @@ function render(recs){
       const regType=r._both?'both':r._reg;
       const linkHtml=r['_detail_url']?`<a href="${r['_detail_url']}" target="_blank" class="an lnk" onclick="event.stopPropagation()">${e(r._num)}</a>`:`<span class="an">${e(r._num)}</span>`;
       const statusHtml=r._reg==='mre'?cB(r._status):expB(r._sev_expiry);
-      return`<tr onclick="openPanel(${i})"><td>${regB(regType)}</td><td class="vm">${e(r['Make'])}</td><td><div class="vm">${e(r['Model'])}</div></td><td>${e(r._dates)}</td><td>${statusHtml}</td><td>${linkHtml}</td></tr>`;}).join('');
+      return`<tr onclick="openPanel(${i})"><td>${regB(regType,r['Make'],r['Model'])}</td><td class="vm">${e(r['Make'])}</td><td><div class="vm">${e(r['Model'])}</div></td><td>${e(r._dates)}</td><td>${statusHtml}</td><td>${linkHtml}</td></tr>`;}).join('');
     return;}
 
   const cols=tab==='mre'?['Approval number','Make','Model','Build date range','Compliance Level','Approval status']:['SEV #','Make','Model','Build date from','Build date to','Expiry','Category'];
