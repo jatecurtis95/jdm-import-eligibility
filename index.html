@@ -84,7 +84,46 @@ a.lnk{text-decoration:none;color:var(--gold);border-bottom:1px dashed var(--gold
 footer{text-align:center;padding:20px 28px;font-size:11px;color:var(--di);border-top:1px solid var(--bd);margin-top:20px;background:var(--card)}
 footer a{color:var(--gold-d);text-decoration:none}
 footer a:hover{color:var(--gold)}
-@media(max-width:640px){header,.ctrl,.main{padding-left:16px;padding-right:16px}}
+/* ── Mobile responsive ────────────────────────────────────────────────────── */
+@media(max-width:640px){
+  header{height:auto;min-height:58px;flex-wrap:wrap;padding:10px 0}
+  .lw{padding:0 14px;height:auto}
+  .lw img{height:28px}
+  .ht{padding-left:14px}
+  .ht h1{font-size:13px}
+  .ht .sub{display:none}
+  .hr{width:100%;padding:8px 14px 6px;gap:8px;border-top:1px solid var(--bd);flex-wrap:wrap}
+  .pill{font-size:10.5px;padding:4px 10px}
+  .calc-btn{display:none} /* replaced by sticky footer on mobile */
+  .ctrl{padding:10px 14px;gap:8px}
+  .sw{min-width:0;width:100%}
+  .main{padding:14px 14px}
+  .stats{gap:8px;display:grid;grid-template-columns:1fr 1fr}
+  .sc{min-width:0;padding:10px 12px}
+  .sc .n{font-size:22px}
+  select{font-size:13px;width:100%}
+  td{padding:10px 12px;font-size:12px}
+  th{padding:8px 12px;font-size:9.5px}
+  .pn{width:100%;max-width:100vw;top:auto;bottom:0;height:90vh;border-radius:16px 16px 0 0;border-left:none;border-top:1px solid var(--bd)}
+  footer{padding:16px 14px;font-size:10.5px}
+}
+
+/* ── Mobile sticky calc button ──────────────────────────────────────────── */
+#mob-calc-btn{display:none}
+@media(max-width:640px){
+  #mob-calc-btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    position:fixed;bottom:0;left:0;right:0;
+    background:var(--gold);color:#1a0e00;
+    border:none;padding:16px 20px;font-size:14px;font-weight:700;
+    font-family:var(--body);letter-spacing:.03em;cursor:pointer;
+    z-index:50;box-shadow:0 -2px 12px rgba(0,0,0,.12);
+    transition:background .15s;
+  }
+  #mob-calc-btn:active{background:var(--gold-l)}
+  #mob-calc-btn.active{background:#1a1c1e;color:var(--gold)}
+  body{padding-bottom:56px}
+}
 
 /* ── Eligibility answer card ─────────────────────────────────────────────── */
 #ec{margin:0 0 18px 0;border-radius:10px;overflow:hidden;animation:fadeIn .25s ease}
@@ -121,11 +160,7 @@ footer a:hover{color:var(--gold)}
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:all .3s;z-index:200}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-@media(max-width:640px){
-  .stats{gap:8px}
-  .sc{min-width:100px;padding:10px 12px}
-  .n{font-size:22px}
-}
+
 </style>
 </head>
 <body>
@@ -171,6 +206,8 @@ footer a:hover{color:var(--gold)}
 </div>
 
 <footer>Data sourced from the <a href="https://www.rover.infrastructure.gov.au" target="_blank">ROVER Portal</a> — Australian Dept of Infrastructure, Transport &amp; Regional Development. Updated monthly by JDM Connect.</footer>
+
+<button id="mob-calc-btn" onclick="sw('calc');this.classList.add('active')">💰 Cost Calculator</button>
 
 <!-- data loaded via fetch -->
 <script>
@@ -218,6 +255,8 @@ function sw(t){
   document.getElementById('ctrl-bar').style.display=isCalc?'none':'flex';
   const btn=document.getElementById('calc-btn');
   if(btn){btn.classList.toggle('active',isCalc);}
+  const mob=document.getElementById('mob-calc-btn');
+  if(mob){mob.classList.toggle('active',isCalc);mob.textContent=isCalc?'← Back to Eligibility':'💰 Cost Calculator';mob.onclick=isCalc?function(){sw('all');}:function(){sw('calc');};}
   if(!isCalc){bmf();bch();bst();af();}
 }
 
