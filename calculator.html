@@ -469,6 +469,26 @@ var JDMCalculator = function JDMCalculator() {
     _useState4 = _slicedToArray(_useState3, 2),
     fxRate = _useState4[0],
     setFxRate = _useState4[1];
+  var _useStateFx = useState('loading'),
+    _useStateFx2 = _slicedToArray(_useStateFx, 2),
+    fxStatus = _useStateFx2[0],
+    setFxStatus = _useStateFx2[1];
+
+  // Fetch live JPY/AUD rate on mount
+  useEffect(function() {
+    fetch('https://api.frankfurter.app/latest?from=JPY&to=AUD')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var rate = d && d.rates && d.rates.AUD;
+        if(rate && !isNaN(rate)){
+          setFxRate(parseFloat(rate.toFixed(6)));
+          setFxStatus('live');
+        } else {
+          setFxStatus('fallback');
+        }
+      })
+      .catch(function(){ setFxStatus('fallback'); });
+  }, []);
   var _useState5 = useState(1),
     _useState6 = _slicedToArray(_useState5, 2),
     vehicleSizeIdx = _useState6[0],
@@ -684,7 +704,7 @@ var JDMCalculator = function JDMCalculator() {
     style: styles.input
   }), /*#__PURE__*/React.createElement("div", {
     style: styles.hint
-  }, "Default: ", JPY_AUD_DEFAULT, " \u2014 update to live rate"), /*#__PURE__*/React.createElement(Label, null, "Vehicle Size / Type"), /*#__PURE__*/React.createElement("select", {
+  }, fxStatus === 'live' ? "\u2705 Live rate via Frankfurter \u2014 updates on page load" : fxStatus === 'loading' ? "\u23F3 Fetching live rate\u2026" : "\u26A0\uFE0F Could not fetch live rate \u2014 using fallback"), /*#__PURE__*/React.createElement(Label, null, "Vehicle Size / Type"), /*#__PURE__*/React.createElement("select", {
     value: vehicleSizeIdx,
     onChange: function onChange(e) {
       return setVehicleSizeIdx(parseInt(e.target.value));
