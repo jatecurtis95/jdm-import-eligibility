@@ -180,8 +180,8 @@ const NOW=new Date();
 
 /* ── Cross-reference maps ────────────────────────────────────────────────── */
 function _ck(r,f){return((r['Make']||'').trim().toLowerCase()+'|'+(r[f]||'').trim().toLowerCase());}
-const _mreMap={};ROVER_DATA.mre.forEach(r=>{const k=_ck(r,'Model');(_mreMap[k]||(_mreMap[k]=[])).push(r);});
-const _sevMap={};ROVER_DATA.sev.forEach(r=>{const k=_ck(r,'Model');(_sevMap[k]||(_sevMap[k]=[])).push(r);});
+let _mreMap={};
+let _sevMap={};
 
 /* ── Utility ─────────────────────────────────────────────────────────────── */
 function pd(s){if(!s||s==='No end date')return null;let m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(m)return new Date(+m[3],+m[2]-1,+m[1]);let m2=s.match(/^(\d{1,2})\/(\d{4})$/);if(m2)return new Date(+m2[2],+m2[1]-1,1);return null;}
@@ -400,6 +400,9 @@ function bst(){
     .then(function(data){
       ROVER_DATA=data;
       if(mp)mp.style.opacity='1';
+      // Build cross-reference maps
+      ROVER_DATA.mre.forEach(function(r){var k=_ck(r,'Model');(_mreMap[k]||(_mreMap[k]=[])).push(r);});
+      ROVER_DATA.sev.forEach(function(r){var k=_ck(r,'Model');(_sevMap[k]||(_sevMap[k]=[])).push(r);});
       // Update date
       const d=new Date(ROVER_DATA.fetched_at);
       document.getElementById('upd').textContent=d.toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
