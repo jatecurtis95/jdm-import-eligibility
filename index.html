@@ -302,18 +302,20 @@ function render(recs){
   const sorted=sC?[...recs].sort((a,b)=>{const av=(a[sC]||'').toLowerCase(),bv=(b[sC]||'').toLowerCase();return av<bv?-sD:av>bv?sD:0;}):recs;
 
   if(tab==='all'){
-    const cols=['Register','Make','Model','Build Dates','Status / Expiry'];
+    const cols=['Register','Make','Model','Build Dates','Status / Expiry','Reference'];
     H.innerHTML='<tr>'+cols.map(c=>`<th onclick="sb('${c}')" class="${sC===c?'srt':''}">${c} <span class="arr">${sC===c?(sD===1?'↑':'↓'):'↕'}</span></th>`).join('')+'</tr>';
     B.innerHTML=sorted.map((r,i)=>{
       const regType=r._both?'both':r._reg;
+      const linkHtml=r['_detail_url']?`<a href="${r['_detail_url']}" target="_blank" class="an lnk" onclick="event.stopPropagation()">${e(r._num)}</a>`:`<span class="an">${e(r._num)}</span>`;
       const statusHtml=r._reg==='mre'?cB(r._status):expB(r._sev_expiry);
-      return`<tr onclick="openPanel(${i})"><td>${regB(regType,r['Make'],r['Model'])}</td><td class="vm">${e(r['Make'])}</td><td><div class="vm">${e(r['Model'])}</div></td><td>${e(r._dates)}</td><td>${statusHtml}</td></tr>`;}).join('');
+      return`<tr onclick="openPanel(${i})"><td>${regB(regType,r['Make'],r['Model'])}</td><td class="vm">${e(r['Make'])}</td><td><div class="vm">${e(r['Model'])}</div></td><td>${e(r._dates)}</td><td>${statusHtml}</td><td>${linkHtml}</td></tr>`;}).join('');
     return;}
 
-  const cols=tab==='mre'?['Make','Model','Build date range','Compliance Level','Approval status']:['Make','Model','Build date from','Build date to','Expiry','Category'];
+  const cols=tab==='mre'?['Approval number','Make','Model','Build date range','Compliance Level','Approval status']:['SEV #','Make','Model','Build date from','Build date to','Expiry','Category'];
   H.innerHTML='<tr>'+cols.map(c=>`<th onclick="sb('${c}')" class="${sC===c?'srt':''}">${c} <span class="arr">${sC===c?(sD===1?'↑':'↓'):'↕'}</span></th>`).join('')+'</tr>';
   B.innerHTML=sorted.map((r,i)=>tab==='mre'
     ?`<tr onclick="openPanel(${i})">
+        <td>${r['_detail_url']?`<a href="${r['_detail_url']}" target="_blank" class="an lnk" onclick="event.stopPropagation()">${e(r['Approval number'])}</a>`:`<span class="an">${e(r['Approval number'])}</span>`}</td>
         <td class="vm">${e(r['Make'])}</td>
         <td><div class="vm">${e(r['Model'])}</div><div class="vs">${e(r['Post-modification category']||'')} — ${e(r['Model report type']||'')}</div><div style="margin-top:3px">${xB(r,true)}</div></td>
         <td>${e(r['Build date range'])}</td>
@@ -321,6 +323,7 @@ function render(recs){
         <td>${stB(r['Approval status'])}</td>
       </tr>`
     :`<tr onclick="openPanel(${i})">
+        <td>${r['_detail_url']?`<a href="${r['_detail_url']}" target="_blank" class="an lnk" onclick="event.stopPropagation()">${e(r['SEV #'])}</a>`:`<span class="an">${e(r['SEV #'])}</span>`}</td>
         <td class="vm">${e(r['Make'])}</td>
         <td><div class="vm">${e(r['Model'])}</div><div class="vs">${e(r['Model code']||'')}</div><div style="margin-top:3px">${xB(r,false)}</div></td>
         <td>${e(r['Build date from'])}</td>
