@@ -34,7 +34,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 // Injects a single <style> block for responsive layout + Google Font
 // (No Tailwind required — works as a standalone React component on Lovable/Vercel)
 var GlobalStyles = function GlobalStyles() {
-  return /*#__PURE__*/React.createElement("style", null, "\n    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');\n    *, *::before, *::after { box-sizing: border-box; }\n    body { margin: 0; background: #F7F8F9; }\n    input[type=number]::-webkit-inner-spin-button,\n    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }\n    input[type=number] { -moz-appearance: textfield; }\n    .jdm-layout { display: grid; grid-template-columns: 1fr 1fr; }\n    .jdm-header { padding: 24px 32px; }\n    .jdm-panel { padding: 32px; }\n    .jdm-toggles { display: flex; gap: 24px; flex-wrap: wrap; }\n    @media (max-width: 800px) {\n      .jdm-layout { grid-template-columns: 1fr; }\n      .jdm-header { padding: 16px 20px; }\n      .jdm-panel { padding: 20px; }\n      .jdm-toggles { gap: 16px; }\n    }\n  ");
+  return /*#__PURE__*/React.createElement("style", null, "\n    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');\n    *, *::before, *::after { box-sizing: border-box; }\n    body { margin: 0; background: #F7F8F9; }\n    input[type=number]::-webkit-inner-spin-button,\n    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }\n    input[type=number] { -moz-appearance: textfield; }\n    .jdm-layout { display: grid; grid-template-columns: 1fr 1fr; }\n    .jdm-header { padding: 24px 32px; }\n    .jdm-panel { padding: 32px; }\n    .jdm-toggles { display: flex; gap: 24px; flex-wrap: wrap; }\n    @media (max-width: 800px) {\n      .jdm-layout { grid-template-columns: 1fr; }\n      .jdm-header { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }\n      .jdm-panel { padding: 16px; }\n      .jdm-toggles { gap: 12px; }\n      .jdm-header img { height: 28px !important; }\n      .jdm-header .back-pill { font-size: 11px !important; }\n    }\n    @media (max-width: 800px) {\n      input, select { font-size: 16px !important; padding: 12px 10px !important; min-height: 44px; }\n      input[type=number] { font-size: 16px !important; }\n    }\n  ");
 };
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
@@ -1178,7 +1178,8 @@ var styles = {
     alignItems: "center",
     justifyContent: "space-between",
     flexWrap: "wrap",
-    gap: 12
+    gap: 12,
+    minHeight: 64
   },
   headerBrand: {
     fontSize: 11,
