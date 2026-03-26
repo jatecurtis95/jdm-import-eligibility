@@ -61,18 +61,12 @@ var VEHICLE_SIZES = [{
   kg: 2000
 }];
 
-// Dolphin Shipping Australia — rates valid from 11 March 2025 (B/L date)
+// Dolphin Shipping Australia — rates valid from 01 April 2025 (B/L date)
 // Each port entry is an array of { maxM3, rate } sorted ascending
 var SHIPPING_LINES = [{
   name: "MOL",
   origin: "Osaka (Senboku), Nagoya, Yokohama",
   hybridOk: true,
-  notes: "Port Congestion Surcharge applies from 1 Apr 2025",
-  // congestionSurcharge: <11m³ = $95, 11-20m³ = $150
-  congestionSurcharge: {
-    small: 95,
-    large: 150
-  },
   ports: {
     BRISBANE: [{
       maxM3: 11,
@@ -319,6 +313,58 @@ var SHIPPING_LINES = [{
     }, {
       maxM3: 20,
       rate: 3395
+    }]
+  }
+}, {
+  name: "Toyofuji",
+  origin: "Osaka, Nagoya, Yokohama",
+  hybridOk: true,
+  evOk: true,
+  notes: "Fully electric vehicles accepted on this line only. No Adelaide or Fremantle service.",
+  ports: {
+    BRISBANE: [{
+      maxM3: 11,
+      rate: 2300
+    }, {
+      maxM3: 20,
+      rate: 2450
+    }],
+    PORT_KEMBLA: [{
+      maxM3: 11,
+      rate: 2300
+    }, {
+      maxM3: 20,
+      rate: 2450
+    }],
+    MELBOURNE: [{
+      maxM3: 11,
+      rate: 2300
+    }, {
+      maxM3: 20,
+      rate: 2450
+    }]
+  }
+}, {
+  name: "ECL",
+  origin: "Kobe, Nagoya, Yokohama",
+  hybridOk: true,
+  notes: "Fremantle service only.",
+  ports: {
+    FREMANTLE: [{
+      maxM3: 12,
+      rate: 2750
+    }, {
+      maxM3: 14,
+      rate: 3525
+    }, {
+      maxM3: 16,
+      rate: 3575
+    }, {
+      maxM3: 18,
+      rate: 3595
+    }, {
+      maxM3: 20,
+      rate: 3625
     }]
   }
 }];
