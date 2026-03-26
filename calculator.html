@@ -404,6 +404,27 @@ var BMSB = {
   heavy: 580
 };
 
+// Ofuka International — handling fees per price agreement (Aug 2023)
+// Applied to bid price in JPY
+function getOfukaHandling(bidJPY) {
+  if (bidJPY <= 1000000) return 85000;
+  if (bidJPY <= 2000000) return 105000;
+  if (bidJPY <= 3000000) return 125000;
+  if (bidJPY <= 4000000) return 155000;
+  if (bidJPY <= 6000000) return 165000;
+  if (bidJPY <= 7000000) return 195000;
+  if (bidJPY <= 8000000) return 215000;
+  if (bidJPY <= 9000000) return 245000;
+  if (bidJPY <= 10000000) return 275000;
+  return Math.round(bidJPY * 0.03);
+}
+
+// Estimated rego costs by state (registration fee only — excl. CTP insurance)
+var REGO_COSTS = {
+  WA: 400, NSW: 380, VIC: 900, QLD: 350,
+  SA: 280, NT: 200, ACT: 500, TAS: 260
+};
+
 // ─── CALCULATION HELPERS ─────────────────────────────────────────────────────
 
 /**
@@ -520,21 +541,42 @@ var JDMCalculator = function JDMCalculator() {
     fxStatus = _useStateFx2[0],
     setFxStatus = _useStateFx2[1];
 
-  // Fetch live JPY/AUD rate on mount
-  useEffect(function() {
-    fetch('https://api.frankfurter.app/latest?from=JPY&to=AUD')
+  // Fetch live JPY/AUD rate — tries Frankfurter first, falls back to open.er-api
+  var fetchFxRate = function fetchFxRate() {
+    setFxStatus('loading');
+    fetch('https://api.frankfurter.dev/v1/latest?from=JPY&to=AUD')
       .then(function(r){ return r.json(); })
       .then(function(d){
         var rate = d && d.rates && d.rates.AUD;
-        if(rate && !isNaN(rate)){
+        if (rate && !isNaN(rate)) {
           setFxRate(parseFloat(rate.toFixed(6)));
           setFxStatus('live');
         } else {
-          setFxStatus('fallback');
+          return fetch('https://open.er-api.com/v6/latest/JPY')
+            .then(function(r2){ return r2.json(); })
+            .then(function(d2){
+              var rate2 = d2 && d2.rates && d2.rates.AUD;
+              if (rate2 && !isNaN(rate2)) {
+                setFxRate(parseFloat(rate2.toFixed(6)));
+                setFxStatus('live');
+              } else { setFxStatus('fallback'); }
+            });
         }
       })
-      .catch(function(){ setFxStatus('fallback'); });
-  }, []);
+      .catch(function(){
+        fetch('https://open.er-api.com/v6/latest/JPY')
+          .then(function(r2){ return r2.json(); })
+          .then(function(d2){
+            var rate2 = d2 && d2.rates && d2.rates.AUD;
+            if (rate2 && !isNaN(rate2)) {
+              setFxRate(parseFloat(rate2.toFixed(6)));
+              setFxStatus('live');
+            } else { setFxStatus('fallback'); }
+          })
+          .catch(function(){ setFxStatus('fallback'); });
+      });
+  };
+  useEffect(function() { fetchFxRate(); }, []);
   var _useState5 = useState(1),
     _useState6 = _slicedToArray(_useState5, 2),
     vehicleSizeIdx = _useState6[0],
@@ -575,6 +617,10 @@ var JDMCalculator = function JDMCalculator() {
     _useState22 = _slicedToArray(_useState21, 2),
     showLineSelector = _useState22[0],
     setShowLineSelector = _useState22[1];
+  var _useState_duty = useState(false),
+    _useState_duty2 = _slicedToArray(_useState_duty, 2),
+    isNonJapanOrigin = _useState_duty2[0],
+    setIsNonJapanOrigin = _useState_duty2[1];
   var _useState23 = useState(1500),
     _useState24 = _slicedToArray(_useState23, 2),
     agencyFee = _useState24[0],
@@ -617,14 +663,13 @@ var JDMCalculator = function JDMCalculator() {
     if (!jpyPrice || isNaN(purchaseJPY) || purchaseJPY <= 0) return null;
 
     // Step 1 — Purchase price in AUD
-    var purchaseAUD = purchaseJPY * fxRate;
+    var purchaseAUD = Math.round(purchaseJPY * fxRate);
 
-    // Step 2 — Japan-side costs
-    var auctionFee = Math.round(purchaseAUD * 0.05); // ~5% auction house fee
-    var deregFee = 150; // de-registration / de-compression
-    var japanTransport = 300; // domestic transport to port
-    var exportDocs = 200; // export documentation
-    var totalJapan = purchaseAUD + auctionFee + deregFee + japanTransport + exportDocs;
+    // Step 2 — Japan-side costs (Ofuka pricing model)
+    var ofukaHandlingJPY = getOfukaHandling(purchaseJPY);
+    var japanMiscJPY = 100000; // domestic transport, export docs, misc (+¥100k)
+    var totalJapanJPY = purchaseJPY + ofukaHandlingJPY + japanMiscJPY;
+    var totalJapan = totalJapanJPY * fxRate;
 
     // Step 3 — Shipping
     var freightBase = activeLine ? activeLine.rate : 0;
@@ -632,30 +677,30 @@ var JDMCalculator = function JDMCalculator() {
     var congestion = activeLine !== null && activeLine !== void 0 && activeLine.congestionSurcharge ? vehicleSize.m3 < 11 ? activeLine.congestionSurcharge.small : activeLine.congestionSurcharge.large : 0;
     // BMSB treatment (if BMSB season toggled)
     var bmsb = bmsbSeason ? vehicleSize.kg <= 3000 ? BMSB.light : vehicleSize.kg <= 5000 ? BMSB.medium : BMSB.heavy : 0;
-    // Marine insurance: ~0.5% of purchase price
-    var marineInsurance = Math.round(purchaseAUD * 0.005);
+    // Marine insurance: $350 minimum or 1.5% of (vehicle value + freight), whichever is higher
+    var marineInsurance = Math.max(350, Math.round((purchaseAUD + freightBase) * 0.015));
     var totalShipping = freightBase + congestion + bmsb + marineInsurance;
 
     // Step 4 — CIF value (used as duty base)
     var cifValue = totalJapan + totalShipping;
 
     // Step 5 — Import duty
-    // CRITICAL: Japanese-origin vehicles are DUTY FREE under JAEPA (0%)
-    // 5% only applies to non-FTA origin vehicles — NOT applicable here
-    var importDuty = 0;
+    // Japanese-origin vehicles are DUTY FREE under JAEPA (0%)
+    // 5% applies to non-FTA origin vehicles (not manufactured in Japan)
+    var importDuty = isNonJapanOrigin ? Math.round(totalJapan * 0.05) : 0;
 
     // Step 6 — GST (10% of CIF + import duty)
     var gst = Math.round((cifValue + importDuty) * 0.10);
 
     // Step 7 — Australian border costs
-    var customsEntryFee = 150;
+    var customsEntryFee = 220;
     var daffCleaning = includeDaff ? DAFF_CLEANING[destinationPort] : 0;
 
-    // Step 8 — Landed at port
-    var landedAtPort = cifValue + importDuty + gst + customsEntryFee + daffCleaning + agencyFee;
+    // Step 8 — Landed at port (agency fee moved to compliance)
+    var landedAtPort = cifValue + importDuty + gst + customsEntryFee + daffCleaning;
 
-    // Step 9 — Post-compliance value
-    var totalWithCompliance = landedAtPort + complianceCost;
+    // Step 9 — Post-compliance value (includes compliance + JDM Connect agency fee)
+    var totalWithCompliance = landedAtPort + complianceCost + agencyFee;
 
     // Step 10 — LCT (FY2025–26)
     var lct = Math.round(calcLCT(totalWithCompliance, isFuelEfficient));
@@ -669,14 +714,17 @@ var JDMCalculator = function JDMCalculator() {
     var retailValue = totalWithCompliance + lct;
     var stampDuty = Math.round(calcStampDuty(regState, retailValue));
 
+    // Step 12b — Registration fee (excl. CTP insurance)
+    var regoFee = REGO_COSTS[regState] || 0;
+
     // Step 13 — Grand total (drive-away estimate)
-    var grandTotal = totalWithCompliance + lct + deliveryExGst + deliveryGst + stampDuty;
+    var grandTotal = totalWithCompliance + lct + deliveryExGst + deliveryGst + stampDuty + regoFee;
     return {
-      purchaseAUD: Math.round(purchaseAUD),
-      auctionFee: auctionFee,
-      deregFee: deregFee,
-      japanTransport: japanTransport,
-      exportDocs: exportDocs,
+      purchaseAUD: purchaseAUD,
+      ofukaHandlingJPY: ofukaHandlingJPY,
+      ofukaHandlingAUD: Math.round(ofukaHandlingJPY * fxRate),
+      japanMiscJPY: japanMiscJPY,
+      japanMiscAUD: Math.round(japanMiscJPY * fxRate),
       totalJapan: Math.round(totalJapan),
       freightBase: freightBase,
       congestion: congestion,
@@ -685,7 +733,6 @@ var JDMCalculator = function JDMCalculator() {
       totalShipping: Math.round(totalShipping),
       cifValue: Math.round(cifValue),
       importDuty: importDuty,
-      // always 0 — JAEPA
       gst: gst,
       customsEntryFee: customsEntryFee,
       daffCleaning: daffCleaning,
@@ -699,9 +746,10 @@ var JDMCalculator = function JDMCalculator() {
       deliveryGst: deliveryGst,
       retailValue: Math.round(retailValue),
       stampDuty: stampDuty,
+      regoFee: regoFee,
       grandTotal: Math.round(grandTotal)
     };
-  }, [jpyPrice, fxRate, vehicleSize, activeLine, bmsbSeason, includeDaff, includeDelivery, agencyFee, complianceCost, isFuelEfficient, regState, destinationPort]);
+  }, [jpyPrice, fxRate, vehicleSize, activeLine, bmsbSeason, includeDaff, includeDelivery, agencyFee, complianceCost, isFuelEfficient, regState, destinationPort, isNonJapanOrigin]);
 
   // ── Formatters ───────────────────────────────────────────────────────────────
   var fmt = function fmt(n) {
@@ -749,8 +797,13 @@ var JDMCalculator = function JDMCalculator() {
     },
     style: styles.input
   }), /*#__PURE__*/React.createElement("div", {
+    style: {display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginTop: 4}
+  }, /*#__PURE__*/React.createElement("div", {
     style: styles.hint
-  }, fxStatus === 'live' ? "\u2705 Live rate via Frankfurter \u2014 updates on page load" : fxStatus === 'loading' ? "\u23F3 Fetching live rate\u2026" : "\u26A0\uFE0F Could not fetch live rate \u2014 using fallback"), /*#__PURE__*/React.createElement(Label, null, "Vehicle Size / Type"), /*#__PURE__*/React.createElement("select", {
+  }, fxStatus === 'live' ? "\u2705 Live rate \u2014 updated" : fxStatus === 'loading' ? "\u23F3 Fetching live rate\u2026" : "\u26A0\uFE0F Could not fetch live rate \u2014 using fallback"), /*#__PURE__*/React.createElement("button", {
+    onClick: fetchFxRate,
+    style: {fontSize: 10, padding: "2px 8px", cursor: "pointer", border: "1px solid #CAA34C", borderRadius: 4, background: "transparent", color: "#CAA34C", lineHeight: 1.4}
+  }, "\u21BB Refresh")), /*#__PURE__*/React.createElement(Label, null, "Vehicle Size / Type"), /*#__PURE__*/React.createElement("select", {
     value: vehicleSizeIdx,
     onChange: function onChange(e) {
       return setVehicleSizeIdx(parseInt(e.target.value));
@@ -776,7 +829,13 @@ var JDMCalculator = function JDMCalculator() {
     label: "Fuel-efficient \u22643.5L/100km",
     value: isFuelEfficient,
     onChange: setIsFuelEfficient
-  })), isFuelEfficient && /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement(Toggle, {
+    label: "Non-Japan origin (5% duty)",
+    value: isNonJapanOrigin,
+    onChange: setIsNonJapanOrigin
+  })), isNonJapanOrigin && /*#__PURE__*/React.createElement("div", {
+    style: {fontSize: 11, color: "#ea580c", marginTop: 6}
+  }, "\u26A0\uFE0F 5% customs duty applies \u2014 vehicle not covered by JAEPA"), isFuelEfficient && /*#__PURE__*/React.createElement("div", {
     style: styles.goldHint
   }, "LCT threshold: $91,387 (fuel-efficient)")), /*#__PURE__*/React.createElement(Section, {
     label: "02 / Destination"
@@ -955,23 +1014,19 @@ var JDMCalculator = function JDMCalculator() {
       gap: 2
     }
   }, /*#__PURE__*/React.createElement(GroupHeader, null, "Japan"), /*#__PURE__*/React.createElement(Row, {
-    label: "Purchase price",
+    label: "Purchase price (bid)",
     value: fmt(calc.purchaseAUD),
     note: "\xA5".concat(parseInt(jpyPrice || 0).toLocaleString("en-AU"), " @ ").concat(fmtN(fxRate))
   }), /*#__PURE__*/React.createElement(Row, {
-    label: "Auction house fee (~5%)",
-    value: fmt(calc.auctionFee)
+    label: "Ofuka handling fee",
+    value: fmt(calc.ofukaHandlingAUD),
+    note: "\xA5".concat(calc.ofukaHandlingJPY.toLocaleString("en-AU"))
   }), /*#__PURE__*/React.createElement(Row, {
-    label: "De-registration / de-compression",
-    value: fmt(calc.deregFee)
-  }), /*#__PURE__*/React.createElement(Row, {
-    label: "Domestic transport to port",
-    value: fmt(calc.japanTransport)
-  }), /*#__PURE__*/React.createElement(Row, {
-    label: "Export documentation",
-    value: fmt(calc.exportDocs)
+    label: "Domestic transport & export docs (+\xA5100k)",
+    value: fmt(calc.japanMiscAUD),
+    note: "\xA5".concat(calc.japanMiscJPY.toLocaleString("en-AU"))
   }), /*#__PURE__*/React.createElement(SubTotal, {
-    label: "Subtotal: Japan-side",
+    label: "Subtotal: FOB Japan",
     value: fmt(calc.totalJapan)
   }), /*#__PURE__*/React.createElement(GroupHeader, null, "Shipping"), /*#__PURE__*/React.createElement(Row, {
     label: "Ocean freight \u2014 ".concat((_activeLine$name = activeLine === null || activeLine === void 0 ? void 0 : activeLine.name) !== null && _activeLine$name !== void 0 ? _activeLine$name : "—"),
@@ -983,12 +1038,16 @@ var JDMCalculator = function JDMCalculator() {
     label: "BMSB biosecurity treatment",
     value: fmt(calc.bmsb)
   }), /*#__PURE__*/React.createElement(Row, {
-    label: "Marine insurance (~0.5%)",
+    label: "Marine insurance (min $350 / 1.5% of vehicle + freight)",
     value: fmt(calc.marineInsurance)
   }), /*#__PURE__*/React.createElement(SubTotal, {
     label: "Subtotal: Shipping",
     value: fmt(calc.totalShipping)
-  }), /*#__PURE__*/React.createElement(GroupHeader, null, "Australian Border"), /*#__PURE__*/React.createElement(Row, {
+  }), /*#__PURE__*/React.createElement(GroupHeader, null, "Australian Border"), isNonJapanOrigin ? /*#__PURE__*/React.createElement(Row, {
+    label: "Import duty (5% \u2014 non-Japan origin)",
+    value: fmt(calc.importDuty),
+    highlight: true
+  }) : /*#__PURE__*/React.createElement(Row, {
     label: "Import duty",
     value: "$0",
     note: "Duty-free \u2014 JAEPA",
@@ -1002,15 +1061,15 @@ var JDMCalculator = function JDMCalculator() {
   }), calc.daffCleaning > 0 && /*#__PURE__*/React.createElement(Row, {
     label: "DAFF biosecurity cleaning",
     value: fmt(calc.daffCleaning)
-  }), /*#__PURE__*/React.createElement(Row, {
-    label: "JDM Connect agency fee",
-    value: fmt(calc.agencyFee)
   }), /*#__PURE__*/React.createElement(SubTotal, {
     label: "Subtotal: Landed at port",
     value: fmt(calc.landedAtPort)
   }), /*#__PURE__*/React.createElement(GroupHeader, null, "Compliance & On-Road"), /*#__PURE__*/React.createElement(Row, {
     label: "Compliance cost (SEVS/RAW)",
     value: fmt(calc.complianceCost)
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "JDM Connect agency fee",
+    value: fmt(calc.agencyFee)
   }), /*#__PURE__*/React.createElement(SubTotal, {
     label: "Post-compliance value",
     value: fmt(calc.totalWithCompliance)
@@ -1030,6 +1089,10 @@ var JDMCalculator = function JDMCalculator() {
   }), /*#__PURE__*/React.createElement(Row, {
     label: "Stamp duty (".concat(regState, ")"),
     value: fmt(calc.stampDuty)
+  }), /*#__PURE__*/React.createElement(Row, {
+    label: "Registration fee (est. excl. CTP \u2014 ".concat(regState, ")"),
+    value: fmt(calc.regoFee),
+    note: "estimate only"
   }), /*#__PURE__*/React.createElement("div", {
     style: styles.totalDivider
   }), /*#__PURE__*/React.createElement("div", {
@@ -1044,14 +1107,14 @@ var JDMCalculator = function JDMCalculator() {
     style: styles.disclaimers
   }, /*#__PURE__*/React.createElement("div", {
     style: styles.disclaimerHeader
-  }, "Important Notes"), /*#__PURE__*/React.createElement("div", null, "\u2022 Shipping: Dolphin Shipping Australia, valid 11 Mar 2025 (dolphincargo.com.au)"), /*#__PURE__*/React.createElement("div", null, "\u2022 Import duty: 0% applies to vehicles manufactured in and shipped directly from Japan (JAEPA). 5% applies to non-FTA origins."), /*#__PURE__*/React.createElement("div", null, "\u2022 LCT thresholds FY2025\u201326: $80,567 standard / $91,387 fuel-efficient (\u22643.5L/100km from 1 Jul 2025)"), /*#__PURE__*/React.createElement("div", null, "\u2022 QLD stamp duty assumes 4-cylinder petrol. SA and TAS stamp duty are approximate."), /*#__PURE__*/React.createElement("div", null, "\u2022 CTP insurance not included \u2014 varies by insurer in NSW, QLD, VIC and ACT"), /*#__PURE__*/React.createElement("div", null, "\u2022 All figures are estimates only. Verify with your customs broker before quoting."), /*#__PURE__*/React.createElement("div", {
+  }, "Important Notes"), /*#__PURE__*/React.createElement("div", null, "\u2022 Shipping: Dolphin Shipping Australia, valid 01 Apr 2025 (dolphincargo.com.au)"), /*#__PURE__*/React.createElement("div", null, "\u2022 Import duty: 0% applies to vehicles manufactured in and shipped directly from Japan (JAEPA). 5% applies to non-FTA origins."), /*#__PURE__*/React.createElement("div", null, "\u2022 LCT thresholds FY2025\u201326: $80,567 standard / $91,387 fuel-efficient (\u22643.5L/100km from 1 Jul 2025)"), /*#__PURE__*/React.createElement("div", null, "\u2022 QLD stamp duty assumes 4-cylinder petrol. SA and TAS stamp duty are approximate."), /*#__PURE__*/React.createElement("div", null, "\u2022 CTP insurance not included \u2014 varies by insurer in NSW, QLD, VIC and ACT"), /*#__PURE__*/React.createElement("div", null, "\u2022 All figures are estimates only. Verify with your customs broker before quoting."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 6,
       color: "#444"
     }
   }, "JDM Connect Pty Ltd ACN 78 675 449 493 \xB7 jdmconnect.com.au"))))), /*#__PURE__*/React.createElement("footer", {
     style: styles.footer
-  }, "Rates: Dolphin Shipping (valid 11 Mar 2025) \xB7 FY2025\u201326 tax rates \xB7 JDM Connect Pty Ltd ACN 78 675 449 493")));
+  }, "Rates: Dolphin Shipping (valid 01 Apr 2025) \xB7 FY2025\u201326 tax rates \xB7 JDM Connect Pty Ltd ACN 78 675 449 493")));
 }
 
 // ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
