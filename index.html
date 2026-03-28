@@ -693,11 +693,18 @@ function filterMakes(showAll) {
   }
 
   list.innerHTML = matches.map(m => {
+    const safe = m.replace(/"/g, '&quot;');
     const hi = query
       ? m.replace(new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>')
       : m;
-    return '<div class="make-suggestion-item" onmousedown="selectMake('' + m.replace(/'/g, "\\'") + '')">' + hi + '</div>';
+    return '<div class="make-suggestion-item" data-make="' + safe + '">' + hi + '</div>';
   }).join('');
+  list.querySelectorAll('.make-suggestion-item').forEach(function(el) {
+    el.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      selectMake(this.getAttribute('data-make'));
+    });
+  });
   list.classList.add('open');
 }
 
