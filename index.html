@@ -458,6 +458,47 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   .stat-label { font-size: 10px; }
   .action-grid { grid-template-columns: 1fr; }
 }
+
+/* ── MAKE TYPEAHEAD ──────────────────────────────────────────────────────── */
+.make-typeahead-wrap { position: relative; }
+.make-suggestions {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  background: #fff;
+  border: 1.5px solid #CAA34C;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 999;
+  -webkit-overflow-scrolling: touch;
+}
+.make-suggestions.open { display: block; }
+.make-suggestion-item {
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: #1a1a1a;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.1s;
+}
+.make-suggestion-item:last-child { border-bottom: none; }
+.make-suggestion-item:hover,
+.make-suggestion-item.active { background: #fef6e0; color: #8B6914; }
+.make-suggestion-item mark {
+  background: none;
+  color: #CAA34C;
+  font-weight: 700;
+}
+.make-no-results {
+  padding: 11px 14px;
+  font-size: 13px;
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+}
 </style>
   <!-- GHL popup override: prevent auto-show, controlled by JS click -->
   <style>
@@ -502,11 +543,23 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
       <div class="search-fields">
         <div class="field-group">
           <label class="field-label">Make</label>
-          <div class="select-wrap">
-            <select class="field-select" id="sel-make" onchange="populateModels()">
-              <option value="">Select make…</option>
-            </select>
-            <span class="select-arrow">▾</span>
+          <div class="make-typeahead-wrap" id="make-typeahead-wrap">
+            <input
+              type="text"
+              class="field-select"
+              id="make-search"
+              placeholder="Type to search make…"
+              autocomplete="off"
+              autocorrect="off"
+              spellcheck="false"
+              oninput="filterMakes()"
+              onfocus="openMakeSuggestions()"
+              onkeydown="makeKeyNav(event)"
+              aria-label="Search make"
+            >
+            <input type="hidden" id="sel-make">
+            <span class="select-arrow" id="make-clear-btn" onclick="clearMake()" style="cursor:pointer;">▾</span>
+            <div class="make-suggestions" id="make-suggestions"></div>
           </div>
         </div>
         <div class="field-group">
@@ -606,19 +659,103 @@ async function loadData() {
   }
 }
 
+// ── MAKE TYPEAHEAD ────────────────────────────────────────────────────────
+var allMakes = [];
+var makeSelectedValue = '';
+var makeFocusIndex = -1;
+
 function populateMakes() {
-  const makes = [...new Set([
+  allMakes = [...new Set([
     ...MRE.map(r => titleCase(r.Make)),
     ...SEV.map(r => titleCase(r.Make))
   ])].filter(Boolean).sort();
-  const sel = document.getElementById('sel-make');
-  sel.innerHTML = '<option value="">Select make…</option>';
-  makes.forEach(m => {
-    const o = document.createElement('option');
-    o.value = m; o.textContent = m;
-    sel.appendChild(o);
-  });
+  // No longer populating a <select> — typeahead handles it
 }
+
+function openMakeSuggestions() {
+  filterMakes(true);
+}
+
+function filterMakes(showAll) {
+  const input = document.getElementById('make-search');
+  const list  = document.getElementById('make-suggestions');
+  const query = input.value.trim().toLowerCase();
+  makeFocusIndex = -1;
+
+  const matches = showAll && !query
+    ? allMakes
+    : allMakes.filter(m => m.toLowerCase().includes(query));
+
+  if (!matches.length) {
+    list.innerHTML = '<div class="make-no-results">No makes found</div>';
+    list.classList.add('open');
+    return;
+  }
+
+  list.innerHTML = matches.map(m => {
+    const hi = query
+      ? m.replace(new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>')
+      : m;
+    return '<div class="make-suggestion-item" onmousedown="selectMake('' + m.replace(/'/g, "\\'") + '')">' + hi + '</div>';
+  }).join('');
+  list.classList.add('open');
+}
+
+function selectMake(make) {
+  makeSelectedValue = make;
+  document.getElementById('make-search').value = make;
+  document.getElementById('sel-make').value = make;
+  document.getElementById('make-suggestions').classList.remove('open');
+  document.getElementById('make-clear-btn').textContent = '✕';
+  document.getElementById('make-clear-btn').style.fontSize = '11px';
+  populateModels();
+}
+
+function clearMake() {
+  if (!makeSelectedValue) return;
+  makeSelectedValue = '';
+  document.getElementById('make-search').value = '';
+  document.getElementById('sel-make').value = '';
+  document.getElementById('make-search').value = '';
+  makeSelectedValue = '';
+  document.getElementById('make-clear-btn').textContent = '▾';
+  document.getElementById('make-clear-btn').style.fontSize = '';
+  document.getElementById('make-suggestions').classList.remove('open');
+  document.getElementById('make-clear-btn').textContent = '▾';
+  document.getElementById('make-clear-btn').style.fontSize = '';
+  document.getElementById('sel-model').innerHTML = '<option value="">Select model\u2026</option>';
+  document.getElementById('make-search').focus();
+}
+
+function makeKeyNav(e) {
+  const list  = document.getElementById('make-suggestions');
+  const items = list.querySelectorAll('.make-suggestion-item');
+  if (!list.classList.contains('open') || !items.length) return;
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    makeFocusIndex = Math.min(makeFocusIndex + 1, items.length - 1);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    makeFocusIndex = Math.max(makeFocusIndex - 1, 0);
+  } else if (e.key === 'Enter' && makeFocusIndex >= 0) {
+    e.preventDefault();
+    items[makeFocusIndex].dispatchEvent(new MouseEvent('mousedown'));
+    return;
+  } else if (e.key === 'Escape') {
+    list.classList.remove('open');
+    return;
+  }
+  items.forEach((el, i) => el.classList.toggle('active', i === makeFocusIndex));
+  if (makeFocusIndex >= 0) items[makeFocusIndex].scrollIntoView({ block: 'nearest' });
+}
+
+// Close suggestions when clicking outside
+document.addEventListener('click', function(e) {
+  const wrap = document.getElementById('make-typeahead-wrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('make-suggestions').classList.remove('open');
+  }
+});
 
 function populateModels() {
   const make = document.getElementById('sel-make').value.toUpperCase();
