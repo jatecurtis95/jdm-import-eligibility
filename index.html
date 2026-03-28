@@ -3,34 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ROVER Eligibility Checker — JDM Connect</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>JDM Connect — Import Eligibility Checker</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --gold: #CAA34C;
-  --gold-l: #E4C778;
-  --gold-d: #715723;
-  --gold-mid: #896B2D;
-  --bg: #F7F8F9;
-  --card: #ffffff;
-  --black: #111111;
-  --tx: #1a1c1e;
-  --mu: #4C5055;
-  --di: #9ca3af;
-  --bd: #E7E8EB;
-  --mono: 'DM Mono', 'Courier New', monospace;
-  --body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-}
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); font-family: var(--body); color: var(--tx); min-height: 100vh; }
-
+body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; min-height: 100vh; }
 /* ── HEADER ─────────────────────────────────────────────────── */
 .header {
-  background: var(--black);
+  background: #111111;
   position: sticky; top: 0; z-index: 100;
-  border-bottom: 2px solid var(--gold);
+  border-bottom: 2px solid #CAA34C;
 }
 .header-inner {
   max-width: 1100px; margin: 0 auto;
@@ -38,114 +20,91 @@ body { background: var(--bg); font-family: var(--body); color: var(--tx); min-he
   height: 60px;
   display: flex; align-items: center; justify-content: space-between;
 }
-.logo-wrap { display: flex; align-items: center; gap: 16px; text-decoration: none; }
-.logo-wrap img { height: 34px; width: auto; display: block; }
-.logo-tag {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: rgba(255,255,255,0.4);
-  border-left: 1px solid rgba(255,255,255,0.15); padding-left: 16px;
-}
+.logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-wrap img { height: 32px; width: auto; display: block; }
+.logo-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; }
 .header-nav { display: flex; align-items: center; gap: 20px; }
-.header-nav a { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
-.header-nav a:hover { color: var(--gold); }
+.header-nav a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.15s; }
+.header-nav a:hover { color: #CAA34C; }
+.header-nav a.active { color: #CAA34C; font-weight: 500; }
 .header-cta {
-  background: var(--gold);
+  background: linear-gradient(135deg, #715723 0%, #CAA34C 100%);
   color: #111; font-size: 12px; font-weight: 700;
   padding: 7px 16px; border-radius: 6px; text-decoration: none;
   letter-spacing: 0.02em; white-space: nowrap;
-  transition: background 0.15s;
 }
-.header-cta:hover { background: var(--gold-l); color: #111 !important; }
-
 /* ── HERO ────────────────────────────────────────────────────── */
 .hero {
-  background: var(--black);
-  padding: 40px 24px 52px;
+  background: #111111;
+  padding: 40px 24px 48px;
   text-align: center;
-  border-bottom: 3px solid var(--gold);
+  border-bottom: 3px solid #CAA34C;
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(202,163,76,0.12); border: 1px solid rgba(202,163,76,0.3);
-  color: var(--gold); font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  background: rgba(202,163,76,0.15); border: 1px solid rgba(202,163,76,0.3);
+  color: #CAA34C; font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
   text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
-.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #CAA34C; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 .hero h1 { font-size: 32px; font-weight: 800; color: #fff; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 10px; }
-.hero h1 em { font-style: normal; color: var(--gold); }
-.hero p { font-size: 15px; color: rgba(255,255,255,0.5); max-width: 480px; margin: 0 auto; line-height: 1.65; }
-
+.hero h1 em { font-style: normal; color: #CAA34C; }
+.hero p { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 480px; margin: 0 auto; line-height: 1.6; }
 /* ── SEARCH CARD ─────────────────────────────────────────────── */
 .search-wrap { max-width: 720px; margin: -28px auto 0; padding: 0 16px 32px; position: relative; z-index: 10; }
 .search-card {
   background: #fff; border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.06);
-  border: 1px solid var(--bd);
+  border: 1px solid #f0ede8;
   padding: 28px;
 }
 .search-tabs {
   display: flex; gap: 0; margin-bottom: 24px;
-  background: var(--bg); border-radius: 8px; padding: 3px;
+  background: #f7f8f9; border-radius: 8px; padding: 3px;
 }
 .search-tab {
   flex: 1; text-align: center; padding: 8px 12px;
-  font-size: 13px; font-weight: 500; color: var(--mu);
+  font-size: 13px; font-weight: 500; color: #6b7280;
   cursor: pointer; border-radius: 6px; transition: all 0.15s;
-  border: none; background: none; font-family: var(--body);
+  border: none; background: none;
 }
 .search-tab.active {
-  background: #fff; color: var(--tx); font-weight: 600;
+  background: #fff; color: #1a1a1a; font-weight: 600;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 .search-fields { display: grid; grid-template-columns: 1fr 1fr 140px; gap: 12px; margin-bottom: 16px; }
 .field-group { display: flex; flex-direction: column; gap: 6px; }
-.field-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--mu); }
-.field-select {
-  width: 100%; border: 1.5px solid var(--bd); border-radius: 8px;
-  padding: 11px 14px; font-size: 14px; font-family: var(--body);
-  color: var(--tx); background: #fff; outline: none;
+.field-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #6b7280; }
+.field-select, .field-input-text {
+  width: 100%; border: 1.5px solid #e5e7eb; border-radius: 8px;
+  padding: 11px 14px; font-size: 14px; font-family: 'Inter', sans-serif;
+  color: #1a1a1a; background: #fff; outline: none;
   transition: border-color 0.15s; appearance: none; cursor: pointer;
 }
-.field-select:focus { border-color: var(--gold-d); box-shadow: 0 0 0 3px rgba(202,163,76,0.15); }
+.field-select:focus, .field-input-text:focus { border-color: #715723; box-shadow: 0 0 0 3px rgba(202,163,76,0.15); }
 .select-wrap { position: relative; }
-.select-arrow { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--di); font-size: 12px; }
+.select-arrow { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #9ca3af; font-size: 12px; }
 .search-btn {
   width: 100%;
-  background: linear-gradient(135deg, var(--gold-d) 0%, var(--gold) 100%);
+  background: linear-gradient(135deg, #715723 0%, #CAA34C 100%);
   color: #111; font-size: 15px; font-weight: 700;
   padding: 14px; border: none; border-radius: 10px;
   cursor: pointer; transition: opacity 0.15s; letter-spacing: 0.01em;
-  font-family: var(--body);
 }
 .search-btn:hover { opacity: 0.92; }
 .search-btn:active { transform: scale(0.99); }
+/* chassis tab */
 .chassis-input {
-  width: 100%; border: 1.5px solid var(--bd); border-radius: 8px;
-  padding: 11px 14px; font-size: 15px; font-family: var(--mono);
+  width: 100%; border: 1.5px solid #e5e7eb; border-radius: 8px;
+  padding: 11px 14px; font-size: 15px; font-family: 'DM Mono', monospace;
   font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
   outline: none; transition: border-color 0.15s; margin-bottom: 10px;
 }
-.chassis-input:focus { border-color: var(--gold-d); box-shadow: 0 0 0 3px rgba(202,163,76,0.15); }
-.chassis-hint { font-size: 12px; color: var(--di); text-align: center; margin-bottom: 16px; }
-
-/* ── STATS STRIP ──────────────────────────────────────────────── */
-.stats-strip {
-  max-width: 720px; margin: 0 auto;
-  padding: 0 16px 24px;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-}
-.stat-card {
-  background: #fff; border-radius: 10px; padding: 14px 16px;
-  border: 1px solid var(--bd);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  text-align: center;
-}
-.stat-num { font-size: 22px; font-weight: 800; color: var(--gold); letter-spacing: -0.02em; font-family: var(--mono); }
-.stat-label { font-size: 11px; color: var(--mu); margin-top: 2px; font-weight: 500; }
-
-/* ── RESULTS ─────────────────────────────────────────────────── */
+.chassis-input:focus { border-color: #715723; box-shadow: 0 0 0 3px rgba(202,163,76,0.15); }
+.chassis-hint { font-size: 12px; color: #9ca3af; text-align: center; margin-bottom: 16px; }
+/* ── RESULTS AREA ─────────────────────────────────────────────── */
 .results-wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 60px; }
 .verdict-card {
   border-radius: 14px; padding: 20px 22px; margin-bottom: 16px;
@@ -155,7 +114,11 @@ body { background: var(--bg); font-family: var(--body); color: var(--tx); min-he
 .verdict-card.ineligible { background: #fff5f5; border-color: #fca5a5; }
 .verdict-card.possible { background: #fffbeb; border-color: #fcd34d; }
 .verdict-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-.verdict-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.verdict-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
 .eligible .verdict-icon { background: #16a34a; color: #fff; }
 .ineligible .verdict-icon { background: #dc2626; color: #fff; }
 .possible .verdict-icon { background: #d97706; color: #fff; }
@@ -167,28 +130,28 @@ body { background: var(--bg); font-family: var(--body); color: var(--tx); min-he
 .eligible .verdict-sub { color: #166534; }
 .ineligible .verdict-sub { color: #991b1b; }
 .possible .verdict-sub { color: #92400e; }
-.vehicle-name { font-size: 20px; font-weight: 700; color: var(--tx); margin-bottom: 4px; }
-.vehicle-sub { font-size: 13px; color: var(--mu); margin-bottom: 16px; font-family: var(--mono); }
+.vehicle-name { font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+.vehicle-sub { font-size: 13px; color: #6b7280; margin-bottom: 16px; font-family: 'DM Mono', monospace; }
 .detail-card {
   background: #fff; border-radius: 12px;
-  border: 1px solid var(--bd);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border: 1px solid #f0ede8;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   overflow: hidden; margin-bottom: 12px;
 }
 .detail-card-title {
   font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--mu);
+  text-transform: uppercase; color: #6b7280;
   padding: 12px 16px; background: #fafaf9;
-  border-bottom: 1px solid var(--bd);
+  border-bottom: 1px solid #f0ede8;
 }
 .detail-row {
   display: flex; justify-content: space-between; align-items: baseline;
-  padding: 10px 16px; border-bottom: 1px solid #f5f5f5; gap: 16px;
+  padding: 10px 16px; border-bottom: 1px solid #f5f5f5;
 }
 .detail-row:last-child { border-bottom: none; }
-.detail-key { font-size: 13px; color: var(--mu); white-space: nowrap; }
-.detail-val { font-size: 13px; font-weight: 600; color: var(--tx); text-align: right; }
-.detail-val.mono { font-family: var(--mono); font-size: 12px; }
+.detail-key { font-size: 13px; color: #6b7280; flex-shrink: 0; }
+.detail-val { font-size: 13px; font-weight: 600; color: #1a1a1a; text-align: right; max-width: 60%; }
+.detail-val.mono { font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px; }
 .badge {
   display: inline-block; font-size: 11px; font-weight: 700;
   padding: 3px 9px; border-radius: 5px; letter-spacing: 0.04em;
@@ -197,65 +160,142 @@ body { background: var(--bg); font-family: var(--body); color: var(--tx); min-he
 .badge-green { background: #dcfce7; color: #14532d; }
 .badge-red { background: #fee2e2; color: #7f1d1d; }
 .badge-amber { background: #fef3c7; color: #78350f; }
-.badge-blue { background: rgba(202,163,76,0.12); color: var(--gold-d); border: 1px solid rgba(202,163,76,0.3); }
+.badge-blue { background: #dbeafe; color: #1e3a8a; }
 .unlock-box {
   background: #fffbeb; border: 1.5px solid #fcd34d;
   border-radius: 12px; padding: 16px; margin-bottom: 12px;
 }
 .unlock-box-title { font-size: 13px; font-weight: 700; color: #78350f; margin-bottom: 4px; }
-.unlock-box-body { font-size: 13px; color: #92400e; line-height: 1.55; }
+.unlock-box-body { font-size: 13px; color: #92400e; line-height: 1.5; }
 .match-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
 .match-item {
-  background: #fff; border: 1.5px solid var(--bd); border-radius: 10px;
+  background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px;
   padding: 14px 16px; cursor: pointer; transition: all 0.15s;
   display: flex; justify-content: space-between; align-items: center;
 }
-.match-item:hover { border-color: var(--gold); background: #fffbf0; }
+.match-item:hover { border-color: #CAA34C; background: #fffbf0; }
 .match-item-left { flex: 1; }
-.match-item-title { font-size: 14px; font-weight: 600; color: var(--tx); margin-bottom: 2px; }
-.match-item-num { font-family: var(--mono); font-weight: 400; color: var(--mu); font-size: 12px; }
-.match-item-sub { font-size: 12px; color: var(--mu); }
-.match-arrow { color: var(--di); font-size: 16px; }
+.match-item-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
+.match-item-sub { font-size: 12px; color: #6b7280; }
+.match-arrow { color: #9ca3af; font-size: 16px; }
 .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
 .action-btn {
   padding: 12px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
-  border: 1.5px solid var(--bd); background: #fff; cursor: pointer;
-  text-align: center; color: var(--tx); transition: all 0.15s;
-  text-decoration: none; display: block; font-family: var(--body);
+  border: 1.5px solid #e5e7eb; background: #fff; cursor: pointer;
+  text-align: center; color: #374151; transition: all 0.15s;
+  text-decoration: none; display: block;
 }
-.action-btn:hover { border-color: var(--gold); background: #fffbf0; color: var(--gold-d); }
+.action-btn:hover { border-color: #CAA34C; background: #fffbf0; color: #715723; }
 .action-btn-primary {
   display: block; width: 100%;
-  background: linear-gradient(135deg, var(--gold-d) 0%, var(--gold) 100%);
+  background: linear-gradient(135deg, #715723 0%, #CAA34C 100%);
   color: #111; font-size: 14px; font-weight: 700;
   padding: 14px; border: none; border-radius: 10px;
   cursor: pointer; text-align: center; text-decoration: none;
-  transition: opacity 0.15s; margin-bottom: 10px; font-family: var(--body);
+  transition: opacity 0.15s; margin-bottom: 10px;
 }
 .action-btn-primary:hover { opacity: 0.92; }
 .search-again {
-  text-align: center; padding: 8px; width: 100%;
-  font-size: 13px; color: var(--mu); cursor: pointer;
-  text-decoration: underline; background: none; border: none;
-  font-family: var(--body);
+  text-align: center; padding: 8px;
+  font-size: 13px; color: #6b7280; cursor: pointer;
+  text-decoration: underline; background: none; border: none; width: 100%;
 }
-.search-again:hover { color: var(--tx); }
-
+.search-again:hover { color: #1a1a1a; }
+/* ── STATS STRIP ──────────────────────────────────────────────── */
+.stats-strip {
+  max-width: 720px; margin: 0 auto;
+  padding: 0 16px 24px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+}
+.stat-card {
+  background: #fff; border-radius: 10px; padding: 14px 16px;
+  border: 1px solid #f0ede8;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  text-align: center;
+}
+.stat-num { font-size: 22px; font-weight: 800; color: #CAA34C; letter-spacing: -0.02em; }
+.stat-label { font-size: 11px; color: #6b7280; margin-top: 2px; font-weight: 500; }
 /* ── FOOTER ───────────────────────────────────────────────────── */
 .footer {
-  background: var(--black); border-top: 2px solid var(--gold);
-  padding: 28px 24px; text-align: center; margin-top: 40px;
+  background: #111111; border-top: 2px solid #CAA34C;
+  padding: 24px; text-align: center; margin-top: 40px;
 }
-.footer p { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.7; }
+.footer p { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.6; }
 .footer a { color: rgba(202,163,76,0.7); text-decoration: none; }
-.footer a:hover { color: var(--gold); }
-
+.footer a:hover { color: #CAA34C; }
+/* ── NOTIFY MODAL ─────────────────────────────────────────────── */
+.modal-backdrop {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(2px);
+  align-items: flex-end; justify-content: center;
+}
+.modal-backdrop.open { display: flex; }
+@media (min-width: 500px) { .modal-backdrop { align-items: center; } }
+.modal {
+  background: #fff; width: 100%; max-width: 440px;
+  border-radius: 20px 20px 0 0; padding: 28px 24px 36px;
+  border-top: 3px solid #CAA34C;
+  animation: slideUp 0.25s ease;
+}
+@media (min-width: 500px) { .modal { border-radius: 16px; } }
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-handle { width: 40px; height: 4px; background: #e5e7eb; border-radius: 2px; margin: 0 auto 20px; }
+@media (min-width: 500px) { .modal-handle { display: none; } }
+.modal-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, #715723, #CAA34C);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin: 0 0 14px;
+}
+.modal-title { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+.modal-subtitle { font-size: 13px; color: #6b7280; line-height: 1.5; margin-bottom: 20px; }
+.modal-vehicle-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #f7f8f9; border: 1px solid #e5e7eb;
+  border-radius: 20px; padding: 5px 12px; margin-bottom: 20px;
+  font-size: 12px; font-weight: 600; color: #374151;
+}
+.modal-vehicle-pill .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: #CAA34C; }
+.modal-field { margin-bottom: 14px; }
+.modal-field label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #6b7280; display: block; margin-bottom: 6px; }
+.modal-input {
+  width: 100%; border: 1.5px solid #e5e7eb; border-radius: 8px;
+  padding: 11px 14px; font-size: 14px; font-family: 'Inter', sans-serif;
+  outline: none; transition: border-color 0.15s;
+}
+.modal-input:focus { border-color: #715723; box-shadow: 0 0 0 3px rgba(202,163,76,0.15); }
+.modal-submit {
+  width: 100%; background: linear-gradient(135deg, #715723 0%, #CAA34C 100%);
+  color: #111; font-size: 14px; font-weight: 700;
+  padding: 13px; border: none; border-radius: 10px;
+  cursor: pointer; transition: opacity 0.15s; margin-top: 4px;
+}
+.modal-submit:hover { opacity: 0.92; }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: #f7f8f9; border: none; cursor: pointer;
+  width: 30px; height: 30px; border-radius: 50%;
+  font-size: 16px; color: #6b7280; display: flex; align-items: center; justify-content: center;
+}
+.modal-inner { position: relative; }
+.modal-success { text-align: center; padding: 20px 0; }
+.modal-success-icon { font-size: 40px; margin-bottom: 12px; }
+.modal-success-title { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+.modal-success-sub { font-size: 13px; color: #6b7280; line-height: 1.5; }
+.modal-disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 12px; line-height: 1.5; }
+.notify-btn {
+  width: 100%; border: 1.5px dashed #CAA34C; background: #fffbf0;
+  color: #715723; font-size: 13px; font-weight: 600;
+  padding: 13px; border-radius: 10px; cursor: pointer;
+  transition: all 0.15s; margin-bottom: 10px; text-align: center;
+}
+.notify-btn:hover { background: #fef3c7; border-style: solid; }
 /* ── RESPONSIVE ───────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .header-inner { height: 52px; padding: 0 14px; }
   .logo-tag { display: none; }
   .header-nav a:not(.header-cta) { display: none; }
-  .hero { padding: 28px 16px 48px; }
+  .hero { padding: 28px 16px 44px; }
   .hero h1 { font-size: 24px; }
   .hero p { font-size: 13px; }
   .search-card { padding: 20px 16px; border-radius: 14px; }
@@ -264,13 +304,10 @@ body { background: var(--bg); font-family: var(--body); color: var(--tx); min-he
   .stat-num { font-size: 18px; }
   .stat-label { font-size: 10px; }
   .action-grid { grid-template-columns: 1fr; }
-  .detail-row { flex-direction: column; gap: 4px; }
-  .detail-val { text-align: left; }
 }
 </style>
 </head>
 <body>
-
 <!-- HEADER -->
 <header class="header">
   <div class="header-inner">
@@ -285,14 +322,12 @@ body { background: var(--bg); font-family: var(--body); color: var(--tx); min-he
     </nav>
   </div>
 </header>
-
 <!-- HERO -->
 <div class="hero">
   <div class="hero-badge"><span class="dot"></span> Live ROVER data</div>
   <h1>Is this car<br><em>importable to Australia?</em></h1>
   <p>Check SEVS &amp; MRE eligibility in seconds — used by dealers, agents, and enthusiasts nationwide.</p>
 </div>
-
 <!-- SEARCH CARD -->
 <div class="search-wrap">
   <div class="search-card">
@@ -300,7 +335,6 @@ body { background: var(--bg); font-family: var(--body); color: var(--tx); min-he
       <button class="search-tab active" onclick="switchTab('make')">Search by Make &amp; Model</button>
       <button class="search-tab" onclick="switchTab('chassis')">Chassis / VIN</button>
     </div>
-    <!-- Make/Model/Year -->
     <div id="tab-make">
       <div class="search-fields">
         <div class="field-group">
@@ -333,17 +367,15 @@ body { background: var(--bg); font-family: var(--body); color: var(--tx); min-he
       </div>
       <button class="search-btn" onclick="doSearch()">Check eligibility →</button>
     </div>
-    <!-- Chassis -->
     <div id="tab-chassis" style="display:none;">
-      <input class="chassis-input" id="chassis-input" type="text" placeholder="e.g. BNR34, JZX100, R33…" maxlength="30" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doChassisSearch()">
-      <p class="chassis-hint">Enter the first 4–6 characters of the chassis or model code</p>
+      <input class="chassis-input" id="chassis-input" type="text" placeholder="e.g. BNR34-001245 or JZX100-…" maxlength="30" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doChassisSearch()">
+      <p class="chassis-hint">Enter the first 4–6 characters of the chassis/model code for best results</p>
       <button class="search-btn" onclick="doChassisSearch()">Check eligibility →</button>
     </div>
   </div>
 </div>
-
-<!-- STATS -->
-<div class="stats-strip" id="stats-strip">
+<!-- STATS STRIP -->
+<div class="stats-strip">
   <div class="stat-card">
     <div class="stat-num" id="stat-mre">—</div>
     <div class="stat-label">MRE approvals</div>
@@ -357,10 +389,8 @@ body { background: var(--bg); font-family: var(--body); color: var(--tx); min-he
     <div class="stat-label">Data updated</div>
   </div>
 </div>
-
 <!-- RESULTS -->
 <div class="results-wrap" id="results-wrap" style="display:none;"></div>
-
 <!-- FOOTER -->
 <footer class="footer">
   <p>
@@ -371,7 +401,6 @@ body { background: var(--bg); font-family: var(--body); color: var(--tx); min-he
     © 2026 JDM Connect Pty Ltd ACN 78 675 449 493. All rights reserved.
   </p>
 </footer>
-
 <script>
 let MRE = [], SEV = [], allData = null;
 let activeTab = 'make';
@@ -386,18 +415,11 @@ async function loadData() {
     document.getElementById('stat-sev').textContent = SEV.length.toLocaleString();
     if (allData.fetched_at) {
       const d = new Date(allData.fetched_at);
-      document.getElementById('stat-updated').textContent = d.toLocaleDateString('en-AU', {day:'numeric', month:'short'});
+      document.getElementById('stat-updated').textContent = d.toLocaleDateString('en-AU', {day:'numeric',month:'short'});
     }
     populateMakes();
     populateYears();
-  } catch(e) {
-    console.error('Failed to load data.json', e);
-  }
-}
-
-function titleCase(str) {
-  if (!str) return '';
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  } catch(e) { console.error('Failed to load data.json', e); }
 }
 
 function populateMakes() {
@@ -407,10 +429,7 @@ function populateMakes() {
   ])].filter(Boolean).sort();
   const sel = document.getElementById('sel-make');
   sel.innerHTML = '<option value="">Select make…</option>';
-  makes.forEach(m => {
-    const o = document.createElement('option');
-    o.value = m; o.textContent = m; sel.appendChild(o);
-  });
+  makes.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; sel.appendChild(o); });
 }
 
 function populateModels() {
@@ -421,10 +440,7 @@ function populateModels() {
   ])].filter(Boolean).sort();
   const sel = document.getElementById('sel-model');
   sel.innerHTML = '<option value="">Select model…</option>';
-  models.forEach(m => {
-    const o = document.createElement('option');
-    o.value = m; o.textContent = m; sel.appendChild(o);
-  });
+  models.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; sel.appendChild(o); });
 }
 
 function populateYears() {
@@ -432,9 +448,13 @@ function populateYears() {
   sel.innerHTML = '<option value="">Any year</option>';
   const currentYear = new Date().getFullYear();
   for (let y = currentYear; y >= 1980; y--) {
-    const o = document.createElement('option');
-    o.value = y; o.textContent = y; sel.appendChild(o);
+    const o = document.createElement('option'); o.value = y; o.textContent = y; sel.appendChild(o);
   }
+}
+
+function titleCase(str) {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
 function switchTab(tab) {
@@ -517,121 +537,67 @@ function showResults(make, model, year, mreMatches, sevMatches, isChassis) {
   const wrap = document.getElementById('results-wrap');
   wrap.style.display = 'block';
   wrap.innerHTML = '';
-  setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   const totalMatches = mreMatches.length + sevMatches.length;
-  const vehicleName = isChassis ? `"${model}"` : [make, model].filter(Boolean).join(' ');
-  const yearStr = year ? ` (${year})` : '';
+  const vehicleName = isChassis ? '"' + model + '"' : [make, model].filter(Boolean).join(' ');
+  const yearStr = year ? ' (' + year + ')' : '';
   let html = '';
 
   if (totalMatches === 0) {
-    html += `
-      <div class="verdict-card ineligible">
-        <div class="verdict-header">
-          <div class="verdict-icon">✕</div>
-          <div class="verdict-title">Not currently eligible for import</div>
-        </div>
-        <div class="verdict-sub">${vehicleName}${yearStr} is not found on the SEVS or MRE register.</div>
-      </div>
-      <p class="vehicle-name">${vehicleName}</p>
-      <p class="vehicle-sub">No matching ROVER approvals found${yearStr}</p>
-    `;
-    if (!isChassis && year) {
+    html += '<div class="verdict-card ineligible"><div class="verdict-header"><div class="verdict-icon">✕</div><div class="verdict-title">Not currently eligible for import</div></div><div class="verdict-sub">' + vehicleName + yearStr + ' is not found on the SEVS or MRE register.</div></div>';
+    html += '<p class="vehicle-name">' + vehicleName + '</p><p class="vehicle-sub">No matching ROVER approvals found' + yearStr + '</p>';
+    if (!isChassis && make && year) {
       const y = parseInt(year);
       const unlock = y + 25;
       const now = new Date().getFullYear();
       if (unlock > now) {
-        html += `
-          <div class="unlock-box">
-            <div class="unlock-box-title">25-year unlock pathway</div>
-            <div class="unlock-box-body">
-              A ${year} model becomes eligible under the 25-year rule from January ${unlock}.
-              ${unlock - now <= 3 ? `That's only ${unlock - now} year${unlock-now===1?'':'s'} away.` : ''}
-              Contact JDM Connect to be notified when this unlocks.
-            </div>
-          </div>`;
+        html += '<div class="unlock-box"><div class="unlock-box-title">25-year unlock pathway</div><div class="unlock-box-body">A ' + year + ' model becomes eligible under the 25-year rule from January ' + unlock + '. ' + (unlock - now <= 3 ? "That's only " + (unlock - now) + ' year' + (unlock-now===1?'':'s') + ' away.' : '') + ' Contact JDM Connect to be notified when this unlocks.</div></div>';
       } else {
-        html += `
-          <div class="unlock-box">
-            <div class="unlock-box-title">25-year rule may apply</div>
-            <div class="unlock-box-body">
-              A ${year} model is over 25 years old and may be importable under the pre-1989 personal import scheme.
-              Contact JDM Connect to verify compliance requirements.
-            </div>
-          </div>`;
+        html += '<div class="unlock-box"><div class="unlock-box-title">25-year rule may apply</div><div class="unlock-box-body">A ' + year + ' model is over 25 years old and may be importable under the pre-1989 personal import scheme. Contact JDM Connect to verify compliance requirements.</div></div>';
       }
     }
-    html += buildActions(vehicleName);
-
+    html += buildActions(null, vehicleName, true);
   } else if (totalMatches === 1) {
     const record = mreMatches[0] || sevMatches[0];
     const isMRE = mreMatches.length > 0;
-    html += buildSingleResult(record, isMRE, vehicleName);
-
+    html += buildSingleResult(record, isMRE, vehicleName, yearStr);
   } else {
-    html += `
-      <div class="verdict-card eligible">
-        <div class="verdict-header">
-          <div class="verdict-icon">✓</div>
-          <div class="verdict-title">Eligible for import</div>
-        </div>
-        <div class="verdict-sub">${totalMatches} matching approvals found on the ROVER register.</div>
-      </div>
-      <p class="vehicle-name">${vehicleName}</p>
-      <p class="vehicle-sub">Select an approval to view full details</p>
-      <div class="match-list">`;
+    html += '<div class="verdict-card eligible"><div class="verdict-header"><div class="verdict-icon">✓</div><div class="verdict-title">Eligible for import</div></div><div class="verdict-sub">' + totalMatches + ' matching approvals found on the ROVER register.</div></div>';
+    html += '<p class="vehicle-name">' + vehicleName + '</p><p class="vehicle-sub">Select an approval to view details</p><div class="match-list">';
     mreMatches.forEach(r => {
       const range = formatBuildRange(r['Build date range']);
-      const rEnc = encodeRecord(r);
-      html += `
-        <div class="match-item" onclick="showSingleRecord(${rEnc}, true, '${esc(vehicleName)}')">
-          <div class="match-item-left">
-            <div class="match-item-title">${r.Make} ${r.Model} <span class="match-item-num">${r['Approval number']}</span></div>
-            <div class="match-item-sub">MRE · Build: ${range}</div>
-          </div>
-          <div class="match-arrow">›</div>
-        </div>`;
+      const rj = JSON.stringify(r).replace(/"/g,'&quot;');
+      const vn = vehicleName.replace(/'/g,"\\'");
+      html += '<div class="match-item" onclick="showSingleRecord(' + rj + ', true, \'' + vn + '\')"><div class="match-item-left"><div class="match-item-title">' + r.Make + ' ' + r.Model + ' <span style="font-weight:400;color:#6b7280;font-size:12px;">' + r['Approval number'] + '</span></div><div class="match-item-sub">MRE · Build: ' + range + '</div></div><div class="match-arrow">›</div></div>';
     });
     sevMatches.forEach(r => {
       const from = r['Build date from'] || '';
       const to = r['Build date to'] || '';
       const range = from ? (from + (to && to !== 'No end date' ? ' – ' + to : '+')) : 'Unknown';
-      const rEnc = encodeRecord(r);
-      html += `
-        <div class="match-item" onclick="showSingleRecord(${rEnc}, false, '${esc(vehicleName)}')">
-          <div class="match-item-left">
-            <div class="match-item-title">${r.Make} ${r.Model} <span class="match-item-num">${r['SEV #']}</span></div>
-            <div class="match-item-sub">SEVS · Build: ${range} · Expires: ${r.Expiry || 'N/A'}</div>
-          </div>
-          <div class="match-arrow">›</div>
-        </div>`;
+      const rj = JSON.stringify(r).replace(/"/g,'&quot;');
+      const vn = vehicleName.replace(/'/g,"\\'");
+      html += '<div class="match-item" onclick="showSingleRecord(' + rj + ', false, \'' + vn + '\')"><div class="match-item-left"><div class="match-item-title">' + r.Make + ' ' + r.Model + ' <span style="font-weight:400;color:#6b7280;font-size:12px;">' + r['SEV #'] + '</span></div><div class="match-item-sub">SEVS · Build: ' + range + ' · Expires: ' + (r.Expiry || 'N/A') + '</div></div><div class="match-arrow">›</div></div>';
     });
     html += '</div>';
-    html += buildActions(vehicleName);
+    html += buildActions(null, vehicleName, false);
   }
-
-  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
+  html += '<button class="search-again" onclick="resetSearch()">← New search</button>';
   wrap.innerHTML = html;
 }
 
-function encodeRecord(r) {
-  return JSON.stringify(r).replace(/\\/g,'\\\\').replace(/"/g,'&quot;');
-}
-function esc(s) {
-  return (s||'').replace(/'/g,"\\'");
-}
-
-function buildSingleResult(r, isMRE, vehicleName) {
+function buildSingleResult(r, isMRE, vehicleName, yearStr) {
   const approvalNum = isMRE ? r['Approval number'] : r['SEV #'];
   const buildRange = isMRE
     ? formatBuildRange(r['Build date range'])
     : ((r['Build date from'] || '') + (r['Build date to'] && r['Build date to'] !== 'No end date' ? ' – ' + r['Build date to'] : '+'));
   const status = isMRE ? (r['Approval status'] || 'In Force') : 'In Force';
-  const expiry = isMRE ? null : (r['Expiry'] || null);
-  const compliance = isMRE ? (r['Compliance Level'] || null) : null;
+  const expiry = isMRE ? '—' : (r['Expiry'] || 'N/A');
+  const compliance = isMRE ? (r['Compliance Level'] || '') : '';
+  const modelCode = isMRE ? (r['Model report type'] || '—') : (r['Model code'] || '—');
 
   let isExpiringSoon = false;
-  if (expiry) {
-    const parts = expiry.split('/');
+  if (!isMRE && r['Expiry']) {
+    const parts = r['Expiry'].split('/');
     if (parts.length === 3) {
       const expiryDate = new Date(parseInt(parts[2]), parseInt(parts[1])-1, parseInt(parts[0]));
       const daysLeft = (expiryDate - new Date()) / (1000*60*60*24);
@@ -639,112 +605,108 @@ function buildSingleResult(r, isMRE, vehicleName) {
     }
   }
 
-  let html = `
-    <div class="verdict-card eligible">
-      <div class="verdict-header">
-        <div class="verdict-icon">✓</div>
-        <div class="verdict-title">Eligible for import</div>
-      </div>
-      <div class="verdict-sub">Found on the ROVER ${isMRE ? 'MRE' : 'SEVS'} register — import via a licensed RAWS compliance workshop.</div>
-    </div>
-    <p class="vehicle-name">${r.Make} ${r.Model}</p>
-    <p class="vehicle-sub">${approvalNum} · ${buildRange}</p>
-    <div class="detail-card">
-      <div class="detail-card-title">Approval details</div>
-      <div class="detail-row">
-        <span class="detail-key">Approval number</span>
-        <span class="detail-val mono">${approvalNum}</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Pathway</span>
-        <span class="detail-val"><span class="badge badge-blue">${isMRE ? 'MRE' : 'SEVS'}</span></span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Status</span>
-        <span class="detail-val"><span class="badge badge-green">${status}</span></span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Build date range</span>
-        <span class="detail-val">${buildRange}</span>
-      </div>
-      ${expiry ? `<div class="detail-row">
-        <span class="detail-key">SEVS expiry</span>
-        <span class="detail-val"><span class="badge ${isExpiringSoon ? 'badge-amber' : 'badge-green'}">${expiry}</span></span>
-      </div>` : ''}
-      ${isMRE && r['Model report type'] ? `<div class="detail-row">
-        <span class="detail-key">Report type</span>
-        <span class="detail-val" style="font-size:12px;">${r['Model report type']}</span>
-      </div>` : ''}
-      ${!isMRE && r['Model code'] ? `<div class="detail-row">
-        <span class="detail-key">Model code</span>
-        <span class="detail-val mono">${r['Model code']}</span>
-      </div>` : ''}
-      ${compliance ? `<div class="detail-row">
-        <span class="detail-key">Compliance level</span>
-        <span class="detail-val" style="font-size:12px;">${compliance}</span>
-      </div>` : ''}
-      ${r['Post-modification category'] ? `<div class="detail-row">
-        <span class="detail-key">Category</span>
-        <span class="detail-val mono">${r['Post-modification category']}</span>
-      </div>` : ''}
-    </div>`;
+  // MRE enriched fields
+  const wi = r['_work_instructions'] || '';
+  const basedOn = r['_based_on'] || '';
+  const vin = r['_vin_pattern'] || '';
+  const body = r['_body_code'] || '';
+  const src = r['_source_market'] || '';
+  const notes = r['_notes'] || '';
+  const holder = r['_approval_holder'] || '';
+  const cName = r['_contact_name'] || '';
+  const cEmail = r['_contact_email'] || '';
+  const cPhone = r['_contact_phone'] || '';
+  const hasTech = isMRE && (wi || basedOn || vin || body || src || notes);
+  const hasHolder = isMRE && (holder || cName || cEmail || cPhone);
 
-  // Work instructions & technical detail (MRE only)
-  if (isMRE && (r['_work_instructions'] || r['_based_on'] || r['_vin_pattern'] || r['_body_code'] || r['_source_market'] || r['_notes'])) {
-    html += `<div class="detail-card"><div class="detail-card-title">Technical detail</div>`;
-    if (r['_work_instructions']) html += `<div class="detail-row"><span class="detail-key">Work instructions</span><span class="detail-val" style="font-size:12px;">${r['_work_instructions']}</span></div>`;
-    if (r['_based_on']) html += `<div class="detail-row"><span class="detail-key">Based on (SEV)</span><span class="detail-val mono">${r['_based_on']}</span></div>`;
-    if (r['_vin_pattern']) html += `<div class="detail-row"><span class="detail-key">VIN pattern</span><span class="detail-val mono">${r['_vin_pattern']}</span></div>`;
-    if (r['_body_code']) html += `<div class="detail-row"><span class="detail-key">Body code</span><span class="detail-val mono">${r['_body_code']}</span></div>`;
-    if (r['_source_market']) html += `<div class="detail-row"><span class="detail-key">Source market</span><span class="detail-val">${r['_source_market']}</span></div>`;
-    if (r['_notes']) html += `<div class="detail-row"><span class="detail-key">Notes</span><span class="detail-val" style="font-size:12px;">${r['_notes']}</span></div>`;
-    html += `</div>`;
+  let html = '<div class="verdict-card eligible"><div class="verdict-header"><div class="verdict-icon">✓</div><div class="verdict-title">Eligible for import</div></div><div class="verdict-sub">Found on the ROVER ' + (isMRE ? 'MRE' : 'SEVS') + ' register — import via RAWS compliance workshop.</div></div>';
+  html += '<p class="vehicle-name">' + r.Make + ' ' + r.Model + '</p><p class="vehicle-sub">Approval ' + approvalNum + ' · ' + buildRange + '</p>';
+
+  html += '<div class="detail-card"><div class="detail-card-title">Approval details</div>';
+  html += '<div class="detail-row"><span class="detail-key">Approval number</span><span class="detail-val mono">' + approvalNum + '</span></div>';
+  html += '<div class="detail-row"><span class="detail-key">Pathway</span><span class="detail-val"><span class="badge badge-blue">' + (isMRE ? 'MRE' : 'SEVS') + '</span></span></div>';
+  html += '<div class="detail-row"><span class="detail-key">Status</span><span class="detail-val"><span class="badge badge-green">' + status + '</span></span></div>';
+  html += '<div class="detail-row"><span class="detail-key">Build date range</span><span class="detail-val">' + buildRange + '</span></div>';
+  if (!isMRE) html += '<div class="detail-row"><span class="detail-key">SEVS expiry</span><span class="detail-val"><span class="badge ' + (isExpiringSoon ? 'badge-amber' : 'badge-green') + '">' + expiry + '</span></span></div>';
+  html += '<div class="detail-row"><span class="detail-key">' + (isMRE ? 'Report type' : 'Model code') + '</span><span class="detail-val mono">' + modelCode + '</span></div>';
+  if (isMRE && compliance) html += '<div class="detail-row"><span class="detail-key">Compliance level</span><span class="detail-val">' + compliance + '</span></div>';
+  html += '</div>';
+
+  if (hasTech) {
+    html += '<div class="detail-card"><div class="detail-card-title">Technical details</div>';
+    if (wi) html += '<div class="detail-row"><span class="detail-key">Work instructions</span><span class="detail-val" style="font-size:12px;">' + wi + '</span></div>';
+    if (basedOn) html += '<div class="detail-row"><span class="detail-key">Based on</span><span class="detail-val mono">' + basedOn + '</span></div>';
+    if (vin) html += '<div class="detail-row"><span class="detail-key">VIN pattern</span><span class="detail-val mono">' + vin + '</span></div>';
+    if (body) html += '<div class="detail-row"><span class="detail-key">Body code</span><span class="detail-val mono">' + body + '</span></div>';
+    if (src) html += '<div class="detail-row"><span class="detail-key">Source market</span><span class="detail-val">' + src + '</span></div>';
+    if (notes) html += '<div class="detail-row"><span class="detail-key">Notes</span><span class="detail-val" style="font-size:12px;">' + notes + '</span></div>';
+    html += '</div>';
   }
 
-  // Approval holder contact
-  if (isMRE && (r['_approval_holder'] || r['_contact_name'] || r['_contact_email'] || r['_contact_phone'])) {
-    html += `<div class="detail-card"><div class="detail-card-title">Approval holder</div>`;
-    if (r['_approval_holder']) html += `<div class="detail-row"><span class="detail-key">Company</span><span class="detail-val">${r['_approval_holder']}</span></div>`;
-    if (r['_contact_name']) html += `<div class="detail-row"><span class="detail-key">Contact</span><span class="detail-val">${r['_contact_name']}</span></div>`;
-    if (r['_contact_email']) html += `<div class="detail-row"><span class="detail-key">Email</span><span class="detail-val" style="font-size:12px;">${r['_contact_email']}</span></div>`;
-    if (r['_contact_phone']) html += `<div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val mono">${r['_contact_phone']}</span></div>`;
-    html += `</div>`;
+  if (hasHolder) {
+    html += '<div class="detail-card"><div class="detail-card-title">Approval holder</div>';
+    if (holder) html += '<div class="detail-row"><span class="detail-key">Company</span><span class="detail-val">' + holder + '</span></div>';
+    if (cName) html += '<div class="detail-row"><span class="detail-key">Contact</span><span class="detail-val">' + cName + '</span></div>';
+    if (cEmail) html += '<div class="detail-row"><span class="detail-key">Email</span><span class="detail-val" style="font-size:12px;"><a href="mailto:' + cEmail + '" style="color:#715723;">' + cEmail + '</a></span></div>';
+    if (cPhone) html += '<div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val"><a href="tel:' + cPhone + '" style="color:#715723;">' + cPhone + '</a></span></div>';
+    html += '</div>';
   }
 
-  html += `<div class="detail-card"><div class="detail-card-title">What this means</div>
-    <div class="detail-row"><span class="detail-key">Import pathway</span><span class="detail-val">SEVS / RAWS workshop</span></div>
-    <div class="detail-row"><span class="detail-key">Compliance cost (est.)</span><span class="detail-val">$8,000 – $15,000</span></div>
-  </div>`;
+  html += '<div class="detail-card"><div class="detail-card-title">What this means</div>';
+  html += '<div class="detail-row"><span class="detail-key">Import pathway</span><span class="detail-val">SEVS / RAWS workshop</span></div>';
+  html += '<div class="detail-row"><span class="detail-key">Source market</span><span class="detail-val">Japan</span></div>';
+  html += '<div class="detail-row"><span class="detail-key">Compliance cost (est.)</span><span class="detail-val">$8,000 – $15,000</span></div></div>';
 
-  if (isExpiringSoon) {
-    html += `<div class="unlock-box" style="background:#fff8ed; border-color:#f59e0b;">
-      <div class="unlock-box-title" style="color:#78350f;">⚠ SEVS approval expiring soon</div>
-      <div class="unlock-box-body" style="color:#92400e;">This SEVS approval expires ${expiry}. The vehicle must clear Australian customs before expiry. Contact JDM Connect urgently if you are purchasing this vehicle.</div>
-    </div>`;
-  }
+  if (isExpiringSoon) html += '<div class="unlock-box" style="background:#fff8ed;border-color:#f59e0b;"><div class="unlock-box-title" style="color:#78350f;">⚠ SEVS approval expiring soon</div><div class="unlock-box-body" style="color:#92400e;">This SEVS approval expires ' + expiry + '. Contact JDM Connect urgently if you\'re purchasing this vehicle.</div></div>';
 
-  html += buildActions(vehicleName);
+  html += buildActions(r, vehicleName, false);
   return html;
 }
 
-function buildActions(vehicleName) {
-  return `
-    <div class="action-grid">
-      <a href="https://calculator.jdmconnect.com.au" class="action-btn" target="_blank">Calculate landed cost</a>
-      <button class="action-btn" onclick="shareResult()">Share result</button>
-    </div>
-    <a href="https://jdmconnect.com.au/contact" class="action-btn-primary" target="_blank">Enquire with JDM Connect →</a>
-  `;
+function buildActions(record, vehicleName, isIneligible) {
+  const vn = vehicleName.replace(/'/g,"\\'");
+  let html = '';
+  if (isIneligible) html += '<button class="notify-btn" onclick="openNotifyModal(\'' + vn + '\')">🔔 Notify me when this becomes eligible</button>';
+  html += '<div class="action-grid"><a href="https://calculator.jdmconnect.com.au" class="action-btn" target="_blank">Calculate landed cost</a><button class="action-btn" onclick="shareResult(\'' + vn + '\')">Share result</button></div>';
+  html += '<a href="https://jdmconnect.com.au/contact" class="action-btn-primary" target="_blank">Enquire with JDM Connect →</a>';
+  return html;
 }
 
+function openNotifyModal(vehicleName) {
+  document.getElementById('notify-vehicle-label').textContent = vehicleName;
+  document.getElementById('notify-confirm-vehicle').textContent = vehicleName;
+  document.getElementById('modal-form-state').style.display = '';
+  document.getElementById('modal-success-state').style.display = 'none';
+  document.getElementById('notify-name').value = '';
+  document.getElementById('notify-email').value = '';
+  document.getElementById('notify-phone').value = '';
+  document.getElementById('notify-backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeNotifyModal(e) {
+  if (e.target === document.getElementById('notify-backdrop')) closeNotifyModalDirect();
+}
+function closeNotifyModalDirect() {
+  document.getElementById('notify-backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function submitNotify() {
+  const name = document.getElementById('notify-name').value.trim();
+  const email = document.getElementById('notify-email').value.trim();
+  const phone = document.getElementById('notify-phone').value.trim();
+  const vehicle = document.getElementById('notify-vehicle-label').textContent;
+  if (!name) { document.getElementById('notify-name').focus(); return; }
+  if (!email || !email.includes('@')) { document.getElementById('notify-email').focus(); return; }
+  console.log('Notify:', { name, email, phone, vehicle, source: 'eligibility-checker', timestamp: new Date().toISOString() });
+  document.getElementById('notify-confirm-email').textContent = email;
+  document.getElementById('modal-form-state').style.display = 'none';
+  document.getElementById('modal-success-state').style.display = '';
+}
 function showSingleRecord(record, isMRE, vehicleName) {
   const wrap = document.getElementById('results-wrap');
-  let html = buildSingleResult(record, isMRE, vehicleName);
-  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
-  wrap.innerHTML = html;
-  setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  wrap.innerHTML = buildSingleResult(record, isMRE, vehicleName, '') + '<button class="search-again" onclick="resetSearch()">← New search</button>';
+  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-
 function resetSearch() {
   document.getElementById('results-wrap').style.display = 'none';
   document.getElementById('sel-make').value = '';
@@ -753,17 +715,37 @@ function resetSearch() {
   document.getElementById('chassis-input').value = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-function shareResult() {
+function shareResult(vehicleName) {
   const url = window.location.href;
-  if (navigator.share) {
-    navigator.share({ title: 'JDM Connect — Eligibility Checker', url });
-  } else {
-    navigator.clipboard.writeText(url).then(() => alert('Link copied!'));
-  }
+  if (navigator.share) { navigator.share({ title: 'JDM Connect — ' + vehicleName + ' Eligibility', url }); }
+  else { navigator.clipboard.writeText(url).then(() => alert('Link copied to clipboard!')); }
 }
-
 loadData();
 </script>
+<!-- NOTIFY MODAL -->
+<div class="modal-backdrop" id="notify-backdrop" onclick="closeNotifyModal(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-inner">
+      <button class="modal-close" onclick="closeNotifyModalDirect()">✕</button>
+      <div id="modal-form-state">
+        <div class="modal-icon">🔔</div>
+        <div class="modal-title">Notify me when this unlocks</div>
+        <div class="modal-subtitle">We'll email you as soon as this vehicle becomes eligible for import under the 25-year rule or a new SEVS approval is added.</div>
+        <div class="modal-vehicle-pill"><span class="pill-dot"></span><span id="notify-vehicle-label">Vehicle</span></div>
+        <div class="modal-field"><label>Your name</label><input class="modal-input" id="notify-name" type="text" placeholder="e.g. James Smith" autocomplete="name"></div>
+        <div class="modal-field"><label>Email address</label><input class="modal-input" id="notify-email" type="email" placeholder="you@example.com" autocomplete="email"></div>
+        <div class="modal-field"><label>Phone (optional)</label><input class="modal-input" id="notify-phone" type="tel" placeholder="04xx xxx xxx" autocomplete="tel"></div>
+        <button class="modal-submit" onclick="submitNotify()">Notify me when eligible →</button>
+        <p class="modal-disclaimer">Your details are sent to <strong>info@jdmconnect.com.au</strong> and used only to contact you about this vehicle's eligibility. No spam, ever.</p>
+      </div>
+      <div id="modal-success-state" class="modal-success" style="display:none;">
+        <div class="modal-success-icon">✅</div>
+        <div class="modal-success-title">You're on the list!</div>
+        <div class="modal-success-sub">We'll notify you at <strong id="notify-confirm-email"></strong> the moment <span id="notify-confirm-vehicle"></span> becomes eligible for Australian import.<br><br>In the meantime, <a href="https://jdmconnect.com.au/contact" style="color:#715723;font-weight:600;">contact JDM Connect</a> to discuss sourcing options.</div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
