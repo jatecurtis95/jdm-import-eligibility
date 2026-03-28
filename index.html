@@ -6,501 +6,764 @@
 <title>ROVER Eligibility Checker — JDM Connect</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#CAA34C;--gold-l:#E4C778;--gold-d:#715723;--bg:#F7F8F9;--card:#ffffff;--hdr:#ffffff;--bd:#E7E8EB;--bd2:#d1d5db;--tx:#1a1c1e;--mu:#4C5055;--di:#9ca3af;--gr:#15803d;--or:#ea580c;--re:#dc2626;--mono:'DM Mono','Courier New',monospace;--body:'Inter','Helvetica Neue',Arial,sans-serif}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--body);background:var(--bg);color:var(--tx);min-height:100vh}
-header{background:var(--hdr);border-bottom:1px solid var(--bd);display:flex;align-items:center;height:64px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.lw{display:flex;align-items:center;height:100%;padding:0 20px;background:#ffffff;flex-shrink:0}
-.lw img{height:36px;width:auto;display:block}
-.ht{padding-left:24px;flex:1}
-.ht h1{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--tx);font-family:var(--body)}
-.ht .sub{font-size:11px;color:var(--mu);margin-top:2px;font-family:var(--body);letter-spacing:.01em}
-.hr{display:flex;align-items:center;gap:10px;margin-left:auto;padding-right:24px}
-.pill{background:var(--bg);border:1px solid var(--bd);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--mu);font-family:var(--body)}
-.pill span{color:var(--gold);font-weight:600}
-a.pill{text-decoration:none;color:var(--mu);transition:all .15s}
-a.pill:hover{color:var(--gold);border-color:var(--gold)}
-.calc-btn{display:flex;align-items:center;gap:6px;background:var(--gold);color:#1a0e00;border:none;border-radius:6px;padding:7px 16px;font-size:12px;font-weight:600;font-family:var(--body);letter-spacing:.03em;cursor:pointer;transition:all .15s;white-space:nowrap}
-.calc-btn:hover{background:var(--gold-l)}
-.calc-btn.active{background:#000000;color:var(--gold)}
-.alert{background:#fff5f5;border-bottom:1px solid #fecaca;padding:10px 28px;font-size:12.5px;color:#b91c1c;display:flex;align-items:center;gap:8px}
-.alert strong{color:var(--re)}
-.ax{margin-left:auto;cursor:pointer;opacity:.4;font-size:15px;color:var(--tx)}
-.ax:hover{opacity:.8}
-.ctrl{background:var(--card);padding:12px 28px;border-bottom:1px solid var(--bd);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.sw{position:relative;flex:1;min-width:220px}
-.sw input{width:100%;padding:9px 14px 9px 38px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;font-size:13px;color:var(--tx);outline:none;transition:border .15s;font-family:var(--body)}
-.sw input::placeholder{color:var(--di)}
-.sw input:focus{border-color:var(--gold-d);background:#fff}
-.si{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--di);font-size:14px;pointer-events:none}
-select{padding:9px 12px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;font-size:13px;color:var(--tx);cursor:pointer;outline:none;font-family:var(--body)}
-select:focus{border-color:var(--gold-d)}
-.chip{padding:5px 13px;border-radius:20px;font-size:11px;font-weight:400;font-family:var(--body);letter-spacing:.01em;cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--mu);transition:all .15s;user-select:none}
-.chip:hover{border-color:var(--gold);color:var(--gold)}
-.chip.active{background:rgba(200,169,110,.12);border-color:var(--gold);color:var(--gold)}
-.chip.warn{border-color:rgba(234,88,12,.35);color:var(--or)}
-.chip.warn.active{background:rgba(234,88,12,.08);border-color:var(--or)}
-.rc{font-size:11px;font-family:var(--body);color:var(--mu);margin-left:auto;white-space:nowrap}
-.main{padding:20px 28px}
-.stats{display:flex;gap:14px;margin-bottom:20px;flex-wrap:wrap}
-.sc{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:16px 20px;flex:1;min-width:130px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.sc .n{font-size:26px;font-weight:500;color:var(--gold);line-height:1;font-family:var(--mono)}
-.sc .l{font-size:10px;color:var(--mu);margin-top:5px;text-transform:uppercase;letter-spacing:.6px;font-family:var(--body)}
-.sc.warn{border-color:#fed7aa}.sc.warn .n{color:var(--or)}
-.sc.urg{border-color:#fecaca}.sc.urg .n{color:var(--re)}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.tw{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{padding:10px 16px;text-align:left;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);background:#f8fafc;border-bottom:1px solid var(--bd);white-space:nowrap;cursor:pointer;user-select:none;font-family:var(--mono)}
-th:hover{color:var(--tx)}
-th.srt{color:var(--gold)}
-th .arr{opacity:.3;margin-left:4px}
-th.srt .arr{opacity:1}
-td{padding:12px 16px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:#fafcff}
-.an{font-family:var(--mono);font-size:12px;color:var(--gold);font-weight:500;letter-spacing:.02em}
-a.lnk{text-decoration:none;color:var(--gold);border-bottom:1px dashed var(--gold);transition:color .2s,border-color .2s}a.lnk:hover{color:#000000;border-color:#000000}
-.b.bp{background:#eff6ff;color:#3b82f6;border-color:#bfdbfe;cursor:pointer}
-.b.bp:hover{background:#dbeafe}
-.b.bm{background:#fefce8;color:#a16207;border-color:#fde68a}
-.b.bs{background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
-.b.bb{background:#f5f3ff;color:#7c3aed;border-color:#ddd6fe}
-.vm{font-weight:500;color:var(--tx)}
-.vs{font-size:11px;color:var(--mu);margin-top:3px}
-.b{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;border:1px solid transparent}
-.b[title]{cursor:help;border-bottom:1px dotted currentColor}
-.bg{background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
-.by{background:#fefce8;color:#a16207;border-color:#fde68a}
-.bo{background:#fff7ed;color:var(--or);border-color:#fed7aa}
-.br{background:#fef2f2;color:var(--re);border-color:#fecaca}
-.bx{background:#f8fafc;color:var(--mu);border-color:var(--bd)}
-.bz{background:#fefce8;color:var(--gold-d);border-color:#fde68a}
-.empty{text-align:center;padding:70px 24px;color:var(--mu)}
-.empty-i{font-size:40px;margin-bottom:14px;opacity:.4}
-.empty h3{font-size:15px;color:var(--di);margin-bottom:6px}
-footer{text-align:center;padding:20px 28px;font-size:11px;color:var(--di);border-top:1px solid var(--bd);margin-top:20px;background:var(--card)}
-footer a{color:var(--gold-d);text-decoration:none}
-footer a:hover{color:var(--gold)}
-/* ── Mobile responsive ────────────────────────────────────────────────────── */
-@media(max-width:640px){
-  header{height:auto;min-height:58px;flex-wrap:wrap;padding:10px 0}
-  .lw{padding:0 14px;height:auto}
-  .lw img{height:28px}
-  .ht{padding-left:14px}
-  .ht h1{font-size:13px}
-  .ht .sub{display:none}
-  .hr{width:100%;padding:8px 14px 6px;gap:8px;border-top:1px solid var(--bd);flex-wrap:wrap}
-  .pill{font-size:10.5px;padding:4px 10px}
-  .calc-btn{display:none} /* replaced by sticky footer on mobile */
-  .ctrl{padding:10px 14px;gap:8px}
-  .sw{min-width:0;width:100%}
-  .main{padding:14px 14px}
-  .stats{gap:8px;display:grid;grid-template-columns:1fr 1fr}
-  .sc{min-width:0;padding:10px 12px}
-  .sc .n{font-size:22px}
-  select{font-size:13px;width:100%}
-  td{padding:10px 12px;font-size:12px}
-  th{padding:8px 12px;font-size:9.5px}
-  .pn{width:100%;max-width:100vw;top:auto;bottom:0;height:90vh;border-radius:16px 16px 0 0;border-left:none;border-top:1px solid var(--bd)}
-  footer{padding:16px 14px;font-size:10.5px}
+:root {
+  --gold: #CAA34C;
+  --gold-l: #E4C778;
+  --gold-d: #715723;
+  --gold-mid: #896B2D;
+  --bg: #F7F8F9;
+  --card: #ffffff;
+  --black: #111111;
+  --tx: #1a1c1e;
+  --mu: #4C5055;
+  --di: #9ca3af;
+  --bd: #E7E8EB;
+  --mono: 'DM Mono', 'Courier New', monospace;
+  --body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
 }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); font-family: var(--body); color: var(--tx); min-height: 100vh; }
 
-/* ── Mobile sticky calc button ──────────────────────────────────────────── */
-#mob-calc-btn{display:none}
-@media(max-width:640px){
-  #mob-calc-btn{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    position:fixed;bottom:0;left:0;right:0;
-    background:var(--gold);color:#1a0e00;
-    border:none;padding:16px 20px;font-size:14px;font-weight:700;
-    font-family:var(--body);letter-spacing:.03em;cursor:pointer;
-    z-index:50;box-shadow:0 -2px 12px rgba(0,0,0,.12);
-    transition:background .15s;
-  }
-  #mob-calc-btn:active{background:var(--gold-l)}
-  #mob-calc-btn.active{background:#1a1c1e;color:var(--gold)}
-  body{padding-bottom:56px}
+/* ── HEADER ─────────────────────────────────────────────────── */
+.header {
+  background: var(--black);
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 2px solid var(--gold);
 }
+.header-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 24px;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo-wrap { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+.logo-wrap img { height: 34px; width: auto; display: block; }
+.logo-tag {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.4);
+  border-left: 1px solid rgba(255,255,255,0.15); padding-left: 16px;
+}
+.header-nav { display: flex; align-items: center; gap: 20px; }
+.header-nav a { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+.header-nav a:hover { color: var(--gold); }
+.header-cta {
+  background: var(--gold);
+  color: #111; font-size: 12px; font-weight: 700;
+  padding: 7px 16px; border-radius: 6px; text-decoration: none;
+  letter-spacing: 0.02em; white-space: nowrap;
+  transition: background 0.15s;
+}
+.header-cta:hover { background: var(--gold-l); color: #111 !important; }
 
-/* ── Eligibility answer card ─────────────────────────────────────────────── */
-#ec{margin:0 0 18px 0;border-radius:10px;overflow:hidden;animation:fadeIn .25s ease}
-.ec-yes{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 20px;display:flex;align-items:center;gap:14px}
-.ec-no{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:14px 20px;display:flex;align-items:center;gap:14px}
-.ec-icon{font-size:26px;line-height:1}
-.ec-title{font-size:16px;font-weight:700;color:var(--tx)}
-.ec-sub{font-size:12px;color:var(--mu);margin-top:2px}
-@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+/* ── HERO ────────────────────────────────────────────────────── */
+.hero {
+  background: var(--black);
+  padding: 40px 24px 52px;
+  text-align: center;
+  border-bottom: 3px solid var(--gold);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(202,163,76,0.12); border: 1px solid rgba(202,163,76,0.3);
+  color: var(--gold); font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+  margin-bottom: 18px;
+}
+.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+.hero h1 { font-size: 32px; font-weight: 800; color: #fff; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 10px; }
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero p { font-size: 15px; color: rgba(255,255,255,0.5); max-width: 480px; margin: 0 auto; line-height: 1.65; }
 
-/* ── Detail panel ────────────────────────────────────────────────────────── */
-.po{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:100;display:none;backdrop-filter:blur(2px)}
-.pn{position:fixed;top:0;right:0;height:100vh;width:440px;max-width:95vw;background:var(--card);border-left:1px solid var(--bd);z-index:101;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.08)}
-.pn.open{transform:translateX(0)}
-.ph{padding:20px 24px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;justify-content:space-between;background:#f8fafc}
-.ph-title{font-size:18px;font-weight:700;color:var(--tx)}
-.ph-make{font-size:13px;color:var(--mu);margin-top:3px}
-.pclose{background:none;border:1px solid var(--bd);border-radius:6px;color:var(--mu);font-size:16px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
-.pclose:hover{background:var(--bg);color:var(--tx)}
-.pb{padding:20px 24px;flex:1}
-.prow{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid #f1f5f9;gap:16px}
-.prow:last-child{border-bottom:none}
-.plabel{font-size:11.5px;color:var(--mu);text-transform:uppercase;letter-spacing:.4px;font-weight:600;white-space:nowrap}
-.pval{font-size:13px;color:var(--tx);text-align:right;font-weight:500}
-.pcta{display:block;margin:0 24px 20px;padding:12px 16px;background:var(--gold);color:#1a1100;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;text-align:center;transition:background .15s}
-.pcta:hover{background:var(--gold-l)}
-.prover{padding:0 24px 24px;font-size:11px;color:var(--di)}
-.prover a{color:var(--gold-d)}
+/* ── SEARCH CARD ─────────────────────────────────────────────── */
+.search-wrap { max-width: 720px; margin: -28px auto 0; padding: 0 16px 32px; position: relative; z-index: 10; }
+.search-card {
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.06);
+  border: 1px solid var(--bd);
+  padding: 28px;
+}
+.search-tabs {
+  display: flex; gap: 0; margin-bottom: 24px;
+  background: var(--bg); border-radius: 8px; padding: 3px;
+}
+.search-tab {
+  flex: 1; text-align: center; padding: 8px 12px;
+  font-size: 13px; font-weight: 500; color: var(--mu);
+  cursor: pointer; border-radius: 6px; transition: all 0.15s;
+  border: none; background: none; font-family: var(--body);
+}
+.search-tab.active {
+  background: #fff; color: var(--tx); font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.search-fields { display: grid; grid-template-columns: 1fr 1fr 140px; gap: 12px; margin-bottom: 16px; }
+.field-group { display: flex; flex-direction: column; gap: 6px; }
+.field-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--mu); }
+.field-select {
+  width: 100%; border: 1.5px solid var(--bd); border-radius: 8px;
+  padding: 11px 14px; font-size: 14px; font-family: var(--body);
+  color: var(--tx); background: #fff; outline: none;
+  transition: border-color 0.15s; appearance: none; cursor: pointer;
+}
+.field-select:focus { border-color: var(--gold-d); box-shadow: 0 0 0 3px rgba(202,163,76,0.15); }
+.select-wrap { position: relative; }
+.select-arrow { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--di); font-size: 12px; }
+.search-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold-d) 0%, var(--gold) 100%);
+  color: #111; font-size: 15px; font-weight: 700;
+  padding: 14px; border: none; border-radius: 10px;
+  cursor: pointer; transition: opacity 0.15s; letter-spacing: 0.01em;
+  font-family: var(--body);
+}
+.search-btn:hover { opacity: 0.92; }
+.search-btn:active { transform: scale(0.99); }
+.chassis-input {
+  width: 100%; border: 1.5px solid var(--bd); border-radius: 8px;
+  padding: 11px 14px; font-size: 15px; font-family: var(--mono);
+  font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
+  outline: none; transition: border-color 0.15s; margin-bottom: 10px;
+}
+.chassis-input:focus { border-color: var(--gold-d); box-shadow: 0 0 0 3px rgba(202,163,76,0.15); }
+.chassis-hint { font-size: 12px; color: var(--di); text-align: center; margin-bottom: 16px; }
 
-/* ── Calc panel ──────────────────────────────────────────────────────────── */
-#calc-panel{background:var(--bg)}
+/* ── STATS STRIP ──────────────────────────────────────────────── */
+.stats-strip {
+  max-width: 720px; margin: 0 auto;
+  padding: 0 16px 24px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+}
+.stat-card {
+  background: #fff; border-radius: 10px; padding: 14px 16px;
+  border: 1px solid var(--bd);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  text-align: center;
+}
+.stat-num { font-size: 22px; font-weight: 800; color: var(--gold); letter-spacing: -0.02em; font-family: var(--mono); }
+.stat-label { font-size: 11px; color: var(--mu); margin-top: 2px; font-weight: 500; }
 
-/* ── Toast ───────────────────────────────────────────────────────────────── */
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:all .3s;z-index:200}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* ── RESULTS ─────────────────────────────────────────────────── */
+.results-wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 60px; }
+.verdict-card {
+  border-radius: 14px; padding: 20px 22px; margin-bottom: 16px;
+  border: 1.5px solid transparent;
+}
+.verdict-card.eligible { background: #f0faf4; border-color: #86efac; }
+.verdict-card.ineligible { background: #fff5f5; border-color: #fca5a5; }
+.verdict-card.possible { background: #fffbeb; border-color: #fcd34d; }
+.verdict-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.verdict-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.eligible .verdict-icon { background: #16a34a; color: #fff; }
+.ineligible .verdict-icon { background: #dc2626; color: #fff; }
+.possible .verdict-icon { background: #d97706; color: #fff; }
+.verdict-title { font-size: 17px; font-weight: 700; }
+.eligible .verdict-title { color: #14532d; }
+.ineligible .verdict-title { color: #7f1d1d; }
+.possible .verdict-title { color: #78350f; }
+.verdict-sub { font-size: 13px; }
+.eligible .verdict-sub { color: #166534; }
+.ineligible .verdict-sub { color: #991b1b; }
+.possible .verdict-sub { color: #92400e; }
+.vehicle-name { font-size: 20px; font-weight: 700; color: var(--tx); margin-bottom: 4px; }
+.vehicle-sub { font-size: 13px; color: var(--mu); margin-bottom: 16px; font-family: var(--mono); }
+.detail-card {
+  background: #fff; border-radius: 12px;
+  border: 1px solid var(--bd);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  overflow: hidden; margin-bottom: 12px;
+}
+.detail-card-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--mu);
+  padding: 12px 16px; background: #fafaf9;
+  border-bottom: 1px solid var(--bd);
+}
+.detail-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 10px 16px; border-bottom: 1px solid #f5f5f5; gap: 16px;
+}
+.detail-row:last-child { border-bottom: none; }
+.detail-key { font-size: 13px; color: var(--mu); white-space: nowrap; }
+.detail-val { font-size: 13px; font-weight: 600; color: var(--tx); text-align: right; }
+.detail-val.mono { font-family: var(--mono); font-size: 12px; }
+.badge {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 3px 9px; border-radius: 5px; letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.badge-green { background: #dcfce7; color: #14532d; }
+.badge-red { background: #fee2e2; color: #7f1d1d; }
+.badge-amber { background: #fef3c7; color: #78350f; }
+.badge-blue { background: rgba(202,163,76,0.12); color: var(--gold-d); border: 1px solid rgba(202,163,76,0.3); }
+.unlock-box {
+  background: #fffbeb; border: 1.5px solid #fcd34d;
+  border-radius: 12px; padding: 16px; margin-bottom: 12px;
+}
+.unlock-box-title { font-size: 13px; font-weight: 700; color: #78350f; margin-bottom: 4px; }
+.unlock-box-body { font-size: 13px; color: #92400e; line-height: 1.55; }
+.match-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.match-item {
+  background: #fff; border: 1.5px solid var(--bd); border-radius: 10px;
+  padding: 14px 16px; cursor: pointer; transition: all 0.15s;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.match-item:hover { border-color: var(--gold); background: #fffbf0; }
+.match-item-left { flex: 1; }
+.match-item-title { font-size: 14px; font-weight: 600; color: var(--tx); margin-bottom: 2px; }
+.match-item-num { font-family: var(--mono); font-weight: 400; color: var(--mu); font-size: 12px; }
+.match-item-sub { font-size: 12px; color: var(--mu); }
+.match-arrow { color: var(--di); font-size: 16px; }
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.action-btn {
+  padding: 12px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  border: 1.5px solid var(--bd); background: #fff; cursor: pointer;
+  text-align: center; color: var(--tx); transition: all 0.15s;
+  text-decoration: none; display: block; font-family: var(--body);
+}
+.action-btn:hover { border-color: var(--gold); background: #fffbf0; color: var(--gold-d); }
+.action-btn-primary {
+  display: block; width: 100%;
+  background: linear-gradient(135deg, var(--gold-d) 0%, var(--gold) 100%);
+  color: #111; font-size: 14px; font-weight: 700;
+  padding: 14px; border: none; border-radius: 10px;
+  cursor: pointer; text-align: center; text-decoration: none;
+  transition: opacity 0.15s; margin-bottom: 10px; font-family: var(--body);
+}
+.action-btn-primary:hover { opacity: 0.92; }
+.search-again {
+  text-align: center; padding: 8px; width: 100%;
+  font-size: 13px; color: var(--mu); cursor: pointer;
+  text-decoration: underline; background: none; border: none;
+  font-family: var(--body);
+}
+.search-again:hover { color: var(--tx); }
 
+/* ── FOOTER ───────────────────────────────────────────────────── */
+.footer {
+  background: var(--black); border-top: 2px solid var(--gold);
+  padding: 28px 24px; text-align: center; margin-top: 40px;
+}
+.footer p { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.7; }
+.footer a { color: rgba(202,163,76,0.7); text-decoration: none; }
+.footer a:hover { color: var(--gold); }
 
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .header-inner { height: 52px; padding: 0 14px; }
+  .logo-tag { display: none; }
+  .header-nav a:not(.header-cta) { display: none; }
+  .hero { padding: 28px 16px 48px; }
+  .hero h1 { font-size: 24px; }
+  .hero p { font-size: 13px; }
+  .search-card { padding: 20px 16px; border-radius: 14px; }
+  .search-fields { grid-template-columns: 1fr; gap: 10px; }
+  .stats-strip { grid-template-columns: repeat(3,1fr); gap: 8px; }
+  .stat-num { font-size: 18px; }
+  .stat-label { font-size: 10px; }
+  .action-grid { grid-template-columns: 1fr; }
+  .detail-row { flex-direction: column; gap: 4px; }
+  .detail-val { text-align: left; }
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="lw"><img src="logo.png" alt="JDM Connect"></div>
-  <div class="ht"><h1>ROVER Eligibility Checker</h1><div class="sub">SEVS &amp; MRE Registers — Australian Dept of Infrastructure</div></div>
-  <div class="hr">
-    <div class="pill">Updated <span id="upd">—</span></div>
-    <a class="pill" href="https://www.rover.infrastructure.gov.au" target="_blank">↗ ROVER Portal</a>
-    <button class="calc-btn" id="calc-btn" onclick="sw('calc')">💰 Cost Calculator</button>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="https://jdmconnect.com.au" class="logo-wrap">
+      <img src="logo.png" alt="JDM Connect">
+      <span class="logo-tag">Eligibility Checker</span>
+    </a>
+    <nav class="header-nav">
+      <a href="https://calculator.jdmconnect.com.au">Landed Cost</a>
+      <a href="https://jdmconnect.com.au">Home</a>
+      <a href="https://jdmconnect.com.au/contact" class="header-cta">Get a Quote</a>
+    </nav>
   </div>
 </header>
 
-<div class="alert" id="ab" style="display:none">
-  ⚠ <strong id="as"></strong>&nbsp;<span id="at"></span>
-  <span class="ax" onclick="document.getElementById('ab').style.display='none'">✕</span>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span class="dot"></span> Live ROVER data</div>
+  <h1>Is this car<br><em>importable to Australia?</em></h1>
+  <p>Check SEVS &amp; MRE eligibility in seconds — used by dealers, agents, and enthusiasts nationwide.</p>
 </div>
 
-<div class="ctrl" id="ctrl-bar">
-  <div class="sw"><span class="si">🔍</span><input type="text" id="si" placeholder="Search make, model, approval number…" oninput="af()"/></div>
-  <select id="mf" onchange="af()"><option value="">All Makes</option></select>
-  <div id="chips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
-  <div class="rc" id="rc"></div>
-  <button onclick="copyLink()" style="background:var(--card);border:1px solid var(--bd);color:var(--mu);padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='var(--tx)'" onmouseout="this.style.color='var(--mu)'">🔗 Share</button>
-</div>
-
-<div id="calc-panel" style="display:none;height:calc(100vh - 65px)">
-  <div style="padding:16px 28px;background:var(--card);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:12px">
-    <button onclick="sw('all')" style="background:none;border:1px solid var(--bd);border-radius:6px;color:var(--mu);padding:6px 14px;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--tx)';this.style.color='var(--tx)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--mu)'">← Back to Eligibility</button>
-    <span style="font-size:14px;font-weight:600;color:var(--tx)">Landed Cost Calculator</span>
-  </div>
-  <iframe src="calculator.html" style="width:100%;height:calc(100% - 53px);border:none;display:block" title="JDM Connect Landed Cost Calculator"></iframe>
-</div>
-
-<div id="main-panel" class="main">
-  <div id="ec" style="display:none"></div>
-  <div class="stats" id="st"></div>
-  <div class="card"><div class="tw">
-    <table><thead id="th"></thead><tbody id="tb"></tbody></table>
-    <div class="empty" id="em" style="display:none"><div class="empty-i">🔎</div><h3>No results found</h3><p>Try adjusting your search or clearing filters.</p></div>
-  </div></div>
-</div>
-
-<footer>Data sourced from the <a href="https://www.rover.infrastructure.gov.au" target="_blank">ROVER Portal</a> — Australian Dept of Infrastructure, Transport &amp; Regional Development. Updated monthly by JDM Connect.</footer>
-
-<button id="mob-calc-btn" onclick="sw('calc');this.classList.add('active')">💰 Cost Calculator</button>
-
-<!-- data loaded via fetch -->
-<script>
-let ROVER_DATA=null;
-let tab='all',sC=null,sD=1,F=new Set(['all']),_last=[];
-const NOW=new Date();
-
-/* ── Cross-reference maps ────────────────────────────────────────────────── */
-function _ck(r,f){return((r['Make']||'').trim().toLowerCase()+'|'+(r[f]||'').trim().toLowerCase());}
-let _mreMap={};
-let _sevMap={};
-
-/* ── Utility ─────────────────────────────────────────────────────────────── */
-function pd(s){if(!s||s==='No end date')return null;let m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(m)return new Date(+m[3],+m[2]-1,+m[1]);let m2=s.match(/^(\d{1,2})\/(\d{4})$/);if(m2)return new Date(+m2[2],+m2[1]-1,1);return null;}
-function mu(s){const d=pd(s);if(!d)return 9999;return(d.getFullYear()-NOW.getFullYear())*12+(d.getMonth()-NOW.getMonth());}
-function e(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;');}
-function expB(s){if(!s)return'<span class="b bx">—</span>';const m=mu(s);if(m<0)return'<span class="b br">Expired</span>';if(m===0)return'<span class="b br">⚠ Expires this month</span>';if(m<=1)return`<span class="b br">⚠ ${s}</span>`;if(m<=3)return`<span class="b bo">⚠ ${s}</span>`;return`<span class="b bx">${s}</span>`;}
-function cB(l){if(!l)return'<span class="b bx">—</span>';if(l==='Complies')return'<span class="b bg" title="Fully meets all Australian Design Rules — straightforward to import and register.">✓ Fully Complies</span>';if(l.includes('Minor'))return'<span class="b by" title="Substantially complies — has minor, inconsequential differences from ADRs. Still fully importable; compliance workshop addresses these during the RAW process.">⚠ Minor Non-Compliance</span>';return'<span class="b by" title="Partially complies — more workshop work may be needed, but still approved for import under the MRE scheme.">~ Partial Compliance</span>';}
-function stB(s){if(!s)return'';if(s==='In Force')return'<span class="b bg">In Force</span>';if(/revoked/i.test(s))return'<span class="b br">Revoked</span>';return`<span class="b bx">${s}</span>`;}
-function catB(c){return`<span class="b bz">${e((c||'').replace(/^[A-Z]+ - /,''))}</span>`;}
-function regB(type,make,model){
-  const mk=e(make||''),md=e(model||'');
-  if(type==='both')return`<span style="display:inline-flex;gap:5px"><a class="b bm" style="cursor:pointer;text-decoration:none" onclick="event.stopPropagation();xjump('${mk}','${md}','mre')">MRE</a><a class="b bs" style="cursor:pointer;text-decoration:none" onclick="event.stopPropagation();xjump('${mk}','${md}','sev')">SEVS</a></span>`;
-  if(type==='mre')return'<span class="b bm">MRE</span>';
-  return'<span class="b bs">SEVS</span>';
-}
-function xB(r,isMRE){const k=_ck(r,'Model');if(isMRE&&_sevMap[k])return`<span class="b bp xr" style="cursor:pointer" onclick="xjump('${e(r['Make'])}','${e(r['Model'])}','sev')">Also on SEVS ↗</span>`;if(!isMRE&&_mreMap[k])return`<span class="b bp xr" style="cursor:pointer" onclick="xjump('${e(r['Make'])}','${e(r['Model'])}','mre')">Also on MRE ↗</span>`;return'';}
-function xjump(make,model,dest){sw(dest);document.getElementById('si').value=model;af();}
-
-/* ── Eligibility answer card ─────────────────────────────────────────────── */
-function updateEC(q,recs){
-  const el=document.getElementById('ec');
-  if(!q||q.trim().length<2){el.style.display='none';return;}
-  const n=recs.length;
-  if(n===0){
-    el.innerHTML=`<div class="ec-no"><div class="ec-icon">❌</div><div><div class="ec-title">Not currently listed</div><div class="ec-sub">This vehicle doesn't appear on the SEVS or MRE register — it may not be eligible for import to Australia.</div></div></div>`;
-  } else {
-    const regs=[...new Set(recs.map(r=>r._reg||tab))];
-    const regLabel=regs.includes('mre')&&regs.includes('sev')?'MRE &amp; SEVS registers':regs[0]==='mre'?'MRE register':'SEVS register';
-    el.innerHTML=`<div class="ec-yes"><div class="ec-icon">✅</div><div><div class="ec-title">Eligible — ${n} approved variant${n>1?'s':''} found</div><div class="ec-sub">Listed on the ${regLabel}. Click any row below for full details.</div></div></div>`;
-  }
-  el.style.display='block';}
-
-/* ── Tab switch ──────────────────────────────────────────────────────────── */
-function sw(t){
-  tab=t;sC=null;F=new Set(['all']);
-  const isCalc=(t==='calc');
-  document.getElementById('calc-panel').style.display=isCalc?'block':'none';
-  document.getElementById('main-panel').style.display=isCalc?'none':'block';
-  document.getElementById('ctrl-bar').style.display=isCalc?'none':'flex';
-  const btn=document.getElementById('calc-btn');
-  if(btn){btn.classList.toggle('active',isCalc);}
-  const mob=document.getElementById('mob-calc-btn');
-  if(mob){mob.classList.toggle('active',isCalc);mob.textContent=isCalc?'← Back to Eligibility':'💰 Cost Calculator';mob.onclick=isCalc?function(){sw('all');}:function(){sw('calc');};}
-  if(!isCalc){bmf();bch();bst();af();}
-}
-
-/* ── Filter & search ─────────────────────────────────────────────────────── */
-function af(){
-  const q=document.getElementById('si').value.toLowerCase().trim();
-  const mk=document.getElementById('mf').value.toLowerCase();
-  let recs;
-  if(tab==='all'){
-    const combined=[
-      ...ROVER_DATA.mre.map(r=>({...r,_reg:'mre',_dates:r['Build date range']||'',_status:r['Compliance Level']||'',_num:r['Approval number']||'',_sev_expiry:''})),
-      ...ROVER_DATA.sev.map(r=>({...r,_reg:'sev',_dates:(r['Build date from']||'')+(r['Build date to']?(' – '+r['Build date to']):''),_status:'',_num:r['SEV #']||'',_sev_expiry:r['Expiry']||''}))
-    ];
-    combined.forEach(r=>{const k=_ck(r,'Model');r._both=(_mreMap[k]&&_sevMap[k]);});
-    recs=combined.filter(r=>{const txt=Object.values(r).join(' ').toLowerCase();if(q&&!txt.includes(q))return false;if(mk&&(r['Make']||'').toLowerCase()!==mk)return false;return true;});
-    if(!F.has('all')){recs=recs.filter(r=>{if(F.has('mre')&&r._reg!=='mre')return false;if(F.has('sev')&&r._reg!=='sev')return false;if(F.has('both')&&!r._both)return false;return true;});}
-    _last=recs;
-    render(recs);
-    document.getElementById('rc').textContent=`${recs.length.toLocaleString()} of ${(ROVER_DATA.mre.length+ROVER_DATA.sev.length).toLocaleString()} entries`;
-    updateEC(q,recs);
-    updateURL();
-    return;}
-  recs=(tab==='mre'?ROVER_DATA.mre:ROVER_DATA.sev).filter(r=>{const txt=Object.values(r).join(' ').toLowerCase();if(q&&!txt.includes(q))return false;if(mk&&(r['Make']||'').toLowerCase()!==mk)return false;return true;});
-  if(!F.has('all')){recs=recs.filter(r=>{if(F.has('complies')&&r['Compliance Level']!=='Complies')return false;if(F.has('expiring')&&mu(r['Expiry'])>3)return false;return true;});}
-  _last=recs;
-  render(recs);
-  document.getElementById('rc').textContent=`${recs.length.toLocaleString()} of ${(tab==='mre'?ROVER_DATA.mre:ROVER_DATA.sev).length.toLocaleString()} entries`;
-  updateEC(q,recs);
-  updateURL();}
-
-function tc(key){if(key==='all'){F=new Set(['all']);}else{F.delete('all');F.has(key)?F.delete(key):F.add(key);if(!F.size)F.add('all');}document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',F.has(c.dataset.key)));af();}
-
-/* ── Render table ─────────────────────────────────────────────────────────── */
-function render(recs){
-  const H=document.getElementById('th'),B=document.getElementById('tb'),E=document.getElementById('em');
-  if(!recs.length){H.innerHTML=B.innerHTML='';E.style.display='block';return;}
-  E.style.display='none';
-  const sorted=sC?[...recs].sort((a,b)=>{const av=(a[sC]||'').toLowerCase(),bv=(b[sC]||'').toLowerCase();return av<bv?-sD:av>bv?sD:0;}):recs;
-
-  if(tab==='all'){
-    const cols=['Reference','Register','Make','Model','Build Dates','Status / Expiry'];
-    H.innerHTML='<tr>'+cols.map(c=>`<th onclick="sb('${c}')" class="${sC===c?'srt':''}">${c} <span class="arr">${sC===c?(sD===1?'↑':'↓'):'↕'}</span></th>`).join('')+'</tr>';
-    B.innerHTML=sorted.map((r,i)=>{
-      const regType=r._both?'both':r._reg;
-      const linkHtml=r['_detail_url']?`<a href="${r['_detail_url']}" target="_blank" class="an lnk" onclick="event.stopPropagation()">${e(r._num)}</a>`:`<span class="an">${e(r._num)}</span>`;
-      const statusHtml=r._reg==='mre'?cB(r._status):expB(r._sev_expiry);
-      return`<tr onclick="openPanel(${i})"><td>${linkHtml}</td><td>${regB(regType,r['Make'],r['Model'])}</td><td class="vm">${e(r['Make'])}</td><td><div class="vm">${e(r['Model'])}</div></td><td>${e(r._dates)}</td><td>${statusHtml}</td></tr>`;}).join('');
-    return;}
-
-  const cols=tab==='mre'?['Approval number','Make','Model','Build date range','Compliance Level','Approval status']:['SEV #','Make','Model','Build date from','Build date to','Expiry','Category'];
-  H.innerHTML='<tr>'+cols.map(c=>`<th onclick="sb('${c}')" class="${sC===c?'srt':''}">${c} <span class="arr">${sC===c?(sD===1?'↑':'↓'):'↕'}</span></th>`).join('')+'</tr>';
-  B.innerHTML=sorted.map((r,i)=>tab==='mre'
-    ?`<tr onclick="openPanel(${i})">
-        <td>${r['_detail_url']?`<a href="${r['_detail_url']}" target="_blank" class="an lnk" onclick="event.stopPropagation()">${e(r['Approval number'])}</a>`:`<span class="an">${e(r['Approval number'])}</span>`}</td>
-        <td class="vm">${e(r['Make'])}</td>
-        <td><div class="vm">${e(r['Model'])}</div><div class="vs">${e(r['Post-modification category']||'')} — ${e(r['Model report type']||'')}</div><div style="margin-top:3px">${xB(r,true)}</div></td>
-        <td>${e(r['Build date range'])}</td>
-        <td>${cB(r['Compliance Level'])}</td>
-        <td>${stB(r['Approval status'])}</td>
-      </tr>`
-    :`<tr onclick="openPanel(${i})">
-        <td>${r['_detail_url']?`<a href="${r['_detail_url']}" target="_blank" class="an lnk" onclick="event.stopPropagation()">${e(r['SEV #'])}</a>`:`<span class="an">${e(r['SEV #'])}</span>`}</td>
-        <td class="vm">${e(r['Make'])}</td>
-        <td><div class="vm">${e(r['Model'])}</div><div class="vs">${e(r['Model code']||'')}</div><div style="margin-top:3px">${xB(r,false)}</div></td>
-        <td>${e(r['Build date from'])}</td>
-        <td>${e(r['Build date to'])}</td>
-        <td>${expB(r['Expiry'])}</td>
-        <td>${catB(r['Category'])}</td>
-      </tr>`).join('');}
-
-function sb(c){sD=sC===c?sD*-1:1;sC=c;af();}
-
-/* ── Detail panel ────────────────────────────────────────────────────────── */
-function openPanel(i){
-  const r=_last[i];
-  if(!r)return;
-  const isMRE=(r._reg||tab)==='mre';
-  const name=`${r['Make']||''} ${r['Model']||''}`.trim();
-  document.getElementById('pt').textContent=name;
-  document.getElementById('pm').textContent=isMRE?`MRE — ${r['Approval number']||''}`:`SEVS — ${r['SEV #']||''}`;
-
-  const rows=isMRE?[
-    ['Make', r['Make']],
-    ['Model', r['Model']],
-    ['Approval #', r['Approval number']],
-    ['Build Date Range', r['Build date range']],
-    ['Compliance', r['Compliance Level']],
-    ['Status', r['Approval status']],
-    ['Report Type', r['Model report type']],
-    ['Category', r['Post-modification category']],
-    ['Work Instructions', r['_work_instructions']],
-    ['Based On (SEV)', r['_based_on']],
-    ['Approval Holder', r['_approval_holder']],
-    ['Contact', r['_contact_name']],
-    ['Email', r['_contact_email']],
-    ['Phone', r['_contact_phone']],
-    ['VIN Pattern', r['_vin_pattern']],
-    ['Body Code', r['_body_code']],
-    ['Source Market', r['_source_market']],
-    ['Notes', r['_notes']],
-  ]:[
-    ['Make', r['Make']],
-    ['Model', r['Model']],
-    ['SEV #', r['SEV #']],
-    ['Model Code', r['Model code']],
-    ['Build Date From', r['Build date from']],
-    ['Build Date To', r['Build date to']],
-    ['Expiry', r['Expiry']],
-    ['Category', r['Category']],
-  ];
-
-  document.getElementById('pb').innerHTML=rows.filter(([,v])=>v).map(([l,v])=>
-    `<div class="prow"><div class="plabel">${l}</div><div class="pval">${e(String(v))}</div></div>`
-  ).join('');
-
-  const roverLink=r['_detail_url'];
-  document.getElementById('prl').innerHTML=roverLink
-    ?`View official record: <a href="${roverLink}" target="_blank">ROVER Portal ↗</a>`
-    :`Data sourced from the Australian ROVER portal.`;
-
-  document.getElementById('po').style.display='block';
-  requestAnimationFrame(()=>document.getElementById('pn').classList.add('open'));
-  document.addEventListener('keydown',escClose);}
-
-function closePanel(){
-  document.getElementById('pn').classList.remove('open');
-  setTimeout(()=>{document.getElementById('po').style.display='none';},300);
-  document.removeEventListener('keydown',escClose);}
-
-function escClose(e){if(e.key==='Escape')closePanel();}
-
-/* ── Shareable URL ────────────────────────────────────────────────────────── */
-function updateURL(){
-  const q=document.getElementById('si').value;
-  const mk=document.getElementById('mf').value;
-  const p=new URLSearchParams();
-  if(tab!=='mre')p.set('tab',tab);
-  if(q)p.set('q',q);
-  if(mk)p.set('make',mk);
-  const s=p.toString();
-  history.replaceState(null,'',s?'?'+s:location.pathname);}
-
-function copyLink(){
-  navigator.clipboard.writeText(location.href).then(()=>{
-    const t=document.getElementById('toast');
-    t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'),2200);});}
-
-/* ── Make filter ─────────────────────────────────────────────────────────── */
-function bmf(){
-  let recs;
-  if(tab==='all'){recs=[...ROVER_DATA.mre,...ROVER_DATA.sev];}
-  else{recs=tab==='mre'?ROVER_DATA.mre:ROVER_DATA.sev;}
-  const makes=[...new Set(recs.map(r=>r['Make']).filter(Boolean))].sort();
-  document.getElementById('mf').innerHTML='<option value="">All Makes</option>'+makes.map(m=>`<option value="${e(m.toLowerCase())}">${e(m)}</option>`).join('');}
-
-function bch(){
-  const wrap=document.getElementById('chips');
-  if(tab==='mre'){
-    wrap.innerHTML=`<span class="chip active" data-key="all" onclick="tc('all')">All</span><span class="chip" data-key="complies" onclick="tc('complies')">✓ Complies only</span>`;}
-  else if(tab==='sev'){
-    const u=ROVER_DATA.sev.filter(r=>mu(r['Expiry'])<=1).length,s=ROVER_DATA.sev.filter(r=>{const m=mu(r['Expiry']);return m>1&&m<=3;}).length;
-    wrap.innerHTML=`<span class="chip active" data-key="all" onclick="tc('all')">All</span><span class="chip warn" data-key="expiring" onclick="tc('expiring')">⚠ Expiring ≤ 3 months (${u+s})</span>`;}
-  else{
-    const bothCount=Object.keys(_mreMap).filter(k=>_sevMap[k]).length;
-    wrap.innerHTML=`<span class="chip active" data-key="all" onclick="tc('all')">All</span><span class="chip" data-key="mre" onclick="tc('mre')">MRE only</span><span class="chip" data-key="sev" onclick="tc('sev')">SEVS only</span><span class="chip" data-key="both" onclick="tc('both')">On Both Registers (${bothCount})</span>`;}}
-
-function bst(){
-  const el=document.getElementById('st');
-  if(tab==='mre'){
-    const t=ROVER_DATA.mre.length,c=ROVER_DATA.mre.filter(r=>r['Compliance Level']==='Complies').length;
-    const xref=Object.keys(_mreMap).filter(k=>_sevMap[k]).length;
-    el.innerHTML=`<div class="sc"><div class="n">${t}</div><div class="l">Total MRE Approvals</div></div><div class="sc"><div class="n">${c}</div><div class="l">Fully Compliant</div></div><div class="sc"><div class="n">${xref}</div><div class="l">Also on SEVS</div></div>`;}
-  else if(tab==='sev'){
-    const t=ROVER_DATA.sev.length,u=ROVER_DATA.sev.filter(r=>mu(r['Expiry'])<=1).length,s=ROVER_DATA.sev.filter(r=>{const m=mu(r['Expiry']);return m>1&&m<=3;}).length;
-    const xref=Object.keys(_sevMap).filter(k=>_mreMap[k]).length;
-    el.innerHTML=`<div class="sc"><div class="n">${t}</div><div class="l">Total SEVS Entries</div></div><div class="sc ${u?'urg':''}"><div class="n">${u}</div><div class="l">Expiring This Month</div></div><div class="sc ${s?'warn':''}"><div class="n">${s}</div><div class="l">Expiring Within 3 Months</div></div><div class="sc"><div class="n">${xref}</div><div class="l">Also on MRE</div></div>`;}
-  else{
-    const total=ROVER_DATA.mre.length+ROVER_DATA.sev.length;
-    const bothKeys=Object.keys(_mreMap).filter(k=>_sevMap[k]);
-    el.innerHTML=`<div class="sc"><div class="n">${total}</div><div class="l">Total Records</div></div><div class="sc"><div class="n">${bothKeys.length}</div><div class="l">On Both Registers</div></div><div class="sc"><div class="n">${Object.keys(_mreMap).filter(k=>!_sevMap[k]).length}</div><div class="l">MRE Only</div></div><div class="sc"><div class="n">${Object.keys(_sevMap).filter(k=>!_mreMap[k]).length}</div><div class="l">SEVS Only</div></div>`;}}
-
-/* ── Init via fetch ──────────────────────────────────────────────────────── */
-(function(){
-  // Show subtle loading state
-  const mp=document.getElementById('main-panel');
-  if(mp)mp.style.opacity='0.4';
-  fetch('data.json')
-    .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
-    .then(function(data){
-      ROVER_DATA=data;
-      if(mp)mp.style.opacity='1';
-      // Build cross-reference maps
-      ROVER_DATA.mre.forEach(function(r){var k=_ck(r,'Model');(_mreMap[k]||(_mreMap[k]=[])).push(r);});
-      ROVER_DATA.sev.forEach(function(r){var k=_ck(r,'Model');(_sevMap[k]||(_sevMap[k]=[])).push(r);});
-      // Update date
-      const d=new Date(ROVER_DATA.fetched_at);
-      document.getElementById('upd').textContent=d.toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
-      // Expiry alerts
-      const urg=ROVER_DATA.sev.filter(function(r){return mu(r['Expiry'])<=1;});
-      if(urg.length){
-        const names=urg.slice(0,3).map(function(r){return r['Make']+' '+r['Model'];}).join(', ');
-        document.getElementById('as').textContent=urg.length+' SEVS approval'+(urg.length>1?'s':'')+' expire this month.';
-        document.getElementById('at').textContent=names+(urg.length>3?' +'+String(urg.length-3)+' more':'');
-        document.getElementById('ab').style.display='flex';}
-      // URL params
-      const p=new URLSearchParams(location.search);
-      const urlTab=p.get('tab')||'all';
-      const urlQ=p.get('q')||'';
-      const urlMake=p.get('make')||'';
-      tab=urlTab;
-      bmf();bch();bst();
-      if(urlQ)document.getElementById('si').value=urlQ;
-      if(urlMake){document.getElementById('mf').value=urlMake;}
-      af();
-    })
-    .catch(function(e){
-      if(mp){mp.style.opacity='1';mp.innerHTML='<div style="text-align:center;padding:60px;color:var(--re)">Failed to load data. Please refresh.<br><small>'+e.message+'</small></div>';}
-    });
-})();
-
-</script>
-
-<!-- Detail panel -->
-
-<div class="po" id="po" onclick="if(event.target===this)closePanel()"></div>
-<div class="pn" id="pn">
-  <div class="ph">
-    <div>
-      <div class="ph-title" id="pt"></div>
-      <div class="ph-make" id="pm"></div>
+<!-- SEARCH CARD -->
+<div class="search-wrap">
+  <div class="search-card">
+    <div class="search-tabs">
+      <button class="search-tab active" onclick="switchTab('make')">Search by Make &amp; Model</button>
+      <button class="search-tab" onclick="switchTab('chassis')">Chassis / VIN</button>
     </div>
-    <button class="pclose" onclick="closePanel()">✕</button>
+    <!-- Make/Model/Year -->
+    <div id="tab-make">
+      <div class="search-fields">
+        <div class="field-group">
+          <label class="field-label">Make</label>
+          <div class="select-wrap">
+            <select class="field-select" id="sel-make" onchange="populateModels()">
+              <option value="">Select make…</option>
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Model</label>
+          <div class="select-wrap">
+            <select class="field-select" id="sel-model">
+              <option value="">Select model…</option>
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Build year</label>
+          <div class="select-wrap">
+            <select class="field-select" id="sel-year">
+              <option value="">Any year</option>
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+      </div>
+      <button class="search-btn" onclick="doSearch()">Check eligibility →</button>
+    </div>
+    <!-- Chassis -->
+    <div id="tab-chassis" style="display:none;">
+      <input class="chassis-input" id="chassis-input" type="text" placeholder="e.g. BNR34, JZX100, R33…" maxlength="30" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doChassisSearch()">
+      <p class="chassis-hint">Enter the first 4–6 characters of the chassis or model code</p>
+      <button class="search-btn" onclick="doChassisSearch()">Check eligibility →</button>
+    </div>
   </div>
-  <div class="pb" id="pb"></div>
-  <a href="https://jdmconnect.com.au/import-process/" target="_blank" class="pcta">Get a free import quote → JDM Connect</a>
-  <div class="prover" id="prl"></div>
 </div>
-<div id="toast">🔗 Link copied to clipboard</div>
 
+<!-- STATS -->
+<div class="stats-strip" id="stats-strip">
+  <div class="stat-card">
+    <div class="stat-num" id="stat-mre">—</div>
+    <div class="stat-label">MRE approvals</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" id="stat-sev">—</div>
+    <div class="stat-label">SEVS listings</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" id="stat-updated">—</div>
+    <div class="stat-label">Data updated</div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="results-wrap" id="results-wrap" style="display:none;"></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>
+    Data sourced from the Australian Government ROVER portal.<br>
+    This tool is for guidance only — always verify eligibility with a licensed RAWS workshop before purchasing.<br>
+    <a href="https://jdmconnect.com.au">jdmconnect.com.au</a> &nbsp;·&nbsp;
+    <a href="mailto:info@jdmconnect.com.au">info@jdmconnect.com.au</a><br><br>
+    © 2026 JDM Connect Pty Ltd ACN 78 675 449 493. All rights reserved.
+  </p>
+</footer>
+
+<script>
+let MRE = [], SEV = [], allData = null;
+let activeTab = 'make';
+
+async function loadData() {
+  try {
+    const res = await fetch('data.json');
+    allData = await res.json();
+    MRE = allData.mre || [];
+    SEV = allData.sev || [];
+    document.getElementById('stat-mre').textContent = MRE.length.toLocaleString();
+    document.getElementById('stat-sev').textContent = SEV.length.toLocaleString();
+    if (allData.fetched_at) {
+      const d = new Date(allData.fetched_at);
+      document.getElementById('stat-updated').textContent = d.toLocaleDateString('en-AU', {day:'numeric', month:'short'});
+    }
+    populateMakes();
+    populateYears();
+  } catch(e) {
+    console.error('Failed to load data.json', e);
+  }
+}
+
+function titleCase(str) {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function populateMakes() {
+  const makes = [...new Set([
+    ...MRE.map(r => titleCase(r.Make)),
+    ...SEV.map(r => titleCase(r.Make))
+  ])].filter(Boolean).sort();
+  const sel = document.getElementById('sel-make');
+  sel.innerHTML = '<option value="">Select make…</option>';
+  makes.forEach(m => {
+    const o = document.createElement('option');
+    o.value = m; o.textContent = m; sel.appendChild(o);
+  });
+}
+
+function populateModels() {
+  const make = document.getElementById('sel-make').value.toUpperCase();
+  const models = [...new Set([
+    ...MRE.filter(r => r.Make.toUpperCase() === make).map(r => r.Model),
+    ...SEV.filter(r => r.Make.toUpperCase() === make).map(r => r.Model)
+  ])].filter(Boolean).sort();
+  const sel = document.getElementById('sel-model');
+  sel.innerHTML = '<option value="">Select model…</option>';
+  models.forEach(m => {
+    const o = document.createElement('option');
+    o.value = m; o.textContent = m; sel.appendChild(o);
+  });
+}
+
+function populateYears() {
+  const sel = document.getElementById('sel-year');
+  sel.innerHTML = '<option value="">Any year</option>';
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear; y >= 1980; y--) {
+    const o = document.createElement('option');
+    o.value = y; o.textContent = y; sel.appendChild(o);
+  }
+}
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.search-tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0 && tab === 'make') || (i === 1 && tab === 'chassis'));
+  });
+  document.getElementById('tab-make').style.display = tab === 'make' ? '' : 'none';
+  document.getElementById('tab-chassis').style.display = tab === 'chassis' ? '' : 'none';
+  document.getElementById('results-wrap').style.display = 'none';
+}
+
+function parseBuildRange(str) {
+  if (!str) return null;
+  const parts = str.split(' - ');
+  function parseDate(s) {
+    if (!s || s.trim() === '') return null;
+    const clean = s.trim();
+    const m1 = clean.match(/^(\d{1,2})\/(\d{4})$/);
+    if (m1) return new Date(parseInt(m1[2]), parseInt(m1[1]) - 1, 1);
+    const m3 = clean.match(/^(\d{4})$/);
+    if (m3) return new Date(parseInt(m3[1]), 0, 1);
+    return null;
+  }
+  return { from: parseDate(parts[0]), to: parseDate(parts[1]) };
+}
+
+function yearInRange(year, buildRange) {
+  if (!year) return true;
+  const y = parseInt(year);
+  const range = parseBuildRange(buildRange);
+  if (!range) return true;
+  const fromYear = range.from ? range.from.getFullYear() : 1900;
+  const toYear = range.to ? range.to.getFullYear() : 2100;
+  return y >= fromYear && y <= toYear;
+}
+
+function formatBuildRange(str) {
+  if (!str) return 'Unknown';
+  return str.replace(/(\d{1,2})\/(\d{4})/g, (_, m, y) => {
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return months[parseInt(m)-1] + ' ' + y;
+  });
+}
+
+function doSearch() {
+  const make = document.getElementById('sel-make').value;
+  const model = document.getElementById('sel-model').value;
+  const year = document.getElementById('sel-year').value;
+  if (!make) { alert('Please select a make first.'); return; }
+  const mreMatches = MRE.filter(r =>
+    r.Make.toUpperCase() === make.toUpperCase() &&
+    (!model || r.Model.toUpperCase() === model.toUpperCase()) &&
+    yearInRange(year, r['Build date range'])
+  );
+  const sevMatches = SEV.filter(r =>
+    r.Make.toUpperCase() === make.toUpperCase() &&
+    (!model || r.Model.toUpperCase() === model.toUpperCase()) &&
+    yearInRange(year, (r['Build date from'] && r['Build date to']) ? (r['Build date from'] + ' - ' + r['Build date to']) : null)
+  );
+  showResults(make, model, year, mreMatches, sevMatches, false);
+}
+
+function doChassisSearch() {
+  const q = document.getElementById('chassis-input').value.trim().toUpperCase();
+  if (q.length < 3) { alert('Enter at least 3 characters.'); return; }
+  const mreMatches = MRE.filter(r =>
+    (r['Approval number'] || '').toUpperCase().includes(q) ||
+    (r.Model || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(q.replace(/[^A-Z0-9]/g,''))
+  );
+  const sevMatches = SEV.filter(r =>
+    (r['SEV #'] || '').toUpperCase().includes(q) ||
+    (r['Model code'] || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(q.replace(/[^A-Z0-9]/g,'')) ||
+    (r.Model || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(q.replace(/[^A-Z0-9]/g,''))
+  );
+  showResults('', q, '', mreMatches, sevMatches, true);
+}
+
+function showResults(make, model, year, mreMatches, sevMatches, isChassis) {
+  const wrap = document.getElementById('results-wrap');
+  wrap.style.display = 'block';
+  wrap.innerHTML = '';
+  setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  const totalMatches = mreMatches.length + sevMatches.length;
+  const vehicleName = isChassis ? `"${model}"` : [make, model].filter(Boolean).join(' ');
+  const yearStr = year ? ` (${year})` : '';
+  let html = '';
+
+  if (totalMatches === 0) {
+    html += `
+      <div class="verdict-card ineligible">
+        <div class="verdict-header">
+          <div class="verdict-icon">✕</div>
+          <div class="verdict-title">Not currently eligible for import</div>
+        </div>
+        <div class="verdict-sub">${vehicleName}${yearStr} is not found on the SEVS or MRE register.</div>
+      </div>
+      <p class="vehicle-name">${vehicleName}</p>
+      <p class="vehicle-sub">No matching ROVER approvals found${yearStr}</p>
+    `;
+    if (!isChassis && year) {
+      const y = parseInt(year);
+      const unlock = y + 25;
+      const now = new Date().getFullYear();
+      if (unlock > now) {
+        html += `
+          <div class="unlock-box">
+            <div class="unlock-box-title">25-year unlock pathway</div>
+            <div class="unlock-box-body">
+              A ${year} model becomes eligible under the 25-year rule from January ${unlock}.
+              ${unlock - now <= 3 ? `That's only ${unlock - now} year${unlock-now===1?'':'s'} away.` : ''}
+              Contact JDM Connect to be notified when this unlocks.
+            </div>
+          </div>`;
+      } else {
+        html += `
+          <div class="unlock-box">
+            <div class="unlock-box-title">25-year rule may apply</div>
+            <div class="unlock-box-body">
+              A ${year} model is over 25 years old and may be importable under the pre-1989 personal import scheme.
+              Contact JDM Connect to verify compliance requirements.
+            </div>
+          </div>`;
+      }
+    }
+    html += buildActions(vehicleName);
+
+  } else if (totalMatches === 1) {
+    const record = mreMatches[0] || sevMatches[0];
+    const isMRE = mreMatches.length > 0;
+    html += buildSingleResult(record, isMRE, vehicleName);
+
+  } else {
+    html += `
+      <div class="verdict-card eligible">
+        <div class="verdict-header">
+          <div class="verdict-icon">✓</div>
+          <div class="verdict-title">Eligible for import</div>
+        </div>
+        <div class="verdict-sub">${totalMatches} matching approvals found on the ROVER register.</div>
+      </div>
+      <p class="vehicle-name">${vehicleName}</p>
+      <p class="vehicle-sub">Select an approval to view full details</p>
+      <div class="match-list">`;
+    mreMatches.forEach(r => {
+      const range = formatBuildRange(r['Build date range']);
+      const rEnc = encodeRecord(r);
+      html += `
+        <div class="match-item" onclick="showSingleRecord(${rEnc}, true, '${esc(vehicleName)}')">
+          <div class="match-item-left">
+            <div class="match-item-title">${r.Make} ${r.Model} <span class="match-item-num">${r['Approval number']}</span></div>
+            <div class="match-item-sub">MRE · Build: ${range}</div>
+          </div>
+          <div class="match-arrow">›</div>
+        </div>`;
+    });
+    sevMatches.forEach(r => {
+      const from = r['Build date from'] || '';
+      const to = r['Build date to'] || '';
+      const range = from ? (from + (to && to !== 'No end date' ? ' – ' + to : '+')) : 'Unknown';
+      const rEnc = encodeRecord(r);
+      html += `
+        <div class="match-item" onclick="showSingleRecord(${rEnc}, false, '${esc(vehicleName)}')">
+          <div class="match-item-left">
+            <div class="match-item-title">${r.Make} ${r.Model} <span class="match-item-num">${r['SEV #']}</span></div>
+            <div class="match-item-sub">SEVS · Build: ${range} · Expires: ${r.Expiry || 'N/A'}</div>
+          </div>
+          <div class="match-arrow">›</div>
+        </div>`;
+    });
+    html += '</div>';
+    html += buildActions(vehicleName);
+  }
+
+  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
+  wrap.innerHTML = html;
+}
+
+function encodeRecord(r) {
+  return JSON.stringify(r).replace(/\\/g,'\\\\').replace(/"/g,'&quot;');
+}
+function esc(s) {
+  return (s||'').replace(/'/g,"\\'");
+}
+
+function buildSingleResult(r, isMRE, vehicleName) {
+  const approvalNum = isMRE ? r['Approval number'] : r['SEV #'];
+  const buildRange = isMRE
+    ? formatBuildRange(r['Build date range'])
+    : ((r['Build date from'] || '') + (r['Build date to'] && r['Build date to'] !== 'No end date' ? ' – ' + r['Build date to'] : '+'));
+  const status = isMRE ? (r['Approval status'] || 'In Force') : 'In Force';
+  const expiry = isMRE ? null : (r['Expiry'] || null);
+  const compliance = isMRE ? (r['Compliance Level'] || null) : null;
+
+  let isExpiringSoon = false;
+  if (expiry) {
+    const parts = expiry.split('/');
+    if (parts.length === 3) {
+      const expiryDate = new Date(parseInt(parts[2]), parseInt(parts[1])-1, parseInt(parts[0]));
+      const daysLeft = (expiryDate - new Date()) / (1000*60*60*24);
+      isExpiringSoon = daysLeft < 90 && daysLeft > 0;
+    }
+  }
+
+  let html = `
+    <div class="verdict-card eligible">
+      <div class="verdict-header">
+        <div class="verdict-icon">✓</div>
+        <div class="verdict-title">Eligible for import</div>
+      </div>
+      <div class="verdict-sub">Found on the ROVER ${isMRE ? 'MRE' : 'SEVS'} register — import via a licensed RAWS compliance workshop.</div>
+    </div>
+    <p class="vehicle-name">${r.Make} ${r.Model}</p>
+    <p class="vehicle-sub">${approvalNum} · ${buildRange}</p>
+    <div class="detail-card">
+      <div class="detail-card-title">Approval details</div>
+      <div class="detail-row">
+        <span class="detail-key">Approval number</span>
+        <span class="detail-val mono">${approvalNum}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Pathway</span>
+        <span class="detail-val"><span class="badge badge-blue">${isMRE ? 'MRE' : 'SEVS'}</span></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Status</span>
+        <span class="detail-val"><span class="badge badge-green">${status}</span></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Build date range</span>
+        <span class="detail-val">${buildRange}</span>
+      </div>
+      ${expiry ? `<div class="detail-row">
+        <span class="detail-key">SEVS expiry</span>
+        <span class="detail-val"><span class="badge ${isExpiringSoon ? 'badge-amber' : 'badge-green'}">${expiry}</span></span>
+      </div>` : ''}
+      ${isMRE && r['Model report type'] ? `<div class="detail-row">
+        <span class="detail-key">Report type</span>
+        <span class="detail-val" style="font-size:12px;">${r['Model report type']}</span>
+      </div>` : ''}
+      ${!isMRE && r['Model code'] ? `<div class="detail-row">
+        <span class="detail-key">Model code</span>
+        <span class="detail-val mono">${r['Model code']}</span>
+      </div>` : ''}
+      ${compliance ? `<div class="detail-row">
+        <span class="detail-key">Compliance level</span>
+        <span class="detail-val" style="font-size:12px;">${compliance}</span>
+      </div>` : ''}
+      ${r['Post-modification category'] ? `<div class="detail-row">
+        <span class="detail-key">Category</span>
+        <span class="detail-val mono">${r['Post-modification category']}</span>
+      </div>` : ''}
+    </div>`;
+
+  // Work instructions & technical detail (MRE only)
+  if (isMRE && (r['_work_instructions'] || r['_based_on'] || r['_vin_pattern'] || r['_body_code'] || r['_source_market'] || r['_notes'])) {
+    html += `<div class="detail-card"><div class="detail-card-title">Technical detail</div>`;
+    if (r['_work_instructions']) html += `<div class="detail-row"><span class="detail-key">Work instructions</span><span class="detail-val" style="font-size:12px;">${r['_work_instructions']}</span></div>`;
+    if (r['_based_on']) html += `<div class="detail-row"><span class="detail-key">Based on (SEV)</span><span class="detail-val mono">${r['_based_on']}</span></div>`;
+    if (r['_vin_pattern']) html += `<div class="detail-row"><span class="detail-key">VIN pattern</span><span class="detail-val mono">${r['_vin_pattern']}</span></div>`;
+    if (r['_body_code']) html += `<div class="detail-row"><span class="detail-key">Body code</span><span class="detail-val mono">${r['_body_code']}</span></div>`;
+    if (r['_source_market']) html += `<div class="detail-row"><span class="detail-key">Source market</span><span class="detail-val">${r['_source_market']}</span></div>`;
+    if (r['_notes']) html += `<div class="detail-row"><span class="detail-key">Notes</span><span class="detail-val" style="font-size:12px;">${r['_notes']}</span></div>`;
+    html += `</div>`;
+  }
+
+  // Approval holder contact
+  if (isMRE && (r['_approval_holder'] || r['_contact_name'] || r['_contact_email'] || r['_contact_phone'])) {
+    html += `<div class="detail-card"><div class="detail-card-title">Approval holder</div>`;
+    if (r['_approval_holder']) html += `<div class="detail-row"><span class="detail-key">Company</span><span class="detail-val">${r['_approval_holder']}</span></div>`;
+    if (r['_contact_name']) html += `<div class="detail-row"><span class="detail-key">Contact</span><span class="detail-val">${r['_contact_name']}</span></div>`;
+    if (r['_contact_email']) html += `<div class="detail-row"><span class="detail-key">Email</span><span class="detail-val" style="font-size:12px;">${r['_contact_email']}</span></div>`;
+    if (r['_contact_phone']) html += `<div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val mono">${r['_contact_phone']}</span></div>`;
+    html += `</div>`;
+  }
+
+  html += `<div class="detail-card"><div class="detail-card-title">What this means</div>
+    <div class="detail-row"><span class="detail-key">Import pathway</span><span class="detail-val">SEVS / RAWS workshop</span></div>
+    <div class="detail-row"><span class="detail-key">Compliance cost (est.)</span><span class="detail-val">$8,000 – $15,000</span></div>
+  </div>`;
+
+  if (isExpiringSoon) {
+    html += `<div class="unlock-box" style="background:#fff8ed; border-color:#f59e0b;">
+      <div class="unlock-box-title" style="color:#78350f;">⚠ SEVS approval expiring soon</div>
+      <div class="unlock-box-body" style="color:#92400e;">This SEVS approval expires ${expiry}. The vehicle must clear Australian customs before expiry. Contact JDM Connect urgently if you are purchasing this vehicle.</div>
+    </div>`;
+  }
+
+  html += buildActions(vehicleName);
+  return html;
+}
+
+function buildActions(vehicleName) {
+  return `
+    <div class="action-grid">
+      <a href="https://calculator.jdmconnect.com.au" class="action-btn" target="_blank">Calculate landed cost</a>
+      <button class="action-btn" onclick="shareResult()">Share result</button>
+    </div>
+    <a href="https://jdmconnect.com.au/contact" class="action-btn-primary" target="_blank">Enquire with JDM Connect →</a>
+  `;
+}
+
+function showSingleRecord(record, isMRE, vehicleName) {
+  const wrap = document.getElementById('results-wrap');
+  let html = buildSingleResult(record, isMRE, vehicleName);
+  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
+  wrap.innerHTML = html;
+  setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+
+function resetSearch() {
+  document.getElementById('results-wrap').style.display = 'none';
+  document.getElementById('sel-make').value = '';
+  document.getElementById('sel-model').innerHTML = '<option value="">Select model…</option>';
+  document.getElementById('sel-year').value = '';
+  document.getElementById('chassis-input').value = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function shareResult() {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({ title: 'JDM Connect — Eligibility Checker', url });
+  } else {
+    navigator.clipboard.writeText(url).then(() => alert('Link copied!'));
+  }
+}
+
+loadData();
+</script>
 </body>
 </html>
