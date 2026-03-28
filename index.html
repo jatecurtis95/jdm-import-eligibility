@@ -128,9 +128,9 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 
 /* ── HEADER ─────────────────────────────────────────────────── */
 .header {
-  background: #0D1B3E;
+  background: #111111;
   position: sticky; top: 0; z-index: 100;
-  border-bottom: 1px solid rgba(201,168,76,0.2);
+  border-bottom: 2px solid #CAA34C;
 }
 .header-inner {
   max-width: 1100px; margin: 0 auto;
@@ -139,16 +139,13 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   display: flex; align-items: center; justify-content: space-between;
 }
 .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-.logo-text { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
-.logo-text span.jdm { color: #c9a84c; }
-.logo-text span.connect { color: #fff; }
 .logo-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; }
 .header-nav { display: flex; align-items: center; gap: 20px; }
 .header-nav a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.15s; }
-.header-nav a:hover { color: #c9a84c; }
-.header-nav a.active { color: #c9a84c; font-weight: 500; }
+.header-nav a:hover { color: #CAA34C; }
+.header-nav a.active { color: #CAA34C; font-weight: 500; }
 .header-cta {
-  background: linear-gradient(135deg, #8B6914 0%, #c9a84c 100%);
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
   color: #111; font-size: 12px; font-weight: 700;
   padding: 7px 16px; border-radius: 6px; text-decoration: none;
   letter-spacing: 0.02em; white-space: nowrap;
@@ -156,22 +153,22 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 
 /* ── HERO ────────────────────────────────────────────────────── */
 .hero {
-  background: #0D1B3E;
+  background: #111111;
   padding: 40px 24px 48px;
   text-align: center;
-  border-bottom: 3px solid #c9a84c;
+  border-bottom: 3px solid #CAA34C;
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 6px;
   background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
-  color: #c9a84c; font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  color: #CAA34C; font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
   text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
   margin-bottom: 16px;
 }
-.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #c9a84c; animation: pulse 2s infinite; }
+.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #CAA34C; animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 .hero h1 { font-size: 32px; font-weight: 800; color: #fff; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 10px; }
-.hero h1 em { font-style: normal; color: #c9a84c; }
+.hero h1 em { font-style: normal; color: #CAA34C; }
 .hero p { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 480px; margin: 0 auto; line-height: 1.6; }
 
 /* ── SEARCH CARD ─────────────────────────────────────────────── */
@@ -210,7 +207,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 .select-arrow { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #9ca3af; font-size: 12px; }
 .search-btn {
   width: 100%;
-  background: linear-gradient(135deg, #8B6914 0%, #c9a84c 100%);
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
   color: #111; font-size: 15px; font-weight: 700;
   padding: 14px; border: none; border-radius: 10px;
   cursor: pointer; transition: opacity 0.15s; letter-spacing: 0.01em;
@@ -307,7 +304,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   padding: 14px 16px; cursor: pointer; transition: all 0.15s;
   display: flex; justify-content: space-between; align-items: center;
 }
-.match-item:hover { border-color: #c9a84c; background: #fffbf0; }
+.match-item:hover { border-color: #CAA34C; background: #fffbf0; }
 .match-item-left { flex: 1; }
 .match-item-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
 .match-item-sub { font-size: 12px; color: #6b7280; }
@@ -321,10 +318,10 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   text-align: center; color: #374151; transition: all 0.15s;
   text-decoration: none; display: block;
 }
-.action-btn:hover { border-color: #c9a84c; background: #fffbf0; color: #8B6914; }
+.action-btn:hover { border-color: #CAA34C; background: #fffbf0; color: #8B6914; }
 .action-btn-primary {
   display: block; width: 100%;
-  background: linear-gradient(135deg, #8B6914 0%, #c9a84c 100%);
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
   color: #111; font-size: 14px; font-weight: 700;
   padding: 14px; border: none; border-radius: 10px;
   cursor: pointer; text-align: center; text-decoration: none;
@@ -352,17 +349,17 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   text-align: center;
 }
-.stat-num { font-size: 22px; font-weight: 800; color: #c9a84c; letter-spacing: -0.02em; }
+.stat-num { font-size: 22px; font-weight: 800; color: #CAA34C; letter-spacing: -0.02em; }
 .stat-label { font-size: 11px; color: #6b7280; margin-top: 2px; font-weight: 500; }
 
 /* ── FOOTER ───────────────────────────────────────────────────── */
 .footer {
-  background: #0D1B3E; border-top: 1px solid rgba(255,255,255,0.08);
+  background: #111111; border-top: 2px solid #CAA34C;
   padding: 24px; text-align: center; margin-top: 40px;
 }
 .footer p { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.6; }
 .footer a { color: rgba(201,168,76,0.7); text-decoration: none; }
-.footer a:hover { color: #c9a84c; }
+.footer a:hover { color: #CAA34C; }
 
 /* ── LOADING ──────────────────────────────────────────────────── */
 .loading-overlay {
@@ -370,7 +367,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 }
 .spinner {
   width: 36px; height: 36px; border: 3px solid #f0ede8;
-  border-top-color: #c9a84c; border-radius: 50%;
+  border-top-color: #CAA34C; border-radius: 50%;
   animation: spin 0.7s linear infinite; margin: 0 auto 12px;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -387,16 +384,16 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 .modal {
   background: #fff; width: 100%; max-width: 440px;
   border-radius: 20px 20px 0 0; padding: 28px 24px 36px;
-  border-top: 3px solid #c9a84c;
+  border-top: 3px solid #CAA34C;
   animation: slideUp 0.25s ease;
 }
-@media (min-width: 500px) { .modal { border-radius: 16px; border-top: none; border-top: 3px solid #c9a84c; } }
+@media (min-width: 500px) { .modal { border-radius: 16px; border-top: none; border-top: 3px solid #CAA34C; } }
 @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 .modal-handle { width: 40px; height: 4px; background: #e5e7eb; border-radius: 2px; margin: 0 auto 20px; }
 @media (min-width: 500px) { .modal-handle { display: none; } }
 .modal-icon {
   width: 48px; height: 48px; border-radius: 50%;
-  background: linear-gradient(135deg, #8B6914, #c9a84c);
+  background: linear-gradient(135deg, #8B6914, #CAA34C);
   display: flex; align-items: center; justify-content: center;
   font-size: 20px; margin: 0 0 14px;
 }
@@ -408,7 +405,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   border-radius: 20px; padding: 5px 12px; margin-bottom: 20px;
   font-size: 12px; font-weight: 600; color: #374151;
 }
-.modal-vehicle-pill .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: #c9a84c; }
+.modal-vehicle-pill .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: #CAA34C; }
 .modal-field { margin-bottom: 14px; }
 .modal-field label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #6b7280; display: block; margin-bottom: 6px; }
 .modal-input {
@@ -418,7 +415,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 }
 .modal-input:focus { border-color: #8B6914; box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
 .modal-submit {
-  width: 100%; background: linear-gradient(135deg, #8B6914 0%, #c9a84c 100%);
+  width: 100%; background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
   color: #111; font-size: 14px; font-weight: 700;
   padding: 13px; border: none; border-radius: 10px;
   cursor: pointer; transition: opacity 0.15s; margin-top: 4px;
@@ -439,7 +436,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 
 /* notify trigger button */
 .notify-btn {
-  width: 100%; border: 1.5px dashed #c9a84c; background: #fffbf0;
+  width: 100%; border: 1.5px dashed #CAA34C; background: #fffbf0;
   color: #8B6914; font-size: 13px; font-weight: 600;
   padding: 13px; border-radius: 10px; cursor: pointer;
   transition: all 0.15s; margin-bottom: 10px; text-align: center;
@@ -469,7 +466,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 <header class="header">
   <div class="header-inner">
     <a href="https://jdmconnect.com.au" class="logo-wrap">
-      <div class="logo-text"><span class="jdm">JDM</span><span class="connect"> Connect</span></div>
+      <img src="logo.png" alt="JDM Connect" style="height:32px;width:auto;display:block;">
       <span class="logo-tag">Eligibility Checker</span>
     </a>
     <nav class="header-nav">
@@ -1041,7 +1038,10 @@ function submitNotify() {
     timestamp: new Date().toISOString(),
     notify_from: 'info@jdmconnect.com.au'
   };
-  console.log('Notify payload (wire to backend):', payload);
+  // Send via mailto as fallback (replace with Formspree endpoint when ready)
+  const subject = encodeURIComponent('Eligibility Alert Request: ' + vehicle);
+  const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + (phone || 'N/A') + '\nVehicle: ' + vehicle + '\nTimestamp: ' + new Date().toISOString());
+  window.open('mailto:info@jdmconnect.com.au?subject=' + subject + '&body=' + body);
 
   // Show success state
   document.getElementById('notify-confirm-email').textContent = email;
