@@ -128,7 +128,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 
 /* ── HEADER ─────────────────────────────────────────────────── */
 .header {
-  background: #111111;
+  background: #0D1B3E;
   position: sticky; top: 0; z-index: 100;
   border-bottom: 2px solid #CAA34C;
 }
@@ -153,7 +153,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 
 /* ── HERO ────────────────────────────────────────────────────── */
 .hero {
-  background: #111111;
+  background: #0D1B3E;
   padding: 40px 24px 48px;
   text-align: center;
   border-bottom: 3px solid #CAA34C;
@@ -354,7 +354,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 
 /* ── FOOTER ───────────────────────────────────────────────────── */
 .footer {
-  background: #111111; border-top: 2px solid #CAA34C;
+  background: #0D1B3E; border-top: 2px solid #CAA34C;
   padding: 24px; text-align: center; margin-top: 40px;
 }
 .footer p { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.6; }
@@ -501,6 +501,60 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   color: #9ca3af;
   font-family: 'Inter', sans-serif;
 }
+
+/* ── MODEL CARDS (Screen 1) ────────────────────────────────────── */
+.model-card-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.model-card {
+  background: #fff; border: 1.5px solid #e5e7eb; border-radius: 12px;
+  padding: 16px; cursor: pointer; transition: all 0.15s;
+}
+.model-card:hover { border-color: #CAA34C; background: #fffbf0; }
+.model-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.model-card-info { flex: 1; }
+.eligible-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #dcfce7; color: #14532d;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+  padding: 2px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 6px;
+}
+.model-card-name { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 3px; }
+.model-card-range { font-size: 12px; color: #6b7280; }
+.model-card-chevron { color: #9ca3af; font-size: 22px; padding-left: 12px; flex-shrink: 0; }
+.model-card-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.count-pill { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.02em; }
+.pill-mre { background: #dbeafe; color: #1e3a8a; }
+.pill-sevs { background: #ede9fe; color: #4c1d95; }
+
+/* ── APPROVAL LIST (Screen 2) ─────────────────────────────────── */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: none; cursor: pointer;
+  font-size: 13px; font-weight: 600; color: #6b7280;
+  padding: 0 0 14px 0; transition: color 0.15s;
+}
+.back-btn:hover { color: #1a1a1a; }
+.approval-list-header { margin-bottom: 16px; }
+.approval-list-title { font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 6px 0 2px; }
+.approval-list-sub { font-size: 13px; color: #6b7280; }
+.approval-section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #6b7280; margin: 16px 0 8px;
+}
+.approval-rows { display: flex; flex-direction: column; gap: 6px; }
+.approval-row {
+  background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px;
+  padding: 12px 14px; cursor: pointer; transition: all 0.15s;
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+}
+.approval-row:hover { border-color: #CAA34C; background: #fffbf0; }
+.approval-row-left { flex: 1; min-width: 0; }
+.approval-row-num { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; font-family: 'DM Mono', monospace; }
+.approval-row-meta { font-size: 12px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.approval-row-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.approval-row-chevron { color: #9ca3af; font-size: 16px; }
+
+/* Badge purple for SEVS pathway */
+.badge-purple { background: #ede9fe; color: #4c1d95; }
 </style>
   <!-- GHL popup override: prevent auto-show, controlled by JS click -->
   <style>
@@ -631,6 +685,9 @@ let MRE = [], SEV = [], allData = null;
 let activeTab = 'make';
 const ADMIN_MODE = new URLSearchParams(window.location.search).get('admin') === '1';
 
+// Navigation state for 3-screen flow
+let currentGroups = [];    // Array of { make, model, mre[], sev[] } — populated on search
+let lastSearchArgs = null; // Cache so Screen 1 can be re-rendered from Screen 2 back button
 
 function roverLink(num, isMRE) {
   const base = isMRE
@@ -855,6 +912,50 @@ function get25YearInfo(buildRangeStr) {
   return { unlockYear, unlockDate, isUnlocked, fromYear: range.from.getFullYear() };
 }
 
+// ── EXPIRY STATUS ────────────────────────────────────────────────────────────
+function getSevExpiryStatus(r) {
+  if (!r['Expiry']) return { label: 'In Force', cls: 'badge-green', isExpiringSoon: false };
+  const parts = r['Expiry'].split('/');
+  if (parts.length === 3) {
+    const expiryDate = new Date(parseInt(parts[2]), parseInt(parts[1])-1, parseInt(parts[0]));
+    const daysLeft = (expiryDate - new Date()) / (1000*60*60*24);
+    if (daysLeft < 90 && daysLeft > 0) return { label: 'Expiring Soon', cls: 'badge-amber', isExpiringSoon: true };
+    if (daysLeft <= 0) return { label: 'Expired', cls: 'badge-red', isExpiringSoon: false };
+  }
+  return { label: 'In Force', cls: 'badge-green', isExpiringSoon: false };
+}
+
+// ── COMBINED BUILD DATE RANGE ─────────────────────────────────────────────────
+function combinedBuildRange(mreList, sevList) {
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const formatD = d => months[d.getMonth()] + ' ' + d.getFullYear();
+  let allFrom = [], allTo = [], hasOpenEnd = false;
+
+  mreList.forEach(r => {
+    const p = parseBuildRange(r['Build date range']);
+    if (p) {
+      if (p.from) allFrom.push(p.from);
+      if (p.to) allTo.push(p.to); else hasOpenEnd = true;
+    }
+  });
+  sevList.forEach(r => {
+    const from = r['Build date from'] || '';
+    const to = r['Build date to'] || '';
+    const p = parseBuildRange(from + (to ? ' - ' + to : ''));
+    if (p) {
+      if (p.from) allFrom.push(p.from);
+      if (to && to !== 'No end date' && p.to) allTo.push(p.to); else hasOpenEnd = true;
+    }
+  });
+
+  if (!allFrom.length) return 'Build dates vary';
+  const minFrom = new Date(Math.min(...allFrom.map(d => d.getTime())));
+  const fromStr = formatD(minFrom);
+  if (hasOpenEnd || !allTo.length) return fromStr + ' – present';
+  const maxTo = new Date(Math.max(...allTo.map(d => d.getTime())));
+  return fromStr + ' – ' + formatD(maxTo);
+}
+
 // ── SEARCH ───────────────────────────────────────────────────────────────────
 function doSearch() {
   const make = document.getElementById('sel-make').value;
@@ -873,7 +974,7 @@ function doSearch() {
     yearInRange(year, (r['Build date from'] && r['Build date to']) ? (r['Build date from'] + ' - ' + r['Build date to']) : null)
   );
 
-  showResults(make, model, year, mreMatches, sevMatches);
+  showGroupedResults(make, model, year, mreMatches, sevMatches, false);
 }
 
 function doChassisSearch() {
@@ -890,174 +991,195 @@ function doChassisSearch() {
     (r.Model || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(q.replace(/[^A-Z0-9]/g,''))
   );
 
-  showResults('', q, '', mreMatches, sevMatches, true);
+  showGroupedResults('', q, '', mreMatches, sevMatches, true);
 }
 
-// ── RENDER RESULTS ────────────────────────────────────────────────────────────
-function showResults(make, model, year, mreMatches, sevMatches, isChassis) {
+// ── SCREEN 1: GROUPED MODEL CARDS ────────────────────────────────────────────
+function showGroupedResults(make, model, year, mreMatches, sevMatches, isChassis) {
   const wrap = document.getElementById('results-wrap');
   wrap.style.display = 'block';
   wrap.innerHTML = '';
-
-  // scroll to results
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   const totalMatches = mreMatches.length + sevMatches.length;
   const vehicleName = isChassis ? `"${model}"` : [make, model].filter(Boolean).join(' ');
   const yearStr = year ? ` (${year})` : '';
 
+  if (totalMatches === 0) {
+    renderNotEligible(vehicleName, yearStr, make, model, year, isChassis, wrap);
+    return;
+  }
+
+  // Group by Make|Model key
+  const groupMap = {};
+  mreMatches.forEach(r => {
+    const key = (r.Make + '|' + r.Model).toUpperCase();
+    if (!groupMap[key]) groupMap[key] = { make: r.Make, model: r.Model, mre: [], sev: [] };
+    groupMap[key].mre.push(r);
+  });
+  sevMatches.forEach(r => {
+    const key = (r.Make + '|' + r.Model).toUpperCase();
+    if (!groupMap[key]) groupMap[key] = { make: r.Make, model: r.Model, mre: [], sev: [] };
+    groupMap[key].sev.push(r);
+  });
+  currentGroups = Object.values(groupMap);
+
+  // Single result total → go straight to Screen 3
+  if (totalMatches === 1) {
+    const g = currentGroups[0];
+    const record = g.mre[0] || g.sev[0];
+    const isMRE = g.mre.length > 0;
+    renderScreen3(record, isMRE, `${g.make} ${g.model}`, g.mre, g.sev, wrap, null);
+    return;
+  }
+
+  renderScreen1(wrap);
+}
+
+function renderScreen1(wrap) {
+  const groupCount = currentGroups.length;
+  const totalMatches = currentGroups.reduce((n, g) => n + g.mre.length + g.sev.length, 0);
   let html = '';
 
-  if (totalMatches === 0) {
-    // NOT ELIGIBLE
-    html += `
-      <div class="verdict-card ineligible">
-        <div class="verdict-header">
-          <div class="verdict-icon">✕</div>
-          <div class="verdict-title">Not currently eligible for import</div>
-        </div>
-        <div class="verdict-sub">${vehicleName}${yearStr} is not found on the SEVS or MRE register.</div>
-      </div>
-      <p class="vehicle-name">${vehicleName}</p>
-      <p class="vehicle-sub">No matching ROVER approvals found${yearStr}</p>
-    `;
-
-    // Chassis search: always show 25-year caveat
-    if (isChassis) {
-      html += `
-        <div class="unlock-box" style="background:#f0f9ff;border-color:#bae6fd;">
-          <div class="unlock-box-title" style="color:#0c4a6e;">ℹ May be eligible under the 25-year rule</div>
-          <div class="unlock-box-body" style="color:#075985;">
-            Vehicles built 25+ years ago can often be imported under Australia's personal import scheme regardless of SEVS/MRE status.
-            <strong>However, chassis codes can span multiple models and body variants</strong> — for example, a BMW VIN prefix may cover a wide range of eligible and ineligible variants.
-            Always verify the exact build date and variant with JDM Connect before purchasing.
-          </div>
-        </div>
-      `;
-    }
-    // Make/year search: 25-year hint
-    if (!isChassis && make) {
-      const anyMRE = MRE.find(r => r.Make.toUpperCase() === make.toUpperCase());
-      if (year) {
-        const y = parseInt(year);
-        const unlock = y + 25;
-        const now = new Date().getFullYear();
-        if (unlock > now) {
-          html += `
-            <div class="unlock-box">
-              <div class="unlock-box-title">25-year unlock pathway</div>
-              <div class="unlock-box-body">
-                A ${year} model becomes eligible under the 25-year rule from January ${unlock}.
-                ${unlock - now <= 3 ? `That's only ${unlock - now} year${unlock-now===1?'':'s'} away.` : ''}
-                Contact JDM Connect to be notified when this unlocks.
-              </div>
-            </div>
-          `;
-        } else {
-          html += `
-            <div class="unlock-box">
-              <div class="unlock-box-title">25-year rule may apply</div>
-              <div class="unlock-box-body">
-                A ${year} model is over 25 years old and may be importable under the pre-1989 personal import scheme.
-                Contact JDM Connect to verify compliance requirements.
-              </div>
-            </div>
-          `;
-        }
-      }
-    }
-
-    html += buildActions(null, vehicleName, true);
-
-  } else if (totalMatches === 1) {
-    // SINGLE MATCH — show full detail
-    const record = mreMatches[0] || sevMatches[0];
-    const isMRE = mreMatches.length > 0;
-    html += buildSingleResult(record, isMRE, vehicleName, yearStr);
-
-  } else {
-    // MULTIPLE MATCHES
+  if (groupCount > 1) {
     html += `
       <div class="verdict-card eligible">
-        <div class="verdict-header">
-          <div class="verdict-icon">✓</div>
+        <div class="verdict-header"><div class="verdict-icon">✓</div>
           <div class="verdict-title">Eligible for import</div>
         </div>
-        <div class="verdict-sub">${totalMatches} matching approvals found on the ROVER register.</div>
+        <div class="verdict-sub">${groupCount} matching models found across ${totalMatches} approvals.</div>
       </div>
-      <p class="vehicle-name">${vehicleName}</p>
-      <p class="vehicle-sub">Select an approval to view details</p>
-      <div class="match-list">
     `;
+  }
 
-    mreMatches.forEach(r => {
-      const range = formatBuildRange(r['Build date range']);
-      html += `
-        <div class="match-item" onclick="showSingleRecord(${JSON.stringify(r).replace(/"/g,'&quot;')}, true, '${vehicleName.replace(/'/g,"\\'")}')">
-          <div class="match-item-left">
-            <div class="match-item-title">${r.Make} ${r.Model} <span style="font-weight:400;color:#6b7280;font-size:12px;">${r['Approval number']}</span></div>
-            <div class="match-item-sub">MRE · Build: ${range}</div>
+  html += '<div class="model-card-list">';
+  currentGroups.forEach((g, idx) => {
+    const range = combinedBuildRange(g.mre, g.sev);
+    const mrePill = g.mre.length > 0 ? `<span class="count-pill pill-mre">${g.mre.length} MRE</span>` : '';
+    const sevPill = g.sev.length > 0 ? `<span class="count-pill pill-sevs">${g.sev.length} SEVS</span>` : '';
+    html += `
+      <div class="model-card" onclick="showApprovalList(${idx})">
+        <div class="model-card-top">
+          <div class="model-card-info">
+            <div><span class="eligible-badge">✓ Eligible</span></div>
+            <div class="model-card-name">${g.make} ${g.model}</div>
+            <div class="model-card-range">Build: ${range}</div>
           </div>
-          <div class="match-arrow">›</div>
+          <div class="model-card-chevron">›</div>
+        </div>
+        <div class="model-card-pills">${mrePill}${sevPill}</div>
+      </div>
+    `;
+  });
+  html += '</div>';
+  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
+  wrap.innerHTML = html;
+}
+
+// ── SCREEN 2: APPROVAL LIST ───────────────────────────────────────────────────
+function showApprovalList(groupIdx) {
+  const wrap = document.getElementById('results-wrap');
+  const g = currentGroups[groupIdx];
+  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  let html = `
+    <button class="back-btn" onclick="renderScreen1(document.getElementById('results-wrap'))">← Back to results</button>
+    <div class="approval-list-header">
+      <div><span class="eligible-badge">✓ Eligible</span></div>
+      <div class="approval-list-title">${g.make} ${g.model}</div>
+      <div class="approval-list-sub">${g.mre.length + g.sev.length} approval${g.mre.length + g.sev.length !== 1 ? 's' : ''} found</div>
+    </div>
+  `;
+
+  if (g.mre.length > 0) {
+    html += `<div class="approval-section-label">MRE Approvals</div><div class="approval-rows">`;
+    g.mre.forEach((r, i) => {
+      const range = formatBuildRange(r['Build date range']);
+      const status = r['Approval status'] || 'In Force';
+      const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
+      const modelCode = r['Model report type'] || r['Model code'] || '';
+      html += `
+        <div class="approval-row" onclick="showScreen3FromList(${groupIdx}, 'mre', ${i})">
+          <div class="approval-row-left">
+            <div class="approval-row-num">${r['Approval number']}</div>
+            <div class="approval-row-meta">${modelCode ? modelCode + ' · ' : ''}Build: ${range}</div>
+          </div>
+          <div class="approval-row-right">
+            <span class="badge ${badgeCls}">${status}</span>
+            <span class="approval-row-chevron">›</span>
+          </div>
         </div>
       `;
     });
+    html += `</div>`;
+  }
 
-    sevMatches.forEach(r => {
+  if (g.sev.length > 0) {
+    html += `<div class="approval-section-label">SEVS Approvals</div><div class="approval-rows">`;
+    g.sev.forEach((r, i) => {
       const from = r['Build date from'] || '';
       const to = r['Build date to'] || '';
       const range = from ? (from + (to && to !== 'No end date' ? ' – ' + to : '+')) : 'Unknown';
+      const { label, cls } = getSevExpiryStatus(r);
+      const modelCode = r['Model code'] || '';
       html += `
-        <div class="match-item" onclick="showSingleRecord(${JSON.stringify(r).replace(/"/g,'&quot;')}, false, '${vehicleName.replace(/'/g,"\\'")}')">
-          <div class="match-item-left">
-            <div class="match-item-title">${r.Make} ${r.Model} <span style="font-weight:400;color:#6b7280;font-size:12px;">${r['SEV #']}</span></div>
-            <div class="match-item-sub">SEVS · Build: ${range} · Expires: ${r.Expiry || 'N/A'}</div>
+        <div class="approval-row" onclick="showScreen3FromList(${groupIdx}, 'sev', ${i})">
+          <div class="approval-row-left">
+            <div class="approval-row-num">${r['SEV #']}</div>
+            <div class="approval-row-meta">${modelCode ? modelCode + ' · ' : ''}Build: ${range}</div>
           </div>
-          <div class="match-arrow">›</div>
+          <div class="approval-row-right">
+            <span class="badge ${cls}">${label}</span>
+            <span class="approval-row-chevron">›</span>
+          </div>
         </div>
       `;
     });
-
-    html += '</div>';
-    html += buildActions(null, vehicleName);
+    html += `</div>`;
   }
 
   html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
   wrap.innerHTML = html;
 }
 
-function buildSingleResult(r, isMRE, vehicleName, yearStr) {
+function showScreen3FromList(groupIdx, type, recordIdx) {
+  const g = currentGroups[groupIdx];
+  const record = type === 'mre' ? g.mre[recordIdx] : g.sev[recordIdx];
+  const isMRE = type === 'mre';
+  const wrap = document.getElementById('results-wrap');
+  renderScreen3(record, isMRE, `${g.make} ${g.model}`, g.mre, g.sev, wrap, groupIdx);
+}
+
+// ── SCREEN 3: FULL APPROVAL DETAIL ───────────────────────────────────────────
+function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) {
+  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   const approvalNum = isMRE ? r['Approval number'] : r['SEV #'];
-  const pathway = isMRE ? 'MRE (Model Report Eligible)' : 'SEVS (Specialist & Enthusiast)';
   const buildRange = isMRE
     ? formatBuildRange(r['Build date range'])
     : ((r['Build date from'] || '') + (r['Build date to'] && r['Build date to'] !== 'No end date' ? ' – ' + r['Build date to'] : '+'));
-  const status = isMRE ? (r['Approval status'] || 'In Force') : 'In Force';
-  const expiry = isMRE ? '—' : (r['Expiry'] || 'N/A');
-  const compliance = isMRE ? (r['Compliance Level'] || '—') : '—';
-  const modelCode = isMRE ? (r['Model report type'] || '—') : (r['Model code'] || '—');
-
-  // check expiry for SEVS
-  let isExpiringSoon = false;
-  if (!isMRE && r['Expiry']) {
-    const parts = r['Expiry'].split('/');
-    if (parts.length === 3) {
-      const expiryDate = new Date(parseInt(parts[2]), parseInt(parts[1])-1, parseInt(parts[0]));
-      const daysLeft = (expiryDate - new Date()) / (1000*60*60*24);
-      isExpiringSoon = daysLeft < 90 && daysLeft > 0;
-    }
-  }
-
-  // 25-year check
-  const bRange25 = parseBuildRange(isMRE ? r['Build date range'] : ((r['Build date from'] || '') + ' - ' + (r['Build date to'] || '')));
-  const isOver25 = bRange25 && bRange25.from && (new Date().getFullYear() - bRange25.from.getFullYear()) >= 25;
+  const status = isMRE ? (r['Approval status'] || 'In Force') : getSevExpiryStatus(r).label;
+  const expiry = isMRE ? null : (r['Expiry'] || null);
+  const compliance = isMRE ? (r['Compliance Level'] || null) : null;
+  const modelCode = isMRE ? (r['Model report type'] || null) : (r['Model code'] || null);
+  const { isExpiringSoon } = isMRE ? { isExpiringSoon: false } : getSevExpiryStatus(r);
 
   const roverBase = isMRE
     ? 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/mre-register'
     : 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/sevs-register';
   const approvalLink = `<a href="${roverBase}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:500;font-size:12px;">${approvalNum}</a>`;
 
+  const bRange25 = parseBuildRange(isMRE ? r['Build date range'] : ((r['Build date from'] || '') + ' - ' + (r['Build date to'] || '')));
+  const isOver25 = bRange25 && bRange25.from && (new Date().getFullYear() - bRange25.from.getFullYear()) >= 25;
+
+  const totalApprovals = (mreList ? mreList.length : 0) + (sevList ? sevList.length : 0);
+  const backBtn = (groupIdx !== null && groupIdx !== undefined && totalApprovals > 1)
+    ? `<button class="back-btn" onclick="showApprovalList(${groupIdx})">← Back to approvals</button>`
+    : '';
+
+  const statusBadgeCls = status === 'In Force' ? 'badge-green' : status === 'Expiring Soon' ? 'badge-amber' : 'badge-red';
+
   let html = `
+    ${backBtn}
     <div class="verdict-card eligible">
       <div class="verdict-header">
         <div class="verdict-icon">✓</div>
@@ -1065,8 +1187,8 @@ function buildSingleResult(r, isMRE, vehicleName, yearStr) {
       </div>
       <div class="verdict-sub">This vehicle is approved for Australian import. Contact JDM Connect to get started.</div>
     </div>
-    <p class="vehicle-name">${r.Make} ${r.Model}</p>
-    <p class="vehicle-sub">Approval ${approvalLink} · ${buildRange}</p>
+    <p class="vehicle-name">${vehicleName}</p>
+    <p class="vehicle-sub">${approvalLink} · ${buildRange}</p>
     ${isOver25 ? `
     <div class="unlock-box" style="background:#f0faf4;border-color:#86efac;">
       <div class="unlock-box-title" style="color:#14532d;">✓ Also eligible under the 25-year rule</div>
@@ -1079,36 +1201,58 @@ function buildSingleResult(r, isMRE, vehicleName, yearStr) {
         <span class="detail-val">${approvalLink}</span>
       </div>
       <div class="detail-row">
+        <span class="detail-key">Pathway</span>
+        <span class="detail-val"><span class="badge ${isMRE ? 'badge-blue' : 'badge-purple'}">${isMRE ? 'MRE' : 'SEVS'}</span></span>
+      </div>
+      <div class="detail-row">
         <span class="detail-key">Status</span>
-        <span class="detail-val"><span class="badge badge-green">${status}</span></span>
+        <span class="detail-val"><span class="badge ${statusBadgeCls}">${status}</span></span>
       </div>
       <div class="detail-row">
         <span class="detail-key">Build date range</span>
         <span class="detail-val">${buildRange}</span>
       </div>
-      ${!isMRE ? `
+      ${expiry ? `
       <div class="detail-row">
         <span class="detail-key">SEVS expiry</span>
         <span class="detail-val"><span class="badge ${isExpiringSoon ? 'badge-amber' : 'badge-green'}">${expiry}</span></span>
       </div>` : ''}
+      ${modelCode ? `
       <div class="detail-row">
-        <span class="detail-key">Model report number</span>
+        <span class="detail-key">${isMRE ? 'Model report type' : 'Model code'}</span>
         <span class="detail-val" style="font-size:12px;font-family:DM Mono,monospace;">${modelCode}</span>
-      </div>
-      ${isMRE && compliance && compliance !== '—' ? `
+      </div>` : ''}
+      ${compliance ? `
       <div class="detail-row">
         <span class="detail-key">Compliance level</span>
         <span class="detail-val" style="font-size:12px;">${compliance}</span>
       </div>` : ''}
     </div>
+    <div class="detail-card">
+      <div class="detail-card-title">What this means</div>
+      <div class="detail-row" style="flex-direction:column;align-items:flex-start;gap:4px;">
+        <span class="detail-key">Import pathway</span>
+        <span style="font-size:13px;color:#374151;line-height:1.5;">${isMRE
+          ? 'This vehicle has an approved Model Report, allowing import via a RAWS (Registered Automotive Workshop) in Australia.'
+          : 'This vehicle is listed on the SEVS register, allowing import via a RAWS-certified compliance workshop.'
+        }</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Source market</span>
+        <span class="detail-val">Japan (JDM)</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Est. compliance cost</span>
+        <span class="detail-val">$8,000 – $15,000 AUD</span>
+      </div>
+    </div>
     ${isExpiringSoon ? `
-    <div class="unlock-box" style="background:#fff8ed; border-color:#f59e0b;">
+    <div class="unlock-box" style="background:#fff8ed;border-color:#f59e0b;">
       <div class="unlock-box-title" style="color:#78350f;">⚠ SEVS approval expiring soon</div>
-      <div class="unlock-box-body" style="color:#92400e;">This SEVS approval expires ${expiry}. The vehicle must clear Australian customs before expiry. Contact JDM Connect urgently if you're purchasing this vehicle.</div>
+      <div class="unlock-box-body" style="color:#92400e;">This SEVS approval expires ${expiry}. The vehicle must clear Australian customs before expiry. Contact JDM Connect urgently.</div>
     </div>` : ''}
   `;
 
-  // Approval holder — admin only (add ?admin=1 to URL to reveal)
   if (ADMIN_MODE) {
     const holder = r['_approval_holder'] || '';
     const cName  = r['_contact_name']    || '';
@@ -1127,8 +1271,68 @@ function buildSingleResult(r, isMRE, vehicleName, yearStr) {
     }
   }
 
-  html += buildActions(r, vehicleName);
-  return html;
+  html += buildActions(r, vehicleName, false);
+  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
+  wrap.innerHTML = html;
+}
+
+// ── NOT ELIGIBLE SCREEN ───────────────────────────────────────────────────────
+function renderNotEligible(vehicleName, yearStr, make, model, year, isChassis, wrap) {
+  let html = `
+    <div class="verdict-card ineligible">
+      <div class="verdict-header">
+        <div class="verdict-icon">✕</div>
+        <div class="verdict-title">Not currently eligible for import</div>
+      </div>
+      <div class="verdict-sub">${vehicleName}${yearStr} is not found on the SEVS or MRE register.</div>
+    </div>
+    <p class="vehicle-name">${vehicleName}</p>
+    <p class="vehicle-sub">No matching ROVER approvals found${yearStr}</p>
+  `;
+
+  if (isChassis) {
+    html += `
+      <div class="unlock-box" style="background:#f0f9ff;border-color:#bae6fd;">
+        <div class="unlock-box-title" style="color:#0c4a6e;">ℹ May be eligible under the 25-year rule</div>
+        <div class="unlock-box-body" style="color:#075985;">
+          Vehicles built 25+ years ago can often be imported under Australia's personal import scheme regardless of SEVS/MRE status.
+          <strong>Chassis codes can span multiple models and body variants</strong> — always verify the exact build date and variant with JDM Connect before purchasing.
+        </div>
+      </div>
+    `;
+  }
+
+  if (!isChassis && make && year) {
+    const y = parseInt(year);
+    const unlock = y + 25;
+    const now = new Date().getFullYear();
+    if (unlock > now) {
+      html += `
+        <div class="unlock-box">
+          <div class="unlock-box-title">25-year unlock pathway</div>
+          <div class="unlock-box-body">
+            A ${year} model becomes eligible under the 25-year rule from January ${unlock}.
+            ${unlock - now <= 3 ? `That's only ${unlock - now} year${unlock - now === 1 ? '' : 's'} away.` : ''}
+            Register below to be notified when this unlocks.
+          </div>
+        </div>
+      `;
+    } else {
+      html += `
+        <div class="unlock-box">
+          <div class="unlock-box-title">25-year rule may apply</div>
+          <div class="unlock-box-body">
+            A ${year} model is over 25 years old and may be importable under the personal import scheme.
+            Contact JDM Connect to verify compliance requirements.
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  html += buildActions(null, vehicleName, true);
+  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
+  wrap.innerHTML = html;
 }
 
 function buildActions(record, vehicleName, isIneligible) {
@@ -1145,17 +1349,6 @@ function buildActions(record, vehicleName, isIneligible) {
     </div>
     <a href="${contactUrl}" class="action-btn-primary" target="_blank">Enquire with JDM Connect →</a>
   `;
-}
-
-// Notify modal handled by GHL popup (triggered via .ghl-notify-trigger)
-
-function showSingleRecord(record, isMRE, vehicleName) {
-  const wrap = document.getElementById('results-wrap');
-  wrap.innerHTML = '';
-  let html = buildSingleResult(record, isMRE, vehicleName, '');
-  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
-  wrap.innerHTML = html;
-  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function resetSearch() {
