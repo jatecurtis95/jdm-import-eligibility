@@ -572,6 +572,15 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 // ── LOAD DATA ────────────────────────────────────────────────────────────────
 let MRE = [], SEV = [], allData = null;
 let activeTab = 'make';
+const ADMIN_MODE = new URLSearchParams(window.location.search).get('admin') === '1';
+
+
+function roverLink(num, isMRE) {
+  const base = isMRE
+    ? 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/mre-register'
+    : 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/sevs-register';
+  return '<a href="' + base + '" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:'DM Mono',monospace;font-weight:500;font-size:12px;">' + num + '</a>';
+}
 
 async function loadData() {
   try {
@@ -765,7 +774,20 @@ function showResults(make, model, year, mreMatches, sevMatches, isChassis) {
       <p class="vehicle-sub">No matching ROVER approvals found${yearStr}</p>
     `;
 
-    // 25-year hint — try to find any record for the make
+    // Chassis search: always show 25-year caveat
+    if (isChassis) {
+      html += `
+        <div class="unlock-box" style="background:#f0f9ff;border-color:#bae6fd;">
+          <div class="unlock-box-title" style="color:#0c4a6e;">ℹ May be eligible under the 25-year rule</div>
+          <div class="unlock-box-body" style="color:#075985;">
+            Vehicles built 25+ years ago can often be imported under Australia's personal import scheme regardless of SEVS/MRE status.
+            <strong>However, chassis codes can span multiple models and body variants</strong> — for example, a BMW VIN prefix may cover a wide range of eligible and ineligible variants.
+            Always verify the exact build date and variant with JDM Connect before purchasing.
+          </div>
+        </div>
+      `;
+    }
+    // Make/year search: 25-year hint
     if (!isChassis && make) {
       const anyMRE = MRE.find(r => r.Make.toUpperCase() === make.toUpperCase());
       if (year) {
@@ -878,25 +900,35 @@ function buildSingleResult(r, isMRE, vehicleName, yearStr) {
     }
   }
 
+  // 25-year check
+  const bRange25 = parseBuildRange(isMRE ? r['Build date range'] : ((r['Build date from'] || '') + ' - ' + (r['Build date to'] || '')));
+  const isOver25 = bRange25 && bRange25.from && (new Date().getFullYear() - bRange25.from.getFullYear()) >= 25;
+
+  const roverBase = isMRE
+    ? 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/mre-register'
+    : 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/sevs-register';
+  const approvalLink = `<a href="${roverBase}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:'DM Mono',monospace;font-weight:500;font-size:12px;">${approvalNum}</a>`;
+
   let html = `
     <div class="verdict-card eligible">
       <div class="verdict-header">
         <div class="verdict-icon">✓</div>
         <div class="verdict-title">Eligible for import</div>
       </div>
-      <div class="verdict-sub">Found on the ROVER ${isMRE ? 'MRE' : 'SEVS'} register — import via RAWS compliance workshop.</div>
+      <div class="verdict-sub">This vehicle is approved for Australian import. Contact JDM Connect to get started.</div>
     </div>
     <p class="vehicle-name">${r.Make} ${r.Model}</p>
-    <p class="vehicle-sub">Approval ${approvalNum} · ${buildRange}</p>
+    <p class="vehicle-sub">Approval ${approvalLink} · ${buildRange}</p>
+    ${isOver25 ? `
+    <div class="unlock-box" style="background:#f0faf4;border-color:#86efac;">
+      <div class="unlock-box-title" style="color:#14532d;">✓ Also eligible under the 25-year rule</div>
+      <div class="unlock-box-body" style="color:#166534;">Vehicles built more than 25 years ago may also be imported under Australia's personal import scheme, independent of SEVS/MRE approval status.</div>
+    </div>` : ''}
     <div class="detail-card">
       <div class="detail-card-title">Approval details</div>
       <div class="detail-row">
         <span class="detail-key">Approval number</span>
-        <span class="detail-val"><strong>${approvalNum}</strong></span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Pathway</span>
-        <span class="detail-val"><span class="badge badge-blue">${isMRE ? 'MRE' : 'SEVS'}</span></span>
+        <span class="detail-val">${approvalLink}</span>
       </div>
       <div class="detail-row">
         <span class="detail-key">Status</span>
@@ -912,29 +944,14 @@ function buildSingleResult(r, isMRE, vehicleName, yearStr) {
         <span class="detail-val"><span class="badge ${isExpiringSoon ? 'badge-amber' : 'badge-green'}">${expiry}</span></span>
       </div>` : ''}
       <div class="detail-row">
-        <span class="detail-key">${isMRE ? 'Report type' : 'Model code'}</span>
-        <span class="detail-val" style="font-size:12px;">${modelCode}</span>
+        <span class="detail-key">Model report number</span>
+        <span class="detail-val" style="font-size:12px;font-family:'DM Mono',monospace;">${modelCode}</span>
       </div>
-      ${isMRE && compliance ? `
+      ${isMRE && compliance && compliance !== '—' ? `
       <div class="detail-row">
         <span class="detail-key">Compliance level</span>
         <span class="detail-val" style="font-size:12px;">${compliance}</span>
       </div>` : ''}
-    </div>
-    <div class="detail-card">
-      <div class="detail-card-title">What this means</div>
-      <div class="detail-row">
-        <span class="detail-key">Import pathway</span>
-        <span class="detail-val">SEVS / RAWS workshop</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Source market</span>
-        <span class="detail-val">Japan</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Compliance cost (est.)</span>
-        <span class="detail-val">$8,000 – $15,000</span>
-      </div>
     </div>
     ${isExpiringSoon ? `
     <div class="unlock-box" style="background:#fff8ed; border-color:#f59e0b;">
@@ -942,6 +959,25 @@ function buildSingleResult(r, isMRE, vehicleName, yearStr) {
       <div class="unlock-box-body" style="color:#92400e;">This SEVS approval expires ${expiry}. The vehicle must clear Australian customs before expiry. Contact JDM Connect urgently if you're purchasing this vehicle.</div>
     </div>` : ''}
   `;
+
+  // Approval holder — admin only (add ?admin=1 to URL to reveal)
+  if (ADMIN_MODE) {
+    const holder = r['_approval_holder'] || '';
+    const cName  = r['_contact_name']    || '';
+    const cEmail = r['_contact_email']   || '';
+    const cPhone = r['_contact_phone']   || '';
+    if (holder || cName || cEmail || cPhone) {
+      html += `
+        <div class="detail-card" style="border-color:#fcd34d;">
+          <div class="detail-card-title" style="background:#fffbeb;color:#92400e;">⚙ Approval holder (admin only)</div>
+          ${holder ? `<div class="detail-row"><span class="detail-key">Company</span><span class="detail-val">${holder}</span></div>` : ''}
+          ${cName  ? `<div class="detail-row"><span class="detail-key">Contact</span><span class="detail-val">${cName}</span></div>` : ''}
+          ${cEmail ? `<div class="detail-row"><span class="detail-key">Email</span><span class="detail-val" style="font-size:12px;"><a href="mailto:${cEmail}" style="color:#715723;">${cEmail}</a></span></div>` : ''}
+          ${cPhone ? `<div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val"><a href="tel:${cPhone}" style="color:#715723;">${cPhone}</a></span></div>` : ''}
+        </div>
+      `;
+    }
+  }
 
   html += buildActions(r, vehicleName);
   return html;
