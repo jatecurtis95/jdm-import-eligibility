@@ -1129,6 +1129,9 @@ function showApprovalList(groupIdx) {
       <div class="approval-list-title">${g.make} ${g.model}</div>
       <div class="approval-list-sub">${gens.length} build era${gens.length !== 1 ? 's' : ''} · ${totalApprovals} approval${totalApprovals !== 1 ? 's' : ''} total</div>
     </div>
+    <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:10px 14px;font-size:12px;color:#0c4a6e;margin-bottom:12px;line-height:1.5;">
+      ℹ️ <strong>Either MRE or SEVS is enough</strong> to import — you don't need both. Each era below is fully eligible for import via the pathway shown.
+    </div>
     <div class="approval-rows">
   `;
 
@@ -1146,17 +1149,39 @@ function showApprovalList(groupIdx) {
     });
     const codesStr = Array.from(codeParts).join(' · ');
 
+    // Pathway label
+    const pathwayStr = gen.mre.length > 0 && gen.sev.length > 0
+      ? 'Via MRE + SEVS'
+      : gen.mre.length > 0 ? 'Via MRE' : 'Via SEVS';
+
     // Worst status across all approvals in this generation
-    let statusLabel = 'In Force', statusCls = 'badge-green';
+    // MRE approvals don't expire — they stay in force unless revoked
+    // SEVS approvals can have expiry dates
+    let hasExpiringSoon = false, hasExpired = false, hasRevoked = false;
     gen.sev.forEach(({r}) => {
       const { label } = getSevExpiryStatus(r);
-      if (label === 'Expiring Soon' && statusLabel === 'In Force') { statusLabel = 'Expiring Soon'; statusCls = 'badge-amber'; }
-      if (label === 'Expired') { statusLabel = 'Expired'; statusCls = 'badge-red'; }
+      if (label === 'Expiring Soon') hasExpiringSoon = true;
+      if (label === 'Expired') hasExpired = true;
     });
     gen.mre.forEach(({r}) => {
       const s = r['Approval status'] || 'In Force';
-      if (s !== 'In Force' && statusLabel === 'In Force') { statusLabel = s; statusCls = 'badge-amber'; }
+      if (s !== 'In Force') hasRevoked = true;
     });
+
+    // Determine if era is still importable (at least one active approval)
+    const activeMRE = gen.mre.filter(({r}) => (r['Approval status'] || 'In Force') === 'In Force').length;
+    const activeSEV = gen.sev.filter(({r}) => getSevExpiryStatus(r).label !== 'Expired').length;
+    const isImportable = activeMRE > 0 || activeSEV > 0;
+
+    let statusBadge, warningBanner = '';
+    if (!isImportable) {
+      statusBadge = `<span class="badge badge-red">NOT ELIGIBLE</span>`;
+    } else if (hasExpiringSoon) {
+      statusBadge = `<span class="badge badge-amber">⚠ EXPIRING SOON</span>`;
+      warningBanner = `<div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:6px;padding:6px 10px;font-size:11px;color:#78350f;margin-top:6px;">⚠ One or more SEVS approvals are expiring soon — vehicle must clear customs before expiry. Contact JDM Connect urgently.</div>`;
+    } else {
+      statusBadge = `<span class="badge badge-green">✓ ELIGIBLE</span>`;
+    }
 
     const totalInGen = gen.mre.length + gen.sev.length;
     const clickAction = totalInGen === 1
@@ -1164,14 +1189,15 @@ function showApprovalList(groupIdx) {
       : `showGenerationDetail(${groupIdx},${genIdx})`;
 
     html += `
-      <div class="approval-row" onclick="${clickAction}" style="flex-direction:column;align-items:stretch;gap:8px;cursor:pointer;">
+      <div class="approval-row" onclick="${clickAction}" style="flex-direction:column;align-items:stretch;gap:6px;cursor:pointer;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
           <div style="flex:1;min-width:0;">
             <div style="font-size:13px;font-weight:600;color:#111827;">${gen.displayRange}</div>
-            ${codesStr ? `<div class="approval-row-meta" style="margin-top:3px;">${codesStr}</div>` : ''}
+            ${codesStr ? `<div class="approval-row-meta" style="margin-top:2px;">${codesStr}</div>` : ''}
+            <div style="font-size:11px;color:#6b7280;margin-top:2px;">${pathwayStr}</div>
           </div>
           <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-            <span class="badge ${statusCls}">${statusLabel}</span>
+            ${statusBadge}
             <span class="approval-row-chevron">›</span>
           </div>
         </div>
@@ -1179,6 +1205,7 @@ function showApprovalList(groupIdx) {
           ${gen.mre.length > 0 ? `<span class="count-pill pill-mre">${gen.mre.length} MRE</span>` : ''}
           ${gen.sev.length > 0 ? `<span class="count-pill pill-sevs">${gen.sev.length} SEVS</span>` : ''}
         </div>
+        ${warningBanner}
       </div>
     `;
   });
