@@ -686,7 +686,8 @@ let activeTab = 'make';
 const ADMIN_MODE = new URLSearchParams(window.location.search).get('admin') === '1';
 
 // Navigation state for 3-screen flow
-let currentGroups = [];    // Array of { make, model, mre[], sev[] } — populated on search
+let currentGroups = [];       // Array of { make, model, mre[], sev[] } — populated on search
+let currentGenerations = {}; // keyed by groupIdx — generation groups for Screen 2
 let lastSearchArgs = null; // Cache so Screen 1 can be re-rendered from Screen 2 back button
 
 function roverLink(num, isMRE) {
@@ -1082,63 +1083,173 @@ function showApprovalList(groupIdx) {
   const g = currentGroups[groupIdx];
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+  // ── Build generation groups by normalised build date range ──────────────────
+  function genKey(fromDate, toDate) {
+    if (!fromDate) return 'unk_' + Math.random().toString(36).slice(2);
+    const f = fromDate.getFullYear() + '-' + String(fromDate.getMonth()).padStart(2,'0');
+    const t = toDate ? toDate.getFullYear() + '-' + String(toDate.getMonth()).padStart(2,'0') : 'open';
+    return f + '_' + t;
+  }
+
+  const genMap = new Map();
+
+  g.mre.forEach((r, i) => {
+    const parsed = parseBuildRange(r['Build date range']);
+    const key = genKey(parsed && parsed.from, parsed && parsed.to);
+    const displayRange = formatBuildRange(r['Build date range']);
+    if (!genMap.has(key)) genMap.set(key, { fromDate: parsed && parsed.from, toDate: parsed && parsed.to, displayRange, mre: [], sev: [] });
+    genMap.get(key).mre.push({ r, i });
+  });
+
+  g.sev.forEach((r, i) => {
+    const fromStr = r['Build date from'] || '';
+    const toStr = (r['Build date to'] && r['Build date to'] !== 'No end date') ? r['Build date to'] : null;
+    const parsed = parseBuildRange(fromStr + (toStr ? ' - ' + toStr : ''));
+    const key = genKey(parsed && parsed.from, toStr ? (parsed && parsed.to) : null);
+    const displayRange = fromStr ? (fromStr + (toStr ? ' – ' + toStr : '+')) : 'Unknown';
+    if (!genMap.has(key)) genMap.set(key, { fromDate: parsed && parsed.from, toDate: toStr ? (parsed && parsed.to) : null, displayRange, mre: [], sev: [] });
+    genMap.get(key).sev.push({ r, i });
+  });
+
+  // Sort oldest first
+  const gens = Array.from(genMap.values()).sort((a, b) => {
+    if (!a.fromDate) return 1;
+    if (!b.fromDate) return -1;
+    return a.fromDate - b.fromDate;
+  });
+
+  currentGenerations[groupIdx] = gens;
+
+  // ── Render ──────────────────────────────────────────────────────────────────
+  const totalApprovals = g.mre.length + g.sev.length;
   let html = `
     <button class="back-btn" onclick="renderScreen1(document.getElementById('results-wrap'))">← Back to results</button>
     <div class="approval-list-header">
       <div><span class="eligible-badge">✓ Eligible</span></div>
       <div class="approval-list-title">${g.make} ${g.model}</div>
-      <div class="approval-list-sub">${g.mre.length + g.sev.length} approval${g.mre.length + g.sev.length !== 1 ? 's' : ''} found</div>
+      <div class="approval-list-sub">${gens.length} build era${gens.length !== 1 ? 's' : ''} · ${totalApprovals} approval${totalApprovals !== 1 ? 's' : ''} total</div>
     </div>
+    <div class="approval-rows">
   `;
 
-  html += `<div class="approval-rows">`;
-  g.mre.forEach((r, i) => {
-    const range = formatBuildRange(r['Build date range']);
+  gens.forEach((gen, genIdx) => {
+    // Collect unique model codes (skip generic MRE label)
+    const codeParts = new Set();
+    gen.mre.forEach(({r}) => {
+      const c = r['Model report type'] || r['Model code'] || '';
+      if (c && c.toLowerCase().indexOf('specialist') === -1)
+        c.split(/[,\/]/).forEach(x => { const t = x.trim(); if (t) codeParts.add(t); });
+    });
+    gen.sev.forEach(({r}) => {
+      const c = r['Model code'] || '';
+      c.split(/[,\/]/).forEach(x => { const t = x.trim(); if (t) codeParts.add(t); });
+    });
+    const codesStr = Array.from(codeParts).join(' · ');
+
+    // Worst status across all approvals in this generation
+    let statusLabel = 'In Force', statusCls = 'badge-green';
+    gen.sev.forEach(({r}) => {
+      const { label } = getSevExpiryStatus(r);
+      if (label === 'Expiring Soon' && statusLabel === 'In Force') { statusLabel = 'Expiring Soon'; statusCls = 'badge-amber'; }
+      if (label === 'Expired') { statusLabel = 'Expired'; statusCls = 'badge-red'; }
+    });
+    gen.mre.forEach(({r}) => {
+      const s = r['Approval status'] || 'In Force';
+      if (s !== 'In Force' && statusLabel === 'In Force') { statusLabel = s; statusCls = 'badge-amber'; }
+    });
+
+    const totalInGen = gen.mre.length + gen.sev.length;
+    const clickAction = totalInGen === 1
+      ? (gen.mre.length ? `showScreen3FromList(${groupIdx},'mre',${gen.mre[0].i})` : `showScreen3FromList(${groupIdx},'sev',${gen.sev[0].i})`)
+      : `showGenerationDetail(${groupIdx},${genIdx})`;
+
+    html += `
+      <div class="approval-row" onclick="${clickAction}" style="flex-direction:column;align-items:stretch;gap:8px;cursor:pointer;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:600;color:#111827;">${gen.displayRange}</div>
+            ${codesStr ? `<div class="approval-row-meta" style="margin-top:3px;">${codesStr}</div>` : ''}
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+            <span class="badge ${statusCls}">${statusLabel}</span>
+            <span class="approval-row-chevron">›</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          ${gen.mre.length > 0 ? `<span class="count-pill pill-mre">${gen.mre.length} MRE</span>` : ''}
+          ${gen.sev.length > 0 ? `<span class="count-pill pill-sevs">${gen.sev.length} SEVS</span>` : ''}
+        </div>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
+  wrap.innerHTML = html;
+}
+
+// ── SCREEN 2.5: GENERATION DETAIL (all approvals for one build era) ───────────
+function showGenerationDetail(groupIdx, genIdx) {
+  const wrap = document.getElementById('results-wrap');
+  const g = currentGroups[groupIdx];
+  const gen = currentGenerations[groupIdx][genIdx];
+  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const mreUrl = 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/mre-register';
+  const sevUrl = 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/sevs-register';
+
+  let html = `
+    <button class="back-btn" onclick="showApprovalList(${groupIdx})">← Back to ${g.make} ${g.model}</button>
+    <div class="approval-list-header">
+      <div><span class="eligible-badge">✓ Eligible</span></div>
+      <div class="approval-list-title">${g.make} ${g.model}</div>
+      <div class="approval-list-sub">Build era: ${gen.displayRange}</div>
+    </div>
+    <div class="approval-rows">
+  `;
+
+  gen.mre.forEach(({r, i}) => {
     const status = r['Approval status'] || 'In Force';
     const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
     const modelCode = r['Model report type'] || r['Model code'] || '';
-    const roverUrl = 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/mre-register';
     html += `
       <div class="approval-row">
         <div class="approval-row-left" style="flex:1;min-width:0;">
-          <div class="approval-row-num">
-            <a href="${roverUrl}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['Approval number']}</a>
-            <span class="badge badge-blue" style="margin-left:6px;">MRE</span>
+          <div class="approval-row-num" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <a href="${mreUrl}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['Approval number']}</a>
+            <span class="badge badge-blue">MRE</span>
           </div>
-          <div class="approval-row-meta">${modelCode ? modelCode + ' · ' : ''}Build: ${range}</div>
+          ${modelCode && modelCode.toLowerCase().indexOf('specialist') === -1 ? `<div class="approval-row-meta">${modelCode}</div>` : ''}
         </div>
         <div class="approval-row-right">
           <span class="badge ${badgeCls}">${status}</span>
-          <span class="approval-row-chevron" onclick="showScreen3FromList(${groupIdx}, 'mre', ${i})" style="cursor:pointer;">›</span>
+          <span class="approval-row-chevron" onclick="event.stopPropagation();showScreen3FromList(${groupIdx},'mre',${i})" style="cursor:pointer;">›</span>
         </div>
       </div>
     `;
   });
-  g.sev.forEach((r, i) => {
-    const from = r['Build date from'] || '';
-    const to = r['Build date to'] || '';
-    const range = from ? (from + (to && to !== 'No end date' ? ' – ' + to : '+')) : 'Unknown';
+
+  gen.sev.forEach(({r, i}) => {
     const { label, cls } = getSevExpiryStatus(r);
     const modelCode = r['Model code'] || '';
-    const roverUrl = 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/sevs-register';
     html += `
       <div class="approval-row">
         <div class="approval-row-left" style="flex:1;min-width:0;">
-          <div class="approval-row-num">
-            <a href="${roverUrl}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['SEV #']}</a>
-            <span class="badge badge-purple" style="margin-left:6px;">SEVS</span>
+          <div class="approval-row-num" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <a href="${sevUrl}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['SEV #']}</a>
+            <span class="badge badge-purple">SEVS</span>
           </div>
-          <div class="approval-row-meta">${modelCode ? modelCode + ' · ' : ''}Build: ${range}</div>
+          ${modelCode ? `<div class="approval-row-meta">${modelCode}</div>` : ''}
         </div>
         <div class="approval-row-right">
           <span class="badge ${cls}">${label}</span>
-          <span class="approval-row-chevron" onclick="showScreen3FromList(${groupIdx}, 'sev', ${i})" style="cursor:pointer;">›</span>
+          <span class="approval-row-chevron" onclick="event.stopPropagation();showScreen3FromList(${groupIdx},'sev',${i})" style="cursor:pointer;">›</span>
         </div>
       </div>
     `;
   });
-  html += `</div>`;
 
+  html += `</div>`;
   html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
   wrap.innerHTML = html;
 }
@@ -1174,7 +1285,7 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
 
   const totalApprovals = (mreList ? mreList.length : 0) + (sevList ? sevList.length : 0);
   const backBtn = (groupIdx !== null && groupIdx !== undefined && totalApprovals > 1)
-    ? `<button class="back-btn" onclick="showApprovalList(${groupIdx})">← Back to approvals</button>`
+    ? `<button class="back-btn" onclick="showApprovalList(${groupIdx})">← Back to build eras</button>`
     : '';
 
   const statusBadgeCls = status === 'In Force' ? 'badge-green' : status === 'Expiring Soon' ? 'badge-amber' : 'badge-red';
