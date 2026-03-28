@@ -459,6 +459,11 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   .action-grid { grid-template-columns: 1fr; }
 }
 </style>
+  <!-- GHL popup override: prevent auto-show, controlled by JS click -->
+  <style>
+    #popup-2lhyBZVSUo69QRuXjwIA-overlay { display: none !important; }
+    #popup-2lhyBZVSUo69QRuXjwIA-overlay.ghl-active { display: flex !important; }
+  </style>
 </head>
 <body>
 
@@ -1027,6 +1032,17 @@ function shareResult(vehicleName) {
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
 loadData();
+</script>
+
+
+<script>
+  // Show GHL popup only on notify button click, hide on overlay/close click
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.ghl-notify-trigger')) {
+      var overlay = document.getElementById('popup-2lhyBZVSUo69QRuXjwIA-overlay');
+      if (overlay) overlay.classList.add('ghl-active');
+    }
+  });
 </script>
 
 <!-- GHL NOTIFY POPUP -->
