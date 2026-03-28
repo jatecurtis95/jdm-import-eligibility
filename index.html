@@ -1091,52 +1091,53 @@ function showApprovalList(groupIdx) {
     </div>
   `;
 
-  if (g.mre.length > 0) {
-    html += `<div class="approval-section-label">MRE Approvals</div><div class="approval-rows">`;
-    g.mre.forEach((r, i) => {
-      const range = formatBuildRange(r['Build date range']);
-      const status = r['Approval status'] || 'In Force';
-      const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
-      const modelCode = r['Model report type'] || r['Model code'] || '';
-      html += `
-        <div class="approval-row" onclick="showScreen3FromList(${groupIdx}, 'mre', ${i})">
-          <div class="approval-row-left">
-            <div class="approval-row-num">${r['Approval number']}</div>
-            <div class="approval-row-meta">${modelCode ? modelCode + ' · ' : ''}Build: ${range}</div>
+  html += `<div class="approval-rows">`;
+  g.mre.forEach((r, i) => {
+    const range = formatBuildRange(r['Build date range']);
+    const status = r['Approval status'] || 'In Force';
+    const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
+    const modelCode = r['Model report type'] || r['Model code'] || '';
+    const roverUrl = 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/mre-register';
+    html += `
+      <div class="approval-row">
+        <div class="approval-row-left" style="flex:1;min-width:0;">
+          <div class="approval-row-num">
+            <a href="${roverUrl}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['Approval number']}</a>
+            <span class="badge badge-blue" style="margin-left:6px;">MRE</span>
           </div>
-          <div class="approval-row-right">
-            <span class="badge ${badgeCls}">${status}</span>
-            <span class="approval-row-chevron">›</span>
-          </div>
+          <div class="approval-row-meta">${modelCode ? modelCode + ' · ' : ''}Build: ${range}</div>
         </div>
-      `;
-    });
-    html += `</div>`;
-  }
-
-  if (g.sev.length > 0) {
-    html += `<div class="approval-section-label">SEVS Approvals</div><div class="approval-rows">`;
-    g.sev.forEach((r, i) => {
-      const from = r['Build date from'] || '';
-      const to = r['Build date to'] || '';
-      const range = from ? (from + (to && to !== 'No end date' ? ' – ' + to : '+')) : 'Unknown';
-      const { label, cls } = getSevExpiryStatus(r);
-      const modelCode = r['Model code'] || '';
-      html += `
-        <div class="approval-row" onclick="showScreen3FromList(${groupIdx}, 'sev', ${i})">
-          <div class="approval-row-left">
-            <div class="approval-row-num">${r['SEV #']}</div>
-            <div class="approval-row-meta">${modelCode ? modelCode + ' · ' : ''}Build: ${range}</div>
-          </div>
-          <div class="approval-row-right">
-            <span class="badge ${cls}">${label}</span>
-            <span class="approval-row-chevron">›</span>
-          </div>
+        <div class="approval-row-right">
+          <span class="badge ${badgeCls}">${status}</span>
+          <span class="approval-row-chevron" onclick="showScreen3FromList(${groupIdx}, 'mre', ${i})" style="cursor:pointer;">›</span>
         </div>
-      `;
-    });
-    html += `</div>`;
-  }
+      </div>
+    `;
+  });
+  g.sev.forEach((r, i) => {
+    const from = r['Build date from'] || '';
+    const to = r['Build date to'] || '';
+    const range = from ? (from + (to && to !== 'No end date' ? ' – ' + to : '+')) : 'Unknown';
+    const { label, cls } = getSevExpiryStatus(r);
+    const modelCode = r['Model code'] || '';
+    const roverUrl = 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/sevs-register';
+    html += `
+      <div class="approval-row">
+        <div class="approval-row-left" style="flex:1;min-width:0;">
+          <div class="approval-row-num">
+            <a href="${roverUrl}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['SEV #']}</a>
+            <span class="badge badge-purple" style="margin-left:6px;">SEVS</span>
+          </div>
+          <div class="approval-row-meta">${modelCode ? modelCode + ' · ' : ''}Build: ${range}</div>
+        </div>
+        <div class="approval-row-right">
+          <span class="badge ${cls}">${label}</span>
+          <span class="approval-row-chevron" onclick="showScreen3FromList(${groupIdx}, 'sev', ${i})" style="cursor:pointer;">›</span>
+        </div>
+      </div>
+    `;
+  });
+  html += `</div>`;
 
   html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
   wrap.innerHTML = html;
@@ -1227,24 +1228,6 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
         <span class="detail-key">Compliance level</span>
         <span class="detail-val" style="font-size:12px;">${compliance}</span>
       </div>` : ''}
-    </div>
-    <div class="detail-card">
-      <div class="detail-card-title">What this means</div>
-      <div class="detail-row" style="flex-direction:column;align-items:flex-start;gap:4px;">
-        <span class="detail-key">Import pathway</span>
-        <span style="font-size:13px;color:#374151;line-height:1.5;">${isMRE
-          ? 'This vehicle has an approved Model Report, allowing import via a RAWS (Registered Automotive Workshop) in Australia.'
-          : 'This vehicle is listed on the SEVS register, allowing import via a RAWS-certified compliance workshop.'
-        }</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Source market</span>
-        <span class="detail-val">Japan (JDM)</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Est. compliance cost</span>
-        <span class="detail-val">$8,000 – $15,000 AUD</span>
-      </div>
     </div>
     ${isExpiringSoon ? `
     <div class="unlock-box" style="background:#fff8ed;border-color:#f59e0b;">
