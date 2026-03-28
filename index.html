@@ -984,7 +984,7 @@ function buildActions(record, vehicleName, isIneligible) {
   const calcUrl = 'https://calculator.jdmconnect.com.au';
   const contactUrl = 'https://jdmconnect.com.au/contact';
   const notifyBtn = isIneligible
-    ? `<button class="notify-btn" onclick="openNotifyModal('${vehicleName.replace(/'/g,"\\'")}')">🔔 Notify me when this becomes eligible</button>`
+    ? `<button class="notify-btn ghl-notify-trigger">🔔 Notify me when this becomes eligible</button>`
     : '';
   return `
     ${notifyBtn}
@@ -996,58 +996,7 @@ function buildActions(record, vehicleName, isIneligible) {
   `;
 }
 
-// ── NOTIFY MODAL ──────────────────────────────────────────────────────────────
-function openNotifyModal(vehicleName) {
-  document.getElementById('notify-vehicle-label').textContent = vehicleName;
-  document.getElementById('notify-confirm-vehicle').textContent = vehicleName;
-  document.getElementById('modal-form-state').style.display = '';
-  document.getElementById('modal-success-state').style.display = 'none';
-  document.getElementById('notify-name').value = '';
-  document.getElementById('notify-email').value = '';
-  document.getElementById('notify-phone').value = '';
-  document.getElementById('notify-backdrop').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeNotifyModal(e) {
-  if (e.target === document.getElementById('notify-backdrop')) closeNotifyModalDirect();
-}
-
-function closeNotifyModalDirect() {
-  document.getElementById('notify-backdrop').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function submitNotify() {
-  const name = document.getElementById('notify-name').value.trim();
-  const email = document.getElementById('notify-email').value.trim();
-  const phone = document.getElementById('notify-phone').value.trim();
-  const vehicle = document.getElementById('notify-vehicle-label').textContent;
-
-  if (!name) { document.getElementById('notify-name').focus(); return; }
-  if (!email || !email.includes('@')) { document.getElementById('notify-email').focus(); return; }
-
-  // TODO: Wire to backend — POST to your API endpoint or EmailJS/Formspree
-  // Example payload ready to send:
-  const payload = {
-    name,
-    email,
-    phone,
-    vehicle,
-    source: 'eligibility-checker',
-    timestamp: new Date().toISOString(),
-    notify_from: 'info@jdmconnect.com.au'
-  };
-  // Send via mailto as fallback (replace with Formspree endpoint when ready)
-  const subject = encodeURIComponent('Eligibility Alert Request: ' + vehicle);
-  const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + (phone || 'N/A') + '\nVehicle: ' + vehicle + '\nTimestamp: ' + new Date().toISOString());
-  window.open('mailto:info@jdmconnect.com.au?subject=' + subject + '&body=' + body);
-
-  // Show success state
-  document.getElementById('notify-confirm-email').textContent = email;
-  document.getElementById('modal-form-state').style.display = 'none';
-  document.getElementById('modal-success-state').style.display = '';
-}
+// Notify modal handled by GHL popup (triggered via .ghl-notify-trigger)
 
 function showSingleRecord(record, isMRE, vehicleName) {
   const wrap = document.getElementById('results-wrap');
@@ -1080,48 +1029,26 @@ function shareResult(vehicleName) {
 loadData();
 </script>
 
-<!-- NOTIFY MODAL -->
-<div class="modal-backdrop" id="notify-backdrop" onclick="closeNotifyModal(event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-inner">
-      <button class="modal-close" onclick="closeNotifyModalDirect()">✕</button>
-
-      <div id="modal-form-state">
-        <div class="modal-icon">🔔</div>
-        <div class="modal-title">Notify me when this unlocks</div>
-        <div class="modal-subtitle">We'll email you as soon as this vehicle becomes eligible for import under the 25-year rule or a new SEVS approval is added.</div>
-        <div class="modal-vehicle-pill">
-          <span class="pill-dot"></span>
-          <span id="notify-vehicle-label">Vehicle</span>
-        </div>
-        <div class="modal-field">
-          <label>Your name</label>
-          <input class="modal-input" id="notify-name" type="text" placeholder="e.g. James Smith" autocomplete="name">
-        </div>
-        <div class="modal-field">
-          <label>Email address</label>
-          <input class="modal-input" id="notify-email" type="email" placeholder="you@example.com" autocomplete="email">
-        </div>
-        <div class="modal-field">
-          <label>Phone (optional)</label>
-          <input class="modal-input" id="notify-phone" type="tel" placeholder="04xx xxx xxx" autocomplete="tel">
-        </div>
-        <button class="modal-submit" onclick="submitNotify()">Notify me when eligible →</button>
-        <p class="modal-disclaimer">Your details are sent to <strong>info@jdmconnect.com.au</strong> and used only to contact you about this vehicle's eligibility. No spam, ever.</p>
-      </div>
-
-      <div id="modal-success-state" class="modal-success" style="display:none;">
-        <div class="modal-success-icon">✅</div>
-        <div class="modal-success-title">You're on the list!</div>
-        <div class="modal-success-sub">
-          We'll notify you at <strong id="notify-confirm-email"></strong> the moment <span id="notify-confirm-vehicle"></span> becomes eligible for Australian import.<br><br>
-          In the meantime, <a href="https://jdmconnect.com.au/contact" style="color:#8B6914; font-weight:600;">contact JDM Connect</a> to discuss sourcing options.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- GHL NOTIFY POPUP -->
+<iframe
+    src="https://api.leadconnectorhq.com/widget/form/2lhyBZVSUo69QRuXjwIA"
+    style="display:none;width:100%;height:100%;border:none;border-radius:3px"
+    id="popup-2lhyBZVSUo69QRuXjwIA"
+    data-layout='{"id":"POPUP"}'
+    data-trigger-type="clickButton"
+    data-trigger-value=".ghl-notify-trigger"
+    data-activation-type="alwaysActivated"
+    data-activation-value=""
+    data-deactivation-type="neverDeactivate"
+    data-deactivation-value=""
+    data-form-name="Eligibility Enquiry Form Embedded"
+    data-height="1019"
+    data-layout-iframe-id="popup-2lhyBZVSUo69QRuXjwIA"
+    data-form-id="2lhyBZVSUo69QRuXjwIA"
+    title="Eligibility Enquiry Form Embedded"
+>
+</iframe>
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
 
 </body>
 </html>
