@@ -576,7 +576,7 @@ function roverLink(num, isMRE) {
   const base = isMRE
     ? 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/mre-register'
     : 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/sevs-register';
-  return '<a href="' + base + '" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:'DM Mono',monospace;font-weight:500;font-size:12px;">' + num + '</a>';
+  return '<a href="' + base + '" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:500;font-size:12px;">' + num + '</a>';
 }
 
 async function loadData() {
@@ -904,7 +904,7 @@ function buildSingleResult(r, isMRE, vehicleName, yearStr) {
   const roverBase = isMRE
     ? 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/mre-register'
     : 'https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-our-roads/roads/rover/sevs-register';
-  const approvalLink = `<a href="${roverBase}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:'DM Mono',monospace;font-weight:500;font-size:12px;">${approvalNum}</a>`;
+  const approvalLink = `<a href="${roverBase}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:500;font-size:12px;">${approvalNum}</a>`;
 
   let html = `
     <div class="verdict-card eligible">
@@ -942,7 +942,7 @@ function buildSingleResult(r, isMRE, vehicleName, yearStr) {
       </div>` : ''}
       <div class="detail-row">
         <span class="detail-key">Model report number</span>
-        <span class="detail-val" style="font-size:12px;font-family:'DM Mono',monospace;">${modelCode}</span>
+        <span class="detail-val" style="font-size:12px;font-family:DM Mono,monospace;">${modelCode}</span>
       </div>
       ${isMRE && compliance && compliance !== '—' ? `
       <div class="detail-row">
