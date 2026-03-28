@@ -1212,18 +1212,21 @@ function showGenerationDetail(groupIdx, genIdx) {
     const status = r['Approval status'] || 'In Force';
     const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
     const modelCode = r['Model report type'] || r['Model code'] || '';
+    const isGeneric = modelCode.toLowerCase().indexOf('specialist') !== -1;
+    const buildRange = formatBuildRange(r['Build date range']);
+    const subLine = !isGeneric && modelCode ? modelCode : ('Build: ' + buildRange);
     html += `
-      <div class="approval-row">
+      <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'mre',${i})" style="cursor:pointer;">
         <div class="approval-row-left" style="flex:1;min-width:0;">
           <div class="approval-row-num" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
             <a href="${mreUrl}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['Approval number']}</a>
             <span class="badge badge-blue">MRE</span>
           </div>
-          ${modelCode && modelCode.toLowerCase().indexOf('specialist') === -1 ? `<div class="approval-row-meta">${modelCode}</div>` : ''}
+          <div class="approval-row-meta">${subLine}</div>
         </div>
         <div class="approval-row-right">
           <span class="badge ${badgeCls}">${status}</span>
-          <span class="approval-row-chevron" onclick="event.stopPropagation();showScreen3FromList(${groupIdx},'mre',${i})" style="cursor:pointer;">›</span>
+          <span class="approval-row-chevron">›</span>
         </div>
       </div>
     `;
@@ -1232,18 +1235,22 @@ function showGenerationDetail(groupIdx, genIdx) {
   gen.sev.forEach(({r, i}) => {
     const { label, cls } = getSevExpiryStatus(r);
     const modelCode = r['Model code'] || '';
+    const fromStr = r['Build date from'] || '';
+    const toStr = r['Build date to'] || '';
+    const buildRange = fromStr ? (fromStr + (toStr && toStr !== 'No end date' ? ' – ' + toStr : '+')) : '';
+    const subLine = modelCode ? modelCode : ('Build: ' + buildRange);
     html += `
-      <div class="approval-row">
+      <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'sev',${i})" style="cursor:pointer;">
         <div class="approval-row-left" style="flex:1;min-width:0;">
           <div class="approval-row-num" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
             <a href="${sevUrl}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['SEV #']}</a>
             <span class="badge badge-purple">SEVS</span>
           </div>
-          ${modelCode ? `<div class="approval-row-meta">${modelCode}</div>` : ''}
+          <div class="approval-row-meta">${subLine}</div>
         </div>
         <div class="approval-row-right">
           <span class="badge ${cls}">${label}</span>
-          <span class="approval-row-chevron" onclick="event.stopPropagation();showScreen3FromList(${groupIdx},'sev',${i})" style="cursor:pointer;">›</span>
+          <span class="approval-row-chevron">›</span>
         </div>
       </div>
     `;
