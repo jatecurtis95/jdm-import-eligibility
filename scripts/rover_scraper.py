@@ -458,7 +458,7 @@ def send_weekly_email(html, mre_changes, sev_changes):
             'from': {'emailAddress': {'address': from_email}},
             'toRecipients': [{'emailAddress': {'address': a.strip()}} for a in to_emails],
         },
-        'saveToSentItems': 'true',
+        'saveToSentItems': True,
     }
 
     send_resp = _requests.post(send_url, json=message, headers={
