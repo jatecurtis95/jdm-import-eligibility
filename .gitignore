@@ -9,3 +9,10 @@ Thumbs.db
 
 # Node
 node_modules/
+
+# Scraper snapshot data (monthly JSON files)
+scripts/data/
+email-preview.html
+
+# Email config with secrets
+scripts/email_config.json

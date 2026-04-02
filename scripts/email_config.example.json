@@ -1,0 +1,10 @@
+{
+  "o365_tenant_id": "YOUR_AZURE_AD_TENANT_ID",
+  "o365_client_id": "YOUR_APP_REGISTRATION_CLIENT_ID",
+  "o365_client_secret": "YOUR_CLIENT_SECRET_VALUE",
+
+  "from_email": "alerts@jdmconnect.com.au",
+  "to_emails": [
+    "info@jdmconnect.com.au"
+  ]
+}

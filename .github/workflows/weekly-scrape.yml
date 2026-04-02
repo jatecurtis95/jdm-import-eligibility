@@ -1,0 +1,58 @@
+name: Weekly ROVER Scrape
+
+on:
+  schedule:
+    # Every Monday at 6:00 AM AEST (Sunday 8:00 PM UTC)
+    - cron: '0 20 * * 0'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install playwright requests
+          playwright install chromium
+          playwright install-deps chromium
+
+      - name: Run ROVER scraper
+        env:
+          REPO_ROOT: ${{ github.workspace }}
+          ROVER_DATA_DIR: ${{ github.workspace }}/scripts/data
+          O365_TENANT_ID: ${{ secrets.O365_TENANT_ID }}
+          O365_CLIENT_ID: ${{ secrets.O365_CLIENT_ID }}
+          O365_CLIENT_SECRET: ${{ secrets.O365_CLIENT_SECRET }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: |
+          cd scripts
+          python rover_scraper.py snapshot --send-email
+
+      - name: Check for data changes
+        id: changes
+        run: |
+          git diff --quiet data.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push updated data
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Actions [ROVER Scraper]"
+          git add data.json
+          git commit -m "Auto-update: ROVER data refreshed $(date -u +'%Y-%m-%d')"
+          git push
