@@ -153,15 +153,7 @@
                         <td style="background-color:#1e2323; padding:10px 16px; font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid #242a2a;" width="20%">Type</td>
                         <td style="background-color:#1e2323; padding:10px 16px; font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid #242a2a;" width="30%" class="detail-col">Details</td>
                       </tr>
-                      {{#EACH_ADDED}}
-                      <tr>
-                        <td style="padding:12px 16px; border-bottom:1px solid #242a2a; font-size:14px; font-weight:600; color:#e8eaea;">{{VEHICLE_NAME}}</td>
-                        <td style="padding:12px 16px; border-bottom:1px solid #242a2a;">
-                          <span style="display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; background-color:{{BADGE_BG}}; color:{{BADGE_COLOR}}; border:1px solid {{BADGE_BORDER}};" class="{{BADGE_CLASS}}">{{REGISTER_TYPE}}</span>
-                        </td>
-                        <td style="padding:12px 16px; border-bottom:1px solid #242a2a; font-size:13px; color:#9ca3af;" class="detail-col">{{DETAIL_TEXT}}</td>
-                      </tr>
-                      {{/EACH_ADDED}}
+                      {{#EACH_ADDED}}                      <!-- Rows injected by rover_scraper.py -->                      {{/EACH_ADDED}}
                     </table>
                   </td>
                 </tr>
@@ -184,15 +176,7 @@
                         <td style="background-color:#1e2323; padding:10px 16px; font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid #242a2a;" width="20%">Type</td>
                         <td style="background-color:#1e2323; padding:10px 16px; font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid #242a2a;" width="30%" class="detail-col">Reason</td>
                       </tr>
-                      {{#EACH_REMOVED}}
-                      <tr>
-                        <td style="padding:12px 16px; border-bottom:1px solid #242a2a; font-size:14px; font-weight:600; color:#6b7280;">{{VEHICLE_NAME}}</td>
-                        <td style="padding:12px 16px; border-bottom:1px solid #242a2a;">
-                          <span style="display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; background-color:#1a1d1d; color:#9ca3af; border:1px solid #2d3333;" class="badge-gray">{{REGISTER_TYPE}}</span>
-                        </td>
-                        <td style="padding:12px 16px; border-bottom:1px solid #242a2a; font-size:13px; color:#6b7280;" class="detail-col">{{DETAIL_TEXT}}</td>
-                      </tr>
-                      {{/EACH_REMOVED}}
+                      {{#EACH_REMOVED}}                      <!-- Rows injected by rover_scraper.py -->                      {{/EACH_REMOVED}}
                     </table>
                   </td>
                 </tr>
@@ -210,25 +194,7 @@
                 <tr>
                   <td style="padding: 4px 36px 0;" class="mobile-pad">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-radius:8px; border:1px solid #5c4a12;">
-                      {{#EACH_EXPIRING}}
-                      <tr>
-                        <td style="padding:14px 16px; border-bottom:1px solid #242a2a; background-color:#1a1608;" class="expiring-row">
-                          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                            <tr>
-                              <td>
-                                <span style="font-size:14px; font-weight:600; color:#e8eaea;">{{VEHICLE_NAME}}</span><br>
-                                <span style="font-size:12px; color:#6b7280;">{{APPROVAL_REF}}</span>
-                              </td>
-                              <td align="right" valign="middle">
-                                <span style="display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700; background-color:{{URGENCY_BG}}; color:{{URGENCY_COLOR}}; border:1px solid {{URGENCY_BORDER}};">
-                                  {{DAYS_LEFT}} days
-                                </span>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                      {{/EACH_EXPIRING}}
+                      {{#EACH_EXPIRING}}                      <!-- Rows injected by rover_scraper.py -->                      {{/EACH_EXPIRING}}
                     </table>
                   </td>
                 </tr>
@@ -258,27 +224,7 @@
                 <tr>
                   <td style="padding: 4px 36px 0;" class="mobile-pad">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-radius:8px; border:1px solid #242a2a;">
-                      {{#EACH_HEADLINE}}
-                      <tr>
-                        <td style="padding:12px 16px; border-bottom:1px solid #242a2a;">
-                          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                            <tr>
-                              <td>
-                                <a href="{{HEADLINE_URL}}" target="_blank" style="font-size:13px; font-weight:600; color:#e8eaea; text-decoration:none; line-height:1.4;">
-                                  {{HEADLINE_TITLE}}
-                                </a>
-                                <p style="margin:4px 0 0; font-size:12px; color:#6b7280; line-height:1.4;">
-                                  {{HEADLINE_SUMMARY}}
-                                </p>
-                              </td>
-                              <td width="70" align="right" valign="top">
-                                <span style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:600; background-color:{{HEADLINE_BADGE_BG}}; color:{{HEADLINE_BADGE_COLOR}}; border:1px solid {{HEADLINE_BADGE_BORDER}};">{{HEADLINE_SOURCE}}</span>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                      {{/EACH_HEADLINE}}
+                      {{#EACH_HEADLINE}}                      <!-- Rows injected by rover_scraper.py -->                      {{/EACH_HEADLINE}}
                       <!-- Always include DITRDCA link as last item -->
                       <tr>
                         <td style="padding:12px 16px;">
