@@ -470,7 +470,7 @@ def send_weekly_email(html, mre_changes, sev_changes):
         print(f"Email sent via Office 365 to {', '.join(to_emails)}")
         return True
     else:
-        print(f"Office 365 send failed: {send_resp.status_code}")
+        print(f"Office 365 send failed: {send_resp.status_code} {send_resp.text}")
         return False
 
 

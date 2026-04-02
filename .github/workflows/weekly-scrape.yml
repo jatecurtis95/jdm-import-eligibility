@@ -55,4 +55,5 @@ jobs:
           git config user.name "GitHub Actions [ROVER Scraper]"
           git add data.json
           git commit -m "Auto-update: ROVER data refreshed $(date -u +'%Y-%m-%d')"
+          git pull --rebase origin main
           git push
