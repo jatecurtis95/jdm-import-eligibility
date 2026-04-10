@@ -670,8 +670,9 @@ def _build_vehicle_rows(records, register_type, is_removed=False):
             line1_extra = f' &middot; {workshop}' if workshop else ''
             line1 = (f'<a href="{site_link}" style="color:#60a5fa; text-decoration:underline; '
                      f'font-weight:600;">#{ref}</a>{line1_extra}') if ref else ''
+            variant = r.get('_variant_description', '')
             build_range = r.get('Build date range', '')
-            line2 = build_range
+            line2 = variant if variant else build_range
         else:
             ref = r.get('SEV #', '')
             site_link = f"{SITE_URL}/#sev={ref}" if ref else SITE_URL
@@ -726,11 +727,17 @@ def _build_expiring_rows(expiring_sevs):
         urg_bg, urg_color, urg_border = _urgency_colors(days_left)
         ref_html = (f'<a href="{site_link}" style="color:#9ca3af; text-decoration:underline;">SEV #{ref}</a>'
                     if ref else 'SEV')
+        # Model code / chassis info
+        model_code = r.get('Model code', '')
+        detail_parts = [ref_html]
+        if model_code:
+            detail_parts.append(f'<span style="font-family:Menlo,Monaco,monospace; color:#6b7280;">{model_code}</span>')
+        detail_line = ' &middot; '.join(detail_parts)
         rows.append(
             f'<tr><td style="padding:14px 16px; border-bottom:1px solid #242a2a; background-color:#1a1608;" class="expiring-row">'
             f'<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
             f'<td><span style="font-size:14px; font-weight:600; color:#e8eaea;">{name}</span><br>'
-            f'<span style="font-size:12px; color:#6b7280;">{ref_html}</span></td>'
+            f'<span style="font-size:12px;">{detail_line}</span></td>'
             f'<td align="right" valign="middle">'
             f'<span style="display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700; background-color:{urg_bg}; color:{urg_color}; border:1px solid {urg_border};">{days_left} days</span>'
             f'</td></tr></table></td></tr>'
@@ -879,7 +886,6 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
     html = html.replace('{{ADDED_COUNT}}', str(added_count))
     html = html.replace('{{REMOVED_COUNT}}', str(removed_count))
     html = html.replace('{{EXPIRING_COUNT}}', str(expiring_count))
-    html = html.replace('{{TOTAL_COUNT}}', f'{total_count:,}')
 
     for tag, count, rows_fn in [
         ('ADDED', added_count, lambda: _build_vehicle_rows(added_mre, 'MRE') + _build_vehicle_rows(added_sev, 'SEVS')),
@@ -890,14 +896,6 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
             html = re.sub(rf'\{{\{{#EACH_{tag}\}}\}}.*?\{{\{{/EACH_{tag}\}}\}}', rows_fn(), html, flags=re.DOTALL)
         else:
             html = re.sub(rf'\{{\{{#IF_{tag}\}}\}}.*?\{{\{{/IF_{tag}\}}\}}', '', html, flags=re.DOTALL)
-
-    # Register Snapshot — always shown in weekly emails
-    summary_html = _build_summary_section(all_mre, sev_records)
-    if summary_html:
-        html = html.replace('{{#IF_SUMMARY}}', '').replace('{{/IF_SUMMARY}}', '')
-        html = re.sub(r'\{\{#EACH_SUMMARY\}\}.*?\{\{/EACH_SUMMARY\}\}', summary_html, html, flags=re.DOTALL)
-    else:
-        html = re.sub(r'\{\{#IF_SUMMARY\}\}.*?\{\{/IF_SUMMARY\}\}', '', html, flags=re.DOTALL)
 
     if expiring_count > 0:
         html = html.replace('{{#IF_EXPIRING}}', '').replace('{{/IF_EXPIRING}}', '')

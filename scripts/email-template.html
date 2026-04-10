@@ -101,42 +101,32 @@
                   <td style="padding: 0 36px 20px;" class="mobile-pad">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                       <tr>
-                        <td width="25%" class="stat-card" style="padding-right:4px;">
-                          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color:#0d1117; border:1px solid #30363d; border-radius:8px;">
-                            <tr>
-                              <td style="padding:14px; text-align:center;">
-                                <div style="font-size:24px; font-weight:700; color:#e8eaea; font-family:monospace;">{{TOTAL_COUNT}}</div>
-                                <div style="font-size:10px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">On Register</div>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                        <td width="25%" class="stat-card" style="padding-left:2px; padding-right:2px;">
+                        <td width="33%" class="stat-card" style="padding-right:6px;">
                           <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color:#0a1f12; border:1px solid #1a5c32; border-radius:8px;" class="stat-added">
                             <tr>
                               <td style="padding:14px; text-align:center;">
-                                <div style="font-size:24px; font-weight:700; color:#4ade80; font-family:monospace;">{{ADDED_COUNT}}</div>
-                                <div style="font-size:10px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Added</div>
+                                <div style="font-size:26px; font-weight:700; color:#4ade80; font-family:monospace;">{{ADDED_COUNT}}</div>
+                                <div style="font-size:11px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Added</div>
                               </td>
                             </tr>
                           </table>
                         </td>
-                        <td width="25%" class="stat-card" style="padding-left:2px; padding-right:2px;">
+                        <td width="33%" class="stat-card" style="padding-left:3px; padding-right:3px;">
                           <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color:#1f0f11; border:1px solid #5c1a1e; border-radius:8px;" class="stat-removed">
                             <tr>
                               <td style="padding:14px; text-align:center;">
-                                <div style="font-size:24px; font-weight:700; color:#f87171; font-family:monospace;">{{REMOVED_COUNT}}</div>
-                                <div style="font-size:10px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Removed</div>
+                                <div style="font-size:26px; font-weight:700; color:#f87171; font-family:monospace;">{{REMOVED_COUNT}}</div>
+                                <div style="font-size:11px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Removed</div>
                               </td>
                             </tr>
                           </table>
                         </td>
-                        <td width="25%" class="stat-card" style="padding-left:4px;">
+                        <td width="33%" class="stat-card" style="padding-left:6px;">
                           <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color:#1f1708; border:1px solid #5c4a12; border-radius:8px;" class="stat-expiring">
                             <tr>
                               <td style="padding:14px; text-align:center;">
-                                <div style="font-size:24px; font-weight:700; color:#f5a623; font-family:monospace;">{{EXPIRING_COUNT}}</div>
-                                <div style="font-size:10px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Expiring</div>
+                                <div style="font-size:26px; font-weight:700; color:#f5a623; font-family:monospace;">{{EXPIRING_COUNT}}</div>
+                                <div style="font-size:11px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Expiring</div>
                               </td>
                             </tr>
                           </table>
@@ -145,24 +135,6 @@
                     </table>
                   </td>
                 </tr>
-
-                <!-- ===== REGISTER SNAPSHOT ===== -->
-                {{#IF_SUMMARY}}
-                <tr>
-                  <td style="padding: 8px 36px 8px;" class="mobile-pad">
-                    <h2 style="margin:0; font-size:15px; font-weight:600; color:#e8eaea;">
-                      Register Snapshot
-                    </h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 4px 36px 16px;" class="mobile-pad">
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-radius:8px; border:1px solid #242a2a;">
-                      {{#EACH_SUMMARY}}<!-- Rows injected by rover_scraper.py -->{{/EACH_SUMMARY}}
-                    </table>
-                  </td>
-                </tr>
-                {{/IF_SUMMARY}}
 
                 <!-- ===== NEW VEHICLES ADDED ===== -->
                 {{#IF_ADDED}}
