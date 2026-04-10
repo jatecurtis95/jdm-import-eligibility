@@ -56,6 +56,11 @@ APPROVAL_HOLDER_LABELS = (
 EXPIRY_REASON_LABELS = (
     'expiry reason', 'reason for expiry', 'reason'
 )
+WORK_INSTRUCTIONS_LABELS = (
+    'work instructions unique document identifier',
+    'work instructions document identifier',
+    'work instructions',
+)
 
 # Maps the raw "Eligibility criteria" text seen on SEV detail pages into a
 # canonical short tag the front-end ELIGIBILITY_LABELS table understands.
@@ -69,6 +74,25 @@ def _normalise_sev_category(raw):
     if 'rarity' in s or 'rare' in s or 'heritage' in s: return 'rarity'
     if 'camper' in s or 'motorhome' in s or 'rv' in s.split(): return 'camper'
     return 'other'
+
+def _parse_variant(work_instructions, make='', model=''):
+    """Extract the variant description from a Work Instructions string by
+    stripping the make/model prefix and the date/category suffix.
+    E.g. 'Toyota Corolla Touring Wagon ZWE211W 5DR 1797CC Petrol/Hybrid CVT 5 Seat MA 09/2019 to 02/2025'
+    → 'ZWE211W 5DR 1797CC Petrol/Hybrid CVT 5 Seat'"""
+    if not work_instructions:
+        return ''
+    s = work_instructions.strip()
+    # Strip make + model prefix (case-insensitive)
+    prefix = f"{make} {model}".strip()
+    if prefix and s.lower().startswith(prefix.lower()):
+        s = s[len(prefix):].strip()
+    # Strip trailing date range pattern like "MA 09/2019 to 02/2025" or "09/2019 to current"
+    s = re.sub(r'\s+[A-Z]{1,3}\s+\d{1,2}/\d{4}\s*(to|-).*$', '', s, flags=re.IGNORECASE).strip()
+    # If the above didn't match (e.g. no category code), try just the date
+    s = re.sub(r'\s+\d{1,2}/\d{4}\s*(to|-).*$', '', s, flags=re.IGNORECASE).strip()
+    return s
+
 
 def _normalise_propulsion(raw, model_name=''):
     blob = ((raw or '') + ' ' + (model_name or '')).lower()
@@ -205,6 +229,7 @@ async def fetch_detail(page, url, is_mre):
                 propulsion: findFor(labels.propulsion),
                 holder: findFor(labels.holder),
                 expiry_reason: findFor(labels.expiry_reason),
+                work_instructions: findFor(labels.work_instructions),
             };
         }""",
         {
@@ -212,6 +237,7 @@ async def fetch_detail(page, url, is_mre):
             'propulsion': list(PROPULSION_LABELS),
             'holder': list(APPROVAL_HOLDER_LABELS),
             'expiry_reason': list(EXPIRY_REASON_LABELS),
+            'work_instructions': list(WORK_INSTRUCTIONS_LABELS),
         }
     )
 
@@ -236,8 +262,22 @@ async def fetch_detail(page, url, is_mre):
         prop = _normalise_propulsion(raw_prop)
         if prop:
             out['_propulsion'] = prop
+        work_instr = extracted.get('work_instructions', '')
+        if work_instr:
+            out['_work_instructions'] = work_instr
 
     return out
+
+
+def _enrich_variant_descriptions(records):
+    """Post-process MRE records to compute _variant_description from
+    _work_instructions after all detail pages have been visited."""
+    for r in records:
+        wi = r.get('_work_instructions', '')
+        if wi:
+            variant = _parse_variant(wi, r.get('Make', ''), r.get('Model', ''))
+            if variant:
+                r['_variant_description'] = variant
 
 
 async def enrich_with_details(browser, records, is_mre, limit=None):
@@ -959,6 +999,7 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
             print(f"\n{'='*50}\nDetail-page enrichment pass\n{'='*50}")
             await enrich_with_details(browser, sev_records, is_mre=False, limit=detail_limit)
             await enrich_with_details(browser, mre_records, is_mre=True, limit=detail_limit)
+            _enrich_variant_descriptions(mre_records)
 
         await browser.close()
 

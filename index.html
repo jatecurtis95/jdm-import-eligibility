@@ -1619,8 +1619,6 @@ function renderScreen1(wrap) {
   html += '<div class="model-card-list">';
   currentGroups.forEach((g, idx) => {
     const range = combinedBuildRange(g.mre, g.sev);
-    const mrePill = g.mre.length > 0 ? `<span class="count-pill pill-mre">${g.mre.length} MRE</span>` : '';
-    const sevPill = g.sev.length > 0 ? `<span class="count-pill pill-sevs">${g.sev.length} SEVS</span>` : '';
     html += `
       <div class="model-card" onclick="showApprovalList(${idx})">
         <div class="model-card-top">
@@ -1631,7 +1629,6 @@ function renderScreen1(wrap) {
           </div>
           <div class="model-card-chevron">›</div>
         </div>
-        <div class="model-card-pills">${mrePill}${sevPill}</div>
       </div>
     `;
   });
@@ -1692,9 +1689,6 @@ function showApprovalList(groupIdx) {
       <div class="approval-list-title">${g.make} ${g.model}</div>
       <div class="approval-list-sub">${gens.length} build era${gens.length !== 1 ? 's' : ''} · ${totalApprovals} approval${totalApprovals !== 1 ? 's' : ''} total</div>
     </div>
-    <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:10px 14px;font-size:12px;color:#0c4a6e;margin-bottom:12px;line-height:1.5;">
-      ℹ️ <strong>Either MRE or SEVS is enough</strong> to import — you don't need both. Each era below is fully eligible for import via the pathway shown.
-    </div>
     <div class="approval-rows">
   `;
 
@@ -1711,6 +1705,26 @@ function showApprovalList(groupIdx) {
       c.split(/[,\/]/).forEach(x => { const t = x.trim(); if (t) codeParts.add(t); });
     });
     const codesStr = Array.from(codeParts).join(' · ');
+
+    // Collect unique variant descriptions from MRE work instructions
+    const variants = new Set();
+    gen.mre.forEach(({r}) => {
+      const v = r['_variant_description'] || '';
+      if (v) variants.add(v);
+    });
+    const uniqueVariants = Array.from(variants);
+    const MAX_VARIANTS_SHOWN = 3;
+    let variantHtml = '';
+    if (uniqueVariants.length > 0) {
+      const shown = uniqueVariants.slice(0, MAX_VARIANTS_SHOWN);
+      const remaining = uniqueVariants.length - shown.length;
+      variantHtml = shown.map(v =>
+        `<div style="font-size:11px;color:#6b7280;font-family:'DM Mono',monospace;line-height:1.4;">${v}</div>`
+      ).join('');
+      if (remaining > 0) {
+        variantHtml += `<div style="font-size:11px;color:#9ca3af;margin-top:1px;">+${remaining} more variant${remaining > 1 ? 's' : ''}</div>`;
+      }
+    }
 
     // Pathway label
     const pathwayStr = gen.mre.length > 0 && gen.sev.length > 0
@@ -1758,15 +1772,12 @@ function showApprovalList(groupIdx) {
             <div style="font-size:13px;font-weight:600;color:#111827;">${gen.displayRange}</div>
             ${codesStr ? `<div class="approval-row-meta" style="margin-top:2px;">${codesStr}</div>` : ''}
             <div style="font-size:11px;color:#6b7280;margin-top:2px;">${pathwayStr}</div>
+            ${variantHtml ? `<div style="margin-top:4px;border-top:1px solid #e5e7eb;padding-top:4px;">${variantHtml}</div>` : ''}
           </div>
           <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
             ${statusBadge}
             <span class="approval-row-chevron">›</span>
           </div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          ${gen.mre.length > 0 ? `<span class="count-pill pill-mre">${gen.mre.length} MRE</span>` : ''}
-          ${gen.sev.length > 0 ? `<span class="count-pill pill-sevs">${gen.sev.length} SEVS</span>` : ''}
         </div>
         ${warningBanner}
       </div>
@@ -1798,18 +1809,19 @@ function showGenerationDetail(groupIdx, genIdx) {
   gen.mre.forEach(({r, i}) => {
     const status = r['Approval status'] || 'In Force';
     const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
-    const modelCode = r['Model report type'] || r['Model code'] || '';
-    const isGeneric = modelCode.toLowerCase().indexOf('specialist') !== -1;
+    const variant = r['_variant_description'] || '';
+    const workshop = r['_workshop_short'] || r['_approval_holder'] || '';
     const buildRange = formatBuildRange(r['Build date range']);
-    const subLine = !isGeneric && modelCode ? modelCode : ('Build: ' + buildRange);
+    const subLine = variant || ('Build: ' + buildRange);
+    const workshopLine = workshop ? `<div style="font-size:11px;color:#9ca3af;margin-top:1px;">Workshop: ${workshop}</div>` : '';
     html += `
       <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'mre',${i})" style="cursor:pointer;">
         <div class="approval-row-left" style="flex:1;min-width:0;">
           <div class="approval-row-num" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
             <a href="${roverDetailUrl(r, true)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['Approval number']}</a>
-            <span class="badge badge-blue">MRE</span>
           </div>
           <div class="approval-row-meta">${subLine}</div>
+          ${workshopLine}
         </div>
         <div class="approval-row-right">
           <span class="badge ${badgeCls}">${status}</span>
@@ -1831,7 +1843,6 @@ function showGenerationDetail(groupIdx, genIdx) {
         <div class="approval-row-left" style="flex:1;min-width:0;">
           <div class="approval-row-num" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
             <a href="${roverDetailUrl(r, false)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['SEV #']}</a>
-            <span class="badge badge-purple">SEVS</span>
           </div>
           <div class="approval-row-meta">${subLine}</div>
         </div>
