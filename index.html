@@ -1679,124 +1679,88 @@ function renderScreen1(wrap) {
   wrap.innerHTML = html;
 }
 
-// ── SCREEN 2: APPROVAL LIST ───────────────────────────────────────────────────
+// ── SCREEN 2: VEHICLE SUMMARY ────────────────────────────────────────────────
+// Merges all MRE + SEV approvals for the same vehicle into a single card
+// showing the widest build range, chassis codes, description, and workshop count.
+// Clicking through shows individual approvals.
 function showApprovalList(groupIdx) {
   const wrap = document.getElementById('results-wrap');
   const g = currentGroups[groupIdx];
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-  // ── Build generation groups by normalised build date range ──────────────────
-  function genKey(fromDate, toDate) {
-    if (!fromDate) return 'unk_' + Math.random().toString(36).slice(2);
-    const f = fromDate.getFullYear() + '-' + String(fromDate.getMonth()).padStart(2,'0');
-    const t = toDate ? toDate.getFullYear() + '-' + String(toDate.getMonth()).padStart(2,'0') : 'open';
-    return f + '_' + t;
+  // ── Compute the widest build range across ALL approvals ────────────────────
+  const overallRange = combinedBuildRange(g.mre, g.sev);
+
+  // ── Chassis codes from SEV records ─────────────────────────────────────────
+  const codeParts = new Set();
+  g.sev.forEach(r => {
+    const c = r['Model code'] || '';
+    c.split(/[,\/]/).forEach(x => { const t = x.trim(); if (t) codeParts.add(t); });
+  });
+  const codesStr = Array.from(codeParts).join(' · ');
+
+  // ── Human-friendly description from MRE work instructions ──────────────────
+  let descriptionStr = '';
+  for (const r of g.mre) {
+    const parsed = formatVariantDescription(r['_variant_description'] || r['_work_instructions'] || '');
+    if (parsed) { descriptionStr = parsed; break; }
   }
 
-  const genMap = new Map();
-
-  g.mre.forEach((r, i) => {
-    const parsed = parseBuildRange(r['Build date range']);
-    const key = genKey(parsed && parsed.from, parsed && parsed.to);
-    const displayRange = formatBuildRange(r['Build date range']);
-    if (!genMap.has(key)) genMap.set(key, { fromDate: parsed && parsed.from, toDate: parsed && parsed.to, displayRange, mre: [], sev: [] });
-    genMap.get(key).mre.push({ r, i });
+  // ── Workshop count (unique workshops across all MREs) ──────────────────────
+  const workshops = new Set();
+  g.mre.forEach(r => {
+    const w = r['_workshop_short'] || r['_approval_holder'] || '';
+    if (w) workshops.add(w);
   });
+  const workshopCount = workshops.size;
 
-  g.sev.forEach((r, i) => {
-    const fromStr = r['Build date from'] || '';
-    const toStr = (r['Build date to'] && r['Build date to'] !== 'No end date') ? r['Build date to'] : null;
-    const parsed = parseBuildRange(fromStr + (toStr ? ' - ' + toStr : ''));
-    const key = genKey(parsed && parsed.from, toStr ? (parsed && parsed.to) : null);
-    const displayRange = fromStr ? (fromStr + (toStr ? ' – ' + toStr : '+')) : 'Unknown';
-    if (!genMap.has(key)) genMap.set(key, { fromDate: parsed && parsed.from, toDate: toStr ? (parsed && parsed.to) : null, displayRange, mre: [], sev: [] });
-    genMap.get(key).sev.push({ r, i });
+  // ── Status: check across ALL approvals ─────────────────────────────────────
+  let hasExpiringSoon = false;
+  g.sev.forEach(r => {
+    const { label } = getSevExpiryStatus(r);
+    if (label === 'Expiring Soon') hasExpiringSoon = true;
   });
+  const activeMRE = g.mre.filter(r => (r['Approval status'] || 'In Force') === 'In Force').length;
+  const activeSEV = g.sev.filter(r => getSevExpiryStatus(r).label !== 'Expired').length;
+  const isImportable = activeMRE > 0 || activeSEV > 0;
 
-  // Sort: SEVS eras first (richer data), then by date newest-first
-  const gens = Array.from(genMap.values()).sort((a, b) => {
-    const aSev = a.sev.length > 0 ? 1 : 0;
-    const bSev = b.sev.length > 0 ? 1 : 0;
-    if (aSev !== bSev) return bSev - aSev; // SEVS first
-    if (!a.fromDate) return 1;
-    if (!b.fromDate) return -1;
-    return b.fromDate - a.fromDate; // newest first
-  });
+  let statusBadge, warningBanner = '';
+  if (!isImportable) {
+    statusBadge = `<span class="badge badge-red">NOT ELIGIBLE</span>`;
+  } else if (hasExpiringSoon) {
+    statusBadge = `<span class="badge badge-amber">⚠ EXPIRING SOON</span>`;
+    warningBanner = `<div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:6px;padding:6px 10px;font-size:11px;color:#78350f;margin-top:6px;">⚠ One or more SEVS approvals are expiring soon — vehicle must clear customs before expiry. Contact JDM Connect urgently.</div>`;
+  } else {
+    statusBadge = `<span class="badge badge-green">✓ ELIGIBLE</span>`;
+  }
 
-  currentGenerations[groupIdx] = gens;
+  // ── Build the single merged card ───────────────────────────────────────────
+  // Store a single "generation" containing ALL approvals for click-through
+  currentGenerations[groupIdx] = [{ mre: g.mre.map((r, i) => ({r, i})), sev: g.sev.map((r, i) => ({r, i})), displayRange: overallRange }];
 
-  // ── Render ──────────────────────────────────────────────────────────────────
   const totalApprovals = g.mre.length + g.sev.length;
+  const clickAction = totalApprovals === 1
+    ? (g.mre.length ? `showScreen3FromList(${groupIdx},'mre',0)` : `showScreen3FromList(${groupIdx},'sev',0)`)
+    : `showGenerationDetail(${groupIdx},0)`;
+
+  const workshopLine = workshopCount > 0
+    ? `<div style="font-size:11px;color:#9ca3af;margin-top:4px;">${workshopCount} approved workshop${workshopCount !== 1 ? 's' : ''}</div>`
+    : '';
+
   let html = `
     <button class="back-btn" onclick="renderScreen1(document.getElementById('results-wrap'))">← Back to results</button>
     <div class="approval-list-header">
       <div><span class="eligible-badge">✓ Eligible</span></div>
       <div class="approval-list-title">${g.make} ${g.model}</div>
-      <div class="approval-list-sub">${gens.length} eligible build period${gens.length !== 1 ? 's' : ''}</div>
     </div>
     <div class="approval-rows">
-  `;
-
-  gens.forEach((gen, genIdx) => {
-    // Chassis codes from SEV records only (MRE doesn't carry useful codes)
-    const codeParts = new Set();
-    gen.sev.forEach(({r}) => {
-      const c = r['Model code'] || '';
-      c.split(/[,\/]/).forEach(x => { const t = x.trim(); if (t) codeParts.add(t); });
-    });
-    const codesStr = Array.from(codeParts).join(' · ');
-
-    // Human-friendly vehicle description parsed from work instructions
-    let descriptionHtml = '';
-    for (const {r} of gen.mre) {
-      const parsed = formatVariantDescription(r['_variant_description'] || r['_work_instructions'] || '');
-      if (parsed) {
-        descriptionHtml = `<div style="font-size:12px;color:#6b7280;margin-top:3px;">${parsed}</div>`;
-        break; // One clean description is enough
-      }
-    }
-
-    // Worst status across all approvals in this generation
-    // MRE approvals don't expire — they stay in force unless revoked
-    // SEVS approvals can have expiry dates
-    let hasExpiringSoon = false, hasExpired = false, hasRevoked = false;
-    gen.sev.forEach(({r}) => {
-      const { label } = getSevExpiryStatus(r);
-      if (label === 'Expiring Soon') hasExpiringSoon = true;
-      if (label === 'Expired') hasExpired = true;
-    });
-    gen.mre.forEach(({r}) => {
-      const s = r['Approval status'] || 'In Force';
-      if (s !== 'In Force') hasRevoked = true;
-    });
-
-    // Determine if era is still importable (at least one active approval)
-    const activeMRE = gen.mre.filter(({r}) => (r['Approval status'] || 'In Force') === 'In Force').length;
-    const activeSEV = gen.sev.filter(({r}) => getSevExpiryStatus(r).label !== 'Expired').length;
-    const isImportable = activeMRE > 0 || activeSEV > 0;
-
-    let statusBadge, warningBanner = '';
-    if (!isImportable) {
-      statusBadge = `<span class="badge badge-red">NOT ELIGIBLE</span>`;
-    } else if (hasExpiringSoon) {
-      statusBadge = `<span class="badge badge-amber">⚠ EXPIRING SOON</span>`;
-      warningBanner = `<div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:6px;padding:6px 10px;font-size:11px;color:#78350f;margin-top:6px;">⚠ One or more SEVS approvals are expiring soon — vehicle must clear customs before expiry. Contact JDM Connect urgently.</div>`;
-    } else {
-      statusBadge = `<span class="badge badge-green">✓ ELIGIBLE</span>`;
-    }
-
-    const totalInGen = gen.mre.length + gen.sev.length;
-    const clickAction = totalInGen === 1
-      ? (gen.mre.length ? `showScreen3FromList(${groupIdx},'mre',${gen.mre[0].i})` : `showScreen3FromList(${groupIdx},'sev',${gen.sev[0].i})`)
-      : `showGenerationDetail(${groupIdx},${genIdx})`;
-
-    html += `
-      <div class="approval-row" onclick="${clickAction}" style="flex-direction:column;align-items:stretch;gap:6px;cursor:pointer;">
+      <div class="approval-row" onclick="${clickAction}" style="flex-direction:column;align-items:stretch;gap:4px;cursor:pointer;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
           <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:600;color:#111827;">${gen.displayRange}</div>
-            ${codesStr ? `<div class="approval-row-meta" style="margin-top:2px;">${codesStr}</div>` : ''}
-            ${descriptionHtml}
+            ${codesStr ? `<div class="approval-row-meta" style="margin-bottom:4px;">${codesStr}</div>` : ''}
+            ${descriptionStr ? `<div style="font-size:13px;color:#374151;">${descriptionStr}</div>` : ''}
+            <div style="font-size:12px;color:#6b7280;margin-top:3px;">Build: ${overallRange}</div>
+            ${workshopLine}
           </div>
           <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
             ${statusBadge}
@@ -1805,10 +1769,9 @@ function showApprovalList(groupIdx) {
         </div>
         ${warningBanner}
       </div>
-    `;
-  });
+    </div>
+  `;
 
-  html += `</div>`;
   html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
   wrap.innerHTML = html;
 }
