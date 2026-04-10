@@ -1331,6 +1331,47 @@ function formatBuildRange(str) {
   });
 }
 
+// ── HUMAN-FRIENDLY VARIANT DESCRIPTION ───────────────────────────────────────
+// Parses raw variant strings like "ZWE211W 5DR 1797CC Petrol/Hybrid CVT 5 Seat"
+// into plain English: "5-door · 1.8L Hybrid · Auto · 5 seats"
+// Returns empty string for technical codes that can't be parsed.
+function formatVariantDescription(raw) {
+  if (!raw) return '';
+  // Only parse strings that look human-readable (contain body/engine/seat tokens)
+  if (!/\d+DR\b/i.test(raw) && !/\d+CC\b/i.test(raw) && !/Seat/i.test(raw)) return '';
+
+  const parts = [];
+
+  // Body type: "5DR" → "5-door", "3DR" → "3-door"
+  const bodyMatch = raw.match(/(\d)DR\b/i);
+  if (bodyMatch) parts.push(bodyMatch[1] + '-door');
+
+  // Engine displacement: "1797CC" → "1.8L", "658CC" → "0.7L" (skip 0CC for EVs)
+  const ccMatch = raw.match(/(\d+)CC\b/i);
+  if (ccMatch) {
+    const cc = parseInt(ccMatch[1]);
+    if (cc > 50) parts.push((cc / 1000).toFixed(1) + 'L');
+  }
+
+  // Fuel/propulsion type
+  if (/PHEV/i.test(raw)) parts.push('Plug-in Hybrid');
+  else if (/Petrol\/Hybrid|Hybrid/i.test(raw)) parts.push('Hybrid');
+  else if (/Electric/i.test(raw)) parts.push('Electric');
+  else if (/Diesel/i.test(raw)) parts.push('Diesel');
+  else if (/Petrol/i.test(raw)) parts.push('Petrol');
+
+  // Transmission
+  if (/\bManual\b/i.test(raw)) parts.push('Manual');
+  else if (/\bCVT\b/i.test(raw)) parts.push('Auto (CVT)');
+  else if (/\bAutomatic\b/i.test(raw)) parts.push('Auto');
+
+  // Seats
+  const seatMatch = raw.match(/(\d+)\s*Seat/i);
+  if (seatMatch) parts.push(seatMatch[1] + ' seats');
+
+  return parts.length >= 2 ? parts.join(' · ') : '';
+}
+
 // ── CALCULATE 25-YEAR UNLOCK ──────────────────────────────────────────────────
 function get25YearInfo(buildRangeStr) {
   const range = parseBuildRange(buildRangeStr);
@@ -1672,11 +1713,14 @@ function showApprovalList(groupIdx) {
     genMap.get(key).sev.push({ r, i });
   });
 
-  // Sort oldest first
+  // Sort: SEVS eras first (richer data), then by date newest-first
   const gens = Array.from(genMap.values()).sort((a, b) => {
+    const aSev = a.sev.length > 0 ? 1 : 0;
+    const bSev = b.sev.length > 0 ? 1 : 0;
+    if (aSev !== bSev) return bSev - aSev; // SEVS first
     if (!a.fromDate) return 1;
     if (!b.fromDate) return -1;
-    return a.fromDate - b.fromDate;
+    return b.fromDate - a.fromDate; // newest first
   });
 
   currentGenerations[groupIdx] = gens;
@@ -1688,49 +1732,29 @@ function showApprovalList(groupIdx) {
     <div class="approval-list-header">
       <div><span class="eligible-badge">✓ Eligible</span></div>
       <div class="approval-list-title">${g.make} ${g.model}</div>
-      <div class="approval-list-sub">${gens.length} build era${gens.length !== 1 ? 's' : ''} · ${totalApprovals} approval${totalApprovals !== 1 ? 's' : ''} total</div>
+      <div class="approval-list-sub">${gens.length} eligible build period${gens.length !== 1 ? 's' : ''}</div>
     </div>
     <div class="approval-rows">
   `;
 
   gens.forEach((gen, genIdx) => {
-    // Collect unique model codes (skip generic MRE label)
+    // Chassis codes from SEV records only (MRE doesn't carry useful codes)
     const codeParts = new Set();
-    gen.mre.forEach(({r}) => {
-      const c = r['Model report type'] || r['Model code'] || '';
-      if (c && c.toLowerCase().indexOf('specialist') === -1)
-        c.split(/[,\/]/).forEach(x => { const t = x.trim(); if (t) codeParts.add(t); });
-    });
     gen.sev.forEach(({r}) => {
       const c = r['Model code'] || '';
       c.split(/[,\/]/).forEach(x => { const t = x.trim(); if (t) codeParts.add(t); });
     });
     const codesStr = Array.from(codeParts).join(' · ');
 
-    // Collect unique variant descriptions from MRE work instructions
-    const variants = new Set();
-    gen.mre.forEach(({r}) => {
-      const v = r['_variant_description'] || '';
-      if (v) variants.add(v);
-    });
-    const uniqueVariants = Array.from(variants);
-    const MAX_VARIANTS_SHOWN = 3;
-    let variantHtml = '';
-    if (uniqueVariants.length > 0) {
-      const shown = uniqueVariants.slice(0, MAX_VARIANTS_SHOWN);
-      const remaining = uniqueVariants.length - shown.length;
-      variantHtml = shown.map(v =>
-        `<div style="font-size:11px;color:#6b7280;font-family:'DM Mono',monospace;line-height:1.4;">${v}</div>`
-      ).join('');
-      if (remaining > 0) {
-        variantHtml += `<div style="font-size:11px;color:#9ca3af;margin-top:1px;">+${remaining} more variant${remaining > 1 ? 's' : ''}</div>`;
+    // Human-friendly vehicle description parsed from work instructions
+    let descriptionHtml = '';
+    for (const {r} of gen.mre) {
+      const parsed = formatVariantDescription(r['_variant_description'] || r['_work_instructions'] || '');
+      if (parsed) {
+        descriptionHtml = `<div style="font-size:12px;color:#6b7280;margin-top:3px;">${parsed}</div>`;
+        break; // One clean description is enough
       }
     }
-
-    // Pathway label
-    const pathwayStr = gen.mre.length > 0 && gen.sev.length > 0
-      ? 'Via MRE + SEVS'
-      : gen.mre.length > 0 ? 'Via MRE' : 'Via SEVS';
 
     // Worst status across all approvals in this generation
     // MRE approvals don't expire — they stay in force unless revoked
@@ -1772,8 +1796,7 @@ function showApprovalList(groupIdx) {
           <div style="flex:1;min-width:0;">
             <div style="font-size:13px;font-weight:600;color:#111827;">${gen.displayRange}</div>
             ${codesStr ? `<div class="approval-row-meta" style="margin-top:2px;">${codesStr}</div>` : ''}
-            <div style="font-size:11px;color:#6b7280;margin-top:2px;">${pathwayStr}</div>
-            ${variantHtml ? `<div style="margin-top:4px;border-top:1px solid #e5e7eb;padding-top:4px;">${variantHtml}</div>` : ''}
+            ${descriptionHtml}
           </div>
           <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
             ${statusBadge}
@@ -1810,10 +1833,10 @@ function showGenerationDetail(groupIdx, genIdx) {
   gen.mre.forEach(({r, i}) => {
     const status = r['Approval status'] || 'In Force';
     const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
-    const variant = r['_variant_description'] || '';
+    const parsedVariant = formatVariantDescription(r['_variant_description'] || r['_work_instructions'] || '');
     const workshop = r['_workshop_short'] || r['_approval_holder'] || '';
     const buildRange = formatBuildRange(r['Build date range']);
-    const subLine = variant || ('Build: ' + buildRange);
+    const subLine = parsedVariant || ('Build: ' + buildRange);
     const workshopLine = workshop ? `<div style="font-size:11px;color:#9ca3af;margin-top:1px;">Workshop: ${workshop}</div>` : '';
     html += `
       <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'mre',${i})" style="cursor:pointer;">
