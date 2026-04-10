@@ -4,7 +4,21 @@ on:
   schedule:
     # Every Monday at 6:00 AM AEST (Sunday 8:00 PM UTC)
     - cron: '0 20 * * 0'
-  workflow_dispatch: # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      with_detail:
+        description: 'Enrich each record from its ROVER detail page (slow, ~10 min)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      detail_limit:
+        description: 'Sample only the first N records when enriching (blank = all)'
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: write
@@ -12,7 +26,7 @@ permissions:
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
 
     steps:
       - uses: actions/checkout@v4
@@ -40,9 +54,19 @@ jobs:
           O365_CLIENT_SECRET: ${{ secrets.O365_CLIENT_SECRET }}
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          WITH_DETAIL: ${{ github.event.inputs.with_detail || 'false' }}
+          DETAIL_LIMIT: ${{ github.event.inputs.detail_limit || '' }}
         run: |
           cd scripts
-          python rover_scraper.py snapshot --send-email
+          ARGS="snapshot --send-email"
+          if [ "$WITH_DETAIL" = "true" ]; then
+            ARGS="$ARGS --with-detail"
+            if [ -n "$DETAIL_LIMIT" ]; then
+              ARGS="$ARGS --detail-limit=$DETAIL_LIMIT"
+            fi
+          fi
+          echo "Running: python rover_scraper.py $ARGS"
+          python rover_scraper.py $ARGS
 
       - name: Check for data changes
         id: changes
