@@ -1372,6 +1372,20 @@ function formatVariantDescription(raw) {
   return parts.length >= 2 ? parts.join(' · ') : '';
 }
 
+// ── EXTRACT CHASSIS CODE FROM VARIANT DESCRIPTION ────────────────────────────
+// Strips known workshop-doc prefixes and finds the Japanese chassis pattern.
+// e.g. "WIZWE21#1C" → "ZWE211", "RC-GRS182-01D" → "GRS182"
+function extractChassisCode(desc) {
+  if (!desc) return '';
+  // Strip common workshop document prefixes
+  let s = desc.trim().replace(/^(JDWIN|MRWI|SCDR|WIN|WI|RC)[-]?/i, '');
+  // Remove hash/pound separators that some workshops use
+  s = s.replace(/#/g, '');
+  // Find chassis pattern: 1-5 uppercase letters + 1-4 digits
+  const m = s.match(/([A-Z]{1,5}\d{1,4})/i);
+  return m ? m[1].toUpperCase() : '';
+}
+
 // ── CALCULATE 25-YEAR UNLOCK ──────────────────────────────────────────────────
 function get25YearInfo(buildRangeStr) {
   const range = parseBuildRange(buildRangeStr);
@@ -1776,12 +1790,28 @@ function showApprovalList(groupIdx) {
   wrap.innerHTML = html;
 }
 
-// ── SCREEN 2.5: GENERATION DETAIL (all approvals for one build era) ───────────
+// ── SCREEN 2.5: GENERATION DETAIL (grouped by chassis code) ─────────────────
 function showGenerationDetail(groupIdx, genIdx) {
   const wrap = document.getElementById('results-wrap');
   const g = currentGroups[groupIdx];
   const gen = currentGenerations[groupIdx][genIdx];
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // ── Group MREs by extracted chassis code ──────────────────────────────────
+  const chassisGroups = {};
+  gen.mre.forEach(({r, i}) => {
+    const raw = r['_variant_description'] || r['_work_instructions'] || '';
+    const chassis = extractChassisCode(raw) || '_other';
+    if (!chassisGroups[chassis]) chassisGroups[chassis] = [];
+    chassisGroups[chassis].push({r, i, raw});
+  });
+
+  // Sort groups: named chassis first (alphabetically), "_other" last
+  const sortedKeys = Object.keys(chassisGroups).sort((a, b) => {
+    if (a === '_other') return 1;
+    if (b === '_other') return -1;
+    return a.localeCompare(b);
+  });
 
   let html = `
     <button class="back-btn" onclick="showApprovalList(${groupIdx})">← Back to ${g.make} ${g.model}</button>
@@ -1790,58 +1820,100 @@ function showGenerationDetail(groupIdx, genIdx) {
       <div class="approval-list-title">${g.make} ${g.model}</div>
       <div class="approval-list-sub">Build era: ${gen.displayRange}</div>
     </div>
-    <div class="approval-rows">
   `;
 
-  gen.mre.forEach(({r, i}) => {
-    const status = r['Approval status'] || 'In Force';
-    const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
-    const parsedVariant = formatVariantDescription(r['_variant_description'] || r['_work_instructions'] || '');
-    const workshop = r['_workshop_short'] || r['_approval_holder'] || '';
-    const buildRange = formatBuildRange(r['Build date range']);
-    const subLine = parsedVariant || ('Build: ' + buildRange);
-    const workshopLine = workshop ? `<div style="font-size:11px;color:#9ca3af;margin-top:1px;">Workshop: ${workshop}</div>` : '';
+  // ── Render each chassis group ─────────────────────────────────────────────
+  sortedKeys.forEach(chassis => {
+    const items = chassisGroups[chassis];
+
+    // Get human-friendly description from any MRE in this group
+    let groupDesc = '';
+    for (const {r} of items) {
+      const parsed = formatVariantDescription(r['_variant_description'] || r['_work_instructions'] || '');
+      if (parsed) { groupDesc = parsed; break; }
+    }
+
+    // Get widest build range in this group
+    let groupBuild = '';
+    if (items.length > 0) {
+      const ranges = items.map(({r}) => formatBuildRange(r['Build date range'])).filter(Boolean);
+      groupBuild = ranges[0] || '';
+    }
+
+    const chassisLabel = chassis === '_other' ? 'Other approvals' : chassis;
+    const workshopCount = items.length;
+
     html += `
-      <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'mre',${i})" style="cursor:pointer;">
-        <div class="approval-row-left" style="flex:1;min-width:0;">
-          <div class="approval-row-num" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            <a href="${roverDetailUrl(r, true)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['Approval number']}</a>
-          </div>
-          <div class="approval-row-meta">${subLine}</div>
-          ${workshopLine}
+      <div style="margin-top:16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:0 2px;">
+          <span style="font-family:'DM Mono',monospace;font-weight:700;font-size:14px;color:#1f2937;background:#f3f4f6;padding:3px 10px;border-radius:4px;">${chassisLabel}</span>
+          ${groupDesc ? `<span style="font-size:13px;color:#374151;">${groupDesc}</span>` : ''}
         </div>
-        <div class="approval-row-right">
-          <span class="badge ${badgeCls}">${status}</span>
-          <span class="approval-row-chevron">›</span>
-        </div>
-      </div>
+        ${groupBuild ? `<div style="font-size:12px;color:#6b7280;padding:0 2px;margin-bottom:6px;">Build: ${groupBuild}</div>` : ''}
+        <div style="font-size:11px;color:#9ca3af;padding:0 2px;margin-bottom:8px;">${workshopCount} approved workshop${workshopCount !== 1 ? 's' : ''}</div>
+        <div class="approval-rows">
     `;
+
+    items.forEach(({r, i}) => {
+      const status = r['Approval status'] || 'In Force';
+      const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
+      const workshop = r['_workshop_short'] || r['_approval_holder'] || r['Approval number'];
+      html += `
+        <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'mre',${i})" style="cursor:pointer;">
+          <div class="approval-row-left" style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:600;color:#1f2937;">${workshop}</div>
+            <div style="font-size:11px;color:#9ca3af;margin-top:1px;">
+              <a href="${roverDetailUrl(r, true)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-size:11px;" onclick="event.stopPropagation();">${r['Approval number']}</a>
+            </div>
+          </div>
+          <div class="approval-row-right">
+            <span class="badge ${badgeCls}">${status}</span>
+            <span class="approval-row-chevron">›</span>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `</div></div>`;
   });
 
-  gen.sev.forEach(({r, i}) => {
-    const { label, cls } = getSevExpiryStatus(r);
-    const modelCode = r['Model code'] || '';
-    const fromStr = r['Build date from'] || '';
-    const toStr = r['Build date to'] || '';
-    const buildRange = fromStr ? (fromStr + (toStr && toStr !== 'No end date' ? ' – ' + toStr : '+')) : '';
-    const subLine = modelCode ? modelCode : ('Build: ' + buildRange);
+  // ── Render SEV records ────────────────────────────────────────────────────
+  if (gen.sev.length > 0) {
     html += `
-      <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'sev',${i})" style="cursor:pointer;">
-        <div class="approval-row-left" style="flex:1;min-width:0;">
-          <div class="approval-row-num" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            <a href="${roverDetailUrl(r, false)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:600;font-size:13px;" onclick="event.stopPropagation();">${r['SEV #']}</a>
-          </div>
-          <div class="approval-row-meta">${subLine}</div>
+      <div style="margin-top:16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:0 2px;">
+          <span style="font-family:'DM Mono',monospace;font-weight:700;font-size:14px;color:#1f2937;background:#f3f4f6;padding:3px 10px;border-radius:4px;">SEVS</span>
+          <span style="font-size:13px;color:#6b7280;">Vehicle eligibility approvals</span>
         </div>
-        <div class="approval-row-right">
-          <span class="badge ${cls}">${label}</span>
-          <span class="approval-row-chevron">›</span>
-        </div>
-      </div>
+        <div class="approval-rows">
     `;
-  });
 
-  html += `</div>`;
+    gen.sev.forEach(({r, i}) => {
+      const { label, cls } = getSevExpiryStatus(r);
+      const modelCode = r['Model code'] || '';
+      const fromStr = r['Build date from'] || '';
+      const toStr = r['Build date to'] || '';
+      const buildRange = fromStr ? (fromStr + (toStr && toStr !== 'No end date' ? ' – ' + toStr : '+')) : '';
+      html += `
+        <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'sev',${i})" style="cursor:pointer;">
+          <div class="approval-row-left" style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:600;color:#1f2937;">${modelCode || r['SEV #']}</div>
+            <div style="font-size:11px;color:#9ca3af;margin-top:1px;">
+              <a href="${roverDetailUrl(r, false)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-size:11px;" onclick="event.stopPropagation();">${r['SEV #']}</a>
+              ${buildRange ? ` · Build: ${buildRange}` : ''}
+            </div>
+          </div>
+          <div class="approval-row-right">
+            <span class="badge ${cls}">${label}</span>
+            <span class="approval-row-chevron">›</span>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `</div></div>`;
+  }
+
   html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
   wrap.innerHTML = html;
 }
