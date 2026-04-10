@@ -26,6 +26,88 @@ except ImportError:
 MRE_URL = 'https://www.rover.infrastructure.gov.au/PublishedApprovals/MREApprovals/'
 SEV_URL = 'https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVApprovals/'
 
+# ── Phase 1 — detail-page enrichment ────────────────────────────────────────
+# These constants drive the optional `fetch_detail()` pass that visits each
+# record's _detail_url to extract Eligibility Type, Propulsion, and Approval
+# Holder fields. The pass is OFF by default and must be opted in via
+# `snapshot --with-detail` so a regression doesn't reach production data.
+#
+# IMPORTANT: ROVER detail pages are ASP.NET WebForms with non-stable DOM ids,
+# so this enrichment uses *text-content matching* against label keywords rather
+# than CSS selectors. After the first successful run against a sample, tighten
+# the keywords if needed.
+
+DETAIL_CONCURRENCY = 5
+DETAIL_TIMEOUT_MS = 30000
+
+# Label keywords (lower-cased) used to locate fields on ROVER detail pages.
+SEV_CATEGORY_LABELS = (
+    'eligibility criteria', 'eligibility criterion', 'criterion',
+    'category', 'eligibility category'
+)
+PROPULSION_LABELS = (
+    'propulsion', 'fuel type', 'engine type', 'fuel/propulsion',
+    'engine/fuel'
+)
+APPROVAL_HOLDER_LABELS = (
+    'approval holder', 'holder', 'approved entity', 'company',
+    'organisation', 'organization'
+)
+EXPIRY_REASON_LABELS = (
+    'expiry reason', 'reason for expiry', 'reason'
+)
+
+# Maps the raw "Eligibility criteria" text seen on SEV detail pages into a
+# canonical short tag the front-end ELIGIBILITY_LABELS table understands.
+def _normalise_sev_category(raw):
+    if not raw:
+        return ''
+    s = raw.lower()
+    if 'environment' in s: return 'environmental'
+    if 'welcab' in s or 'mobility' in s or 'disab' in s: return 'welcab'
+    if 'performance' in s or 'enthusiast' in s: return 'performance'
+    if 'rarity' in s or 'rare' in s or 'heritage' in s: return 'rarity'
+    if 'camper' in s or 'motorhome' in s or 'rv' in s.split(): return 'camper'
+    return 'other'
+
+def _normalise_propulsion(raw, model_name=''):
+    blob = ((raw or '') + ' ' + (model_name or '')).lower()
+    if not blob.strip():
+        return ''
+    if 'phev' in blob or 'plug-in' in blob: return 'hybrid'
+    if 'hybrid' in blob or ' hev' in blob or blob.startswith('hev'): return 'hybrid'
+    if blob.strip() in ('ev', 'bev') or 'electric' in blob or 'battery electric' in blob: return 'ev'
+    if 'diesel' in blob: return 'diesel'
+    if 'lpg' in blob or 'autogas' in blob: return 'lpg'
+    if 'petrol' in blob or 'gasoline' in blob: return 'petrol'
+    return ''
+
+# Map raw approval-holder strings into a short workshop label for the UI.
+_WORKSHOP_SHORT_MAP = {
+    'top secret': 'Top Secret',
+    'bespoke': 'Bespoke',
+    'sydney automotive': 'Sydney AVV',
+    'sydney avv': 'Sydney AVV',
+    'jdm connect': 'JDM Connect',
+    'iron chef': 'Iron Chef',
+    'autoworks': 'Autoworks',
+}
+_LEGAL_SUFFIX_RE = re.compile(
+    r'\b(pty\s*ltd|pty|ltd|limited|inc|incorporated|australia|aus|group|company|workshop)\b\.?',
+    re.IGNORECASE
+)
+
+def _shorten_workshop(holder):
+    if not holder:
+        return ''
+    low = holder.lower()
+    for key, short in _WORKSHOP_SHORT_MAP.items():
+        if key in low:
+            return short
+    cleaned = _LEGAL_SUFFIX_RE.sub('', holder).strip(' .,-')
+    cleaned = re.sub(r'\s{2,}', ' ', cleaned)
+    return cleaned or holder.strip()
+
 
 # ── Data extraction ─────────────────────────────────────────────────────────
 
@@ -58,6 +140,145 @@ async def get_total_pages(page):
             return nums.length ? Math.max(...nums) : 1;
         }
     """)
+
+
+async def fetch_detail(page, url, is_mre):
+    """Visit a single ROVER detail page and pull the enrichment fields.
+    Returns a dict of underscore-prefixed keys to merge into the record.
+    Resilient to missing fields — missing data → empty string."""
+    try:
+        await page.goto(url, wait_until='networkidle', timeout=DETAIL_TIMEOUT_MS)
+    except Exception as e:
+        return {'_detail_error': f'goto failed: {type(e).__name__}'}
+
+    # Single page.evaluate that walks the DOM looking for label/value pairs.
+    # Strategy:
+    #  1. Iterate every element whose textContent (trimmed) starts with one of
+    #     the known label keywords (case-insensitive).
+    #  2. Treat the closest <td>/<dd>/<span>/sibling element as the value.
+    #  3. Return raw strings — Python normalises/maps them.
+    extracted = await page.evaluate(
+        """(labels) => {
+            function nearestValue(el) {
+                // Try sibling td (for label-in-th, value-in-td tables).
+                if (el.tagName === 'TH' || el.tagName === 'TD') {
+                    let n = el.nextElementSibling;
+                    if (n) return n.innerText.trim();
+                }
+                // Try definition-list pattern: <dt>label</dt><dd>value</dd>.
+                if (el.tagName === 'DT') {
+                    let n = el.nextElementSibling;
+                    if (n && n.tagName === 'DD') return n.innerText.trim();
+                }
+                // Try parent's next sibling (for <div><label>X</label></div><div>Y</div>).
+                if (el.parentElement) {
+                    let p = el.parentElement.nextElementSibling;
+                    if (p) {
+                        const txt = p.innerText.trim();
+                        if (txt && txt.length < 200) return txt;
+                    }
+                }
+                // Fallback: text after the colon in the same element.
+                const own = el.innerText.trim();
+                const colonIdx = own.indexOf(':');
+                if (colonIdx !== -1 && colonIdx < own.length - 1) {
+                    return own.slice(colonIdx + 1).trim();
+                }
+                return '';
+            }
+            function findFor(keywordList) {
+                const all = document.querySelectorAll('th, td, dt, label, span, div, strong, b');
+                for (const el of all) {
+                    const txt = (el.innerText || '').trim().toLowerCase();
+                    if (!txt || txt.length > 80) continue;
+                    for (const kw of keywordList) {
+                        if (txt === kw || txt === kw + ':' || txt.startsWith(kw + ':') || txt.startsWith(kw + ' ')) {
+                            const val = nearestValue(el);
+                            if (val) return val;
+                        }
+                    }
+                }
+                return '';
+            }
+            return {
+                category: findFor(labels.category),
+                propulsion: findFor(labels.propulsion),
+                holder: findFor(labels.holder),
+                expiry_reason: findFor(labels.expiry_reason),
+            };
+        }""",
+        {
+            'category': list(SEV_CATEGORY_LABELS),
+            'propulsion': list(PROPULSION_LABELS),
+            'holder': list(APPROVAL_HOLDER_LABELS),
+            'expiry_reason': list(EXPIRY_REASON_LABELS),
+        }
+    )
+
+    out = {}
+    if not is_mre:
+        raw_cat = extracted.get('category', '')
+        if raw_cat:
+            out['_sev_category_raw'] = raw_cat
+            out['_sev_category'] = _normalise_sev_category(raw_cat)
+        raw_prop = extracted.get('propulsion', '')
+        prop = _normalise_propulsion(raw_prop)
+        if prop:
+            out['_propulsion'] = prop
+        if extracted.get('expiry_reason'):
+            out['_expiry_reason'] = extracted['expiry_reason']
+    else:
+        raw_holder = extracted.get('holder', '')
+        if raw_holder:
+            out['_approval_holder'] = raw_holder
+            out['_workshop_short'] = _shorten_workshop(raw_holder)
+        raw_prop = extracted.get('propulsion', '')
+        prop = _normalise_propulsion(raw_prop)
+        if prop:
+            out['_propulsion'] = prop
+
+    return out
+
+
+async def enrich_with_details(browser, records, is_mre, limit=None):
+    """Visit each record's _detail_url with bounded concurrency and merge the
+    enrichment fields back into the record dict in place."""
+    targets = [r for r in records if r.get('_detail_url')]
+    if limit is not None and limit > 0:
+        targets = targets[:limit]
+    if not targets:
+        print(f"  No records with _detail_url to enrich.")
+        return
+    print(f"  Enriching {len(targets)} {'MRE' if is_mre else 'SEV'} records "
+          f"(concurrency={DETAIL_CONCURRENCY})...")
+
+    semaphore = asyncio.Semaphore(DETAIL_CONCURRENCY)
+    context = await browser.new_context(
+        user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+    )
+
+    completed = 0
+    errors = 0
+
+    async def work(record):
+        nonlocal completed, errors
+        async with semaphore:
+            page = await context.new_page()
+            try:
+                detail = await fetch_detail(page, record['_detail_url'], is_mre)
+                if detail.get('_detail_error'):
+                    errors += 1
+                else:
+                    record.update(detail)
+                completed += 1
+                if completed % 25 == 0:
+                    print(f"    {completed}/{len(targets)} done ({errors} errors)")
+            finally:
+                await page.close()
+
+    await asyncio.gather(*(work(r) for r in targets))
+    await context.close()
+    print(f"  Detail enrichment finished: {completed} processed, {errors} errors.")
 
 
 async def fetch_all_records(browser, url, list_name):
@@ -476,11 +697,18 @@ def send_weekly_email(html, mre_changes, sev_changes):
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
-async def run_snapshot(output_dir, send_email=False):
+async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_limit=None):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         mre_records = await fetch_all_records(browser, MRE_URL, 'MRE List')
         sev_records = await fetch_all_records(browser, SEV_URL, 'SEVS Register')
+
+        # Phase 1 — opt-in detail-page enrichment.
+        if with_detail:
+            print(f"\n{'='*50}\nDetail-page enrichment pass\n{'='*50}")
+            await enrich_with_details(browser, sev_records, is_mre=False, limit=detail_limit)
+            await enrich_with_details(browser, mre_records, is_mre=True, limit=detail_limit)
+
         await browser.close()
 
     save_snapshot(mre_records, 'mre', output_dir)
@@ -545,7 +773,20 @@ if __name__ == '__main__':
     flags = set(args[1:]) if len(args) > 1 else set()
 
     if mode == 'snapshot':
-        asyncio.run(run_snapshot(output_dir, send_email='--send-email' in flags))
+        with_detail = '--with-detail' in flags
+        detail_limit = None
+        for f in flags:
+            if f.startswith('--detail-limit='):
+                try:
+                    detail_limit = int(f.split('=', 1)[1])
+                except ValueError:
+                    pass
+        asyncio.run(run_snapshot(
+            output_dir,
+            send_email='--send-email' in flags,
+            with_detail=with_detail,
+            detail_limit=detail_limit,
+        ))
     elif mode == 'email-preview':
         asyncio.run(run_email_preview(output_dir))
     elif mode == 'send-email':
@@ -566,7 +807,9 @@ if __name__ == '__main__':
         asyncio.run(_send_only())
     else:
         print("Usage:")
-        print("  python rover_scraper.py snapshot              # Scrape + update data.json")
-        print("  python rover_scraper.py snapshot --send-email # Scrape + update + send email")
-        print("  python rover_scraper.py email-preview         # Preview email as HTML file")
-        print("  python rover_scraper.py send-email            # Send from latest data")
+        print("  python rover_scraper.py snapshot                       # Scrape + update data.json")
+        print("  python rover_scraper.py snapshot --send-email          # Scrape + update + send email")
+        print("  python rover_scraper.py snapshot --with-detail         # Also enrich each record from its detail page")
+        print("  python rover_scraper.py snapshot --with-detail --detail-limit=20  # Sample only the first 20")
+        print("  python rover_scraper.py email-preview                  # Preview email as HTML file")
+        print("  python rover_scraper.py send-email                     # Send from latest data")
