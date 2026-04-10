@@ -60,8 +60,18 @@ jobs:
         run: |
           git config user.email "action@github.com"
           git config user.name "GitHub Actions [ROVER Scraper]"
-          git add data.json
-          git commit -m "Auto-update: ROVER data refreshed $(date -u +'%Y-%m-%d')"
+          # data.json is wholly machine-generated — the fresh scrape always wins.
+          # Save it aside, fast-forward to origin/main, restore, commit, push.
+          # This avoids the rebase/editor conflict trap when daily + weekly runs
+          # land close together.
+          cp data.json /tmp/data.json.new
           git fetch origin main
-          git rebase origin/main || (git checkout --theirs data.json && git add data.json && git rebase --continue)
+          git reset --hard origin/main
+          mv /tmp/data.json.new data.json
+          git add data.json
+          if git diff --cached --quiet; then
+            echo "data.json identical to origin/main after refetch — nothing to commit"
+            exit 0
+          fi
+          git commit -m "Auto-update: ROVER data refreshed $(date -u +'%Y-%m-%d')"
           git push
