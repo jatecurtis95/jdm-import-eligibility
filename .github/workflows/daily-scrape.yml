@@ -1,30 +1,16 @@
-name: Weekly ROVER Scrape
+name: Daily ROVER Scrape
 
-# Weekly full-enrichment digest. Pairs with daily-scrape.yml:
-#  - daily handles Tue–Sun list-only scrapes + change-only emails
-#  - weekly (this) handles Monday's full-enrichment scrape that also
-#    refreshes _sev_category / _propulsion / _approval_holder fields
-#    and always sends the digest email (expiring SEVs + ATO headlines).
+# Daily list-only scrape. Catches new MRE/SEV additions within 24h
+# (vs the 7-day lag of weekly-scrape.yml). No detail-page enrichment —
+# that's the weekly job's responsibility. Email only fires when there's
+# a real addition or removal, so empty days don't spam the inbox.
 
 on:
   schedule:
-    # Every Monday at 6:00 AM AEST (Sunday 8:00 PM UTC)
-    - cron: '0 20 * * 0'
+    # Tue–Sun 6:00 AM AEST (Mon–Sat 20:00 UTC).
+    # Skips Sunday UTC (= Monday AEST) to avoid clashing with weekly-scrape.yml.
+    - cron: '0 20 * * 1-6'
   workflow_dispatch:
-    inputs:
-      with_detail:
-        description: 'Enrich each record from its ROVER detail page (slow, ~10 min)'
-        required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
-      detail_limit:
-        description: 'Sample only the first N records when enriching (blank = all)'
-        required: false
-        default: ''
-        type: string
 
 permissions:
   contents: write
@@ -32,7 +18,7 @@ permissions:
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
@@ -51,7 +37,7 @@ jobs:
           playwright install chromium
           playwright install-deps chromium
 
-      - name: Run ROVER scraper
+      - name: Run ROVER scraper (list-only, gated email)
         env:
           REPO_ROOT: ${{ github.workspace }}
           ROVER_DATA_DIR: ${{ github.workspace }}/scripts/data
@@ -60,20 +46,9 @@ jobs:
           O365_CLIENT_SECRET: ${{ secrets.O365_CLIENT_SECRET }}
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
-          # Cron runs always enrich. workflow_dispatch can opt out.
-          WITH_DETAIL: ${{ github.event.inputs.with_detail || 'true' }}
-          DETAIL_LIMIT: ${{ github.event.inputs.detail_limit || '' }}
         run: |
           cd scripts
-          ARGS="snapshot --send-email"
-          if [ "$WITH_DETAIL" = "true" ]; then
-            ARGS="$ARGS --with-detail"
-            if [ -n "$DETAIL_LIMIT" ]; then
-              ARGS="$ARGS --detail-limit=$DETAIL_LIMIT"
-            fi
-          fi
-          echo "Running: python rover_scraper.py $ARGS"
-          python rover_scraper.py $ARGS
+          python rover_scraper.py snapshot --send-email --email-only-on-change
 
       - name: Check for data changes
         id: changes

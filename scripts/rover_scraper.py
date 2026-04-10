@@ -762,7 +762,7 @@ def send_weekly_email(html, mre_changes, sev_changes):
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
-async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_limit=None):
+async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_limit=None, email_only_on_change=False):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         mre_records = await fetch_all_records(browser, MRE_URL, 'MRE List')
@@ -822,6 +822,16 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
     scripts_dir = os.path.dirname(os.path.abspath(__file__))
     email_html = generate_email_html(mre_changes, sev_changes, sev_records, scripts_dir)
     if send_email and email_html:
+        # Daily-cadence callers pass email_only_on_change=True so empty days
+        # don't spam the inbox. Weekly digest callers leave it False so the
+        # Monday email always goes out (it includes expiring-soon SEVs +
+        # ATO headlines + recap, which are useful even with no adds/removes).
+        if email_only_on_change:
+            added_count = len(mre_changes.get('added', [])) + len(sev_changes.get('added', []))
+            removed_count = len(mre_changes.get('removed', [])) + len(sev_changes.get('removed', []))
+            if added_count == 0 and removed_count == 0:
+                print("No additions or removals — skipping email (email_only_on_change=True).")
+                return report
         send_weekly_email(email_html, mre_changes, sev_changes)
 
     return report
@@ -858,6 +868,7 @@ if __name__ == '__main__':
 
     if mode == 'snapshot':
         with_detail = '--with-detail' in flags
+        email_only_on_change = '--email-only-on-change' in flags
         detail_limit = None
         for f in flags:
             if f.startswith('--detail-limit='):
@@ -870,6 +881,7 @@ if __name__ == '__main__':
             send_email='--send-email' in flags,
             with_detail=with_detail,
             detail_limit=detail_limit,
+            email_only_on_change=email_only_on_change,
         ))
     elif mode == 'email-preview':
         asyncio.run(run_email_preview(output_dir))
