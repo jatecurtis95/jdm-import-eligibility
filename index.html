@@ -19,6 +19,10 @@
 <meta property="og:title" content="JDM Import Eligibility Checker — Is Your Car Importable to Australia?">
 <meta property="og:description" content="Instantly check if a Japanese vehicle is eligible for Australian import. Searches the live SEVS and MRE register. Free tool by JDM Connect.">
 <meta property="og:image" content="https://jdmconnect.com.au/wp-content/uploads/2024/01/jdm-connect-og.jpg">
+<!-- Audit #18 — explicit dimensions + alt text improve link unfurl rendering on Slack/Facebook/LinkedIn. -->
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="JDM Connect — Australian Import Eligibility Checker">
 <meta property="og:site_name" content="JDM Connect">
 <meta property="og:locale" content="en_AU">
 
@@ -120,7 +124,9 @@
 }
 </script>
 
-<link rel="icon" type="image/png" href="https://jdmconnect.com.au/favicon.ico">
+<!-- Audit #17 — host favicon locally + correct mime type (was image/png on a .ico path). -->
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="apple-touch-icon" href="/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -441,9 +447,39 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   background: #0D1B3E; border-top: 2px solid #CAA34C;
   padding: 24px; text-align: center; margin-top: 40px;
 }
-.footer p { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.6; }
-.footer a { color: rgba(201,168,76,0.7); text-decoration: none; }
-.footer a:hover { color: #CAA34C; }
+/* Audit #16 — bumped alpha values to meet WCAG AA (was 0.35/0.7, ~3:1 contrast). */
+.footer p { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+.footer a { color: #CAA34C; text-decoration: none; }
+.footer a:hover { color: #E6BD68; text-decoration: underline; }
+
+/* Audit #15 — back-to-top floating button. Hidden until the user has scrolled
+   past 600px so it doesn't clutter the hero. Min 44x44 tap target for mobile. */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #0D1B3E;
+  color: #CAA34C;
+  border: 2px solid #CAA34C;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  transition: transform 0.18s ease, background 0.18s ease;
+  z-index: 999;
+  line-height: 1;
+}
+.back-to-top:hover { transform: translateY(-2px); background: #112350; }
+.back-to-top.visible { display: flex; }
+@media (max-width: 640px) {
+  .back-to-top { bottom: 16px; right: 16px; width: 44px; height: 44px; font-size: 20px; }
+}
 
 /* ── LOADING ──────────────────────────────────────────────────── */
 .loading-overlay {
@@ -863,6 +899,9 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   </p>
 </footer>
 
+<!-- Audit #15 — back-to-top button (visibility/click wired in script below). -->
+<button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
 <script>
 // ── LOAD DATA ────────────────────────────────────────────────────────────────
 let MRE = [], SEV = [], allData = null;
@@ -1229,7 +1268,10 @@ function populateYears() {
   const sel = document.getElementById('sel-year');
   sel.innerHTML = '<option value="">Any year</option>';
   const currentYear = new Date().getFullYear();
-  for (let y = currentYear; y >= 1980; y--) {
+  // Audit #12 — extend back to 1960. The 25-year rule means classic JDM
+  // (early Skylines, KE Corolla, S30 Z, etc.) is import-eligible without
+  // a SEVS entry; the dropdown should let buyers search for those years.
+  for (let y = currentYear; y >= 1960; y--) {
     const o = document.createElement('option');
     o.value = y; o.textContent = y;
     sel.appendChild(o);
@@ -2165,6 +2207,34 @@ function shareResult(vehicleName) {
     navigator.clipboard.writeText(url).then(() => alert('Link copied to clipboard!'));
   }
 }
+
+// ── Audit #15 — back-to-top button visibility + click ───────────────────────
+(function setupBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  const SHOW_AFTER_PX = 600;
+  const onScroll = () => {
+    if (window.scrollY > SHOW_AFTER_PX) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  onScroll();
+})();
+
+// ── Audit #20 — `/` keyboard shortcut focuses the make field ────────────────
+// Skipped when the user is already typing in an input/select/textarea so it
+// never hijacks normal text entry.
+document.addEventListener('keydown', (e) => {
+  if (e.key !== '/') return;
+  const t = e.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'SELECT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+  const make = document.getElementById('sel-make');
+  if (make) {
+    e.preventDefault();
+    make.focus();
+  }
+});
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
 loadData();
