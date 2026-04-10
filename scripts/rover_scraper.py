@@ -698,6 +698,97 @@ def _build_expiring_rows(expiring_sevs):
     return '\n'.join(rows)
 
 
+def _build_summary_section(mre_records, sev_records):
+    """Build a 'Register Snapshot' section showing current register totals,
+    top makes, and category breakdown — so the weekly email is informative
+    even when there are zero additions or removals."""
+    total_mre = len(mre_records)
+    total_sev = len(sev_records)
+    total = total_mre + total_sev
+
+    # Top makes (combined MRE + SEV, up to 8)
+    make_counts = {}
+    for r in mre_records + sev_records:
+        make = (r.get('Make') or '').strip().upper()
+        if make:
+            make_counts[make] = make_counts.get(make, 0) + 1
+    top_makes = sorted(make_counts.items(), key=lambda x: -x[1])[:8]
+
+    # Category breakdown (from _sev_category if enriched)
+    cat_counts = {}
+    for r in sev_records:
+        cat = (r.get('_sev_category') or '').lower()
+        if cat and cat in ELIGIBILITY_LABELS:
+            label = ELIGIBILITY_LABELS[cat]
+            cat_counts[label] = cat_counts.get(label, 0) + 1
+    top_cats = sorted(cat_counts.items(), key=lambda x: -x[1])
+
+    # Build HTML
+    rows = []
+
+    # Totals row
+    rows.append(
+        '<tr><td style="padding:14px 16px; border-bottom:1px solid #242a2a;">'
+        '<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
+        f'<td style="font-size:13px; color:#9ca3af;">Total vehicles on register</td>'
+        f'<td align="right" style="font-size:15px; font-weight:700; color:#e8eaea; font-family:monospace;">'
+        f'{total:,}</td>'
+        '</tr></table></td></tr>'
+    )
+    rows.append(
+        '<tr><td style="padding:10px 16px 10px; border-bottom:1px solid #242a2a;">'
+        '<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
+        f'<td style="font-size:12px; color:#6b7280;">SEVS entries</td>'
+        f'<td align="right" style="font-size:13px; color:#4ade80; font-family:monospace;">{total_sev:,}</td>'
+        '</tr><tr>'
+        f'<td style="font-size:12px; color:#6b7280; padding-top:4px;">Model Report (MRE) approvals</td>'
+        f'<td align="right" style="font-size:13px; color:#60a5fa; font-family:monospace; padding-top:4px;">{total_mre:,}</td>'
+        '</tr></table></td></tr>'
+    )
+
+    # Top makes
+    if top_makes:
+        make_chips = []
+        for make, count in top_makes:
+            make_title = make.title()
+            make_chips.append(
+                f'<span style="display:inline-block; padding:3px 10px; margin:2px 3px; '
+                f'border-radius:14px; font-size:11px; font-weight:600; '
+                f'background-color:#1e2323; color:#e8eaea; border:1px solid #333a3a;">'
+                f'{make_title} <span style="color:#6b7280;">({count})</span></span>'
+            )
+        rows.append(
+            '<tr><td style="padding:12px 16px; border-bottom:1px solid #242a2a;">'
+            f'<div style="font-size:11px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Top Makes</div>'
+            f'<div>{"".join(make_chips)}</div>'
+            '</td></tr>'
+        )
+
+    # Category breakdown (only if enriched data exists)
+    if top_cats:
+        cat_rows = []
+        cat_colors = {
+            'Environmental': '#4ade80', 'Performance Enthusiast': '#f5a623',
+            'Rarity / Heritage': '#c084fc', 'Welcab / Mobility': '#60a5fa',
+            'Camper / RV': '#fb923c', 'Other': '#6b7280',
+        }
+        for label, count in top_cats:
+            color = cat_colors.get(label, '#9ca3af')
+            cat_rows.append(
+                f'<tr><td style="font-size:12px; color:{color}; padding-top:3px;">{label}</td>'
+                f'<td align="right" style="font-size:12px; color:#9ca3af; font-family:monospace; padding-top:3px;">{count}</td></tr>'
+            )
+        rows.append(
+            '<tr><td style="padding:12px 16px;">'
+            f'<div style="font-size:11px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Eligibility Categories</div>'
+            f'<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">'
+            f'{"".join(cat_rows)}</table>'
+            '</td></tr>'
+        )
+
+    return '\n'.join(rows)
+
+
 def _build_headline_rows(headlines):
     rows = []
     for h in headlines:
@@ -713,7 +804,7 @@ def _build_headline_rows(headlines):
     return '\n'.join(rows)
 
 
-def generate_email_html(mre_changes, sev_changes, sev_records, template_dir):
+def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre_records=None):
     template_path = os.path.join(template_dir, 'email-template.html')
     if not os.path.exists(template_path):
         print(f"Warning: email template not found at {template_path}")
@@ -742,9 +833,13 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir):
 
     html = html.replace('{{PREHEADER_TEXT}}', preheader)
     html = html.replace('{{WEEK_DATE}}', week_date)
+    all_mre = mre_records or []
+    total_count = len(all_mre) + len(sev_records)
+
     html = html.replace('{{ADDED_COUNT}}', str(added_count))
     html = html.replace('{{REMOVED_COUNT}}', str(removed_count))
     html = html.replace('{{EXPIRING_COUNT}}', str(expiring_count))
+    html = html.replace('{{TOTAL_COUNT}}', f'{total_count:,}')
 
     for tag, count, rows_fn in [
         ('ADDED', added_count, lambda: _build_vehicle_rows(added_mre, 'MRE') + _build_vehicle_rows(added_sev, 'SEVS')),
@@ -755,6 +850,14 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir):
             html = re.sub(rf'\{{\{{#EACH_{tag}\}}\}}.*?\{{\{{/EACH_{tag}\}}\}}', rows_fn(), html, flags=re.DOTALL)
         else:
             html = re.sub(rf'\{{\{{#IF_{tag}\}}\}}.*?\{{\{{/IF_{tag}\}}\}}', '', html, flags=re.DOTALL)
+
+    # Register Snapshot — always shown in weekly emails
+    summary_html = _build_summary_section(all_mre, sev_records)
+    if summary_html:
+        html = html.replace('{{#IF_SUMMARY}}', '').replace('{{/IF_SUMMARY}}', '')
+        html = re.sub(r'\{\{#EACH_SUMMARY\}\}.*?\{\{/EACH_SUMMARY\}\}', summary_html, html, flags=re.DOTALL)
+    else:
+        html = re.sub(r'\{\{#IF_SUMMARY\}\}.*?\{\{/IF_SUMMARY\}\}', '', html, flags=re.DOTALL)
 
     if expiring_count > 0:
         html = html.replace('{{#IF_EXPIRING}}', '').replace('{{/IF_EXPIRING}}', '')
@@ -903,7 +1006,7 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
 
     # Email
     scripts_dir = os.path.dirname(os.path.abspath(__file__))
-    email_html = generate_email_html(mre_changes, sev_changes, sev_records, scripts_dir)
+    email_html = generate_email_html(mre_changes, sev_changes, sev_records, scripts_dir, mre_records=mre_records)
     if send_email and email_html:
         # Daily-cadence callers pass email_only_on_change=True so empty days
         # don't spam the inbox. Weekly digest callers leave it False so the
@@ -933,7 +1036,7 @@ async def run_email_preview(output_dir):
     mre_changes = compare_snapshots(mre_records, prev_mre, 'Approval number')
     sev_changes = compare_snapshots(sev_records, prev_sev, 'SEV #')
     scripts_dir = os.path.dirname(os.path.abspath(__file__))
-    email_html = generate_email_html(mre_changes, sev_changes, sev_records, scripts_dir)
+    email_html = generate_email_html(mre_changes, sev_changes, sev_records, scripts_dir, mre_records=mre_records)
     if email_html:
         preview_path = os.path.join(output_dir, 'email-preview.html')
         with open(preview_path, 'w', encoding='utf-8') as f:
@@ -980,7 +1083,8 @@ if __name__ == '__main__':
             mre_changes = compare_snapshots(mre_snap.get('records', []), prev_mre, 'Approval number')
             sev_changes = compare_snapshots(sev_snap.get('records', []), prev_sev, 'SEV #')
             scripts_dir = os.path.dirname(os.path.abspath(__file__))
-            email_html = generate_email_html(mre_changes, sev_changes, sev_snap.get('records', []), scripts_dir)
+            mre_recs = mre_snap.get('records', []) if mre_snap else []
+            email_html = generate_email_html(mre_changes, sev_changes, sev_snap.get('records', []), scripts_dir, mre_records=mre_recs)
             if email_html:
                 send_weekly_email(email_html, mre_changes, sev_changes)
         asyncio.run(_send_only())
