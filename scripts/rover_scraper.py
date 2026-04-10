@@ -573,26 +573,106 @@ def _urgency_colors(days_left):
     return '#1f1708', '#f5a623', '#5c4a12'
 
 
+SITE_URL = 'https://eligibility.jdmconnect.com.au'
+
+ELIGIBILITY_LABELS = {
+    'environmental': 'Environmental',
+    'welcab': 'Welcab / Mobility',
+    'performance': 'Performance Enthusiast',
+    'rarity': 'Rarity / Heritage',
+    'camper': 'Camper / RV',
+    'other': 'Other',
+}
+
+PROPULSION_BADGE_COLORS = {
+    'hybrid': ('#0a2e1a', '#4ade80', '#1a5c32'),
+    'ev':     ('#0d1a2e', '#60a5fa', '#1e3a5f'),
+    'phev':   ('#0a2e1a', '#4ade80', '#1a5c32'),
+}
+
+
+def _extract_chassis_codes(raw):
+    """Pull chassis codes out of a SEV Model code field. Drops generic
+    placeholders like 'Specialist…' / 'Bespoke…' that aren't real codes."""
+    if not raw:
+        return ''
+    if re.search(r'specialist|bespoke|workshop', raw, re.IGNORECASE) and not re.search(r'[A-Z]\d', raw):
+        return ''
+    parts = [s.strip() for s in re.split(r'[,/]', raw) if s.strip() and len(s.strip()) <= 30]
+    return ', '.join(dict.fromkeys(parts))  # de-dupe preserving order
+
+
+def _propulsion_badge_html(propulsion):
+    """Small inline propulsion badge for the Type column. Only renders for
+    hybrid/ev/phev — petrol/diesel/unknown stay quiet to keep the row uncluttered."""
+    if not propulsion or propulsion.lower() not in PROPULSION_BADGE_COLORS:
+        return ''
+    bg, color, border = PROPULSION_BADGE_COLORS[propulsion.lower()]
+    label = propulsion.upper()
+    return (f' <span style="display:inline-block; padding:2px 8px; margin-left:4px; '
+            f'border-radius:20px; font-size:10px; font-weight:700; background-color:{bg}; '
+            f'color:{color}; border:1px solid {border};">{label}</span>')
+
+
 def _build_vehicle_rows(records, register_type, is_removed=False):
     rows = []
     for r in records:
         name = f"{r.get('Make', '')} {r.get('Model', '')}".strip()
+        propulsion_html = _propulsion_badge_html(r.get('_propulsion', ''))
+
+        # Build the multi-line Details cell.
+        # Line 1: hyperlinked approval number + key context (eligibility type / workshop)
+        # Line 2: chassis / build range / expiry
         if register_type == 'MRE':
             ref = r.get('Approval number', '')
-            detail = f"#{ref} &middot; {r.get('Build date range', '')}" if ref else r.get('Build date range', '')
+            site_link = f"{SITE_URL}/#mre={ref}" if ref else SITE_URL
+            workshop = r.get('_workshop_short') or r.get('_approval_holder') or ''
+            line1_extra = f' &middot; {workshop}' if workshop else ''
+            line1 = (f'<a href="{site_link}" style="color:#60a5fa; text-decoration:underline; '
+                     f'font-weight:600;">#{ref}</a>{line1_extra}') if ref else ''
+            build_range = r.get('Build date range', '')
+            line2 = build_range
         else:
             ref = r.get('SEV #', '')
-            detail = f"#{ref} &middot; Expires: {r.get('Expiry', '')}" if ref else ''
+            site_link = f"{SITE_URL}/#sev={ref}" if ref else SITE_URL
+            sev_cat_raw = (r.get('_sev_category') or '').lower()
+            sev_cat_label = ELIGIBILITY_LABELS.get(sev_cat_raw, '')
+            line1_extra = f' &middot; {sev_cat_label}' if sev_cat_label else ''
+            line1 = (f'<a href="{site_link}" style="color:#4ade80; text-decoration:underline; '
+                     f'font-weight:600;">#{ref}</a>{line1_extra}') if ref else ''
+            chassis = _extract_chassis_codes(r.get('Model code', ''))
+            build_from = r.get('Build date from', '')
+            build_to = r.get('Build date to', '')
+            build_range = ''
+            if build_from:
+                to_label = 'present' if (not build_to or build_to == 'No end date') else build_to
+                build_range = f'{build_from} – {to_label}'
+            expiry = r.get('Expiry', '')
+            line2_parts = []
+            if chassis:
+                line2_parts.append(f'<span style="font-family:Menlo,Monaco,monospace; color:#9ca3af;">{chassis}</span>')
+            if build_range:
+                line2_parts.append(build_range)
+            if expiry:
+                line2_parts.append(f'Expires {expiry}')
+            line2 = ' &middot; '.join(line2_parts)
+
         bg, color, border, cls = _badge_for_register(register_type)
         if is_removed:
             name_style = 'font-size:14px; font-weight:600; color:#6b7280;'
             bg, color, border, cls = '#1a1d1d', '#9ca3af', '#2d3333', 'badge-gray'
         else:
             name_style = 'font-size:14px; font-weight:600; color:#e8eaea;'
-        rows.append(f'<tr><td style="padding:12px 16px; border-bottom:1px solid #242a2a; {name_style}">{name}</td>'
-                     f'<td style="padding:12px 16px; border-bottom:1px solid #242a2a;">'
-                     f'<span style="display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; background-color:{bg}; color:{color}; border:1px solid {border};" class="{cls}">{register_type}</span>'
-                     f'</td><td style="padding:12px 16px; border-bottom:1px solid #242a2a; font-size:13px; color:#9ca3af;" class="detail-col">{detail}</td></tr>')
+
+        detail_html = f'{line1}<br><span style="color:#6b7280;">{line2}</span>' if line2 else line1
+
+        rows.append(
+            f'<tr><td style="padding:12px 16px; border-bottom:1px solid #242a2a; {name_style}">{name}</td>'
+            f'<td style="padding:12px 16px; border-bottom:1px solid #242a2a;">'
+            f'<span style="display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; background-color:{bg}; color:{color}; border:1px solid {border};" class="{cls}">{register_type}</span>'
+            f'{propulsion_html}'
+            f'</td><td style="padding:12px 16px; border-bottom:1px solid #242a2a; font-size:13px; color:#9ca3af; line-height:1.5;" class="detail-col">{detail_html}</td></tr>'
+        )
     return '\n'.join(rows)
 
 
@@ -601,13 +681,16 @@ def _build_expiring_rows(expiring_sevs):
     for r in expiring_sevs:
         name = f"{r.get('Make', '')} {r.get('Model', '')}".strip()
         ref = r.get('SEV #', '')
+        site_link = f"{SITE_URL}/#sev={ref}" if ref else SITE_URL
         days_left = r['_days_left']
         urg_bg, urg_color, urg_border = _urgency_colors(days_left)
+        ref_html = (f'<a href="{site_link}" style="color:#9ca3af; text-decoration:underline;">SEV #{ref}</a>'
+                    if ref else 'SEV')
         rows.append(
             f'<tr><td style="padding:14px 16px; border-bottom:1px solid #242a2a; background-color:#1a1608;" class="expiring-row">'
             f'<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
             f'<td><span style="font-size:14px; font-weight:600; color:#e8eaea;">{name}</span><br>'
-            f'<span style="font-size:12px; color:#6b7280;">SEV #{ref}</span></td>'
+            f'<span style="font-size:12px; color:#6b7280;">{ref_html}</span></td>'
             f'<td align="right" valign="middle">'
             f'<span style="display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700; background-color:{urg_bg}; color:{urg_color}; border:1px solid {urg_border};">{days_left} days</span>'
             f'</td></tr></table></td></tr>'
