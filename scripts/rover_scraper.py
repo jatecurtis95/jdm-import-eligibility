@@ -298,13 +298,33 @@ async def fetch_all_records(browser, url, list_name):
 
     all_records = []
     current_page = 1
+    # Track the first row's "signature" so we can detect when the next page hasn't
+    # actually rendered yet (ROVER's AJAX pager occasionally serves stale rows
+    # if we don't wait long enough — that's the silent-loss bug that dropped
+    # ~100 MRE records on the April 5 run).
+    last_first_row_sig = None
 
     while current_page <= total_pages:
         print(f"  Page {current_page}/{total_pages}...", end=' ', flush=True)
         result = await extract_table_page(page)
         rows = result.get('rows', [])
+
+        # Sanity check: empty page is almost always a failure, not a real result.
+        # (We already know total_pages, so any page in range should have data.)
+        if not rows:
+            print(f"EMPTY — retrying after wait")
+            await page.wait_for_timeout(3000)
+            result = await extract_table_page(page)
+            rows = result.get('rows', [])
+            if not rows:
+                raise RuntimeError(
+                    f"Page {current_page}/{total_pages} returned 0 rows after retry — "
+                    f"refusing to silently lose records. Aborting so the cron alerts."
+                )
+
         all_records.extend(rows)
         print(f"{len(rows)} records")
+        last_first_row_sig = _row_signature(rows[0]) if rows else None
 
         if current_page >= total_pages:
             break
@@ -325,17 +345,62 @@ async def fetch_all_records(browser, url, list_name):
                 }}
             """)
             if not clicked:
-                print(f"  Could not find page {next_page} button — stopping.")
-                break
-            await page.wait_for_timeout(1500)
+                raise RuntimeError(
+                    f"Could not find page {next_page} button (expected {total_pages} pages, "
+                    f"only got to {current_page}). Aborting so the cron alerts."
+                )
+            # Wait for the AJAX pager to actually swap in new rows. We poll the
+            # first row's signature against the previous page's first row — once
+            # it changes, the new page has rendered. This replaces the old fixed
+            # 1500ms wait that was the root cause of silent record loss.
+            await _wait_for_page_change(page, last_first_row_sig, timeout_ms=15000)
             current_page += 1
         except Exception as e:
             print(f"  Pagination error: {e}")
-            break
+            raise
 
     await context.close()
     print(f"  Total records fetched: {len(all_records)}")
     return all_records
+
+
+def _row_signature(row):
+    """Stable identifier for a record row — used to detect when the AJAX pager
+    has actually rendered a new page vs still showing the previous page's rows."""
+    if not row:
+        return None
+    # Prefer the detail URL (always unique per record). Fall back to first 3 fields.
+    if row.get('_detail_url'):
+        return row['_detail_url']
+    return '|'.join(str(v) for v in list(row.values())[:3])
+
+
+async def _wait_for_page_change(page, prev_first_sig, timeout_ms=15000):
+    """Poll until the table's first-row signature differs from prev_first_sig.
+    Raises if the page doesn't change within timeout_ms — better to fail loudly
+    than to silently extract stale rows from the previous page."""
+    poll_interval_ms = 250
+    elapsed = 0
+    # Always give the AJAX call a moment to start.
+    await page.wait_for_timeout(500)
+    elapsed += 500
+    while elapsed < timeout_ms:
+        try:
+            await page.wait_for_load_state('networkidle', timeout=2000)
+        except Exception:
+            pass  # networkidle is best-effort; we still verify content below
+        result = await extract_table_page(page)
+        rows = result.get('rows', [])
+        if rows:
+            current_sig = _row_signature(rows[0])
+            if current_sig and current_sig != prev_first_sig:
+                return  # success — new page has loaded
+        await page.wait_for_timeout(poll_interval_ms)
+        elapsed += poll_interval_ms
+    raise RuntimeError(
+        f"Pager did not advance within {timeout_ms}ms — first row still matches "
+        f"previous page. Aborting to prevent silent record loss."
+    )
 
 
 # ── Persistence ─────────────────────────────────────────────────────────────
@@ -714,22 +779,41 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
     save_snapshot(mre_records, 'mre', output_dir)
     save_snapshot(sev_records, 'sev', output_dir)
 
-    prev_mre = load_previous_snapshot('mre', output_dir)
-    prev_sev = load_previous_snapshot('sev', output_dir)
+    # Read previous data.json from disk for change detection BEFORE we overwrite it.
+    # GitHub Actions checkout puts the last committed version here, which is a
+    # reliable persistent source of truth — unlike scripts/data/ which is gitignored
+    # and therefore always empty on a fresh runner. Without this, every weekly run
+    # produced a "First snapshot — no previous data" email and silently missed
+    # every addition/removal since launch.
+    repo_root = os.environ.get('REPO_ROOT', '')
+    data_json_path = os.path.join(repo_root, 'data.json') if repo_root else os.path.join(output_dir, 'data.json')
+    prev_mre = None
+    prev_sev = None
+    if os.path.exists(data_json_path):
+        try:
+            with open(data_json_path, encoding='utf-8') as f:
+                prev_data = json.load(f)
+            prev_mre = {'records': prev_data.get('mre', [])}
+            prev_sev = {'records': prev_data.get('sev', [])}
+            print(f"Loaded previous data.json for change detection: "
+                  f"{len(prev_mre['records'])} MRE, {len(prev_sev['records'])} SEV")
+        except Exception as e:
+            print(f"Warning: could not read previous data.json for change detection: {e}")
+    else:
+        print(f"No previous data.json found at {data_json_path} — first run")
+
     mre_changes = compare_snapshots(mre_records, prev_mre, 'Approval number')
     sev_changes = compare_snapshots(sev_records, prev_sev, 'SEV #')
 
     report = format_report(mre_records, sev_records, mre_changes, sev_changes)
     print("\n" + report)
 
-    # Write data.json for the public site
+    # Write data.json for the public site (overwrites the previous-version we just read)
     site_data = {
         'fetched_at': datetime.now().isoformat(),
         'mre': [{k: v for k, v in r.items() if k != 'Actions'} for r in mre_records],
         'sev': [{k: v for k, v in r.items() if k != 'Actions'} for r in sev_records],
     }
-    repo_root = os.environ.get('REPO_ROOT', '')
-    data_json_path = os.path.join(repo_root, 'data.json') if repo_root else os.path.join(output_dir, 'data.json')
     with open(data_json_path, 'w') as f:
         json.dump(site_data, f)
     print(f"data.json written -> {data_json_path} ({len(mre_records)} MRE + {len(sev_records)} SEV)")
