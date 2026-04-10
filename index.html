@@ -1822,16 +1822,34 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
   // Audit #13 — write deep-link hash for this approval.
   if (isMRE && approvalNum) writeUrlHash({ mre: approvalNum });
   else if (!isMRE && approvalNum) writeUrlHash({ sev: approvalNum });
+  // Look up the primary sibling SEV (if any) for this group. SEV is the
+  // authoritative eligibility entry — when the user lands on an MRE view,
+  // we still want to consult the SEV for chassis codes, expiry, and the
+  // header subtitle. Without this fallback, MRE pages render half-blank
+  // because the MRE list-scrape doesn't carry chassis codes or expiry.
+  const primarySev = (sevList || []).find(s => s && s['SEV #']) || null;
+
   const buildRange = isMRE
     ? formatBuildRange(r['Build date range'])
     : ((r['Build date from'] || '') + (r['Build date to'] && r['Build date to'] !== 'No end date' ? ' – ' + r['Build date to'] : '+'));
   const status = isMRE ? (r['Approval status'] || 'In Force') : getSevExpiryStatus(r).label;
-  const expiry = isMRE ? null : (r['Expiry'] || null);
+  // Expiry: SEV view → its own expiry. MRE view → fall back to the sibling SEV.
+  const expiry = isMRE
+    ? (primarySev ? (primarySev['Expiry'] || null) : null)
+    : (r['Expiry'] || null);
   const compliance = isMRE ? (r['Compliance Level'] || null) : null;
   const modelCode = isMRE ? (r['Model report type'] || null) : (r['Model code'] || null);
-  const { isExpiringSoon } = isMRE ? { isExpiringSoon: false } : getSevExpiryStatus(r);
+  const { isExpiringSoon } = (isMRE && primarySev)
+    ? getSevExpiryStatus(primarySev)
+    : (isMRE ? { isExpiringSoon: false } : getSevExpiryStatus(r));
 
-  const approvalLink = `<a href="${roverDetailUrl(r, isMRE)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:500;font-size:12px;">${approvalNum}</a>`;
+  // Header subtitle: prefer the SEV approval number when one exists, since
+  // SEV is the canonical entry on the SEVS register. Falls back to the
+  // current record's approval number for MRE-only or SEV-only vehicles.
+  const headerRecord = (isMRE && primarySev) ? primarySev : r;
+  const headerIsMRE = (isMRE && primarySev) ? false : isMRE;
+  const headerApprovalNum = headerIsMRE ? headerRecord['Approval number'] : headerRecord['SEV #'];
+  const approvalLink = `<a href="${roverDetailUrl(headerRecord, headerIsMRE)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-family:DM Mono,monospace;font-weight:500;font-size:12px;">${headerApprovalNum}</a>`;
 
   const bRange25 = parseBuildRange(isMRE ? r['Build date range'] : ((r['Build date from'] || '') + ' - ' + (r['Build date to'] || '')));
   const isOver25 = bRange25 && bRange25.from && (new Date().getFullYear() - bRange25.from.getFullYear()) >= 25;
@@ -1870,10 +1888,10 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
       })();
 
   // Chassis Codes — split the relevant code field on commas/slashes, dedupe.
-  function extractChassisCodes(record, isMre) {
-    const raw = isMre
-      ? (record['Model report type'] || record['Model code'] || '')
-      : (record['Model code'] || '');
+  // Important: MRE list-scrape doesn't carry chassis codes (Model report type
+  // is just the category like "Specialist and Enthusiast Vehicles"), so for
+  // MRE views we fall back to the sibling SEV's Model code field.
+  function extractChassisCodes(raw) {
     if (!raw) return [];
     // Drop generic placeholder labels like "Specialist…" / "Bespoke…" — they're not chassis codes.
     if (/specialist|bespoke|workshop/i.test(raw) && !/[A-Z]\d/.test(raw)) return [];
@@ -1883,7 +1901,12 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
         .filter(s => s && s.length <= 30)
     )];
   }
-  const chassisCodes = extractChassisCodes(r, isMRE);
+  let chassisCodes = isMRE
+    ? extractChassisCodes(r['Model report type'] || r['Model code'] || '')
+    : extractChassisCodes(r['Model code'] || '');
+  if (chassisCodes.length === 0 && primarySev) {
+    chassisCodes = extractChassisCodes(primarySev['Model code'] || '');
+  }
   const chassisStr = chassisCodes.length ? chassisCodes.join(', ') : '—';
 
   // Eligibility Type — pulled from scraper's `_sev_category` (Phase 1). Until the
@@ -1898,6 +1921,7 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
   };
   // If current record is MRE, look at any sibling SEV in the same group for the category.
   const eligibilityRaw = r._sev_category
+    || (primarySev && primarySev._sev_category)
     || (sevList || []).map(s => s._sev_category).find(Boolean)
     || '';
   const eligibilityLabel = eligibilityRaw
