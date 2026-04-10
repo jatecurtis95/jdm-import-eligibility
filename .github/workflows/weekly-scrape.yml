@@ -15,11 +15,11 @@ on:
       with_detail:
         description: 'Enrich each record from its ROVER detail page (slow, ~10 min)'
         required: false
-        default: 'false'
+        default: 'true'
         type: choice
         options:
-          - 'false'
           - 'true'
+          - 'false'
       detail_limit:
         description: 'Sample only the first N records when enriching (blank = all)'
         required: false
