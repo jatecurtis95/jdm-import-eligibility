@@ -935,7 +935,7 @@ function roverLink(record, isMRE, label) {
 
 async function loadData() {
   try {
-    const res = await fetch('data.json');
+    const res = await fetch('/api/data');
     allData = await res.json();
     MRE = allData.mre || [];
     SEV = allData.sev || [];

@@ -1011,7 +1011,13 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
     # produced a "First snapshot — no previous data" email and silently missed
     # every addition/removal since launch.
     repo_root = os.environ.get('REPO_ROOT', '')
-    data_json_path = os.path.join(repo_root, 'data.json') if repo_root else os.path.join(output_dir, 'data.json')
+    # Data is served from Cloudflare Pages via a Function; the JSON lives under
+    # functions/_data/ so Pages does NOT expose it as a static asset.
+    if repo_root:
+        data_json_path = os.path.join(repo_root, 'functions', '_data', 'data.json')
+    else:
+        data_json_path = os.path.join(output_dir, 'data.json')
+    os.makedirs(os.path.dirname(data_json_path), exist_ok=True)
     prev_mre = None
     prev_sev = None
     if os.path.exists(data_json_path):
