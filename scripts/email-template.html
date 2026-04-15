@@ -136,6 +136,24 @@
                   </td>
                 </tr>
 
+                <!-- ===== REGISTER SNAPSHOT ===== -->
+                {{#IF_SUMMARY}}
+                <tr>
+                  <td style="padding: 8px 36px 8px;" class="mobile-pad">
+                    <h2 style="margin:0; font-size:15px; font-weight:600; color:#e8eaea;">
+                      Register Snapshot
+                    </h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 4px 36px 12px;" class="mobile-pad">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-radius:8px; border:1px solid #242a2a;">
+                      {{SUMMARY_ROWS}}
+                    </table>
+                  </td>
+                </tr>
+                {{/IF_SUMMARY}}
+
                 <!-- ===== NEW VEHICLES ADDED ===== -->
                 {{#IF_ADDED}}
                 <tr>
@@ -213,7 +231,6 @@
                 {{/IF_NO_CHANGES}}
 
                 <!-- ===== INDUSTRY HEADLINES ===== -->
-                {{#IF_HEADLINES}}
                 <tr>
                   <td style="padding: 24px 36px 8px;" class="mobile-pad">
                     <h2 style="margin:0; font-size:15px; font-weight:600; color:#60a5fa;">
@@ -224,8 +241,8 @@
                 <tr>
                   <td style="padding: 4px 36px 0;" class="mobile-pad">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-radius:8px; border:1px solid #242a2a;">
-                      {{#EACH_HEADLINE}}                      <!-- Rows injected by rover_scraper.py -->                      {{/EACH_HEADLINE}}
-                      <!-- Always include DITRDCA link as last item -->
+                      {{#IF_HEADLINES}}{{#EACH_HEADLINE}}{{/EACH_HEADLINE}}{{/IF_HEADLINES}}
+                      <!-- Always included: DITRDCA policy page -->
                       <tr>
                         <td style="padding:12px 16px;">
                           <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -235,7 +252,7 @@
                                   Check DITRDCA for latest SEVS policy updates
                                 </a>
                                 <p style="margin:4px 0 0; font-size:12px; color:#6b7280; line-height:1.4;">
-                                  No RSS feed available — click to check the official SEVS news page directly.
+                                  Official SEVS news page — refreshed by DITRDCA.
                                 </p>
                               </td>
                               <td width="70" align="right" valign="top">
@@ -248,7 +265,6 @@
                     </table>
                   </td>
                 </tr>
-                {{/IF_HEADLINES}}
 
                 <!-- CTA BUTTON -->
                 <tr>

@@ -880,8 +880,6 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
 
     html = html.replace('{{PREHEADER_TEXT}}', preheader)
     html = html.replace('{{WEEK_DATE}}', week_date)
-    all_mre = mre_records or []
-    total_count = len(all_mre) + len(sev_records)
 
     html = html.replace('{{ADDED_COUNT}}', str(added_count))
     html = html.replace('{{REMOVED_COUNT}}', str(removed_count))
@@ -909,12 +907,22 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
     else:
         html = re.sub(r'\{\{#IF_HEADLINES\}\}.*?\{\{/IF_HEADLINES\}\}', '', html, flags=re.DOTALL)
 
+    # Register snapshot (always shown when we have records — gives the email
+    # substance even on quiet weeks with no adds/removes)
+    all_mre = mre_records or []
+    if all_mre or sev_records:
+        summary_rows = _build_summary_section(all_mre, sev_records)
+        html = html.replace('{{#IF_SUMMARY}}', '').replace('{{/IF_SUMMARY}}', '')
+        html = html.replace('{{SUMMARY_ROWS}}', summary_rows)
+    else:
+        html = re.sub(r'\{\{#IF_SUMMARY\}\}.*?\{\{/IF_SUMMARY\}\}', '', html, flags=re.DOTALL)
+
     if added_count == 0 and removed_count == 0 and expiring_count == 0:
         html = html.replace('{{#IF_NO_CHANGES}}', '').replace('{{/IF_NO_CHANGES}}', '')
     else:
         html = re.sub(r'\{\{#IF_NO_CHANGES\}\}.*?\{\{/IF_NO_CHANGES\}\}', '', html, flags=re.DOTALL)
 
-    html = html.replace('{{UNSUBSCRIBE_URL}}', '#')
+    html = html.replace('{{UNSUBSCRIBE_URL}}', 'mailto:info@jdmconnect.com.au?subject=Unsubscribe%20from%20ROVER%20Weekly')
     print(f"Email generated: {added_count} added, {removed_count} removed, {expiring_count} expiring, {len(headlines)} headlines")
     return html
 
