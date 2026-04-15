@@ -880,6 +880,27 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
 
     html = html.replace('{{PREHEADER_TEXT}}', preheader)
     html = html.replace('{{WEEK_DATE}}', week_date)
+    all_mre = mre_records or []
+
+    # Data-refreshed timestamp + month-over-month trend line
+    data_refreshed = datetime.now().strftime('%d %b %Y at %H:%M AWST')
+    html = html.replace('{{DATA_REFRESHED}}', data_refreshed)
+
+    trend_html = ''
+    try:
+        output_dir = os.path.join(os.path.dirname(__file__), '..', 'outputs')
+        prev_mre = load_previous_snapshot('mre', output_dir)
+        prev_sev = load_previous_snapshot('sev', output_dir)
+        prev_total = (prev_mre.get('count', 0) if prev_mre else 0) + (prev_sev.get('count', 0) if prev_sev else 0)
+        curr_total = len(all_mre) + len(sev_records)
+        if prev_total > 0:
+            delta = curr_total - prev_total
+            sign = '+' if delta > 0 else ''
+            color = '#4ade80' if delta > 0 else '#f87171' if delta < 0 else '#6b7280'
+            trend_html = f' &middot; <span style="color:{color};">{sign}{delta} vs last month</span>'
+    except Exception as e:
+        print(f"Trend calc skipped: {e}")
+    html = html.replace('{{MONTHLY_TREND}}', trend_html)
 
     html = html.replace('{{ADDED_COUNT}}', str(added_count))
     html = html.replace('{{REMOVED_COUNT}}', str(removed_count))
@@ -909,7 +930,6 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
 
     # Register snapshot (always shown when we have records — gives the email
     # substance even on quiet weeks with no adds/removes)
-    all_mre = mre_records or []
     if all_mre or sev_records:
         summary_rows = _build_summary_section(all_mre, sev_records)
         html = html.replace('{{#IF_SUMMARY}}', '').replace('{{/IF_SUMMARY}}', '')
