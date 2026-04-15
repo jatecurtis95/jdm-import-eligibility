@@ -428,6 +428,24 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 }
 .search-again:hover { color: #1a1a1a; }
 
+/* Pagination */
+.pagination {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin: 16px 0 8px; flex-wrap: wrap;
+}
+.page-btn {
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+  padding: 10px 16px; font-size: 14px; font-weight: 600; color: #1a1a1a;
+  cursor: pointer; transition: all 150ms ease;
+}
+.page-btn:hover:not([disabled]) { background: #f9fafb; border-color: #d1d5db; }
+.page-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+.page-info { font-size: 13px; color: #6b7280; text-align: center; flex: 1; }
+@media (max-width: 480px) {
+  .pagination { justify-content: center; }
+  .page-info { flex-basis: 100%; order: -1; }
+}
+
 /* ── STATS STRIP ──────────────────────────────────────────────── */
 .stats-strip {
   max-width: 720px; margin: 0 auto 0;
@@ -911,6 +929,8 @@ const ADMIN_MODE = new URLSearchParams(window.location.search).get('admin') === 
 
 // Navigation state for 3-screen flow
 let currentGroups = [];       // Array of { make, model, mre[], sev[] } — populated on search
+let currentPage = 1;          // Pagination for Screen 1 results list
+const PAGE_SIZE = 15;         // Results per page on Screen 1
 let currentGenerations = {}; // keyed by groupIdx — generation groups for Screen 2
 let lastSearchArgs = null; // Cache so Screen 1 can be re-rendered from Screen 2 back button
 
@@ -1643,6 +1663,7 @@ function showGroupedResults(make, model, year, mreMatches, sevMatches, isChassis
     groupMap[key].sev.push(r);
   });
   currentGroups = Object.values(groupMap);
+  currentPage = 1;
 
   // Single result total → go straight to Screen 3
   if (totalMatches === 1) {
@@ -1659,7 +1680,13 @@ function showGroupedResults(make, model, year, mreMatches, sevMatches, isChassis
 function renderScreen1(wrap) {
   const groupCount = currentGroups.length;
   const totalMatches = currentGroups.reduce((n, g) => n + g.mre.length + g.sev.length, 0);
-  let html = '';
+  const totalPages = Math.max(1, Math.ceil(groupCount / PAGE_SIZE));
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+  const startIdx = (currentPage - 1) * PAGE_SIZE;
+  const endIdx = Math.min(startIdx + PAGE_SIZE, groupCount);
+
+  let html = `<button class="back-btn" onclick="resetSearch()">← Back to search</button>`;
 
   if (groupCount > 1) {
     html += `
@@ -1673,7 +1700,8 @@ function renderScreen1(wrap) {
   }
 
   html += '<div class="model-card-list">';
-  currentGroups.forEach((g, idx) => {
+  for (let idx = startIdx; idx < endIdx; idx++) {
+    const g = currentGroups[idx];
     const range = combinedBuildRange(g.mre, g.sev);
     html += `
       <div class="model-card" onclick="showApprovalList(${idx})">
@@ -1687,10 +1715,30 @@ function renderScreen1(wrap) {
         </div>
       </div>
     `;
-  });
+  }
   html += '</div>';
+
+  if (totalPages > 1) {
+    const prevDisabled = currentPage === 1 ? 'disabled' : '';
+    const nextDisabled = currentPage === totalPages ? 'disabled' : '';
+    html += `
+      <div class="pagination">
+        <button class="page-btn" ${prevDisabled} onclick="gotoPage(${currentPage - 1})">← Previous</button>
+        <span class="page-info">Page ${currentPage} of ${totalPages} · Showing ${startIdx + 1}–${endIdx} of ${groupCount}</span>
+        <button class="page-btn" ${nextDisabled} onclick="gotoPage(${currentPage + 1})">Next →</button>
+      </div>
+    `;
+  }
+
   html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
   wrap.innerHTML = html;
+}
+
+function gotoPage(page) {
+  currentPage = page;
+  const wrap = document.getElementById('results-wrap');
+  renderScreen1(wrap);
+  wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ── SCREEN 2: VEHICLE SUMMARY ────────────────────────────────────────────────
