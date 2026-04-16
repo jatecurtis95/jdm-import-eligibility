@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="BviVdYMFDdI4L0-VpyTKti19PmUCVjVK5ZV20F97puc">
 
+<!-- Google tag (gtag.js) — eligibility.jdmconnect.com.au stream -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HX2BTE1CNT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HX2BTE1CNT');
+</script>
+
 <!-- Primary SEO -->
 <title>JDM Import Eligibility Checker Australia | SEVS & MRE Register | JDM Connect</title>
 <meta name="description" content="Check if your Japanese vehicle is eligible to import into Australia. Search the live SEVS and MRE register by make, model, and year. Free tool by JDM Connect — Perth's JDM import specialists.">
@@ -130,6 +139,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow-x: hidden; }
 body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; min-height: 100vh; }
 
 /* ── HEADER ─────────────────────────────────────────────────── */
@@ -137,14 +147,19 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   background: #141414;
   position: sticky; top: 0; z-index: 100;
   border-bottom: 2px solid #CAA34C;
+  overflow: hidden;
 }
 .header-inner {
   max-width: 1100px; margin: 0 auto;
   padding: 0 24px;
   height: 60px;
   display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; min-width: 0;
 }
-.logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; overflow: hidden; flex: 0 1 auto; }
+/* Logo PNG is ~9.4:1 (864×92). Cap max-width so the header can never push
+   the page wider than the viewport — see audit. */
+.header-logo { height: 32px; width: auto; max-width: 240px; display: block; flex-shrink: 1; }
 .logo-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; }
 .header-nav { display: flex; align-items: center; gap: 20px; }
 .header-nav a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.15s; }
@@ -155,6 +170,7 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   color: #111; font-size: 12px; font-weight: 700;
   padding: 7px 16px; border-radius: 6px; text-decoration: none;
   letter-spacing: 0.02em; white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* ── HERO ────────────────────────────────────────────────────── */
@@ -176,6 +192,21 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 .hero h1 { font-size: 32px; font-weight: 800; color: #fff; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 10px; }
 .hero h1 em { font-style: normal; color: #CAA34C; }
 .hero p { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 480px; margin: 0 auto; line-height: 1.6; }
+.hero p.hero-first {
+  margin-top: 10px;
+  max-width: 440px;
+  font-size: 12px;
+  color: rgba(201,168,76,0.85);
+  letter-spacing: 0.01em;
+  font-style: italic;
+}
+
+/* Register explainer under the stats strip */
+.register-note {
+  max-width: 720px; margin: -8px auto 24px; padding: 0 16px;
+  font-size: 12px; color: #6b7280; text-align: center; line-height: 1.5;
+}
+.register-note strong { color: #1a1a1a; font-weight: 700; }
 
 /* ── SEARCH CARD ─────────────────────────────────────────────── */
 .search-wrap { max-width: 720px; margin: -28px auto 0; padding: 0 16px 32px; position: relative; z-index: 10; }
@@ -231,7 +262,13 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
    aren't pushed below the fold on mobile. Stats strip also hides to free space. */
 body.results-active .hero,
 body.results-active .search-wrap,
-body.results-active .stats-strip { display: none; }
+body.results-active .stats-strip,
+body.results-active .register-note { display: none; }
+/* Once results are active the page can be shorter than the viewport; without
+   this, body's min-height: 100vh leaves a gray strip below the footer on
+   mobile. */
+body.results-active { min-height: auto; }
+body.results-active .footer { margin-top: 20px; }
 
 /* Phase 2.3 — Documentation card link styling (Ben's mockup) */
 .doc-link {
@@ -420,6 +457,12 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 }
 .action-btn-primary:hover { opacity: 0.92; }
 
+/* Lead-in line that frames the primary CTA after a result renders. */
+.primary-lead {
+  font-size: 14px; color: #374151; line-height: 1.5;
+  margin: 8px 0 12px; text-align: center;
+}
+
 /* Search again link */
 .search-again {
   text-align: center; padding: 8px;
@@ -584,20 +627,34 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 
 /* ── RESPONSIVE ───────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .header-inner { height: 52px; padding: 0 14px; }
+  .header-inner { height: 52px; padding: 0 12px; gap: 8px; }
   .logo-tag { display: none; }
   .header-nav a:not(.header-cta) { display: none; }
+  /* Audit — logo + CTA must coexist on 320-375px viewports. Capping logo
+     at 150px leaves room for "Get a Quote" without clipping. */
+  .header-logo { height: 22px; max-width: 150px; }
+  .header-cta { font-size: 11px; padding: 6px 10px; letter-spacing: 0; flex-shrink: 0; }
   .hero { padding: 28px 16px 44px; }
   .hero h1 { font-size: 24px; }
   .hero p { font-size: 13px; }
+  .hero p.hero-first { font-size: 11px; max-width: 300px; padding: 0 4px; }
+  /* Audit — tab text was wrapping to two lines on narrow screens. */
+  .search-tabs { gap: 4px; }
+  .search-tab { font-size: 12px; padding: 10px 8px; white-space: nowrap; }
   .search-card { padding: 20px 16px; border-radius: 14px; }
-  .search-fields { grid-template-columns: 1fr; gap: 10px; }
+  .search-fields { grid-template-columns: 1fr; gap: 12px; }
+  .search-wrap { padding: 0 16px 32px; }
   .stats-strip { grid-template-columns: repeat(3,1fr); gap: 8px; }
   .stat-num { font-size: 18px; }
   .stat-label { font-size: 10px; }
+  .register-note { font-size: 11px; padding: 0 12px; margin-top: 2px; }
   .action-grid { grid-template-columns: 1fr; }
-  .header-cta { font-size: 11px; padding: 6px 12px; }
-  .results-wrap { padding-bottom: 32px; }
+  .primary-lead { font-size: 13px; margin: 6px 0 10px; }
+  /* Audit — ensure the results wrapper spans full viewport width. */
+  .results-wrap { width: 100%; padding: 0 16px 32px; box-sizing: border-box; }
+  /* Audit — 44×44 minimum touch targets. */
+  .back-to-top { width: 48px; height: 48px; }
+  .search-again { padding: 14px; }
 
   /* Phase 2.5 / Audit #4-9 — Mobile usability for the new Screen 3 cards */
 
@@ -794,7 +851,7 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 <header class="header">
   <div class="header-inner">
     <a href="/" class="logo-wrap">
-      <img src="logo.png" alt="JDM Connect" style="height:32px;width:auto;display:block;">
+      <img src="logo.png" alt="JDM Connect" class="header-logo">
       <span class="logo-tag">Eligibility Checker</span>
     </a>
     <nav class="header-nav">
@@ -810,6 +867,7 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   <div class="hero-badge"><span class="dot"></span> Live ROVER data</div>
   <h1>Is this car<br><em>importable to Australia?</em></h1>
   <p>Check SEVS &amp; MRE eligibility in seconds — used by dealers, agents, and enthusiasts nationwide.</p>
+  <p class="hero-first">The first free eligibility tool of its kind, built for Australian JDM buyers.</p>
 </div>
 
 <!-- SEARCH CARD -->
@@ -888,21 +946,28 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   </div>
 </div>
 
-<!-- STATS STRIP -->
+<!-- STATS STRIP — initial values match the latest bundled snapshot so the
+     strip never renders dashes if /api/data is slow, blocked, or fails.
+     loadData() overwrites these with the live counts once the API responds. -->
 <div class="stats-strip" id="stats-strip">
   <div class="stat-card">
-    <div class="stat-num" id="stat-mre">—</div>
+    <div class="stat-num" id="stat-mre">883</div>
     <div class="stat-label">MRE approvals</div>
   </div>
   <div class="stat-card">
-    <div class="stat-num" id="stat-sev">—</div>
+    <div class="stat-num" id="stat-sev">615</div>
     <div class="stat-label">SEVS listings</div>
   </div>
   <div class="stat-card">
-    <div class="stat-num" id="stat-updated">—</div>
+    <div class="stat-num" id="stat-updated">15 Apr</div>
     <div class="stat-label">Data updated</div>
   </div>
 </div>
+<p class="register-note">
+  <strong>SEVS</strong> = Specialist &amp; Enthusiast Vehicle Scheme ·
+  <strong>MRE</strong> = Model Report Eligibility —
+  Australia's two official import registers (Dept of Infrastructure).
+</p>
 
 <!-- RESULTS -->
 <div class="results-wrap" id="results-wrap" style="display:none;"></div>
@@ -913,7 +978,7 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
     Data sourced from the Australian Government ROVER portal.<br>
     This tool is for guidance only — always verify eligibility with a licensed RAWS workshop before purchasing.<br>
     <a href="https://jdmconnect.com.au">jdmconnect.com.au</a> &nbsp;·&nbsp;
-    <a href="mailto:info@jdmconnect.com.au">info@jdmconnect.com.au</a><br><br>
+    <!--email_off--><a href="mailto:info@jdmconnect.com.au" class="no-cf-email">info@jdmconnect.com.au</a><!--/email_off--><br><br>
     © 2026 JDM Connect Pty Ltd ACN 78 675 449 493. All rights reserved.
   </p>
 </footer>
@@ -956,16 +1021,20 @@ function roverLink(record, isMRE, label) {
 async function loadData() {
   try {
     const res = await fetch('/api/data');
+    if (!res.ok) throw new Error('/api/data HTTP ' + res.status);
     allData = await res.json();
     MRE = allData.mre || [];
     SEV = allData.sev || [];
 
-    // Stats
-    document.getElementById('stat-mre').textContent = MRE.length.toLocaleString();
-    document.getElementById('stat-sev').textContent = SEV.length.toLocaleString();
+    // Stats — only overwrite when we actually have numbers. Leaves the static
+    // snapshot counts in place if the response was empty for any reason.
+    if (MRE.length) document.getElementById('stat-mre').textContent = MRE.length.toLocaleString();
+    if (SEV.length) document.getElementById('stat-sev').textContent = SEV.length.toLocaleString();
     if (allData.fetched_at) {
       const d = new Date(allData.fetched_at);
-      document.getElementById('stat-updated').textContent = d.toLocaleDateString('en-AU', {day:'numeric',month:'short'});
+      if (!isNaN(d)) {
+        document.getElementById('stat-updated').textContent = d.toLocaleDateString('en-AU', {day:'numeric',month:'short'});
+      }
     }
 
     populateMakes();
@@ -975,7 +1044,17 @@ async function loadData() {
     applyHashIfPresent();
     window.addEventListener('hashchange', applyHashIfPresent);
   } catch(e) {
-    console.error('Failed to load data.json', e);
+    console.error('Failed to load /api/data', e);
+    // Leave the static stat defaults visible instead of dashes. Surface a
+    // subtle notice so the user knows search is temporarily unavailable.
+    const strip = document.getElementById('stats-strip');
+    if (strip && !document.getElementById('stats-offline')) {
+      const note = document.createElement('div');
+      note.id = 'stats-offline';
+      note.style.cssText = 'max-width:720px;margin:-12px auto 16px;padding:8px 14px;font-size:12px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;text-align:center;';
+      note.textContent = 'Live register data is momentarily unavailable — counts shown from the last verified sync.';
+      strip.insertAdjacentElement('afterend', note);
+    }
   }
 }
 
@@ -2234,7 +2313,7 @@ function renderNotEligible(vehicleName, yearStr, make, model, year, isChassis, w
         <div class="verdict-icon">✕</div>
         <div class="verdict-title">Not currently eligible for import</div>
       </div>
-      <div class="verdict-sub">${vehicleName}${yearStr} is not found on the SEVS or MRE register.</div>
+      <div class="verdict-sub">No SEVS or MRE listing found for ${vehicleName}${yearStr}. This may mean it's not currently eligible — there are often other pathways worth exploring.</div>
     </div>
     <p class="vehicle-name">${vehicleName}</p>
     <p class="vehicle-sub">No matching ROVER approvals found${yearStr}</p>
@@ -2291,13 +2370,21 @@ function buildActions(record, vehicleName, isIneligible) {
   const notifyBtn = isIneligible
     ? `<button class="notify-btn ghl-notify-trigger">🔔 Notify me when this becomes eligible</button>`
     : '';
+  // Distinct post-result copy so the next step is obvious in both outcomes.
+  const primaryLead = isIneligible
+    ? `<p class="primary-lead">Not on SEVS — but other pathways (25-year rule, personal imports, RAWS workarounds) may apply. Let's talk it through.</p>`
+    : `<p class="primary-lead">Good news — ${vehicleName} is on the register. Want us to source one for you?</p>`;
+  const primaryLabel = isIneligible
+    ? 'Talk to JDM Connect about other pathways →'
+    : `Get a quote to source a ${vehicleName} →`;
   return `
     ${notifyBtn}
+    ${primaryLead}
+    <a href="${contactUrl}" class="action-btn-primary" target="_blank">${primaryLabel}</a>
     <div class="action-grid">
       <a href="${calcUrl}" class="action-btn" target="_blank">Calculate landed cost</a>
       <button class="action-btn" onclick="shareResult('${vehicleName.replace(/'/g,"\\'")}')">Share result</button>
     </div>
-    <a href="${contactUrl}" class="action-btn-primary" target="_blank">Enquire with JDM Connect →</a>
   `;
 }
 
