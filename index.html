@@ -2308,106 +2308,91 @@ function showGenerationDetail(groupIdx, genIdx) {
         </div>
     `;
 
-    // Render each chassis group
-    sortedKeys.forEach(chassis => {
-      const items = chassisGroups[chassis];
+    // Render MRE entries as register cards
+    const allMreItems = [];
+    sortedKeys.forEach(chassis => { chassisGroups[chassis].forEach(item => allMreItems.push(item)); });
+    const mreCollapseId = `mre-${groupIdx}`;
+    const showMreCollapse = allMreItems.length > 3;
 
-      let groupDesc = '';
-      for (const {r} of items) {
-        const parsed = formatVariantDescription(r['_variant_description'] || r['_work_instructions'] || '');
-        if (parsed) { groupDesc = parsed; break; }
-      }
-
-      let groupBuild = '';
-      if (items.length > 0) {
-        const ranges = items.map(({r}) => formatBuildRange(r['Build date range'])).filter(Boolean);
-        groupBuild = ranges[0] || '';
-      }
-
-      const chassisLabel = chassis === '_other' ? 'General' : chassis;
-      const workshopCount = items.length;
-      const collapseId = `ws-${groupIdx}-${chassis.replace(/[^a-zA-Z0-9]/g, '')}`;
-      const showCollapse = workshopCount > 3;
-
-      // Sub-heading for chassis variant (only show if multiple groups)
-      if (sortedKeys.length > 1) {
-        html += `
-          <div style="display:flex;align-items:center;gap:8px;margin:12px 0 6px 2px;">
-            <span style="font-family:'DM Mono',monospace;font-weight:700;font-size:13px;color:#1f2937;background:#f3f4f6;padding:2px 8px;border-radius:4px;">${chassisLabel}</span>
-            ${groupDesc ? `<span style="font-size:12px;color:#374151;">${groupDesc}</span>` : ''}
-          </div>
-          ${groupBuild ? `<div style="font-size:11px;color:#6b7280;padding:0 2px;margin-bottom:4px;">Build: ${groupBuild}</div>` : ''}
-        `;
-      }
-
-      html += `<div class="approval-rows">`;
-
-      items.forEach(({r, i}, idx) => {
-        const status = r['Approval status'] || 'In Force';
-        const statusLabel = humanStatus(status);
-        const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
-        const workshop = r['_workshop_short'] || r['_approval_holder'] || r['Approval number'];
-        const hidden = showCollapse && idx >= 3 ? ` style="cursor:pointer;display:none;" data-collapse="${collapseId}"` : ' style="cursor:pointer;"';
-        html += `
-          <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'mre',${i})"${hidden}>
-            <div class="approval-row-left" style="flex:1;min-width:0;">
-              <div style="font-size:13px;font-weight:600;color:var(--text);">${workshop}</div>
-              <div style="font-size:11px;color:var(--text-faint);margin-top:1px;">
-                <a href="${roverDetailUrl(r, true)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-size:11px;" onclick="event.stopPropagation();">${r['Approval number']}</a>
-              </div>
+    html += `<div style="display:flex;flex-direction:column;gap:8px;">`;
+    allMreItems.forEach(({r, i}, idx) => {
+      const status = r['Approval status'] || 'In Force';
+      const statusLabel = humanStatus(status);
+      const statusCls = status === 'In Force' ? 'status-badge-active' : 'status-badge-expiring';
+      const workshop = r['_workshop_short'] || r['_approval_holder'] || r['Approval number'];
+      const buildRange = formatBuildRange(r['Build date range']);
+      const hidden = showMreCollapse && idx >= 3 ? ` style="display:none;" data-collapse="${mreCollapseId}"` : '';
+      html += `
+        <div class="register-card" onclick="showScreen3FromList(${groupIdx},'mre',${i})"${hidden}>
+          <div class="register-card-body">
+            <div class="register-card-badges">
+              <span class="type-badge type-badge-mre">MRE</span>
+              <span class="type-badge ${statusCls}">${statusLabel}</span>
             </div>
-            <div class="approval-row-right">
-              <span class="badge ${badgeCls}">${statusLabel}</span>
-              <span class="approval-row-chevron">›</span>
+            <div class="register-card-title">${workshop}</div>
+            <div class="register-card-meta">
+              <span>Build: ${buildRange}</span>
+              <span class="mono">#${r['Approval number']}</span>
             </div>
           </div>
-        `;
-      });
-
-      html += `</div>`;
-
-      if (showCollapse) {
-        html += `
-          <button class="show-more-btn" onclick="toggleWorkshops('${collapseId}', this)" style="display:block;width:100%;padding:8px;margin-top:4px;background:none;border:1px dashed #d1d5db;border-radius:8px;color:#6b7280;font-size:12px;cursor:pointer;text-align:center;">
-            Show all ${workshopCount} workshops ▾
-          </button>
-        `;
-      }
+          <span class="register-card-arrow">→</span>
+        </div>
+      `;
     });
+    html += `</div>`;
+
+    if (showMreCollapse) {
+      html += `
+        <button class="show-more-btn" onclick="toggleWorkshops('${mreCollapseId}', this)" style="display:block;width:100%;padding:10px;margin-top:6px;background:none;border:1px dashed var(--border);border-radius:8px;color:var(--text-muted);font-size:13px;cursor:pointer;text-align:center;">
+          Show all ${allMreItems.length} workshops ▾
+        </button>
+      `;
+    }
 
     html += `</div>`;
   }
 
-  // ── Section: Eligibility Entries (SEV records) ─────────────────────────────
+  // ── Section: Vehicle Eligibility (SEV records) ─────────────────────────────
   if (totalSevCount > 0) {
     html += `
-      <div style="margin-top:20px;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:0 2px;">
-          <span style="font-weight:700;font-size:15px;color:#1f2937;">Eligibility Register Entries</span>
+      <div style="margin-top:24px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:0 2px;">
+          <span style="font-weight:700;font-size:15px;color:var(--text);">Vehicle Eligibility (SEVS)</span>
         </div>
-        <div class="approval-rows">
+        <div style="display:flex;flex-direction:column;gap:8px;">
     `;
 
     gen.sev.forEach(({r, i}) => {
-      const { label, cls } = getSevExpiryStatus(r);
+      const { label } = getSevExpiryStatus(r);
       const sevLabel = label === 'In Force' ? 'Active' : label;
+      const statusCls = label === 'In Force' ? 'status-badge-active' : label === 'Expiring Soon' ? 'status-badge-expiring' : 'status-badge-expired';
       const modelCode = r['Model code'] || '';
+      const category = r['Category'] || '';
       const fromStr = r['Build date from'] || '';
       const toStr = r['Build date to'] || '';
       const buildRange = fromStr ? (fromStr + (toStr && toStr !== 'No end date' ? ' – ' + toStr : '+')) : '';
+      // Build title like "Passenger Vehicle — ANH20 WELCAB ONLY"
+      const catLabel = category ? category.replace(/^[A-Z]{2}\s*-\s*/, '') : '';
+      const sevTitle = catLabel && modelCode ? `${catLabel} — ${modelCode}` : (modelCode || r['SEV #']);
+      // Chassis code pills
+      const codes = modelCode ? modelCode.split(/[,\/]/).map(c => c.trim()).filter(Boolean) : [];
       html += `
-        <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'sev',${i})" style="cursor:pointer;">
-          <div class="approval-row-left" style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:600;color:var(--text);">${modelCode || r['SEV #']}</div>
-            <div style="font-size:11px;color:var(--text-faint);margin-top:1px;">
-              <a href="${roverDetailUrl(r, false)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-size:11px;" onclick="event.stopPropagation();">${r['SEV #']}</a>
-              ${buildRange ? ` · Build: ${buildRange}` : ''}
+        <div class="register-card" onclick="showScreen3FromList(${groupIdx},'sev',${i})">
+          <div class="register-card-body">
+            <div class="register-card-badges">
+              <span class="type-badge type-badge-sev">SEV</span>
+              <span class="type-badge ${statusCls}">${sevLabel}</span>
+              ${r['Under review'] === 'Yes' ? '<span class="type-badge status-badge-expiring">⚠ Under Review</span>' : ''}
             </div>
+            <div class="register-card-title">${sevTitle}</div>
+            <div class="register-card-meta">
+              ${buildRange ? `<span>Build: ${buildRange}</span>` : ''}
+              ${catLabel ? `<span>Category: ${catLabel}</span>` : ''}
+              <span class="mono">#${r['SEV #']}</span>
+            </div>
+            ${codes.length > 0 ? `<div class="chassis-pills">${codes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}</div>` : ''}
           </div>
-          <div class="approval-row-right">
-            <span class="badge ${cls}">${sevLabel}</span>
-            <span class="approval-row-chevron">›</span>
-          </div>
+          <span class="register-card-arrow">→</span>
         </div>
       `;
     });
@@ -2590,26 +2575,76 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     `
     : '<span class="detail-val" style="color:#9ca3af;">—</span>';
 
-  let html = `
-    ${backBtn}
-    <div class="verdict-card eligible">
-      <div class="verdict-header">
-        <div class="verdict-icon">✓</div>
-        <div class="verdict-title">Eligible for import</div>
-      </div>
-      <div class="verdict-sub">This vehicle is approved for Australian import. Contact JDM Connect to get started.</div>
-    </div>
-    <p class="vehicle-name">${vehicleName}</p>
-    <p class="vehicle-sub">${approvalLink} · ${buildRange}</p>
-    ${isOver25 ? `
-    <div class="unlock-box" style="background:#f0faf4;border-color:#86efac;">
-      <div class="unlock-box-title" style="color:#14532d;">✓ Also eligible under the 25-year rule</div>
-      <div class="unlock-box-body" style="color:#166534;">Vehicles built more than 25 years ago may also be imported under Australia's personal import scheme, independent of the standard eligibility register.</div>
-    </div>` : ''}
+  const isActive = status === 'In Force';
+  const typeBadge = isMRE
+    ? '<span class="type-badge type-badge-mre">MRE Entry</span>'
+    : '<span class="type-badge type-badge-sev">SEVS Entry</span>';
+  const statusBadge2 = `<span class="type-badge ${isActive ? 'status-badge-active' : isExpiringSoon ? 'status-badge-expiring' : 'status-badge-expired'}">${statusDisplay}</span>`;
 
-    <!-- Card A — Vehicle details (Ben's mockup row set) -->
+  const workshopName = r['_workshop_short'] || r['_approval_holder'] || '';
+  const contactUrl = 'https://jdmconnect.com.au/contact';
+
+  // Build breadcrumbs
+  const g2 = (groupIdx !== null && groupIdx !== undefined) ? currentGroups[groupIdx] : null;
+  let breadcrumbs;
+  if (g2) {
+    breadcrumbs = renderBreadcrumbs([
+      { label: 'Search', onclick: 'resetSearch()' },
+      { label: g2.make, onclick: `renderScreen1(document.getElementById('results-wrap'))` },
+      { label: g2.model, onclick: `showApprovalList(${groupIdx})` },
+      { label: isMRE ? `MRE #${approvalNum}` : `SEV #${approvalNum}` },
+    ]);
+  } else {
+    breadcrumbs = renderBreadcrumbs([
+      { label: 'Search', onclick: 'resetSearch()' },
+      { label: isMRE ? `MRE #${approvalNum}` : `SEV #${approvalNum}` },
+    ]);
+  }
+
+  let html = renderStepIndicator(3);
+  html += breadcrumbs;
+
+  // Header
+  html += `
+    <div style="margin-bottom:20px;">
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
+        ${typeBadge} ${statusBadge2}
+      </div>
+      <h1 style="font-size:24px;font-weight:700;color:var(--text);margin-bottom:4px;">${vehicleName}</h1>
+      <p style="font-size:14px;color:var(--text-muted);">${approvalLink} · ${buildRange}</p>
+    </div>
+  `;
+
+  if (isOver25) {
+    html += `
+      <div class="unlock-box" style="background:#f0faf4;border-color:#86efac;">
+        <div class="unlock-box-title" style="color:#14532d;">✓ Also eligible under the 25-year rule</div>
+        <div class="unlock-box-body" style="color:#166534;">Vehicles built more than 25 years ago may also be imported under Australia's personal import scheme, independent of the standard eligibility register.</div>
+      </div>`;
+  }
+
+  // 2-column layout
+  html += `<div class="detail-grid">`;
+
+  // ── LEFT COLUMN (main) ──────────────────────────────────────────────────
+  html += `<div class="detail-main">`;
+
+  // Vehicle Details card
+  html += `
     <div class="detail-card">
-      <div class="detail-card-title">Vehicle details</div>
+      <div class="detail-card-title">📋 Vehicle Details</div>
+      <div class="detail-row">
+        <span class="detail-key">Register Type</span>
+        <span class="detail-val">${isMRE ? 'MRE (Model Report Eligibility)' : 'SEVS (Specialist & Enthusiast Vehicle Scheme)'}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Status</span>
+        <span class="detail-val">${statusDisplay}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Entry Code</span>
+        <span class="detail-val" style="font-family:'DM Mono',monospace;font-size:12px;">#${approvalNum}</span>
+      </div>
       <div class="detail-row">
         <span class="detail-key">Make</span>
         <span class="detail-val">${titleCase(displayMake)}</span>
@@ -2619,43 +2654,127 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
         <span class="detail-val">${displayModel}</span>
       </div>
       <div class="detail-row">
-        <span class="detail-key">Year Range</span>
+        <span class="detail-key">Build Date Range</span>
         <span class="detail-val">${yearRangeStr}</span>
       </div>
-      <div class="detail-row">
-        <span class="detail-key">Chassis Codes</span>
-        <span class="detail-val" style="font-family:DM Mono,monospace;font-size:12px;">${chassisStr}</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Eligibility Type</span>
-        <span class="detail-val">${eligibilityLabel}</span>
-      </div>
+      ${eligibilityLabel !== '—' ? `<div class="detail-row"><span class="detail-key">Category</span><span class="detail-val">${eligibilityLabel}</span></div>` : ''}
       ${expiry ? `
       <div class="detail-row">
-        <span class="detail-key">Expiry Date</span>
+        <span class="detail-key">Expiry</span>
         <span class="detail-val"><span class="badge ${isExpiringSoon ? 'badge-amber' : 'badge-green'}">${expiry}${isExpiringSoon ? ' · Expiring Soon' : ''}</span></span>
       </div>` : ''}
     </div>
-
-    <!-- Card B — Documentation -->
-    <div class="detail-card">
-      <div class="detail-card-title">Documentation</div>
-      <div class="detail-row">
-        <span class="detail-key">SEV Entry</span>
-        <span class="detail-val">${sevEntryHtml}</span>
-      </div>
-      <div class="detail-row detail-row-stack">
-        <span class="detail-key">Model Reports</span>
-        <span class="detail-val" style="text-align:left;max-width:100%;">${modelReportsHtml}</span>
-      </div>
-    </div>
-
-    ${isExpiringSoon ? `
-    <div class="unlock-box" style="background:#fff8ed;border-color:#f59e0b;">
-      <div class="unlock-box-title" style="color:#78350f;">⚠ Eligibility approval expiring soon</div>
-      <div class="unlock-box-body" style="color:#92400e;">This vehicle's import approval expires ${expiry}. The vehicle must clear Australian customs before expiry. Contact JDM Connect urgently.</div>
-    </div>` : ''}
   `;
+
+  // Chassis / Model Codes card
+  if (chassisCodes.length > 0) {
+    html += `
+      <div class="detail-card" style="padding:16px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">Chassis / Model Codes</div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Your vehicle's chassis code must match one of these to qualify.</p>
+        <div class="chassis-pills">${chassisCodes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}</div>
+        ${buildExplainer('What is a chassis code?', 'A chassis code (or model code) is a short alphanumeric identifier that describes the exact specification of your vehicle — including engine type, body style, and drivetrain. For example, "JZX100" refers to a Toyota Chaser with a 1JZ engine. You can find your chassis code on the vehicle\'s compliance plate, registration documents, or by checking the VIN.')}
+      </div>
+    `;
+  }
+
+  // Workshop card (MRE only)
+  if (isMRE && workshopName) {
+    html += `
+      <div class="detail-card" style="padding:16px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">🔧 Approved Compliance Workshop</div>
+        <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(202,163,76,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📍</div>
+          <div>
+            <div style="font-weight:600;color:var(--text);">${workshopName}</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Approval #${approvalNum} — ${statusDisplay}</div>
+          </div>
+        </div>
+        ${buildExplainer('What is a compliance workshop?', 'A compliance workshop (also called RAWS — Registered Automotive Workshop Scheme) is a government-approved facility that can modify and certify imported vehicles to meet Australian Design Rules (ADRs). You must use an approved workshop to legally import a vehicle under this entry.')}
+      </div>
+    `;
+  }
+
+  // Model Reports dropdown
+  if (uniqueMres.length > 1) {
+    html += `
+      <div class="detail-card" style="padding:16px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">📄 All Compliance Workshops</div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">${uniqueMres.length} workshops are approved for this vehicle.</p>
+        ${modelReportsHtml}
+      </div>
+    `;
+  }
+
+  // Understanding This Entry
+  html += `
+    <div class="detail-card" style="padding:16px;">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;">Understanding This Entry</div>
+      ${isMRE
+        ? buildExplainer('What does MRE mean?', 'Model Report Eligibility (MRE) is the approval given to a specific compliance workshop to import and certify a particular vehicle model. Each MRE entry specifies which models, build dates, and compliance levels the workshop is approved for.')
+        : buildExplainer('What does SEVS mean?', 'The Specialist and Enthusiast Vehicle Scheme (SEVS) is an Australian Government program that allows certain vehicle types to be imported that are not otherwise available in Australia. Vehicles must be listed on the SEVS register to be eligible.')
+      }
+      ${buildExplainer('What does the build date range mean?', 'The build date range specifies which manufacture dates are covered by this register entry. Your vehicle must have been manufactured within this date range to be eligible for import under this specific entry.')}
+      ${buildExplainer('What happens after I find an eligible vehicle?', 'Once you\'ve confirmed your vehicle is on the register, the next steps are: (1) Contact JDM Connect for a quote, (2) Source the vehicle in Japan, (3) Ship it to Australia, (4) Have it processed through an approved compliance workshop, (5) Register it in your state. JDM Connect handles the entire process from start to finish.')}
+    </div>
+  `;
+
+  html += `</div>`; // end detail-main
+
+  // ── RIGHT COLUMN (sidebar) ──────────────────────────────────────────────
+  html += `<div class="detail-sidebar">`;
+
+  // CTA card
+  html += `
+    <div class="sidebar-cta-card">
+      <div class="sidebar-cta-title">${isActive ? 'Import this vehicle' : 'Need help?'}</div>
+      <div class="sidebar-cta-desc">${isActive
+        ? `JDM Connect can source, ship, and comply a ${vehicleName} for you — from Japan to your door.`
+        : 'Even if this entry is no longer active, there may be other pathways. Contact JDM Connect to discuss your options.'
+      }</div>
+      <a href="${contactUrl}" class="sidebar-cta-btn" target="_blank">Get a Free Quote →</a>
+      <div class="sidebar-cta-sub">No obligation — we'll respond within 24 hours.</div>
+    </div>
+  `;
+
+  // Quick Summary card
+  html += `
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Quick Summary</div>
+      <div class="sidebar-fact">
+        <span class="sidebar-fact-icon">${isActive ? '✅' : '❌'}</span>
+        <span>${isActive ? 'Currently eligible for import' : 'Entry no longer active'}</span>
+      </div>
+      <div class="sidebar-fact">
+        <span class="sidebar-fact-icon">📅</span>
+        <span>Build: ${yearRangeStr}</span>
+      </div>
+      ${workshopName ? `<div class="sidebar-fact"><span class="sidebar-fact-icon">🔧</span><span>${workshopName}</span></div>` : ''}
+    </div>
+  `;
+
+  // Official Source card
+  const detailUrl = roverDetailUrl(r, isMRE);
+  html += `
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Official Source</div>
+      <a href="${detailUrl}" target="_blank" rel="noopener" style="color:var(--gold);font-size:13px;text-decoration:none;display:flex;align-items:center;gap:6px;">
+        View on ROVER Register ↗
+      </a>
+      <p style="font-size:11px;color:var(--text-faint);margin-top:6px;">Official government register maintained by the Department of Infrastructure.</p>
+    </div>
+  `;
+
+  html += `</div>`; // end detail-sidebar
+  html += `</div>`; // end detail-grid
+
+  if (isExpiringSoon) {
+    html += `
+      <div class="unlock-box" style="background:#fff8ed;border-color:#f59e0b;margin-top:16px;">
+        <div class="unlock-box-title" style="color:#78350f;">⚠ Eligibility approval expiring soon</div>
+        <div class="unlock-box-body" style="color:#92400e;">This vehicle's import approval expires ${expiry}. The vehicle must clear Australian customs before expiry. Contact JDM Connect urgently.</div>
+      </div>`;
+  }
 
   if (ADMIN_MODE) {
     const holder = r['_approval_holder'] || '';
@@ -2664,18 +2783,17 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     const cPhone = r['_contact_phone']   || '';
     if (holder || cName || cEmail || cPhone) {
       html += `
-        <div class="detail-card" style="border-color:#fcd34d;">
+        <div class="detail-card" style="border-color:#fcd34d;margin-top:16px;">
           <div class="detail-card-title" style="background:#fffbeb;color:#92400e;">⚙ Approval holder (admin only)</div>
           ${holder ? `<div class="detail-row"><span class="detail-key">Company</span><span class="detail-val">${holder}</span></div>` : ''}
           ${cName  ? `<div class="detail-row"><span class="detail-key">Contact</span><span class="detail-val">${cName}</span></div>` : ''}
-          ${cEmail ? `<div class="detail-row"><span class="detail-key">Email</span><span class="detail-val" style="font-size:12px;"><a href="mailto:${cEmail}" style="color:#715723;">${cEmail}</a></span></div>` : ''}
-          ${cPhone ? `<div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val"><a href="tel:${cPhone}" style="color:#715723;">${cPhone}</a></span></div>` : ''}
+          ${cEmail ? `<div class="detail-row"><span class="detail-key">Email</span><span class="detail-val" style="font-size:12px;"><a href="mailto:${cEmail}" style="color:var(--gold);">${cEmail}</a></span></div>` : ''}
+          ${cPhone ? `<div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val"><a href="tel:${cPhone}" style="color:var(--gold);">${cPhone}</a></span></div>` : ''}
         </div>
       `;
     }
   }
 
-  html += buildActions(r, vehicleName, false);
   html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
   wrap.innerHTML = html;
 }
