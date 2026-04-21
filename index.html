@@ -811,11 +811,11 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 /* ── APPROVAL LIST (Screen 2) ─────────────────────────────────── */
 .back-btn {
   display: inline-flex; align-items: center; gap: 6px;
-  background: none; border: none; cursor: pointer;
-  font-size: 13px; font-weight: 600; color: #6b7280;
-  padding: 0 0 14px 0; transition: color 0.15s;
+  background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 8px; cursor: pointer;
+  font-size: 14px; font-weight: 600; color: #374151;
+  padding: 10px 16px; margin-bottom: 14px; transition: background 0.15s, color 0.15s;
 }
-.back-btn:hover { color: #1a1a1a; }
+.back-btn:hover { background: #e5e7eb; color: #1a1a1a; }
 .approval-list-header { margin-bottom: 16px; }
 .approval-list-title { font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 6px 0 2px; }
 .approval-list-sub { font-size: 13px; color: #6b7280; }
@@ -1189,14 +1189,25 @@ function writeUrlHash(params) {
   if (window.location.hash === newHash) return;
   _suppressHashApply = true;
   if (newHash) {
-    history.replaceState(null, '', window.location.pathname + window.location.search + newHash);
+    history.pushState({ screen: params }, '', window.location.pathname + window.location.search + newHash);
   } else {
     history.replaceState(null, '', window.location.pathname + window.location.search);
   }
-  // Release suppression on the next tick — replaceState doesn't fire hashchange
-  // but we still defensively flip the flag back.
   setTimeout(() => { _suppressHashApply = false; }, 0);
 }
+
+// ── Browser back button support ─────────────────────────────────────────────
+window.addEventListener('popstate', function() {
+  const params = parseHash();
+  if (!params || Object.keys(params).length === 0) {
+    // No hash — return to search/hero
+    resetSearch();
+    return;
+  }
+  // Re-apply whatever the hash says
+  _suppressHashApply = false;
+  applyHashIfPresent();
+});
 
 function clearUrlHash() {
   if (!window.location.hash) return;
