@@ -140,6 +140,10 @@
 <style>
 /* ── THEME SYSTEM ────────────────────────────────────────────── */
 :root {
+  /* Audit 2026-04-24 — lock to light. Cards/modals/unlock-boxes hard-code light
+     tokens (greens, reds, ambers) that can't be dark-mode-adapted in one pass,
+     so forcing light avoids the broken half-themed state on OS-dark-preference. */
+  color-scheme: light;
   --bg: #f7f8f9;
   --bg-card: #ffffff;
   --bg-secondary: #f3f4f6;
@@ -156,27 +160,44 @@
   --shadow-card: 0 1px 3px rgba(0,0,0,0.06);
   --shadow-lg: 0 4px 24px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.06);
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f0f11;
-    --bg-card: #18181b;
-    --bg-secondary: #27272a;
-    --bg-card-hover: #1f1f23;
-    --text: #f0f0f0;
-    --text-secondary: #d4d4d8;
-    --text-muted: #a1a1aa;
-    --text-faint: #71717a;
-    --border: rgba(255,255,255,0.08);
-    --border-subtle: rgba(255,255,255,0.05);
-    --border-card: rgba(255,255,255,0.1);
-    --shadow-card: 0 1px 3px rgba(0,0,0,0.3);
-    --shadow-lg: 0 4px 24px rgba(0,0,0,0.4);
-  }
+/* Audit 2026-04-24 — dark-mode token overrides gated behind .dark-mode on <html>.
+   Until every hard-coded light color in modals/verdict-cards/unlock-boxes is
+   tokenised, the OS-level `prefers-color-scheme: dark` media query produced a
+   half-themed state. Gating keeps the tokens ready for future dark-mode work
+   without letting them fire from OS preference alone. */
+html.dark-mode {
+  --bg: #0f0f11;
+  --bg-card: #18181b;
+  --bg-secondary: #27272a;
+  --bg-card-hover: #1f1f23;
+  --text: #f0f0f0;
+  --text-secondary: #d4d4d8;
+  --text-muted: #a1a1aa;
+  --text-faint: #71717a;
+  --border: rgba(255,255,255,0.08);
+  --border-subtle: rgba(255,255,255,0.05);
+  --border-card: rgba(255,255,255,0.1);
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,0.4);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { overflow-x: hidden; }
 body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text); min-height: 100vh; }
+
+/* Audit 2026-04-24 — honour users who have requested reduced motion. Drops the
+   hero-badge pulse, the search spinner, the modal slideUp, and any hover
+   transforms/transitions down to near-instant so motion-sensitive users aren't
+   forced through animated transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero-badge .dot { animation: none; }
+}
 
 /* ── STEP INDICATOR ────────────────────────────────────────── */
 .step-indicator {
@@ -237,11 +258,14 @@ body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--tex
   padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;
   letter-spacing: 0.04em; text-transform: uppercase;
 }
-.type-badge-sev { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
-.type-badge-mre { background: rgba(202,163,76,0.15); color: var(--gold); border: 1px solid rgba(202,163,76,0.2); }
-.status-badge-active { background: rgba(22,163,74,0.15); color: #4ade80; }
-.status-badge-expiring { background: rgba(245,158,11,0.15); color: #fbbf24; }
-.status-badge-expired { background: rgba(239,68,68,0.15); color: #f87171; }
+/* Audit 2026-04-24 — badge text colors were sized for a dark surface and
+   rendered at ~2:1 contrast on the Screen 3 light cards. Darkened the
+   foregrounds to pass WCAG AA against the near-white tinted backgrounds. */
+.type-badge-sev { background: rgba(59,130,246,0.12); color: #1e3a8a; border: 1px solid rgba(59,130,246,0.25); }
+.type-badge-mre { background: rgba(202,163,76,0.15); color: #6b4e0e; border: 1px solid rgba(202,163,76,0.3); }
+.status-badge-active { background: rgba(22,163,74,0.12); color: #14532d; }
+.status-badge-expiring { background: rgba(245,158,11,0.15); color: #78350f; }
+.status-badge-expired { background: rgba(239,68,68,0.12); color: #7f1d1d; }
 .register-card-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; transition: color 0.15s; }
 .register-card:hover .register-card-title { color: var(--gold); }
 .register-card-meta { font-size: 13px; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 4px 12px; }
@@ -270,8 +294,10 @@ body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--tex
 .sidebar-cta-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
 .sidebar-cta-btn {
   display: block; width: 100%; text-align: center; padding: 12px;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-  color: #fff; font-weight: 700; font-size: 14px; border-radius: 10px;
+  /* Audit 2026-04-24 — unified gold gradient direction (dark→light) and
+     switched text to #111 to meet WCAG AA (white on gold midpoint ~2.9:1). */
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+  color: #111; font-weight: 700; font-size: 14px; border-radius: 10px;
   text-decoration: none; transition: opacity 0.15s;
 }
 .sidebar-cta-btn:hover { opacity: 0.92; }
@@ -394,6 +420,17 @@ body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--tex
 }
 .search-btn:hover { opacity: 0.92; }
 .search-btn:active { transform: scale(0.99); }
+/* Audit 2026-04-24 — keyboard focus indicator on the primary action. */
+.search-btn:focus-visible,
+.header-cta:focus-visible,
+.sidebar-cta-btn:focus-visible,
+.summary-card-cta:focus-visible,
+.action-btn-primary:focus-visible,
+.modal-submit:focus-visible,
+.sticky-cta-bar a:focus-visible {
+  outline: 3px solid #CAA34C;
+  outline-offset: 3px;
+}
 .search-btn:disabled, .search-btn.is-loading {
   cursor: progress;
   opacity: 0.75;
@@ -500,6 +537,20 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 /* ── RESULTS AREA ─────────────────────────────────────────────── */
 .results-wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 60px; }
 
+/* Audit 2026-04-24 — on desktop the results area floated in open space; wrap it in
+   a subtle panel so the eye has a clear anchor and the card stack reads as one unit. */
+@media (min-width: 820px) {
+  body.results-active #results-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    padding: 28px 32px 36px;
+    margin-top: 28px;
+    margin-bottom: 28px;
+  }
+}
+
 /* Verdict card */
 .verdict-card {
   border-radius: 14px; padding: 20px 22px; margin-bottom: 16px;
@@ -544,7 +595,10 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   border-bottom: 1px solid var(--border);
 }
 .detail-row {
-  display: flex; justify-content: space-between; align-items: baseline;
+  /* Audit 2026-04-24 — was align-items: baseline. Badges in the value column
+     (e.g. Expiry pill, Status badge) sat below the key label because their
+     inner padding shifted the baseline. Center alignment keeps key/value level. */
+  display: flex; justify-content: space-between; align-items: center;
   padding: 10px 16px; border-bottom: 1px solid var(--border-subtle);
 }
 .detail-row:last-child { border-bottom: none; }
@@ -614,6 +668,36 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 }
 .search-again:hover { color: #1a1a1a; }
 
+/* Audit 2026-04-24 — pair the "New search" secondary link with a primary
+   conversion CTA at the bottom of the ELIGIBLE result page. Styled to match the
+   gold gradient used in the hero/header CTA for visual consistency. */
+.result-actions {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 12px; margin-top: 20px;
+}
+.result-cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 13px 22px; border-radius: 10px;
+  /* Unified gold gradient direction (dark→light) matching header/search/modal CTAs. */
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
+  color: #111; font-size: 14px; font-weight: 700; letter-spacing: 0.01em;
+  text-decoration: none; border: none; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(139,105,20,0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+.result-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(139,105,20,0.32);
+  filter: brightness(1.05);
+}
+.result-cta:focus-visible {
+  outline: 2px solid #CAA34C; outline-offset: 2px;
+}
+@media (max-width: 640px) {
+  .result-actions { flex-direction: column-reverse; gap: 10px; }
+  .result-cta { width: 100%; padding: 14px; }
+}
+
 /* Pagination */
 .pagination {
   display: flex; align-items: center; justify-content: space-between;
@@ -652,10 +736,12 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   background: #141414; border-top: 2px solid #CAA34C;
   padding: 24px; text-align: center; margin-top: 40px;
 }
-/* Audit #16 — bumped alpha values to meet WCAG AA (was 0.35/0.7, ~3:1 contrast). */
-.footer p { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.6; }
-.footer a { color: #CAA34C; text-decoration: none; }
-.footer a:hover { color: #E6BD68; text-decoration: underline; }
+/* Audit #16 — bumped alpha values to meet WCAG AA (was 0.35/0.7, ~3:1 contrast).
+   Audit 2026-04-24 — lifted body alpha to 0.82 and links to brighter gold #E6BD68
+   (matches the hero CTA highlight stop) so the footer stops reading as muted. */
+.footer p { font-size: 12px; color: rgba(255,255,255,0.82); line-height: 1.6; }
+.footer a { color: #E6BD68; text-decoration: none; font-weight: 500; }
+.footer a:hover { color: #F4D07E; text-decoration: underline; }
 
 /* Audit #15 — back-to-top floating button. Hidden until the user has scrolled
    past 600px so it doesn't clutter the hero. Min 44x44 tap target for mobile. */
@@ -680,7 +766,13 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   z-index: 999;
   line-height: 1;
 }
-.back-to-top:hover { transform: translateY(-2px); background: #112350; }
+/* Audit 2026-04-24 — hover was #112350 (navy) on a black/gold palette — off-brand.
+   Replaced with a warm black tint that lets the gold border/glyph do the accent. */
+.back-to-top:hover {
+  transform: translateY(-2px);
+  background: #1f1a10;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28), 0 0 0 3px rgba(202,163,76,0.18);
+}
 .back-to-top.visible { display: flex; }
 @media (max-width: 640px) {
   .back-to-top { bottom: 16px; right: 16px; width: 44px; height: 44px; font-size: 20px; }
@@ -1021,8 +1113,9 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 }
 .summary-card-cta {
   display: block; width: 100%; text-align: center; padding: 12px 20px;
-  background: linear-gradient(135deg, #CAA34C 0%, #8B6914 100%);
-  color: #fff; font-weight: 700; font-size: 14px; border-radius: 10px;
+  /* Audit 2026-04-24 — unified gradient direction + #111 text for WCAG AA. */
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
+  color: #111; font-weight: 700; font-size: 14px; border-radius: 10px;
   text-decoration: none; box-shadow: 0 2px 8px rgba(139,105,20,0.25);
   transition: opacity 0.15s;
 }
@@ -1032,27 +1125,59 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 .sticky-cta-bar {
   display: none; position: fixed; bottom: 0; left: 0; right: 0;
   background: var(--bg-card); border-top: 1px solid var(--border);
-  padding: 10px 16px; z-index: 900;
+  /* Audit 2026-04-24 — respect iOS safe area so the CTA is never clipped by
+     the home-indicator bar. env() falls back to 0 on platforms without it. */
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  z-index: 900;
   box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
 }
 .sticky-cta-bar a {
   display: block; width: 100%; text-align: center; padding: 12px;
-  background: linear-gradient(135deg, #CAA34C 0%, #8B6914 100%);
-  color: #fff; font-weight: 700; font-size: 14px; border-radius: 10px;
+  /* Audit 2026-04-24 — unified gradient direction + #111 text for WCAG AA. */
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
+  color: #111; font-weight: 700; font-size: 14px; border-radius: 10px;
   text-decoration: none;
 }
 @media (max-width: 640px) {
   .results-active .sticky-cta-bar { display: block; }
   .summary-card-facts { grid-template-columns: 1fr; }
-  /* Add bottom padding so content doesn't hide behind sticky bar */
-  .results-active #results-wrap { padding-bottom: 80px; }
+  /* Add bottom padding so content doesn't hide behind sticky bar.
+     Audit 2026-04-24 — include safe-area inset for notched iOS. */
+  .results-active #results-wrap { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
 }
 </style>
   <!-- GHL popup override: prevent auto-show, controlled by JS click -->
   <style>
-    #popup-2lhyBZVSUo69QRuXjwIA-overlay { display: none !important; }
-    #popup-2lhyBZVSUo69QRuXjwIA-overlay.ghl-active { display: flex !important; }
+    #popup-0gQCujDNgaGlG83rK10j-overlay { display: none !important; }
+    #popup-0gQCujDNgaGlG83rK10j-overlay.ghl-active { display: flex !important; }
   </style>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '438613762049767');
+fbq('track', 'PageView');
+
+// Track GHL form submissions as Lead events
+window.addEventListener('message', function(event) {
+  if (!event.origin || !event.origin.includes('leadconnectorhq.com')) return;
+  var data = event.data || {};
+  var type = (data.type || data.event || '').toString().toLowerCase();
+  if (type.includes('form_submit') || type.includes('form:submit') || type === 'formsubmitted') {
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+  }
+});
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -2243,7 +2368,18 @@ function showApprovalList(groupIdx) {
     </div>
   `;
 
-  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
+  // Audit 2026-04-24 — capitalise on high intent on the ELIGIBLE result page.
+  // Show a primary "Import This Car" CTA next to the secondary "New search"
+  // link. Hidden when the vehicle is not importable (no active approvals).
+  const eligibleCta = isImportable
+    ? `<a href="https://jdmconnect.com.au/contact?utm_source=eligibility&utm_medium=result&utm_campaign=import_this_car&vehicle=${encodeURIComponent(g.make + ' ' + g.model)}" class="result-cta" target="_blank" rel="noopener">Import this ${g.make} ${g.model} →</a>`
+    : '';
+  html += `
+    <div class="result-actions">
+      <button class="search-again" onclick="resetSearch()">← New search</button>
+      ${eligibleCta}
+    </div>
+  `;
   wrap.innerHTML = html;
 }
 
@@ -2958,7 +3094,7 @@ loadData();
   // Show GHL popup only on notify button click, hide on overlay/close click
   document.addEventListener('click', function(e) {
     if (e.target.closest('.ghl-notify-trigger')) {
-      var overlay = document.getElementById('popup-2lhyBZVSUo69QRuXjwIA-overlay');
+      var overlay = document.getElementById('popup-0gQCujDNgaGlG83rK10j-overlay');
       if (overlay) overlay.classList.add('ghl-active');
     }
   });
@@ -2971,9 +3107,9 @@ loadData();
 
 <!-- GHL NOTIFY POPUP -->
 <iframe
-    src="https://api.leadconnectorhq.com/widget/form/2lhyBZVSUo69QRuXjwIA"
+    src="https://api.leadconnectorhq.com/widget/form/0gQCujDNgaGlG83rK10j"
     style="display:none;width:100%;height:100%;border:none;border-radius:3px"
-    id="popup-2lhyBZVSUo69QRuXjwIA"
+    id="popup-0gQCujDNgaGlG83rK10j"
     data-layout='{"id":"POPUP"}'
     data-trigger-type="clickButton"
     data-trigger-value=".ghl-notify-trigger"
@@ -2981,11 +3117,11 @@ loadData();
     data-activation-value=""
     data-deactivation-type="neverDeactivate"
     data-deactivation-value=""
-    data-form-name="Eligibility Enquiry Form Embedded"
-    data-height="1019"
-    data-layout-iframe-id="popup-2lhyBZVSUo69QRuXjwIA"
-    data-form-id="2lhyBZVSUo69QRuXjwIA"
-    title="Eligibility Enquiry Form Embedded"
+    data-form-name="General Enquiry Form Embedded"
+    data-height="1820"
+    data-layout-iframe-id="popup-0gQCujDNgaGlG83rK10j"
+    data-form-id="0gQCujDNgaGlG83rK10j"
+    title="General Enquiry Form Embedded"
 >
 </iframe>
 <script src="https://link.msgsndr.com/js/form_embed.js"></script>
