@@ -1039,9 +1039,16 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 .model-card-range { font-size: 12px; color: var(--text-muted); }
 .model-card-chevron { color: var(--text-faint); font-size: 22px; padding-left: 12px; flex-shrink: 0; }
 .model-card-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+/* Audit 2026-04-24 — Manus-style pill row (Eligible + workshop count)
+   sits above the model name on each Results card. */
+.model-card-pills-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
 .count-pill { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.02em; }
 .pill-mre { background: #dbeafe; color: #1e3a8a; }
 .pill-sevs { background: #ede9fe; color: #4c1d95; }
+.pill-workshops {
+  background: rgba(202,163,76,0.15); color: #8B6914;
+  border: 1px solid rgba(202,163,76,0.3);
+}
 
 /* ── APPROVAL LIST (Screen 2) ─────────────────────────────────── */
 .back-btn {
@@ -1120,6 +1127,97 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   transition: opacity 0.15s;
 }
 .summary-card-cta:hover { opacity: 0.92; }
+
+/* ── REGISTER SCREEN (Screen 2) — Manus-style entry list ─────────────────
+   User-facing name: "Register". Replaces the old single-merged approval row
+   with two scannable sections (SEVS vehicle eligibility + MRE compliance
+   workshops) so users can pick the specific entry that matches their car. */
+.register-header { margin: 4px 0 14px; }
+.register-title {
+  font-size: 28px; font-weight: 800; color: var(--text);
+  letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 6px;
+}
+.register-subtitle { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+/* Explanatory callout — tells first-time users what the cards represent. */
+.register-callout {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: #fffbf0; border: 1px solid rgba(202,163,76,0.35);
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 22px;
+}
+.register-callout-icon {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(202,163,76,0.18); color: #8B6914;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.register-callout-body { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+.register-callout-body strong { color: var(--text); font-weight: 700; }
+
+.register-section { margin-bottom: 22px; }
+.register-section-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 16px; font-weight: 700; color: var(--text);
+  margin-bottom: 10px;
+}
+.register-section-icon {
+  font-size: 18px; color: #CAA34C;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px;
+}
+.register-section-list { display: flex; flex-direction: column; gap: 10px; }
+
+/* One register entry as a full-width clickable card. */
+.register-entry-card {
+  position: relative;
+  display: block; width: 100%; text-align: left;
+  background: var(--bg-card); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 16px 44px 16px 18px;
+  cursor: pointer; font: inherit; color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.register-entry-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+.register-entry-card:focus-visible {
+  outline: 3px solid #CAA34C; outline-offset: 2px;
+}
+.register-entry-head {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;
+}
+.register-entry-title {
+  font-size: 16px; font-weight: 700; color: var(--text);
+  line-height: 1.3; margin-bottom: 6px;
+}
+.register-entry-meta {
+  display: flex; flex-wrap: wrap; gap: 4px 14px;
+  font-size: 13px; color: var(--text-muted); line-height: 1.5;
+}
+.register-entry-meta > span { display: inline-flex; align-items: center; }
+.register-entry-meta .register-entry-code {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  color: var(--text-faint); letter-spacing: 0.02em;
+}
+.register-entry-pills {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+}
+.register-entry-arrow {
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  color: var(--text-faint); font-size: 20px; line-height: 1;
+  transition: color 0.15s, transform 0.15s;
+}
+.register-entry-card:hover .register-entry-arrow {
+  color: var(--gold); transform: translateY(-50%) translateX(3px);
+}
+@media (max-width: 640px) {
+  .register-title { font-size: 22px; }
+  .register-entry-card { padding: 14px 36px 14px 14px; }
+  .register-entry-arrow { right: 12px; }
+  .register-callout { padding: 12px 14px; }
+}
 
 /* ── Mobile sticky CTA bar ───────────────────────────────────────────────── */
 .sticky-cta-bar {
@@ -2192,13 +2290,36 @@ function renderScreen1(wrap) {
   for (let idx = startIdx; idx < endIdx; idx++) {
     const g = currentGroups[idx];
     const range = combinedBuildRange(g.mre, g.sev);
+    const totalEntries = g.mre.length + g.sev.length;
+    // Unique workshop count across MREs — mirrors the Manus "N workshops" pill.
+    const workshops = new Set();
+    g.mre.forEach(r => {
+      const w = r._workshop_short || r._approval_holder || '';
+      if (w) workshops.add(w);
+    });
+    const workshopCount = workshops.size;
+    // Deduped chassis codes across all SEV entries for this model.
+    const codeSet = new Set();
+    g.sev.forEach(r => {
+      (r['Model code'] || '').split(/[,\/]/).forEach(x => {
+        const t = x.trim();
+        if (t && t.length <= 20) codeSet.add(t);
+      });
+    });
+    const chassisCodes = Array.from(codeSet).slice(0, 6);
+    const extraCodes = codeSet.size - chassisCodes.length;
+
     html += `
       <div class="model-card" onclick="showApprovalList(${idx})">
         <div class="model-card-top">
           <div class="model-card-info">
-            <div><span class="eligible-badge">✓ Eligible</span></div>
+            <div class="model-card-pills-row">
+              <span class="eligible-badge">✓ Eligible</span>
+              ${workshopCount > 0 ? `<span class="count-pill pill-workshops">${workshopCount} workshop${workshopCount !== 1 ? 's' : ''}</span>` : ''}
+            </div>
             <div class="model-card-name">${g.make} ${g.model}</div>
-            <div class="model-card-range">Build: ${range}</div>
+            <div class="model-card-range">Build: ${range} &nbsp;·&nbsp; ${totalEntries} register ${totalEntries === 1 ? 'entry' : 'entries'}</div>
+            ${chassisCodes.length ? `<div class="chassis-pills" style="margin-top:10px;">${chassisCodes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}${extraCodes > 0 ? `<span class="chassis-pill" style="border-style:dashed;">+${extraCodes}</span>` : ''}</div>` : ''}
           </div>
           <div class="model-card-chevron">›</div>
         </div>
@@ -2271,108 +2392,158 @@ function buildSummaryCard(group, buildRange, workshopCount, isImportable, hasExp
 // Merges all MRE + SEV approvals for the same vehicle into a single card
 // showing the widest build range, chassis codes, description, and workshop count.
 // Clicking through shows individual approvals.
+// ── SCREEN 2: REGISTER (Manus-style) ─────────────────────────────────────────
+// Replaces the old single merged approval-row (which was confusing — one card
+// had to represent N SEV + M MRE entries). The Register screen now lists each
+// entry individually, split by type, so users can pick the specific pathway
+// matching their car's build date and chassis code.
 function showApprovalList(groupIdx) {
   const wrap = document.getElementById('results-wrap');
   const g = currentGroups[groupIdx];
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-  // ── Compute the widest build range across ALL approvals ────────────────────
-  const overallRange = combinedBuildRange(g.mre, g.sev);
-
-  // ── Chassis codes from SEV records ─────────────────────────────────────────
-  const codeParts = new Set();
-  g.sev.forEach(r => {
-    const c = r['Model code'] || '';
-    c.split(/[,\/]/).forEach(x => { const t = x.trim(); if (t) codeParts.add(t); });
-  });
-  const codesStr = Array.from(codeParts).join(' · ');
-
-  // ── Human-friendly description from MRE work instructions ──────────────────
-  let descriptionStr = '';
-  for (const r of g.mre) {
-    const parsed = formatVariantDescription(r['_variant_description'] || r['_work_instructions'] || '');
-    if (parsed) { descriptionStr = parsed; break; }
-  }
-
-  // ── Workshop count (unique workshops across all MREs) ──────────────────────
-  const workshops = new Set();
-  g.mre.forEach(r => {
-    const w = r['_workshop_short'] || r['_approval_holder'] || '';
-    if (w) workshops.add(w);
-  });
-  const workshopCount = workshops.size;
-
-  // ── Status: check across ALL approvals ─────────────────────────────────────
+  // ── Compute importability + warnings for the page-bottom CTA ───────────────
   let hasExpiringSoon = false;
   g.sev.forEach(r => {
-    const { label } = getSevExpiryStatus(r);
-    if (label === 'Expiring Soon') hasExpiringSoon = true;
+    if (getSevExpiryStatus(r).label === 'Expiring Soon') hasExpiringSoon = true;
   });
   const activeMRE = g.mre.filter(r => (r['Approval status'] || 'In Force') === 'In Force').length;
   const activeSEV = g.sev.filter(r => getSevExpiryStatus(r).label !== 'Expired').length;
   const isImportable = activeMRE > 0 || activeSEV > 0;
 
-  let statusBadge, warningBanner = '';
-  if (!isImportable) {
-    statusBadge = `<span class="badge badge-red">NOT ELIGIBLE</span>`;
-  } else if (hasExpiringSoon) {
-    statusBadge = `<span class="badge badge-amber">⚠ EXPIRING SOON</span>`;
-    warningBanner = `<div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:6px;padding:6px 10px;font-size:11px;color:#78350f;margin-top:6px;">⚠ One or more eligibility approvals are expiring soon — vehicle must clear customs before expiry. Contact JDM Connect urgently.</div>`;
-  } else {
-    statusBadge = `<span class="badge badge-green">✓ ELIGIBLE</span>`;
-  }
+  const totalEntries = g.mre.length + g.sev.length;
 
-  // ── Build plain-English summary card ──────────────────────────────────────
-  const summaryCard = buildSummaryCard(g, overallRange, workshopCount, isImportable, hasExpiringSoon);
-
-  // ── Build the single merged card ───────────────────────────────────────────
-  // Store a single "generation" containing ALL approvals for click-through
-  currentGenerations[groupIdx] = [{ mre: g.mre.map((r, i) => ({r, i})), sev: g.sev.map((r, i) => ({r, i})), displayRange: overallRange }];
-
-  const totalApprovals = g.mre.length + g.sev.length;
-  const clickAction = totalApprovals === 1
-    ? (g.mre.length ? `showScreen3FromList(${groupIdx},'mre',0)` : `showScreen3FromList(${groupIdx},'sev',0)`)
-    : `showGenerationDetail(${groupIdx},0)`;
-
-  const workshopLine = workshopCount > 0
-    ? `<div style="font-size:11px;color:var(--text-faint);margin-top:4px;">${workshopCount} approved workshop${workshopCount !== 1 ? 's' : ''}</div>`
-    : '';
-
-  let html = renderStepIndicator(1);
+  let html = renderStepIndicator(2); // "Register" is index 2 in STEPS
   html += renderBreadcrumbs([
     { label: 'Search', onclick: 'resetSearch()' },
     { label: g.make },
     { label: g.model },
   ]);
+
+  // Vehicle header
   html += `
-    <div class="approval-list-header">
-      <div class="approval-list-title">${g.make} ${g.model}</div>
+    <div class="register-header">
+      <h1 class="register-title">${g.make} ${g.model}</h1>
+      <p class="register-subtitle">${totalEntries} register ${totalEntries === 1 ? 'entry' : 'entries'} found — select one to view full details.</p>
     </div>
-    ${summaryCard}
-    <div class="approval-rows">
-      <div class="approval-row" onclick="${clickAction}" style="flex-direction:column;align-items:stretch;gap:4px;cursor:pointer;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
-          <div style="flex:1;min-width:0;">
-            ${codesStr ? `<div class="approval-row-meta" style="margin-bottom:4px;">${codesStr}</div>` : ''}
-            ${descriptionStr ? `<div style="font-size:13px;color:var(--text-secondary);">${descriptionStr}</div>` : ''}
-            <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">Build: ${overallRange}</div>
-            ${workshopLine}
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-            ${statusBadge}
-            <span class="approval-row-chevron">›</span>
-          </div>
-        </div>
-        ${warningBanner}
+  `;
+
+  // "What am I looking at?" callout (explains why there are multiple entries)
+  html += `
+    <div class="register-callout">
+      <span class="register-callout-icon">?</span>
+      <div class="register-callout-body">
+        <strong>What am I looking at?</strong> Each card below represents a separate register entry for the ${g.make} ${g.model}. Different entries cover different build date ranges, chassis codes, or compliance pathways. Click on the entry that matches your vehicle to see full details.
       </div>
     </div>
   `;
 
-  // Audit 2026-04-24 — capitalise on high intent on the ELIGIBLE result page.
-  // Show a primary "Import This Car" CTA next to the secondary "New search"
-  // link. Hidden when the vehicle is not importable (no active approvals).
+  // Optional warning banner
+  if (hasExpiringSoon) {
+    html += `
+      <div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:8px;padding:10px 14px;font-size:13px;color:#78350f;margin-bottom:18px;">
+        ⚠ One or more approvals are expiring soon — contact JDM Connect urgently to clear customs before expiry.
+      </div>
+    `;
+  }
+
+  // ── SEVS section ─────────────────────────────────────────────────────────
+  if (g.sev.length > 0) {
+    html += `
+      <section class="register-section">
+        <h2 class="register-section-title">
+          <span class="register-section-icon">🛡</span> Vehicle Eligibility (SEVS)
+        </h2>
+        <div class="register-section-list">
+    `;
+    g.sev.forEach((r, i) => {
+      const { label: expiryLabel } = getSevExpiryStatus(r);
+      const isActive = expiryLabel !== 'Expired';
+      const statusLabel = isActive ? (expiryLabel === 'Expiring Soon' ? 'Expiring Soon' : 'Active') : 'Expired';
+      const statusClass = isActive
+        ? (expiryLabel === 'Expiring Soon' ? 'status-badge-expiring' : 'status-badge-active')
+        : 'status-badge-expired';
+
+      const chassisCodes = (r['Model code'] || '')
+        .split(/[,\/]/).map(s => s.trim()).filter(Boolean);
+
+      const postMod = humanPostMod(r['Post-modification category'] || '');
+      const categoryLabel = (postMod && postMod !== '—') ? postMod : 'Passenger Vehicle';
+
+      const buildFrom = formatBuildRange(r['Build date from'] || '');
+      const buildToRaw = r['Build date to'] || '';
+      const buildTo = (!buildToRaw || buildToRaw === 'No end date') ? 'Present' : formatBuildRange(buildToRaw);
+      const buildStr = buildFrom && buildFrom !== 'Unknown' ? `${buildFrom} – ${buildTo}` : 'Unknown';
+
+      const title = chassisCodes.length
+        ? `${categoryLabel} — ${chassisCodes.join(', ')}`
+        : categoryLabel;
+
+      const sevNum = r['SEV #'] || '—';
+
+      html += `
+        <button class="register-entry-card" onclick="showScreen3FromList(${groupIdx},'sev',${i})" aria-label="View SEVS entry ${sevNum} for ${g.make} ${g.model}">
+          <div class="register-entry-head">
+            <span class="type-badge type-badge-sev">SEV</span>
+            <span class="type-badge ${statusClass}">${statusLabel}</span>
+          </div>
+          <h3 class="register-entry-title">${title}</h3>
+          <div class="register-entry-meta">
+            <span>Build: ${buildStr}</span>
+            <span>Category: ${categoryLabel}</span>
+            <span class="register-entry-code">#${sevNum}</span>
+          </div>
+          ${chassisCodes.length ? `<div class="register-entry-pills">${chassisCodes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}</div>` : ''}
+          <span class="register-entry-arrow">→</span>
+        </button>
+      `;
+    });
+    html += `</div></section>`;
+  }
+
+  // ── MRE section ─────────────────────────────────────────────────────────
+  if (g.mre.length > 0) {
+    html += `
+      <section class="register-section">
+        <h2 class="register-section-title">
+          <span class="register-section-icon">📋</span> Compliance Workshops (MRE)
+        </h2>
+        <div class="register-section-list">
+    `;
+    g.mre.forEach((r, i) => {
+      const status = r['Approval status'] || 'In Force';
+      const isActive = status === 'In Force';
+      const statusLabel = isActive ? 'Active' : status;
+      const statusClass = isActive ? 'status-badge-active' : 'status-badge-expired';
+
+      const approvalNum = r['Approval number'] || '—';
+      const workshopName = r['_workshop_short'] || r['_approval_holder'] || '';
+      const title = workshopName || `Compliance Workshop ${approvalNum}`;
+      const complianceLevel = r['Compliance Level'] || '';
+      const buildStr = formatBuildRange(r['Build date range'] || '') || '—';
+
+      html += `
+        <button class="register-entry-card" onclick="showScreen3FromList(${groupIdx},'mre',${i})" aria-label="View MRE entry ${approvalNum} for ${g.make} ${g.model}">
+          <div class="register-entry-head">
+            <span class="type-badge type-badge-mre">MRE</span>
+            <span class="type-badge ${statusClass}">${statusLabel}</span>
+          </div>
+          <h3 class="register-entry-title">${title}</h3>
+          <div class="register-entry-meta">
+            <span>Build: ${buildStr}</span>
+            ${complianceLevel ? `<span>Level: ${complianceLevel}</span>` : ''}
+            <span class="register-entry-code">#${approvalNum}</span>
+          </div>
+          <span class="register-entry-arrow">→</span>
+        </button>
+      `;
+    });
+    html += `</div></section>`;
+  }
+
+  // ── Bottom CTA row (primary conversion + new search) ─────────────────────
   const eligibleCta = isImportable
-    ? `<a href="https://jdmconnect.com.au/contact?utm_source=eligibility&utm_medium=result&utm_campaign=import_this_car&vehicle=${encodeURIComponent(g.make + ' ' + g.model)}" class="result-cta" target="_blank" rel="noopener">Import this ${g.make} ${g.model} →</a>`
+    ? `<a href="https://jdmconnect.com.au/contact?utm_source=eligibility&utm_medium=register&utm_campaign=import_this_car&vehicle=${encodeURIComponent(g.make + ' ' + g.model)}" class="result-cta" target="_blank" rel="noopener">Import this ${g.make} ${g.model} →</a>`
     : '';
   html += `
     <div class="result-actions">
@@ -2590,14 +2761,11 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
 
   const totalApprovals = (mreList ? mreList.length : 0) + (sevList ? sevList.length : 0);
   // Phase 2.4 — back button per Ben's mockup. Three cases:
-  //   1. Came from build-era list (groupIdx set, >1 approval) → back to eras
-  //   2. Came from grouped Screen 1 with single era (groupIdx set, 1 approval) → back to results
-  //   3. Came via single-result shortcut (groupIdx is null/undefined) → New search is the only "back"
+  //   1. Came from the Register screen (groupIdx set) → back to Register
+  //   2. Came via single-result shortcut (groupIdx null/undefined) → new search only
   let backBtn;
   if (groupIdx !== null && groupIdx !== undefined) {
-    backBtn = totalApprovals > 1
-      ? `<button class="back-btn" onclick="showApprovalList(${groupIdx})">← Back to build eras</button>`
-      : `<button class="back-btn" onclick="renderScreen1(document.getElementById('results-wrap'))">← Back to results</button>`;
+    backBtn = `<button class="back-btn" onclick="showApprovalList(${groupIdx})">← Back to register</button>`;
   } else {
     backBtn = `<button class="back-btn" onclick="resetSearch()">← New search</button>`;
   }
