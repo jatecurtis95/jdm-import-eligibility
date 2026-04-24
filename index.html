@@ -2252,12 +2252,20 @@ function showGroupedResults(make, model, year, mreMatches, sevMatches, isChassis
   currentGroups = Object.values(groupMap);
   currentPage = 1;
 
-  // Single result total → go straight to Screen 3
+  // Single approval in total → go straight to the Details screen.
   if (totalMatches === 1) {
     const g = currentGroups[0];
     const record = g.mre[0] || g.sev[0];
     const isMRE = g.mre.length > 0;
     renderScreen3(record, isMRE, `${g.make} ${g.model}`, g.mre, g.sev, wrap, null);
+    return;
+  }
+
+  // Single make/model group with multiple entries → skip the Results picker
+  // (a one-card "1 vehicle found" screen adds friction without information)
+  // and go straight to the Register screen for that group.
+  if (currentGroups.length === 1) {
+    showApprovalList(0);
     return;
   }
 
@@ -2413,28 +2421,27 @@ function showApprovalList(groupIdx) {
 
   const totalEntries = g.mre.length + g.sev.length;
 
-  let html = renderStepIndicator(2); // "Register" is index 2 in STEPS
+  // Step indicator removed 2026-04-24 — breadcrumbs already mark position;
+  // the four-circle row was ambient noise on every screen.
+  // Only show the back button when the user came from a multi-model results
+  // list — if they skipped straight here (single group), there's nothing to
+  // go back to except search, which the breadcrumb already handles.
+  let html = '';
+  if (currentGroups.length > 1) {
+    html += `<button class="back-btn" onclick="renderScreen1(document.getElementById('results-wrap'))">← Back to results</button>`;
+  }
   html += renderBreadcrumbs([
     { label: 'Search', onclick: 'resetSearch()' },
     { label: g.make },
     { label: g.model },
   ]);
 
-  // Vehicle header
+  // Vehicle header — kept minimal. Explanatory callout + entry-count subtitle
+  // were removed 2026-04-24 as ambient noise; the section headings below are
+  // self-describing and the entry count is obvious from the cards themselves.
   html += `
     <div class="register-header">
       <h1 class="register-title">${g.make} ${g.model}</h1>
-      <p class="register-subtitle">${totalEntries} register ${totalEntries === 1 ? 'entry' : 'entries'} found — select one to view full details.</p>
-    </div>
-  `;
-
-  // "What am I looking at?" callout (explains why there are multiple entries)
-  html += `
-    <div class="register-callout">
-      <span class="register-callout-icon">?</span>
-      <div class="register-callout-body">
-        <strong>What am I looking at?</strong> Each card below represents a separate register entry for the ${g.make} ${g.model}. Different entries cover different build date ranges, chassis codes, or compliance pathways. Click on the entry that matches your vehicle to see full details.
-      </div>
     </div>
   `;
 
@@ -2451,9 +2458,7 @@ function showApprovalList(groupIdx) {
   if (g.sev.length > 0) {
     html += `
       <section class="register-section">
-        <h2 class="register-section-title">
-          <span class="register-section-icon">🛡</span> Vehicle Eligibility (SEVS)
-        </h2>
+        <h2 class="register-section-title">Vehicle Eligibility (SEVS)</h2>
         <div class="register-section-list">
     `;
     g.sev.forEach((r, i) => {
@@ -2467,17 +2472,22 @@ function showApprovalList(groupIdx) {
       const chassisCodes = (r['Model code'] || '')
         .split(/[,\/]/).map(s => s.trim()).filter(Boolean);
 
+      // Only surface the category when the ROVER record actually carries one.
+      // Silent fallback to "Passenger Vehicle" was dishonest — most SEV rows
+      // have no post-mod code and we'd mislabel niche pathways (welcab, etc.).
       const postMod = humanPostMod(r['Post-modification category'] || '');
-      const categoryLabel = (postMod && postMod !== '—') ? postMod : 'Passenger Vehicle';
+      const categoryLabel = (postMod && postMod !== '—') ? postMod : '';
 
       const buildFrom = formatBuildRange(r['Build date from'] || '');
       const buildToRaw = r['Build date to'] || '';
       const buildTo = (!buildToRaw || buildToRaw === 'No end date') ? 'Present' : formatBuildRange(buildToRaw);
       const buildStr = buildFrom && buildFrom !== 'Unknown' ? `${buildFrom} – ${buildTo}` : 'Unknown';
 
+      // Title: prefer chassis codes (most discriminating for the user) and
+      // fall back to category or a neutral "SEVS entry".
       const title = chassisCodes.length
-        ? `${categoryLabel} — ${chassisCodes.join(', ')}`
-        : categoryLabel;
+        ? chassisCodes.join(', ')
+        : (categoryLabel || 'SEVS entry');
 
       const sevNum = r['SEV #'] || '—';
 
@@ -2490,10 +2500,8 @@ function showApprovalList(groupIdx) {
           <h3 class="register-entry-title">${title}</h3>
           <div class="register-entry-meta">
             <span>Build: ${buildStr}</span>
-            <span>Category: ${categoryLabel}</span>
             <span class="register-entry-code">#${sevNum}</span>
           </div>
-          ${chassisCodes.length ? `<div class="register-entry-pills">${chassisCodes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}</div>` : ''}
           <span class="register-entry-arrow">→</span>
         </button>
       `;
@@ -2505,9 +2513,7 @@ function showApprovalList(groupIdx) {
   if (g.mre.length > 0) {
     html += `
       <section class="register-section">
-        <h2 class="register-section-title">
-          <span class="register-section-icon">📋</span> Compliance Workshops (MRE)
-        </h2>
+        <h2 class="register-section-title">Compliance Workshops (MRE)</h2>
         <div class="register-section-list">
     `;
     g.mre.forEach((r, i) => {
@@ -2591,8 +2597,7 @@ function showGenerationDetail(groupIdx, genIdx) {
     || gen.sev.some(({r}) => getSevExpiryStatus(r).label !== 'Expired');
   const genSummary = buildSummaryCard(g, gen.displayRange, genWorkshopCount, isImportable, hasExpiring);
 
-  let html = renderStepIndicator(2);
-  html += renderBreadcrumbs([
+  let html = renderBreadcrumbs([
     { label: 'Search', onclick: 'resetSearch()' },
     { label: g.make, onclick: `renderScreen1(document.getElementById('results-wrap'))` },
     { label: g.model, onclick: `showApprovalList(${groupIdx})` },
@@ -2905,8 +2910,7 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     ]);
   }
 
-  let html = renderStepIndicator(3);
-  html += breadcrumbs;
+  let html = breadcrumbs;
 
   // Header
   html += `
