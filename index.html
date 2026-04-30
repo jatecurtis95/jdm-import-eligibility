@@ -702,6 +702,12 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 
 /* ── RESULTS AREA ─────────────────────────────────────────────── */
 .results-wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 60px; }
+/* Audit 2026-04-30 — detail pages use a 2-col grid (main + sidebar). The
+   720px register-list cap squeezed sidebar to ~240px and starved the main
+   content. Widen to 1200px (matches calculator.jdmconnect.com.au) when a
+   detail-grid is present. Register list / not-eligible screens stay at
+   720px because they're single-column and wider would feel sparse. */
+.results-wrap:has(.detail-grid) { max-width: 1200px; }
 
 /* Audit 2026-04-24 — on desktop the results area floated in open space; wrap it in
    a subtle panel so the eye has a clear anchor and the card stack reads as one unit. */
