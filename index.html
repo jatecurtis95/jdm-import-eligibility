@@ -316,6 +316,20 @@ body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--tex
 .sidebar-fact:last-child { margin-bottom: 0; }
 .sidebar-fact-icon { font-size: 14px; flex-shrink: 0; }
 
+/* Calculator cross-sell card (Audit 2026-04-30 — detail-page brief B).
+   Reuses .sidebar-card baseline; the gold left-border accent reads as
+   adjacent-product without competing with the primary import CTA. */
+.sidebar-calculator-cta {
+  border-left: 3px solid var(--gold);
+  background: linear-gradient(180deg, #fffbf0 0%, var(--bg-card) 60%);
+}
+.sidebar-calculator-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 13px; font-weight: 700; color: var(--gold-dark);
+  text-decoration: none; padding: 8px 0;
+}
+.sidebar-calculator-link:hover { color: var(--gold); text-decoration: underline; }
+
 /* ── HEADER ─────────────────────────────────────────────────── */
 .header {
   background: #141414;
@@ -1444,13 +1458,21 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '438613762049767');
 fbq('track', 'PageView');
 
-// Track GHL form submissions as Lead events
+// Track GHL form submissions as Lead events. value/currency satisfy
+// Meta Diagnostics' "Send valid price and currency" warning so the
+// algorithm can optimize on monetary value.
 window.addEventListener('message', function(event) {
   if (!event.origin || !event.origin.includes('leadconnectorhq.com')) return;
   var data = event.data || {};
   var type = (data.type || data.event || '').toString().toLowerCase();
   if (type.includes('form_submit') || type.includes('form:submit') || type === 'formsubmitted') {
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+    var leadParams = {
+      content_name: 'GHLFormSubmit',
+      value: (typeof ESTIMATED_LEAD_VALUE_AUD !== 'undefined') ? ESTIMATED_LEAD_VALUE_AUD : 50000,
+      currency: 'AUD'
+    };
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead', leadParams);
+    if (typeof gtag === 'function') gtag('event', 'lead', leadParams);
   }
 });
 </script>
@@ -1688,6 +1710,34 @@ function trackEvent(name, params) { return track(name, params); }
 // page renders; read when the user clicks GetQuote / Pathways / Notify so
 // the event params include {make, model} without per-CTA plumbing.
 let currentVehicleContext = { make: '', model: '' };
+
+// Placeholder lead value for the Meta-standard Lead event. Meta's
+// Diagnostics tab warns when Lead fires without value/currency; without
+// a real per-vehicle estimate to attach (the eligibility site doesn't
+// price the car), we use a conservative average landed-cost estimate
+// for an imported JDM vehicle. Tune as the campaign accumulates real
+// quote-to-purchase data.
+const ESTIMATED_LEAD_VALUE_AUD = 50000;
+
+// Detail-page Back button. history.back() handles in-app navigation
+// (search → result list → detail) cleanly. For deep-link landings (no
+// history) we fall back to the parent route — Make+Model search if we
+// know it, otherwise the homepage.
+function handleBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+    return;
+  }
+  const make  = currentVehicleContext && currentVehicleContext.make;
+  const model = currentVehicleContext && currentVehicleContext.model;
+  if (make && model) {
+    window.location.hash = '#make=' + encodeURIComponent(make) + '&model=' + encodeURIComponent(model);
+  } else {
+    // No context — strip the hash and reset to the search homepage.
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+    if (typeof resetSearch === 'function') resetSearch();
+  }
+}
 
 // ── JARGON TRANSLATION ─────────────────────────────────────────────────────
 // Replace government-speak with plain English so everyday users understand results.
@@ -3528,15 +3578,11 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
   const isOver25 = bRange25 && bRange25.from && (new Date().getFullYear() - bRange25.from.getFullYear()) >= 25;
 
   const totalApprovals = (mreList ? mreList.length : 0) + (sevList ? sevList.length : 0);
-  // Phase 2.4 — back button per Ben's mockup. Three cases:
-  //   1. Came from the Register screen (groupIdx set) → back to Register
-  //   2. Came via single-result shortcut (groupIdx null/undefined) → new search only
-  let backBtn;
-  if (groupIdx !== null && groupIdx !== undefined) {
-    backBtn = `<button class="back-btn" onclick="showApprovalList(${groupIdx})">← Back to register</button>`;
-  } else {
-    backBtn = `<button class="back-btn" onclick="resetSearch()">← New search</button>`;
-  }
+  // Audit 2026-04-30 (detail-page brief A) — single Back button via
+  // history.back() with a deep-link fallback. Sits above the breadcrumb
+  // so users arriving from a Facebook ad / shared URL have an obvious
+  // way back up the funnel even when there's no in-app history.
+  const backBtn = `<button class="back-btn" onclick="handleBack()">← Back</button>`;
 
   const statusDisplay = status === 'In Force' ? 'Active' : status;
   const statusBadgeCls = status === 'In Force' ? 'badge-green' : status === 'Expiring Soon' ? 'badge-amber' : 'badge-red';
@@ -3677,7 +3723,7 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     ]);
   }
 
-  let html = breadcrumbs;
+  let html = backBtn + breadcrumbs;
 
   // Header
   html += `
@@ -3905,6 +3951,23 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     </div>
   `;
 
+  // Calculator cross-sell (Audit 2026-04-30 — detail-page brief B). Fills
+  // the empty space below Source on tall main columns and feeds the
+  // CalculateLandedCostClicked event with sidebar traffic. UTM tags let
+  // GA4 attribute calculator visits to this exact surface.
+  const calcCtaUrl = 'https://calculator.jdmconnect.com.au/'
+    + '?utm_source=eligibility&utm_medium=detail_sidebar&utm_campaign=cross_sell'
+    + '&vehicle=' + encodeURIComponent((currentVehicleContext.make || '') + '_' + (currentVehicleContext.model || ''));
+  html += `
+    <div class="sidebar-card sidebar-calculator-cta">
+      <div class="sidebar-card-title">📊 Estimate landed cost</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin:6px 0 12px;line-height:1.45;">See the full import cost for this ${vehicleName}.</p>
+      <a href="${calcCtaUrl}" class="sidebar-calculator-link" data-cta="calculate" data-cta-source="detail_sidebar" target="_blank" rel="noopener">
+        Open calculator →
+      </a>
+    </div>
+  `;
+
   html += `</div>`; // end detail-sidebar
   html += `</div>`; // end detail-grid
 
@@ -3950,7 +4013,8 @@ function renderNotEligible(vehicleName, yearStr, make, model, year, isChassis, w
     year: year || '',
     is_chassis: !!isChassis
   });
-  let html = `
+  let html = `<button class="back-btn" onclick="handleBack()">← Back</button>`;
+  html += `
     <div class="verdict-card ineligible">
       <div class="verdict-header">
         <div class="verdict-icon">✕</div>
@@ -4025,7 +4089,7 @@ function buildActions(record, vehicleName, isIneligible) {
     ${primaryLead}
     <a href="${contactUrl}" class="action-btn-primary" target="_blank" data-cta="${isIneligible ? 'pathways' : 'get_quote'}" data-cta-source="primary_action">${primaryLabel}</a>
     <div class="action-grid">
-      <a href="${calcUrl}" class="action-btn" target="_blank" onclick="track('CalculateLandedCostClicked',{make:currentVehicleContext.make||'',model:currentVehicleContext.model||''})">Calculate landed cost</a>
+      <a href="${calcUrl}" class="action-btn" target="_blank" data-cta="calculate" data-cta-source="primary_action">Calculate landed cost</a>
       <button class="action-btn" onclick="shareResult('${vehicleName.replace(/'/g,"\\'")}')">Share result</button>
     </div>
   `;
@@ -4200,7 +4264,9 @@ loadData();
       var eventName = {
         get_quote: 'GetQuoteClicked',
         pathways:  'PathwaysClicked',
-        notify:    'NotifyMeClicked'
+        notify:    'NotifyMeClicked',
+        // Calculator cross-sell — soft conversion, doesn't fire Lead.
+        calculate: 'CalculateLandedCostClicked'
       }[ctaType];
       if (eventName) {
         var vctx = (typeof currentVehicleContext === 'object' && currentVehicleContext) ? currentVehicleContext : {};
@@ -4210,11 +4276,18 @@ loadData();
           model: vctx.model || ''
         };
         track(eventName, params);
-        // Meta-standard Lead alongside GetQuoteClicked so FB can optimize
-        // the campaign for either signal. Pathways/Notify are leads too —
-        // they hit different surfaces in GHL but share intent.
+        // Meta-standard Lead alongside the three primary CTAs so FB can
+        // optimize the campaign on a unified signal. Calculator click is
+        // engagement, not a Lead — keep it out of the Lead bucket.
+        // value/currency satisfy Meta Diagnostics' "Send valid price and
+        // currency" warning on the Lead event.
         if (eventName === 'GetQuoteClicked' || eventName === 'PathwaysClicked' || eventName === 'NotifyMeClicked') {
-          track('Lead', { content_name: eventName, source_page: source });
+          track('Lead', {
+            content_name: eventName,
+            source_page: source,
+            value: ESTIMATED_LEAD_VALUE_AUD,
+            currency: 'AUD'
+          });
         }
       }
     }
