@@ -513,9 +513,9 @@ body.results-active .popular-searches { display: none; }
   margin-top: 14px;
 }
 .popular-searches-label {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--text-muted);
-  margin-right: 4px;
+  /* Audit 2026-04-30 (smoke-test #22) — sentence case for consistency. */
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--text-muted); margin-right: 4px;
 }
 .chip-search {
   background: var(--bg-secondary); border: 1px solid var(--border);
@@ -1454,12 +1454,11 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
   <div class="header-inner">
     <a href="/" class="logo-wrap">
       <img src="logo.png" alt="JDM Connect" class="header-logo">
-      <span class="logo-tag">Eligibility Checker</span>
     </a>
     <nav class="header-nav">
       <a href="https://calculator.jdmconnect.com.au">Landed Cost</a>
       <a href="https://jdmconnect.com.au">Home</a>
-      <a href="https://jdmconnect.com.au/contact" class="header-cta">Get a Quote</a>
+      <a href="https://jdmconnect.com.au/contact" class="header-cta">Get a free quote</a>
     </nav>
   </div>
 </header>
@@ -1468,8 +1467,8 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
 <div class="hero">
   <div class="hero-badge" title="ROVER is the Department of Infrastructure's import register"><span class="dot"></span> Live government data</div>
   <h1>Is this car<br><em>importable to Australia?</em></h1>
-  <p>Check Australia&rsquo;s two official import registers in seconds &mdash; used by dealers, agents, and enthusiasts nationwide.</p>
-  <p class="hero-first">The free eligibility tool for Australian buyers importing cars from Japan. <span class="hero-jdm-decoder">JDM = Japanese Domestic Market &mdash; cars built and sold in Japan that aren&rsquo;t normally available here.</span></p>
+  <p>Check Australia&rsquo;s two official import registers &mdash; instantly.</p>
+  <p class="hero-first">Free, for Australian buyers importing JDM cars <span class="hero-jdm-decoder">(Japanese-market models built and sold in Japan).</span></p>
 </div>
 
 <!-- SEARCH CARD -->
@@ -1578,23 +1577,17 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
 <div class="stats-strip" id="stats-strip">
   <div class="stat-card">
     <div class="stat-num" id="stat-mre">883</div>
-    <div class="stat-label">MRE approvals</div>
+    <div class="stat-label">approved workshops</div>
   </div>
   <div class="stat-card">
     <div class="stat-num" id="stat-sev">615</div>
-    <div class="stat-label">SEVS listings</div>
+    <div class="stat-label">eligible cars</div>
   </div>
   <div class="stat-card">
     <div class="stat-num" id="stat-updated">15 Apr</div>
-    <div class="stat-label">Data updated</div>
+    <div class="stat-label">last updated</div>
   </div>
 </div>
-<p class="register-note">
-  <strong>SEVS</strong> = Specialist &amp; Enthusiast Vehicle Scheme ·
-  <strong>MRE</strong> = Model Report Eligibility &mdash;
-  Australia&rsquo;s two official import registers (Dept of Infrastructure).
-</p>
-
 <!-- HOW IT WORKS (Audit 2026-04-30 — P2 #12) -->
 <section class="how-it-works" aria-label="How it works">
   <h2 class="how-it-works-title">How it works</h2>
@@ -1603,21 +1596,21 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
       <div class="how-it-works-num">1</div>
       <div class="how-it-works-body">
         <div class="how-it-works-step-title">Search</div>
-        <p>Pick your dream car &mdash; or paste a chassis code.</p>
+        <p>Pick a car or paste a chassis code.</p>
       </div>
     </li>
     <li class="how-it-works-step">
       <div class="how-it-works-num">2</div>
       <div class="how-it-works-body">
         <div class="how-it-works-step-title">Check</div>
-        <p>See if it&rsquo;s eligible &mdash; and which build years count.</p>
+        <p>Get an instant answer.</p>
       </div>
     </li>
     <li class="how-it-works-step">
       <div class="how-it-works-num">3</div>
       <div class="how-it-works-body">
         <div class="how-it-works-step-title">Quote</div>
-        <p><a href="https://jdmconnect.com.au/contact" target="_blank" rel="noopener">We source it for you, fully landed &rarr;</a></p>
+        <p><a href="https://jdmconnect.com.au/contact" target="_blank" rel="noopener">We source it from Japan, landed &rarr;</a></p>
       </div>
     </li>
   </ol>
@@ -1630,7 +1623,7 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
 <footer class="footer">
   <p>
     Data sourced from the Australian Government ROVER portal.<br>
-    This tool is for guidance only — always verify eligibility with a licensed RAWS workshop before purchasing.<br>
+    For guidance only. Always confirm with a licensed RAWS workshop before you buy.<br>
     <a href="https://jdmconnect.com.au">jdmconnect.com.au</a> &nbsp;·&nbsp;
     <!--email_off--><a href="mailto:info@jdmconnect.com.au" class="no-cf-email">info@jdmconnect.com.au</a><!--/email_off--><br><br>
     © 2026 JDM Connect Pty Ltd ACN 78 675 449 493. All rights reserved.
@@ -1855,7 +1848,7 @@ function applyHashIfPresent() {
       wrap.style.display = 'block';
       wrap.innerHTML = '';
       document.body.classList.add('results-active');
-      renderScreen3(sevRec, false, `${sevRec.Make} ${sevRec.Model}`, mreSiblings, siblings, wrap, null);
+      renderScreen3(sevRec, false, `${displayName(sevRec.Make)} ${displayName(sevRec.Model)}`, mreSiblings, siblings, wrap, null);
       return;
     }
   }
@@ -1875,7 +1868,7 @@ function applyHashIfPresent() {
       wrap.style.display = 'block';
       wrap.innerHTML = '';
       document.body.classList.add('results-active');
-      renderScreen3(mreRec, true, `${mreRec.Make} ${mreRec.Model}`, mreSiblings, sevSiblings, wrap, null);
+      renderScreen3(mreRec, true, `${displayName(mreRec.Make)} ${displayName(mreRec.Model)}`, mreSiblings, sevSiblings, wrap, null);
       return;
     }
   }
@@ -1895,8 +1888,13 @@ function applyHashIfPresent() {
   if (params.make) {
     const makeSel = document.getElementById('sel-make');
     const makeSearch = document.getElementById('make-search');
-    // Find the canonical Make entry that case-insensitively matches the hash value.
-    const matchedMake = allMakes.find(m => m.toUpperCase() === params.make.toUpperCase());
+    // Find the canonical Make entry that case-insensitively matches the
+    // hash value. Audit 2026-04-30 (smoke-test bug #2) — also check the
+    // curated JAPANESE_MAKES list so deep links like `#make=Acura` work
+    // even when the make has zero records in ROVER. Falls through to a
+    // search that yields the standard "Not currently eligible" screen.
+    const matchedMake = allMakes.find(m => m.toUpperCase() === params.make.toUpperCase())
+      || JAPANESE_MAKES.find(m => m.toUpperCase() === params.make.toUpperCase());
     if (matchedMake) {
       makeSel.value = matchedMake;
       makeSelectedValue = matchedMake;
@@ -2027,7 +2025,21 @@ function filterMakes(showAll) {
       isCuratedView = true;
     }
   } else {
-    matches = allMakes.filter(m => m.toLowerCase().includes(query));
+    // Audit 2026-04-30 (smoke-test bug #3) — typing search must include the
+    // curated makes too. Without this union, typing "Acura" returned "No
+    // makes found" even though Acura is in the idle dropdown. Now the same
+    // names are findable both ways.
+    const seen = new Set();
+    const searchPool = [];
+    for (const m of allMakes) {
+      const k = m.toLowerCase();
+      if (!seen.has(k)) { seen.add(k); searchPool.push(m); }
+    }
+    for (const m of JAPANESE_MAKES) {
+      const k = m.toLowerCase();
+      if (!seen.has(k)) { seen.add(k); searchPool.push(m); }
+    }
+    matches = searchPool.filter(m => m.toLowerCase().includes(query));
   }
 
   if (!matches.length) {
@@ -2161,15 +2173,32 @@ document.addEventListener('click', function(e) {
 
 function populateModels() {
   const make = document.getElementById('sel-make').value;
-  const models = [...new Set([
+  // Audit 2026-04-30 (smoke-test bug #5) — case-insensitive dedupe so the
+  // dropdown doesn't show both "SKYLINE" and "Skyline", "LEAF" and "Leaf".
+  // The first occurrence in source order wins as the canonical value sent
+  // to doSearch() (which compares case-insensitively anyway), but we render
+  // a tidy displayName(). Sort by the displayed label.
+  const seen = new Map();
+  const candidates = [
     ...MRE.filter(r => makeMatches(r.Make, make)).map(r => r.Model),
     ...SEV.filter(r => makeMatches(r.Make, make)).map(r => r.Model)
-  ])].filter(Boolean).sort();
+  ];
+  for (const m of candidates) {
+    if (!m) continue;
+    const k = m.toLowerCase();
+    if (!seen.has(k)) seen.set(k, m);
+  }
+  const models = Array.from(seen.values())
+    .sort((a, b) => displayName(a).localeCompare(displayName(b), undefined, { sensitivity: 'base' }));
   const sel = document.getElementById('sel-model');
   sel.innerHTML = '<option value="">Select model…</option>';
   models.forEach(m => {
     const o = document.createElement('option');
-    o.value = m; o.textContent = m;
+    // Use the display-cased form as both value and label — the search
+    // filter compares case-insensitively, so this only affects rendering
+    // (the vehicleName built by doSearch reads sel-model.value as-is).
+    const dm = displayName(m);
+    o.value = dm; o.textContent = dm;
     sel.appendChild(o);
   });
 }
@@ -2191,6 +2220,32 @@ function populateYears() {
 function titleCase(str) {
   if (!str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+// Audit 2026-04-30 (smoke-test bug #4 / #5) — smart title-case for makes
+// and models. ROVER stores some records as SHOUTY-CAPS ("NISSAN SKYLINE")
+// and others as Title Case ("Toyota Camry"), and sometimes both casings
+// for the same model. We normalise at render time so the user never sees
+// the inconsistency. Token-aware so we preserve well-known acronyms and
+// chassis codes (GT-R, RX-7, AE86, BNR34, MR2, JZX100, II/III/IV).
+function displayName(str) {
+  if (str == null) return '';
+  return String(str).split(/(\s+|\/)/).map(token => {
+    if (!token) return token;
+    if (/^\s+$/.test(token) || token === '/') return token;
+    // Tokens with internal hyphens recurse so "GT-R", "RX-7" are handled.
+    if (token.includes('-')) {
+      return token.split('-').map(p => displayName(p)).join('-');
+    }
+    // All-uppercase short letter tokens are acronyms — keep as-is
+    // (WRX, STI, GTR, NSX, EVO, II, III, IV, V, VI).
+    if (/^[A-Z]{1,4}$/.test(token)) return token;
+    // Tokens containing digits are chassis/model codes — keep uppercase
+    // (BNR34, JZA80, AE86, JZX100, MR2, RAV4, S2000, V35).
+    if (/\d/.test(token)) return token.toUpperCase();
+    // Otherwise: first char upper, rest lower (NISSAN → Nissan).
+    return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
+  }).join('');
 }
 
 // ── TABS ─────────────────────────────────────────────────────────────────────
@@ -2728,16 +2783,21 @@ function showGroupedResults(make, model, year, mreMatches, sevMatches, isChassis
     return;
   }
 
-  // Group by Make|Model key
+  // Group by Make|Model key. Audit 2026-04-30 (smoke-test bug #4) —
+  // display-case make/model at the source so every downstream render
+  // (headers, breadcrumbs, CTAs, share text) gets a tidy "Nissan Skyline"
+  // instead of the raw "NISSAN Skyline" / "Toyota Camry" inconsistency
+  // that ROVER stores. Filters still use makeMatches() which compares
+  // case-insensitively, so this is render-only.
   const groupMap = {};
   mreMatches.forEach(r => {
     const key = (r.Make + '|' + r.Model).toUpperCase();
-    if (!groupMap[key]) groupMap[key] = { make: r.Make, model: r.Model, mre: [], sev: [] };
+    if (!groupMap[key]) groupMap[key] = { make: displayName(r.Make), model: displayName(r.Model), mre: [], sev: [] };
     groupMap[key].mre.push(r);
   });
   sevMatches.forEach(r => {
     const key = (r.Make + '|' + r.Model).toUpperCase();
-    if (!groupMap[key]) groupMap[key] = { make: r.Make, model: r.Model, mre: [], sev: [] };
+    if (!groupMap[key]) groupMap[key] = { make: displayName(r.Make), model: displayName(r.Model), mre: [], sev: [] };
     groupMap[key].sev.push(r);
   });
   currentGroups = Object.values(groupMap);
@@ -2920,7 +2980,7 @@ function buildSummaryCard(group, buildRange, workshopCount, isImportable, hasExp
         <div class="summary-fact"><span class="summary-fact-label">Workshops</span><span class="summary-fact-value">${workshopLabel}</span></div>
       </div>
       ${warningLine}
-      <a href="${contactUrl}" class="summary-card-cta" target="_blank">Get a quote to source a ${vehicleName} →</a>
+      <a href="${contactUrl}" class="summary-card-cta" target="_blank">Get a free quote →</a>
     </div>
   `;
 }
@@ -3010,7 +3070,7 @@ function showApprovalList(groupIdx) {
     const sevGroups = Array.from(sevDedupeMap.values());
     html += `
       <section class="register-section">
-        <h2 class="register-section-title">Vehicle Eligibility (SEVS)</h2>
+        <h2 class="register-section-title">Cars eligible to import</h2>
         <div class="register-section-list">
     `;
     sevGroups.forEach((grp) => {
@@ -3093,7 +3153,7 @@ function showApprovalList(groupIdx) {
   if (g.mre.length > 0) {
     html += `
       <section class="register-section">
-        <h2 class="register-section-title">Compliance Workshops (MRE)</h2>
+        <h2 class="register-section-title">Workshops approved to comply this car</h2>
         <div class="register-section-list">
     `;
     g.mre.forEach((r, i) => {
@@ -3324,6 +3384,7 @@ function showScreen3FromList(groupIdx, type, recordIdx) {
   const record = type === 'mre' ? g.mre[recordIdx] : g.sev[recordIdx];
   const isMRE = type === 'mre';
   const wrap = document.getElementById('results-wrap');
+  // g.make / g.model are already display-cased at group construction.
   renderScreen3(record, isMRE, `${g.make} ${g.model}`, g.mre, g.sev, wrap, groupIdx);
 }
 
@@ -3389,9 +3450,11 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
 
   // ─── Phase 2.3 — Ben's mockup parity ──────────────────────────────────────
   // Build the row data for Card A (Vehicle details).
-  const displayMake = (r.Make || (vehicleName.split(' ')[0])).trim();
+  // Audit 2026-04-30 (smoke-test bug #4) — render with displayName so
+  // "NISSAN" and "TOYOTA" come through as "Nissan" / "Toyota".
+  const displayMake = displayName((r.Make || (vehicleName.split(' ')[0])).trim());
   // Strip the make from vehicleName so the model row doesn't duplicate it.
-  const displayModel = (r.Model || vehicleName.replace(displayMake, '').trim() || '—');
+  const displayModel = displayName(r.Model || vehicleName.replace(/^.+? /, '').trim() || '—');
 
   // Year Range — Option A. SEV uses Build date from / Build date to directly,
   // mapping "No end date" → "present". MRE keeps existing formatBuildRange.
@@ -3472,7 +3535,7 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     ? `
       <details class="model-reports-details">
         <summary class="model-reports-summary">
-          <span>${uniqueMres.length} model report${uniqueMres.length === 1 ? '' : 's'}</span>
+          <span>See the list</span>
           <span class="model-reports-chevron">›</span>
         </summary>
         <div class="model-reports-list">
@@ -3494,9 +3557,11 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     : '<span class="detail-val" style="color:#9ca3af;">—</span>';
 
   const isActive = status === 'In Force';
+  // Audit 2026-04-30 (smoke-test #9) — drop "Entry" suffix; the bare
+  // SEVS / MRE label is enough alongside the eligibility status badge.
   const typeBadge = isMRE
-    ? '<span class="type-badge type-badge-mre">MRE Entry</span>'
-    : '<span class="type-badge type-badge-sev">SEVS Entry</span>';
+    ? '<span class="type-badge type-badge-mre">MRE</span>'
+    : '<span class="type-badge type-badge-sev">SEVS</span>';
   const statusBadge2 = `<span class="type-badge ${isActive ? 'status-badge-active' : isExpiringSoon ? 'status-badge-expiring' : 'status-badge-expired'}">${statusDisplay}</span>`;
 
   const workshopName = r['_workshop_short'] || r['_approval_holder'] || '';
@@ -3532,16 +3597,41 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     </div>
   `;
 
-  // Audit 2026-04-30 (P0 #4 / P1 #10) — variant-context callout. When the
-  // approval's chassis code resolves to a known variant (e.g. AXVH75 = JDM
-  // hybrid Camry, BNR34 = R34 GT-R), surface a one-line clarifier above the
-  // detail cards so non-enthusiasts immediately see *which* version of the
-  // model this entry actually covers.
-  const detailVariant = variantInfoForRecord(r, isMRE)
-    || (primarySev ? variantInfoForRecord(primarySev, false) : null);
-  if (detailVariant && (detailVariant.notes || detailVariant.name)) {
-    const variantLine = detailVariant.notes
-      || `This approval covers the ${detailVariant.name} (${detailVariant.fromYear}–${detailVariant.toYear < 2099 ? detailVariant.toYear : 'present'}).`;
+  // Audit 2026-04-30 (P0 #4 / P1 #10 — refined post-smoke-test bug #1) —
+  // variant-context callout. When the approval's chassis code resolves to a
+  // known variant, surface a one-line clarifier above the detail cards.
+  // Critically: the lookup must read from THIS record only (or, for an MRE,
+  // from the build-overlap-matched primarySev). Falling back to *any* sibling
+  // SEV under the same model previously made SEV-000768 (R series, 1997–2002)
+  // claim it covered the V37 hybrid sedan because the V37 SEV happened to
+  // appear first in the sibling list. If neither source yields a match,
+  // suppress the callout entirely rather than guessing.
+  function detailVariantNotes(rec, recIsMRE) {
+    if (!rec) return null;
+    const vi = variantInfoForRecord(rec, recIsMRE);
+    if (vi) {
+      return vi.notes
+        || `This approval covers the ${vi.name} (${vi.fromYear}–${vi.toYear < 2099 ? vi.toYear : 'present'}).`;
+    }
+    // Fall back to MODEL_CODE_DESCRIPTORS for generic codes like "R series"
+    // that span multiple chassis but still warrant a context line.
+    const codeField = recIsMRE
+      ? (rec['Model report type'] || rec['Model code'] || '')
+      : (rec['Model code'] || '');
+    const trimmed = (codeField || '').trim();
+    if (MODEL_CODE_DESCRIPTORS[trimmed] && MODEL_CODE_DESCRIPTORS[trimmed].notes) {
+      return MODEL_CODE_DESCRIPTORS[trimmed].notes;
+    }
+    return null;
+  }
+  let variantLine = detailVariantNotes(r, isMRE);
+  // For MRE views only, fall back to the build-overlap-matched sibling SEV.
+  // SEV views never fall back — primarySev for a SEV view is just an arbitrary
+  // sibling, which is what produced bug #1 in the smoke-test report.
+  if (!variantLine && isMRE && primarySev) {
+    variantLine = detailVariantNotes(primarySev, false);
+  }
+  if (variantLine) {
     html += `
       <div class="variant-context-callout">
         <span class="variant-context-icon">ℹ</span>
@@ -3590,51 +3680,46 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
   // ── LEFT COLUMN (main) ──────────────────────────────────────────────────
   html += `<div class="detail-main">`;
 
-  // Vehicle Details card
+  // Vehicle Details card. Audit 2026-04-30 (smoke-test #8) — removed
+  // bureaucratic rows ("Register Type", "Entry Code") that duplicate the
+  // type-badge in the header and the breadcrumb. "Build Date Range" →
+  // "Build years" (plain English). "Expiry" → "Approval valid until".
   html += `
     <div class="detail-card">
       <div class="detail-card-title">📋 Vehicle Details</div>
-      <div class="detail-row">
-        <span class="detail-key">Register Type</span>
-        <span class="detail-val">${isMRE ? 'MRE (Model Report Eligibility)' : 'SEVS (Specialist & Enthusiast Vehicle Scheme)'}</span>
-      </div>
       <div class="detail-row">
         <span class="detail-key">Status</span>
         <span class="detail-val">${statusDisplay}</span>
       </div>
       <div class="detail-row">
-        <span class="detail-key">Entry Code</span>
-        <span class="detail-val" style="font-family:'DM Mono',monospace;font-size:12px;">#${approvalNum}</span>
-      </div>
-      <div class="detail-row">
         <span class="detail-key">Make</span>
-        <span class="detail-val">${titleCase(displayMake)}</span>
+        <span class="detail-val">${displayMake}</span>
       </div>
       <div class="detail-row">
         <span class="detail-key">Model</span>
         <span class="detail-val">${displayModel}</span>
       </div>
       <div class="detail-row">
-        <span class="detail-key">Build Date Range</span>
+        <span class="detail-key">Build years</span>
         <span class="detail-val">${yearRangeStr}</span>
       </div>
-      ${eligibilityLabel !== '—' ? `<div class="detail-row"><span class="detail-key">Category</span><span class="detail-val">${eligibilityLabel}</span></div>` : ''}
+      ${eligibilityLabel !== '—' ? `<div class="detail-row"><span class="detail-key">Approval category</span><span class="detail-val">${eligibilityLabel}</span></div>` : ''}
       ${expiry ? `
       <div class="detail-row">
-        <span class="detail-key">Expiry</span>
+        <span class="detail-key">Approval valid until</span>
         <span class="detail-val"><span class="badge ${isExpiringSoon ? 'badge-amber' : 'badge-green'}">${expiry}${isExpiringSoon ? ' · Expiring Soon' : ''}</span></span>
       </div>` : ''}
     </div>
   `;
 
-  // Chassis / Model Codes card
+  // Chassis / Model Codes card. Audit 2026-04-30 (smoke-test #12).
   if (chassisCodes.length > 0) {
     html += `
       <div class="detail-card" style="padding:16px;">
-        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">Chassis / Model Codes</div>
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Your vehicle's chassis code must match one of these to qualify.</p>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">Which cars this covers</div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Your car's chassis code (on the build plate or in the title) must be one of these.</p>
         <div class="chassis-pills">${chassisCodes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}</div>
-        ${buildExplainer('What is a chassis code?', 'A chassis code (or model code) is a short alphanumeric identifier that describes the exact specification of your vehicle — including engine type, body style, and drivetrain. For example, "JZX100" refers to a Toyota Chaser with a 1JZ engine. You can find your chassis code on the vehicle\'s compliance plate, registration documents, or by checking the VIN.')}
+        ${buildExplainer('What is a chassis code?', 'A chassis code is a short alphanumeric identifier that describes the exact specification of your car — engine, body, drivetrain. For example, "JZX100" is a Toyota Chaser with a 1JZ engine. You\'ll find it on the build plate, registration documents, or VIN check.')}
       </div>
     `;
   }
@@ -3656,27 +3741,28 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     `;
   }
 
-  // Model Reports dropdown
+  // Approved workshops card. Audit 2026-04-30 (smoke-test #19) — heading,
+  // subhead, and toggle were all repeating the same fact. Tightened to a
+  // single labelled count + the existing details disclosure.
   if (uniqueMres.length > 1) {
     html += `
       <div class="detail-card" style="padding:16px;">
-        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">📄 All Compliance Workshops</div>
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">${uniqueMres.length} workshops are approved for this vehicle.</p>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">📄 Approved workshops (${uniqueMres.length})</div>
         ${modelReportsHtml}
       </div>
     `;
   }
 
-  // Understanding This Entry
+  // Common questions (Audit 2026-04-30 — smoke-test #10).
   html += `
     <div class="detail-card" style="padding:16px;">
-      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;">Understanding This Entry</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;">Common questions</div>
       ${isMRE
-        ? buildExplainer('What does MRE mean?', 'Model Report Eligibility (MRE) is the approval given to a specific compliance workshop to import and certify a particular vehicle model. Each MRE entry specifies which models, build dates, and compliance levels the workshop is approved for.')
-        : buildExplainer('What does SEVS mean?', 'The Specialist and Enthusiast Vehicle Scheme (SEVS) is an Australian Government program that allows certain vehicle types to be imported that are not otherwise available in Australia. Vehicles must be listed on the SEVS register to be eligible.')
+        ? buildExplainer('What is MRE?', 'Model Report Eligibility — the approval given to a compliance workshop to import and certify a specific model. Each MRE entry specifies which models, build dates, and compliance levels the workshop is approved for.')
+        : buildExplainer('What is SEVS?', 'The Specialist and Enthusiast Vehicle Scheme — the Australian Government program that lists vehicles approved for import that aren\'t otherwise available here. Cars must appear on this register to be eligible.')
       }
-      ${buildExplainer('What does the build date range mean?', 'The build date range specifies which manufacture dates are covered by this register entry. Your vehicle must have been manufactured within this date range to be eligible for import under this specific entry.')}
-      ${buildExplainer('What happens after I find an eligible vehicle?', 'Once you\'ve confirmed your vehicle is on the register, the next steps are: (1) Contact JDM Connect for a quote, (2) Source the vehicle in Japan, (3) Ship it to Australia, (4) Have it processed through an approved compliance workshop, (5) Register it in your state. JDM Connect handles the entire process from start to finish.')}
+      ${buildExplainer('Why does the build year matter?', 'Your car must have been manufactured inside the build years shown on this entry. A car built outside the window — even by a month — won\'t be eligible under this approval.')}
+      ${buildExplainer('What\'s next once I find an eligible car?', 'Contact JDM Connect for a quote. We source it in Japan, ship it to Australia, run it through an approved compliance workshop, and hand it over registered in your state — start to finish.')}
     </div>
   `;
 
@@ -3693,8 +3779,8 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
         ? `JDM Connect can source, ship, and comply a ${vehicleName} for you — from Japan to your door.`
         : 'Even if this entry is no longer active, there may be other pathways. Contact JDM Connect to discuss your options.'
       }</div>
-      <a href="${contactUrl}" class="sidebar-cta-btn" target="_blank">Get a Free Quote →</a>
-      <div class="sidebar-cta-sub">No obligation — we'll respond within 24 hours.</div>
+      <a href="${contactUrl}" class="sidebar-cta-btn" target="_blank">Get a free quote →</a>
+      <div class="sidebar-cta-sub">We respond within 24 hours.</div>
     </div>
   `;
 
@@ -3714,15 +3800,15 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     </div>
   `;
 
-  // Official Source card
+  // Source card. Audit 2026-04-30 (smoke-test #18).
   const detailUrl = roverDetailUrl(r, isMRE);
   html += `
     <div class="sidebar-card">
-      <div class="sidebar-card-title">Official Source</div>
+      <div class="sidebar-card-title">Source</div>
       <a href="${detailUrl}" target="_blank" rel="noopener" style="color:var(--gold);font-size:13px;text-decoration:none;display:flex;align-items:center;gap:6px;">
-        View on ROVER Register ↗
+        View on the ROVER register ↗
       </a>
-      <p style="font-size:11px;color:var(--text-faint);margin-top:6px;">Official government register maintained by the Department of Infrastructure.</p>
+      <p style="font-size:11px;color:var(--text-faint);margin-top:6px;font-style:italic;">Department of Infrastructure</p>
     </div>
   `;
 
@@ -3830,7 +3916,7 @@ function buildActions(record, vehicleName, isIneligible) {
     : `<p class="primary-lead">Good news — ${vehicleName} is on the register. Want us to source one for you?</p>`;
   const primaryLabel = isIneligible
     ? 'Talk to JDM Connect about other pathways →'
-    : `Get a quote to source a ${vehicleName} →`;
+    : 'Get a free quote →';
   return `
     ${notifyBtn}
     ${primaryLead}
@@ -3981,7 +4067,7 @@ loadData();
 
 <!-- Mobile sticky CTA — only visible on results screens at ≤640px -->
 <div class="sticky-cta-bar">
-  <a href="https://jdmconnect.com.au/contact" target="_blank">Get a Quote from JDM Connect</a>
+  <a href="https://jdmconnect.com.au/contact" target="_blank">Get a free quote</a>
 </div>
 
 <!-- GHL NOTIFY POPUP -->
