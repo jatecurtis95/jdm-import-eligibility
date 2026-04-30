@@ -11,7 +11,12 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-HX2BTE1CNT');
+  // cookie_domain shares the _ga cookie across eligibility./calculator./apex
+  // so a user visiting both subdomains is one session/one user, not two.
+  gtag('config', 'G-HX2BTE1CNT', {
+    cookie_domain: 'jdmconnect.com.au',
+    cookie_flags: 'SameSite=None;Secure'
+  });
 </script>
 
 <!-- Primary SEO -->
@@ -138,9 +143,192 @@
 <link rel="apple-touch-icon" href="/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* ── THEME SYSTEM ────────────────────────────────────────────── */
+:root {
+  /* Audit 2026-04-24 — lock to light. Cards/modals/unlock-boxes hard-code light
+     tokens (greens, reds, ambers) that can't be dark-mode-adapted in one pass,
+     so forcing light avoids the broken half-themed state on OS-dark-preference. */
+  color-scheme: light;
+  --bg: #f7f8f9;
+  --bg-card: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --bg-card-hover: #fffbf0;
+  --text: #1a1a1a;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --text-faint: #9ca3af;
+  --border: #e5e7eb;
+  --border-subtle: #f0ede8;
+  --border-card: #e5e7eb;
+  --gold: #CAA34C;
+  --gold-dark: #8B6914;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.06);
+}
+/* Audit 2026-04-24 — dark-mode token overrides gated behind .dark-mode on <html>.
+   Until every hard-coded light color in modals/verdict-cards/unlock-boxes is
+   tokenised, the OS-level `prefers-color-scheme: dark` media query produced a
+   half-themed state. Gating keeps the tokens ready for future dark-mode work
+   without letting them fire from OS preference alone. */
+html.dark-mode {
+  --bg: #0f0f11;
+  --bg-card: #18181b;
+  --bg-secondary: #27272a;
+  --bg-card-hover: #1f1f23;
+  --text: #f0f0f0;
+  --text-secondary: #d4d4d8;
+  --text-muted: #a1a1aa;
+  --text-faint: #71717a;
+  --border: rgba(255,255,255,0.08);
+  --border-subtle: rgba(255,255,255,0.05);
+  --border-card: rgba(255,255,255,0.1);
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,0.4);
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { overflow-x: hidden; }
-body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; min-height: 100vh; }
+body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text); min-height: 100vh; }
+
+/* Audit 2026-04-24 — honour users who have requested reduced motion. Drops the
+   hero-badge pulse, the search spinner, the modal slideUp, and any hover
+   transforms/transitions down to near-instant so motion-sensitive users aren't
+   forced through animated transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero-badge .dot { animation: none; }
+}
+
+/* ── STEP INDICATOR ────────────────────────────────────────── */
+.step-indicator {
+  display: flex; align-items: center; justify-content: center; gap: 0;
+  padding: 12px 16px; background: var(--bg-card); border-bottom: 1px solid var(--border);
+  max-width: 720px; margin: 0 auto; font-size: 12px;
+}
+.step-item {
+  display: flex; align-items: center; gap: 6px; color: var(--text-faint);
+  font-weight: 500; white-space: nowrap;
+}
+.step-item.active { color: var(--gold); font-weight: 700; }
+.step-item.completed { color: var(--text-muted); }
+.step-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; border: 1.5px solid var(--border); }
+.step-item.active .step-icon { border-color: var(--gold); background: rgba(202,163,76,0.1); color: var(--gold); }
+.step-item.completed .step-icon { border-color: var(--text-muted); }
+.step-label { display: none; }
+@media (min-width: 480px) { .step-label { display: inline; } }
+.step-line { width: 24px; height: 1px; background: var(--border); margin: 0 4px; flex-shrink: 0; }
+@media (min-width: 480px) { .step-line { width: 40px; } }
+
+/* ── BREADCRUMBS ───────────────────────────────────────────── */
+.breadcrumbs {
+  font-size: 13px; color: var(--text-muted); margin-bottom: 14px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+}
+.breadcrumbs a, .breadcrumbs button {
+  color: var(--text-muted); text-decoration: none; background: none; border: none;
+  cursor: pointer; font: inherit; padding: 0; transition: color 0.15s;
+}
+.breadcrumbs a:hover, .breadcrumbs button:hover { color: var(--gold); }
+.breadcrumb-sep { color: var(--text-faint); margin: 0 2px; }
+.breadcrumb-current { color: var(--text); font-weight: 600; }
+
+/* ── COLLAPSIBLE EXPLAINERS ────────────────────────────────── */
+.explainer { border: none; margin: 4px 0; }
+.explainer summary {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--gold);
+  cursor: pointer; padding: 8px 0; list-style: none;
+}
+.explainer summary::-webkit-details-marker { display: none; }
+.explainer-chevron { font-size: 12px; transition: transform 0.2s; margin-left: auto; }
+.explainer[open] .explainer-chevron { transform: rotate(180deg); }
+.explainer-body { font-size: 13px; color: var(--text-muted); padding: 0 0 12px 24px; line-height: 1.6; }
+
+/* ── REGISTER CARDS (rebuild-style) ─────────────────────────── */
+.register-card {
+  background: var(--bg-card); border: 1px solid var(--border-card);
+  border-radius: 12px; padding: 16px 20px; cursor: pointer;
+  transition: border-color 0.15s; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+}
+.register-card:hover { border-color: var(--gold); }
+.register-card-body { flex: 1; min-width: 0; }
+.register-card-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.type-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+/* Audit 2026-04-24 — badge text colors were sized for a dark surface and
+   rendered at ~2:1 contrast on the Screen 3 light cards. Darkened the
+   foregrounds to pass WCAG AA against the near-white tinted backgrounds. */
+.type-badge-sev { background: rgba(59,130,246,0.12); color: #1e3a8a; border: 1px solid rgba(59,130,246,0.25); }
+.type-badge-mre { background: rgba(202,163,76,0.15); color: #6b4e0e; border: 1px solid rgba(202,163,76,0.3); }
+.status-badge-active { background: rgba(22,163,74,0.12); color: #14532d; }
+.status-badge-expiring { background: rgba(245,158,11,0.15); color: #78350f; }
+.status-badge-expired { background: rgba(239,68,68,0.12); color: #7f1d1d; }
+.register-card-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; transition: color 0.15s; }
+.register-card:hover .register-card-title { color: var(--gold); }
+.register-card-meta { font-size: 13px; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.register-card-meta .mono { font-family: 'DM Mono', monospace; font-size: 11px; }
+.chassis-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chassis-pill {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  padding: 2px 10px; background: var(--bg-secondary); border-radius: 4px;
+  color: var(--text-muted); border: 1px solid var(--border);
+}
+.register-card-arrow { color: var(--text-faint); font-size: 18px; flex-shrink: 0; margin-top: 2px; transition: color 0.15s; }
+.register-card:hover .register-card-arrow { color: var(--gold); }
+
+/* ── DETAIL GRID (2-col with sidebar) ──────────────────────── */
+.detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+@media (max-width: 768px) { .detail-grid { grid-template-columns: 1fr; } }
+.detail-main { display: flex; flex-direction: column; gap: 16px; }
+.detail-sidebar { display: flex; flex-direction: column; gap: 16px; }
+@media (min-width: 769px) { .detail-sidebar { position: sticky; top: 80px; align-self: start; } }
+.sidebar-cta-card {
+  background: linear-gradient(135deg, rgba(202,163,76,0.1) 0%, rgba(202,163,76,0.05) 100%);
+  border: 1px solid rgba(202,163,76,0.2); border-radius: 12px;
+  padding: 24px; text-align: center;
+}
+.sidebar-cta-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.sidebar-cta-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
+.sidebar-cta-btn {
+  display: block; width: 100%; text-align: center; padding: 12px;
+  /* Audit 2026-04-24 — unified gold gradient direction (dark→light) and
+     switched text to #111 to meet WCAG AA (white on gold midpoint ~2.9:1). */
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+  color: #111; font-weight: 700; font-size: 14px; border-radius: 10px;
+  text-decoration: none; transition: opacity 0.15s;
+}
+.sidebar-cta-btn:hover { opacity: 0.92; }
+.sidebar-cta-sub { font-size: 11px; color: var(--text-faint); margin-top: 10px; }
+.sidebar-card {
+  background: var(--bg-card); border: 1px solid var(--border-card);
+  border-radius: 12px; padding: 16px;
+}
+.sidebar-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.sidebar-fact { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+.sidebar-fact:last-child { margin-bottom: 0; }
+.sidebar-fact-icon { font-size: 14px; flex-shrink: 0; }
+
+/* Calculator cross-sell card (Audit 2026-04-30 — detail-page brief B).
+   Reuses .sidebar-card baseline; the gold left-border accent reads as
+   adjacent-product without competing with the primary import CTA. */
+.sidebar-calculator-cta {
+  border-left: 3px solid var(--gold);
+  background: linear-gradient(180deg, #fffbf0 0%, var(--bg-card) 60%);
+}
+.sidebar-calculator-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 13px; font-weight: 700; color: var(--gold-dark);
+  text-decoration: none; padding: 8px 0;
+}
+.sidebar-calculator-link:hover { color: var(--gold); text-decoration: underline; }
 
 /* ── HEADER ─────────────────────────────────────────────────── */
 .header {
@@ -206,37 +394,37 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
   max-width: 720px; margin: -8px auto 24px; padding: 0 16px;
   font-size: 12px; color: #6b7280; text-align: center; line-height: 1.5;
 }
-.register-note strong { color: #1a1a1a; font-weight: 700; }
+.register-note strong { color: var(--text); font-weight: 700; }
 
 /* ── SEARCH CARD ─────────────────────────────────────────────── */
 .search-wrap { max-width: 720px; margin: -28px auto 0; padding: 0 16px 32px; position: relative; z-index: 10; }
 .search-card {
-  background: #fff; border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.06);
-  border: 1px solid #f0ede8;
+  background: var(--bg-card); border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-subtle);
   padding: 28px;
 }
 .search-tabs {
   display: flex; gap: 0; margin-bottom: 24px;
-  background: #f7f8f9; border-radius: 8px; padding: 3px;
+  background: var(--bg-secondary); border-radius: 8px; padding: 3px;
 }
 .search-tab {
   flex: 1; text-align: center; padding: 8px 12px;
-  font-size: 13px; font-weight: 500; color: #6b7280;
+  font-size: 13px; font-weight: 500; color: var(--text-muted);
   cursor: pointer; border-radius: 6px; transition: all 0.15s;
   border: none; background: none;
 }
 .search-tab.active {
-  background: #fff; color: #1a1a1a; font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  background: var(--bg-card); color: var(--text); font-weight: 600;
+  box-shadow: var(--shadow-card);
 }
 .search-fields { display: grid; grid-template-columns: 1.4fr 1.4fr 130px 130px; gap: 12px; margin-bottom: 16px; }
 .field-group { display: flex; flex-direction: column; gap: 6px; }
 .field-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #6b7280; }
 .field-select, .field-input-text {
-  width: 100%; border: 1.5px solid #e5e7eb; border-radius: 8px;
+  width: 100%; border: 1.5px solid var(--border); border-radius: 8px;
   padding: 11px 14px; font-size: 14px; font-family: 'Inter', sans-serif;
-  color: #1a1a1a; background: #fff; outline: none;
+  color: var(--text); background: var(--bg-card); outline: none;
   transition: border-color 0.15s; appearance: none; cursor: pointer;
 }
 .field-select:focus, .field-input-text:focus { border-color: #8B6914; box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
@@ -251,6 +439,17 @@ body { background: #f7f8f9; font-family: 'Inter', sans-serif; color: #1a1a1a; mi
 }
 .search-btn:hover { opacity: 0.92; }
 .search-btn:active { transform: scale(0.99); }
+/* Audit 2026-04-24 — keyboard focus indicator on the primary action. */
+.search-btn:focus-visible,
+.header-cta:focus-visible,
+.sidebar-cta-btn:focus-visible,
+.summary-card-cta:focus-visible,
+.action-btn-primary:focus-visible,
+.modal-submit:focus-visible,
+.sticky-cta-bar a:focus-visible {
+  outline: 3px solid #CAA34C;
+  outline-offset: 3px;
+}
 .search-btn:disabled, .search-btn.is-loading {
   cursor: progress;
   opacity: 0.75;
@@ -269,6 +468,167 @@ body.results-active .register-note { display: none; }
    mobile. */
 body.results-active { min-height: auto; }
 body.results-active .footer { margin-top: 20px; }
+body.results-active .how-it-works,
+body.results-active .popular-searches { display: none; }
+
+/* ── HERO JDM DECODER (Audit 2026-04-30 — P1 #9) ───────────────────────── */
+.hero-jdm-decoder {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+/* ── SEARCH FIELD GROUPS (Audit 2026-04-30 — P1 #8) ────────────────────── */
+.search-fields-primary { grid-template-columns: 1.4fr 1.4fr; }
+.search-fields-advanced { grid-template-columns: 1fr 1fr; margin-top: 4px; }
+/* The [hidden] attribute's UA stylesheet rule (display:none) loses specificity
+   to .search-fields { display:grid }. Without this override the More-filters
+   toggle would only update its label while the fields stayed visible. */
+.search-fields[hidden] { display: none !important; }
+.more-filters-toggle {
+  background: none; border: none;
+  color: var(--gold-dark); font-size: 12px; font-weight: 600;
+  cursor: pointer; padding: 6px 0; margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+.more-filters-toggle:hover { color: var(--gold); text-decoration: underline; }
+.more-filters-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
+
+/* ── INLINE FIELD ERROR (Audit 2026-04-30 — P0 #2) ─────────────────────── */
+.make-typeahead-wrap.field-error .field-select {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+}
+.field-error-msg {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #b91c1c;
+  font-weight: 500;
+  display: none;
+}
+
+/* ── MAKE SUGGESTION TOGGLE LINK (P0 #1) ───────────────────────────────── */
+.make-suggestion-toggle {
+  padding: 11px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--gold-dark);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  transition: background 0.1s;
+}
+.make-suggestion-toggle:hover { background: #fef6e0; color: #8B6914; }
+
+/* ── POPULAR SEARCH CHIPS (Audit 2026-04-30 — P2 #11) ──────────────────── */
+.popular-searches {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  margin-top: 14px;
+}
+.popular-searches-label {
+  /* Audit 2026-04-30 (smoke-test #22) — sentence case for consistency. */
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--text-muted); margin-right: 4px;
+}
+.chip-search {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  color: var(--text-secondary); font-size: 12px; font-weight: 500;
+  padding: 5px 11px; border-radius: 999px; cursor: pointer;
+  font-family: 'Inter', sans-serif; transition: all 0.15s;
+}
+.chip-search:hover { background: #fef6e0; border-color: var(--gold); color: var(--gold-dark); }
+.chip-search:active { transform: scale(0.97); }
+.chip-search:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ── HOW IT WORKS STRIP (Audit 2026-04-30 — P2 #12) ────────────────────── */
+.how-it-works {
+  max-width: 720px; margin: 8px auto 32px; padding: 0 16px;
+}
+.how-it-works-title {
+  text-align: center; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 14px;
+}
+.how-it-works-steps {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+}
+.how-it-works-step {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+  display: flex; gap: 12px; align-items: flex-start;
+  transition: border-color 0.15s;
+}
+.how-it-works-step:hover { border-color: var(--gold); }
+.how-it-works-num {
+  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
+  color: #111; font-weight: 800; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.how-it-works-step-title {
+  font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 2px;
+}
+.how-it-works-body p {
+  font-size: 12px; color: var(--text-muted); line-height: 1.5;
+}
+.how-it-works-body a { color: var(--gold-dark); font-weight: 600; text-decoration: none; }
+.how-it-works-body a:hover { text-decoration: underline; }
+
+/* ── VARIANT CONTEXT CALLOUT (Audit 2026-04-30 — P0 #4 / P0 #5 / P1 #10) ─ */
+.variant-context-callout {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: #f0f9ff; border: 1px solid #bae6fd;
+  border-radius: 10px; padding: 10px 14px;
+  margin-bottom: 16px; font-size: 13px; color: #0c4a6e;
+  line-height: 1.45;
+}
+.variant-context-icon { font-size: 14px; line-height: 1.2; flex-shrink: 0; }
+.variant-context-text { flex: 1; }
+
+/* ── REGISTER LIST PAGE — restructured rows (P0 #3) ────────────────────── */
+.register-subtitle {
+  font-size: 14px; color: var(--text-muted); line-height: 1.45;
+  margin-top: 4px; max-width: 520px;
+}
+.register-entry-card .register-entry-primary {
+  display: flex; flex-wrap: wrap; gap: 4px 14px;
+  font-size: 13px; color: var(--text);
+  margin-top: 6px; font-weight: 500;
+}
+.register-entry-card .register-entry-build { font-weight: 600; }
+.register-entry-card .register-entry-chassis { color: var(--text-secondary); }
+.register-entry-card .register-entry-secondary {
+  font-size: 11px; color: var(--text-faint); margin-top: 4px;
+  font-family: 'DM Mono', monospace, 'Inter';
+  letter-spacing: 0.02em;
+}
+.register-entry-card .register-entry-code { font-weight: 600; color: var(--text-muted); }
+
+/* ── VARIANT CHIPS ON RESULT CARDS ─────────────────────────────────────── */
+.chassis-pill-variant {
+  background: rgba(202,163,76,0.12);
+  border-color: rgba(202,163,76,0.4);
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+.model-card-variant-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: #f0f9ff;
+  border-left: 3px solid #bae6fd;
+  padding: 6px 10px;
+  border-radius: 4px;
+  line-height: 1.4;
+}
 
 /* Phase 2.3 — Documentation card link styling (Ben's mockup) */
 .doc-link {
@@ -299,15 +659,15 @@ body.results-active .footer { margin-top: 20px; }
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background: #fafaf9;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-secondary);
 }
 .model-reports-summary::-webkit-details-marker { display: none; }
-.model-reports-summary:hover { background: #f5f5f4; }
+.model-reports-summary:hover { background: var(--bg-card-hover); }
 .model-reports-chevron {
   color: #9ca3af;
   font-size: 18px;
@@ -318,7 +678,7 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   display: flex;
   flex-direction: column;
   margin-top: 6px;
-  border: 1px solid #f0ede8;
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -329,12 +689,12 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   gap: 12px;
   padding: 10px 12px;
   font-size: 13px;
-  background: #fff;
-  border-bottom: 1px solid #f5f5f5;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
 }
 .model-reports-row:last-child { border-bottom: none; }
 .model-reports-label {
-  color: #374151;
+  color: var(--text-secondary);
   font-weight: 500;
   flex: 1;
   min-width: 0;
@@ -346,7 +706,7 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 /* chassis tab */
 .chassis-wrap { display: flex; gap: 10px; margin-bottom: 16px; }
 .chassis-input {
-  flex: 1; border: 1.5px solid #e5e7eb; border-radius: 8px;
+  flex: 1; border: 1.5px solid var(--border); border-radius: 8px;
   padding: 11px 14px; font-size: 15px; font-family: 'Inter', monospace;
   font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
   outline: none; transition: border-color 0.15s;
@@ -356,6 +716,26 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 
 /* ── RESULTS AREA ─────────────────────────────────────────────── */
 .results-wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 60px; }
+/* Audit 2026-04-30 — detail pages use a 2-col grid (main + sidebar). The
+   720px register-list cap squeezed sidebar to ~240px and starved the main
+   content. Widen to 1200px (matches calculator.jdmconnect.com.au) when a
+   detail-grid is present. Register list / not-eligible screens stay at
+   720px because they're single-column and wider would feel sparse. */
+.results-wrap:has(.detail-grid) { max-width: 1200px; }
+
+/* Audit 2026-04-24 — on desktop the results area floated in open space; wrap it in
+   a subtle panel so the eye has a clear anchor and the card stack reads as one unit. */
+@media (min-width: 820px) {
+  body.results-active #results-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    padding: 28px 32px 36px;
+    margin-top: 28px;
+    margin-bottom: 28px;
+  }
+}
 
 /* Verdict card */
 .verdict-card {
@@ -384,29 +764,32 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 .possible .verdict-sub { color: #92400e; }
 
 /* Vehicle name */
-.vehicle-name { font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
-.vehicle-sub { font-size: 13px; color: #6b7280; margin-bottom: 16px; }
+.vehicle-name { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.vehicle-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
 
 /* Detail table */
 .detail-card {
-  background: #fff; border-radius: 12px;
-  border: 1px solid #f0ede8;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  background: var(--bg-card); border-radius: 12px;
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-card);
   overflow: hidden; margin-bottom: 12px;
 }
 .detail-card-title {
   font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; color: #6b7280;
-  padding: 12px 16px; background: #fafaf9;
-  border-bottom: 1px solid #f0ede8;
+  text-transform: uppercase; color: var(--text-muted);
+  padding: 12px 16px; background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
 }
 .detail-row {
-  display: flex; justify-content: space-between; align-items: baseline;
-  padding: 10px 16px; border-bottom: 1px solid #f5f5f5;
+  /* Audit 2026-04-24 — was align-items: baseline. Badges in the value column
+     (e.g. Expiry pill, Status badge) sat below the key label because their
+     inner padding shifted the baseline. Center alignment keeps key/value level. */
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; border-bottom: 1px solid var(--border-subtle);
 }
 .detail-row:last-child { border-bottom: none; }
-.detail-key { font-size: 13px; color: #6b7280; }
-.detail-val { font-size: 13px; font-weight: 600; color: #1a1a1a; text-align: right; max-width: 60%; }
+.detail-key { font-size: 13px; color: var(--text-muted); }
+.detail-val { font-size: 13px; font-weight: 600; color: var(--text); text-align: right; max-width: 60%; }
 .badge {
   display: inline-block; font-size: 11px; font-weight: 700;
   padding: 3px 9px; border-radius: 5px; letter-spacing: 0.04em;
@@ -428,25 +811,25 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 /* Multi-match list */
 .match-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
 .match-item {
-  background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px;
+  background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 10px;
   padding: 14px 16px; cursor: pointer; transition: all 0.15s;
   display: flex; justify-content: space-between; align-items: center;
 }
-.match-item:hover { border-color: #CAA34C; background: #fffbf0; }
+.match-item:hover { border-color: var(--gold); background: var(--bg-card-hover); }
 .match-item-left { flex: 1; }
-.match-item-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
-.match-item-sub { font-size: 12px; color: #6b7280; }
-.match-arrow { color: #9ca3af; font-size: 16px; }
+.match-item-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.match-item-sub { font-size: 12px; color: var(--text-muted); }
+.match-arrow { color: var(--text-faint); font-size: 16px; }
 
 /* Action buttons */
 .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
 .action-btn {
   padding: 12px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
-  border: 1.5px solid #e5e7eb; background: #fff; cursor: pointer;
-  text-align: center; color: #374151; transition: all 0.15s;
+  border: 1.5px solid var(--border); background: var(--bg-card); cursor: pointer;
+  text-align: center; color: var(--text-secondary); transition: all 0.15s;
   text-decoration: none; display: block;
 }
-.action-btn:hover { border-color: #CAA34C; background: #fffbf0; color: #8B6914; }
+.action-btn:hover { border-color: var(--gold); background: var(--bg-card-hover); color: var(--gold-dark); }
 .action-btn-primary {
   display: block; width: 100%;
   background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
@@ -459,7 +842,7 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 
 /* Lead-in line that frames the primary CTA after a result renders. */
 .primary-lead {
-  font-size: 14px; color: #374151; line-height: 1.5;
+  font-size: 14px; color: var(--text-secondary); line-height: 1.5;
   margin: 8px 0 12px; text-align: center;
 }
 
@@ -471,19 +854,49 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 }
 .search-again:hover { color: #1a1a1a; }
 
+/* Audit 2026-04-24 — pair the "New search" secondary link with a primary
+   conversion CTA at the bottom of the ELIGIBLE result page. Styled to match the
+   gold gradient used in the hero/header CTA for visual consistency. */
+.result-actions {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 12px; margin-top: 20px;
+}
+.result-cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 13px 22px; border-radius: 10px;
+  /* Unified gold gradient direction (dark→light) matching header/search/modal CTAs. */
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
+  color: #111; font-size: 14px; font-weight: 700; letter-spacing: 0.01em;
+  text-decoration: none; border: none; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(139,105,20,0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+.result-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(139,105,20,0.32);
+  filter: brightness(1.05);
+}
+.result-cta:focus-visible {
+  outline: 2px solid #CAA34C; outline-offset: 2px;
+}
+@media (max-width: 640px) {
+  .result-actions { flex-direction: column-reverse; gap: 10px; }
+  .result-cta { width: 100%; padding: 14px; }
+}
+
 /* Pagination */
 .pagination {
   display: flex; align-items: center; justify-content: space-between;
   gap: 12px; margin: 16px 0 8px; flex-wrap: wrap;
 }
 .page-btn {
-  background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
-  padding: 10px 16px; font-size: 14px; font-weight: 600; color: #1a1a1a;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 16px; font-size: 14px; font-weight: 600; color: var(--text);
   cursor: pointer; transition: all 150ms ease;
 }
-.page-btn:hover:not([disabled]) { background: #f9fafb; border-color: #d1d5db; }
+.page-btn:hover:not([disabled]) { background: var(--bg-secondary); border-color: var(--text-faint); }
 .page-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
-.page-info { font-size: 13px; color: #6b7280; text-align: center; flex: 1; }
+.page-info { font-size: 13px; color: var(--text-muted); text-align: center; flex: 1; }
 @media (max-width: 480px) {
   .pagination { justify-content: center; }
   .page-info { flex-basis: 100%; order: -1; }
@@ -496,9 +909,9 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
 }
 .stat-card {
-  background: #fff; border-radius: 10px; padding: 14px 16px;
-  border: 1px solid #f0ede8;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  background: var(--bg-card); border-radius: 10px; padding: 14px 16px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
   text-align: center;
 }
 .stat-num { font-size: 22px; font-weight: 800; color: #CAA34C; letter-spacing: -0.02em; }
@@ -509,10 +922,12 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   background: #141414; border-top: 2px solid #CAA34C;
   padding: 24px; text-align: center; margin-top: 40px;
 }
-/* Audit #16 — bumped alpha values to meet WCAG AA (was 0.35/0.7, ~3:1 contrast). */
-.footer p { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.6; }
-.footer a { color: #CAA34C; text-decoration: none; }
-.footer a:hover { color: #E6BD68; text-decoration: underline; }
+/* Audit #16 — bumped alpha values to meet WCAG AA (was 0.35/0.7, ~3:1 contrast).
+   Audit 2026-04-24 — lifted body alpha to 0.82 and links to brighter gold #E6BD68
+   (matches the hero CTA highlight stop) so the footer stops reading as muted. */
+.footer p { font-size: 12px; color: rgba(255,255,255,0.82); line-height: 1.6; }
+.footer a { color: #E6BD68; text-decoration: none; font-weight: 500; }
+.footer a:hover { color: #F4D07E; text-decoration: underline; }
 
 /* Audit #15 — back-to-top floating button. Hidden until the user has scrolled
    past 600px so it doesn't clutter the hero. Min 44x44 tap target for mobile. */
@@ -537,7 +952,13 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   z-index: 999;
   line-height: 1;
 }
-.back-to-top:hover { transform: translateY(-2px); background: #112350; }
+/* Audit 2026-04-24 — hover was #112350 (navy) on a black/gold palette — off-brand.
+   Replaced with a warm black tint that lets the gold border/glyph do the accent. */
+.back-to-top:hover {
+  transform: translateY(-2px);
+  background: #1f1a10;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28), 0 0 0 3px rgba(202,163,76,0.18);
+}
 .back-to-top.visible { display: flex; }
 @media (max-width: 640px) {
   .back-to-top { bottom: 16px; right: 16px; width: 44px; height: 44px; font-size: 20px; }
@@ -643,7 +1064,16 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   .search-tab { font-size: 12px; padding: 10px 8px; white-space: nowrap; }
   .search-card { padding: 20px 16px; border-radius: 14px; }
   .search-fields { grid-template-columns: 1fr; gap: 12px; }
+  .search-fields-primary { grid-template-columns: 1fr; }
+  .search-fields-advanced { grid-template-columns: 1fr 1fr; }
   .search-wrap { padding: 0 16px 32px; }
+  /* Audit 2026-04-30 (P1 #7) — hide the live-data badge on mobile. It
+     pushes the form below the fold and adds nothing for a cold visitor. */
+  .hero-badge { display: none; }
+  /* Stack How It Works steps vertically on narrow screens. */
+  .how-it-works-steps { grid-template-columns: 1fr; gap: 8px; }
+  .popular-searches { gap: 5px; }
+  .chip-search { font-size: 11px; padding: 4px 9px; }
   .stats-strip { grid-template-columns: repeat(3,1fr); gap: 8px; }
   .stat-num { font-size: 18px; }
   .stat-label { font-size: 10px; }
@@ -751,8 +1181,8 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   position: absolute;
   top: calc(100% + 4px);
   left: 0; right: 0;
-  background: #fff;
-  border: 1.5px solid #CAA34C;
+  background: var(--bg-card);
+  border: 1.5px solid var(--gold);
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   max-height: 220px;
@@ -765,9 +1195,9 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   padding: 11px 14px;
   font-size: 14px;
   font-family: 'Inter', sans-serif;
-  color: #1a1a1a;
+  color: var(--text);
   cursor: pointer;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--border-subtle);
   transition: background 0.1s;
 }
 .make-suggestion-item:last-child { border-bottom: none; }
@@ -788,10 +1218,10 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 /* ── MODEL CARDS (Screen 1) ────────────────────────────────────── */
 .model-card-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 .model-card {
-  background: #fff; border: 1.5px solid #e5e7eb; border-radius: 12px;
+  background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 12px;
   padding: 16px; cursor: pointer; transition: all 0.15s;
 }
-.model-card:hover { border-color: #CAA34C; background: #fffbf0; }
+.model-card:hover { border-color: var(--gold); background: var(--bg-card-hover); }
 .model-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
 .model-card-info { flex: 1; }
 .eligible-badge {
@@ -800,50 +1230,255 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
   padding: 2px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 6px;
 }
-.model-card-name { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 3px; }
-.model-card-range { font-size: 12px; color: #6b7280; }
-.model-card-chevron { color: #9ca3af; font-size: 22px; padding-left: 12px; flex-shrink: 0; }
+.model-card-name { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.model-card-range { font-size: 12px; color: var(--text-muted); }
+.model-card-chevron { color: var(--text-faint); font-size: 22px; padding-left: 12px; flex-shrink: 0; }
 .model-card-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+/* Audit 2026-04-24 — Manus-style pill row (Eligible + workshop count)
+   sits above the model name on each Results card. */
+.model-card-pills-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
 .count-pill { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.02em; }
 .pill-mre { background: #dbeafe; color: #1e3a8a; }
 .pill-sevs { background: #ede9fe; color: #4c1d95; }
+.pill-workshops {
+  background: rgba(202,163,76,0.15); color: #8B6914;
+  border: 1px solid rgba(202,163,76,0.3);
+}
 
 /* ── APPROVAL LIST (Screen 2) ─────────────────────────────────── */
 .back-btn {
   display: inline-flex; align-items: center; gap: 6px;
-  background: none; border: none; cursor: pointer;
-  font-size: 13px; font-weight: 600; color: #6b7280;
-  padding: 0 0 14px 0; transition: color 0.15s;
+  background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+  font-size: 14px; font-weight: 600; color: var(--text-secondary);
+  padding: 10px 16px; margin-bottom: 14px; transition: background 0.15s, color 0.15s;
 }
-.back-btn:hover { color: #1a1a1a; }
+.back-btn:hover { background: var(--border); color: var(--text); }
 .approval-list-header { margin-bottom: 16px; }
-.approval-list-title { font-size: 20px; font-weight: 700; color: #1a1a1a; margin: 6px 0 2px; }
-.approval-list-sub { font-size: 13px; color: #6b7280; }
+.approval-list-title { font-size: 20px; font-weight: 700; color: var(--text); margin: 6px 0 2px; }
+.approval-list-sub { font-size: 13px; color: var(--text-muted); }
 .approval-section-label {
   font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
   color: #6b7280; margin: 16px 0 8px;
 }
 .approval-rows { display: flex; flex-direction: column; gap: 6px; }
 .approval-row {
-  background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px;
+  background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 10px;
   padding: 12px 14px; cursor: pointer; transition: all 0.15s;
   display: flex; justify-content: space-between; align-items: center; gap: 10px;
 }
-.approval-row:hover { border-color: #CAA34C; background: #fffbf0; }
+.approval-row:hover { border-color: var(--gold); background: var(--bg-card-hover); }
 .approval-row-left { flex: 1; min-width: 0; }
-.approval-row-num { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; font-family: 'DM Mono', monospace; }
-.approval-row-meta { font-size: 12px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.approval-row-num { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; font-family: 'DM Mono', monospace; }
+.approval-row-meta { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .approval-row-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.approval-row-chevron { color: #9ca3af; font-size: 16px; }
+.approval-row-chevron { color: var(--text-faint); font-size: 16px; }
 
 /* Badge purple for SEVS pathway */
 .badge-purple { background: #ede9fe; color: #4c1d95; }
+
+/* ── Summary card (plain-English answer) ─────────────────────────────────── */
+.summary-card {
+  border-radius: 14px; padding: 20px; margin-bottom: 16px;
+}
+.summary-card-green {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1.5px solid #86efac;
+}
+.summary-card-red {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border: 1.5px solid #fca5a5;
+}
+.summary-card-headline {
+  font-size: 18px; font-weight: 700; color: #14532d; line-height: 1.3;
+  margin-bottom: 12px;
+}
+.summary-card-red .summary-card-headline { color: #7f1d1d; }
+.summary-card-facts {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  margin-bottom: 14px;
+}
+.summary-fact {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.summary-fact-label {
+  font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600;
+}
+.summary-fact-value {
+  font-size: 14px; font-weight: 600; color: var(--text);
+}
+.summary-card-detail {
+  font-size: 14px; color: #374151; line-height: 1.5; margin-bottom: 14px;
+}
+.summary-card-warning {
+  background: #fff8ed; border: 1px solid #f59e0b; border-radius: 8px;
+  padding: 8px 12px; font-size: 12px; color: #78350f; margin-bottom: 12px;
+}
+.summary-card-cta {
+  display: block; width: 100%; text-align: center; padding: 12px 20px;
+  /* Audit 2026-04-24 — unified gradient direction + #111 text for WCAG AA. */
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
+  color: #111; font-weight: 700; font-size: 14px; border-radius: 10px;
+  text-decoration: none; box-shadow: 0 2px 8px rgba(139,105,20,0.25);
+  transition: opacity 0.15s;
+}
+.summary-card-cta:hover { opacity: 0.92; }
+
+/* ── REGISTER SCREEN (Screen 2) — Manus-style entry list ─────────────────
+   User-facing name: "Register". Replaces the old single-merged approval row
+   with two scannable sections (SEVS vehicle eligibility + MRE compliance
+   workshops) so users can pick the specific entry that matches their car. */
+.register-header { margin: 4px 0 14px; }
+.register-title {
+  font-size: 28px; font-weight: 800; color: var(--text);
+  letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 6px;
+}
+.register-subtitle { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+/* Explanatory callout — tells first-time users what the cards represent. */
+.register-callout {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: #fffbf0; border: 1px solid rgba(202,163,76,0.35);
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 22px;
+}
+.register-callout-icon {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(202,163,76,0.18); color: #8B6914;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.register-callout-body { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+.register-callout-body strong { color: var(--text); font-weight: 700; }
+
+.register-section { margin-bottom: 22px; }
+.register-section-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 16px; font-weight: 700; color: var(--text);
+  margin-bottom: 10px;
+}
+.register-section-icon {
+  font-size: 18px; color: #CAA34C;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px;
+}
+.register-section-list { display: flex; flex-direction: column; gap: 10px; }
+
+/* One register entry as a full-width clickable card. */
+.register-entry-card {
+  position: relative;
+  display: block; width: 100%; text-align: left;
+  background: var(--bg-card); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 16px 44px 16px 18px;
+  cursor: pointer; font: inherit; color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.register-entry-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+.register-entry-card:focus-visible {
+  outline: 3px solid #CAA34C; outline-offset: 2px;
+}
+.register-entry-head {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;
+}
+.register-entry-title {
+  font-size: 16px; font-weight: 700; color: var(--text);
+  line-height: 1.3; margin-bottom: 6px;
+}
+.register-entry-meta {
+  display: flex; flex-wrap: wrap; gap: 4px 14px;
+  font-size: 13px; color: var(--text-muted); line-height: 1.5;
+}
+.register-entry-meta > span { display: inline-flex; align-items: center; }
+.register-entry-meta .register-entry-code {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  color: var(--text-faint); letter-spacing: 0.02em;
+}
+.register-entry-pills {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+}
+.register-entry-arrow {
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  color: var(--text-faint); font-size: 20px; line-height: 1;
+  transition: color 0.15s, transform 0.15s;
+}
+.register-entry-card:hover .register-entry-arrow {
+  color: var(--gold); transform: translateY(-50%) translateX(3px);
+}
+@media (max-width: 640px) {
+  .register-title { font-size: 22px; }
+  .register-entry-card { padding: 14px 36px 14px 14px; }
+  .register-entry-arrow { right: 12px; }
+  .register-callout { padding: 12px 14px; }
+}
+
+/* ── Mobile sticky CTA bar ───────────────────────────────────────────────── */
+.sticky-cta-bar {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--bg-card); border-top: 1px solid var(--border);
+  /* Audit 2026-04-24 — respect iOS safe area so the CTA is never clipped by
+     the home-indicator bar. env() falls back to 0 on platforms without it. */
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  z-index: 900;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+}
+.sticky-cta-bar a {
+  display: block; width: 100%; text-align: center; padding: 12px;
+  /* Audit 2026-04-24 — unified gradient direction + #111 text for WCAG AA. */
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
+  color: #111; font-weight: 700; font-size: 14px; border-radius: 10px;
+  text-decoration: none;
+}
+@media (max-width: 640px) {
+  .results-active .sticky-cta-bar { display: block; }
+  .summary-card-facts { grid-template-columns: 1fr; }
+  /* Add bottom padding so content doesn't hide behind sticky bar.
+     Audit 2026-04-24 — include safe-area inset for notched iOS. */
+  .results-active #results-wrap { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+}
 </style>
   <!-- GHL popup override: prevent auto-show, controlled by JS click -->
   <style>
-    #popup-2lhyBZVSUo69QRuXjwIA-overlay { display: none !important; }
-    #popup-2lhyBZVSUo69QRuXjwIA-overlay.ghl-active { display: flex !important; }
+    #popup-0gQCujDNgaGlG83rK10j-overlay { display: none !important; }
+    #popup-0gQCujDNgaGlG83rK10j-overlay.ghl-active { display: flex !important; }
   </style>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '438613762049767');
+fbq('track', 'PageView');
+
+// Track GHL form submissions as Lead events. value/currency satisfy
+// Meta Diagnostics' "Send valid price and currency" warning so the
+// algorithm can optimize on monetary value.
+window.addEventListener('message', function(event) {
+  if (!event.origin || !event.origin.includes('leadconnectorhq.com')) return;
+  var data = event.data || {};
+  var type = (data.type || data.event || '').toString().toLowerCase();
+  if (type.includes('form_submit') || type.includes('form:submit') || type === 'formsubmitted') {
+    var leadParams = {
+      content_name: 'GHLFormSubmit',
+      value: (typeof ESTIMATED_LEAD_VALUE_AUD !== 'undefined') ? ESTIMATED_LEAD_VALUE_AUD : 50000,
+      currency: 'AUD'
+    };
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead', leadParams);
+    if (typeof gtag === 'function') gtag('event', 'lead', leadParams);
+  }
+});
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -852,22 +1487,21 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   <div class="header-inner">
     <a href="/" class="logo-wrap">
       <img src="logo.png" alt="JDM Connect" class="header-logo">
-      <span class="logo-tag">Eligibility Checker</span>
     </a>
     <nav class="header-nav">
       <a href="https://calculator.jdmconnect.com.au">Landed Cost</a>
       <a href="https://jdmconnect.com.au">Home</a>
-      <a href="https://jdmconnect.com.au/contact" class="header-cta">Get a Quote</a>
+      <a href="https://jdmconnect.com.au/contact" class="header-cta" data-cta="get_quote" data-cta-source="header">Get a free quote</a>
     </nav>
   </div>
 </header>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge"><span class="dot"></span> Live ROVER data</div>
+  <div class="hero-badge" title="ROVER is the Department of Infrastructure's import register"><span class="dot"></span> Live government data</div>
   <h1>Is this car<br><em>importable to Australia?</em></h1>
-  <p>Check SEVS &amp; MRE eligibility in seconds — used by dealers, agents, and enthusiasts nationwide.</p>
-  <p class="hero-first">The first free eligibility tool of its kind, built for Australian JDM buyers.</p>
+  <p>Check Australia&rsquo;s two official import registers &mdash; instantly.</p>
+  <p class="hero-first">Free, for Australian buyers importing JDM cars <span class="hero-jdm-decoder">(Japanese-market models built and sold in Japan).</span></p>
 </div>
 
 <!-- SEARCH CARD -->
@@ -880,9 +1514,13 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 
     <!-- Make/Model/Year tab -->
     <div id="tab-make">
-      <div class="search-fields">
+      <!-- Audit 2026-04-30 (P1 #8) — Build year + Propulsion are collapsed
+           under "More filters" so the form fits above the fold on mobile.
+           Most users leave them blank; expanding is one click and persists
+           per session via sessionStorage. -->
+      <div class="search-fields search-fields-primary">
         <div class="field-group">
-          <label class="field-label">Make</label>
+          <label class="field-label" for="make-search">Make</label>
           <div class="make-typeahead-wrap" id="make-typeahead-wrap">
             <input
               type="text"
@@ -896,14 +1534,16 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
               onfocus="openMakeSuggestions()"
               onkeydown="makeKeyNav(event)"
               aria-label="Search make"
+              aria-describedby="make-error-msg"
             >
             <input type="hidden" id="sel-make">
             <span class="select-arrow" id="make-clear-btn" onclick="clearMake()" style="cursor:pointer;">▾</span>
             <div class="make-suggestions" id="make-suggestions"></div>
           </div>
+          <p class="field-error-msg" id="make-error-msg" role="alert" style="display:none;">Pick a make to start.</p>
         </div>
         <div class="field-group">
-          <label class="field-label">Model</label>
+          <label class="field-label" for="sel-model">Model</label>
           <div class="select-wrap">
             <select class="field-select" id="sel-model">
               <option value="">Select model…</option>
@@ -911,8 +1551,10 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
             <span class="select-arrow">▾</span>
           </div>
         </div>
+      </div>
+      <div class="search-fields search-fields-advanced" id="search-fields-advanced" hidden>
         <div class="field-group">
-          <label class="field-label">Build year</label>
+          <label class="field-label" for="sel-year">Build year</label>
           <div class="select-wrap">
             <select class="field-select" id="sel-year">
               <option value="">Any year</option>
@@ -921,7 +1563,7 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
           </div>
         </div>
         <div class="field-group">
-          <label class="field-label">Propulsion</label>
+          <label class="field-label" for="sel-propulsion">Propulsion</label>
           <div class="select-wrap">
             <select class="field-select" id="sel-propulsion">
               <option value="">Any</option>
@@ -934,14 +1576,30 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
           </div>
         </div>
       </div>
-      <button class="search-btn" id="search-btn-make" onclick="doSearch()">Check eligibility →</button>
+      <button type="button" class="more-filters-toggle" id="more-filters-toggle" aria-expanded="false" aria-controls="search-fields-advanced">+ More filters (year, propulsion)</button>
+      <button class="search-btn" id="search-btn-make" onclick="track('CheckEligibilityClicked',{tab:'make'}); doSearch();">Check eligibility →</button>
+
+      <!-- Audit 2026-04-30 (P2 #11) — Popular searches strip. Each chip
+           pre-fills the form and runs the search so a cold visitor gets to
+           a result in one click. -->
+      <div class="popular-searches" aria-label="Popular searches">
+        <span class="popular-searches-label">Popular:</span>
+        <button type="button" class="chip-search" data-pop="Nissan|Skyline">Skyline GT-R</button>
+        <button type="button" class="chip-search" data-pop="Toyota|Supra">Supra</button>
+        <button type="button" class="chip-search" data-pop="Toyota|Land Cruiser">Land Cruiser</button>
+        <button type="button" class="chip-search" data-pop="Toyota|Hiace">Hiace</button>
+        <button type="button" class="chip-search" data-pop="Mazda|RX-7">RX-7</button>
+        <button type="button" class="chip-search" data-pop="Honda|NSX">NSX</button>
+        <button type="button" class="chip-search" data-pop-chassis="CT9A">Evo</button>
+        <button type="button" class="chip-search" data-pop="Subaru|Impreza">WRX STI</button>
+      </div>
     </div>
 
     <!-- Chassis tab -->
     <div id="tab-chassis" style="display:none;">
       <input class="chassis-input" id="chassis-input" type="text" placeholder="e.g. BNR34-001245 or JZX100-…" maxlength="30" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doChassisSearch()">
       <p class="chassis-hint" style="margin-top:10px; margin-bottom:16px;">Enter the first 4–6 characters of the chassis/model code for best results</p>
-      <button class="search-btn" id="search-btn-chassis" onclick="doChassisSearch()">Check eligibility →</button>
+      <button class="search-btn" id="search-btn-chassis" onclick="track('CheckEligibilityClicked',{tab:'chassis'}); doChassisSearch();">Check eligibility →</button>
     </div>
   </div>
 </div>
@@ -952,22 +1610,44 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 <div class="stats-strip" id="stats-strip">
   <div class="stat-card">
     <div class="stat-num" id="stat-mre">883</div>
-    <div class="stat-label">MRE approvals</div>
+    <div class="stat-label">approved workshops</div>
   </div>
   <div class="stat-card">
     <div class="stat-num" id="stat-sev">615</div>
-    <div class="stat-label">SEVS listings</div>
+    <div class="stat-label">eligible cars</div>
   </div>
   <div class="stat-card">
     <div class="stat-num" id="stat-updated">15 Apr</div>
-    <div class="stat-label">Data updated</div>
+    <div class="stat-label">last updated</div>
   </div>
 </div>
-<p class="register-note">
-  <strong>SEVS</strong> = Specialist &amp; Enthusiast Vehicle Scheme ·
-  <strong>MRE</strong> = Model Report Eligibility —
-  Australia's two official import registers (Dept of Infrastructure).
-</p>
+<!-- HOW IT WORKS (Audit 2026-04-30 — P2 #12) -->
+<section class="how-it-works" aria-label="How it works">
+  <h2 class="how-it-works-title">How it works</h2>
+  <ol class="how-it-works-steps">
+    <li class="how-it-works-step">
+      <div class="how-it-works-num">1</div>
+      <div class="how-it-works-body">
+        <div class="how-it-works-step-title">Search</div>
+        <p>Pick a car or paste a chassis code.</p>
+      </div>
+    </li>
+    <li class="how-it-works-step">
+      <div class="how-it-works-num">2</div>
+      <div class="how-it-works-body">
+        <div class="how-it-works-step-title">Check</div>
+        <p>Get an instant answer.</p>
+      </div>
+    </li>
+    <li class="how-it-works-step">
+      <div class="how-it-works-num">3</div>
+      <div class="how-it-works-body">
+        <div class="how-it-works-step-title">Quote</div>
+        <p><a href="https://jdmconnect.com.au/contact" target="_blank" rel="noopener">We source it from Japan, landed &rarr;</a></p>
+      </div>
+    </li>
+  </ol>
+</section>
 
 <!-- RESULTS -->
 <div class="results-wrap" id="results-wrap" style="display:none;"></div>
@@ -976,7 +1656,7 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 <footer class="footer">
   <p>
     Data sourced from the Australian Government ROVER portal.<br>
-    This tool is for guidance only — always verify eligibility with a licensed RAWS workshop before purchasing.<br>
+    For guidance only. Always confirm with a licensed RAWS workshop before you buy.<br>
     <a href="https://jdmconnect.com.au">jdmconnect.com.au</a> &nbsp;·&nbsp;
     <!--email_off--><a href="mailto:info@jdmconnect.com.au" class="no-cf-email">info@jdmconnect.com.au</a><!--/email_off--><br><br>
     © 2026 JDM Connect Pty Ltd ACN 78 675 449 493. All rights reserved.
@@ -991,6 +1671,138 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
 let MRE = [], SEV = [], allData = null;
 let activeTab = 'make';
 const ADMIN_MODE = new URLSearchParams(window.location.search).get('admin') === '1';
+
+// ── ANALYTICS (Audit 2026-04-30 — sales conversion instrumentation) ─────────
+// One helper that routes a single event into both Meta Pixel (fbq) and GA4
+// (gtag). Standard Meta events use fbq('track'); custom events use
+// fbq('trackCustom'). GA4 receives a snake_case version of the same name
+// (e.g. GetQuoteClicked → get_quote_clicked) so the funnel reports stay
+// tidy. Defensive try/catch — analytics never breaks the UX if ad-blockers
+// or network failures take fbq/gtag offline.
+//
+// Standard event names matter on Meta: 'Lead', 'Search', etc. trigger
+// Meta's auto-optimization. Use them whenever possible alongside the
+// branded custom event so the algorithm has both signals.
+const META_STANDARD = ['Lead', 'CompleteRegistration', 'ViewContent', 'Search', 'AddToCart', 'Purchase', 'InitiateCheckout', 'Contact'];
+function track(eventName, params) {
+  const safe = params || {};
+  try {
+    if (typeof fbq === 'function') {
+      if (META_STANDARD.indexOf(eventName) !== -1) {
+        fbq('track', eventName, safe);
+      } else {
+        fbq('trackCustom', eventName, safe);
+      }
+    }
+  } catch (_) { /* swallow — analytics never breaks UX */ }
+  try {
+    if (typeof gtag === 'function') {
+      const ga4Name = eventName.replace(/([A-Z])/g, '_$1').toLowerCase().replace(/^_/, '');
+      gtag('event', ga4Name, safe);
+    }
+  } catch (_) { /* swallow */ }
+}
+// Backward-compat alias — earlier instrumentation used trackEvent(name).
+// Forwarding lets old call sites keep working while new code uses track().
+function trackEvent(name, params) { return track(name, params); }
+
+// Vehicle context for the delegated CTA-click handler. Set when a result
+// page renders; read when the user clicks GetQuote / Pathways / Notify so
+// the event params include {make, model} without per-CTA plumbing.
+let currentVehicleContext = { make: '', model: '' };
+
+// Placeholder lead value for the Meta-standard Lead event. Meta's
+// Diagnostics tab warns when Lead fires without value/currency; without
+// a real per-vehicle estimate to attach (the eligibility site doesn't
+// price the car), we use a conservative average landed-cost estimate
+// for an imported JDM vehicle. Tune as the campaign accumulates real
+// quote-to-purchase data.
+const ESTIMATED_LEAD_VALUE_AUD = 50000;
+
+// Detail-page Back button. history.back() handles in-app navigation
+// (search → result list → detail) cleanly. For deep-link landings (no
+// history) we fall back to the parent route — Make+Model search if we
+// know it, otherwise the homepage.
+function handleBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+    return;
+  }
+  const make  = currentVehicleContext && currentVehicleContext.make;
+  const model = currentVehicleContext && currentVehicleContext.model;
+  if (make && model) {
+    window.location.hash = '#make=' + encodeURIComponent(make) + '&model=' + encodeURIComponent(model);
+  } else {
+    // No context — strip the hash and reset to the search homepage.
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+    if (typeof resetSearch === 'function') resetSearch();
+  }
+}
+
+// ── JARGON TRANSLATION ─────────────────────────────────────────────────────
+// Replace government-speak with plain English so everyday users understand results.
+const HUMAN_LABELS = {
+  'In Force': 'Active',
+  'Specialist and Enthusiast Vehicles': '',          // hide — adds no info
+  'Bespoke Vehicles': '',
+  'Workshop Vehicles': '',
+};
+const HUMAN_KEYS = {
+  'Approval status': 'Status',
+  'Model report type': 'Report type',
+  'Post-modification category': 'Vehicle category',
+  'Build date range': 'Eligible build years',
+  'Compliance Level': 'Compliance',
+};
+const POST_MOD_LABELS = {
+  'MA': 'Passenger vehicle',
+  'MB': 'Forward-control passenger vehicle',
+  'MC': 'Off-road passenger vehicle',
+  'MD': 'Omnibus',
+  'NA': 'Light goods vehicle',
+  'NB': 'Medium goods vehicle',
+  'NC': 'Heavy goods vehicle',
+};
+function humanStatus(raw) {
+  return HUMAN_LABELS[raw] !== undefined ? HUMAN_LABELS[raw] : raw;
+}
+function humanKey(raw) {
+  return HUMAN_KEYS[raw] || raw;
+}
+function humanPostMod(raw) {
+  if (!raw) return '—';
+  const code = raw.trim().toUpperCase();
+  return POST_MOD_LABELS[code] || raw;
+}
+
+// ── STEP INDICATOR + BREADCRUMBS + EXPLAINER HELPERS ────────────────────────
+const STEPS = [
+  { icon: '🔍', label: 'Search' },
+  { icon: '📋', label: 'Results' },
+  { icon: '🛡', label: 'Register' },
+  { icon: '📄', label: 'Details' },
+];
+function renderStepIndicator(currentStep) {
+  return `<div class="step-indicator">${STEPS.map((s, i) => {
+    const cls = i === currentStep ? 'active' : i < currentStep ? 'completed' : '';
+    const line = i < STEPS.length - 1 ? '<div class="step-line"></div>' : '';
+    return `<div class="step-item ${cls}"><span class="step-icon">${s.icon}</span><span class="step-label">${s.label}</span></div>${line}`;
+  }).join('')}</div>`;
+}
+
+function renderBreadcrumbs(crumbs) {
+  return `<nav class="breadcrumbs">${crumbs.map((c, i) => {
+    const isLast = i === crumbs.length - 1;
+    const sep = isLast ? '' : '<span class="breadcrumb-sep">›</span>';
+    if (isLast) return `<span class="breadcrumb-current">${c.label}</span>`;
+    if (c.onclick) return `<button onclick="${c.onclick}">${c.label}</button>${sep}`;
+    return `<span>${c.label}</span>${sep}`;
+  }).join('')}</nav>`;
+}
+
+function buildExplainer(title, body) {
+  return `<details class="explainer"><summary>ℹ ${title}<span class="explainer-chevron">▾</span></summary><div class="explainer-body">${body}</div></details>`;
+}
 
 // Navigation state for 3-screen flow
 let currentGroups = [];       // Array of { make, model, mre[], sev[] } — populated on search
@@ -1087,14 +1899,25 @@ function writeUrlHash(params) {
   if (window.location.hash === newHash) return;
   _suppressHashApply = true;
   if (newHash) {
-    history.replaceState(null, '', window.location.pathname + window.location.search + newHash);
+    history.pushState({ screen: params }, '', window.location.pathname + window.location.search + newHash);
   } else {
     history.replaceState(null, '', window.location.pathname + window.location.search);
   }
-  // Release suppression on the next tick — replaceState doesn't fire hashchange
-  // but we still defensively flip the flag back.
   setTimeout(() => { _suppressHashApply = false; }, 0);
 }
+
+// ── Browser back button support ─────────────────────────────────────────────
+window.addEventListener('popstate', function() {
+  const params = parseHash();
+  if (!params || Object.keys(params).length === 0) {
+    // No hash — return to search/hero
+    resetSearch();
+    return;
+  }
+  // Re-apply whatever the hash says
+  _suppressHashApply = false;
+  applyHashIfPresent();
+});
 
 function clearUrlHash() {
   if (!window.location.hash) return;
@@ -1125,7 +1948,7 @@ function applyHashIfPresent() {
       wrap.style.display = 'block';
       wrap.innerHTML = '';
       document.body.classList.add('results-active');
-      renderScreen3(sevRec, false, `${sevRec.Make} ${sevRec.Model}`, mreSiblings, siblings, wrap, null);
+      renderScreen3(sevRec, false, `${displayName(sevRec.Make)} ${displayName(sevRec.Model)}`, mreSiblings, siblings, wrap, null);
       return;
     }
   }
@@ -1145,7 +1968,7 @@ function applyHashIfPresent() {
       wrap.style.display = 'block';
       wrap.innerHTML = '';
       document.body.classList.add('results-active');
-      renderScreen3(mreRec, true, `${mreRec.Make} ${mreRec.Model}`, mreSiblings, sevSiblings, wrap, null);
+      renderScreen3(mreRec, true, `${displayName(mreRec.Make)} ${displayName(mreRec.Model)}`, mreSiblings, sevSiblings, wrap, null);
       return;
     }
   }
@@ -1165,8 +1988,13 @@ function applyHashIfPresent() {
   if (params.make) {
     const makeSel = document.getElementById('sel-make');
     const makeSearch = document.getElementById('make-search');
-    // Find the canonical Make entry that case-insensitively matches the hash value.
-    const matchedMake = allMakes.find(m => m.toUpperCase() === params.make.toUpperCase());
+    // Find the canonical Make entry that case-insensitively matches the
+    // hash value. Audit 2026-04-30 (smoke-test bug #2) — also check the
+    // curated JAPANESE_MAKES list so deep links like `#make=Acura` work
+    // even when the make has zero records in ROVER. Falls through to a
+    // search that yields the standard "Not currently eligible" screen.
+    const matchedMake = allMakes.find(m => m.toUpperCase() === params.make.toUpperCase())
+      || JAPANESE_MAKES.find(m => m.toUpperCase() === params.make.toUpperCase());
     if (matchedMake) {
       makeSel.value = matchedMake;
       makeSelectedValue = matchedMake;
@@ -1205,6 +2033,17 @@ function applyHashIfPresent() {
 var allMakes = [];
 var makeSelectedValue = '';
 var makeFocusIndex = -1;
+// Curated Japanese makes shown by default in the idle dropdown — keeps the
+// JDM-themed first impression intact when users arrive from a Facebook ad.
+// Order is intentional: the most-searched OEMs first, niche/luxury after.
+const JAPANESE_MAKES = [
+  'Toyota', 'Nissan', 'Honda', 'Mazda', 'Subaru', 'Mitsubishi',
+  'Lexus', 'Suzuki', 'Daihatsu', 'Isuzu', 'Infiniti', 'Acura'
+];
+// Tracks whether the user clicked "Show all makes" — once expanded we keep
+// showing the full list for the rest of the session so they don't have to
+// re-toggle. Reset on clearMake().
+var showAllMakesIdle = false;
 
 // Audit #1 — RAWS pollution filter.
 // The ROVER register lists each RAWS workshop as its own "Make" (e.g. "A to Z RV Toyota",
@@ -1267,9 +2106,41 @@ function filterMakes(showAll) {
   const query = input.value.trim().toLowerCase();
   makeFocusIndex = -1;
 
-  const matches = showAll && !query
-    ? allMakes
-    : allMakes.filter(m => m.toLowerCase().includes(query));
+  // Idle (no query) view: by default show only curated Japanese makes from
+  // the current dataset, in the curated priority order. The text input still
+  // searches the full dataset (typing "adr" finds Adria) — only the click-to-
+  // open dropdown is filtered, until the user toggles "Show all makes".
+  let matches;
+  let isCuratedView = false;
+  if (showAll && !query) {
+    if (showAllMakesIdle) {
+      matches = allMakes;
+    } else {
+      // Show all 12 curated makes whether or not the dataset has records
+      // for them — Isuzu/Infiniti/Acura genuinely have no current ROVER
+      // entries, but visitors expect to see those badges in the dropdown.
+      // If selected, populateModels() leaves the Model dropdown empty and
+      // a search returns the standard "Not currently eligible" screen.
+      matches = JAPANESE_MAKES.slice();
+      isCuratedView = true;
+    }
+  } else {
+    // Audit 2026-04-30 (smoke-test bug #3) — typing search must include the
+    // curated makes too. Without this union, typing "Acura" returned "No
+    // makes found" even though Acura is in the idle dropdown. Now the same
+    // names are findable both ways.
+    const seen = new Set();
+    const searchPool = [];
+    for (const m of allMakes) {
+      const k = m.toLowerCase();
+      if (!seen.has(k)) { seen.add(k); searchPool.push(m); }
+    }
+    for (const m of JAPANESE_MAKES) {
+      const k = m.toLowerCase();
+      if (!seen.has(k)) { seen.add(k); searchPool.push(m); }
+    }
+    matches = searchPool.filter(m => m.toLowerCase().includes(query));
+  }
 
   if (!matches.length) {
     list.innerHTML = '<div class="make-no-results">No makes found</div>';
@@ -1277,19 +2148,44 @@ function filterMakes(showAll) {
     return;
   }
 
-  list.innerHTML = matches.map(m => {
+  let html = matches.map(m => {
     const safe = m.replace(/"/g, '&quot;');
     const hi = query
       ? m.replace(new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>')
       : m;
     return '<div class="make-suggestion-item" data-make="' + safe + '">' + hi + '</div>';
   }).join('');
+
+  if (isCuratedView) {
+    html += '<div class="make-suggestion-toggle" id="make-show-all">Show all makes ▾</div>';
+  } else if (showAll && !query && showAllMakesIdle) {
+    html += '<div class="make-suggestion-toggle" id="make-show-curated">Japanese makes only ▴</div>';
+  }
+
+  list.innerHTML = html;
   list.querySelectorAll('.make-suggestion-item').forEach(function(el) {
     el.addEventListener('mousedown', function(e) {
       e.preventDefault();
       selectMake(this.getAttribute('data-make'));
     });
   });
+  const showAllEl = document.getElementById('make-show-all');
+  if (showAllEl) {
+    showAllEl.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      track('ShowAllMakesClicked');
+      showAllMakesIdle = true;
+      filterMakes(true);
+    });
+  }
+  const showCuratedEl = document.getElementById('make-show-curated');
+  if (showCuratedEl) {
+    showCuratedEl.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      showAllMakesIdle = false;
+      filterMakes(true);
+    });
+  }
   list.classList.add('open');
 }
 
@@ -1301,6 +2197,31 @@ function selectMake(make) {
   document.getElementById('make-clear-btn').textContent = '✕';
   document.getElementById('make-clear-btn').style.fontSize = '11px';
   populateModels();
+  clearMakeFieldError();
+}
+
+// ── EMPTY-FORM VALIDATION (Audit 2026-04-30 — P0 #2) ─────────────────────
+// Replaces the silent alert() that fired on empty Check eligibility clicks
+// with an inline red border + helper text + auto-focus on the make input.
+// The error state self-clears the moment the user picks a make.
+function showMakeFieldError() {
+  const input = document.getElementById('make-search');
+  const wrap  = document.getElementById('make-typeahead-wrap');
+  const help  = document.getElementById('make-error-msg');
+  if (wrap) wrap.classList.add('field-error');
+  if (input) {
+    input.setAttribute('aria-invalid', 'true');
+    input.focus();
+  }
+  if (help) help.style.display = 'block';
+}
+function clearMakeFieldError() {
+  const wrap = document.getElementById('make-typeahead-wrap');
+  const input = document.getElementById('make-search');
+  const help  = document.getElementById('make-error-msg');
+  if (wrap) wrap.classList.remove('field-error');
+  if (input) input.removeAttribute('aria-invalid');
+  if (help) help.style.display = 'none';
 }
 
 function clearMake() {
@@ -1310,6 +2231,7 @@ function clearMake() {
   document.getElementById('sel-make').value = '';
   document.getElementById('make-search').value = '';
   makeSelectedValue = '';
+  showAllMakesIdle = false;
   document.getElementById('make-clear-btn').textContent = '▾';
   document.getElementById('make-clear-btn').style.fontSize = '';
   document.getElementById('make-suggestions').classList.remove('open');
@@ -1317,6 +2239,7 @@ function clearMake() {
   document.getElementById('make-clear-btn').style.fontSize = '';
   document.getElementById('sel-model').innerHTML = '<option value="">Select model\u2026</option>';
   document.getElementById('make-search').focus();
+  clearMakeFieldError();
 }
 
 function makeKeyNav(e) {
@@ -1351,15 +2274,32 @@ document.addEventListener('click', function(e) {
 
 function populateModels() {
   const make = document.getElementById('sel-make').value;
-  const models = [...new Set([
+  // Audit 2026-04-30 (smoke-test bug #5) — case-insensitive dedupe so the
+  // dropdown doesn't show both "SKYLINE" and "Skyline", "LEAF" and "Leaf".
+  // The first occurrence in source order wins as the canonical value sent
+  // to doSearch() (which compares case-insensitively anyway), but we render
+  // a tidy displayName(). Sort by the displayed label.
+  const seen = new Map();
+  const candidates = [
     ...MRE.filter(r => makeMatches(r.Make, make)).map(r => r.Model),
     ...SEV.filter(r => makeMatches(r.Make, make)).map(r => r.Model)
-  ])].filter(Boolean).sort();
+  ];
+  for (const m of candidates) {
+    if (!m) continue;
+    const k = m.toLowerCase();
+    if (!seen.has(k)) seen.set(k, m);
+  }
+  const models = Array.from(seen.values())
+    .sort((a, b) => displayName(a).localeCompare(displayName(b), undefined, { sensitivity: 'base' }));
   const sel = document.getElementById('sel-model');
   sel.innerHTML = '<option value="">Select model…</option>';
   models.forEach(m => {
     const o = document.createElement('option');
-    o.value = m; o.textContent = m;
+    // Use the display-cased form as both value and label — the search
+    // filter compares case-insensitively, so this only affects rendering
+    // (the vehicleName built by doSearch reads sel-model.value as-is).
+    const dm = displayName(m);
+    o.value = dm; o.textContent = dm;
     sel.appendChild(o);
   });
 }
@@ -1381,6 +2321,32 @@ function populateYears() {
 function titleCase(str) {
   if (!str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+// Audit 2026-04-30 (smoke-test bug #4 / #5) — smart title-case for makes
+// and models. ROVER stores some records as SHOUTY-CAPS ("NISSAN SKYLINE")
+// and others as Title Case ("Toyota Camry"), and sometimes both casings
+// for the same model. We normalise at render time so the user never sees
+// the inconsistency. Token-aware so we preserve well-known acronyms and
+// chassis codes (GT-R, RX-7, AE86, BNR34, MR2, JZX100, II/III/IV).
+function displayName(str) {
+  if (str == null) return '';
+  return String(str).split(/(\s+|\/)/).map(token => {
+    if (!token) return token;
+    if (/^\s+$/.test(token) || token === '/') return token;
+    // Tokens with internal hyphens recurse so "GT-R", "RX-7" are handled.
+    if (token.includes('-')) {
+      return token.split('-').map(p => displayName(p)).join('-');
+    }
+    // All-uppercase short letter tokens are acronyms — keep as-is
+    // (WRX, STI, GTR, NSX, EVO, II, III, IV, V, VI).
+    if (/^[A-Z]{1,4}$/.test(token)) return token;
+    // Tokens containing digits are chassis/model codes — keep uppercase
+    // (BNR34, JZA80, AE86, JZX100, MR2, RAV4, S2000, V35).
+    if (/\d/.test(token)) return token.toUpperCase();
+    // Otherwise: first char upper, rest lower (NISSAN → Nissan).
+    return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
+  }).join('');
 }
 
 // ── TABS ─────────────────────────────────────────────────────────────────────
@@ -1590,7 +2556,19 @@ function doSearch() {
   const year = document.getElementById('sel-year').value;
   const propulsionEl = document.getElementById('sel-propulsion');
   const propulsion = propulsionEl ? propulsionEl.value : '';
-  if (!make) { alert('Please select a make first.'); return; }
+  if (!make) { showMakeFieldError(); return; }
+  clearMakeFieldError();
+
+  track('SearchSubmitted', {
+    mode: 'make_model',
+    make: make || '',
+    model: model || '',
+    year: year || '',
+    propulsion: propulsion || ''
+  });
+  // Meta-standard Search event lets the FB algorithm auto-optimize for
+  // searchers regardless of the custom event taxonomy.
+  track('Search', { search_string: [make, model].filter(Boolean).join(' ') });
 
   withSearchLoadingState('search-btn-make', () => {
     const mreMatches = MRE.filter(r =>
@@ -1672,9 +2650,166 @@ function chassisAliasFragments(query) {
   return [];
 }
 
+// ── CHASSIS-CODE VARIANT TABLE (Audit 2026-04-30 — P0 #4 / P1 #10) ─────────
+// Maps specific chassis codes to plain-English variant names + the narrower
+// build era they actually represent. Used in three places:
+//   1. Chassis search: narrows results to the matching era so "BNR34" returns
+//      Skyline 1999–2002, not "Aug 1992 – present" (which spanned R32→V37).
+//   2. Result cards: surfaces a short variant context line above the build
+//      range so non-enthusiasts understand what they're looking at.
+//   3. Detail pages: lets us pick the correct sibling SEV chassis codes by
+//      build-range overlap, fixing the MRE-000058 1997–2002 vs HV37/HNV37
+//      cross-record mismatch.
+// `notes` is a one-line clarifier shown when a chassis is ambiguous to a
+// non-enthusiast (e.g. AXVH75 = JDM hybrid Camry, not the Aussie petrol).
+const CHASSIS_VARIANT_INFO = {
+  // Nissan Skyline (and GT-R)
+  'BNR32':    { name: 'R32 GT-R',          fromYear: 1989, toYear: 1994 },
+  'BCNR33':   { name: 'R33 GT-R',          fromYear: 1995, toYear: 1998 },
+  'BNR34':    { name: 'R34 GT-R',          fromYear: 1999, toYear: 2002 },
+  'R32':      { name: 'R32 Skyline',       fromYear: 1989, toYear: 1994 },
+  'R33':      { name: 'R33 Skyline',       fromYear: 1993, toYear: 1998 },
+  'R34':      { name: 'R34 Skyline',       fromYear: 1998, toYear: 2002 },
+  'V35':      { name: 'V35 Skyline (Infiniti G35)', fromYear: 2001, toYear: 2007 },
+  'V36':      { name: 'V36 Skyline (Infiniti G37)', fromYear: 2007, toYear: 2013 },
+  'V37':      { name: 'V37 Skyline hybrid sedan',   fromYear: 2014, toYear: 2099 },
+  'HV37':     { name: 'V37 Skyline hybrid sedan',   fromYear: 2014, toYear: 2099 },
+  'HNV37':    { name: 'V37 Skyline hybrid AWD',     fromYear: 2014, toYear: 2099 },
+  // Toyota Supra
+  'JZA70':    { name: 'A70 Supra (1JZ/2JZ)', fromYear: 1986, toYear: 1993 },
+  'JZA80':    { name: 'A80 Supra (2JZ)',     fromYear: 1993, toYear: 2002 },
+  'A80':      { name: 'A80 Supra (2JZ)',     fromYear: 1993, toYear: 2002 },
+  'A90':      { name: 'A90 Supra (BMW B58)', fromYear: 2019, toYear: 2099 },
+  'J29':      { name: 'A90 Supra (BMW B58)', fromYear: 2019, toYear: 2099 },
+  // Mazda RX-7 / RX-8
+  'FC3S':     { name: 'FC RX-7 (13B turbo)',  fromYear: 1985, toYear: 1992 },
+  'FD3S':     { name: 'FD RX-7 (twin-turbo)', fromYear: 1991, toYear: 2002 },
+  'SE3P':     { name: 'RX-8 (Renesis 13B)',   fromYear: 2003, toYear: 2012 },
+  // Honda NSX
+  'NA1':      { name: 'NA1 NSX (3.0L V6)',  fromYear: 1990, toYear: 1997 },
+  'NA2':      { name: 'NA2 NSX (3.2L V6)',  fromYear: 1997, toYear: 2005 },
+  // Toyota Mark II / Chaser / Cresta
+  'JZX100':   { name: 'JZX100 (1JZ-GTE)',   fromYear: 1996, toYear: 2001 },
+  'JZX110':   { name: 'JZX110 (1JZ-GTE VVTi)', fromYear: 2000, toYear: 2007 },
+  // Subaru Impreza WRX / STI
+  'GC8':      { name: 'GC8 Impreza WRX/STI', fromYear: 1992, toYear: 2000 },
+  'GDB':      { name: 'GDB Impreza WRX STI', fromYear: 2000, toYear: 2007 },
+  'GRB':      { name: 'GRB Impreza WRX STI', fromYear: 2007, toYear: 2014 },
+  'VAB':      { name: 'VAB WRX STI',         fromYear: 2014, toYear: 2021 },
+  // Mitsubishi Lancer Evolution
+  'CN9A':     { name: 'Lancer Evo IV',     fromYear: 1996, toYear: 1998 },
+  'CP9A':     { name: 'Lancer Evo V/VI',   fromYear: 1998, toYear: 2001 },
+  'CT9A':     { name: 'Lancer Evo VII/VIII/IX', fromYear: 2001, toYear: 2007 },
+  'CZ4A':     { name: 'Lancer Evo X',      fromYear: 2007, toYear: 2016 },
+  // Toyota AE86
+  'AE86':     { name: 'AE86 Sprinter Trueno / Corolla Levin', fromYear: 1983, toYear: 1987 },
+  // Honda Civic Type R
+  'EK9':      { name: 'EK9 Civic Type R',   fromYear: 1997, toYear: 2000 },
+  'EP3':      { name: 'EP3 Civic Type R',   fromYear: 2001, toYear: 2005 },
+  'FD2':      { name: 'FD2 Civic Type R',   fromYear: 2007, toYear: 2010 },
+  'FK8':      { name: 'FK8 Civic Type R',   fromYear: 2017, toYear: 2021 },
+  // Nissan Silvia / 180SX / 200SX
+  'S13':      { name: 'S13 Silvia / 180SX', fromYear: 1988, toYear: 1994 },
+  'S14':      { name: 'S14 Silvia',         fromYear: 1993, toYear: 1999 },
+  'S15':      { name: 'S15 Silvia',         fromYear: 1999, toYear: 2002 },
+  // Toyota Camry — non-enthusiast clarifier (Camry sells locally, this
+  // is the Japan-only hybrid).
+  'AXVH75':   { name: 'Japanese hybrid Camry',
+                fromYear: 2017, toYear: 2099,
+                chip: 'JDM Hybrid',
+                notes: 'This approval covers the Japanese-market hybrid Camry — not the Australian-spec Camry.' },
+};
+
+// "R series" appears in ROVER as a generic SEV model code covering R32/R33/R34
+// Skylines. We can't map a single chassis from "R series", so the variant
+// table doesn't catch it via getChassisVariantInfo. Add a separate descriptor
+// so the result card and detail page still get a useful context line for
+// these approvals.
+const MODEL_CODE_DESCRIPTORS = {
+  'R series': {
+    chip: 'R32/R33/R34',
+    notes: 'Covers the R32, R33, and R34 Skyline (and GT-R) generations — confirm your exact chassis code with JDM Connect before purchase.'
+  }
+};
+
+// Looks up variant info by exact-prefix match against any known chassis code.
+// Returns the most specific entry (longest matching key wins) so "BNR34" beats
+// the more generic "R34" when both appear.
+function getChassisVariantInfo(chassisRaw) {
+  if (!chassisRaw) return null;
+  const norm = String(chassisRaw).toUpperCase().replace(/[^A-Z0-9]/g, '');
+  let best = null;
+  for (const code of Object.keys(CHASSIS_VARIANT_INFO)) {
+    if (norm.startsWith(code)) {
+      if (!best || code.length > best.key.length) {
+        best = { key: code, ...CHASSIS_VARIANT_INFO[code] };
+      }
+    }
+  }
+  return best;
+}
+
+// Pulls the first chassis-code-shaped token out of a Model code field that
+// can contain comma- or slash-separated codes. Used for variant lookup so
+// "HV37/HNV37" returns the HV37 entry, "J50, NJ50" returns J50, etc.
+function firstChassisToken(modelCodeRaw) {
+  if (!modelCodeRaw) return '';
+  const tokens = String(modelCodeRaw).split(/[,\/]/).map(s => s.trim()).filter(Boolean);
+  for (const t of tokens) {
+    const v = getChassisVariantInfo(t);
+    if (v) return t;
+  }
+  return tokens[0] || '';
+}
+
+// Returns the variant info for a given approval record by inspecting its
+// chassis-code-bearing fields. SEVs use "Model code"; MREs sometimes have
+// chassis info in "Model report type" but it's usually just a generic
+// category, so MREs without explicit codes return null.
+function variantInfoForRecord(rec, isMRE) {
+  if (!rec) return null;
+  const codeField = isMRE
+    ? (rec['Model report type'] || rec['Model code'] || '')
+    : (rec['Model code'] || '');
+  return getChassisVariantInfo(firstChassisToken(codeField));
+}
+
+// Given an MRE (which has a Build date range) and a list of sibling SEVs,
+// pick the SEV whose build range *overlaps* the MRE's. Falls back to the
+// first SEV when none overlap (preserves prior behaviour for older records
+// where the date fields don't align). Fixes P0 #5 — MRE-000058 (1997–2002)
+// was inheriting HV37/HNV37 chassis codes from SEV-000517 (2013+).
+function pickSiblingSevByOverlap(mre, sevList) {
+  if (!sevList || !sevList.length) return null;
+  const m = parseBuildRange(mre['Build date range'] || '');
+  if (!m || !m.from) return sevList[0] || null;
+  const mFromY = m.from.getFullYear();
+  const mToY   = m.to ? m.to.getFullYear() : mFromY + 50;
+  for (const s of sevList) {
+    if (!s) continue;
+    const fromStr = s['Build date from'] || '';
+    const toStr   = s['Build date to']   || '';
+    const sParsed = parseBuildRange(fromStr + (toStr && toStr !== 'No end date' ? ' - ' + toStr : ''));
+    if (!sParsed || !sParsed.from) continue;
+    const sFromY = sParsed.from.getFullYear();
+    const sToY   = (toStr === 'No end date' || !sParsed.to) ? 2099 : sParsed.to.getFullYear();
+    // Overlap test: ranges intersect when each starts before the other ends.
+    if (sFromY <= mToY && sToY >= mFromY) return s;
+  }
+  return sevList[0] || null;
+}
+
 function doChassisSearch() {
   const q = document.getElementById('chassis-input').value.trim().toUpperCase();
   if (q.length < 3) { alert('Enter at least 3 characters.'); return; }
+
+  track('SearchSubmitted', {
+    mode: 'chassis',
+    make: '',
+    model: '',
+    chassis: q
+  });
+  track('Search', { search_string: q });
 
   withSearchLoadingState('search-btn-chassis', () => {
     const qNorm = q.replace(/[^A-Z0-9]/g, '');
@@ -1685,20 +2820,59 @@ function doChassisSearch() {
       return aliasFragments.some(f => upper.indexOf(f.toUpperCase()) !== -1);
     };
 
-    const mreMatches = MRE.filter(r =>
+    let mreMatches = MRE.filter(r =>
       (r['Approval number'] || '').toUpperCase().includes(q) ||
       (r.Model || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(qNorm) ||
       (r['Model report type'] || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(qNorm) ||
       aliasMatch(r.Model) ||
       aliasMatch(r['Model report type'])
     );
-    const sevMatches = SEV.filter(r =>
+    let sevMatches = SEV.filter(r =>
       (r['SEV #'] || '').toUpperCase().includes(q) ||
       (r['Model code'] || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(qNorm) ||
       (r.Model || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(qNorm) ||
       aliasMatch(r.Model) ||
       aliasMatch(r['Model code'])
     );
+
+    // Audit 2026-04-30 (P0 #4) — when the chassis query is a *specific*
+    // variant code (BNR34, FD3S, JZA80, etc.) we know the actual build era.
+    // Narrow alias-matched results to that era so the user lands on the
+    // right generation rather than every Skyline ever made.
+    const variantInfo = getChassisVariantInfo(q);
+    if (variantInfo && aliasFragments.length > 0) {
+      const inEra = (fromY, toY) => {
+        if (fromY == null) return true; // unknown → keep, don't drop
+        return fromY <= variantInfo.toYear && toY >= variantInfo.fromYear;
+      };
+      const mreNarrow = mreMatches.filter(r => {
+        // Always keep direct approval-number matches.
+        if ((r['Approval number'] || '').toUpperCase().includes(q)) return true;
+        const p = parseBuildRange(r['Build date range'] || '');
+        if (!p || !p.from) return true;
+        const fromY = p.from.getFullYear();
+        const toY   = p.to ? p.to.getFullYear() : 2099;
+        return inEra(fromY, toY);
+      });
+      const sevNarrow = sevMatches.filter(r => {
+        // Direct chassis-code match wins.
+        if ((r['Model code'] || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(qNorm)) return true;
+        const fromStr = r['Build date from'] || '';
+        const toStr   = r['Build date to']   || '';
+        const p = parseBuildRange(fromStr + (toStr && toStr !== 'No end date' ? ' - ' + toStr : ''));
+        if (!p || !p.from) return true;
+        const fromY = p.from.getFullYear();
+        const toY   = (toStr === 'No end date' || !p.to) ? 2099 : p.to.getFullYear();
+        return inEra(fromY, toY);
+      });
+      // Only apply the narrow if at least one record survives — otherwise we
+      // can't narrow honestly, fall back to the wider alias result so the
+      // user gets *something*.
+      if ((mreNarrow.length + sevNarrow.length) > 0) {
+        mreMatches = mreNarrow;
+        sevMatches = sevNarrow;
+      }
+    }
 
     showGroupedResults('', q, '', mreMatches, sevMatches, true);
   });
@@ -1729,27 +2903,40 @@ function showGroupedResults(make, model, year, mreMatches, sevMatches, isChassis
     return;
   }
 
-  // Group by Make|Model key
+  // Group by Make|Model key. Audit 2026-04-30 (smoke-test bug #4) —
+  // display-case make/model at the source so every downstream render
+  // (headers, breadcrumbs, CTAs, share text) gets a tidy "Nissan Skyline"
+  // instead of the raw "NISSAN Skyline" / "Toyota Camry" inconsistency
+  // that ROVER stores. Filters still use makeMatches() which compares
+  // case-insensitively, so this is render-only.
   const groupMap = {};
   mreMatches.forEach(r => {
     const key = (r.Make + '|' + r.Model).toUpperCase();
-    if (!groupMap[key]) groupMap[key] = { make: r.Make, model: r.Model, mre: [], sev: [] };
+    if (!groupMap[key]) groupMap[key] = { make: displayName(r.Make), model: displayName(r.Model), mre: [], sev: [] };
     groupMap[key].mre.push(r);
   });
   sevMatches.forEach(r => {
     const key = (r.Make + '|' + r.Model).toUpperCase();
-    if (!groupMap[key]) groupMap[key] = { make: r.Make, model: r.Model, mre: [], sev: [] };
+    if (!groupMap[key]) groupMap[key] = { make: displayName(r.Make), model: displayName(r.Model), mre: [], sev: [] };
     groupMap[key].sev.push(r);
   });
   currentGroups = Object.values(groupMap);
   currentPage = 1;
 
-  // Single result total → go straight to Screen 3
+  // Single approval in total → go straight to the Details screen.
   if (totalMatches === 1) {
     const g = currentGroups[0];
     const record = g.mre[0] || g.sev[0];
     const isMRE = g.mre.length > 0;
     renderScreen3(record, isMRE, `${g.make} ${g.model}`, g.mre, g.sev, wrap, null);
+    return;
+  }
+
+  // Single make/model group with multiple entries → skip the Results picker
+  // (a one-card "1 vehicle found" screen adds friction without information)
+  // and go straight to the Register screen for that group.
+  if (currentGroups.length === 1) {
+    showApprovalList(0);
     return;
   }
 
@@ -1782,13 +2969,74 @@ function renderScreen1(wrap) {
   for (let idx = startIdx; idx < endIdx; idx++) {
     const g = currentGroups[idx];
     const range = combinedBuildRange(g.mre, g.sev);
+    const totalEntries = g.mre.length + g.sev.length;
+    // Unique workshop count across MREs — mirrors the Manus "N workshops" pill.
+    const workshops = new Set();
+    g.mre.forEach(r => {
+      const w = r._workshop_short || r._approval_holder || '';
+      if (w) workshops.add(w);
+    });
+    const workshopCount = workshops.size;
+    // Deduped chassis codes across all SEV entries for this model.
+    const codeSet = new Set();
+    g.sev.forEach(r => {
+      (r['Model code'] || '').split(/[,\/]/).forEach(x => {
+        const t = x.trim();
+        if (t && t.length <= 20) codeSet.add(t);
+      });
+    });
+    const chassisCodes = Array.from(codeSet).slice(0, 6);
+    const extraCodes = codeSet.size - chassisCodes.length;
+
+    // Audit 2026-04-30 (P0 #4) — derive plain-English variant chips from
+    // the chassis codes when we recognise them, so a Skyline result card
+    // shows "R-series · V35 · V36 · V37" rather than "R series · V35 · V36
+    // · HV37/HNV37 · J50, NJ50 · RV37". Falls back to raw chassis pills
+    // when no variant mapping is known.
+    const variantChipSet = new Set();
+    for (const c of codeSet) {
+      const tok = firstChassisToken(c);
+      const vi = getChassisVariantInfo(tok);
+      if (vi && vi.chip) variantChipSet.add(vi.chip);
+      else if (vi) {
+        // Default chip = the chassis-code key (e.g. "BNR34") if it's
+        // recognisable, otherwise the first variant-name word.
+        const fallback = (tok && /^[A-Z]+\d+/i.test(tok)) ? tok.toUpperCase() : vi.name.split(' ')[0];
+        variantChipSet.add(fallback);
+      } else if (MODEL_CODE_DESCRIPTORS[c] && MODEL_CODE_DESCRIPTORS[c].chip) {
+        variantChipSet.add(MODEL_CODE_DESCRIPTORS[c].chip);
+      }
+    }
+    const variantChips = Array.from(variantChipSet).slice(0, 8);
+
+    // Single-variant aware context line. If the group's recognised variant
+    // chassis all share a `notes` field (e.g. AXVH75 → JDM hybrid Camry
+    // disclaimer), surface that note above the build range so non-enthusiasts
+    // see the disambiguation immediately.
+    let variantNoteLine = '';
+    const seenNotes = new Set();
+    for (const c of codeSet) {
+      const vi = getChassisVariantInfo(firstChassisToken(c));
+      if (vi && vi.notes) seenNotes.add(vi.notes);
+      else if (MODEL_CODE_DESCRIPTORS[c] && MODEL_CODE_DESCRIPTORS[c].notes) seenNotes.add(MODEL_CODE_DESCRIPTORS[c].notes);
+    }
+    if (seenNotes.size === 1) {
+      variantNoteLine = `<div class="model-card-variant-note">${Array.from(seenNotes)[0]}</div>`;
+    }
+
     html += `
       <div class="model-card" onclick="showApprovalList(${idx})">
         <div class="model-card-top">
           <div class="model-card-info">
-            <div><span class="eligible-badge">✓ Eligible</span></div>
+            <div class="model-card-pills-row">
+              <span class="eligible-badge">✓ Eligible</span>
+              ${workshopCount > 0 ? `<span class="count-pill pill-workshops">${workshopCount} workshop${workshopCount !== 1 ? 's' : ''}</span>` : ''}
+            </div>
             <div class="model-card-name">${g.make} ${g.model}</div>
-            <div class="model-card-range">Build: ${range}</div>
+            <div class="model-card-range">Build: ${range} &nbsp;·&nbsp; ${totalEntries} register ${totalEntries === 1 ? 'entry' : 'entries'}</div>
+            ${variantNoteLine}
+            ${variantChips.length ? `<div class="chassis-pills" style="margin-top:10px;">${variantChips.map(c => `<span class="chassis-pill chassis-pill-variant">${c}</span>`).join('')}</div>` : ''}
+            ${chassisCodes.length ? `<div class="chassis-pills" style="margin-top:8px;">${chassisCodes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}${extraCodes > 0 ? `<span class="chassis-pill" style="border-style:dashed;">+${extraCodes}</span>` : ''}</div>` : ''}
           </div>
           <div class="model-card-chevron">›</div>
         </div>
@@ -1820,100 +3068,280 @@ function gotoPage(page) {
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// ── PLAIN-ENGLISH SUMMARY CARD ──────────────────────────────────────────────
+// Generates a human-readable summary so everyday users get the answer immediately.
+function buildSummaryCard(group, buildRange, workshopCount, isImportable, hasExpiringSoon) {
+  const vehicleName = `${group.make} ${group.model}`;
+  const contactUrl = 'https://jdmconnect.com.au/contact';
+  const workshopLabel = workshopCount > 0
+    ? `${workshopCount} compliance workshop${workshopCount !== 1 ? 's' : ''} approved`
+    : `${group.mre.length} import approval${group.mre.length !== 1 ? 's' : ''} currently active`;
+
+  if (!isImportable) {
+    return `
+      <div class="summary-card summary-card-red">
+        <div class="summary-card-headline">This vehicle is not currently eligible for import to Australia.</div>
+        <div class="summary-card-detail">No active approvals found for ${vehicleName}. There may be other pathways — contact JDM Connect to discuss options.</div>
+        <a href="${contactUrl}" class="summary-card-cta" target="_blank" data-cta="pathways" data-cta-source="summary_card">Talk to JDM Connect →</a>
+      </div>
+    `;
+  }
+
+  let warningLine = '';
+  if (hasExpiringSoon) {
+    warningLine = `<div class="summary-card-warning">⚠ Approval expiring soon — act quickly to clear customs before expiry.</div>`;
+  }
+
+  return `
+    <div class="summary-card summary-card-green">
+      <div class="summary-card-headline">Yes, you can import a ${vehicleName} to Australia.</div>
+      <div class="summary-card-facts">
+        <div class="summary-fact"><span class="summary-fact-label">Eligible build years</span><span class="summary-fact-value">${buildRange}</span></div>
+        <div class="summary-fact"><span class="summary-fact-label">Workshops</span><span class="summary-fact-value">${workshopLabel}</span></div>
+      </div>
+      ${warningLine}
+      <a href="${contactUrl}" class="summary-card-cta" target="_blank" data-cta="get_quote" data-cta-source="summary_card">Get a free quote →</a>
+    </div>
+  `;
+}
+
 // ── SCREEN 2: VEHICLE SUMMARY ────────────────────────────────────────────────
 // Merges all MRE + SEV approvals for the same vehicle into a single card
 // showing the widest build range, chassis codes, description, and workshop count.
 // Clicking through shows individual approvals.
+// ── SCREEN 2: REGISTER (Manus-style) ─────────────────────────────────────────
+// Replaces the old single merged approval-row (which was confusing — one card
+// had to represent N SEV + M MRE entries). The Register screen now lists each
+// entry individually, split by type, so users can pick the specific pathway
+// matching their car's build date and chassis code.
 function showApprovalList(groupIdx) {
   const wrap = document.getElementById('results-wrap');
   const g = currentGroups[groupIdx];
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Vehicle context for the delegated CTA-click handler.
+  currentVehicleContext = { make: g.make || '', model: g.model || '' };
 
-  // ── Compute the widest build range across ALL approvals ────────────────────
-  const overallRange = combinedBuildRange(g.mre, g.sev);
-
-  // ── Chassis codes from SEV records ─────────────────────────────────────────
-  const codeParts = new Set();
-  g.sev.forEach(r => {
-    const c = r['Model code'] || '';
-    c.split(/[,\/]/).forEach(x => { const t = x.trim(); if (t) codeParts.add(t); });
-  });
-  const codesStr = Array.from(codeParts).join(' · ');
-
-  // ── Human-friendly description from MRE work instructions ──────────────────
-  let descriptionStr = '';
-  for (const r of g.mre) {
-    const parsed = formatVariantDescription(r['_variant_description'] || r['_work_instructions'] || '');
-    if (parsed) { descriptionStr = parsed; break; }
-  }
-
-  // ── Workshop count (unique workshops across all MREs) ──────────────────────
-  const workshops = new Set();
-  g.mre.forEach(r => {
-    const w = r['_workshop_short'] || r['_approval_holder'] || '';
-    if (w) workshops.add(w);
-  });
-  const workshopCount = workshops.size;
-
-  // ── Status: check across ALL approvals ─────────────────────────────────────
+  // ── Compute importability + warnings for the page-bottom CTA ───────────────
   let hasExpiringSoon = false;
   g.sev.forEach(r => {
-    const { label } = getSevExpiryStatus(r);
-    if (label === 'Expiring Soon') hasExpiringSoon = true;
+    if (getSevExpiryStatus(r).label === 'Expiring Soon') hasExpiringSoon = true;
   });
   const activeMRE = g.mre.filter(r => (r['Approval status'] || 'In Force') === 'In Force').length;
   const activeSEV = g.sev.filter(r => getSevExpiryStatus(r).label !== 'Expired').length;
   const isImportable = activeMRE > 0 || activeSEV > 0;
 
-  let statusBadge, warningBanner = '';
-  if (!isImportable) {
-    statusBadge = `<span class="badge badge-red">NOT ELIGIBLE</span>`;
-  } else if (hasExpiringSoon) {
-    statusBadge = `<span class="badge badge-amber">⚠ EXPIRING SOON</span>`;
-    warningBanner = `<div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:6px;padding:6px 10px;font-size:11px;color:#78350f;margin-top:6px;">⚠ One or more SEVS approvals are expiring soon — vehicle must clear customs before expiry. Contact JDM Connect urgently.</div>`;
-  } else {
-    statusBadge = `<span class="badge badge-green">✓ ELIGIBLE</span>`;
+  const totalEntries = g.mre.length + g.sev.length;
+
+  // Step indicator removed 2026-04-24 — breadcrumbs already mark position;
+  // the four-circle row was ambient noise on every screen.
+  // Only show the back button when the user came from a multi-model results
+  // list — if they skipped straight here (single group), there's nothing to
+  // go back to except search, which the breadcrumb already handles.
+  let html = '';
+  if (currentGroups.length > 1) {
+    html += `<button class="back-btn" onclick="renderScreen1(document.getElementById('results-wrap'))">← Back to results</button>`;
   }
+  html += renderBreadcrumbs([
+    { label: 'Search', onclick: 'resetSearch()' },
+    { label: g.make },
+    { label: g.model },
+  ]);
 
-  // ── Build the single merged card ───────────────────────────────────────────
-  // Store a single "generation" containing ALL approvals for click-through
-  currentGenerations[groupIdx] = [{ mre: g.mre.map((r, i) => ({r, i})), sev: g.sev.map((r, i) => ({r, i})), displayRange: overallRange }];
-
-  const totalApprovals = g.mre.length + g.sev.length;
-  const clickAction = totalApprovals === 1
-    ? (g.mre.length ? `showScreen3FromList(${groupIdx},'mre',0)` : `showScreen3FromList(${groupIdx},'sev',0)`)
-    : `showGenerationDetail(${groupIdx},0)`;
-
-  const workshopLine = workshopCount > 0
-    ? `<div style="font-size:11px;color:#9ca3af;margin-top:4px;">${workshopCount} approved workshop${workshopCount !== 1 ? 's' : ''}</div>`
-    : '';
-
-  let html = `
-    <button class="back-btn" onclick="renderScreen1(document.getElementById('results-wrap'))">← Back to results</button>
-    <div class="approval-list-header">
-      <div><span class="eligible-badge">✓ Eligible</span></div>
-      <div class="approval-list-title">${g.make} ${g.model}</div>
-    </div>
-    <div class="approval-rows">
-      <div class="approval-row" onclick="${clickAction}" style="flex-direction:column;align-items:stretch;gap:4px;cursor:pointer;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
-          <div style="flex:1;min-width:0;">
-            ${codesStr ? `<div class="approval-row-meta" style="margin-bottom:4px;">${codesStr}</div>` : ''}
-            ${descriptionStr ? `<div style="font-size:13px;color:#374151;">${descriptionStr}</div>` : ''}
-            <div style="font-size:12px;color:#6b7280;margin-top:3px;">Build: ${overallRange}</div>
-            ${workshopLine}
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-            ${statusBadge}
-            <span class="approval-row-chevron">›</span>
-          </div>
-        </div>
-        ${warningBanner}
-      </div>
+  // Vehicle header — kept minimal. Audit 2026-04-30 (P0 #3) added a sub-line
+  // that explicitly tells the user how many approvals they're choosing
+  // between, replacing the cold "Other approvals" framing the previous
+  // design implied.
+  html += `
+    <div class="register-header">
+      <h1 class="register-title">${g.make} ${g.model}</h1>
+      <p class="register-subtitle">We found ${totalEntries} approval${totalEntries === 1 ? '' : 's'} for the ${g.make} ${g.model}. Pick the one closest to your car.</p>
     </div>
   `;
 
-  html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
+  // Optional warning banner
+  if (hasExpiringSoon) {
+    html += `
+      <div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:8px;padding:10px 14px;font-size:13px;color:#78350f;margin-bottom:18px;">
+        ⚠ One or more approvals are expiring soon — contact JDM Connect urgently to clear customs before expiry.
+      </div>
+    `;
+  }
+
+  // ── SEVS section ─────────────────────────────────────────────────────────
+  if (g.sev.length > 0) {
+    // Audit 2026-04-30 (smoke-test follow-up) — multiple SEV records often
+    // describe the same vehicle variant with only the SEV number differing
+    // (e.g. SEV-000769/770/771 are all V36 Skyline 10/2007–05/2013). To a
+    // non-enthusiast these look like duplicates. Group rows by the visible
+    // signature (Model code · Build window · Category · Status) and merge
+    // their approval numbers into one row. The merged row links to the
+    // first SEV's detail screen — the rest are still individually
+    // reachable via deep link / breadcrumbs.
+    const sevDedupeMap = new Map();
+    g.sev.forEach((r, i) => {
+      const key = [
+        (r['Model code'] || '').trim().toUpperCase(),
+        (r['Build date from'] || '').trim(),
+        (r['Build date to'] || '').trim(),
+        (r['Category'] || '').trim(),
+        getSevExpiryStatus(r).label
+      ].join('|');
+      if (!sevDedupeMap.has(key)) sevDedupeMap.set(key, { rec: r, indices: [] });
+      sevDedupeMap.get(key).indices.push(i);
+    });
+    const sevGroups = Array.from(sevDedupeMap.values());
+    html += `
+      <section class="register-section">
+        <h2 class="register-section-title">Cars eligible to import</h2>
+        <div class="register-section-list">
+    `;
+    sevGroups.forEach((grp) => {
+      const r = grp.rec;
+      const i = grp.indices[0];
+      const { label: expiryLabel } = getSevExpiryStatus(r);
+      const isActive = expiryLabel !== 'Expired';
+      const statusLabel = isActive ? (expiryLabel === 'Expiring Soon' ? 'Expiring Soon' : 'Active') : 'Expired';
+      const statusClass = isActive
+        ? (expiryLabel === 'Expiring Soon' ? 'status-badge-expiring' : 'status-badge-active')
+        : 'status-badge-expired';
+
+      const chassisCodes = (r['Model code'] || '')
+        .split(/[,\/]/).map(s => s.trim()).filter(Boolean);
+
+      // Only surface the category when the ROVER record actually carries one.
+      // Silent fallback to "Passenger Vehicle" was dishonest — most SEV rows
+      // have no post-mod code and we'd mislabel niche pathways (welcab, etc.).
+      const postMod = humanPostMod(r['Post-modification category'] || '');
+      const categoryLabel = (postMod && postMod !== '—') ? postMod : '';
+
+      const buildFrom = formatBuildRange(r['Build date from'] || '');
+      const buildToRaw = r['Build date to'] || '';
+      const buildTo = (!buildToRaw || buildToRaw === 'No end date') ? 'Present' : formatBuildRange(buildToRaw);
+      const buildStr = buildFrom && buildFrom !== 'Unknown' ? `${buildFrom} – ${buildTo}` : 'Unknown';
+
+      // Audit 2026-04-30 (P0 #3) — title now leads with the variant name
+      // when we recognise the chassis (e.g. "R34 GT-R"), falling back to the
+      // chassis codes themselves and then to a neutral "SEVS entry". The
+      // model+make is already in the page header so the row label can be
+      // 100% about the variant.
+      const variantInfo = getChassisVariantInfo(firstChassisToken(r['Model code'] || ''));
+      const title = variantInfo ? variantInfo.name
+        : (chassisCodes.length ? chassisCodes.join(', ') : (categoryLabel || 'SEVS entry'));
+
+      const sevNum = r['SEV #'] || '—';
+      const buildYears = (() => {
+        const f = (r['Build date from'] || '').match(/(\d{4})/);
+        const t = (r['Build date to']   || '').match(/(\d{4})/);
+        if (!f) return buildStr;
+        if (!t || /no end date/i.test(r['Build date to'] || '')) return f[1] + ' – present';
+        return f[1] + ' – ' + t[1];
+      })();
+      const chassisStr = chassisCodes.length ? chassisCodes.join(' · ') : '';
+
+      // Merged approval codes (one entry per dedupe group). Cap at 3 visible
+      // codes so the row stays readable on mobile; surplus rolls into "+N".
+      const allSevNums = grp.indices.map(idx => g.sev[idx]['SEV #']).filter(Boolean);
+      const visibleNums = allSevNums.slice(0, 3);
+      const extraNums = allSevNums.length - visibleNums.length;
+      const approvalCodesHtml = allSevNums.length > 1
+        ? `Approvals: ${visibleNums.map(n => `<span class="register-entry-code">${n}</span>`).join(' · ')}${extraNums > 0 ? ` · <span class="register-entry-code">+${extraNums} more</span>` : ''}`
+        : `Approval: <span class="register-entry-code">${sevNum}</span>`;
+      const ariaApproval = allSevNums.length > 1
+        ? `${allSevNums.length} SEVS entries (${allSevNums.join(', ')})`
+        : `SEVS entry ${sevNum}`;
+
+      html += `
+        <button class="register-entry-card" onclick="showScreen3FromList(${groupIdx},'sev',${i})" aria-label="View ${ariaApproval} for ${g.make} ${g.model}">
+          <div class="register-entry-head">
+            <span class="type-badge type-badge-sev">SEV</span>
+            <span class="type-badge ${statusClass}">${statusLabel}</span>
+          </div>
+          <h3 class="register-entry-title">${title}</h3>
+          <div class="register-entry-primary">
+            <span class="register-entry-build">Build: ${buildYears}</span>
+            ${chassisStr ? `<span class="register-entry-chassis">Chassis: ${chassisStr}</span>` : ''}
+          </div>
+          <div class="register-entry-secondary">
+            ${approvalCodesHtml}
+          </div>
+          <span class="register-entry-arrow">→</span>
+        </button>
+      `;
+    });
+    html += `</div></section>`;
+  }
+
+  // ── MRE section ─────────────────────────────────────────────────────────
+  if (g.mre.length > 0) {
+    html += `
+      <section class="register-section">
+        <h2 class="register-section-title">Workshops approved to comply this car</h2>
+        <div class="register-section-list">
+    `;
+    g.mre.forEach((r, i) => {
+      const status = r['Approval status'] || 'In Force';
+      const isActive = status === 'In Force';
+      const statusLabel = isActive ? 'Active' : status;
+      const statusClass = isActive ? 'status-badge-active' : 'status-badge-expired';
+
+      const approvalNum = r['Approval number'] || '—';
+      const workshopName = r['_workshop_short'] || r['_approval_holder'] || '';
+      const complianceLevel = r['Compliance Level'] || '';
+
+      // Audit 2026-04-30 (P0 #3) — lead with build year range and chassis
+      // codes (where we can derive them from a build-overlapping sibling
+      // SEV), so users self-select by variant rather than by MRE number.
+      const buildYears = (() => {
+        const p = parseBuildRange(r['Build date range'] || '');
+        if (!p || !p.from) return formatBuildRange(r['Build date range'] || '') || '—';
+        const fromY = p.from.getFullYear();
+        const toY = p.to ? p.to.getFullYear() : null;
+        return toY ? fromY + ' – ' + toY : fromY + ' – present';
+      })();
+      const matchedSev = pickSiblingSevByOverlap(r, g.sev || []);
+      const matchedCodes = matchedSev
+        ? (matchedSev['Model code'] || '').split(/[,\/]/).map(s => s.trim()).filter(Boolean)
+        : [];
+      const variantInfo = matchedSev
+        ? getChassisVariantInfo(firstChassisToken(matchedSev['Model code'] || ''))
+        : null;
+      const title = variantInfo
+        ? variantInfo.name + (workshopName ? ' — ' + workshopName : '')
+        : (workshopName || `Compliance Workshop ${approvalNum}`);
+      const chassisStr = matchedCodes.length ? matchedCodes.slice(0, 4).join(' · ') : '';
+
+      html += `
+        <button class="register-entry-card" onclick="showScreen3FromList(${groupIdx},'mre',${i})" aria-label="View MRE entry ${approvalNum} for ${g.make} ${g.model}">
+          <div class="register-entry-head">
+            <span class="type-badge type-badge-mre">MRE</span>
+            <span class="type-badge ${statusClass}">${statusLabel}</span>
+          </div>
+          <h3 class="register-entry-title">${title}</h3>
+          <div class="register-entry-primary">
+            <span class="register-entry-build">Build: ${buildYears}</span>
+            ${chassisStr ? `<span class="register-entry-chassis">Chassis: ${chassisStr}</span>` : ''}
+          </div>
+          <div class="register-entry-secondary">
+            Approval: <span class="register-entry-code">${approvalNum}</span>
+            ${complianceLevel ? ` · Level: ${complianceLevel}` : ''}
+          </div>
+          <span class="register-entry-arrow">→</span>
+        </button>
+      `;
+    });
+    html += `</div></section>`;
+  }
+
+  // ── Bottom CTA row (primary conversion + new search) ─────────────────────
+  const eligibleCta = isImportable
+    ? `<a href="https://jdmconnect.com.au/contact?utm_source=eligibility&utm_medium=register&utm_campaign=import_this_car&vehicle=${encodeURIComponent(g.make + ' ' + g.model)}" class="result-cta" target="_blank" rel="noopener" data-cta="get_quote" data-cta-source="register_list">Import this ${g.make} ${g.model} →</a>`
+    : '';
+  html += `
+    <div class="result-actions">
+      <button class="search-again" onclick="resetSearch()">← New search</button>
+      ${eligibleCta}
+    </div>
+  `;
   wrap.innerHTML = html;
 }
 
@@ -1940,100 +3368,128 @@ function showGenerationDetail(groupIdx, genIdx) {
     return a.localeCompare(b);
   });
 
-  let html = `
-    <button class="back-btn" onclick="showApprovalList(${groupIdx})">← Back to ${g.make} ${g.model}</button>
+  // ── Compute summary data for this generation ───────────────────────────────
+  const totalMreCount = gen.mre.length;
+  const totalSevCount = gen.sev.length;
+  const allWorkshops = new Set();
+  gen.mre.forEach(({r}) => {
+    const w = r['_workshop_short'] || r['_approval_holder'] || '';
+    if (w) allWorkshops.add(w);
+  });
+  const genWorkshopCount = allWorkshops.size || totalMreCount;
+  const hasExpiring = gen.sev.some(({r}) => getSevExpiryStatus(r).label === 'Expiring Soon');
+  const isImportable = gen.mre.some(({r}) => (r['Approval status'] || 'In Force') === 'In Force')
+    || gen.sev.some(({r}) => getSevExpiryStatus(r).label !== 'Expired');
+  const genSummary = buildSummaryCard(g, gen.displayRange, genWorkshopCount, isImportable, hasExpiring);
+
+  let html = renderBreadcrumbs([
+    { label: 'Search', onclick: 'resetSearch()' },
+    { label: g.make, onclick: `renderScreen1(document.getElementById('results-wrap'))` },
+    { label: g.model, onclick: `showApprovalList(${groupIdx})` },
+    { label: 'Register' },
+  ]);
+  html += `
     <div class="approval-list-header">
-      <div><span class="eligible-badge">✓ Eligible</span></div>
       <div class="approval-list-title">${g.make} ${g.model}</div>
       <div class="approval-list-sub">Build era: ${gen.displayRange}</div>
     </div>
+    ${genSummary}
   `;
 
-  // ── Render each chassis group ─────────────────────────────────────────────
-  sortedKeys.forEach(chassis => {
-    const items = chassisGroups[chassis];
-
-    // Get human-friendly description from any MRE in this group
-    let groupDesc = '';
-    for (const {r} of items) {
-      const parsed = formatVariantDescription(r['_variant_description'] || r['_work_instructions'] || '');
-      if (parsed) { groupDesc = parsed; break; }
-    }
-
-    // Get widest build range in this group
-    let groupBuild = '';
-    if (items.length > 0) {
-      const ranges = items.map(({r}) => formatBuildRange(r['Build date range'])).filter(Boolean);
-      groupBuild = ranges[0] || '';
-    }
-
-    const chassisLabel = chassis === '_other' ? 'Other approvals' : chassis;
-    const workshopCount = items.length;
-
+  // ── Section: Approved Compliance Workshops ───────────────────────────────
+  if (totalMreCount > 0) {
     html += `
-      <div style="margin-top:16px;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:0 2px;">
-          <span style="font-family:'DM Mono',monospace;font-weight:700;font-size:14px;color:#1f2937;background:#f3f4f6;padding:3px 10px;border-radius:4px;">${chassisLabel}</span>
-          ${groupDesc ? `<span style="font-size:13px;color:#374151;">${groupDesc}</span>` : ''}
+      <div style="margin-top:20px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:0 2px;">
+          <span style="font-weight:700;font-size:15px;color:var(--text);">Approved Compliance Workshops</span>
         </div>
-        ${groupBuild ? `<div style="font-size:12px;color:#6b7280;padding:0 2px;margin-bottom:6px;">Build: ${groupBuild}</div>` : ''}
-        <div style="font-size:11px;color:#9ca3af;padding:0 2px;margin-bottom:8px;">${workshopCount} approved workshop${workshopCount !== 1 ? 's' : ''}</div>
-        <div class="approval-rows">
     `;
 
-    items.forEach(({r, i}) => {
+    // Render MRE entries as register cards
+    const allMreItems = [];
+    sortedKeys.forEach(chassis => { chassisGroups[chassis].forEach(item => allMreItems.push(item)); });
+    const mreCollapseId = `mre-${groupIdx}`;
+    const showMreCollapse = allMreItems.length > 3;
+
+    html += `<div style="display:flex;flex-direction:column;gap:8px;">`;
+    allMreItems.forEach(({r, i}, idx) => {
       const status = r['Approval status'] || 'In Force';
-      const badgeCls = status === 'In Force' ? 'badge-green' : 'badge-amber';
+      const statusLabel = humanStatus(status);
+      const statusCls = status === 'In Force' ? 'status-badge-active' : 'status-badge-expiring';
       const workshop = r['_workshop_short'] || r['_approval_holder'] || r['Approval number'];
+      const buildRange = formatBuildRange(r['Build date range']);
+      const hidden = showMreCollapse && idx >= 3 ? ` style="display:none;" data-collapse="${mreCollapseId}"` : '';
       html += `
-        <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'mre',${i})" style="cursor:pointer;">
-          <div class="approval-row-left" style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:600;color:#1f2937;">${workshop}</div>
-            <div style="font-size:11px;color:#9ca3af;margin-top:1px;">
-              <a href="${roverDetailUrl(r, true)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-size:11px;" onclick="event.stopPropagation();">${r['Approval number']}</a>
+        <div class="register-card" onclick="showScreen3FromList(${groupIdx},'mre',${i})"${hidden}>
+          <div class="register-card-body">
+            <div class="register-card-badges">
+              <span class="type-badge type-badge-mre">MRE</span>
+              <span class="type-badge ${statusCls}">${statusLabel}</span>
+            </div>
+            <div class="register-card-title">${workshop}</div>
+            <div class="register-card-meta">
+              <span>Build: ${buildRange}</span>
+              <span class="mono">#${r['Approval number']}</span>
             </div>
           </div>
-          <div class="approval-row-right">
-            <span class="badge ${badgeCls}">${status}</span>
-            <span class="approval-row-chevron">›</span>
-          </div>
+          <span class="register-card-arrow">→</span>
         </div>
       `;
     });
+    html += `</div>`;
 
-    html += `</div></div>`;
-  });
+    if (showMreCollapse) {
+      html += `
+        <button class="show-more-btn" onclick="toggleWorkshops('${mreCollapseId}', this)" style="display:block;width:100%;padding:10px;margin-top:6px;background:none;border:1px dashed var(--border);border-radius:8px;color:var(--text-muted);font-size:13px;cursor:pointer;text-align:center;">
+          Show all ${allMreItems.length} workshops ▾
+        </button>
+      `;
+    }
 
-  // ── Render SEV records ────────────────────────────────────────────────────
-  if (gen.sev.length > 0) {
+    html += `</div>`;
+  }
+
+  // ── Section: Vehicle Eligibility (SEV records) ─────────────────────────────
+  if (totalSevCount > 0) {
     html += `
-      <div style="margin-top:16px;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:0 2px;">
-          <span style="font-family:'DM Mono',monospace;font-weight:700;font-size:14px;color:#1f2937;background:#f3f4f6;padding:3px 10px;border-radius:4px;">SEVS</span>
-          <span style="font-size:13px;color:#6b7280;">Vehicle eligibility approvals</span>
+      <div style="margin-top:24px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:0 2px;">
+          <span style="font-weight:700;font-size:15px;color:var(--text);">Vehicle Eligibility (SEVS)</span>
         </div>
-        <div class="approval-rows">
+        <div style="display:flex;flex-direction:column;gap:8px;">
     `;
 
     gen.sev.forEach(({r, i}) => {
-      const { label, cls } = getSevExpiryStatus(r);
+      const { label } = getSevExpiryStatus(r);
+      const sevLabel = label === 'In Force' ? 'Active' : label;
+      const statusCls = label === 'In Force' ? 'status-badge-active' : label === 'Expiring Soon' ? 'status-badge-expiring' : 'status-badge-expired';
       const modelCode = r['Model code'] || '';
+      const category = r['Category'] || '';
       const fromStr = r['Build date from'] || '';
       const toStr = r['Build date to'] || '';
       const buildRange = fromStr ? (fromStr + (toStr && toStr !== 'No end date' ? ' – ' + toStr : '+')) : '';
+      // Build title like "Passenger Vehicle — ANH20 WELCAB ONLY"
+      const catLabel = category ? category.replace(/^[A-Z]{2}\s*-\s*/, '') : '';
+      const sevTitle = catLabel && modelCode ? `${catLabel} — ${modelCode}` : (modelCode || r['SEV #']);
+      // Chassis code pills
+      const codes = modelCode ? modelCode.split(/[,\/]/).map(c => c.trim()).filter(Boolean) : [];
       html += `
-        <div class="approval-row" onclick="showScreen3FromList(${groupIdx},'sev',${i})" style="cursor:pointer;">
-          <div class="approval-row-left" style="flex:1;min-width:0;">
-            <div style="font-size:13px;font-weight:600;color:#1f2937;">${modelCode || r['SEV #']}</div>
-            <div style="font-size:11px;color:#9ca3af;margin-top:1px;">
-              <a href="${roverDetailUrl(r, false)}" target="_blank" rel="noopener" style="color:#715723;text-decoration:underline;font-size:11px;" onclick="event.stopPropagation();">${r['SEV #']}</a>
-              ${buildRange ? ` · Build: ${buildRange}` : ''}
+        <div class="register-card" onclick="showScreen3FromList(${groupIdx},'sev',${i})">
+          <div class="register-card-body">
+            <div class="register-card-badges">
+              <span class="type-badge type-badge-sev">SEV</span>
+              <span class="type-badge ${statusCls}">${sevLabel}</span>
+              ${r['Under review'] === 'Yes' ? '<span class="type-badge status-badge-expiring">⚠ Under Review</span>' : ''}
             </div>
+            <div class="register-card-title">${sevTitle}</div>
+            <div class="register-card-meta">
+              ${buildRange ? `<span>Build: ${buildRange}</span>` : ''}
+              ${catLabel ? `<span>Category: ${catLabel}</span>` : ''}
+              <span class="mono">#${r['SEV #']}</span>
+            </div>
+            ${codes.length > 0 ? `<div class="chassis-pills">${codes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}</div>` : ''}
           </div>
-          <div class="approval-row-right">
-            <span class="badge ${cls}">${label}</span>
-            <span class="approval-row-chevron">›</span>
-          </div>
+          <span class="register-card-arrow">→</span>
         </div>
       `;
     });
@@ -2050,6 +3506,7 @@ function showScreen3FromList(groupIdx, type, recordIdx) {
   const record = type === 'mre' ? g.mre[recordIdx] : g.sev[recordIdx];
   const isMRE = type === 'mre';
   const wrap = document.getElementById('results-wrap');
+  // g.make / g.model are already display-cased at group construction.
   renderScreen3(record, isMRE, `${g.make} ${g.model}`, g.mre, g.sev, wrap, groupIdx);
 }
 
@@ -2057,6 +3514,27 @@ function showScreen3FromList(groupIdx, type, recordIdx) {
 function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) {
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   const approvalNum = isMRE ? r['Approval number'] : r['SEV #'];
+
+  // Audit 2026-04-30 — record current vehicle context so the delegated
+  // CTA-click handler can attach make/model to GetQuoteClicked etc.
+  // Fire EligibleResultViewed for ACTIVE approvals (Meta funnel anchor).
+  const _vehMake  = (vehicleName.split(' ')[0] || '').trim();
+  const _vehModel = vehicleName.replace(_vehMake, '').trim();
+  currentVehicleContext = { make: _vehMake, model: _vehModel };
+  const _statusForTrack = isMRE
+    ? (r['Approval status'] || 'In Force')
+    : getSevExpiryStatus(r).label;
+  if (_statusForTrack === 'In Force' || _statusForTrack === 'Expiring Soon') {
+    track('EligibleResultViewed', {
+      make: _vehMake,
+      model: _vehModel,
+      sev_or_mre: isMRE ? 'MRE' : 'SEV',
+      approval_number: approvalNum || '',
+      build_years: isMRE
+        ? (r['Build date range'] || '')
+        : ((r['Build date from'] || '') + ' - ' + (r['Build date to'] || ''))
+    });
+  }
 
   // Audit #13 — write deep-link hash for this approval.
   if (isMRE && approvalNum) writeUrlHash({ mre: approvalNum });
@@ -2066,7 +3544,13 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
   // we still want to consult the SEV for chassis codes, expiry, and the
   // header subtitle. Without this fallback, MRE pages render half-blank
   // because the MRE list-scrape doesn't carry chassis codes or expiry.
-  const primarySev = (sevList || []).find(s => s && s['SEV #']) || null;
+  // Audit 2026-04-30 (P0 #5): when viewing an MRE, prefer the sibling SEV
+  // whose build range overlaps this approval — otherwise we surface chassis
+  // codes from a *different* generation (e.g. MRE-000058 1997–2002 was
+  // pulling HV37/HNV37 from a 2013+ SEV).
+  const primarySev = isMRE
+    ? (pickSiblingSevByOverlap(r, sevList || []) || (sevList || []).find(s => s && s['SEV #']) || null)
+    : ((sevList || []).find(s => s && s['SEV #']) || null);
 
   const buildRange = isMRE
     ? formatBuildRange(r['Build date range'])
@@ -2094,26 +3578,22 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
   const isOver25 = bRange25 && bRange25.from && (new Date().getFullYear() - bRange25.from.getFullYear()) >= 25;
 
   const totalApprovals = (mreList ? mreList.length : 0) + (sevList ? sevList.length : 0);
-  // Phase 2.4 — back button per Ben's mockup. Three cases:
-  //   1. Came from build-era list (groupIdx set, >1 approval) → back to eras
-  //   2. Came from grouped Screen 1 with single era (groupIdx set, 1 approval) → back to results
-  //   3. Came via single-result shortcut (groupIdx is null/undefined) → New search is the only "back"
-  let backBtn;
-  if (groupIdx !== null && groupIdx !== undefined) {
-    backBtn = totalApprovals > 1
-      ? `<button class="back-btn" onclick="showApprovalList(${groupIdx})">← Back to build eras</button>`
-      : `<button class="back-btn" onclick="renderScreen1(document.getElementById('results-wrap'))">← Back to results</button>`;
-  } else {
-    backBtn = `<button class="back-btn" onclick="resetSearch()">← New search</button>`;
-  }
+  // Audit 2026-04-30 (detail-page brief A) — single Back button via
+  // history.back() with a deep-link fallback. Sits above the breadcrumb
+  // so users arriving from a Facebook ad / shared URL have an obvious
+  // way back up the funnel even when there's no in-app history.
+  const backBtn = `<button class="back-btn" onclick="handleBack()">← Back</button>`;
 
+  const statusDisplay = status === 'In Force' ? 'Active' : status;
   const statusBadgeCls = status === 'In Force' ? 'badge-green' : status === 'Expiring Soon' ? 'badge-amber' : 'badge-red';
 
   // ─── Phase 2.3 — Ben's mockup parity ──────────────────────────────────────
   // Build the row data for Card A (Vehicle details).
-  const displayMake = (r.Make || (vehicleName.split(' ')[0])).trim();
+  // Audit 2026-04-30 (smoke-test bug #4) — render with displayName so
+  // "NISSAN" and "TOYOTA" come through as "Nissan" / "Toyota".
+  const displayMake = displayName((r.Make || (vehicleName.split(' ')[0])).trim());
   // Strip the make from vehicleName so the model row doesn't duplicate it.
-  const displayModel = (r.Model || vehicleName.replace(displayMake, '').trim() || '—');
+  const displayModel = displayName(r.Model || vehicleName.replace(/^.+? /, '').trim() || '—');
 
   // Year Range — Option A. SEV uses Build date from / Build date to directly,
   // mapping "No end date" → "present". MRE keeps existing formatBuildRange.
@@ -2194,7 +3674,7 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     ? `
       <details class="model-reports-details">
         <summary class="model-reports-summary">
-          <span>${uniqueMres.length} model report${uniqueMres.length === 1 ? '' : 's'}</span>
+          <span>See the list</span>
           <span class="model-reports-chevron">›</span>
         </summary>
         <div class="model-reports-list">
@@ -2215,72 +3695,289 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     `
     : '<span class="detail-val" style="color:#9ca3af;">—</span>';
 
-  let html = `
-    ${backBtn}
-    <div class="verdict-card eligible">
-      <div class="verdict-header">
-        <div class="verdict-icon">✓</div>
-        <div class="verdict-title">Eligible for import</div>
-      </div>
-      <div class="verdict-sub">This vehicle is approved for Australian import. Contact JDM Connect to get started.</div>
-    </div>
-    <p class="vehicle-name">${vehicleName}</p>
-    <p class="vehicle-sub">${approvalLink} · ${buildRange}</p>
-    ${isOver25 ? `
-    <div class="unlock-box" style="background:#f0faf4;border-color:#86efac;">
-      <div class="unlock-box-title" style="color:#14532d;">✓ Also eligible under the 25-year rule</div>
-      <div class="unlock-box-body" style="color:#166534;">Vehicles built more than 25 years ago may also be imported under Australia's personal import scheme, independent of SEVS/MRE approval status.</div>
-    </div>` : ''}
+  const isActive = status === 'In Force';
+  // Audit 2026-04-30 (smoke-test #9) — drop "Entry" suffix; the bare
+  // SEVS / MRE label is enough alongside the eligibility status badge.
+  const typeBadge = isMRE
+    ? '<span class="type-badge type-badge-mre">MRE</span>'
+    : '<span class="type-badge type-badge-sev">SEVS</span>';
+  const statusBadge2 = `<span class="type-badge ${isActive ? 'status-badge-active' : isExpiringSoon ? 'status-badge-expiring' : 'status-badge-expired'}">${statusDisplay}</span>`;
 
-    <!-- Card A — Vehicle details (Ben's mockup row set) -->
+  const workshopName = r['_workshop_short'] || r['_approval_holder'] || '';
+  const contactUrl = 'https://jdmconnect.com.au/contact';
+
+  // Build breadcrumbs
+  const g2 = (groupIdx !== null && groupIdx !== undefined) ? currentGroups[groupIdx] : null;
+  let breadcrumbs;
+  if (g2) {
+    breadcrumbs = renderBreadcrumbs([
+      { label: 'Search', onclick: 'resetSearch()' },
+      { label: g2.make, onclick: `renderScreen1(document.getElementById('results-wrap'))` },
+      { label: g2.model, onclick: `showApprovalList(${groupIdx})` },
+      { label: isMRE ? `MRE #${approvalNum}` : `SEV #${approvalNum}` },
+    ]);
+  } else {
+    breadcrumbs = renderBreadcrumbs([
+      { label: 'Search', onclick: 'resetSearch()' },
+      { label: isMRE ? `MRE #${approvalNum}` : `SEV #${approvalNum}` },
+    ]);
+  }
+
+  let html = backBtn + breadcrumbs;
+
+  // Header
+  html += `
+    <div style="margin-bottom:20px;">
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
+        ${typeBadge} ${statusBadge2}
+      </div>
+      <h1 style="font-size:24px;font-weight:700;color:var(--text);margin-bottom:4px;">${vehicleName}</h1>
+      <p style="font-size:14px;color:var(--text-muted);">${approvalLink} · ${buildRange}</p>
+    </div>
+  `;
+
+  // Audit 2026-04-30 (P0 #4 / P1 #10 — refined post-smoke-test bug #1) —
+  // variant-context callout. When the approval's chassis code resolves to a
+  // known variant, surface a one-line clarifier above the detail cards.
+  // Critically: the lookup must read from THIS record only (or, for an MRE,
+  // from the build-overlap-matched primarySev). Falling back to *any* sibling
+  // SEV under the same model previously made SEV-000768 (R series, 1997–2002)
+  // claim it covered the V37 hybrid sedan because the V37 SEV happened to
+  // appear first in the sibling list. If neither source yields a match,
+  // suppress the callout entirely rather than guessing.
+  function detailVariantNotes(rec, recIsMRE) {
+    if (!rec) return null;
+    const vi = variantInfoForRecord(rec, recIsMRE);
+    if (vi) {
+      return vi.notes
+        || `This approval covers the ${vi.name} (${vi.fromYear}–${vi.toYear < 2099 ? vi.toYear : 'present'}).`;
+    }
+    // Fall back to MODEL_CODE_DESCRIPTORS for generic codes like "R series"
+    // that span multiple chassis but still warrant a context line.
+    const codeField = recIsMRE
+      ? (rec['Model report type'] || rec['Model code'] || '')
+      : (rec['Model code'] || '');
+    const trimmed = (codeField || '').trim();
+    if (MODEL_CODE_DESCRIPTORS[trimmed] && MODEL_CODE_DESCRIPTORS[trimmed].notes) {
+      return MODEL_CODE_DESCRIPTORS[trimmed].notes;
+    }
+    return null;
+  }
+  let variantLine = detailVariantNotes(r, isMRE);
+  // For MRE views only, fall back to the build-overlap-matched sibling SEV.
+  // SEV views never fall back — primarySev for a SEV view is just an arbitrary
+  // sibling, which is what produced bug #1 in the smoke-test report.
+  if (!variantLine && isMRE && primarySev) {
+    variantLine = detailVariantNotes(primarySev, false);
+  }
+  if (variantLine) {
+    html += `
+      <div class="variant-context-callout">
+        <span class="variant-context-icon">ℹ</span>
+        <span class="variant-context-text">${variantLine}</span>
+      </div>
+    `;
+  }
+
+  // Audit 2026-04-30 (P0 #5) — when the originating MRE record's build range
+  // genuinely doesn't overlap any sibling SEV, our chassis codes still come
+  // from the closest SEV. Add a quiet disclaimer so users aren't misled.
+  if (isMRE && primarySev && chassisCodes.length) {
+    const mreP = parseBuildRange(r['Build date range'] || '');
+    const sFromStr = primarySev['Build date from'] || '';
+    const sToStr   = primarySev['Build date to']   || '';
+    const sP = parseBuildRange(sFromStr + (sToStr && sToStr !== 'No end date' ? ' - ' + sToStr : ''));
+    const overlaps = (() => {
+      if (!mreP || !mreP.from || !sP || !sP.from) return true;
+      const mFromY = mreP.from.getFullYear();
+      const mToY   = mreP.to ? mreP.to.getFullYear() : 2099;
+      const sFromY = sP.from.getFullYear();
+      const sToY   = (sToStr === 'No end date' || !sP.to) ? 2099 : sP.to.getFullYear();
+      return sFromY <= mToY && sToY >= mFromY;
+    })();
+    if (!overlaps) {
+      html += `
+        <div class="variant-context-callout" style="background:#fff8ed;border-color:#fcd34d;">
+          <span class="variant-context-icon">⚠</span>
+          <span class="variant-context-text">Year range shown reflects the MRE approval; the chassis codes below come from the closest matching SEV record and may not all apply to this exact build window. Verify with JDM Connect before purchase.</span>
+        </div>
+      `;
+    }
+  }
+
+  if (isOver25) {
+    html += `
+      <div class="unlock-box" style="background:#f0faf4;border-color:#86efac;">
+        <div class="unlock-box-title" style="color:#14532d;">✓ Also eligible under the 25-year rule</div>
+        <div class="unlock-box-body" style="color:#166534;">Vehicles built more than 25 years ago may also be imported under Australia's personal import scheme, independent of the standard eligibility register.</div>
+      </div>`;
+  }
+
+  // 2-column layout
+  html += `<div class="detail-grid">`;
+
+  // ── LEFT COLUMN (main) ──────────────────────────────────────────────────
+  html += `<div class="detail-main">`;
+
+  // Vehicle Details card. Audit 2026-04-30 (smoke-test #8) — removed
+  // bureaucratic rows ("Register Type", "Entry Code") that duplicate the
+  // type-badge in the header and the breadcrumb. "Build Date Range" →
+  // "Build years" (plain English). "Expiry" → "Approval valid until".
+  html += `
     <div class="detail-card">
-      <div class="detail-card-title">Vehicle details</div>
+      <div class="detail-card-title">📋 Vehicle Details</div>
+      <div class="detail-row">
+        <span class="detail-key">Status</span>
+        <span class="detail-val">${statusDisplay}</span>
+      </div>
       <div class="detail-row">
         <span class="detail-key">Make</span>
-        <span class="detail-val">${titleCase(displayMake)}</span>
+        <span class="detail-val">${displayMake}</span>
       </div>
       <div class="detail-row">
         <span class="detail-key">Model</span>
         <span class="detail-val">${displayModel}</span>
       </div>
       <div class="detail-row">
-        <span class="detail-key">Year Range</span>
+        <span class="detail-key">Build years</span>
         <span class="detail-val">${yearRangeStr}</span>
       </div>
-      <div class="detail-row">
-        <span class="detail-key">Chassis Codes</span>
-        <span class="detail-val" style="font-family:DM Mono,monospace;font-size:12px;">${chassisStr}</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Eligibility Type</span>
-        <span class="detail-val">${eligibilityLabel}</span>
-      </div>
+      ${eligibilityLabel !== '—' ? `<div class="detail-row"><span class="detail-key">Approval category</span><span class="detail-val">${eligibilityLabel}</span></div>` : ''}
       ${expiry ? `
       <div class="detail-row">
-        <span class="detail-key">Expiry Date</span>
+        <span class="detail-key">Approval valid until</span>
         <span class="detail-val"><span class="badge ${isExpiringSoon ? 'badge-amber' : 'badge-green'}">${expiry}${isExpiringSoon ? ' · Expiring Soon' : ''}</span></span>
       </div>` : ''}
     </div>
-
-    <!-- Card B — Documentation -->
-    <div class="detail-card">
-      <div class="detail-card-title">Documentation</div>
-      <div class="detail-row">
-        <span class="detail-key">SEV Entry</span>
-        <span class="detail-val">${sevEntryHtml}</span>
-      </div>
-      <div class="detail-row detail-row-stack">
-        <span class="detail-key">Model Reports</span>
-        <span class="detail-val" style="text-align:left;max-width:100%;">${modelReportsHtml}</span>
-      </div>
-    </div>
-
-    ${isExpiringSoon ? `
-    <div class="unlock-box" style="background:#fff8ed;border-color:#f59e0b;">
-      <div class="unlock-box-title" style="color:#78350f;">⚠ SEVS approval expiring soon</div>
-      <div class="unlock-box-body" style="color:#92400e;">This SEVS approval expires ${expiry}. The vehicle must clear Australian customs before expiry. Contact JDM Connect urgently.</div>
-    </div>` : ''}
   `;
+
+  // Chassis / Model Codes card. Audit 2026-04-30 (smoke-test #12).
+  if (chassisCodes.length > 0) {
+    html += `
+      <div class="detail-card" style="padding:16px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">Which cars this covers</div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Your car's chassis code (on the build plate or in the title) must be one of these.</p>
+        <div class="chassis-pills">${chassisCodes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}</div>
+        ${buildExplainer('What is a chassis code?', 'A chassis code is a short alphanumeric identifier that describes the exact specification of your car — engine, body, drivetrain. For example, "JZX100" is a Toyota Chaser with a 1JZ engine. You\'ll find it on the build plate, registration documents, or VIN check.')}
+      </div>
+    `;
+  }
+
+  // Workshop card (MRE only)
+  if (isMRE && workshopName) {
+    html += `
+      <div class="detail-card" style="padding:16px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">🔧 Approved Compliance Workshop</div>
+        <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(202,163,76,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📍</div>
+          <div>
+            <div style="font-weight:600;color:var(--text);">${workshopName}</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Approval #${approvalNum} — ${statusDisplay}</div>
+          </div>
+        </div>
+        ${buildExplainer('What is a compliance workshop?', 'A compliance workshop (also called RAWS — Registered Automotive Workshop Scheme) is a government-approved facility that can modify and certify imported vehicles to meet Australian Design Rules (ADRs). You must use an approved workshop to legally import a vehicle under this entry.')}
+      </div>
+    `;
+  }
+
+  // Approved workshops card. Audit 2026-04-30 (smoke-test #19) — heading,
+  // subhead, and toggle were all repeating the same fact. Tightened to a
+  // single labelled count + the existing details disclosure.
+  if (uniqueMres.length > 1) {
+    html += `
+      <div class="detail-card" style="padding:16px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">📄 Approved workshops (${uniqueMres.length})</div>
+        ${modelReportsHtml}
+      </div>
+    `;
+  }
+
+  // Common questions (Audit 2026-04-30 — smoke-test #10).
+  html += `
+    <div class="detail-card" style="padding:16px;">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;">Common questions</div>
+      ${isMRE
+        ? buildExplainer('What is MRE?', 'Model Report Eligibility — the approval given to a compliance workshop to import and certify a specific model. Each MRE entry specifies which models, build dates, and compliance levels the workshop is approved for.')
+        : buildExplainer('What is SEVS?', 'The Specialist and Enthusiast Vehicle Scheme — the Australian Government program that lists vehicles approved for import that aren\'t otherwise available here. Cars must appear on this register to be eligible.')
+      }
+      ${buildExplainer('Why does the build year matter?', 'Your car must have been manufactured inside the build years shown on this entry. A car built outside the window — even by a month — won\'t be eligible under this approval.')}
+      ${buildExplainer('What\'s next once I find an eligible car?', 'Contact JDM Connect for a quote. We source it in Japan, ship it to Australia, run it through an approved compliance workshop, and hand it over registered in your state — start to finish.')}
+    </div>
+  `;
+
+  html += `</div>`; // end detail-main
+
+  // ── RIGHT COLUMN (sidebar) ──────────────────────────────────────────────
+  html += `<div class="detail-sidebar">`;
+
+  // CTA card
+  html += `
+    <div class="sidebar-cta-card">
+      <div class="sidebar-cta-title">${isActive ? 'Import this vehicle' : 'Need help?'}</div>
+      <div class="sidebar-cta-desc">${isActive
+        ? `JDM Connect can source, ship, and comply a ${vehicleName} for you — from Japan to your door.`
+        : 'Even if this entry is no longer active, there may be other pathways. Contact JDM Connect to discuss your options.'
+      }</div>
+      <a href="${contactUrl}" class="sidebar-cta-btn" target="_blank" data-cta="${isActive ? 'get_quote' : 'pathways'}" data-cta-source="sidebar_detail">Get a free quote →</a>
+      <div class="sidebar-cta-sub">We respond within 24 hours.</div>
+    </div>
+  `;
+
+  // Quick Summary card
+  html += `
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Quick Summary</div>
+      <div class="sidebar-fact">
+        <span class="sidebar-fact-icon">${isActive ? '✅' : '❌'}</span>
+        <span>${isActive ? 'Currently eligible for import' : 'Entry no longer active'}</span>
+      </div>
+      <div class="sidebar-fact">
+        <span class="sidebar-fact-icon">📅</span>
+        <span>Build: ${yearRangeStr}</span>
+      </div>
+      ${workshopName ? `<div class="sidebar-fact"><span class="sidebar-fact-icon">🔧</span><span>${workshopName}</span></div>` : ''}
+    </div>
+  `;
+
+  // Source card. Audit 2026-04-30 (smoke-test #18).
+  const detailUrl = roverDetailUrl(r, isMRE);
+  html += `
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Source</div>
+      <a href="${detailUrl}" target="_blank" rel="noopener" style="color:var(--gold);font-size:13px;text-decoration:none;display:flex;align-items:center;gap:6px;">
+        View on the ROVER register ↗
+      </a>
+      <p style="font-size:11px;color:var(--text-faint);margin-top:6px;font-style:italic;">Department of Infrastructure</p>
+    </div>
+  `;
+
+  // Calculator cross-sell (Audit 2026-04-30 — detail-page brief B). Fills
+  // the empty space below Source on tall main columns and feeds the
+  // CalculateLandedCostClicked event with sidebar traffic. UTM tags let
+  // GA4 attribute calculator visits to this exact surface.
+  const calcCtaUrl = 'https://calculator.jdmconnect.com.au/'
+    + '?utm_source=eligibility&utm_medium=detail_sidebar&utm_campaign=cross_sell'
+    + '&vehicle=' + encodeURIComponent((currentVehicleContext.make || '') + '_' + (currentVehicleContext.model || ''));
+  html += `
+    <div class="sidebar-card sidebar-calculator-cta">
+      <div class="sidebar-card-title">📊 Estimate landed cost</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin:6px 0 12px;line-height:1.45;">See the full import cost for this ${vehicleName}.</p>
+      <a href="${calcCtaUrl}" class="sidebar-calculator-link" data-cta="calculate" data-cta-source="detail_sidebar" target="_blank" rel="noopener">
+        Open calculator →
+      </a>
+    </div>
+  `;
+
+  html += `</div>`; // end detail-sidebar
+  html += `</div>`; // end detail-grid
+
+  if (isExpiringSoon) {
+    html += `
+      <div class="unlock-box" style="background:#fff8ed;border-color:#f59e0b;margin-top:16px;">
+        <div class="unlock-box-title" style="color:#78350f;">⚠ Eligibility approval expiring soon</div>
+        <div class="unlock-box-body" style="color:#92400e;">This vehicle's import approval expires ${expiry}. The vehicle must clear Australian customs before expiry. Contact JDM Connect urgently.</div>
+      </div>`;
+  }
 
   if (ADMIN_MODE) {
     const holder = r['_approval_holder'] || '';
@@ -2289,31 +3986,41 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
     const cPhone = r['_contact_phone']   || '';
     if (holder || cName || cEmail || cPhone) {
       html += `
-        <div class="detail-card" style="border-color:#fcd34d;">
+        <div class="detail-card" style="border-color:#fcd34d;margin-top:16px;">
           <div class="detail-card-title" style="background:#fffbeb;color:#92400e;">⚙ Approval holder (admin only)</div>
           ${holder ? `<div class="detail-row"><span class="detail-key">Company</span><span class="detail-val">${holder}</span></div>` : ''}
           ${cName  ? `<div class="detail-row"><span class="detail-key">Contact</span><span class="detail-val">${cName}</span></div>` : ''}
-          ${cEmail ? `<div class="detail-row"><span class="detail-key">Email</span><span class="detail-val" style="font-size:12px;"><a href="mailto:${cEmail}" style="color:#715723;">${cEmail}</a></span></div>` : ''}
-          ${cPhone ? `<div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val"><a href="tel:${cPhone}" style="color:#715723;">${cPhone}</a></span></div>` : ''}
+          ${cEmail ? `<div class="detail-row"><span class="detail-key">Email</span><span class="detail-val" style="font-size:12px;"><a href="mailto:${cEmail}" style="color:var(--gold);">${cEmail}</a></span></div>` : ''}
+          ${cPhone ? `<div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val"><a href="tel:${cPhone}" style="color:var(--gold);">${cPhone}</a></span></div>` : ''}
         </div>
       `;
     }
   }
 
-  html += buildActions(r, vehicleName, false);
   html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
   wrap.innerHTML = html;
 }
 
 // ── NOT ELIGIBLE SCREEN ───────────────────────────────────────────────────────
 function renderNotEligible(vehicleName, yearStr, make, model, year, isChassis, wrap) {
-  let html = `
+  // Audit 2026-04-30 — vehicle context + NotEligibleResultViewed event so
+  // post-launch we can identify the most-searched non-eligible models and
+  // prioritise outreach / 25-year rule lifecycle communications.
+  currentVehicleContext = { make: make || '', model: model || '' };
+  track('NotEligibleResultViewed', {
+    make: make || '',
+    model: model || '',
+    year: year || '',
+    is_chassis: !!isChassis
+  });
+  let html = `<button class="back-btn" onclick="handleBack()">← Back</button>`;
+  html += `
     <div class="verdict-card ineligible">
       <div class="verdict-header">
         <div class="verdict-icon">✕</div>
         <div class="verdict-title">Not currently eligible for import</div>
       </div>
-      <div class="verdict-sub">No SEVS or MRE listing found for ${vehicleName}${yearStr}. This may mean it's not currently eligible — there are often other pathways worth exploring.</div>
+      <div class="verdict-sub">No active import approval found for ${vehicleName}${yearStr}. This may mean it's not currently eligible — there are often other pathways worth exploring.</div>
     </div>
     <p class="vehicle-name">${vehicleName}</p>
     <p class="vehicle-sub">No matching ROVER approvals found${yearStr}</p>
@@ -2324,7 +4031,7 @@ function renderNotEligible(vehicleName, yearStr, make, model, year, isChassis, w
       <div class="unlock-box" style="background:#f0f9ff;border-color:#bae6fd;">
         <div class="unlock-box-title" style="color:#0c4a6e;">ℹ May be eligible under the 25-year rule</div>
         <div class="unlock-box-body" style="color:#075985;">
-          Vehicles built 25+ years ago can often be imported under Australia's personal import scheme regardless of SEVS/MRE status.
+          Vehicles built 25+ years ago can often be imported under Australia's personal import scheme regardless of standard register eligibility.
           <strong>Chassis codes can span multiple models and body variants</strong> — always verify the exact build date and variant with JDM Connect before purchasing.
         </div>
       </div>
@@ -2368,7 +4075,7 @@ function buildActions(record, vehicleName, isIneligible) {
   const calcUrl = 'https://calculator.jdmconnect.com.au';
   const contactUrl = 'https://jdmconnect.com.au/contact';
   const notifyBtn = isIneligible
-    ? `<button class="notify-btn ghl-notify-trigger">🔔 Notify me when this becomes eligible</button>`
+    ? `<button class="notify-btn ghl-notify-trigger" data-cta="notify" data-cta-source="not_eligible_screen">🔔 Notify me when this becomes eligible</button>`
     : '';
   // Distinct post-result copy so the next step is obvious in both outcomes.
   const primaryLead = isIneligible
@@ -2376,21 +4083,37 @@ function buildActions(record, vehicleName, isIneligible) {
     : `<p class="primary-lead">Good news — ${vehicleName} is on the register. Want us to source one for you?</p>`;
   const primaryLabel = isIneligible
     ? 'Talk to JDM Connect about other pathways →'
-    : `Get a quote to source a ${vehicleName} →`;
+    : 'Get a free quote →';
   return `
     ${notifyBtn}
     ${primaryLead}
-    <a href="${contactUrl}" class="action-btn-primary" target="_blank">${primaryLabel}</a>
+    <a href="${contactUrl}" class="action-btn-primary" target="_blank" data-cta="${isIneligible ? 'pathways' : 'get_quote'}" data-cta-source="primary_action">${primaryLabel}</a>
     <div class="action-grid">
-      <a href="${calcUrl}" class="action-btn" target="_blank">Calculate landed cost</a>
+      <a href="${calcUrl}" class="action-btn" target="_blank" data-cta="calculate" data-cta-source="primary_action">Calculate landed cost</a>
       <button class="action-btn" onclick="shareResult('${vehicleName.replace(/'/g,"\\'")}')">Share result</button>
     </div>
   `;
 }
 
+// ── Toggle collapsed workshop rows ──────────────────────────────────────────
+function toggleWorkshops(collapseId, btn) {
+  const rows = document.querySelectorAll(`[data-collapse="${collapseId}"]`);
+  const isHidden = rows[0] && rows[0].style.display === 'none';
+  rows.forEach(row => { row.style.display = isHidden ? '' : 'none'; });
+  if (isHidden) {
+    btn.textContent = 'Show fewer ▴';
+  } else {
+    btn.textContent = btn.getAttribute('data-original-text') || `Show all workshops ▾`;
+  }
+  if (!btn.getAttribute('data-original-text')) {
+    btn.setAttribute('data-original-text', btn.textContent.replace('Show fewer ▴', `Show all ${rows.length + 3} workshops ▾`));
+  }
+}
+
 function resetSearch() {
   document.getElementById('results-wrap').style.display = 'none';
   document.body.classList.remove('results-active'); // audit #3 — restore hero/stats
+  currentVehicleContext = { make: '', model: '' };
   document.getElementById('sel-make').value = '';
   const ms = document.getElementById('make-search');
   if (ms) ms.value = '';
@@ -2405,6 +4128,11 @@ function resetSearch() {
 }
 
 function shareResult(vehicleName) {
+  track('ShareResultClicked', {
+    make:  (currentVehicleContext && currentVehicleContext.make)  || '',
+    model: (currentVehicleContext && currentVehicleContext.model) || '',
+    vehicle: vehicleName
+  });
   const url = window.location.href;
   if (navigator.share) {
     navigator.share({ title: `JDM Connect — ${vehicleName} Eligibility`, url });
@@ -2441,26 +4169,141 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// ── MORE-FILTERS TOGGLE (Audit 2026-04-30 — P1 #8) ──────────────────────────
+// Year + propulsion are hidden behind this toggle so the default form fits
+// above the fold on mobile. Expanded state persists per-session so users who
+// rely on those filters don't have to re-expand on every search.
+(function setupMoreFilters() {
+  const toggle = document.getElementById('more-filters-toggle');
+  const panel  = document.getElementById('search-fields-advanced');
+  if (!toggle || !panel) return;
+  const KEY = 'eligibility:moreFiltersOpen';
+  const setOpen = (open) => {
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.textContent = open ? '− Hide year & propulsion' : '+ More filters (year, propulsion)';
+    try { sessionStorage.setItem(KEY, open ? '1' : '0'); } catch (_) {}
+  };
+  let initial = false;
+  try { initial = sessionStorage.getItem(KEY) === '1'; } catch (_) {}
+  setOpen(initial);
+  toggle.addEventListener('click', () => {
+    track('MoreFiltersClicked', { will_be_open: !!panel.hidden });
+    setOpen(panel.hidden);
+  });
+})();
+
+// ── POPULAR SEARCH CHIPS (Audit 2026-04-30 — P2 #11) ────────────────────────
+// Each chip carries either `data-pop="Make|Model"` or `data-pop-chassis="CODE"`.
+// Click pre-fills the form and runs the search.
+document.addEventListener('click', function(e) {
+  const chip = e.target.closest('.chip-search');
+  if (!chip) return;
+  e.preventDefault();
+  const chipName = (chip.textContent || '').trim();
+  track('PopularChipClicked', { chip: chipName });
+  const chassisCode = chip.getAttribute('data-pop-chassis');
+  if (chassisCode) {
+    switchTab('chassis');
+    const input = document.getElementById('chassis-input');
+    if (input) input.value = chassisCode;
+    doChassisSearch();
+    return;
+  }
+  const pair = chip.getAttribute('data-pop') || '';
+  const [makeName, modelName] = pair.split('|');
+  if (!makeName) return;
+  switchTab('make');
+  const matched = (allMakes || []).find(m => m.toLowerCase() === makeName.toLowerCase());
+  if (!matched) return;
+  selectMake(matched);
+  if (modelName) {
+    const sel = document.getElementById('sel-model');
+    if (sel) {
+      for (const opt of sel.options) {
+        if (opt.value.toLowerCase() === modelName.toLowerCase()) { sel.value = opt.value; break; }
+      }
+    }
+  }
+  doSearch();
+});
+
 // ── INIT ─────────────────────────────────────────────────────────────────────
 loadData();
 </script>
 
 
 <script>
-  // Show GHL popup only on notify button click, hide on overlay/close click
+  // Show GHL popup only on notify button click, hide on overlay/close click.
+  // Also fires conversion events for every CTA tagged with data-cta.
+  // Uses capture phase so the event lands before <a target="_blank"> follows
+  // the link and the page tears down (otherwise tail-end event delivery on
+  // GA4/Pixel can be dropped by some browsers when the tab navigates).
   document.addEventListener('click', function(e) {
     if (e.target.closest('.ghl-notify-trigger')) {
-      var overlay = document.getElementById('popup-2lhyBZVSUo69QRuXjwIA-overlay');
+      var overlay = document.getElementById('popup-0gQCujDNgaGlG83rK10j-overlay');
       if (overlay) overlay.classList.add('ghl-active');
     }
-  });
+    var ctaEl = e.target.closest('[data-cta]');
+    if (ctaEl && typeof track === 'function') {
+      var ctaType = ctaEl.getAttribute('data-cta');
+      // Audit 2026-04-30 (Phase-4 issue #2) — derive source_page from the
+      // element's container so header / detail-sidebar / register-list /
+      // sticky-mobile clicks are distinguishable in the funnel report.
+      // closest() walks ancestors, so the most specific surface wins:
+      // header check is first because it's the broadest container, then
+      // the more specific in-page surfaces. Falls back to data-cta-source
+      // when no container matches (e.g. primary_action, register_list).
+      var source = '';
+      if (ctaEl.closest('header')) source = 'header';
+      else if (ctaEl.closest('.sticky-cta-bar')) source = 'sticky_mobile';
+      else if (ctaEl.closest('.detail-sidebar, .sidebar-cta-card')) source = 'detail_sidebar';
+      else if (ctaEl.closest('.summary-card')) source = 'summary_card';
+      else if (ctaEl.closest('.result-cta')) source = 'register_list';
+      else source = ctaEl.getAttribute('data-cta-source') || '';
+      var eventName = {
+        get_quote: 'GetQuoteClicked',
+        pathways:  'PathwaysClicked',
+        notify:    'NotifyMeClicked',
+        // Calculator cross-sell — soft conversion, doesn't fire Lead.
+        calculate: 'CalculateLandedCostClicked'
+      }[ctaType];
+      if (eventName) {
+        var vctx = (typeof currentVehicleContext === 'object' && currentVehicleContext) ? currentVehicleContext : {};
+        var params = {
+          source_page: source,
+          make:  vctx.make  || '',
+          model: vctx.model || ''
+        };
+        track(eventName, params);
+        // Meta-standard Lead alongside the three primary CTAs so FB can
+        // optimize the campaign on a unified signal. Calculator click is
+        // engagement, not a Lead — keep it out of the Lead bucket.
+        // value/currency satisfy Meta Diagnostics' "Send valid price and
+        // currency" warning on the Lead event.
+        if (eventName === 'GetQuoteClicked' || eventName === 'PathwaysClicked' || eventName === 'NotifyMeClicked') {
+          track('Lead', {
+            content_name: eventName,
+            source_page: source,
+            value: ESTIMATED_LEAD_VALUE_AUD,
+            currency: 'AUD'
+          });
+        }
+      }
+    }
+  }, true);
 </script>
+
+<!-- Mobile sticky CTA — only visible on results screens at ≤640px -->
+<div class="sticky-cta-bar">
+  <a href="https://jdmconnect.com.au/contact" target="_blank" data-cta="get_quote" data-cta-source="sticky_mobile">Get a free quote</a>
+</div>
 
 <!-- GHL NOTIFY POPUP -->
 <iframe
-    src="https://api.leadconnectorhq.com/widget/form/2lhyBZVSUo69QRuXjwIA"
+    src="https://api.leadconnectorhq.com/widget/form/0gQCujDNgaGlG83rK10j"
     style="display:none;width:100%;height:100%;border:none;border-radius:3px"
-    id="popup-2lhyBZVSUo69QRuXjwIA"
+    id="popup-0gQCujDNgaGlG83rK10j"
     data-layout='{"id":"POPUP"}'
     data-trigger-type="clickButton"
     data-trigger-value=".ghl-notify-trigger"
@@ -2468,11 +4311,11 @@ loadData();
     data-activation-value=""
     data-deactivation-type="neverDeactivate"
     data-deactivation-value=""
-    data-form-name="Eligibility Enquiry Form Embedded"
-    data-height="1019"
-    data-layout-iframe-id="popup-2lhyBZVSUo69QRuXjwIA"
-    data-form-id="2lhyBZVSUo69QRuXjwIA"
-    title="Eligibility Enquiry Form Embedded"
+    data-form-name="General Enquiry Form Embedded"
+    data-height="1820"
+    data-layout-iframe-id="popup-0gQCujDNgaGlG83rK10j"
+    data-form-id="0gQCujDNgaGlG83rK10j"
+    title="General Enquiry Form Embedded"
 >
 </iframe>
 <script src="https://link.msgsndr.com/js/form_embed.js"></script>
