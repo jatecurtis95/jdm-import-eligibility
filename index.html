@@ -11,7 +11,12 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-HX2BTE1CNT');
+  // cookie_domain shares the _ga cookie across eligibility./calculator./apex
+  // so a user visiting both subdomains is one session/one user, not two.
+  gtag('config', 'G-HX2BTE1CNT', {
+    cookie_domain: 'jdmconnect.com.au',
+    cookie_flags: 'SameSite=None;Secure'
+  });
 </script>
 
 <!-- Primary SEO -->
@@ -1544,7 +1549,7 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
         </div>
       </div>
       <button type="button" class="more-filters-toggle" id="more-filters-toggle" aria-expanded="false" aria-controls="search-fields-advanced">+ More filters (year, propulsion)</button>
-      <button class="search-btn" id="search-btn-make" onclick="trackEvent('check_eligibility_clicked',{tab:'make'}); doSearch();">Check eligibility →</button>
+      <button class="search-btn" id="search-btn-make" onclick="track('CheckEligibilityClicked',{tab:'make'}); doSearch();">Check eligibility →</button>
 
       <!-- Audit 2026-04-30 (P2 #11) — Popular searches strip. Each chip
            pre-fills the form and runs the search so a cold visitor gets to
@@ -1566,7 +1571,7 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
     <div id="tab-chassis" style="display:none;">
       <input class="chassis-input" id="chassis-input" type="text" placeholder="e.g. BNR34-001245 or JZX100-…" maxlength="30" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doChassisSearch()">
       <p class="chassis-hint" style="margin-top:10px; margin-bottom:16px;">Enter the first 4–6 characters of the chassis/model code for best results</p>
-      <button class="search-btn" id="search-btn-chassis" onclick="trackEvent('check_eligibility_clicked',{tab:'chassis'}); doChassisSearch();">Check eligibility →</button>
+      <button class="search-btn" id="search-btn-chassis" onclick="track('CheckEligibilityClicked',{tab:'chassis'}); doChassisSearch();">Check eligibility →</button>
     </div>
   </div>
 </div>
@@ -1640,25 +1645,43 @@ let activeTab = 'make';
 const ADMIN_MODE = new URLSearchParams(window.location.search).get('admin') === '1';
 
 // ── ANALYTICS (Audit 2026-04-30 — sales conversion instrumentation) ─────────
-// Routes a single event into both GA4 (gtag) and Meta Pixel (fbq trackCustom).
-// Defensive try/catch: analytics tooling must never break the UX. If either
-// loader fails (ad-blockers, network) we silently move on. Events fired:
-//   check_eligibility_clicked  — top-of-funnel CTA click (make or chassis tab)
-//   search_submitted           — search ran (make+model or chassis params)
-//   popular_chip_clicked       — chip strip click; carries the chip name
-//   show_all_makes_clicked     — user expanded the curated dropdown
-//   get_quote_clicked          — any "Get a free quote" CTA
-//   notify_me_clicked          — "Notify me when this becomes eligible"
-//   pathways_clicked           — "Talk to JDM Connect about other pathways"
-function trackEvent(name, params) {
-  const safeParams = params || {};
+// One helper that routes a single event into both Meta Pixel (fbq) and GA4
+// (gtag). Standard Meta events use fbq('track'); custom events use
+// fbq('trackCustom'). GA4 receives a snake_case version of the same name
+// (e.g. GetQuoteClicked → get_quote_clicked) so the funnel reports stay
+// tidy. Defensive try/catch — analytics never breaks the UX if ad-blockers
+// or network failures take fbq/gtag offline.
+//
+// Standard event names matter on Meta: 'Lead', 'Search', etc. trigger
+// Meta's auto-optimization. Use them whenever possible alongside the
+// branded custom event so the algorithm has both signals.
+const META_STANDARD = ['Lead', 'CompleteRegistration', 'ViewContent', 'Search', 'AddToCart', 'Purchase', 'InitiateCheckout', 'Contact'];
+function track(eventName, params) {
+  const safe = params || {};
   try {
-    if (typeof gtag === 'function') gtag('event', name, safeParams);
+    if (typeof fbq === 'function') {
+      if (META_STANDARD.indexOf(eventName) !== -1) {
+        fbq('track', eventName, safe);
+      } else {
+        fbq('trackCustom', eventName, safe);
+      }
+    }
   } catch (_) { /* swallow — analytics never breaks UX */ }
   try {
-    if (typeof fbq === 'function') fbq('trackCustom', name, safeParams);
+    if (typeof gtag === 'function') {
+      const ga4Name = eventName.replace(/([A-Z])/g, '_$1').toLowerCase().replace(/^_/, '');
+      gtag('event', ga4Name, safe);
+    }
   } catch (_) { /* swallow */ }
 }
+// Backward-compat alias — earlier instrumentation used trackEvent(name).
+// Forwarding lets old call sites keep working while new code uses track().
+function trackEvent(name, params) { return track(name, params); }
+
+// Vehicle context for the delegated CTA-click handler. Set when a result
+// page renders; read when the user clicks GetQuote / Pathways / Notify so
+// the event params include {make, model} without per-CTA plumbing.
+let currentVehicleContext = { make: '', model: '' };
 
 // ── JARGON TRANSLATION ─────────────────────────────────────────────────────
 // Replace government-speak with plain English so everyday users understand results.
@@ -2094,7 +2117,7 @@ function filterMakes(showAll) {
   if (showAllEl) {
     showAllEl.addEventListener('mousedown', function(e) {
       e.preventDefault();
-      trackEvent('show_all_makes_clicked');
+      track('ShowAllMakesClicked');
       showAllMakesIdle = true;
       filterMakes(true);
     });
@@ -2480,13 +2503,16 @@ function doSearch() {
   if (!make) { showMakeFieldError(); return; }
   clearMakeFieldError();
 
-  trackEvent('search_submitted', {
-    tab: 'make',
+  track('SearchSubmitted', {
+    mode: 'make_model',
     make: make || '',
     model: model || '',
     year: year || '',
     propulsion: propulsion || ''
   });
+  // Meta-standard Search event lets the FB algorithm auto-optimize for
+  // searchers regardless of the custom event taxonomy.
+  track('Search', { search_string: [make, model].filter(Boolean).join(' ') });
 
   withSearchLoadingState('search-btn-make', () => {
     const mreMatches = MRE.filter(r =>
@@ -2721,12 +2747,13 @@ function doChassisSearch() {
   const q = document.getElementById('chassis-input').value.trim().toUpperCase();
   if (q.length < 3) { alert('Enter at least 3 characters.'); return; }
 
-  trackEvent('search_submitted', {
-    tab: 'chassis',
+  track('SearchSubmitted', {
+    mode: 'chassis',
     make: '',
     model: '',
     chassis: q
   });
+  track('Search', { search_string: q });
 
   withSearchLoadingState('search-btn-chassis', () => {
     const qNorm = q.replace(/[^A-Z0-9]/g, '');
@@ -3035,6 +3062,8 @@ function showApprovalList(groupIdx) {
   const wrap = document.getElementById('results-wrap');
   const g = currentGroups[groupIdx];
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Vehicle context for the delegated CTA-click handler.
+  currentVehicleContext = { make: g.make || '', model: g.model || '' };
 
   // ── Compute importability + warnings for the page-bottom CTA ───────────────
   let hasExpiringSoon = false;
@@ -3429,6 +3458,27 @@ function showScreen3FromList(groupIdx, type, recordIdx) {
 function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) {
   wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   const approvalNum = isMRE ? r['Approval number'] : r['SEV #'];
+
+  // Audit 2026-04-30 — record current vehicle context so the delegated
+  // CTA-click handler can attach make/model to GetQuoteClicked etc.
+  // Fire EligibleResultViewed for ACTIVE approvals (Meta funnel anchor).
+  const _vehMake  = (vehicleName.split(' ')[0] || '').trim();
+  const _vehModel = vehicleName.replace(_vehMake, '').trim();
+  currentVehicleContext = { make: _vehMake, model: _vehModel };
+  const _statusForTrack = isMRE
+    ? (r['Approval status'] || 'In Force')
+    : getSevExpiryStatus(r).label;
+  if (_statusForTrack === 'In Force' || _statusForTrack === 'Expiring Soon') {
+    track('EligibleResultViewed', {
+      make: _vehMake,
+      model: _vehModel,
+      sev_or_mre: isMRE ? 'MRE' : 'SEV',
+      approval_number: approvalNum || '',
+      build_years: isMRE
+        ? (r['Build date range'] || '')
+        : ((r['Build date from'] || '') + ' - ' + (r['Build date to'] || ''))
+    });
+  }
 
   // Audit #13 — write deep-link hash for this approval.
   if (isMRE && approvalNum) writeUrlHash({ mre: approvalNum });
@@ -3884,6 +3934,16 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
 
 // ── NOT ELIGIBLE SCREEN ───────────────────────────────────────────────────────
 function renderNotEligible(vehicleName, yearStr, make, model, year, isChassis, wrap) {
+  // Audit 2026-04-30 — vehicle context + NotEligibleResultViewed event so
+  // post-launch we can identify the most-searched non-eligible models and
+  // prioritise outreach / 25-year rule lifecycle communications.
+  currentVehicleContext = { make: make || '', model: model || '' };
+  track('NotEligibleResultViewed', {
+    make: make || '',
+    model: model || '',
+    year: year || '',
+    is_chassis: !!isChassis
+  });
   let html = `
     <div class="verdict-card ineligible">
       <div class="verdict-header">
@@ -3959,7 +4019,7 @@ function buildActions(record, vehicleName, isIneligible) {
     ${primaryLead}
     <a href="${contactUrl}" class="action-btn-primary" target="_blank" data-cta="${isIneligible ? 'pathways' : 'get_quote'}" data-cta-source="primary_action">${primaryLabel}</a>
     <div class="action-grid">
-      <a href="${calcUrl}" class="action-btn" target="_blank">Calculate landed cost</a>
+      <a href="${calcUrl}" class="action-btn" target="_blank" onclick="track('CalculateLandedCostClicked',{make:currentVehicleContext.make||'',model:currentVehicleContext.model||''})">Calculate landed cost</a>
       <button class="action-btn" onclick="shareResult('${vehicleName.replace(/'/g,"\\'")}')">Share result</button>
     </div>
   `;
@@ -3983,6 +4043,7 @@ function toggleWorkshops(collapseId, btn) {
 function resetSearch() {
   document.getElementById('results-wrap').style.display = 'none';
   document.body.classList.remove('results-active'); // audit #3 — restore hero/stats
+  currentVehicleContext = { make: '', model: '' };
   document.getElementById('sel-make').value = '';
   const ms = document.getElementById('make-search');
   if (ms) ms.value = '';
@@ -3997,6 +4058,11 @@ function resetSearch() {
 }
 
 function shareResult(vehicleName) {
+  track('ShareResultClicked', {
+    make:  (currentVehicleContext && currentVehicleContext.make)  || '',
+    model: (currentVehicleContext && currentVehicleContext.model) || '',
+    vehicle: vehicleName
+  });
   const url = window.location.href;
   if (navigator.share) {
     navigator.share({ title: `JDM Connect — ${vehicleName} Eligibility`, url });
@@ -4051,7 +4117,10 @@ document.addEventListener('keydown', (e) => {
   let initial = false;
   try { initial = sessionStorage.getItem(KEY) === '1'; } catch (_) {}
   setOpen(initial);
-  toggle.addEventListener('click', () => setOpen(panel.hidden));
+  toggle.addEventListener('click', () => {
+    track('MoreFiltersClicked', { will_be_open: !!panel.hidden });
+    setOpen(panel.hidden);
+  });
 })();
 
 // ── POPULAR SEARCH CHIPS (Audit 2026-04-30 — P2 #11) ────────────────────────
@@ -4062,7 +4131,7 @@ document.addEventListener('click', function(e) {
   if (!chip) return;
   e.preventDefault();
   const chipName = (chip.textContent || '').trim();
-  trackEvent('popular_chip_clicked', { chip: chipName });
+  track('PopularChipClicked', { chip: chipName });
   const chassisCode = chip.getAttribute('data-pop-chassis');
   if (chassisCode) {
     switchTab('chassis');
@@ -4106,15 +4175,29 @@ loadData();
       if (overlay) overlay.classList.add('ghl-active');
     }
     var ctaEl = e.target.closest('[data-cta]');
-    if (ctaEl && typeof trackEvent === 'function') {
+    if (ctaEl && typeof track === 'function') {
       var ctaType = ctaEl.getAttribute('data-cta');
       var source  = ctaEl.getAttribute('data-cta-source') || '';
       var eventName = {
-        get_quote: 'get_quote_clicked',
-        pathways:  'pathways_clicked',
-        notify:    'notify_me_clicked'
+        get_quote: 'GetQuoteClicked',
+        pathways:  'PathwaysClicked',
+        notify:    'NotifyMeClicked'
       }[ctaType];
-      if (eventName) trackEvent(eventName, source ? { source: source } : {});
+      if (eventName) {
+        var vctx = (typeof currentVehicleContext === 'object' && currentVehicleContext) ? currentVehicleContext : {};
+        var params = {
+          source_page: source,
+          make:  vctx.make  || '',
+          model: vctx.model || ''
+        };
+        track(eventName, params);
+        // Meta-standard Lead alongside GetQuoteClicked so FB can optimize
+        // the campaign for either signal. Pathways/Notify are leads too —
+        // they hit different surfaces in GHL but share intent.
+        if (eventName === 'GetQuoteClicked' || eventName === 'PathwaysClicked' || eventName === 'NotifyMeClicked') {
+          track('Lead', { content_name: eventName, source_page: source });
+        }
+      }
     }
   }, true);
 </script>
