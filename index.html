@@ -4177,7 +4177,20 @@ loadData();
     var ctaEl = e.target.closest('[data-cta]');
     if (ctaEl && typeof track === 'function') {
       var ctaType = ctaEl.getAttribute('data-cta');
-      var source  = ctaEl.getAttribute('data-cta-source') || '';
+      // Audit 2026-04-30 (Phase-4 issue #2) — derive source_page from the
+      // element's container so header / detail-sidebar / register-list /
+      // sticky-mobile clicks are distinguishable in the funnel report.
+      // closest() walks ancestors, so the most specific surface wins:
+      // header check is first because it's the broadest container, then
+      // the more specific in-page surfaces. Falls back to data-cta-source
+      // when no container matches (e.g. primary_action, register_list).
+      var source = '';
+      if (ctaEl.closest('header')) source = 'header';
+      else if (ctaEl.closest('.sticky-cta-bar')) source = 'sticky_mobile';
+      else if (ctaEl.closest('.detail-sidebar, .sidebar-cta-card')) source = 'detail_sidebar';
+      else if (ctaEl.closest('.summary-card')) source = 'summary_card';
+      else if (ctaEl.closest('.result-cta')) source = 'register_list';
+      else source = ctaEl.getAttribute('data-cta-source') || '';
       var eventName = {
         get_quote: 'GetQuoteClicked',
         pathways:  'PathwaysClicked',
