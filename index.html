@@ -466,6 +466,10 @@ body.results-active .popular-searches { display: none; }
 /* ── SEARCH FIELD GROUPS (Audit 2026-04-30 — P1 #8) ────────────────────── */
 .search-fields-primary { grid-template-columns: 1.4fr 1.4fr; }
 .search-fields-advanced { grid-template-columns: 1fr 1fr; margin-top: 4px; }
+/* The [hidden] attribute's UA stylesheet rule (display:none) loses specificity
+   to .search-fields { display:grid }. Without this override the More-filters
+   toggle would only update its label while the fields stayed visible. */
+.search-fields[hidden] { display: none !important; }
 .more-filters-toggle {
   background: none; border: none;
   color: var(--gold-dark); font-size: 12px; font-weight: 600;
@@ -2014,8 +2018,12 @@ function filterMakes(showAll) {
     if (showAllMakesIdle) {
       matches = allMakes;
     } else {
-      const allSet = new Set(allMakes.map(m => m.toLowerCase()));
-      matches = JAPANESE_MAKES.filter(m => allSet.has(m.toLowerCase()));
+      // Show all 12 curated makes whether or not the dataset has records
+      // for them — Isuzu/Infiniti/Acura genuinely have no current ROVER
+      // entries, but visitors expect to see those badges in the dropdown.
+      // If selected, populateModels() leaves the Model dropdown empty and
+      // a search returns the standard "Not currently eligible" screen.
+      matches = JAPANESE_MAKES.slice();
       isCuratedView = true;
     }
   } else {
@@ -2979,12 +2987,35 @@ function showApprovalList(groupIdx) {
 
   // ── SEVS section ─────────────────────────────────────────────────────────
   if (g.sev.length > 0) {
+    // Audit 2026-04-30 (smoke-test follow-up) — multiple SEV records often
+    // describe the same vehicle variant with only the SEV number differing
+    // (e.g. SEV-000769/770/771 are all V36 Skyline 10/2007–05/2013). To a
+    // non-enthusiast these look like duplicates. Group rows by the visible
+    // signature (Model code · Build window · Category · Status) and merge
+    // their approval numbers into one row. The merged row links to the
+    // first SEV's detail screen — the rest are still individually
+    // reachable via deep link / breadcrumbs.
+    const sevDedupeMap = new Map();
+    g.sev.forEach((r, i) => {
+      const key = [
+        (r['Model code'] || '').trim().toUpperCase(),
+        (r['Build date from'] || '').trim(),
+        (r['Build date to'] || '').trim(),
+        (r['Category'] || '').trim(),
+        getSevExpiryStatus(r).label
+      ].join('|');
+      if (!sevDedupeMap.has(key)) sevDedupeMap.set(key, { rec: r, indices: [] });
+      sevDedupeMap.get(key).indices.push(i);
+    });
+    const sevGroups = Array.from(sevDedupeMap.values());
     html += `
       <section class="register-section">
         <h2 class="register-section-title">Vehicle Eligibility (SEVS)</h2>
         <div class="register-section-list">
     `;
-    g.sev.forEach((r, i) => {
+    sevGroups.forEach((grp) => {
+      const r = grp.rec;
+      const i = grp.indices[0];
       const { label: expiryLabel } = getSevExpiryStatus(r);
       const isActive = expiryLabel !== 'Expired';
       const statusLabel = isActive ? (expiryLabel === 'Expiring Soon' ? 'Expiring Soon' : 'Active') : 'Expired';
@@ -3025,8 +3056,20 @@ function showApprovalList(groupIdx) {
       })();
       const chassisStr = chassisCodes.length ? chassisCodes.join(' · ') : '';
 
+      // Merged approval codes (one entry per dedupe group). Cap at 3 visible
+      // codes so the row stays readable on mobile; surplus rolls into "+N".
+      const allSevNums = grp.indices.map(idx => g.sev[idx]['SEV #']).filter(Boolean);
+      const visibleNums = allSevNums.slice(0, 3);
+      const extraNums = allSevNums.length - visibleNums.length;
+      const approvalCodesHtml = allSevNums.length > 1
+        ? `Approvals: ${visibleNums.map(n => `<span class="register-entry-code">${n}</span>`).join(' · ')}${extraNums > 0 ? ` · <span class="register-entry-code">+${extraNums} more</span>` : ''}`
+        : `Approval: <span class="register-entry-code">${sevNum}</span>`;
+      const ariaApproval = allSevNums.length > 1
+        ? `${allSevNums.length} SEVS entries (${allSevNums.join(', ')})`
+        : `SEVS entry ${sevNum}`;
+
       html += `
-        <button class="register-entry-card" onclick="showScreen3FromList(${groupIdx},'sev',${i})" aria-label="View SEVS entry ${sevNum} for ${g.make} ${g.model}">
+        <button class="register-entry-card" onclick="showScreen3FromList(${groupIdx},'sev',${i})" aria-label="View ${ariaApproval} for ${g.make} ${g.model}">
           <div class="register-entry-head">
             <span class="type-badge type-badge-sev">SEV</span>
             <span class="type-badge ${statusClass}">${statusLabel}</span>
@@ -3037,7 +3080,7 @@ function showApprovalList(groupIdx) {
             ${chassisStr ? `<span class="register-entry-chassis">Chassis: ${chassisStr}</span>` : ''}
           </div>
           <div class="register-entry-secondary">
-            Approval: <span class="register-entry-code">${sevNum}</span>
+            ${approvalCodesHtml}
           </div>
           <span class="register-entry-arrow">→</span>
         </button>
