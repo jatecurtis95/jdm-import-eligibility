@@ -449,6 +449,163 @@ body.results-active .register-note { display: none; }
    mobile. */
 body.results-active { min-height: auto; }
 body.results-active .footer { margin-top: 20px; }
+body.results-active .how-it-works,
+body.results-active .popular-searches { display: none; }
+
+/* ── HERO JDM DECODER (Audit 2026-04-30 — P1 #9) ───────────────────────── */
+.hero-jdm-decoder {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+/* ── SEARCH FIELD GROUPS (Audit 2026-04-30 — P1 #8) ────────────────────── */
+.search-fields-primary { grid-template-columns: 1.4fr 1.4fr; }
+.search-fields-advanced { grid-template-columns: 1fr 1fr; margin-top: 4px; }
+.more-filters-toggle {
+  background: none; border: none;
+  color: var(--gold-dark); font-size: 12px; font-weight: 600;
+  cursor: pointer; padding: 6px 0; margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+.more-filters-toggle:hover { color: var(--gold); text-decoration: underline; }
+.more-filters-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
+
+/* ── INLINE FIELD ERROR (Audit 2026-04-30 — P0 #2) ─────────────────────── */
+.make-typeahead-wrap.field-error .field-select {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+}
+.field-error-msg {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #b91c1c;
+  font-weight: 500;
+  display: none;
+}
+
+/* ── MAKE SUGGESTION TOGGLE LINK (P0 #1) ───────────────────────────────── */
+.make-suggestion-toggle {
+  padding: 11px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--gold-dark);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  transition: background 0.1s;
+}
+.make-suggestion-toggle:hover { background: #fef6e0; color: #8B6914; }
+
+/* ── POPULAR SEARCH CHIPS (Audit 2026-04-30 — P2 #11) ──────────────────── */
+.popular-searches {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  margin-top: 14px;
+}
+.popular-searches-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-right: 4px;
+}
+.chip-search {
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  color: var(--text-secondary); font-size: 12px; font-weight: 500;
+  padding: 5px 11px; border-radius: 999px; cursor: pointer;
+  font-family: 'Inter', sans-serif; transition: all 0.15s;
+}
+.chip-search:hover { background: #fef6e0; border-color: var(--gold); color: var(--gold-dark); }
+.chip-search:active { transform: scale(0.97); }
+.chip-search:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ── HOW IT WORKS STRIP (Audit 2026-04-30 — P2 #12) ────────────────────── */
+.how-it-works {
+  max-width: 720px; margin: 8px auto 32px; padding: 0 16px;
+}
+.how-it-works-title {
+  text-align: center; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 14px;
+}
+.how-it-works-steps {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+}
+.how-it-works-step {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+  display: flex; gap: 12px; align-items: flex-start;
+  transition: border-color 0.15s;
+}
+.how-it-works-step:hover { border-color: var(--gold); }
+.how-it-works-num {
+  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #8B6914 0%, #CAA34C 100%);
+  color: #111; font-weight: 800; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.how-it-works-step-title {
+  font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 2px;
+}
+.how-it-works-body p {
+  font-size: 12px; color: var(--text-muted); line-height: 1.5;
+}
+.how-it-works-body a { color: var(--gold-dark); font-weight: 600; text-decoration: none; }
+.how-it-works-body a:hover { text-decoration: underline; }
+
+/* ── VARIANT CONTEXT CALLOUT (Audit 2026-04-30 — P0 #4 / P0 #5 / P1 #10) ─ */
+.variant-context-callout {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: #f0f9ff; border: 1px solid #bae6fd;
+  border-radius: 10px; padding: 10px 14px;
+  margin-bottom: 16px; font-size: 13px; color: #0c4a6e;
+  line-height: 1.45;
+}
+.variant-context-icon { font-size: 14px; line-height: 1.2; flex-shrink: 0; }
+.variant-context-text { flex: 1; }
+
+/* ── REGISTER LIST PAGE — restructured rows (P0 #3) ────────────────────── */
+.register-subtitle {
+  font-size: 14px; color: var(--text-muted); line-height: 1.45;
+  margin-top: 4px; max-width: 520px;
+}
+.register-entry-card .register-entry-primary {
+  display: flex; flex-wrap: wrap; gap: 4px 14px;
+  font-size: 13px; color: var(--text);
+  margin-top: 6px; font-weight: 500;
+}
+.register-entry-card .register-entry-build { font-weight: 600; }
+.register-entry-card .register-entry-chassis { color: var(--text-secondary); }
+.register-entry-card .register-entry-secondary {
+  font-size: 11px; color: var(--text-faint); margin-top: 4px;
+  font-family: 'DM Mono', monospace, 'Inter';
+  letter-spacing: 0.02em;
+}
+.register-entry-card .register-entry-code { font-weight: 600; color: var(--text-muted); }
+
+/* ── VARIANT CHIPS ON RESULT CARDS ─────────────────────────────────────── */
+.chassis-pill-variant {
+  background: rgba(202,163,76,0.12);
+  border-color: rgba(202,163,76,0.4);
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+.model-card-variant-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: #f0f9ff;
+  border-left: 3px solid #bae6fd;
+  padding: 6px 10px;
+  border-radius: 4px;
+  line-height: 1.4;
+}
 
 /* Phase 2.3 — Documentation card link styling (Ben's mockup) */
 .doc-link {
@@ -878,7 +1035,16 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
   .search-tab { font-size: 12px; padding: 10px 8px; white-space: nowrap; }
   .search-card { padding: 20px 16px; border-radius: 14px; }
   .search-fields { grid-template-columns: 1fr; gap: 12px; }
+  .search-fields-primary { grid-template-columns: 1fr; }
+  .search-fields-advanced { grid-template-columns: 1fr 1fr; }
   .search-wrap { padding: 0 16px 32px; }
+  /* Audit 2026-04-30 (P1 #7) — hide the live-data badge on mobile. It
+     pushes the form below the fold and adds nothing for a cold visitor. */
+  .hero-badge { display: none; }
+  /* Stack How It Works steps vertically on narrow screens. */
+  .how-it-works-steps { grid-template-columns: 1fr; gap: 8px; }
+  .popular-searches { gap: 5px; }
+  .chip-search { font-size: 11px; padding: 4px 9px; }
   .stats-strip { grid-template-columns: repeat(3,1fr); gap: 8px; }
   .stat-num { font-size: 18px; }
   .stat-label { font-size: 10px; }
@@ -1296,10 +1462,10 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge"><span class="dot"></span> Live ROVER data</div>
+  <div class="hero-badge" title="ROVER is the Department of Infrastructure's import register"><span class="dot"></span> Live government data</div>
   <h1>Is this car<br><em>importable to Australia?</em></h1>
-  <p>Check SEVS &amp; MRE eligibility in seconds — used by dealers, agents, and enthusiasts nationwide.</p>
-  <p class="hero-first">The first free eligibility tool of its kind, built for Australian JDM buyers.</p>
+  <p>Check Australia&rsquo;s two official import registers in seconds &mdash; used by dealers, agents, and enthusiasts nationwide.</p>
+  <p class="hero-first">The free eligibility tool for Australian buyers importing cars from Japan. <span class="hero-jdm-decoder">JDM = Japanese Domestic Market &mdash; cars built and sold in Japan that aren&rsquo;t normally available here.</span></p>
 </div>
 
 <!-- SEARCH CARD -->
@@ -1312,9 +1478,13 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
 
     <!-- Make/Model/Year tab -->
     <div id="tab-make">
-      <div class="search-fields">
+      <!-- Audit 2026-04-30 (P1 #8) — Build year + Propulsion are collapsed
+           under "More filters" so the form fits above the fold on mobile.
+           Most users leave them blank; expanding is one click and persists
+           per session via sessionStorage. -->
+      <div class="search-fields search-fields-primary">
         <div class="field-group">
-          <label class="field-label">Make</label>
+          <label class="field-label" for="make-search">Make</label>
           <div class="make-typeahead-wrap" id="make-typeahead-wrap">
             <input
               type="text"
@@ -1328,14 +1498,16 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
               onfocus="openMakeSuggestions()"
               onkeydown="makeKeyNav(event)"
               aria-label="Search make"
+              aria-describedby="make-error-msg"
             >
             <input type="hidden" id="sel-make">
             <span class="select-arrow" id="make-clear-btn" onclick="clearMake()" style="cursor:pointer;">▾</span>
             <div class="make-suggestions" id="make-suggestions"></div>
           </div>
+          <p class="field-error-msg" id="make-error-msg" role="alert" style="display:none;">Pick a make to start.</p>
         </div>
         <div class="field-group">
-          <label class="field-label">Model</label>
+          <label class="field-label" for="sel-model">Model</label>
           <div class="select-wrap">
             <select class="field-select" id="sel-model">
               <option value="">Select model…</option>
@@ -1343,8 +1515,10 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
             <span class="select-arrow">▾</span>
           </div>
         </div>
+      </div>
+      <div class="search-fields search-fields-advanced" id="search-fields-advanced" hidden>
         <div class="field-group">
-          <label class="field-label">Build year</label>
+          <label class="field-label" for="sel-year">Build year</label>
           <div class="select-wrap">
             <select class="field-select" id="sel-year">
               <option value="">Any year</option>
@@ -1353,7 +1527,7 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
           </div>
         </div>
         <div class="field-group">
-          <label class="field-label">Propulsion</label>
+          <label class="field-label" for="sel-propulsion">Propulsion</label>
           <div class="select-wrap">
             <select class="field-select" id="sel-propulsion">
               <option value="">Any</option>
@@ -1366,7 +1540,23 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
           </div>
         </div>
       </div>
+      <button type="button" class="more-filters-toggle" id="more-filters-toggle" aria-expanded="false" aria-controls="search-fields-advanced">+ More filters (year, propulsion)</button>
       <button class="search-btn" id="search-btn-make" onclick="doSearch()">Check eligibility →</button>
+
+      <!-- Audit 2026-04-30 (P2 #11) — Popular searches strip. Each chip
+           pre-fills the form and runs the search so a cold visitor gets to
+           a result in one click. -->
+      <div class="popular-searches" aria-label="Popular searches">
+        <span class="popular-searches-label">Popular:</span>
+        <button type="button" class="chip-search" data-pop="Nissan|Skyline">Skyline GT-R</button>
+        <button type="button" class="chip-search" data-pop="Toyota|Supra">Supra</button>
+        <button type="button" class="chip-search" data-pop="Toyota|Land Cruiser">Land Cruiser</button>
+        <button type="button" class="chip-search" data-pop="Toyota|Hiace">Hiace</button>
+        <button type="button" class="chip-search" data-pop="Mazda|RX-7">RX-7</button>
+        <button type="button" class="chip-search" data-pop="Honda|NSX">NSX</button>
+        <button type="button" class="chip-search" data-pop-chassis="CT9A">Evo</button>
+        <button type="button" class="chip-search" data-pop="Subaru|Impreza">WRX STI</button>
+      </div>
     </div>
 
     <!-- Chassis tab -->
@@ -1397,9 +1587,37 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
 </div>
 <p class="register-note">
   <strong>SEVS</strong> = Specialist &amp; Enthusiast Vehicle Scheme ·
-  <strong>MRE</strong> = Model Report Eligibility —
-  Australia's two official import registers (Dept of Infrastructure).
+  <strong>MRE</strong> = Model Report Eligibility &mdash;
+  Australia&rsquo;s two official import registers (Dept of Infrastructure).
 </p>
+
+<!-- HOW IT WORKS (Audit 2026-04-30 — P2 #12) -->
+<section class="how-it-works" aria-label="How it works">
+  <h2 class="how-it-works-title">How it works</h2>
+  <ol class="how-it-works-steps">
+    <li class="how-it-works-step">
+      <div class="how-it-works-num">1</div>
+      <div class="how-it-works-body">
+        <div class="how-it-works-step-title">Search</div>
+        <p>Pick your dream car &mdash; or paste a chassis code.</p>
+      </div>
+    </li>
+    <li class="how-it-works-step">
+      <div class="how-it-works-num">2</div>
+      <div class="how-it-works-body">
+        <div class="how-it-works-step-title">Check</div>
+        <p>See if it&rsquo;s eligible &mdash; and which build years count.</p>
+      </div>
+    </li>
+    <li class="how-it-works-step">
+      <div class="how-it-works-num">3</div>
+      <div class="how-it-works-body">
+        <div class="how-it-works-step-title">Quote</div>
+        <p><a href="https://jdmconnect.com.au/contact" target="_blank" rel="noopener">We source it for you, fully landed &rarr;</a></p>
+      </div>
+    </li>
+  </ol>
+</section>
 
 <!-- RESULTS -->
 <div class="results-wrap" id="results-wrap" style="display:none;"></div>
@@ -1713,6 +1931,17 @@ function applyHashIfPresent() {
 var allMakes = [];
 var makeSelectedValue = '';
 var makeFocusIndex = -1;
+// Curated Japanese makes shown by default in the idle dropdown — keeps the
+// JDM-themed first impression intact when users arrive from a Facebook ad.
+// Order is intentional: the most-searched OEMs first, niche/luxury after.
+const JAPANESE_MAKES = [
+  'Toyota', 'Nissan', 'Honda', 'Mazda', 'Subaru', 'Mitsubishi',
+  'Lexus', 'Suzuki', 'Daihatsu', 'Isuzu', 'Infiniti', 'Acura'
+];
+// Tracks whether the user clicked "Show all makes" — once expanded we keep
+// showing the full list for the rest of the session so they don't have to
+// re-toggle. Reset on clearMake().
+var showAllMakesIdle = false;
 
 // Audit #1 — RAWS pollution filter.
 // The ROVER register lists each RAWS workshop as its own "Make" (e.g. "A to Z RV Toyota",
@@ -1775,9 +2004,23 @@ function filterMakes(showAll) {
   const query = input.value.trim().toLowerCase();
   makeFocusIndex = -1;
 
-  const matches = showAll && !query
-    ? allMakes
-    : allMakes.filter(m => m.toLowerCase().includes(query));
+  // Idle (no query) view: by default show only curated Japanese makes from
+  // the current dataset, in the curated priority order. The text input still
+  // searches the full dataset (typing "adr" finds Adria) — only the click-to-
+  // open dropdown is filtered, until the user toggles "Show all makes".
+  let matches;
+  let isCuratedView = false;
+  if (showAll && !query) {
+    if (showAllMakesIdle) {
+      matches = allMakes;
+    } else {
+      const allSet = new Set(allMakes.map(m => m.toLowerCase()));
+      matches = JAPANESE_MAKES.filter(m => allSet.has(m.toLowerCase()));
+      isCuratedView = true;
+    }
+  } else {
+    matches = allMakes.filter(m => m.toLowerCase().includes(query));
+  }
 
   if (!matches.length) {
     list.innerHTML = '<div class="make-no-results">No makes found</div>';
@@ -1785,19 +2028,43 @@ function filterMakes(showAll) {
     return;
   }
 
-  list.innerHTML = matches.map(m => {
+  let html = matches.map(m => {
     const safe = m.replace(/"/g, '&quot;');
     const hi = query
       ? m.replace(new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>')
       : m;
     return '<div class="make-suggestion-item" data-make="' + safe + '">' + hi + '</div>';
   }).join('');
+
+  if (isCuratedView) {
+    html += '<div class="make-suggestion-toggle" id="make-show-all">Show all makes ▾</div>';
+  } else if (showAll && !query && showAllMakesIdle) {
+    html += '<div class="make-suggestion-toggle" id="make-show-curated">Japanese makes only ▴</div>';
+  }
+
+  list.innerHTML = html;
   list.querySelectorAll('.make-suggestion-item').forEach(function(el) {
     el.addEventListener('mousedown', function(e) {
       e.preventDefault();
       selectMake(this.getAttribute('data-make'));
     });
   });
+  const showAllEl = document.getElementById('make-show-all');
+  if (showAllEl) {
+    showAllEl.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      showAllMakesIdle = true;
+      filterMakes(true);
+    });
+  }
+  const showCuratedEl = document.getElementById('make-show-curated');
+  if (showCuratedEl) {
+    showCuratedEl.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      showAllMakesIdle = false;
+      filterMakes(true);
+    });
+  }
   list.classList.add('open');
 }
 
@@ -1809,6 +2076,31 @@ function selectMake(make) {
   document.getElementById('make-clear-btn').textContent = '✕';
   document.getElementById('make-clear-btn').style.fontSize = '11px';
   populateModels();
+  clearMakeFieldError();
+}
+
+// ── EMPTY-FORM VALIDATION (Audit 2026-04-30 — P0 #2) ─────────────────────
+// Replaces the silent alert() that fired on empty Check eligibility clicks
+// with an inline red border + helper text + auto-focus on the make input.
+// The error state self-clears the moment the user picks a make.
+function showMakeFieldError() {
+  const input = document.getElementById('make-search');
+  const wrap  = document.getElementById('make-typeahead-wrap');
+  const help  = document.getElementById('make-error-msg');
+  if (wrap) wrap.classList.add('field-error');
+  if (input) {
+    input.setAttribute('aria-invalid', 'true');
+    input.focus();
+  }
+  if (help) help.style.display = 'block';
+}
+function clearMakeFieldError() {
+  const wrap = document.getElementById('make-typeahead-wrap');
+  const input = document.getElementById('make-search');
+  const help  = document.getElementById('make-error-msg');
+  if (wrap) wrap.classList.remove('field-error');
+  if (input) input.removeAttribute('aria-invalid');
+  if (help) help.style.display = 'none';
 }
 
 function clearMake() {
@@ -1818,6 +2110,7 @@ function clearMake() {
   document.getElementById('sel-make').value = '';
   document.getElementById('make-search').value = '';
   makeSelectedValue = '';
+  showAllMakesIdle = false;
   document.getElementById('make-clear-btn').textContent = '▾';
   document.getElementById('make-clear-btn').style.fontSize = '';
   document.getElementById('make-suggestions').classList.remove('open');
@@ -1825,6 +2118,7 @@ function clearMake() {
   document.getElementById('make-clear-btn').style.fontSize = '';
   document.getElementById('sel-model').innerHTML = '<option value="">Select model\u2026</option>';
   document.getElementById('make-search').focus();
+  clearMakeFieldError();
 }
 
 function makeKeyNav(e) {
@@ -2098,7 +2392,8 @@ function doSearch() {
   const year = document.getElementById('sel-year').value;
   const propulsionEl = document.getElementById('sel-propulsion');
   const propulsion = propulsionEl ? propulsionEl.value : '';
-  if (!make) { alert('Please select a make first.'); return; }
+  if (!make) { showMakeFieldError(); return; }
+  clearMakeFieldError();
 
   withSearchLoadingState('search-btn-make', () => {
     const mreMatches = MRE.filter(r =>
@@ -2180,6 +2475,155 @@ function chassisAliasFragments(query) {
   return [];
 }
 
+// ── CHASSIS-CODE VARIANT TABLE (Audit 2026-04-30 — P0 #4 / P1 #10) ─────────
+// Maps specific chassis codes to plain-English variant names + the narrower
+// build era they actually represent. Used in three places:
+//   1. Chassis search: narrows results to the matching era so "BNR34" returns
+//      Skyline 1999–2002, not "Aug 1992 – present" (which spanned R32→V37).
+//   2. Result cards: surfaces a short variant context line above the build
+//      range so non-enthusiasts understand what they're looking at.
+//   3. Detail pages: lets us pick the correct sibling SEV chassis codes by
+//      build-range overlap, fixing the MRE-000058 1997–2002 vs HV37/HNV37
+//      cross-record mismatch.
+// `notes` is a one-line clarifier shown when a chassis is ambiguous to a
+// non-enthusiast (e.g. AXVH75 = JDM hybrid Camry, not the Aussie petrol).
+const CHASSIS_VARIANT_INFO = {
+  // Nissan Skyline (and GT-R)
+  'BNR32':    { name: 'R32 GT-R',          fromYear: 1989, toYear: 1994 },
+  'BCNR33':   { name: 'R33 GT-R',          fromYear: 1995, toYear: 1998 },
+  'BNR34':    { name: 'R34 GT-R',          fromYear: 1999, toYear: 2002 },
+  'R32':      { name: 'R32 Skyline',       fromYear: 1989, toYear: 1994 },
+  'R33':      { name: 'R33 Skyline',       fromYear: 1993, toYear: 1998 },
+  'R34':      { name: 'R34 Skyline',       fromYear: 1998, toYear: 2002 },
+  'V35':      { name: 'V35 Skyline (Infiniti G35)', fromYear: 2001, toYear: 2007 },
+  'V36':      { name: 'V36 Skyline (Infiniti G37)', fromYear: 2007, toYear: 2013 },
+  'V37':      { name: 'V37 Skyline hybrid sedan',   fromYear: 2014, toYear: 2099 },
+  'HV37':     { name: 'V37 Skyline hybrid sedan',   fromYear: 2014, toYear: 2099 },
+  'HNV37':    { name: 'V37 Skyline hybrid AWD',     fromYear: 2014, toYear: 2099 },
+  // Toyota Supra
+  'JZA70':    { name: 'A70 Supra (1JZ/2JZ)', fromYear: 1986, toYear: 1993 },
+  'JZA80':    { name: 'A80 Supra (2JZ)',     fromYear: 1993, toYear: 2002 },
+  'A80':      { name: 'A80 Supra (2JZ)',     fromYear: 1993, toYear: 2002 },
+  'A90':      { name: 'A90 Supra (BMW B58)', fromYear: 2019, toYear: 2099 },
+  'J29':      { name: 'A90 Supra (BMW B58)', fromYear: 2019, toYear: 2099 },
+  // Mazda RX-7 / RX-8
+  'FC3S':     { name: 'FC RX-7 (13B turbo)',  fromYear: 1985, toYear: 1992 },
+  'FD3S':     { name: 'FD RX-7 (twin-turbo)', fromYear: 1991, toYear: 2002 },
+  'SE3P':     { name: 'RX-8 (Renesis 13B)',   fromYear: 2003, toYear: 2012 },
+  // Honda NSX
+  'NA1':      { name: 'NA1 NSX (3.0L V6)',  fromYear: 1990, toYear: 1997 },
+  'NA2':      { name: 'NA2 NSX (3.2L V6)',  fromYear: 1997, toYear: 2005 },
+  // Toyota Mark II / Chaser / Cresta
+  'JZX100':   { name: 'JZX100 (1JZ-GTE)',   fromYear: 1996, toYear: 2001 },
+  'JZX110':   { name: 'JZX110 (1JZ-GTE VVTi)', fromYear: 2000, toYear: 2007 },
+  // Subaru Impreza WRX / STI
+  'GC8':      { name: 'GC8 Impreza WRX/STI', fromYear: 1992, toYear: 2000 },
+  'GDB':      { name: 'GDB Impreza WRX STI', fromYear: 2000, toYear: 2007 },
+  'GRB':      { name: 'GRB Impreza WRX STI', fromYear: 2007, toYear: 2014 },
+  'VAB':      { name: 'VAB WRX STI',         fromYear: 2014, toYear: 2021 },
+  // Mitsubishi Lancer Evolution
+  'CN9A':     { name: 'Lancer Evo IV',     fromYear: 1996, toYear: 1998 },
+  'CP9A':     { name: 'Lancer Evo V/VI',   fromYear: 1998, toYear: 2001 },
+  'CT9A':     { name: 'Lancer Evo VII/VIII/IX', fromYear: 2001, toYear: 2007 },
+  'CZ4A':     { name: 'Lancer Evo X',      fromYear: 2007, toYear: 2016 },
+  // Toyota AE86
+  'AE86':     { name: 'AE86 Sprinter Trueno / Corolla Levin', fromYear: 1983, toYear: 1987 },
+  // Honda Civic Type R
+  'EK9':      { name: 'EK9 Civic Type R',   fromYear: 1997, toYear: 2000 },
+  'EP3':      { name: 'EP3 Civic Type R',   fromYear: 2001, toYear: 2005 },
+  'FD2':      { name: 'FD2 Civic Type R',   fromYear: 2007, toYear: 2010 },
+  'FK8':      { name: 'FK8 Civic Type R',   fromYear: 2017, toYear: 2021 },
+  // Nissan Silvia / 180SX / 200SX
+  'S13':      { name: 'S13 Silvia / 180SX', fromYear: 1988, toYear: 1994 },
+  'S14':      { name: 'S14 Silvia',         fromYear: 1993, toYear: 1999 },
+  'S15':      { name: 'S15 Silvia',         fromYear: 1999, toYear: 2002 },
+  // Toyota Camry — non-enthusiast clarifier (Camry sells locally, this
+  // is the Japan-only hybrid).
+  'AXVH75':   { name: 'Japanese hybrid Camry',
+                fromYear: 2017, toYear: 2099,
+                chip: 'JDM Hybrid',
+                notes: 'This approval covers the Japanese-market hybrid Camry — not the Australian-spec Camry.' },
+};
+
+// "R series" appears in ROVER as a generic SEV model code covering R32/R33/R34
+// Skylines. We can't map a single chassis from "R series", so the variant
+// table doesn't catch it via getChassisVariantInfo. Add a separate descriptor
+// so the result card and detail page still get a useful context line for
+// these approvals.
+const MODEL_CODE_DESCRIPTORS = {
+  'R series': {
+    chip: 'R32/R33/R34',
+    notes: 'Covers the R32, R33, and R34 Skyline (and GT-R) generations — confirm your exact chassis code with JDM Connect before purchase.'
+  }
+};
+
+// Looks up variant info by exact-prefix match against any known chassis code.
+// Returns the most specific entry (longest matching key wins) so "BNR34" beats
+// the more generic "R34" when both appear.
+function getChassisVariantInfo(chassisRaw) {
+  if (!chassisRaw) return null;
+  const norm = String(chassisRaw).toUpperCase().replace(/[^A-Z0-9]/g, '');
+  let best = null;
+  for (const code of Object.keys(CHASSIS_VARIANT_INFO)) {
+    if (norm.startsWith(code)) {
+      if (!best || code.length > best.key.length) {
+        best = { key: code, ...CHASSIS_VARIANT_INFO[code] };
+      }
+    }
+  }
+  return best;
+}
+
+// Pulls the first chassis-code-shaped token out of a Model code field that
+// can contain comma- or slash-separated codes. Used for variant lookup so
+// "HV37/HNV37" returns the HV37 entry, "J50, NJ50" returns J50, etc.
+function firstChassisToken(modelCodeRaw) {
+  if (!modelCodeRaw) return '';
+  const tokens = String(modelCodeRaw).split(/[,\/]/).map(s => s.trim()).filter(Boolean);
+  for (const t of tokens) {
+    const v = getChassisVariantInfo(t);
+    if (v) return t;
+  }
+  return tokens[0] || '';
+}
+
+// Returns the variant info for a given approval record by inspecting its
+// chassis-code-bearing fields. SEVs use "Model code"; MREs sometimes have
+// chassis info in "Model report type" but it's usually just a generic
+// category, so MREs without explicit codes return null.
+function variantInfoForRecord(rec, isMRE) {
+  if (!rec) return null;
+  const codeField = isMRE
+    ? (rec['Model report type'] || rec['Model code'] || '')
+    : (rec['Model code'] || '');
+  return getChassisVariantInfo(firstChassisToken(codeField));
+}
+
+// Given an MRE (which has a Build date range) and a list of sibling SEVs,
+// pick the SEV whose build range *overlaps* the MRE's. Falls back to the
+// first SEV when none overlap (preserves prior behaviour for older records
+// where the date fields don't align). Fixes P0 #5 — MRE-000058 (1997–2002)
+// was inheriting HV37/HNV37 chassis codes from SEV-000517 (2013+).
+function pickSiblingSevByOverlap(mre, sevList) {
+  if (!sevList || !sevList.length) return null;
+  const m = parseBuildRange(mre['Build date range'] || '');
+  if (!m || !m.from) return sevList[0] || null;
+  const mFromY = m.from.getFullYear();
+  const mToY   = m.to ? m.to.getFullYear() : mFromY + 50;
+  for (const s of sevList) {
+    if (!s) continue;
+    const fromStr = s['Build date from'] || '';
+    const toStr   = s['Build date to']   || '';
+    const sParsed = parseBuildRange(fromStr + (toStr && toStr !== 'No end date' ? ' - ' + toStr : ''));
+    if (!sParsed || !sParsed.from) continue;
+    const sFromY = sParsed.from.getFullYear();
+    const sToY   = (toStr === 'No end date' || !sParsed.to) ? 2099 : sParsed.to.getFullYear();
+    // Overlap test: ranges intersect when each starts before the other ends.
+    if (sFromY <= mToY && sToY >= mFromY) return s;
+  }
+  return sevList[0] || null;
+}
+
 function doChassisSearch() {
   const q = document.getElementById('chassis-input').value.trim().toUpperCase();
   if (q.length < 3) { alert('Enter at least 3 characters.'); return; }
@@ -2193,20 +2637,59 @@ function doChassisSearch() {
       return aliasFragments.some(f => upper.indexOf(f.toUpperCase()) !== -1);
     };
 
-    const mreMatches = MRE.filter(r =>
+    let mreMatches = MRE.filter(r =>
       (r['Approval number'] || '').toUpperCase().includes(q) ||
       (r.Model || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(qNorm) ||
       (r['Model report type'] || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(qNorm) ||
       aliasMatch(r.Model) ||
       aliasMatch(r['Model report type'])
     );
-    const sevMatches = SEV.filter(r =>
+    let sevMatches = SEV.filter(r =>
       (r['SEV #'] || '').toUpperCase().includes(q) ||
       (r['Model code'] || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(qNorm) ||
       (r.Model || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(qNorm) ||
       aliasMatch(r.Model) ||
       aliasMatch(r['Model code'])
     );
+
+    // Audit 2026-04-30 (P0 #4) — when the chassis query is a *specific*
+    // variant code (BNR34, FD3S, JZA80, etc.) we know the actual build era.
+    // Narrow alias-matched results to that era so the user lands on the
+    // right generation rather than every Skyline ever made.
+    const variantInfo = getChassisVariantInfo(q);
+    if (variantInfo && aliasFragments.length > 0) {
+      const inEra = (fromY, toY) => {
+        if (fromY == null) return true; // unknown → keep, don't drop
+        return fromY <= variantInfo.toYear && toY >= variantInfo.fromYear;
+      };
+      const mreNarrow = mreMatches.filter(r => {
+        // Always keep direct approval-number matches.
+        if ((r['Approval number'] || '').toUpperCase().includes(q)) return true;
+        const p = parseBuildRange(r['Build date range'] || '');
+        if (!p || !p.from) return true;
+        const fromY = p.from.getFullYear();
+        const toY   = p.to ? p.to.getFullYear() : 2099;
+        return inEra(fromY, toY);
+      });
+      const sevNarrow = sevMatches.filter(r => {
+        // Direct chassis-code match wins.
+        if ((r['Model code'] || '').toUpperCase().replace(/[^A-Z0-9]/g,'').includes(qNorm)) return true;
+        const fromStr = r['Build date from'] || '';
+        const toStr   = r['Build date to']   || '';
+        const p = parseBuildRange(fromStr + (toStr && toStr !== 'No end date' ? ' - ' + toStr : ''));
+        if (!p || !p.from) return true;
+        const fromY = p.from.getFullYear();
+        const toY   = (toStr === 'No end date' || !p.to) ? 2099 : p.to.getFullYear();
+        return inEra(fromY, toY);
+      });
+      // Only apply the narrow if at least one record survives — otherwise we
+      // can't narrow honestly, fall back to the wider alias result so the
+      // user gets *something*.
+      if ((mreNarrow.length + sevNarrow.length) > 0) {
+        mreMatches = mreNarrow;
+        sevMatches = sevNarrow;
+      }
+    }
 
     showGroupedResults('', q, '', mreMatches, sevMatches, true);
   });
@@ -2317,6 +2800,42 @@ function renderScreen1(wrap) {
     const chassisCodes = Array.from(codeSet).slice(0, 6);
     const extraCodes = codeSet.size - chassisCodes.length;
 
+    // Audit 2026-04-30 (P0 #4) — derive plain-English variant chips from
+    // the chassis codes when we recognise them, so a Skyline result card
+    // shows "R-series · V35 · V36 · V37" rather than "R series · V35 · V36
+    // · HV37/HNV37 · J50, NJ50 · RV37". Falls back to raw chassis pills
+    // when no variant mapping is known.
+    const variantChipSet = new Set();
+    for (const c of codeSet) {
+      const tok = firstChassisToken(c);
+      const vi = getChassisVariantInfo(tok);
+      if (vi && vi.chip) variantChipSet.add(vi.chip);
+      else if (vi) {
+        // Default chip = the chassis-code key (e.g. "BNR34") if it's
+        // recognisable, otherwise the first variant-name word.
+        const fallback = (tok && /^[A-Z]+\d+/i.test(tok)) ? tok.toUpperCase() : vi.name.split(' ')[0];
+        variantChipSet.add(fallback);
+      } else if (MODEL_CODE_DESCRIPTORS[c] && MODEL_CODE_DESCRIPTORS[c].chip) {
+        variantChipSet.add(MODEL_CODE_DESCRIPTORS[c].chip);
+      }
+    }
+    const variantChips = Array.from(variantChipSet).slice(0, 8);
+
+    // Single-variant aware context line. If the group's recognised variant
+    // chassis all share a `notes` field (e.g. AXVH75 → JDM hybrid Camry
+    // disclaimer), surface that note above the build range so non-enthusiasts
+    // see the disambiguation immediately.
+    let variantNoteLine = '';
+    const seenNotes = new Set();
+    for (const c of codeSet) {
+      const vi = getChassisVariantInfo(firstChassisToken(c));
+      if (vi && vi.notes) seenNotes.add(vi.notes);
+      else if (MODEL_CODE_DESCRIPTORS[c] && MODEL_CODE_DESCRIPTORS[c].notes) seenNotes.add(MODEL_CODE_DESCRIPTORS[c].notes);
+    }
+    if (seenNotes.size === 1) {
+      variantNoteLine = `<div class="model-card-variant-note">${Array.from(seenNotes)[0]}</div>`;
+    }
+
     html += `
       <div class="model-card" onclick="showApprovalList(${idx})">
         <div class="model-card-top">
@@ -2327,7 +2846,9 @@ function renderScreen1(wrap) {
             </div>
             <div class="model-card-name">${g.make} ${g.model}</div>
             <div class="model-card-range">Build: ${range} &nbsp;·&nbsp; ${totalEntries} register ${totalEntries === 1 ? 'entry' : 'entries'}</div>
-            ${chassisCodes.length ? `<div class="chassis-pills" style="margin-top:10px;">${chassisCodes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}${extraCodes > 0 ? `<span class="chassis-pill" style="border-style:dashed;">+${extraCodes}</span>` : ''}</div>` : ''}
+            ${variantNoteLine}
+            ${variantChips.length ? `<div class="chassis-pills" style="margin-top:10px;">${variantChips.map(c => `<span class="chassis-pill chassis-pill-variant">${c}</span>`).join('')}</div>` : ''}
+            ${chassisCodes.length ? `<div class="chassis-pills" style="margin-top:8px;">${chassisCodes.map(c => `<span class="chassis-pill">${c}</span>`).join('')}${extraCodes > 0 ? `<span class="chassis-pill" style="border-style:dashed;">+${extraCodes}</span>` : ''}</div>` : ''}
           </div>
           <div class="model-card-chevron">›</div>
         </div>
@@ -2436,12 +2957,14 @@ function showApprovalList(groupIdx) {
     { label: g.model },
   ]);
 
-  // Vehicle header — kept minimal. Explanatory callout + entry-count subtitle
-  // were removed 2026-04-24 as ambient noise; the section headings below are
-  // self-describing and the entry count is obvious from the cards themselves.
+  // Vehicle header — kept minimal. Audit 2026-04-30 (P0 #3) added a sub-line
+  // that explicitly tells the user how many approvals they're choosing
+  // between, replacing the cold "Other approvals" framing the previous
+  // design implied.
   html += `
     <div class="register-header">
       <h1 class="register-title">${g.make} ${g.model}</h1>
+      <p class="register-subtitle">We found ${totalEntries} approval${totalEntries === 1 ? '' : 's'} for the ${g.make} ${g.model}. Pick the one closest to your car.</p>
     </div>
   `;
 
@@ -2483,13 +3006,24 @@ function showApprovalList(groupIdx) {
       const buildTo = (!buildToRaw || buildToRaw === 'No end date') ? 'Present' : formatBuildRange(buildToRaw);
       const buildStr = buildFrom && buildFrom !== 'Unknown' ? `${buildFrom} – ${buildTo}` : 'Unknown';
 
-      // Title: prefer chassis codes (most discriminating for the user) and
-      // fall back to category or a neutral "SEVS entry".
-      const title = chassisCodes.length
-        ? chassisCodes.join(', ')
-        : (categoryLabel || 'SEVS entry');
+      // Audit 2026-04-30 (P0 #3) — title now leads with the variant name
+      // when we recognise the chassis (e.g. "R34 GT-R"), falling back to the
+      // chassis codes themselves and then to a neutral "SEVS entry". The
+      // model+make is already in the page header so the row label can be
+      // 100% about the variant.
+      const variantInfo = getChassisVariantInfo(firstChassisToken(r['Model code'] || ''));
+      const title = variantInfo ? variantInfo.name
+        : (chassisCodes.length ? chassisCodes.join(', ') : (categoryLabel || 'SEVS entry'));
 
       const sevNum = r['SEV #'] || '—';
+      const buildYears = (() => {
+        const f = (r['Build date from'] || '').match(/(\d{4})/);
+        const t = (r['Build date to']   || '').match(/(\d{4})/);
+        if (!f) return buildStr;
+        if (!t || /no end date/i.test(r['Build date to'] || '')) return f[1] + ' – present';
+        return f[1] + ' – ' + t[1];
+      })();
+      const chassisStr = chassisCodes.length ? chassisCodes.join(' · ') : '';
 
       html += `
         <button class="register-entry-card" onclick="showScreen3FromList(${groupIdx},'sev',${i})" aria-label="View SEVS entry ${sevNum} for ${g.make} ${g.model}">
@@ -2498,9 +3032,12 @@ function showApprovalList(groupIdx) {
             <span class="type-badge ${statusClass}">${statusLabel}</span>
           </div>
           <h3 class="register-entry-title">${title}</h3>
-          <div class="register-entry-meta">
-            <span>Build: ${buildStr}</span>
-            <span class="register-entry-code">#${sevNum}</span>
+          <div class="register-entry-primary">
+            <span class="register-entry-build">Build: ${buildYears}</span>
+            ${chassisStr ? `<span class="register-entry-chassis">Chassis: ${chassisStr}</span>` : ''}
+          </div>
+          <div class="register-entry-secondary">
+            Approval: <span class="register-entry-code">${sevNum}</span>
           </div>
           <span class="register-entry-arrow">→</span>
         </button>
@@ -2524,9 +3061,29 @@ function showApprovalList(groupIdx) {
 
       const approvalNum = r['Approval number'] || '—';
       const workshopName = r['_workshop_short'] || r['_approval_holder'] || '';
-      const title = workshopName || `Compliance Workshop ${approvalNum}`;
       const complianceLevel = r['Compliance Level'] || '';
-      const buildStr = formatBuildRange(r['Build date range'] || '') || '—';
+
+      // Audit 2026-04-30 (P0 #3) — lead with build year range and chassis
+      // codes (where we can derive them from a build-overlapping sibling
+      // SEV), so users self-select by variant rather than by MRE number.
+      const buildYears = (() => {
+        const p = parseBuildRange(r['Build date range'] || '');
+        if (!p || !p.from) return formatBuildRange(r['Build date range'] || '') || '—';
+        const fromY = p.from.getFullYear();
+        const toY = p.to ? p.to.getFullYear() : null;
+        return toY ? fromY + ' – ' + toY : fromY + ' – present';
+      })();
+      const matchedSev = pickSiblingSevByOverlap(r, g.sev || []);
+      const matchedCodes = matchedSev
+        ? (matchedSev['Model code'] || '').split(/[,\/]/).map(s => s.trim()).filter(Boolean)
+        : [];
+      const variantInfo = matchedSev
+        ? getChassisVariantInfo(firstChassisToken(matchedSev['Model code'] || ''))
+        : null;
+      const title = variantInfo
+        ? variantInfo.name + (workshopName ? ' — ' + workshopName : '')
+        : (workshopName || `Compliance Workshop ${approvalNum}`);
+      const chassisStr = matchedCodes.length ? matchedCodes.slice(0, 4).join(' · ') : '';
 
       html += `
         <button class="register-entry-card" onclick="showScreen3FromList(${groupIdx},'mre',${i})" aria-label="View MRE entry ${approvalNum} for ${g.make} ${g.model}">
@@ -2535,10 +3092,13 @@ function showApprovalList(groupIdx) {
             <span class="type-badge ${statusClass}">${statusLabel}</span>
           </div>
           <h3 class="register-entry-title">${title}</h3>
-          <div class="register-entry-meta">
-            <span>Build: ${buildStr}</span>
-            ${complianceLevel ? `<span>Level: ${complianceLevel}</span>` : ''}
-            <span class="register-entry-code">#${approvalNum}</span>
+          <div class="register-entry-primary">
+            <span class="register-entry-build">Build: ${buildYears}</span>
+            ${chassisStr ? `<span class="register-entry-chassis">Chassis: ${chassisStr}</span>` : ''}
+          </div>
+          <div class="register-entry-secondary">
+            Approval: <span class="register-entry-code">${approvalNum}</span>
+            ${complianceLevel ? ` · Level: ${complianceLevel}` : ''}
           </div>
           <span class="register-entry-arrow">→</span>
         </button>
@@ -2737,7 +3297,13 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
   // we still want to consult the SEV for chassis codes, expiry, and the
   // header subtitle. Without this fallback, MRE pages render half-blank
   // because the MRE list-scrape doesn't carry chassis codes or expiry.
-  const primarySev = (sevList || []).find(s => s && s['SEV #']) || null;
+  // Audit 2026-04-30 (P0 #5): when viewing an MRE, prefer the sibling SEV
+  // whose build range overlaps this approval — otherwise we surface chassis
+  // codes from a *different* generation (e.g. MRE-000058 1997–2002 was
+  // pulling HV37/HNV37 from a 2013+ SEV).
+  const primarySev = isMRE
+    ? (pickSiblingSevByOverlap(r, sevList || []) || (sevList || []).find(s => s && s['SEV #']) || null)
+    : ((sevList || []).find(s => s && s['SEV #']) || null);
 
   const buildRange = isMRE
     ? formatBuildRange(r['Build date range'])
@@ -2922,6 +3488,50 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
       <p style="font-size:14px;color:var(--text-muted);">${approvalLink} · ${buildRange}</p>
     </div>
   `;
+
+  // Audit 2026-04-30 (P0 #4 / P1 #10) — variant-context callout. When the
+  // approval's chassis code resolves to a known variant (e.g. AXVH75 = JDM
+  // hybrid Camry, BNR34 = R34 GT-R), surface a one-line clarifier above the
+  // detail cards so non-enthusiasts immediately see *which* version of the
+  // model this entry actually covers.
+  const detailVariant = variantInfoForRecord(r, isMRE)
+    || (primarySev ? variantInfoForRecord(primarySev, false) : null);
+  if (detailVariant && (detailVariant.notes || detailVariant.name)) {
+    const variantLine = detailVariant.notes
+      || `This approval covers the ${detailVariant.name} (${detailVariant.fromYear}–${detailVariant.toYear < 2099 ? detailVariant.toYear : 'present'}).`;
+    html += `
+      <div class="variant-context-callout">
+        <span class="variant-context-icon">ℹ</span>
+        <span class="variant-context-text">${variantLine}</span>
+      </div>
+    `;
+  }
+
+  // Audit 2026-04-30 (P0 #5) — when the originating MRE record's build range
+  // genuinely doesn't overlap any sibling SEV, our chassis codes still come
+  // from the closest SEV. Add a quiet disclaimer so users aren't misled.
+  if (isMRE && primarySev && chassisCodes.length) {
+    const mreP = parseBuildRange(r['Build date range'] || '');
+    const sFromStr = primarySev['Build date from'] || '';
+    const sToStr   = primarySev['Build date to']   || '';
+    const sP = parseBuildRange(sFromStr + (sToStr && sToStr !== 'No end date' ? ' - ' + sToStr : ''));
+    const overlaps = (() => {
+      if (!mreP || !mreP.from || !sP || !sP.from) return true;
+      const mFromY = mreP.from.getFullYear();
+      const mToY   = mreP.to ? mreP.to.getFullYear() : 2099;
+      const sFromY = sP.from.getFullYear();
+      const sToY   = (sToStr === 'No end date' || !sP.to) ? 2099 : sP.to.getFullYear();
+      return sFromY <= mToY && sToY >= mFromY;
+    })();
+    if (!overlaps) {
+      html += `
+        <div class="variant-context-callout" style="background:#fff8ed;border-color:#fcd34d;">
+          <span class="variant-context-icon">⚠</span>
+          <span class="variant-context-text">Year range shown reflects the MRE approval; the chassis codes below come from the closest matching SEV record and may not all apply to this exact build window. Verify with JDM Connect before purchase.</span>
+        </div>
+      `;
+    }
+  }
 
   if (isOver25) {
     html += `
@@ -3255,6 +3865,60 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault();
     make.focus();
   }
+});
+
+// ── MORE-FILTERS TOGGLE (Audit 2026-04-30 — P1 #8) ──────────────────────────
+// Year + propulsion are hidden behind this toggle so the default form fits
+// above the fold on mobile. Expanded state persists per-session so users who
+// rely on those filters don't have to re-expand on every search.
+(function setupMoreFilters() {
+  const toggle = document.getElementById('more-filters-toggle');
+  const panel  = document.getElementById('search-fields-advanced');
+  if (!toggle || !panel) return;
+  const KEY = 'eligibility:moreFiltersOpen';
+  const setOpen = (open) => {
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.textContent = open ? '− Hide year & propulsion' : '+ More filters (year, propulsion)';
+    try { sessionStorage.setItem(KEY, open ? '1' : '0'); } catch (_) {}
+  };
+  let initial = false;
+  try { initial = sessionStorage.getItem(KEY) === '1'; } catch (_) {}
+  setOpen(initial);
+  toggle.addEventListener('click', () => setOpen(panel.hidden));
+})();
+
+// ── POPULAR SEARCH CHIPS (Audit 2026-04-30 — P2 #11) ────────────────────────
+// Each chip carries either `data-pop="Make|Model"` or `data-pop-chassis="CODE"`.
+// Click pre-fills the form and runs the search.
+document.addEventListener('click', function(e) {
+  const chip = e.target.closest('.chip-search');
+  if (!chip) return;
+  e.preventDefault();
+  const chassisCode = chip.getAttribute('data-pop-chassis');
+  if (chassisCode) {
+    switchTab('chassis');
+    const input = document.getElementById('chassis-input');
+    if (input) input.value = chassisCode;
+    doChassisSearch();
+    return;
+  }
+  const pair = chip.getAttribute('data-pop') || '';
+  const [makeName, modelName] = pair.split('|');
+  if (!makeName) return;
+  switchTab('make');
+  const matched = (allMakes || []).find(m => m.toLowerCase() === makeName.toLowerCase());
+  if (!matched) return;
+  selectMake(matched);
+  if (modelName) {
+    const sel = document.getElementById('sel-model');
+    if (sel) {
+      for (const opt of sel.options) {
+        if (opt.value.toLowerCase() === modelName.toLowerCase()) { sel.value = opt.value; break; }
+      }
+    }
+  }
+  doSearch();
 });
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
