@@ -1458,7 +1458,7 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
     <nav class="header-nav">
       <a href="https://calculator.jdmconnect.com.au">Landed Cost</a>
       <a href="https://jdmconnect.com.au">Home</a>
-      <a href="https://jdmconnect.com.au/contact" class="header-cta">Get a free quote</a>
+      <a href="https://jdmconnect.com.au/contact" class="header-cta" data-cta="get_quote" data-cta-source="header">Get a free quote</a>
     </nav>
   </div>
 </header>
@@ -1544,7 +1544,7 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
         </div>
       </div>
       <button type="button" class="more-filters-toggle" id="more-filters-toggle" aria-expanded="false" aria-controls="search-fields-advanced">+ More filters (year, propulsion)</button>
-      <button class="search-btn" id="search-btn-make" onclick="doSearch()">Check eligibility →</button>
+      <button class="search-btn" id="search-btn-make" onclick="trackEvent('check_eligibility_clicked',{tab:'make'}); doSearch();">Check eligibility →</button>
 
       <!-- Audit 2026-04-30 (P2 #11) — Popular searches strip. Each chip
            pre-fills the form and runs the search so a cold visitor gets to
@@ -1566,7 +1566,7 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
     <div id="tab-chassis" style="display:none;">
       <input class="chassis-input" id="chassis-input" type="text" placeholder="e.g. BNR34-001245 or JZX100-…" maxlength="30" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doChassisSearch()">
       <p class="chassis-hint" style="margin-top:10px; margin-bottom:16px;">Enter the first 4–6 characters of the chassis/model code for best results</p>
-      <button class="search-btn" id="search-btn-chassis" onclick="doChassisSearch()">Check eligibility →</button>
+      <button class="search-btn" id="search-btn-chassis" onclick="trackEvent('check_eligibility_clicked',{tab:'chassis'}); doChassisSearch();">Check eligibility →</button>
     </div>
   </div>
 </div>
@@ -1638,6 +1638,27 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
 let MRE = [], SEV = [], allData = null;
 let activeTab = 'make';
 const ADMIN_MODE = new URLSearchParams(window.location.search).get('admin') === '1';
+
+// ── ANALYTICS (Audit 2026-04-30 — sales conversion instrumentation) ─────────
+// Routes a single event into both GA4 (gtag) and Meta Pixel (fbq trackCustom).
+// Defensive try/catch: analytics tooling must never break the UX. If either
+// loader fails (ad-blockers, network) we silently move on. Events fired:
+//   check_eligibility_clicked  — top-of-funnel CTA click (make or chassis tab)
+//   search_submitted           — search ran (make+model or chassis params)
+//   popular_chip_clicked       — chip strip click; carries the chip name
+//   show_all_makes_clicked     — user expanded the curated dropdown
+//   get_quote_clicked          — any "Get a free quote" CTA
+//   notify_me_clicked          — "Notify me when this becomes eligible"
+//   pathways_clicked           — "Talk to JDM Connect about other pathways"
+function trackEvent(name, params) {
+  const safeParams = params || {};
+  try {
+    if (typeof gtag === 'function') gtag('event', name, safeParams);
+  } catch (_) { /* swallow — analytics never breaks UX */ }
+  try {
+    if (typeof fbq === 'function') fbq('trackCustom', name, safeParams);
+  } catch (_) { /* swallow */ }
+}
 
 // ── JARGON TRANSLATION ─────────────────────────────────────────────────────
 // Replace government-speak with plain English so everyday users understand results.
@@ -2073,6 +2094,7 @@ function filterMakes(showAll) {
   if (showAllEl) {
     showAllEl.addEventListener('mousedown', function(e) {
       e.preventDefault();
+      trackEvent('show_all_makes_clicked');
       showAllMakesIdle = true;
       filterMakes(true);
     });
@@ -2458,6 +2480,14 @@ function doSearch() {
   if (!make) { showMakeFieldError(); return; }
   clearMakeFieldError();
 
+  trackEvent('search_submitted', {
+    tab: 'make',
+    make: make || '',
+    model: model || '',
+    year: year || '',
+    propulsion: propulsion || ''
+  });
+
   withSearchLoadingState('search-btn-make', () => {
     const mreMatches = MRE.filter(r =>
       makeMatches(r.Make, make) &&
@@ -2690,6 +2720,13 @@ function pickSiblingSevByOverlap(mre, sevList) {
 function doChassisSearch() {
   const q = document.getElementById('chassis-input').value.trim().toUpperCase();
   if (q.length < 3) { alert('Enter at least 3 characters.'); return; }
+
+  trackEvent('search_submitted', {
+    tab: 'chassis',
+    make: '',
+    model: '',
+    chassis: q
+  });
 
   withSearchLoadingState('search-btn-chassis', () => {
     const qNorm = q.replace(/[^A-Z0-9]/g, '');
@@ -2962,7 +2999,7 @@ function buildSummaryCard(group, buildRange, workshopCount, isImportable, hasExp
       <div class="summary-card summary-card-red">
         <div class="summary-card-headline">This vehicle is not currently eligible for import to Australia.</div>
         <div class="summary-card-detail">No active approvals found for ${vehicleName}. There may be other pathways — contact JDM Connect to discuss options.</div>
-        <a href="${contactUrl}" class="summary-card-cta" target="_blank">Talk to JDM Connect →</a>
+        <a href="${contactUrl}" class="summary-card-cta" target="_blank" data-cta="pathways" data-cta-source="summary_card">Talk to JDM Connect →</a>
       </div>
     `;
   }
@@ -2980,7 +3017,7 @@ function buildSummaryCard(group, buildRange, workshopCount, isImportable, hasExp
         <div class="summary-fact"><span class="summary-fact-label">Workshops</span><span class="summary-fact-value">${workshopLabel}</span></div>
       </div>
       ${warningLine}
-      <a href="${contactUrl}" class="summary-card-cta" target="_blank">Get a free quote →</a>
+      <a href="${contactUrl}" class="summary-card-cta" target="_blank" data-cta="get_quote" data-cta-source="summary_card">Get a free quote →</a>
     </div>
   `;
 }
@@ -3212,7 +3249,7 @@ function showApprovalList(groupIdx) {
 
   // ── Bottom CTA row (primary conversion + new search) ─────────────────────
   const eligibleCta = isImportable
-    ? `<a href="https://jdmconnect.com.au/contact?utm_source=eligibility&utm_medium=register&utm_campaign=import_this_car&vehicle=${encodeURIComponent(g.make + ' ' + g.model)}" class="result-cta" target="_blank" rel="noopener">Import this ${g.make} ${g.model} →</a>`
+    ? `<a href="https://jdmconnect.com.au/contact?utm_source=eligibility&utm_medium=register&utm_campaign=import_this_car&vehicle=${encodeURIComponent(g.make + ' ' + g.model)}" class="result-cta" target="_blank" rel="noopener" data-cta="get_quote" data-cta-source="register_list">Import this ${g.make} ${g.model} →</a>`
     : '';
   html += `
     <div class="result-actions">
@@ -3779,7 +3816,7 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
         ? `JDM Connect can source, ship, and comply a ${vehicleName} for you — from Japan to your door.`
         : 'Even if this entry is no longer active, there may be other pathways. Contact JDM Connect to discuss your options.'
       }</div>
-      <a href="${contactUrl}" class="sidebar-cta-btn" target="_blank">Get a free quote →</a>
+      <a href="${contactUrl}" class="sidebar-cta-btn" target="_blank" data-cta="${isActive ? 'get_quote' : 'pathways'}" data-cta-source="sidebar_detail">Get a free quote →</a>
       <div class="sidebar-cta-sub">We respond within 24 hours.</div>
     </div>
   `;
@@ -3908,7 +3945,7 @@ function buildActions(record, vehicleName, isIneligible) {
   const calcUrl = 'https://calculator.jdmconnect.com.au';
   const contactUrl = 'https://jdmconnect.com.au/contact';
   const notifyBtn = isIneligible
-    ? `<button class="notify-btn ghl-notify-trigger">🔔 Notify me when this becomes eligible</button>`
+    ? `<button class="notify-btn ghl-notify-trigger" data-cta="notify" data-cta-source="not_eligible_screen">🔔 Notify me when this becomes eligible</button>`
     : '';
   // Distinct post-result copy so the next step is obvious in both outcomes.
   const primaryLead = isIneligible
@@ -3920,7 +3957,7 @@ function buildActions(record, vehicleName, isIneligible) {
   return `
     ${notifyBtn}
     ${primaryLead}
-    <a href="${contactUrl}" class="action-btn-primary" target="_blank">${primaryLabel}</a>
+    <a href="${contactUrl}" class="action-btn-primary" target="_blank" data-cta="${isIneligible ? 'pathways' : 'get_quote'}" data-cta-source="primary_action">${primaryLabel}</a>
     <div class="action-grid">
       <a href="${calcUrl}" class="action-btn" target="_blank">Calculate landed cost</a>
       <button class="action-btn" onclick="shareResult('${vehicleName.replace(/'/g,"\\'")}')">Share result</button>
@@ -4024,6 +4061,8 @@ document.addEventListener('click', function(e) {
   const chip = e.target.closest('.chip-search');
   if (!chip) return;
   e.preventDefault();
+  const chipName = (chip.textContent || '').trim();
+  trackEvent('popular_chip_clicked', { chip: chipName });
   const chassisCode = chip.getAttribute('data-pop-chassis');
   if (chassisCode) {
     switchTab('chassis');
@@ -4056,18 +4095,33 @@ loadData();
 
 
 <script>
-  // Show GHL popup only on notify button click, hide on overlay/close click
+  // Show GHL popup only on notify button click, hide on overlay/close click.
+  // Also fires conversion events for every CTA tagged with data-cta.
+  // Uses capture phase so the event lands before <a target="_blank"> follows
+  // the link and the page tears down (otherwise tail-end event delivery on
+  // GA4/Pixel can be dropped by some browsers when the tab navigates).
   document.addEventListener('click', function(e) {
     if (e.target.closest('.ghl-notify-trigger')) {
       var overlay = document.getElementById('popup-0gQCujDNgaGlG83rK10j-overlay');
       if (overlay) overlay.classList.add('ghl-active');
     }
-  });
+    var ctaEl = e.target.closest('[data-cta]');
+    if (ctaEl && typeof trackEvent === 'function') {
+      var ctaType = ctaEl.getAttribute('data-cta');
+      var source  = ctaEl.getAttribute('data-cta-source') || '';
+      var eventName = {
+        get_quote: 'get_quote_clicked',
+        pathways:  'pathways_clicked',
+        notify:    'notify_me_clicked'
+      }[ctaType];
+      if (eventName) trackEvent(eventName, source ? { source: source } : {});
+    }
+  }, true);
 </script>
 
 <!-- Mobile sticky CTA — only visible on results screens at ≤640px -->
 <div class="sticky-cta-bar">
-  <a href="https://jdmconnect.com.au/contact" target="_blank">Get a free quote</a>
+  <a href="https://jdmconnect.com.au/contact" target="_blank" data-cta="get_quote" data-cta-source="sticky_mobile">Get a free quote</a>
 </div>
 
 <!-- GHL NOTIFY POPUP -->
