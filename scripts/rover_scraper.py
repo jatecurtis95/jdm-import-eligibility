@@ -9,6 +9,7 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 from datetime import datetime, timedelta
 
 try:
@@ -608,9 +609,14 @@ def _badge_for_register(register_type):
 
 
 def _urgency_colors(days_left):
+    # Three tiers so the Expiring section reads coherently with its amber
+    # heading. Red used to fire at <=14 which made every row look like a
+    # "Removed" pill and clashed with the section identity.
+    if days_left <= 7:
+        return '#2a0f12', '#f87171', '#8a2d33'   # red — critical
     if days_left <= 14:
-        return '#1f0f11', '#f87171', '#5c1a1e'
-    return '#1f1708', '#f5a623', '#5c4a12'
+        return '#2a1f0a', '#fbbf24', '#8a6e1c'   # amber — warning (matches section)
+    return '#252b33', '#9ca3af', '#3d4550'       # slate — notice
 
 
 SITE_URL = 'https://eligibility.jdmconnect.com.au'
@@ -654,33 +660,65 @@ def _propulsion_badge_html(propulsion):
             f'color:{color}; border:1px solid {border};">{label}</span>')
 
 
+QUOTE_EMAIL = 'info@jdmconnect.com.au'
+
+
+def _quote_mailto(name, ref, register_type):
+    """Build a prefilled mailto link so each Added row converts straight from
+    the inbox. Subject carries the make/model + reference for instant context."""
+    label = f"{register_type} {ref}" if ref else register_type
+    subject = f"Quote on {name} ({label})"
+    body = (f"Hi JDM Connect,\n\n"
+            f"I saw {name} ({label}) in the weekly ROVER update and would like a quote.\n\n"
+            f"Thanks,\n")
+    return (f'mailto:{QUOTE_EMAIL}'
+            f'?subject={urllib.parse.quote(subject)}'
+            f'&body={urllib.parse.quote(body)}')
+
+
+def _removal_reason(r):
+    """Best-effort summary of WHY a record left the register. Prefers an
+    enriched reason field; otherwise infers from the expiry date."""
+    reason = (r.get('_expiry_reason') or '').strip()
+    if reason:
+        return reason
+    expiry = r.get('Expiry', '').strip()
+    if expiry:
+        for fmt in ('%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d', '%d %b %Y', '%d %B %Y'):
+            try:
+                d = datetime.strptime(expiry, fmt)
+                return 'Expired' if d < datetime.now() else 'Withdrawn'
+            except ValueError:
+                continue
+    return 'Removed from register'
+
+
 def _build_vehicle_rows(records, register_type, is_removed=False):
     rows = []
     for r in records:
         name = f"{r.get('Make', '')} {r.get('Model', '')}".strip()
         propulsion_html = _propulsion_badge_html(r.get('_propulsion', ''))
 
-        # Build the multi-line Details cell.
-        # Line 1: hyperlinked approval number + key context (eligibility type / workshop)
-        # Line 2: chassis / build range / expiry
+        # Compute reference + per-register context once; used in both the
+        # Vehicle cell subtitle (mobile-visible) and the Details cell (desktop).
         if register_type == 'MRE':
             ref = r.get('Approval number', '')
             site_link = f"{SITE_URL}/#mre={ref}" if ref else SITE_URL
+            link_color = '#60a5fa'
             workshop = r.get('_workshop_short') or r.get('_approval_holder') or ''
-            line1_extra = f' &middot; {workshop}' if workshop else ''
-            line1 = (f'<a href="{site_link}" style="color:#60a5fa; text-decoration:underline; '
-                     f'font-weight:600;">#{ref}</a>{line1_extra}') if ref else ''
             variant = r.get('_variant_description', '')
             build_range = r.get('Build date range', '')
-            line2 = variant if variant else build_range
+            chassis = ''
+            category_label = ''
+            extra_context = workshop
+            secondary = variant if variant else build_range
+            expiry_short = ''
         else:
             ref = r.get('SEV #', '')
             site_link = f"{SITE_URL}/#sev={ref}" if ref else SITE_URL
+            link_color = '#4ade80'
             sev_cat_raw = (r.get('_sev_category') or '').lower()
-            sev_cat_label = ELIGIBILITY_LABELS.get(sev_cat_raw, '')
-            line1_extra = f' &middot; {sev_cat_label}' if sev_cat_label else ''
-            line1 = (f'<a href="{site_link}" style="color:#4ade80; text-decoration:underline; '
-                     f'font-weight:600;">#{ref}</a>{line1_extra}') if ref else ''
+            category_label = ELIGIBILITY_LABELS.get(sev_cat_raw, '')
             chassis = _extract_chassis_codes(r.get('Model code', ''))
             build_from = r.get('Build date from', '')
             build_to = r.get('Build date to', '')
@@ -688,159 +726,267 @@ def _build_vehicle_rows(records, register_type, is_removed=False):
             if build_from:
                 to_label = 'present' if (not build_to or build_to == 'No end date') else build_to
                 build_range = f'{build_from} – {to_label}'
-            expiry = r.get('Expiry', '')
-            line2_parts = []
-            if chassis:
-                line2_parts.append(f'<span style="font-family:Menlo,Monaco,monospace; color:#9ca3af;">{chassis}</span>')
-            if build_range:
-                line2_parts.append(build_range)
-            if expiry:
-                line2_parts.append(f'Expires {expiry}')
-            line2 = ' &middot; '.join(line2_parts)
+            expiry_short = _format_expiry_short(r.get('Expiry', ''))
+            extra_context = ''
+            secondary = build_range
 
+        # ── Vehicle cell subtitle ─────────────────────────────────────────────
+        # Holds the most-important context so it survives when the Details
+        # column is hidden on mobile (.detail-col display:none).
+        if is_removed:
+            subtitle_parts = [_removal_reason(r)]
+            if chassis:
+                subtitle_parts.append(
+                    f'<span style="font-family:Menlo,Monaco,monospace;">{chassis}</span>')
+            subtitle_color = '#9ca3af'
+        else:
+            subtitle_parts = []
+            if category_label:
+                subtitle_parts.append(category_label)
+            if extra_context:
+                subtitle_parts.append(extra_context)
+            if chassis:
+                subtitle_parts.append(
+                    f'<span style="font-family:Menlo,Monaco,monospace;">{chassis}</span>')
+            if expiry_short:
+                subtitle_parts.append(f'Expires {expiry_short}')
+            subtitle_color = '#9ca3af'
+        subtitle = ' &middot; '.join(p for p in subtitle_parts if p)
+
+        # ── Details cell (desktop only) ───────────────────────────────────────
+        # Hyperlink to the in-house register + secondary build/variant info.
+        ref_html = (f'<a href="{site_link}" style="color:{link_color}; text-decoration:underline; '
+                    f'font-weight:600;">#{ref}</a>') if ref else ''
+        detail_lines = [ref_html] if ref_html else []
+        if secondary:
+            detail_lines.append(f'<span style="color:#6b7280;">{secondary}</span>')
+        detail_html = '<br>'.join(detail_lines)
+
+        # ── Type cell + name styling ──────────────────────────────────────────
         bg, color, border, cls = _badge_for_register(register_type)
         if is_removed:
-            name_style = 'font-size:14px; font-weight:600; color:#6b7280;'
-            bg, color, border, cls = '#1a1d1d', '#9ca3af', '#2d3333', 'badge-gray'
+            name_style = 'font-size:14px; font-weight:600; color:#9ca3af; text-decoration:line-through;'
+            bg, color, border, cls = '#252b33', '#9ca3af', '#3d4550', 'badge-gray'
+            type_label = 'Removed'
         else:
             name_style = 'font-size:14px; font-weight:600; color:#e8eaea;'
+            type_label = register_type
 
-        detail_html = f'{line1}<br><span style="color:#6b7280;">{line2}</span>' if line2 else line1
+        # ── Quote CTA (Added rows only) ───────────────────────────────────────
+        # Mobile-visible mailto so each row is a one-tap lead-gen surface.
+        cta_html = ''
+        if not is_removed:
+            quote_url = _quote_mailto(name, ref, register_type)
+            cta_html = (f'<div style="margin-top:6px;">'
+                        f'<a href="{quote_url}" style="font-size:12px; font-weight:600; '
+                        f'color:#f5a623; text-decoration:none;">Get a quote &rarr;</a></div>')
+
+        vehicle_cell_inner = f'<div style="{name_style}">{name}</div>'
+        if subtitle:
+            vehicle_cell_inner += (f'<div style="font-size:12px; color:{subtitle_color}; '
+                                   f'margin-top:3px; line-height:1.4;">{subtitle}</div>')
+        vehicle_cell_inner += cta_html
 
         rows.append(
-            f'<tr><td style="padding:12px 16px; border-bottom:1px solid #242a2a; {name_style}">{name}</td>'
-            f'<td style="padding:12px 16px; border-bottom:1px solid #242a2a;">'
-            f'<span style="display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; background-color:{bg}; color:{color}; border:1px solid {border};" class="{cls}">{register_type}</span>'
+            f'<tr><td style="padding:12px 16px; border-bottom:1px solid #2e2820;">{vehicle_cell_inner}</td>'
+            f'<td style="padding:12px 16px; border-bottom:1px solid #2e2820; vertical-align:top;">'
+            f'<span style="display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; background-color:{bg}; color:{color}; border:1px solid {border};" class="{cls}">{type_label}</span>'
             f'{propulsion_html}'
-            f'</td><td style="padding:12px 16px; border-bottom:1px solid #242a2a; font-size:13px; color:#9ca3af; line-height:1.5;" class="detail-col">{detail_html}</td></tr>'
+            f'</td><td style="padding:12px 16px; border-bottom:1px solid #2e2820; font-size:13px; color:#9ca3af; line-height:1.5; vertical-align:top;" class="detail-col">{detail_html}</td></tr>'
         )
     return '\n'.join(rows)
+
+
+def _format_expiry_short(expiry_str):
+    """Render an expiry date as a short, scannable form like '21 May'.
+    Falls back to the raw string if it doesn't parse — ROVER returns several
+    formats (DD/MM/YYYY, DD MMM YYYY, etc.)."""
+    if not expiry_str:
+        return ''
+    for fmt in ('%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d', '%d %b %Y', '%d %B %Y'):
+        try:
+            return datetime.strptime(expiry_str.strip(), fmt).strftime('%d %b').lstrip('0')
+        except ValueError:
+            continue
+    return expiry_str
+
+
+def _expiring_band_header(label, color, sublabel):
+    """Render a sub-heading row above an urgency band so readers can scan by
+    how much time they actually have to act. Matches the editorial section
+    headers above the section (Playfair italic + uppercase caption)."""
+    return (
+        '<tr><td style="padding:22px 0 12px;">'
+        f'<div style="font-family:\'Inter\',sans-serif; font-size:10px; color:{color}; '
+        f'letter-spacing:3px; text-transform:uppercase; font-weight:700;">{sublabel}</div>'
+        f'<div style="font-family:\'Playfair Display\',Georgia,serif; font-size:17px; '
+        f'color:#e8eaea; line-height:1.3; font-style:italic; margin-top:4px;">{label}</div>'
+        '</td></tr>'
+    )
+
+
+def _expiring_single_row(r):
+    """One row of the expiring table. Layout: vehicle + chassis/expiry on the
+    left, big day-count on the right (the eye anchor for urgency)."""
+    name = f"{r.get('Make', '')} {r.get('Model', '')}".strip()
+    ref = r.get('SEV #', '')
+    site_link = f"{SITE_URL}/#sev={ref}" if ref else SITE_URL
+    days_left = r['_days_left']
+    # Colour the day-count by urgency so it pops; everything else stays neutral.
+    if days_left <= 7:
+        day_color = '#f87171'
+    elif days_left <= 14:
+        day_color = '#C9A84C'
+    else:
+        day_color = '#9ca3af'
+
+    model_code = r.get('Model code', '')
+    expiry_short = _format_expiry_short(r.get('Expiry', ''))
+    meta_parts = []
+    if ref:
+        meta_parts.append(
+            f'<a href="{site_link}" style="color:#9ca3af; text-decoration:none; '
+            f'font-family:\'JetBrains Mono\',Menlo,Consolas,monospace; font-size:12px;">SEV #{ref}</a>'
+        )
+    if model_code:
+        meta_parts.append(
+            f'<span style="font-family:\'JetBrains Mono\',Menlo,Consolas,monospace; '
+            f'color:#6b7280; font-size:12px;">{model_code}</span>'
+        )
+    if expiry_short:
+        meta_parts.append(f'<span style="color:#6b7280; font-size:12px;">Expires {expiry_short}</span>')
+    meta_line = ' &middot; '.join(meta_parts)
+
+    return (
+        '<tr><td style="padding:14px 0; border-bottom:1px solid #2a2f37;">'
+        '<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
+        '<td style="vertical-align:middle;">'
+        f'<div style="font-family:\'Inter\',sans-serif; font-size:15px; font-weight:600; '
+        f'color:#e8eaea; line-height:1.3;">{name}</div>'
+        f'<div style="margin-top:4px; line-height:1.5;">{meta_line}</div>'
+        '</td>'
+        '<td align="right" valign="middle" style="vertical-align:middle; width:80px;">'
+        f'<div style="font-family:\'JetBrains Mono\',Menlo,Consolas,monospace; font-size:22px; '
+        f'font-weight:600; color:{day_color}; line-height:1; letter-spacing:-0.5px;">{days_left}</div>'
+        '<div style="font-family:\'Inter\',sans-serif; font-size:9px; color:#6b7280; '
+        'letter-spacing:2px; text-transform:uppercase; margin-top:4px;">Days</div>'
+        '</td></tr></table></td></tr>'
+    )
 
 
 def _build_expiring_rows(expiring_sevs):
-    rows = []
-    for r in expiring_sevs:
-        name = f"{r.get('Make', '')} {r.get('Model', '')}".strip()
-        ref = r.get('SEV #', '')
-        site_link = f"{SITE_URL}/#sev={ref}" if ref else SITE_URL
-        days_left = r['_days_left']
-        urg_bg, urg_color, urg_border = _urgency_colors(days_left)
-        ref_html = (f'<a href="{site_link}" style="color:#9ca3af; text-decoration:underline;">SEV #{ref}</a>'
-                    if ref else 'SEV')
-        # Model code / chassis info
-        model_code = r.get('Model code', '')
-        detail_parts = [ref_html]
-        if model_code:
-            detail_parts.append(f'<span style="font-family:Menlo,Monaco,monospace; color:#6b7280;">{model_code}</span>')
-        detail_line = ' &middot; '.join(detail_parts)
-        rows.append(
-            f'<tr><td style="padding:14px 16px; border-bottom:1px solid #242a2a; background-color:#1a1608;" class="expiring-row">'
-            f'<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
-            f'<td><span style="font-size:14px; font-weight:600; color:#e8eaea;">{name}</span><br>'
-            f'<span style="font-size:12px;">{detail_line}</span></td>'
-            f'<td align="right" valign="middle">'
-            f'<span style="display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:700; background-color:{urg_bg}; color:{urg_color}; border:1px solid {urg_border};">{days_left} days</span>'
-            f'</td></tr></table></td></tr>'
-        )
-    return '\n'.join(rows)
+    """Group expiring approvals into three urgency bands so readers can scan
+    by 'how much time do I actually have'. Bands only render when populated."""
+    critical = [r for r in expiring_sevs if r['_days_left'] <= 7]
+    warning  = [r for r in expiring_sevs if 8 <= r['_days_left'] <= 14]
+    notice   = [r for r in expiring_sevs if r['_days_left'] >= 15]
+    # Sort within each band, soonest first.
+    critical.sort(key=lambda r: r['_days_left'])
+    warning.sort(key=lambda r: r['_days_left'])
+    notice.sort(key=lambda r: r['_days_left'])
+
+    out = []
+    if critical:
+        out.append(_expiring_band_header(
+            'Act this week.', '#f87171',
+            f'Under 7 days &middot; {len(critical)} {"approval" if len(critical) == 1 else "approvals"}'))
+        out.extend(_expiring_single_row(r) for r in critical)
+    if warning:
+        out.append(_expiring_band_header(
+            'Heads up.', '#C9A84C',
+            f'8 to 14 days &middot; {len(warning)} {"approval" if len(warning) == 1 else "approvals"}'))
+        out.extend(_expiring_single_row(r) for r in warning)
+    if notice:
+        out.append(_expiring_band_header(
+            'On the radar.', '#9ca3af',
+            f'15 to 30 days &middot; {len(notice)} {"approval" if len(notice) == 1 else "approvals"}'))
+        out.extend(_expiring_single_row(r) for r in notice)
+    return '\n'.join(out)
 
 
-def _build_summary_section(mre_records, sev_records):
-    """Build a 'Register Snapshot' section showing current register totals,
-    top makes, and category breakdown — so the weekly email is informative
-    even when there are zero additions or removals."""
+def _delta_html(curr, prev):
+    """Inline (+N / -N) chip next to a snapshot total. Returns '' when there
+    is no prior snapshot to compare against, so first-run emails stay clean."""
+    if prev is None or prev == 0:
+        return ''
+    delta = curr - prev
+    if delta == 0:
+        return ' <span style="color:#6b7280; font-size:11px;">(±0)</span>'
+    sign = '+' if delta > 0 else ''
+    color = '#4ade80' if delta > 0 else '#f87171'
+    return f' <span style="color:{color}; font-size:11px; font-weight:600;">({sign}{delta})</span>'
+
+
+def _choose_featured_addition(added_mre, added_sev):
+    """Pick the most newsworthy addition for the subject line.
+
+    Priority is enthusiast-driven: a Performance or Rarity SEV is the kind of
+    headline that earns an open. Welcab / Camper additions are routine for
+    most readers, so they fall to the back of the queue. MRE additions are
+    last because they tend to be utility vehicles (trucks, vans).
+    """
+    PREFERRED = ('performance', 'rarity')
+    for r in added_sev:
+        if (r.get('_sev_category') or '').lower() in PREFERRED:
+            return r
+    if added_sev:
+        return added_sev[0]
+    if added_mre:
+        return added_mre[0]
+    return None
+
+
+def _compose_subject(added_mre, added_sev, added_count, removed_count, week):
+    """Lead with the featured car so the inbox preview earns the click.
+
+    Falls back gracefully to a count-based subject when there are no adds, and
+    to a quiet 'no changes' line when nothing moved at all.
+    """
+    prefix = EMAIL_CONFIG_DEFAULTS['subject_prefix']
+    feature = _choose_featured_addition(added_mre, added_sev)
+    if feature:
+        name = f"{feature.get('Make', '')} {feature.get('Model', '')}".strip()
+        # Trim aggressively; mail clients clip subjects past ~70 chars.
+        if len(name) > 38:
+            name = name[:37].rstrip() + '…'
+        more = added_count - 1
+        tail = f" (+{more} more)" if more > 0 else ''
+        return f"{prefix} — {name} now eligible{tail}"
+    if removed_count:
+        return f"{prefix} — {week} · {removed_count} removed"
+    return f"{prefix} — {week} · quiet week"
+
+
+def _build_register_totals(mre_records, sev_records, prev_mre_count=None, prev_sev_count=None):
+    """Build a single-line footer summary of register totals.
+
+    Replaces the older Register Snapshot section. Top Makes and category
+    breakdowns moved out — they don't change week to week, so they were noise
+    in a weekly digest. Whoever wants that view can open the dashboard.
+    """
     total_mre = len(mre_records)
     total_sev = len(sev_records)
     total = total_mre + total_sev
-
-    # Top makes (combined MRE + SEV, up to 8)
-    make_counts = {}
-    for r in mre_records + sev_records:
-        make = (r.get('Make') or '').strip().upper()
-        if make:
-            make_counts[make] = make_counts.get(make, 0) + 1
-    top_makes = sorted(make_counts.items(), key=lambda x: -x[1])[:8]
-
-    # Category breakdown (from _sev_category if enriched)
-    cat_counts = {}
-    for r in sev_records:
-        cat = (r.get('_sev_category') or '').lower()
-        if cat and cat in ELIGIBILITY_LABELS:
-            label = ELIGIBILITY_LABELS[cat]
-            cat_counts[label] = cat_counts.get(label, 0) + 1
-    top_cats = sorted(cat_counts.items(), key=lambda x: -x[1])
-
-    # Build HTML
-    rows = []
-
-    # Totals row
-    rows.append(
-        '<tr><td style="padding:14px 16px; border-bottom:1px solid #242a2a;">'
-        '<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
-        f'<td style="font-size:13px; color:#9ca3af;">Total vehicles on register</td>'
-        f'<td align="right" style="font-size:15px; font-weight:700; color:#e8eaea; font-family:monospace;">'
-        f'{total:,}</td>'
-        '</tr></table></td></tr>'
+    prev_total = ((prev_mre_count or 0) + (prev_sev_count or 0)
+                  if (prev_mre_count is not None or prev_sev_count is not None) else None)
+    delta = ''
+    if prev_total:
+        diff = total - prev_total
+        if diff != 0:
+            sign = '+' if diff > 0 else ''
+            color = '#4ade80' if diff > 0 else '#f87171'
+            delta = f' <span style="color:{color};">({sign}{diff})</span>'
+    return (
+        f'Register stands at <span style="color:#e8eaea; font-family:\'JetBrains Mono\',Menlo,Consolas,monospace;">{total:,}</span> entries'
+        f'{delta} &middot; <span style="color:#9ca3af;">{total_sev:,} SEVS &middot; {total_mre:,} MRE</span>'
     )
-    rows.append(
-        '<tr><td style="padding:10px 16px 10px; border-bottom:1px solid #242a2a;">'
-        '<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
-        f'<td style="font-size:12px; color:#6b7280;">SEVS entries</td>'
-        f'<td align="right" style="font-size:13px; color:#4ade80; font-family:monospace;">{total_sev:,}</td>'
-        '</tr><tr>'
-        f'<td style="font-size:12px; color:#6b7280; padding-top:4px;">Model Report (MRE) approvals</td>'
-        f'<td align="right" style="font-size:13px; color:#60a5fa; font-family:monospace; padding-top:4px;">{total_mre:,}</td>'
-        '</tr></table></td></tr>'
-    )
-
-    # Top makes
-    if top_makes:
-        make_chips = []
-        for make, count in top_makes:
-            make_title = make.title()
-            make_chips.append(
-                f'<span style="display:inline-block; padding:3px 10px; margin:2px 3px; '
-                f'border-radius:14px; font-size:11px; font-weight:600; '
-                f'background-color:#1e2323; color:#e8eaea; border:1px solid #333a3a;">'
-                f'{make_title} <span style="color:#6b7280;">({count})</span></span>'
-            )
-        rows.append(
-            '<tr><td style="padding:12px 16px; border-bottom:1px solid #242a2a;">'
-            f'<div style="font-size:11px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Top Makes</div>'
-            f'<div>{"".join(make_chips)}</div>'
-            '</td></tr>'
-        )
-
-    # Category breakdown (only if enriched data exists)
-    if top_cats:
-        cat_rows = []
-        cat_colors = {
-            'Environmental': '#4ade80', 'Performance Enthusiast': '#f5a623',
-            'Rarity / Heritage': '#c084fc', 'Welcab / Mobility': '#60a5fa',
-            'Camper / RV': '#fb923c', 'Other': '#6b7280',
-        }
-        for label, count in top_cats:
-            color = cat_colors.get(label, '#9ca3af')
-            cat_rows.append(
-                f'<tr><td style="font-size:12px; color:{color}; padding-top:3px;">{label}</td>'
-                f'<td align="right" style="font-size:12px; color:#9ca3af; font-family:monospace; padding-top:3px;">{count}</td></tr>'
-            )
-        rows.append(
-            '<tr><td style="padding:12px 16px;">'
-            f'<div style="font-size:11px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Eligibility Categories</div>'
-            f'<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">'
-            f'{"".join(cat_rows)}</table>'
-            '</td></tr>'
-        )
-
-    return '\n'.join(rows)
 
 
 def _build_headline_rows(headlines):
     rows = []
     for h in headlines:
         rows.append(
-            f'<tr><td style="padding:12px 16px; border-bottom:1px solid #242a2a;">'
+            f'<tr><td style="padding:12px 16px; border-bottom:1px solid #2e2820;">'
             f'<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
             f'<td><a href="{h["url"]}" target="_blank" style="font-size:13px; font-weight:600; color:#e8eaea; text-decoration:none; line-height:1.4;">{h["title"]}</a>'
             f'<p style="margin:4px 0 0; font-size:12px; color:#6b7280; line-height:1.4;">{h["summary"]}</p></td>'
@@ -887,6 +1033,7 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
     html = html.replace('{{DATA_REFRESHED}}', data_refreshed)
 
     trend_html = ''
+    prev_mre = prev_sev = None
     try:
         output_dir = os.path.join(os.path.dirname(__file__), '..', 'outputs')
         prev_mre = load_previous_snapshot('mre', output_dir)
@@ -928,19 +1075,33 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
     else:
         html = re.sub(r'\{\{#IF_HEADLINES\}\}.*?\{\{/IF_HEADLINES\}\}', '', html, flags=re.DOTALL)
 
-    # Register snapshot (always shown when we have records — gives the email
-    # substance even on quiet weeks with no adds/removes)
+    # Register totals — moved from body to a single-line footer summary in
+    # Phase 1 of the audit. Top Makes / category breakdown removed (filler in
+    # a weekly digest; dashboard already shows them).
+    try:
+        prev_mre_count = prev_mre.get('count') if prev_mre else None
+        prev_sev_count = prev_sev.get('count') if prev_sev else None
+    except Exception:
+        prev_mre_count = prev_sev_count = None
     if all_mre or sev_records:
-        summary_rows = _build_summary_section(all_mre, sev_records)
-        html = html.replace('{{#IF_SUMMARY}}', '').replace('{{/IF_SUMMARY}}', '')
-        html = html.replace('{{SUMMARY_ROWS}}', summary_rows)
+        totals_line = _build_register_totals(all_mre, sev_records,
+                                             prev_mre_count=prev_mre_count,
+                                             prev_sev_count=prev_sev_count)
     else:
-        html = re.sub(r'\{\{#IF_SUMMARY\}\}.*?\{\{/IF_SUMMARY\}\}', '', html, flags=re.DOTALL)
+        totals_line = ''
+    html = html.replace('{{REGISTER_TOTALS}}', totals_line)
 
     if added_count == 0 and removed_count == 0 and expiring_count == 0:
         html = html.replace('{{#IF_NO_CHANGES}}', '').replace('{{/IF_NO_CHANGES}}', '')
     else:
         html = re.sub(r'\{\{#IF_NO_CHANGES\}\}.*?\{\{/IF_NO_CHANGES\}\}', '', html, flags=re.DOTALL)
+
+    # Footer cadence: next send is the next Wednesday (weekday() == 2). If
+    # today is Wednesday, advance to the following week.
+    today = datetime.now()
+    days_ahead = (2 - today.weekday()) % 7 or 7
+    next_update = (today + timedelta(days=days_ahead)).strftime('%d %b %Y').lstrip('0')
+    html = html.replace('{{NEXT_UPDATE}}', next_update)
 
     html = html.replace('{{UNSUBSCRIBE_URL}}', 'mailto:info@jdmconnect.com.au?subject=Unsubscribe%20from%20ROVER%20Weekly')
     print(f"Email generated: {added_count} added, {removed_count} removed, {expiring_count} expiring, {len(headlines)} headlines")
@@ -964,12 +1125,12 @@ def send_weekly_email(html, mre_changes, sev_changes):
         print("Error: Missing O365_TENANT_ID, O365_CLIENT_ID, or O365_CLIENT_SECRET env vars.")
         return False
 
-    added = len(mre_changes.get('added', [])) + len(sev_changes.get('added', []))
+    added_mre = mre_changes.get('added', [])
+    added_sev = sev_changes.get('added', [])
+    added = len(added_mre) + len(added_sev)
     removed = len(mre_changes.get('removed', [])) + len(sev_changes.get('removed', []))
     week = datetime.now().strftime('%d %b').lstrip('0')
-    subject = f"{EMAIL_CONFIG_DEFAULTS['subject_prefix']} — {week}"
-    if added or removed:
-        subject += f" ({added} added, {removed} removed)"
+    subject = _compose_subject(added_mre, added_sev, added, removed, week)
 
     token_url = f'https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token'
     token_resp = _requests.post(token_url, data={
