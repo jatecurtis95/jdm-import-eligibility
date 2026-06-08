@@ -6,6 +6,33 @@
 // access on origin + per-IP rate limit.
 
 import dataset from "../_data/data.json";
+// 2026-05 photo manifest. Maintained by scripts/photo_scraper.py; keyed by
+// normalized chassis code (e.g. "BNR34", "GRS184"). Bundled at build time.
+// Entries are either { url, make, model, chassis, source } or null (miss).
+import photosManifest from "../_data/photos.json";
+
+// Normalize a chassis code the same way the client does so a Model code of
+// "GRS184" hits photosManifest["GRS184"]. Also handles slash/comma-delimited
+// codes by taking the first token.
+function normalizeChassis(modelCode) {
+  if (!modelCode) return "";
+  const first = String(modelCode).split(/[,/]/)[0].trim();
+  return first.toUpperCase().replace(/[^A-Z0-9]/g, "");
+}
+
+// Build the merged dataset once at module load. Subsequent requests reuse
+// the same object — no per-request cost. Each SEV record gets `_photo_url`
+// when the manifest has a hit for its chassis code; misses are left undefined
+// so the client falls back to the SVG silhouette placeholder.
+const mergedDataset = (() => {
+  const sev = (dataset.sev || []).map(r => {
+    const key = normalizeChassis(r["Model code"]);
+    const entry = key ? photosManifest[key] : null;
+    if (entry && entry.url) return { ...r, _photo_url: entry.url };
+    return r;
+  });
+  return { ...dataset, sev };
+})();
 
 // ─── Allowed origins ─────────────────────────────────────────────────────────
 // Add any additional domains that embed or iframe the eligibility site.
@@ -85,7 +112,7 @@ export async function onRequest(context) {
     });
   }
 
-  return new Response(JSON.stringify(dataset), {
+  return new Response(JSON.stringify(mergedDataset), {
     status: 200,
     headers: {
       ...cors,

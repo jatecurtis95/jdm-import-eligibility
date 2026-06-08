@@ -16,3 +16,11 @@ email-preview.html
 
 # Email config with secrets
 scripts/email_config.json
+
+# Local caches / build dirs
+.wrangler/
+scripts/__pycache__/
+
+# Backups (timestamped data.json + template .bak files)
+*.bak
+*.bak-*

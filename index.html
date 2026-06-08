@@ -1438,6 +1438,665 @@ details[open] .model-reports-chevron { transform: rotate(90deg); }
      Audit 2026-04-24 — include safe-area inset for notched iOS. */
   .results-active #results-wrap { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
 }
+
+/* ── 2026-05 UX REBUILD: VARIANT CARDS ─────────────────────────────────────
+   Brief: card grid, one card per eligible SEV variant. No celebratory
+   banners, no marketing copy. Chassis codes demoted to small grey footer.
+   Photo slot is a placeholder by default; data layer can later supply a
+   real URL (see TODO Phase 2 in the JS). */
+.variants-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 8px 0 0;
+}
+.variant-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 14px;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  border-collapse: separate;
+}
+.variant-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.variant-card:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+.variant-photo {
+  flex: 0 0 38%;
+  max-width: 240px;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #f4f1ea 0%, #ece6d4 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+.variant-photo[data-photo-url] {
+  background-size: cover;
+  background-position: center;
+}
+.variant-photo-silhouette {
+  width: 70%;
+  max-width: 160px;
+  height: auto;
+  opacity: 0.32;
+  color: #8b6914;
+}
+.variant-photo-chassis {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(46,33,9,0.55);
+  text-transform: uppercase;
+}
+.variant-card-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.variant-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.variant-card-titleblock { min-width: 0; flex: 1; }
+.variant-card-gen {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+.variant-card-title {
+  font-size: clamp(16px, 0.95rem + 0.3vw, 18px);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  margin: 0;
+  word-wrap: break-word;
+}
+.variant-card-years {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 2px;
+}
+.variant-card-category {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.eligibility-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #14532d;
+  background: rgba(22,163,74,0.08);
+  border: 1px solid rgba(22,163,74,0.18);
+  padding: 3px 9px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.eligibility-tag.is-expiring {
+  color: #78350f;
+  background: rgba(245,158,11,0.08);
+  border-color: rgba(245,158,11,0.22);
+}
+.variant-card-chassis {
+  font-size: 11px;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  color: var(--text-faint);
+  letter-spacing: 0.03em;
+  margin-top: auto;
+  padding-top: 8px;
+  word-break: break-word;
+}
+.variant-card-chassis-label {
+  color: var(--text-faint);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  margin-right: 4px;
+}
+@media (max-width: 640px) {
+  .variant-card { flex-direction: column; }
+  .variant-photo {
+    flex: 0 0 auto;
+    max-width: none;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .variant-card-body { padding: 16px 18px; }
+}
+
+/* Ineligible-variants footer note: small, muted, single line. */
+.variants-ineligible-note {
+  margin-top: 18px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text-faint);
+  background: transparent;
+  border-top: 1px dashed var(--border);
+  line-height: 1.5;
+}
+.variants-ineligible-note strong {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Single quiet CTA below the variant grid. Not celebratory. */
+.variants-help-cta {
+  margin-top: 28px;
+  padding: 18px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-left: 3px solid var(--gold);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.variants-help-cta-text {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.variants-help-cta-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold-dark);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+.variants-help-cta-link:hover {
+  background: var(--gold);
+  color: #111;
+}
+
+/* Results header on the variant grid page — quieter than the old "summary card"
+   loud green banner. No celebratory headline. */
+.variants-page-header {
+  margin: 4px 0 18px;
+}
+.variants-page-title {
+  font-size: clamp(22px, 1.2rem + 0.6vw, 28px);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+}
+.variants-page-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Homepage stats removal companion: a single muted data-source line. */
+.data-source-note {
+  max-width: 720px;
+  margin: 8px auto 32px;
+  padding: 0 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-faint);
+  letter-spacing: 0.01em;
+}
+.data-source-note .dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  vertical-align: middle;
+  margin: 0 6px 2px 0;
+  opacity: 0.6;
+}
+
+/* ── 2026-05 UX REBUILD: VARIANT DETAIL (SEV detail page) ──────────────────
+   Brief: lead with plain-English statement, then workshop count line, then
+   primary + secondary CTAs, then ROVER link. Technical detail collapses. */
+.sev-detail-wrap { max-width: 760px; margin: 0 auto; }
+.sev-hero {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-left: 4px solid var(--gold);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin: 4px 0 20px;
+}
+/* Photo + title band at the top of the hero card — gives non-enthusiasts a
+   visual anchor before they read the plain-English statement below.
+   No divider — whitespace separates the band from the statement so the
+   card reads as one editorial unit instead of admin-form header/body. */
+.sev-hero-band {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+.sev-hero-photo {
+  flex: 0 0 240px;
+  aspect-ratio: 3 / 2;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f4f1ea 0%, #ece6d4 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.sev-hero-photo[data-photo-url] {
+  background-size: cover;
+  background-position: center;
+}
+.sev-hero-photo-silhouette {
+  width: 70%;
+  max-width: 150px;
+  height: auto;
+  opacity: 0.32;
+  color: #8b6914;
+}
+.sev-hero-photo-chassis {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(46,33,9,0.55);
+  text-transform: uppercase;
+}
+.sev-hero-titleblock {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+/* Title + Eligible tag flow inline with each other — tag sits next to the
+   title text, not pushed to the right edge with empty space between. */
+.sev-hero-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sev-hero-title {
+  font-size: clamp(20px, 1.15rem + 0.6vw, 26px);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+  word-wrap: break-word;
+}
+.sev-hero-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  line-height: 1.45;
+}
+.sev-hero-approval {
+  font-size: 11px;
+  color: var(--text-faint);
+  font-family: 'DM Mono', ui-monospace, monospace;
+  letter-spacing: 0.04em;
+}
+.sev-hero-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.sev-hero-kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.sev-hero-statement {
+  font-size: clamp(17px, 1rem + 0.65vw, 22px);
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+.sev-hero-statement strong {
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(202,163,76,0.10);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.sev-hero-foot {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  align-items: center;
+}
+.sev-hero-foot .sev-hero-foot-sep {
+  color: var(--text-faint);
+}
+.sev-hero-25yr {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #14532d;
+  background: rgba(22,163,74,0.06);
+  border-left: 2px solid rgba(22,163,74,0.4);
+  padding: 8px 12px;
+  border-radius: 0 6px 6px 0;
+  line-height: 1.5;
+}
+
+.sev-workshop-line {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 22px;
+  padding: 0 6px;
+}
+.sev-workshop-line strong {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sev-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: stretch;
+  margin: 0 0 10px;
+  padding: 0 4px;
+}
+.sev-cta-primary {
+  flex: 0 0 auto;
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+  color: #111;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.005em;
+}
+.sev-cta-primary:hover { opacity: 0.93; }
+.sev-cta-primary:active { transform: translateY(1px); }
+.sev-cta-secondary {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold-dark);
+  text-decoration: none;
+  padding: 13px 18px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 10px;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sev-cta-secondary:hover { border-color: var(--gold); color: var(--gold); }
+.sev-cta-sub {
+  font-size: 12px;
+  color: var(--text-faint);
+  margin: 4px 4px 28px;
+  padding: 0 4px;
+}
+.sev-cta-sub a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 2px;
+}
+.sev-cta-sub a:hover { color: var(--gold); }
+
+.sev-expiring-banner {
+  margin: 0 0 20px;
+  padding: 12px 16px;
+  background: #fffaf0;
+  border: 1px solid rgba(245,158,11,0.3);
+  border-left: 3px solid #f59e0b;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #78350f;
+  line-height: 1.5;
+}
+.sev-expiring-banner strong { font-weight: 700; }
+
+/* ── Scope of Works card (official ROVER Vehicle Specification) ─────────── */
+.scope-card {
+  margin: 0 0 24px;
+  padding: 16px 18px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-left: 3px solid var(--gold);
+  border-radius: 12px;
+}
+.scope-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.scope-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.005em;
+}
+.scope-sub {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold-dark);
+}
+.scope-variant + .scope-variant {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle, var(--border));
+}
+.scope-variant-name {
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.scope-welcab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  background: #fffaf0;
+  border: 1px solid rgba(245,158,11,0.32);
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #78350f;
+  line-height: 1.4;
+}
+.scope-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 22px;
+}
+.scope-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border-subtle, var(--border));
+  font-size: 13px;
+}
+.scope-k { color: var(--text-muted); white-space: nowrap; }
+.scope-v { color: var(--text); font-weight: 600; text-align: right; }
+.scope-note {
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--text-faint);
+}
+.scope-foot {
+  margin: 12px 0 0;
+  font-size: 11.5px;
+  font-style: italic;
+  color: var(--text-faint);
+  line-height: 1.45;
+}
+@media (max-width: 520px) {
+  .scope-grid { grid-template-columns: 1fr; gap: 0; }
+}
+
+.sev-tech-detail {
+  margin-top: 32px;
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  background: var(--bg-card);
+}
+.sev-tech-detail > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sev-tech-detail > summary::-webkit-details-marker { display: none; }
+.sev-tech-detail[open] > summary {
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text);
+}
+.sev-tech-detail-body {
+  padding: 4px 18px 18px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.sev-tech-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.sev-tech-row:last-child { border-bottom: none; }
+.sev-tech-key {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  flex: 0 0 40%;
+}
+.sev-tech-val {
+  color: var(--text);
+  font-size: 13px;
+  text-align: right;
+  word-break: break-word;
+}
+.sev-tech-val .mono {
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 12px;
+}
+.sev-tech-chassis-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+.sev-tech-chevron {
+  font-size: 11px;
+  transition: transform 0.2s;
+  color: var(--text-faint);
+}
+.sev-tech-detail[open] > summary .sev-tech-chevron { transform: rotate(180deg); }
+
+@media (max-width: 640px) {
+  .sev-hero { padding: 18px 18px 16px; }
+  .sev-hero-band {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+  }
+  .sev-hero-photo {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .sev-hero-title-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .sev-hero-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .sev-cta-primary, .sev-cta-secondary {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .sev-tech-row { flex-direction: column; gap: 4px; }
+  .sev-tech-val { text-align: left; }
+  .sev-tech-chassis-pills { justify-content: flex-start; }
+}
 </style>
   <!-- GHL popup override: prevent auto-show, controlled by JS click -->
   <style>
@@ -1604,23 +2263,14 @@ src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1"/></n
   </div>
 </div>
 
-<!-- STATS STRIP — initial values match the latest bundled snapshot so the
-     strip never renders dashes if /api/data is slow, blocked, or fails.
-     loadData() overwrites these with the live counts once the API responds. -->
-<div class="stats-strip" id="stats-strip">
-  <div class="stat-card">
-    <div class="stat-num" id="stat-mre">883</div>
-    <div class="stat-label">approved workshops</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-num" id="stat-sev">615</div>
-    <div class="stat-label">eligible cars</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-num" id="stat-updated">15 Apr</div>
-    <div class="stat-label">last updated</div>
-  </div>
-</div>
+<!-- 2026-05 UX rebuild — replaced the three "608 eligible cars / 894 approved
+     workshops" stat boxes with a single quiet line. Per brief: the boxes felt
+     marketing-y and broke the clean reference-tool tone. loadData() updates
+     #data-source-date with the live last-fetched date when available. -->
+<p class="data-source-note" id="data-source-note">
+  <span class="dot"></span>
+  Live data from the <a href="https://www.rover.infrastructure.gov.au" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--border);">ROVER register</a>. Updated daily<span id="data-source-date" style="opacity:0.85;"></span>.
+</p>
 <!-- HOW IT WORKS (Audit 2026-04-30 — P2 #12) -->
 <section class="how-it-works" aria-label="How it works">
   <h2 class="how-it-works-title">How it works</h2>
@@ -1838,14 +2488,16 @@ async function loadData() {
     MRE = allData.mre || [];
     SEV = allData.sev || [];
 
-    // Stats — only overwrite when we actually have numbers. Leaves the static
-    // snapshot counts in place if the response was empty for any reason.
-    if (MRE.length) document.getElementById('stat-mre').textContent = MRE.length.toLocaleString();
-    if (SEV.length) document.getElementById('stat-sev').textContent = SEV.length.toLocaleString();
+    // 2026-05 UX rebuild — stat boxes removed. Only the last-updated date
+    // surfaces now, appended quietly to the data-source-note line. Old
+    // stat-mre / stat-sev / stat-updated nodes are gone; lookups guard with
+    // optional chaining so we don't NRE on the homepage.
     if (allData.fetched_at) {
       const d = new Date(allData.fetched_at);
       if (!isNaN(d)) {
-        document.getElementById('stat-updated').textContent = d.toLocaleDateString('en-AU', {day:'numeric',month:'short'});
+        const fmt = d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
+        const el = document.getElementById('data-source-date');
+        if (el) el.textContent = ' · last refreshed ' + fmt;
       }
     }
 
@@ -1857,15 +2509,15 @@ async function loadData() {
     window.addEventListener('hashchange', applyHashIfPresent);
   } catch(e) {
     console.error('Failed to load /api/data', e);
-    // Leave the static stat defaults visible instead of dashes. Surface a
-    // subtle notice so the user knows search is temporarily unavailable.
-    const strip = document.getElementById('stats-strip');
-    if (strip && !document.getElementById('stats-offline')) {
+    // 2026-05 UX rebuild — anchor the offline notice on the new data-source
+    // note (since stats-strip is gone). Subtle inline warning, not a banner.
+    const anchor = document.getElementById('data-source-note');
+    if (anchor && !document.getElementById('stats-offline')) {
       const note = document.createElement('div');
       note.id = 'stats-offline';
       note.style.cssText = 'max-width:720px;margin:-12px auto 16px;padding:8px 14px;font-size:12px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;text-align:center;';
-      note.textContent = 'Live register data is momentarily unavailable — counts shown from the last verified sync.';
-      strip.insertAdjacentElement('afterend', note);
+      note.textContent = 'Live register data is momentarily unavailable — try again in a moment.';
+      anchor.insertAdjacentElement('afterend', note);
     }
   }
 }
@@ -3147,202 +3799,222 @@ function showApprovalList(groupIdx) {
     { label: g.model },
   ]);
 
-  // Vehicle header — kept minimal. Audit 2026-04-30 (P0 #3) added a sub-line
-  // that explicitly tells the user how many approvals they're choosing
-  // between, replacing the cold "Other approvals" framing the previous
-  // design implied.
+  // 2026-05 UX rebuild — page header is now quiet. No celebratory headline,
+  // no approval count. Just make/model + a one-line subtitle that frames the
+  // page as a reference, not a sales pitch. Reference: mycar.direct/import-check.
+  const eligibleSevCount = g.sev.filter(r => getSevExpiryStatus(r).label !== 'Expired').length;
   html += `
-    <div class="register-header">
-      <h1 class="register-title">${g.make} ${g.model}</h1>
-      <p class="register-subtitle">We found ${totalEntries} approval${totalEntries === 1 ? '' : 's'} for the ${g.make} ${g.model}. Pick the one closest to your car.</p>
+    <div class="variants-page-header">
+      <h1 class="variants-page-title">${g.make} ${g.model}</h1>
+      <p class="variants-page-subtitle">${
+        eligibleSevCount > 0
+          ? `${eligibleSevCount} variant${eligibleSevCount === 1 ? '' : 's'} eligible for import to Australia.`
+          : 'No active eligibility on the SEVS register today. There may still be a pathway — see the note below.'
+      }</p>
     </div>
   `;
 
-  // Optional warning banner
+  // Quiet warning if any active SEV is expiring soon. Tighter copy, less yelling.
   if (hasExpiringSoon) {
     html += `
-      <div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:8px;padding:10px 14px;font-size:13px;color:#78350f;margin-bottom:18px;">
-        ⚠ One or more approvals are expiring soon — contact JDM Connect urgently to clear customs before expiry.
+      <div style="margin-bottom:16px;padding:10px 14px;font-size:12px;color:var(--text-muted);border-left:2px solid #f59e0b;background:#fffaf0;border-radius:4px;">
+        One or more variants below have an approval expiring soon — confirm timing with us before purchase.
       </div>
     `;
   }
 
-  // ── SEVS section ─────────────────────────────────────────────────────────
-  if (g.sev.length > 0) {
-    // Audit 2026-04-30 (smoke-test follow-up) — multiple SEV records often
-    // describe the same vehicle variant with only the SEV number differing
-    // (e.g. SEV-000769/770/771 are all V36 Skyline 10/2007–05/2013). To a
-    // non-enthusiast these look like duplicates. Group rows by the visible
-    // signature (Model code · Build window · Category · Status) and merge
-    // their approval numbers into one row. The merged row links to the
-    // first SEV's detail screen — the rest are still individually
-    // reachable via deep link / breadcrumbs.
-    const sevDedupeMap = new Map();
-    g.sev.forEach((r, i) => {
-      const key = [
-        (r['Model code'] || '').trim().toUpperCase(),
-        (r['Build date from'] || '').trim(),
-        (r['Build date to'] || '').trim(),
-        (r['Category'] || '').trim(),
-        getSevExpiryStatus(r).label
-      ].join('|');
-      if (!sevDedupeMap.has(key)) sevDedupeMap.set(key, { rec: r, indices: [] });
-      sevDedupeMap.get(key).indices.push(i);
+  // ── VARIANT GRID ─────────────────────────────────────────────────────────
+  // One card per eligible SEV variant. MRE workshop list is intentionally NOT
+  // rendered here — workshop info now lives on the variant detail page only
+  // (brief: "Hard Rules — no marketing copy on listing pages, let the data
+  // speak; workshop count moves to detail").
+  //
+  // Dedupe: same as before — multiple SEV rows often describe the same
+  // visible variant (same chassis + build window + category). Collapse them
+  // so the user sees variants, not duplicates.
+  const sevDedupeMap = new Map();
+  g.sev.forEach((r, i) => {
+    const key = [
+      (r['Model code'] || '').trim().toUpperCase(),
+      (r['Build date from'] || '').trim(),
+      (r['Build date to'] || '').trim(),
+      (r['Category'] || '').trim(),
+      getSevExpiryStatus(r).label
+    ].join('|');
+    if (!sevDedupeMap.has(key)) sevDedupeMap.set(key, { rec: r, indices: [] });
+    sevDedupeMap.get(key).indices.push(i);
+  });
+  const sevGroups = Array.from(sevDedupeMap.values());
+
+  // Split eligible (Active/Expiring) from ineligible (Expired). Eligible
+  // render as cards; ineligible reduce to a single muted footer line.
+  const eligibleGroups = sevGroups.filter(grp => getSevExpiryStatus(grp.rec).label !== 'Expired');
+  const ineligibleGroups = sevGroups.filter(grp => getSevExpiryStatus(grp.rec).label === 'Expired');
+
+  if (eligibleGroups.length > 0) {
+    html += `<div class="variants-grid">`;
+    eligibleGroups.forEach((grp) => {
+      html += renderVariantCard(grp, g, groupIdx);
     });
-    const sevGroups = Array.from(sevDedupeMap.values());
+    html += `</div>`;
+  } else {
     html += `
-      <section class="register-section">
-        <h2 class="register-section-title">Cars eligible to import</h2>
-        <div class="register-section-list">
+      <div style="padding:32px 20px;text-align:center;border:1px dashed var(--border);border-radius:12px;color:var(--text-muted);font-size:14px;">
+        No active SEVS eligibility on record for the ${g.make} ${g.model}.
+      </div>
     `;
-    sevGroups.forEach((grp) => {
-      const r = grp.rec;
-      const i = grp.indices[0];
-      const { label: expiryLabel } = getSevExpiryStatus(r);
-      const isActive = expiryLabel !== 'Expired';
-      const statusLabel = isActive ? (expiryLabel === 'Expiring Soon' ? 'Expiring Soon' : 'Active') : 'Expired';
-      const statusClass = isActive
-        ? (expiryLabel === 'Expiring Soon' ? 'status-badge-expiring' : 'status-badge-active')
-        : 'status-badge-expired';
-
-      const chassisCodes = (r['Model code'] || '')
-        .split(/[,\/]/).map(s => s.trim()).filter(Boolean);
-
-      // Only surface the category when the ROVER record actually carries one.
-      // Silent fallback to "Passenger Vehicle" was dishonest — most SEV rows
-      // have no post-mod code and we'd mislabel niche pathways (welcab, etc.).
-      const postMod = humanPostMod(r['Post-modification category'] || '');
-      const categoryLabel = (postMod && postMod !== '—') ? postMod : '';
-
-      const buildFrom = formatBuildRange(r['Build date from'] || '');
-      const buildToRaw = r['Build date to'] || '';
-      const buildTo = (!buildToRaw || buildToRaw === 'No end date') ? 'Present' : formatBuildRange(buildToRaw);
-      const buildStr = buildFrom && buildFrom !== 'Unknown' ? `${buildFrom} – ${buildTo}` : 'Unknown';
-
-      // Audit 2026-04-30 (P0 #3) — title now leads with the variant name
-      // when we recognise the chassis (e.g. "R34 GT-R"), falling back to the
-      // chassis codes themselves and then to a neutral "SEVS entry". The
-      // model+make is already in the page header so the row label can be
-      // 100% about the variant.
-      const variantInfo = getChassisVariantInfo(firstChassisToken(r['Model code'] || ''));
-      const title = variantInfo ? variantInfo.name
-        : (chassisCodes.length ? chassisCodes.join(', ') : (categoryLabel || 'SEVS entry'));
-
-      const sevNum = r['SEV #'] || '—';
-      const buildYears = (() => {
-        const f = (r['Build date from'] || '').match(/(\d{4})/);
-        const t = (r['Build date to']   || '').match(/(\d{4})/);
-        if (!f) return buildStr;
-        if (!t || /no end date/i.test(r['Build date to'] || '')) return f[1] + ' – present';
-        return f[1] + ' – ' + t[1];
-      })();
-      const chassisStr = chassisCodes.length ? chassisCodes.join(' · ') : '';
-
-      // Merged approval codes (one entry per dedupe group). Cap at 3 visible
-      // codes so the row stays readable on mobile; surplus rolls into "+N".
-      const allSevNums = grp.indices.map(idx => g.sev[idx]['SEV #']).filter(Boolean);
-      const visibleNums = allSevNums.slice(0, 3);
-      const extraNums = allSevNums.length - visibleNums.length;
-      const approvalCodesHtml = allSevNums.length > 1
-        ? `Approvals: ${visibleNums.map(n => `<span class="register-entry-code">${n}</span>`).join(' · ')}${extraNums > 0 ? ` · <span class="register-entry-code">+${extraNums} more</span>` : ''}`
-        : `Approval: <span class="register-entry-code">${sevNum}</span>`;
-      const ariaApproval = allSevNums.length > 1
-        ? `${allSevNums.length} SEVS entries (${allSevNums.join(', ')})`
-        : `SEVS entry ${sevNum}`;
-
-      html += `
-        <button class="register-entry-card" onclick="showScreen3FromList(${groupIdx},'sev',${i})" aria-label="View ${ariaApproval} for ${g.make} ${g.model}">
-          <div class="register-entry-head">
-            <span class="type-badge type-badge-sev">SEV</span>
-            <span class="type-badge ${statusClass}">${statusLabel}</span>
-          </div>
-          <h3 class="register-entry-title">${title}</h3>
-          <div class="register-entry-primary">
-            <span class="register-entry-build">Build: ${buildYears}</span>
-            ${chassisStr ? `<span class="register-entry-chassis">Chassis: ${chassisStr}</span>` : ''}
-          </div>
-          <div class="register-entry-secondary">
-            ${approvalCodesHtml}
-          </div>
-          <span class="register-entry-arrow">→</span>
-        </button>
-      `;
-    });
-    html += `</div></section>`;
   }
 
-  // ── MRE section ─────────────────────────────────────────────────────────
-  if (g.mre.length > 0) {
-    html += `
-      <section class="register-section">
-        <h2 class="register-section-title">Workshops approved to comply this car</h2>
-        <div class="register-section-list">
-    `;
-    g.mre.forEach((r, i) => {
-      const status = r['Approval status'] || 'In Force';
-      const isActive = status === 'In Force';
-      const statusLabel = isActive ? 'Active' : status;
-      const statusClass = isActive ? 'status-badge-active' : 'status-badge-expired';
-
-      const approvalNum = r['Approval number'] || '—';
-      const workshopName = r['_workshop_short'] || r['_approval_holder'] || '';
-      const complianceLevel = r['Compliance Level'] || '';
-
-      // Audit 2026-04-30 (P0 #3) — lead with build year range and chassis
-      // codes (where we can derive them from a build-overlapping sibling
-      // SEV), so users self-select by variant rather than by MRE number.
-      const buildYears = (() => {
-        const p = parseBuildRange(r['Build date range'] || '');
-        if (!p || !p.from) return formatBuildRange(r['Build date range'] || '') || '—';
-        const fromY = p.from.getFullYear();
-        const toY = p.to ? p.to.getFullYear() : null;
-        return toY ? fromY + ' – ' + toY : fromY + ' – present';
-      })();
-      const matchedSev = pickSiblingSevByOverlap(r, g.sev || []);
-      const matchedCodes = matchedSev
-        ? (matchedSev['Model code'] || '').split(/[,\/]/).map(s => s.trim()).filter(Boolean)
-        : [];
-      const variantInfo = matchedSev
-        ? getChassisVariantInfo(firstChassisToken(matchedSev['Model code'] || ''))
-        : null;
-      const title = variantInfo
-        ? variantInfo.name + (workshopName ? ' — ' + workshopName : '')
-        : (workshopName || `Compliance Workshop ${approvalNum}`);
-      const chassisStr = matchedCodes.length ? matchedCodes.slice(0, 4).join(' · ') : '';
-
+  // Ineligible footer — small, muted, one line. (Brief: "If some variants
+  // are NOT eligible, small muted note listing them at the bottom".)
+  if (ineligibleGroups.length > 0) {
+    const labels = ineligibleGroups.map(grp => variantShortLabel(grp.rec)).filter(Boolean);
+    if (labels.length > 0) {
       html += `
-        <button class="register-entry-card" onclick="showScreen3FromList(${groupIdx},'mre',${i})" aria-label="View MRE entry ${approvalNum} for ${g.make} ${g.model}">
-          <div class="register-entry-head">
-            <span class="type-badge type-badge-mre">MRE</span>
-            <span class="type-badge ${statusClass}">${statusLabel}</span>
-          </div>
-          <h3 class="register-entry-title">${title}</h3>
-          <div class="register-entry-primary">
-            <span class="register-entry-build">Build: ${buildYears}</span>
-            ${chassisStr ? `<span class="register-entry-chassis">Chassis: ${chassisStr}</span>` : ''}
-          </div>
-          <div class="register-entry-secondary">
-            Approval: <span class="register-entry-code">${approvalNum}</span>
-            ${complianceLevel ? ` · Level: ${complianceLevel}` : ''}
-          </div>
-          <span class="register-entry-arrow">→</span>
-        </button>
+        <p class="variants-ineligible-note">
+          <strong>Not currently eligible:</strong> ${labels.join(', ')}.
+          ${labels.length} variant${labels.length === 1 ? '' : 's'} previously listed but no longer active on the SEVS register.
+        </p>
       `;
-    });
-    html += `</div></section>`;
+    }
   }
 
-  // ── Bottom CTA row (primary conversion + new search) ─────────────────────
-  const eligibleCta = isImportable
-    ? `<a href="https://jdmconnect.com.au/contact?utm_source=eligibility&utm_medium=register&utm_campaign=import_this_car&vehicle=${encodeURIComponent(g.make + ' ' + g.model)}" class="result-cta" target="_blank" rel="noopener" data-cta="get_quote" data-cta-source="register_list">Import this ${g.make} ${g.model} →</a>`
-    : '';
+  // Single quiet CTA at the bottom — replaces the old celebratory
+  // "Import this Crown →" gold button. Per brief: "Not sure which variant?
+  // Send us the auction listing".
+  const helpUrl = `https://jdmconnect.com.au/contact?utm_source=eligibility&utm_medium=variants_grid&utm_campaign=auction_help&vehicle=${encodeURIComponent(g.make + ' ' + g.model)}`;
   html += `
-    <div class="result-actions">
+    <div class="variants-help-cta">
+      <div class="variants-help-cta-text">
+        Not sure which variant matches the car you're looking at? Send us the auction listing — we'll tell you which entry applies.
+      </div>
+      <a href="${helpUrl}" target="_blank" rel="noopener" class="variants-help-cta-link" data-cta="auction_help" data-cta-source="variants_grid">Send auction listing →</a>
+    </div>
+    <div class="result-actions" style="margin-top:14px;">
       <button class="search-again" onclick="resetSearch()">← New search</button>
-      ${eligibleCta}
     </div>
   `;
   wrap.innerHTML = html;
+}
+
+// 2026-05 UX rebuild — variant card renderer. Builds one .variant-card per
+// SEV variant. Primary identifier: variant name (or chassis-family fallback).
+// Generation tag: small badge above title (chassis prefix). Build years in
+// plain English. Chassis demoted to small grey footer. Photo slot is a
+// silhouette placeholder until a real photo URL is supplied in r._photo_url
+// (TODO Phase 2: photo admin tool in Ops Hub will write this field).
+function renderVariantCard(grp, g, groupIdx) {
+  const r = grp.rec;
+  const i = grp.indices[0];
+  const { label: expiryLabel } = getSevExpiryStatus(r);
+  const isExpiring = expiryLabel === 'Expiring Soon';
+
+  // Chassis codes split out of "Model code".
+  const chassisCodes = (r['Model code'] || '')
+    .split(/[,\/]/).map(s => s.trim()).filter(Boolean);
+  const firstChassis = chassisCodes[0] || '';
+
+  // Primary identifier: variant name if known, else a neutral fallback that
+  // does NOT lead with chassis codes (brief: chassis codes are secondary).
+  const variantInfo = getChassisVariantInfo(firstChassisToken(r['Model code'] || ''));
+  const title = variantInfo
+    ? variantInfo.name
+    : `${g.make} ${g.model}${chassisCodes.length ? ` (${chassisCodes[0]} series)` : ''}`;
+
+  // Generation tag — small uppercase badge. Use the chassis-family prefix
+  // when we can extract one (e.g. "GRS184" → "GRS"); otherwise show the
+  // first chassis token verbatim ("BNR34"). For very generic codes we hide
+  // the badge rather than show clutter.
+  const genTag = (() => {
+    if (variantInfo && variantInfo.key) return variantInfo.key;
+    if (!firstChassis) return '';
+    // Single chassis code under 6 chars is a usable badge as-is.
+    if (firstChassis.length <= 6) return firstChassis;
+    // Otherwise extract the letter prefix (e.g. "ZWE211W" → "ZWE211").
+    const m = firstChassis.match(/^[A-Z]+\d+/);
+    return m ? m[0] : '';
+  })();
+
+  // Build years in plain English: "Built Jan 2004 – Dec 2009" or "Built
+  // Jan 2004 – present" when there's no end date. Avoid raw "MM/YYYY".
+  const buildFrom = formatBuildRange(r['Build date from'] || '');
+  const buildToRaw = r['Build date to'] || '';
+  const buildTo = (!buildToRaw || buildToRaw === 'No end date') ? 'present' : formatBuildRange(buildToRaw);
+  const buildYearsLine = buildFrom && buildFrom !== 'Unknown'
+    ? `Built ${buildFrom} – ${buildTo}`
+    : 'Build years unavailable';
+
+  // Category — only if the record actually has one (no silent fallback).
+  const postMod = humanPostMod(r['Post-modification category'] || '');
+  const categoryLabel = (postMod && postMod !== '—') ? postMod : '';
+
+  // Eligibility tag is intentionally quiet — small pill, no green tick.
+  const eligibilityTagHtml = `
+    <span class="eligibility-tag${isExpiring ? ' is-expiring' : ''}">
+      ${isExpiring ? 'Expiring soon' : 'Eligible'}
+    </span>
+  `;
+
+  // Photo slot — placeholder unless r._photo_url is present.
+  // TODO Phase 2: Ops Hub photo admin tool will populate _photo_url against
+  // each chassis. UI auto-upgrades when the field is present — no code change
+  // needed here beyond reading r._photo_url. Hook point: this function only.
+  const photoUrl = r._photo_url || '';
+  const photoStyle = photoUrl ? ` style="background-image:url('${photoUrl}');"` : '';
+  const photoHtml = `
+    <div class="variant-photo"${photoUrl ? ` data-photo-url="${photoUrl}"` : ''}${photoStyle}>
+      ${photoUrl ? '' : `
+        <svg class="variant-photo-silhouette" viewBox="0 0 160 64" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M12 44 C12 38, 20 32, 28 32 L34 24 C36 21, 40 19, 44 19 L108 19 C113 19, 117 21, 119 24 L128 32 C136 33, 144 38, 148 44 L148 50 C148 52, 146 54, 144 54 L136 54 C135 50, 131 47, 126 47 C121 47, 117 50, 116 54 L44 54 C43 50, 39 47, 34 47 C29 47, 25 50, 24 54 L16 54 C14 54, 12 52, 12 50 Z M34 50 A4 4 0 1 1 34 58 A4 4 0 1 1 34 50 Z M126 50 A4 4 0 1 1 126 58 A4 4 0 1 1 126 50 Z"/>
+        </svg>
+      `}
+      ${firstChassis ? `<span class="variant-photo-chassis">${firstChassis}</span>` : ''}
+    </div>
+  `;
+
+  // Chassis footer line. Cap at 6 codes so very long lists wrap cleanly.
+  const visibleChassis = chassisCodes.slice(0, 6).join(' · ');
+  const extraChassis = chassisCodes.length - 6;
+  const chassisFooterHtml = chassisCodes.length > 0
+    ? `<div class="variant-card-chassis"><span class="variant-card-chassis-label">Chassis:</span>${visibleChassis}${extraChassis > 0 ? ` +${extraChassis}` : ''}</div>`
+    : '';
+
+  // ARIA label captures the same info a sighted user would scan.
+  const allSevNums = grp.indices.map(idx => g.sev[idx]['SEV #']).filter(Boolean);
+  const ariaApproval = allSevNums.length > 1
+    ? `${allSevNums.length} SEVS entries`
+    : `SEVS entry ${allSevNums[0] || ''}`;
+  const ariaLabel = `${title}, ${buildYearsLine.toLowerCase()}, ${ariaApproval}`.replace(/"/g, "'");
+
+  return `
+    <button class="variant-card" onclick="showScreen3FromList(${groupIdx},'sev',${i})" aria-label="${ariaLabel}">
+      ${photoHtml}
+      <div class="variant-card-body">
+        <div class="variant-card-head">
+          <div class="variant-card-titleblock">
+            ${genTag ? `<span class="variant-card-gen">${genTag}</span>` : ''}
+            <h3 class="variant-card-title">${title}</h3>
+          </div>
+          ${eligibilityTagHtml}
+        </div>
+        <div class="variant-card-years">${buildYearsLine}</div>
+        ${categoryLabel ? `<div class="variant-card-category">${categoryLabel}</div>` : ''}
+        ${chassisFooterHtml}
+      </div>
+    </button>
+  `;
+}
+
+// Short label used in the "Not currently eligible" footer line. Mirrors the
+// title selection in renderVariantCard but stays compact (no parenthetical).
+function variantShortLabel(r) {
+  const chassisCodes = (r['Model code'] || '')
+    .split(/[,\/]/).map(s => s.trim()).filter(Boolean);
+  const variantInfo = getChassisVariantInfo(firstChassisToken(r['Model code'] || ''));
+  if (variantInfo) return variantInfo.name;
+  if (chassisCodes[0]) return chassisCodes[0];
+  const postMod = humanPostMod(r['Post-modification category'] || '');
+  return (postMod && postMod !== '—') ? postMod : 'Other variant';
 }
 
 // ── SCREEN 2.5: GENERATION DETAIL (grouped by chassis code) ─────────────────
@@ -3717,15 +4389,38 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
       { label: isMRE ? `MRE #${approvalNum}` : `SEV #${approvalNum}` },
     ]);
   } else {
-    breadcrumbs = renderBreadcrumbs([
-      { label: 'Search', onclick: 'resetSearch()' },
-      { label: isMRE ? `MRE #${approvalNum}` : `SEV #${approvalNum}` },
-    ]);
+    // 2026-05 UX rebuild — when there's no group context (deep-link / chassis
+    // search path), fall back to the record's own Make/Model fields so the
+    // breadcrumb still reads "Search > Lexus > IS 500 F-Sport > SEV-000548"
+    // instead of the bare "Search > SEV-000548".
+    const fbMake = displayName((r.Make || (vehicleName.split(' ')[0]) || '').trim());
+    const fbModel = displayName(r.Model || vehicleName.replace(/^.+? /, '').trim() || '');
+    const crumbs = [{ label: 'Search', onclick: 'resetSearch()' }];
+    if (fbMake) crumbs.push({ label: fbMake });
+    if (fbModel) crumbs.push({ label: fbModel });
+    crumbs.push({ label: isMRE ? `MRE #${approvalNum}` : `SEV #${approvalNum}` });
+    breadcrumbs = renderBreadcrumbs(crumbs);
   }
 
   let html = backBtn + breadcrumbs;
 
-  // Header
+  // 2026-05 UX rebuild — SEV variant detail. Branch here for SEVs and use
+  // the plain-English-lead layout. MRE detail (workshop-specific approvals)
+  // keeps the existing detail-grid layout below, since MREs are now reached
+  // primarily via deep links and need the workshop-specific framing.
+  if (!isMRE) {
+    html += renderSevDetailBody(r, mreList, sevList, {
+      yearRangeStr, chassisCodes, eligibilityLabel, expiry,
+      isExpiringSoon, isOver25, statusDisplay, isActive: status === 'In Force',
+      sevApprovalNum: approvalNum, currentVehicleContext, primarySev,
+    });
+    if (ADMIN_MODE) html += renderAdminCard(r);
+    html += `<button class="search-again" onclick="resetSearch()" style="margin-top:18px;">← New search</button>`;
+    wrap.innerHTML = html;
+    return;
+  }
+
+  // Header (MRE-only below this point — SEV path returns above)
   html += `
     <div style="margin-bottom:20px;">
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
@@ -3999,6 +4694,376 @@ function renderScreen3(r, isMRE, vehicleName, mreList, sevList, wrap, groupIdx) 
 
   html += `<button class="search-again" onclick="resetSearch()">← New search</button>`;
   wrap.innerHTML = html;
+}
+
+// ── Scope of Works card ─────────────────────────────────────────────────────
+// Renders the official ROVER Vehicle Specification ("scope of works") that the
+// scraper attaches to each SEV record as `_scope` (an array of variant specs).
+// Surfaces the eligibility-critical allowances a buyer asks about: how many
+// seats are permitted, whether a mobility/welcab build is required, door count,
+// and the unladen/gross mass band. Returns '' when no scope data is present, so
+// records scraped before the scope backfill simply render nothing.
+function renderScopeCard(scopeList) {
+  if (!Array.isArray(scopeList) || scopeList.length === 0) return '';
+
+  const fmtPair = (v, unit) => {
+    if (v === null || v === undefined) return '';
+    unit = unit || '';
+    return Array.isArray(v) ? `${v[0]}–${v[1]}${unit}` : `${v}${unit}`;
+  };
+  const seatsText = (sp) => {
+    if (sp.seats_min === null || sp.seats_min === undefined) return '';
+    return sp.seats_min === sp.seats_max
+      ? `${sp.seats_min} seats`
+      : `${sp.seats_min}–${sp.seats_max} seats`;
+  };
+  const row = (k, v, title) => v
+    ? `<div class="scope-row"><span class="scope-k">${k}</span><span class="scope-v"${title ? ` title="${title}"` : ''}>${v}</span></div>`
+    : '';
+
+  const multi = scopeList.length > 1;
+
+  const variantsHtml = scopeList.map((sp) => {
+    const rows = [];
+
+    const seats = seatsText(sp);
+    if (seats) {
+      const note = (sp.seats_min !== sp.seats_max)
+        ? ' <span class="scope-note">configurable</span>'
+        : '';
+      rows.push(row('Seating', seats + note, sp.seating_raw || ''));
+    }
+
+    const doors = [];
+    if (sp.side_doors !== null && sp.side_doors !== undefined) doors.push(`${fmtPair(sp.side_doors)} side`);
+    if (sp.rear_doors !== null && sp.rear_doors !== undefined) doors.push(`${fmtPair(sp.rear_doors)} rear`);
+    if (doors.length) rows.push(row('Doors', doors.join(' · ')));
+
+    const unladen = fmtPair(sp.unladen_kg, ' kg');
+    if (unladen) rows.push(row('Unladen mass', unladen));
+    // Guard against occasional bad ROVER source data where GVM is published
+    // below the unladen mass (physically impossible) — hide rather than mislead.
+    const unladenHi = Array.isArray(sp.unladen_kg) ? sp.unladen_kg[1] : sp.unladen_kg;
+    if (sp.gvm_kg !== null && sp.gvm_kg !== undefined
+        && !(unladenHi && sp.gvm_kg < unladenHi)) {
+      rows.push(row('Gross mass', `${sp.gvm_kg} kg`));
+    }
+
+    // Motive power only when it's not a plain petrol ICE — hybrids/EVs matter
+    // to buyers and to import paperwork.
+    const mp = (sp.motive_power || '');
+    if (/hybrid|electric|hev|phev|\bev\b/i.test(mp)) {
+      const label = /phev|plug/i.test(mp) ? 'Plug-in hybrid'
+        : /hybrid|hev/i.test(mp) ? 'Hybrid'
+        : 'Electric';
+      rows.push(row('Powertrain', label, mp));
+    }
+
+    const welcabBanner = sp.welcab
+      ? `<div class="scope-welcab">⚿ Must be imported as a mobility / welcab build</div>`
+      : '';
+    const nameHtml = (multi && sp.variant)
+      ? `<div class="scope-variant-name">${sp.variant}</div>`
+      : '';
+
+    return `<div class="scope-variant">${nameHtml}${welcabBanner}<div class="scope-grid">${rows.join('')}</div></div>`;
+  }).join('');
+
+  return `
+    <div class="scope-card">
+      <div class="scope-head">
+        <span class="scope-title">Scope of works</span>
+        <span class="scope-sub">official ROVER spec</span>
+      </div>
+      ${variantsHtml}
+      <p class="scope-foot">These are the exact specifications the approval covers. If your car differs (e.g. seat count or mass), talk to us before buying.</p>
+    </div>
+  `;
+}
+
+// ── 2026-05 UX REBUILD: SEV variant detail renderer ─────────────────────────
+// New layout for the SEV branch of the detail page. Leads with a plain-English
+// statement (per brief: "If your car was built between X and Y and has chassis
+// code Z, it qualifies for import under the [category] category"). Then a
+// workshop count line, two CTAs, the ROVER verification link, then technical
+// detail collapses underneath.
+function renderSevDetailBody(r, mreList, sevList, ctx) {
+  const contactUrl = 'https://jdmconnect.com.au/contact'
+    + '?utm_source=eligibility&utm_medium=variant_detail&utm_campaign=get_quote'
+    + '&vehicle=' + encodeURIComponent((ctx.currentVehicleContext.make || '') + '_' + (ctx.currentVehicleContext.model || ''));
+  const calcUrl = 'https://calculator.jdmconnect.com.au/'
+    + '?utm_source=eligibility&utm_medium=variant_detail&utm_campaign=cross_sell'
+    + '&vehicle=' + encodeURIComponent((ctx.currentVehicleContext.make || '') + '_' + (ctx.currentVehicleContext.model || ''));
+  const roverUrl = roverDetailUrl(r, false);
+
+  // ── Build the plain-English statement (parts may be empty) ───────────────
+  const buildPhrase = (() => {
+    const fromStr = r['Build date from'] || '';
+    const toStr = r['Build date to'] || '';
+    const from = formatBuildRange(fromStr || '');
+    const noEnd = !toStr || toStr === 'No end date';
+    const to = noEnd ? null : formatBuildRange(toStr);
+    if (!from || from === 'Unknown') return null;
+    if (noEnd) return `built from <strong>${from}</strong> onwards`;
+    if (!to || to === 'Unknown') return `built around <strong>${from}</strong>`;
+    return `built between <strong>${from}</strong> and <strong>${to}</strong>`;
+  })();
+
+  const chassisPhrase = (() => {
+    const codes = (ctx.chassisCodes || []).slice(0, 6); // cap for readability
+    if (codes.length === 0) return null;
+    if (codes.length === 1) return `has chassis code <strong>${codes[0]}</strong>`;
+    if (codes.length === 2) return `has chassis code <strong>${codes[0]}</strong> or <strong>${codes[1]}</strong>`;
+    const head = codes.slice(0, -1).map(c => `<strong>${c}</strong>`).join(', ');
+    const tail = `<strong>${codes[codes.length - 1]}</strong>`;
+    return `has one of these chassis codes: ${head}, or ${tail}`;
+  })();
+
+  // Category — prefer the human-friendly _sev_category label when present,
+  // else strip the "MA - " prefix from the raw Category field. Falls back
+  // to a neutral "SEVS register" phrasing rather than guessing.
+  const categoryLabel = (() => {
+    if (ctx.eligibilityLabel && ctx.eligibilityLabel !== '—') return `SEVS ${ctx.eligibilityLabel}`;
+    const cat = (r['Category'] || '').replace(/^[A-Z]{2}\s*-\s*/, '').trim();
+    if (cat) return `SEVS ${cat}`;
+    return 'the SEVS register';
+  })();
+
+  // Assemble the statement. Falls through to a shorter version when parts
+  // are missing so we never emit awkward fragments.
+  let statement;
+  if (buildPhrase && chassisPhrase) {
+    statement = `If your car was ${buildPhrase} and ${chassisPhrase}, it qualifies for import under <strong>${categoryLabel}</strong>.`;
+  } else if (buildPhrase) {
+    statement = `If your car was ${buildPhrase}, it qualifies for import under <strong>${categoryLabel}</strong>.`;
+  } else if (chassisPhrase) {
+    statement = `Cars that ${chassisPhrase} qualify for import under <strong>${categoryLabel}</strong>.`;
+  } else {
+    statement = `This entry qualifies for import under <strong>${categoryLabel}</strong>. See the ROVER record below for the exact build window and chassis codes.`;
+  }
+
+  // Kicker tag in the hero — quiet "Eligible" or "Expiring soon".
+  const kicker = !ctx.isActive
+    ? `<span class="sev-hero-kicker" style="color:#7f1d1d;">No longer active</span>`
+    : ctx.isExpiringSoon
+      ? `<span class="eligibility-tag is-expiring">Expiring soon</span>`
+      : `<span class="eligibility-tag">Eligible</span>`;
+
+  // ── Vehicle photo + title band (visual anchor for non-enthusiasts) ───────
+  // Photo URL is merged in by the Pages function from photos.json keyed on
+  // chassis code. Falls back to an SVG silhouette when no photo is found.
+  const photoUrl = r._photo_url || '';
+  const firstChassisCode = (ctx.chassisCodes || [])[0] || '';
+  const photoStyle = photoUrl ? ` style="background-image:url('${photoUrl}');"` : '';
+  const photoHtml = `
+    <div class="sev-hero-photo"${photoUrl ? ` data-photo-url="${photoUrl}"` : ''}${photoStyle}>
+      ${photoUrl ? '' : `
+        <svg class="sev-hero-photo-silhouette" viewBox="0 0 160 64" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M12 44 C12 38, 20 32, 28 32 L34 24 C36 21, 40 19, 44 19 L108 19 C113 19, 117 21, 119 24 L128 32 C136 33, 144 38, 148 44 L148 50 C148 52, 146 54, 144 54 L136 54 C135 50, 131 47, 126 47 C121 47, 117 50, 116 54 L44 54 C43 50, 39 47, 34 47 C29 47, 25 50, 24 54 L16 54 C14 54, 12 52, 12 50 Z M34 50 A4 4 0 1 1 34 58 A4 4 0 1 1 34 50 Z M126 50 A4 4 0 1 1 126 58 A4 4 0 1 1 126 50 Z"/>
+        </svg>
+      `}
+      ${firstChassisCode ? `<span class="sev-hero-photo-chassis">${firstChassisCode}</span>` : ''}
+    </div>
+  `;
+
+  // Vehicle title — prefer the known variant name (e.g. "R34 GT-R") when we
+  // recognise the chassis, else use the bare Make + Model from the context.
+  // This is the anchor a non-enthusiast needs: "yes that's the car I saw".
+  const variantInfo = getChassisVariantInfo(firstChassisToken(r['Model code'] || ''));
+  const ctxMake = ctx.currentVehicleContext.make || '';
+  const ctxModel = ctx.currentVehicleContext.model || '';
+  const vehicleTitle = variantInfo
+    ? `${ctxMake} ${variantInfo.name}`.trim()
+    : `${ctxMake} ${ctxModel}`.trim();
+
+  // Subtitle line — chassis family + build years in plain English. Skips the
+  // chassis part when the only available code is a long workshop placeholder.
+  const chassisSubtitle = (() => {
+    const codes = (ctx.chassisCodes || []).slice(0, 3);
+    if (codes.length === 0) return '';
+    if (codes.length === 1) return `${codes[0]} series`;
+    return `${codes.join(' / ')} series`;
+  })();
+  const yearsSubtitle = (() => {
+    const fromStr = r['Build date from'] || '';
+    const toStr = r['Build date to'] || '';
+    const from = formatBuildRange(fromStr);
+    const noEnd = !toStr || toStr === 'No end date';
+    const to = noEnd ? null : formatBuildRange(toStr);
+    if (!from || from === 'Unknown') return '';
+    if (noEnd) return `Built ${from} onwards`;
+    if (!to || to === 'Unknown') return `Built around ${from}`;
+    return `Built ${from} – ${to}`;
+  })();
+  const subtitleParts = [chassisSubtitle, yearsSubtitle].filter(Boolean);
+  const subtitleHtml = subtitleParts.length
+    ? `<div class="sev-hero-subtitle">${subtitleParts.join(' · ')}</div>`
+    : '';
+
+  // ── Workshop count line (overlap-filtered) ───────────────────────────────
+  const overlappingMres = mresOverlappingSev(r, mreList || []);
+  const wsCount = overlappingMres.length;
+  const workshopLine = wsCount > 0
+    ? `<strong>${wsCount} licensed workshop${wsCount === 1 ? '' : 's'}</strong> in Australia can comply this car. We handle workshop selection as part of the import process.`
+    : `JDM Connect handles workshop selection — including liaising with a licensed RAWS workshop — as part of the import process.`;
+
+  // ── Expiring banner (only if applicable) ─────────────────────────────────
+  const expiringBannerHtml = ctx.isExpiringSoon && ctx.expiry
+    ? `
+      <div class="sev-expiring-banner">
+        <strong>Approval expires ${ctx.expiry}.</strong> A car bought under this entry must clear Australian customs before that date — give us as much lead time as possible.
+      </div>
+    `
+    : '';
+
+  // ── 25-year rule note inside hero foot, when applicable ──────────────────
+  const yr25Html = ctx.isOver25
+    ? `<div class="sev-hero-25yr">Also eligible under the 25-year personal import rule, independent of this SEVS entry.</div>`
+    : '';
+
+  // ── Technical detail (collapsed by default) ──────────────────────────────
+  const techRows = [];
+  techRows.push(`<div class="sev-tech-row"><span class="sev-tech-key">SEVS approval number</span><span class="sev-tech-val"><span class="mono">${ctx.sevApprovalNum}</span></span></div>`);
+  techRows.push(`<div class="sev-tech-row"><span class="sev-tech-key">Build years</span><span class="sev-tech-val">${ctx.yearRangeStr}</span></div>`);
+  if (ctx.eligibilityLabel && ctx.eligibilityLabel !== '—') {
+    techRows.push(`<div class="sev-tech-row"><span class="sev-tech-key">Approval category</span><span class="sev-tech-val">${ctx.eligibilityLabel}</span></div>`);
+  }
+  if (ctx.expiry) {
+    techRows.push(`<div class="sev-tech-row"><span class="sev-tech-key">Approval valid until</span><span class="sev-tech-val">${ctx.expiry}${ctx.isExpiringSoon ? ' · expiring soon' : ''}</span></div>`);
+  }
+  if (r['Category']) {
+    techRows.push(`<div class="sev-tech-row"><span class="sev-tech-key">Vehicle category</span><span class="sev-tech-val">${r['Category']}</span></div>`);
+  }
+  if ((ctx.chassisCodes || []).length > 0) {
+    const pills = ctx.chassisCodes.map(c => `<span class="chassis-pill">${c}</span>`).join('');
+    techRows.push(`<div class="sev-tech-row"><span class="sev-tech-key">Chassis codes (full list)</span><span class="sev-tech-val"><span class="sev-tech-chassis-pills">${pills}</span></span></div>`);
+  }
+
+  // Approved workshops (MRE list) — overlap-filtered so we only show the
+  // workshops whose build window actually covers this SEV's variant. The
+  // count line on the main page promises N workshops; this row reveals which
+  // ones for users who want to verify directly on the ROVER register.
+  if (overlappingMres.length > 0) {
+    const wsRows = overlappingMres.map(m => {
+      const label = m._workshop_short
+        || m._approval_holder
+        || (m['Model report type'] && !/specialist/i.test(m['Model report type']) ? m['Model report type'] : '')
+        || 'Workshop';
+      const mreUrl = roverDetailUrl(m, true);
+      const status = (m['Approval status'] || 'In Force') === 'In Force' ? 'Active' : (m['Approval status'] || '');
+      return `
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:12px;">
+          <div style="min-width:0;">
+            <div style="color:var(--text);font-weight:500;line-height:1.35;">${label}</div>
+            <div style="color:var(--text-faint);font-size:10.5px;margin-top:2px;font-family:'DM Mono',ui-monospace,monospace;">${m['Approval number'] || ''} · ${status}</div>
+          </div>
+          <a href="${mreUrl}" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;font-size:11px;white-space:nowrap;">View on ROVER ↗</a>
+        </div>
+      `;
+    }).join('');
+    techRows.push(`
+      <div class="sev-tech-row" style="flex-direction:column;align-items:stretch;gap:0;">
+        <span class="sev-tech-key" style="margin-bottom:6px;">Approved workshops (${overlappingMres.length})</span>
+        <div style="background:var(--bg-secondary);border-radius:6px;padding:2px 12px;">
+          ${wsRows}
+        </div>
+        <p style="font-size:11px;color:var(--text-faint);margin-top:8px;font-style:italic;line-height:1.45;">JDM Connect selects the right workshop for you — this list is here so you can verify the data on the ROVER register if you want.</p>
+      </div>
+    `);
+  }
+
+  techRows.push(`<div class="sev-tech-row"><span class="sev-tech-key">SEVS source</span><span class="sev-tech-val"><a href="${roverUrl}" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;">ROVER register ↗</a></span></div>`);
+
+  // ── Compose the full SEV-detail body ─────────────────────────────────────
+  return `
+    <div class="sev-detail-wrap">
+      <div class="sev-hero">
+        <div class="sev-hero-band">
+          ${photoHtml}
+          <div class="sev-hero-titleblock">
+            <div class="sev-hero-title-row">
+              <h1 class="sev-hero-title">${vehicleTitle}</h1>
+              ${kicker}
+            </div>
+            ${subtitleHtml}
+            <div class="sev-hero-approval">${ctx.sevApprovalNum}</div>
+          </div>
+        </div>
+        <p class="sev-hero-statement">${statement}</p>
+        ${yr25Html}
+      </div>
+
+      ${expiringBannerHtml}
+
+      <p class="sev-workshop-line">${workshopLine}</p>
+
+      ${renderScopeCard(r._scope)}
+
+      <div class="sev-cta-row">
+        <a href="${contactUrl}" class="sev-cta-primary" target="_blank" rel="noopener" data-cta="get_quote" data-cta-source="variant_detail_primary">Get a free quote →</a>
+        <a href="${calcUrl}" class="sev-cta-secondary" target="_blank" rel="noopener" data-cta="calculate" data-cta-source="variant_detail_secondary">Open landed cost calculator</a>
+      </div>
+      <p class="sev-cta-sub">We respond within 24 hours · <a href="${roverUrl}" target="_blank" rel="noopener">Verify on the ROVER register ↗</a></p>
+
+      <details class="sev-tech-detail">
+        <summary>
+          <span>Technical detail (SEVS record, chassis list, source)</span>
+          <span class="sev-tech-chevron">▾</span>
+        </summary>
+        <div class="sev-tech-detail-body">
+          ${techRows.join('')}
+        </div>
+      </details>
+    </div>
+  `;
+}
+
+// Filter an MRE list to entries whose build date range overlaps the given
+// SEV record's build window. Used for the "X workshops can comply this car"
+// count so we don't conflate workshops for a 1997 R34 with a 2014 V37.
+function mresOverlappingSev(sevRec, mreList) {
+  if (!mreList || !mreList.length) return [];
+  // Dedupe by approval number first.
+  const seen = new Set();
+  const dedup = mreList.filter(m => {
+    if (!m || !m['Approval number']) return false;
+    if (seen.has(m['Approval number'])) return false;
+    seen.add(m['Approval number']);
+    return true;
+  });
+  const sFromStr = sevRec['Build date from'] || '';
+  const sToStr = sevRec['Build date to'] || '';
+  const sP = parseBuildRange(sFromStr + (sToStr && sToStr !== 'No end date' ? ' - ' + sToStr : ''));
+  if (!sP || !sP.from) return dedup;
+  const sFromY = sP.from.getFullYear();
+  const sToY = (sToStr === 'No end date' || !sP.to) ? 2099 : sP.to.getFullYear();
+  return dedup.filter(m => {
+    const mP = parseBuildRange(m['Build date range'] || '');
+    if (!mP || !mP.from) return true; // no build info — assume match rather than drop
+    const mFromY = mP.from.getFullYear();
+    const mToY = mP.to ? mP.to.getFullYear() : 2099;
+    return mFromY <= sToY && mToY >= sFromY;
+  });
+}
+
+// Admin-only contact block, factored out so the SEV branch can reuse it
+// without duplicating the existing MRE-path implementation. Renders only
+// when admin mode is on (?admin=1) AND the record has contact fields.
+function renderAdminCard(r) {
+  const holder = r['_approval_holder'] || '';
+  const cName  = r['_contact_name']    || '';
+  const cEmail = r['_contact_email']   || '';
+  const cPhone = r['_contact_phone']   || '';
+  if (!holder && !cName && !cEmail && !cPhone) return '';
+  return `
+    <div class="detail-card" style="border-color:#fcd34d;margin-top:18px;">
+      <div class="detail-card-title" style="background:#fffbeb;color:#92400e;">⚙ Approval holder (admin only)</div>
+      ${holder ? `<div class="detail-row"><span class="detail-key">Company</span><span class="detail-val">${holder}</span></div>` : ''}
+      ${cName  ? `<div class="detail-row"><span class="detail-key">Contact</span><span class="detail-val">${cName}</span></div>` : ''}
+      ${cEmail ? `<div class="detail-row"><span class="detail-key">Email</span><span class="detail-val" style="font-size:12px;"><a href="mailto:${cEmail}" style="color:var(--gold);">${cEmail}</a></span></div>` : ''}
+      ${cPhone ? `<div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val"><a href="tel:${cPhone}" style="color:var(--gold);">${cPhone}</a></span></div>` : ''}
+    </div>
+  `;
 }
 
 // ── NOT ELIGIBLE SCREEN ───────────────────────────────────────────────────────
