@@ -25,6 +25,14 @@ on:
         required: false
         default: ''
         type: string
+      scope_refresh:
+        description: 'Force a FULL re-scrape of Vehicle Specification scope (slow; normally incremental)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
 
 permissions:
   contents: write
@@ -32,7 +40,9 @@ permissions:
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Scope pass runs incrementally (only new approvals), but a big-add week or
+    # a forced scope_refresh can take a while — give it real headroom.
+    timeout-minutes: 75
 
     steps:
       - uses: actions/checkout@v4
@@ -63,14 +73,20 @@ jobs:
           # Cron runs always enrich. workflow_dispatch can opt out.
           WITH_DETAIL: ${{ github.event.inputs.with_detail || 'true' }}
           DETAIL_LIMIT: ${{ github.event.inputs.detail_limit || '' }}
+          SCOPE_REFRESH: ${{ github.event.inputs.scope_refresh || 'false' }}
         run: |
           cd scripts
-          ARGS="snapshot --send-email"
+          # Always include the Vehicle Specification (scope) pass on the weekly
+          # run — it's incremental, so it only crawls newly-added approvals.
+          ARGS="snapshot --send-email --with-scope"
           if [ "$WITH_DETAIL" = "true" ]; then
             ARGS="$ARGS --with-detail"
             if [ -n "$DETAIL_LIMIT" ]; then
               ARGS="$ARGS --detail-limit=$DETAIL_LIMIT"
             fi
+          fi
+          if [ "$SCOPE_REFRESH" = "true" ]; then
+            ARGS="$ARGS --scope-refresh"
           fi
           echo "Running: python rover_scraper.py $ARGS"
           python rover_scraper.py $ARGS

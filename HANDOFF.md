@@ -102,3 +102,57 @@ No new secrets needed. Existing `O365_TENANT_ID`, `O365_CLIENT_ID`, etc. still a
 ## Questions → Jate
 
 If scraping abuse shows up in Cloudflare Analytics after deploy (sudden spike in 429s from a small set of IPs), flag it — we can tighten the rate limit or add a Cloudflare Rate Limiting rule without code changes.
+
+---
+
+# Addendum (2026-06) — Vehicle Specification "Scope of Works" pass
+
+## What it adds
+
+Each ROVER MRE detail page links to its current **Model Report Scope**, which
+links to one **Vehicle Specification** page per variant. Those spec pages carry
+the eligibility-critical allowances customers ask about: **seating positions per
+row** (the 7-vs-8-seater answer), **wheelchair positions** (the welcab signal),
+door counts, unladen/gross mass, and powertrain. Each spec page also declares
+its own **SEVs Register Number(s)**, so a variant's scope maps straight onto the
+SEV entry the eligibility site shows.
+
+## How it works
+
+- New scraper pass, opt-in via `python rover_scraper.py snapshot --with-scope`.
+  Walks `detail → current scope → each Vehicle Specification page`, reads the
+  stable `post*` element ids (e.g. `postNoOfSeating`, `postGVM`) via
+  `textContent` (the Pre/Post columns are hidden tabs, so `innerText` is empty).
+- Attaches `_scope` (a list of compact variant-spec dicts) to each MRE record
+  and mirrors it onto the matching SEV record(s) by SEV number.
+- **Incremental by default**: `_scope` is carried forward from the previous
+  `data.json`, so weekly runs only crawl newly-added approvals. Force a full
+  re-scrape with `--scope-refresh` (or the `scope_refresh` workflow input).
+- Wired into `weekly-scrape.yml` only (scope figures rarely change). Timeout
+  bumped to 75 min for the first/forced full crawl.
+
+## UI
+
+`renderScopeCard()` in `index.html` renders a "Scope of works" card in the SEV
+detail view (under the workshop line). Shows seating, a welcab-required banner
+when applicable, doors, and mass band. A physically-impossible GVM (below the
+unladen mass — occasional bad ROVER source data) is hidden rather than shown.
+
+## Enrichment now persists through daily runs (bug fix)
+
+The daily cron is list-only, and previously it OVERWROTE data.json with a bare
+list scrape — blanking every enrichment field (approval holder, SEV category,
+scope of works, ...) until the next weekly run restored it. The live data was
+only complete ~1 day a week. `run_snapshot` now calls
+`_carry_forward_enrichment` on EVERY run: it copies all underscore-prefixed
+fields from the previous data.json onto the fresh records (fresh detail/scope
+passes still override). So daily runs keep the full enriched dataset, and the
+weekly scope pass stays incremental (skips already-scoped approvals).
+
+## Gotcha — faithful to ROVER, warts and all
+
+Some ROVER entries have thin or inconsistent source data (e.g. the Corolla
+Touring Wagon publishes `seating = 2` and a GVM below its unladen mass). The
+scraper extracts these faithfully — they are not bugs on our side. The card's
+"official ROVER spec" label and footnote ("if your car differs, talk to us")
+cover this.

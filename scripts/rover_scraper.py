@@ -41,6 +41,305 @@ SEV_URL = 'https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVApprova
 DETAIL_CONCURRENCY = 5
 DETAIL_TIMEOUT_MS = 30000
 
+# ── Phase 2 — Vehicle Specification ("Scope of Works") enrichment ────────────
+# A level deeper than the detail pass. Each MRE detail page links to its
+# current "Model Report Scope", which in turn links to one "Vehicle
+# Specification" page per variant. Those spec pages carry the authoritative
+# allowances JDM Connect customers ask about: seating positions per row
+# (the 7-vs-8-seater answer), wheelchair positions (the welcab signal), door
+# counts, unladen/gross mass, and powertrain. Crucially each spec page also
+# declares its own "SEVs Register Number(s)", so we can map a variant's scope
+# straight onto the SEV entry the eligibility site shows — no fragile join.
+#
+# This pass is OFF by default and opt-in via `snapshot --with-scope`. It is
+# heavier than the detail pass (detail → scope → N spec pages per MRE), so it
+# runs on the weekly cron only — scope figures effectively never change.
+#
+# Robustness note: the ROVER spec page is an ASP.NET WebForms page where every
+# value carries a STABLE element id prefixed `pre`/`post` (e.g. postNoOfSeating,
+# postGVM). We read those ids directly with textContent — far more reliable
+# than label-text matching, and it reads the hidden Pre/Post tab that innerText
+# would return empty for. We take the Post-modification values: that's the
+# car's spec once complied.
+SCOPE_CONCURRENCY = 4
+SCOPE_TIMEOUT_MS = 30000
+
+# Map of spec-page element-id suffix -> raw key we read off the page. The page
+# exposes each as `post<Suffix>` (post-modification) and `pre<Suffix>`.
+SCOPE_ID_SUFFIXES = (
+    'NoOfSeating', 'NoOfWheelchair',
+    'MinSideDoors', 'MaxSideDoors', 'MinRearDoors', 'MaxRearDoors',
+    'MinUnladenMass', 'MaxUnladenMass', 'GVM',
+    'MinEngineCap', 'MaxEngineCap',
+    'MotivePower', 'MotorModel', 'EngineConfig', 'EngineInduction',
+    'TransModel', 'TransType', 'Drivetrain', 'SteeringLocation',
+)
+
+_WELCAB_NAME_RE = re.compile(
+    r'welcab|wheelchair|swivel|mobility|\bramp\b|hoist|lift[\s-]?up', re.IGNORECASE)
+
+
+def _norm_sev_number(raw):
+    """Normalise a SEV reference to its canonical 'SEV-000505' form so spec-page
+    numbers and SEV-record 'SEV #' values join cleanly regardless of spacing."""
+    if not raw:
+        return ''
+    m = re.search(r'(\d{1,6})', str(raw))
+    return f'SEV-{int(m.group(1)):06d}' if m else ''
+
+
+def _parse_seating(raw):
+    """Turn a raw 'Number of Seating Positions per Row' string into (min,max)
+    total seats. Handles the three formats ROVER uses:
+      '2,2'                                   -> 4 seats          -> (4,4)
+      '2 / 2 / 3'                             -> 7 seats          -> (7,7)
+      '2 / 1 / 3 (6) or 2 / 2 / 3 (7) or ...' -> explicit totals  -> (6,8)
+    Returns (None, None) when nothing parseable is present."""
+    raw = (raw or '').strip()
+    if not raw:
+        return None, None
+    totals = [int(x) for x in re.findall(r'\((\d+)\)', raw)]
+    if totals:
+        return min(totals), max(totals)
+    nums = [int(x) for x in re.findall(r'\d+', raw)]
+    if nums:
+        s = sum(nums)
+        return s, s
+    return None, None
+
+
+def _is_welcab(variant_name, wheelchair_raw):
+    """Decide whether a variant is a mobility/welcab build. The signal lives in
+    the variant name ('swivel seat', 'wheelchair ramp') as often as in the
+    wheelchair-positions field, so we check both."""
+    if _WELCAB_NAME_RE.search(variant_name or ''):
+        return True
+    wc = (wheelchair_raw or '').strip()
+    return bool(wc) and any(ch.isdigit() and ch != '0' for ch in wc)
+
+
+def _int_or_none(v):
+    if v is None:
+        return None
+    m = re.search(r'-?\d+', str(v))
+    return int(m.group(0)) if m else None
+
+
+def _int_pair(raw, lo_key, hi_key):
+    """Collapse a min/max pair into [lo, hi], or a single int when equal, or
+    None when both are absent."""
+    lo = _int_or_none(raw.get(lo_key))
+    hi = _int_or_none(raw.get(hi_key))
+    if lo is None and hi is None:
+        return None
+    if lo == hi:
+        return lo
+    return [lo, hi]
+
+
+def _build_variant_spec(name, raw):
+    """Assemble a compact, JSON-friendly variant-spec dict from the raw post-*
+    field map scraped off one Vehicle Specification page. Returns None for an
+    empty/placeholder page (no SEV and no seating data)."""
+    sevs = [s for s in (_norm_sev_number(x) for x in raw.get('_sevs', [])) if s]
+    seating_raw = (raw.get('NoOfSeating') or '').strip()
+    if not seating_raw and not sevs:
+        return None  # placeholder / empty spec page — skip it
+
+    seats_min, seats_max = _parse_seating(seating_raw)
+    wheelchair_raw = (raw.get('NoOfWheelchair') or '').strip()
+
+    spec = {
+        'variant': (name or raw.get('_variant_h3') or '').strip(),
+        'sev': sevs,
+        'seating_raw': seating_raw,
+        'seats_min': seats_min,
+        'seats_max': seats_max,
+        'welcab': _is_welcab(name, wheelchair_raw),
+        'wheelchair_raw': wheelchair_raw if wheelchair_raw not in ('', '0') else '',
+        'side_doors': _int_pair(raw, 'MinSideDoors', 'MaxSideDoors'),
+        'rear_doors': _int_pair(raw, 'MinRearDoors', 'MaxRearDoors'),
+        'unladen_kg': _int_pair(raw, 'MinUnladenMass', 'MaxUnladenMass'),
+        'gvm_kg': _int_or_none(raw.get('GVM')),
+        'engine_cc': _int_pair(raw, 'MinEngineCap', 'MaxEngineCap'),
+        'motive_power': (raw.get('MotivePower') or '').strip(),
+        'engine_model': (raw.get('MotorModel') or '').strip(),
+        'engine_config': (raw.get('EngineConfig') or '').strip(),
+        'induction': (raw.get('EngineInduction') or '').strip(),
+        'transmission': (raw.get('TransModel') or '').strip(),
+        'trans_type': (raw.get('TransType') or '').strip(),
+        'drivetrain': (raw.get('Drivetrain') or '').strip(),
+        'steering': (raw.get('SteeringLocation') or '').strip(),
+    }
+    # Drop empties so data.json stays lean (the dataset is bundled into the
+    # Cloudflare Worker, where size matters).
+    return {k: v for k, v in spec.items()
+            if v not in ('', None, []) or k in ('sev', 'welcab')}
+
+
+async def _scope_extract_spec(page):
+    """Run inside a Vehicle Specification page. Reads every whitelisted post-*
+    value by element id, plus the SEV register numbers and the variant name
+    from the 'Post Modification Specification - <variant>' heading."""
+    return await page.evaluate(
+        r"""(suffixes) => {
+            const get = (s) => {
+                const e = document.getElementById('post' + s);
+                return e ? (e.textContent || '').trim() : '';
+            };
+            const out = {};
+            suffixes.forEach(s => { out[s] = get(s); });
+            out._sevs = [...new Set((document.body.textContent.match(/SEV-\d{6}/g) || []))];
+            const h = [...document.querySelectorAll('h3, .lsh')]
+                .find(e => /Post Modification Specification/i.test(e.textContent || ''));
+            out._variant_h3 = h
+                ? h.textContent.replace(/.*Specification\s*-\s*/i, '').trim()
+                : '';
+            return out;
+        }""",
+        list(SCOPE_ID_SUFFIXES),
+    )
+
+
+async def fetch_scope_for_mre(context, detail_url):
+    """Walk detail -> current Model Report Scope -> each Vehicle Specification
+    page for one MRE, returning a list of variant-spec dicts. Resilient: any
+    navigation failure yields an empty list rather than raising."""
+    page = await context.new_page()
+    try:
+        try:
+            await page.goto(detail_url, wait_until='networkidle', timeout=SCOPE_TIMEOUT_MS)
+        except Exception:
+            return []
+        await page.wait_for_timeout(400)
+
+        scope_url = await page.evaluate(
+            """() => {
+                const a = [...document.querySelectorAll('a[href]')]
+                    .find(a => /current Model Report Scope/i.test(a.textContent || ''));
+                return a ? a.href : null;
+            }""")
+        if not scope_url:
+            return []
+
+        try:
+            await page.goto(scope_url, wait_until='networkidle', timeout=SCOPE_TIMEOUT_MS)
+        except Exception:
+            return []
+        await page.wait_for_timeout(400)
+
+        # Collect one link per variant (dedup by mrevariantid). The scope page
+        # repeats each variant as "Vehicle Specification <name>" and a bare
+        # "<name>" link — both share the same mrevariantid.
+        variants = await page.evaluate(
+            r"""() => {
+                const byVid = {};
+                for (const a of document.querySelectorAll('a[href]')) {
+                    if (!/MREDescriptorVehicleScopeSEV/i.test(a.href)) continue;
+                    const m = a.href.match(/mrevariantid=([0-9a-f-]+)/i);
+                    const vid = m ? m[1] : a.href;
+                    const name = (a.textContent || '').replace(/Vehicle Specification/i, '').trim();
+                    if (!byVid[vid] || (name && !byVid[vid].name)) {
+                        byVid[vid] = { href: a.href, name };
+                    }
+                }
+                return Object.values(byVid);
+            }""")
+        if not variants:
+            return []
+
+        results = []
+        for v in variants:
+            try:
+                await page.goto(v['href'], wait_until='networkidle', timeout=SCOPE_TIMEOUT_MS)
+            except Exception:
+                continue
+            await page.wait_for_timeout(300)
+            raw = await _scope_extract_spec(page)
+            spec = _build_variant_spec(v.get('name', ''), raw)
+            if spec:
+                results.append(spec)
+        return results
+    finally:
+        await page.close()
+
+
+def _dedupe_specs(specs):
+    """Drop duplicate variant specs (the same SEV scope reached via multiple
+    workshops/MREs). Signature = variant + seating + welcab."""
+    seen, out = set(), []
+    for sp in specs:
+        sig = (sp.get('variant'), sp.get('seating_raw'), sp.get('welcab'))
+        if sig in seen:
+            continue
+        seen.add(sig)
+        out.append(sp)
+    return out
+
+
+async def enrich_with_scope(browser, mre_records, sev_records, limit=None, skip_existing=True):
+    """Visit each MRE's scope/spec pages with bounded concurrency. Attaches the
+    variant-spec list to the MRE record as `_scope`, and mirrors each variant
+    onto the matching SEV record(s) (keyed by the SEV number the spec page
+    declares) so the eligibility site can surface it on the SEV view.
+
+    `skip_existing` (default) skips MREs that already carry `_scope` — i.e.
+    those carried forward from the previous data.json. Scope figures don't
+    change for an existing approval, so steady-state weekly runs only scrape
+    newly-added approvals. Pass skip_existing=False to force a full re-scope."""
+    targets = [r for r in mre_records if r.get('_detail_url')
+               and not (skip_existing and r.get('_scope'))]
+    if limit is not None and limit > 0:
+        targets = targets[:limit]
+    if not targets:
+        print("  No MRE records need scoping (all carried forward).")
+        return
+    print(f"  Scoping {len(targets)} MRE records (concurrency={SCOPE_CONCURRENCY})...")
+
+    # Index SEV records by normalised number for the mirror step.
+    sev_index = {}
+    for s in sev_records:
+        key = _norm_sev_number(s.get('SEV #', ''))
+        if key:
+            sev_index.setdefault(key, []).append(s)
+
+    semaphore = asyncio.Semaphore(SCOPE_CONCURRENCY)
+    context = await browser.new_context(
+        user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+    )
+    completed = variants_found = errors = 0
+
+    async def work(record):
+        nonlocal completed, variants_found, errors
+        async with semaphore:
+            try:
+                specs = await fetch_scope_for_mre(context, record['_detail_url'])
+            except Exception:
+                specs = []
+                errors += 1
+            if specs:
+                record['_scope'] = specs
+                variants_found += len(specs)
+                for sp in specs:
+                    for sevnum in sp.get('sev', []):
+                        for srec in sev_index.get(sevnum, []):
+                            srec.setdefault('_scope', []).append(sp)
+            completed += 1
+            if completed % 25 == 0:
+                print(f"    {completed}/{len(targets)} MREs scoped "
+                      f"({variants_found} variants, {errors} errors)")
+
+    await asyncio.gather(*(work(r) for r in targets))
+    await context.close()
+
+    # Dedupe the SEV-side mirror (same scope can arrive via several MREs).
+    for s in sev_records:
+        if s.get('_scope'):
+            s['_scope'] = _dedupe_specs(s['_scope'])
+
+    print(f"  Scope enrichment finished: {completed} MREs, "
+          f"{variants_found} variant specs, {errors} errors.")
+
 # Label keywords (lower-cased) used to locate fields on ROVER detail pages.
 SEV_CATEGORY_LABELS = (
     'eligibility criteria', 'eligibility criterion', 'criterion',
@@ -1119,7 +1418,7 @@ def send_weekly_email(html, mre_changes, sev_changes):
     client_id = os.environ.get('O365_CLIENT_ID', '')
     client_secret = os.environ.get('O365_CLIENT_SECRET', '')
     from_email = os.environ.get('EMAIL_FROM', EMAIL_CONFIG_DEFAULTS['from_email'])
-    to_emails = os.environ.get('EMAIL_TO', EMAIL_CONFIG_DEFAULTS['to_emails'][0]).split(',')
+    to_emails = [e.strip() for e in os.environ.get('EMAIL_TO', EMAIL_CONFIG_DEFAULTS['to_emails'][0]).split(',') if e.strip()]
 
     if not all([tenant_id, client_id, client_secret]):
         print("Error: Missing O365_TENANT_ID, O365_CLIENT_ID, or O365_CLIENT_SECRET env vars.")
@@ -1175,11 +1474,93 @@ def send_weekly_email(html, mre_changes, sev_changes):
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
-async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_limit=None, email_only_on_change=False):
+def _resolve_data_json_path(output_dir):
+    """Where the public site's data.json lives. On CI (REPO_ROOT set) it's the
+    git-tracked functions/_data/data.json; locally it falls back to output_dir."""
+    repo_root = os.environ.get('REPO_ROOT', '')
+    if repo_root:
+        return os.path.join(repo_root, 'functions', '_data', 'data.json')
+    return os.path.join(output_dir, 'data.json')
+
+
+# Enrichment fields are underscore-prefixed and produced by the (weekly) detail
+# and scope passes. _detail_url is excluded — the fresh list scrape always
+# provides the current one (the portal's GUIDs can rotate).
+_CARRY_EXCLUDE = {'_detail_url', '_detail_error'}
+
+
+def _carry_forward_enrichment(mre_records, sev_records, prev_data):
+    """Copy enrichment (underscore-prefixed) fields from the previous data.json
+    onto the freshly-scraped records, keyed by Approval number / SEV #.
+
+    Runs every scrape. Without it the daily LIST-ONLY cron blanks every
+    enrichment field (approval holder, SEV category, scope of works, ...) that
+    the weekly detail/scope passes produced — the data would only be complete
+    ~1 day a week. Existing fields on the fresh record win, so a fresh
+    detail/scope pass overrides the carried value; only gaps are filled. This
+    also lets the weekly scope pass skip already-scoped approvals (incremental).
+    Returns (mre_count, sev_count) of records that received carried fields."""
+    if not prev_data:
+        return 0, 0
+
+    def enrich_keys(rec):
+        return {k: v for k, v in rec.items()
+                if k.startswith('_') and k not in _CARRY_EXCLUDE}
+
+    prev_mre = {r.get('Approval number'): enrich_keys(r)
+                for r in prev_data.get('mre', []) if r.get('Approval number')}
+    prev_sev = {_norm_sev_number(r.get('SEV #')): enrich_keys(r)
+                for r in prev_data.get('sev', []) if r.get('SEV #')}
+
+    def apply(records, index, key_fn):
+        n = 0
+        for r in records:
+            carried = index.get(key_fn(r))
+            if not carried:
+                continue
+            filled = False
+            for k, v in carried.items():
+                if k not in r:  # fresh enrichment wins; only fill gaps
+                    r[k] = v
+                    filled = True
+            if filled:
+                n += 1
+        return n
+
+    mre_n = apply(mre_records, prev_mre, lambda r: r.get('Approval number'))
+    sev_n = apply(sev_records, prev_sev, lambda r: _norm_sev_number(r.get('SEV #')))
+    return mre_n, sev_n
+
+
+async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_limit=None, email_only_on_change=False, with_scope=False, scope_refresh=False):
+    # Resolve and load the previous data.json up front. It's the persistent
+    # source of truth for both change detection AND scope carry-forward (so we
+    # don't re-scrape unchanged scope data every week).
+    data_json_path = _resolve_data_json_path(output_dir)
+    prev_data = None
+    if os.path.exists(data_json_path):
+        try:
+            with open(data_json_path, encoding='utf-8') as f:
+                prev_data = json.load(f)
+            print(f"Loaded previous data.json: {len(prev_data.get('mre', []))} MRE, "
+                  f"{len(prev_data.get('sev', []))} SEV")
+        except Exception as e:
+            print(f"Warning: could not read previous data.json: {e}")
+    else:
+        print(f"No previous data.json found at {data_json_path} — first run")
+
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         mre_records = await fetch_all_records(browser, MRE_URL, 'MRE List')
         sev_records = await fetch_all_records(browser, SEV_URL, 'SEVS Register')
+
+        # Carry enrichment (holder, category, scope of works, ...) forward from
+        # the previous data.json onto the fresh records. Runs EVERY time so the
+        # daily list-only scrape doesn't blank what the weekly passes produced.
+        # Done before the passes so a fresh detail pass overrides carried values
+        # and the scope pass can skip already-scoped approvals.
+        mre_c, sev_c = _carry_forward_enrichment(mre_records, sev_records, prev_data)
+        print(f"Carried forward enrichment from previous data.json: {mre_c} MRE, {sev_c} SEV.")
 
         # Phase 1 — opt-in detail-page enrichment.
         if with_detail:
@@ -1188,39 +1569,27 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
             await enrich_with_details(browser, mre_records, is_mre=True, limit=detail_limit)
             _enrich_variant_descriptions(mre_records)
 
+        # Phase 2 — opt-in Vehicle Specification ("Scope of Works") enrichment.
+        # Heavier than the detail pass (detail -> scope -> spec pages per MRE),
+        # so it's wired into the weekly cron only and runs INCREMENTALLY: scope
+        # carried forward from last week, only new approvals crawled (unless
+        # scope_refresh forces a full re-scrape).
+        if with_scope:
+            print(f"\n{'='*50}\nVehicle Specification (Scope of Works) pass\n{'='*50}")
+            # _scope is already carried forward above; the pass only crawls
+            # approvals that still lack it (or everything when scope_refresh).
+            await enrich_with_scope(browser, mre_records, sev_records,
+                                    limit=detail_limit, skip_existing=not scope_refresh)
+
         await browser.close()
 
     save_snapshot(mre_records, 'mre', output_dir)
     save_snapshot(sev_records, 'sev', output_dir)
 
-    # Read previous data.json from disk for change detection BEFORE we overwrite it.
-    # GitHub Actions checkout puts the last committed version here, which is a
-    # reliable persistent source of truth — unlike scripts/data/ which is gitignored
-    # and therefore always empty on a fresh runner. Without this, every weekly run
-    # produced a "First snapshot — no previous data" email and silently missed
-    # every addition/removal since launch.
-    repo_root = os.environ.get('REPO_ROOT', '')
-    # Data is served from Cloudflare Pages via a Function; the JSON lives under
-    # functions/_data/ so Pages does NOT expose it as a static asset.
-    if repo_root:
-        data_json_path = os.path.join(repo_root, 'functions', '_data', 'data.json')
-    else:
-        data_json_path = os.path.join(output_dir, 'data.json')
+    # Build change-detection views from the previous data we loaded up front.
     os.makedirs(os.path.dirname(data_json_path), exist_ok=True)
-    prev_mre = None
-    prev_sev = None
-    if os.path.exists(data_json_path):
-        try:
-            with open(data_json_path, encoding='utf-8') as f:
-                prev_data = json.load(f)
-            prev_mre = {'records': prev_data.get('mre', [])}
-            prev_sev = {'records': prev_data.get('sev', [])}
-            print(f"Loaded previous data.json for change detection: "
-                  f"{len(prev_mre['records'])} MRE, {len(prev_sev['records'])} SEV")
-        except Exception as e:
-            print(f"Warning: could not read previous data.json for change detection: {e}")
-    else:
-        print(f"No previous data.json found at {data_json_path} — first run")
+    prev_mre = {'records': prev_data.get('mre', [])} if prev_data else None
+    prev_sev = {'records': prev_data.get('sev', [])} if prev_data else None
 
     mre_changes = compare_snapshots(mre_records, prev_mre, 'Approval number')
     sev_changes = compare_snapshots(sev_records, prev_sev, 'SEV #')
@@ -1288,6 +1657,7 @@ if __name__ == '__main__':
 
     if mode == 'snapshot':
         with_detail = '--with-detail' in flags
+        with_scope = '--with-scope' in flags
         email_only_on_change = '--email-only-on-change' in flags
         detail_limit = None
         for f in flags:
@@ -1302,6 +1672,8 @@ if __name__ == '__main__':
             with_detail=with_detail,
             detail_limit=detail_limit,
             email_only_on_change=email_only_on_change,
+            with_scope=with_scope,
+            scope_refresh='--scope-refresh' in flags,
         ))
     elif mode == 'email-preview':
         asyncio.run(run_email_preview(output_dir))
@@ -1327,6 +1699,7 @@ if __name__ == '__main__':
         print("  python rover_scraper.py snapshot                       # Scrape + update data.json")
         print("  python rover_scraper.py snapshot --send-email          # Scrape + update + send email")
         print("  python rover_scraper.py snapshot --with-detail         # Also enrich each record from its detail page")
+        print("  python rover_scraper.py snapshot --with-scope          # Also scrape Vehicle Specification (seating/welcab/mass)")
         print("  python rover_scraper.py snapshot --with-detail --detail-limit=20  # Sample only the first 20")
         print("  python rover_scraper.py email-preview                  # Preview email as HTML file")
         print("  python rover_scraper.py send-email                     # Send from latest data")
