@@ -88,34 +88,65 @@ def _norm_sev_number(raw):
     return f'SEV-{int(m.group(1)):06d}' if m else ''
 
 
+# Plausible per-row and total seat counts. Anything outside these is treated as
+# bad source data (e.g. a GVM value leaking into the seating field) and dropped
+# to UNKNOWN rather than served as a false figure.
+_MAX_SEATS_PER_ROW = 6
+_MAX_SEATS_TOTAL = 14
+
+
 def _parse_seating(raw):
     """Turn a raw 'Number of Seating Positions per Row' string into (min,max)
-    total seats. Handles the three formats ROVER uses:
-      '2,2'                                   -> 4 seats          -> (4,4)
-      '2 / 2 / 3'                             -> 7 seats          -> (7,7)
-      '2 / 1 / 3 (6) or 2 / 2 / 3 (7) or ...' -> explicit totals  -> (6,8)
-    Returns (None, None) when nothing parseable is present."""
+    total seats, conservatively. ROVER's data is messy and some spec pages leak
+    the GVM/mass into this field, so we only emit a number when the raw is
+    trustworthy. Formats handled:
+      '2,2'                                   -> (4,4)
+      '2 / 2 / 3'                             -> (7,7)
+      '2,2,3 | 2,3,3'                         -> two configs -> (7,8)
+      '2/1/3 (6) or 2/2/3 (7) or 2/3/3 (8)'   -> explicit totals -> (6,8)
+    Returns (None, None) when the value is missing, unparseable, or implausible
+      ('2050', '23', '16', a bare single number, a per-row value > 6, etc.)."""
     raw = (raw or '').strip()
     if not raw:
         return None, None
-    totals = [int(x) for x in re.findall(r'\((\d+)\)', raw)]
-    if totals:
-        return min(totals), max(totals)
-    nums = [int(x) for x in re.findall(r'\d+', raw)]
-    if nums:
-        s = sum(nums)
-        return s, s
-    return None, None
+
+    # 1) Explicit per-config totals in parentheses win outright.
+    paren_totals = [int(x) for x in re.findall(r'\((\d+)\)', raw)]
+    paren_totals = [t for t in paren_totals if 1 <= t <= _MAX_SEATS_TOTAL]
+    if paren_totals:
+        return min(paren_totals), max(paren_totals)
+
+    # 2) A bare number with no row separators is untrustworthy — it's commonly a
+    #    leaked GVM/mass ('2050') or a digits-run-together value ('23'). Skip it.
+    if not re.search(r'[,/|]', raw):
+        return None, None
+
+    # 3) Split into configs (the 'or' alternatives), then rows within a config.
+    sums = []
+    for cfg in re.split(r'\||\bor\b', raw):
+        cfg = re.sub(r'\(\d+\)', '', cfg)
+        rows = [int(x) for x in re.findall(r'\d+', cfg)]
+        if not rows or any(r > _MAX_SEATS_PER_ROW for r in rows):
+            return None, None  # implausible per-row count -> whole value untrusted
+        sums.append(sum(rows))
+    if not sums:
+        return None, None
+    lo, hi = min(sums), max(sums)
+    if lo < 1 or hi > _MAX_SEATS_TOTAL:
+        return None, None
+    return lo, hi
 
 
 def _is_welcab(variant_name, wheelchair_raw):
-    """Decide whether a variant is a mobility/welcab build. The signal lives in
-    the variant name ('swivel seat', 'wheelchair ramp') as often as in the
-    wheelchair-positions field, so we check both."""
+    """Decide whether a variant is a mobility/welcab build. The reliable signal
+    is the variant name ('welcab', 'wheelchair', 'swivel', 'lift up'...). The
+    wheelchair-positions field is only trusted when it's clearly POSITIONAL
+    (separator-delimited, e.g. '0, 1, 0'); a bare number like '3' is almost
+    always a leaked/mis-scraped value and must NOT flag a coupe/sedan as welcab."""
     if _WELCAB_NAME_RE.search(variant_name or ''):
         return True
     wc = (wheelchair_raw or '').strip()
-    return bool(wc) and any(ch.isdigit() and ch != '0' for ch in wc)
+    return bool(re.search(r'[,/|]', wc)) and bool(re.search(r'[1-9]', wc))
 
 
 def _int_or_none(v):
