@@ -891,43 +891,23 @@ async function fetchFirst(urls){
     ctx.setTransform(DPR,0,0,DPR,0,0);
   }
   size(); addEventListener('resize', size);
-  // drifting gold dust
-  const N = Math.min(85, Math.round(W*H/21000));
-  const P = Array.from({length:N}, ()=>({
-    x:Math.random()*W, y:Math.random()*H,
-    r:.9+Math.random()*1.9, s:.12+Math.random()*.3,
-    ph:Math.random()*6.28, tw:.5+Math.random()*1.5
+  // soft golden light, drifting almost imperceptibly — no dots, no twinkle
+  const O = Array.from({length:3}, (_,i)=>({
+    x:(.2+.3*i)*W, y:Math.random()*H,
+    r:240+Math.random()*200, a:Math.random()*6.28,
+    sp:.00012+Math.random()*.00015
   }));
-  // slow wandering glows
-  const O = Array.from({length:3}, ()=>({
-    x:Math.random()*W, y:Math.random()*H,
-    r:130+Math.random()*170, a:Math.random()*6.28,
-    sp:.0004+Math.random()*.0006
-  }));
-  let t = 0;
   (function loop(){
-    t++;
     ctx.clearRect(0,0,W,H);
     O.forEach(o=>{
       o.a += o.sp;
-      const x = o.x + Math.cos(o.a)*55, y = o.y + Math.sin(o.a*.8)*40;
+      const x = o.x + Math.cos(o.a)*90, y = o.y + Math.sin(o.a*.7)*70;
       const g = ctx.createRadialGradient(x,y,0,x,y,o.r);
-      g.addColorStop(0,'rgba(201,162,75,0.12)');
+      g.addColorStop(0,'rgba(201,162,75,0.07)');
+      g.addColorStop(.6,'rgba(201,162,75,0.03)');
       g.addColorStop(1,'rgba(201,162,75,0)');
       ctx.fillStyle = g;
       ctx.beginPath(); ctx.arc(x,y,o.r,0,6.2832); ctx.fill();
-    });
-    P.forEach(p=>{
-      p.y -= p.s;
-      p.x += Math.sin(t*.008+p.ph)*.15;
-      if(p.y < -4){ p.y = H+4; p.x = Math.random()*W; }
-      if(p.x < -4) p.x = W+4; else if(p.x > W+4) p.x = -4;
-      const a = .2 + .27*Math.abs(Math.sin(t*.01*p.tw + p.ph));
-      ctx.fillStyle = 'rgba(150,118,43,'+a.toFixed(3)+')';
-      ctx.shadowColor = 'rgba(201,162,75,.7)';
-      ctx.shadowBlur = 4;
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.2832); ctx.fill();
-      ctx.shadowBlur = 0;
     });
     requestAnimationFrame(loop);
   })();
@@ -935,3 +915,4 @@ async function fetchFirst(urls){
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
