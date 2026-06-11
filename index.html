@@ -903,9 +903,9 @@ async function fetchFirst(urls){
       o.a += o.sp;
       const x = o.x + Math.cos(o.a)*90, y = o.y + Math.sin(o.a*.7)*70;
       const g = ctx.createRadialGradient(x,y,0,x,y,o.r);
-      g.addColorStop(0,'rgba(201,162,75,0.07)');
-      g.addColorStop(.6,'rgba(201,162,75,0.03)');
-      g.addColorStop(1,'rgba(201,162,75,0)');
+      g.addColorStop(0,'rgba(168,128,48,0.16)');
+      g.addColorStop(.6,'rgba(168,128,48,0.07)');
+      g.addColorStop(1,'rgba(168,128,48,0)');
       ctx.fillStyle = g;
       ctx.beginPath(); ctx.arc(x,y,o.r,0,6.2832); ctx.fill();
     });
