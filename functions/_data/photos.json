@@ -21,14 +21,14 @@
     "source": "wikipedia"
   },
   "1PK0N": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Peugeot_e-208_facelift_1X7A2502.jpg/960px-Peugeot_e-208_facelift_1X7A2502.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Peugeot_e-Traveller_1X7A0084.jpg/960px-Peugeot_e-Traveller_1X7A0084.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "PEUGEOT",
     "model": "e-Traveller",
     "chassis": "1PK0N",
     "source": "wikipedia"
   },
   "2PK0F": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Peugeot_e-208_facelift_1X7A2502.jpg/960px-Peugeot_e-208_facelift_1X7A2502.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/2024_Peugeot_e-Expert_DSC_8780.jpg/960px-2024_Peugeot_e-Expert_DSC_8780.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "PEUGEOT",
     "model": "e-Expert",
     "chassis": "2PK0F",
@@ -65,7 +65,7 @@
   },
   "GRJ79": null,
   "61": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Volkswagen_T7_Transporter_DSC_9339.jpg/960px-Volkswagen_T7_Transporter_DSC_9339.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/59/VW_T6.1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "VOLKSWAGEN",
     "model": "e-Transporter",
     "chassis": "6.1",
@@ -93,14 +93,14 @@
     "source": "wikipedia"
   },
   "100SERIESCAMPERVAN": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/2020_Toyota_HiAce_%28front%29.jpg/960px-2020_Toyota_HiAce_%28front%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/1995_Toyota_Hiace_Super_Custom_front.jpg/960px-1995_Toyota_Hiace_Super_Custom_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "HIACE campervan",
     "chassis": "100 SERIES campervan",
     "source": "wikipedia"
   },
   "MEO": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Carlos_Ghosn_-_Mondial_de_l%27Automobile_de_Paris_2014_-_004_%28cropped%29.jpg/960px-Carlos_Ghosn_-_Mondial_de_l%27Automobile_de_Paris_2014_-_004_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2021_Nissan_NV200_Vanette.jpg/960px-2021_Nissan_NV200_Vanette.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "NISSAN",
     "model": "e-NV200",
     "chassis": "MEO",
@@ -114,7 +114,7 @@
     "source": "wikipedia"
   },
   "NHP170": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/2016_Toyota_Sienta_%28XP170%29_hybrid_van_%282017-11-28%29.jpg/960px-2016_Toyota_Sienta_%28XP170%29_hybrid_van_%282017-11-28%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Sienta Hybrid",
     "chassis": "NHP170",
@@ -143,7 +143,7 @@
     "source": "wikipedia"
   },
   "XKRS": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Coup%C3%A9_Jaguar_XKR_%28X150%29_ventral.jpg/960px-Coup%C3%A9_Jaguar_XKR_%28X150%29_ventral.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/2012_Jaguar_XKR-S_%28X150_MY12%29_convertible_%282012-10-26%29_01.jpg/960px-2012_Jaguar_XKR-S_%28X150_MY12%29_convertible_%282012-10-26%29_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "JAGUAR",
     "model": "XKR-S",
     "chassis": "XKR-S",
@@ -157,7 +157,7 @@
     "source": "wikipedia"
   },
   "C7": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Audi_A6_C9_IAA_2025_DSC_1920.jpg/960px-Audi_A6_C9_IAA_2025_DSC_1920.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Audi_A6_C7_allroad_quattro_Phantomschwarz.JPG/960px-Audi_A6_C7_allroad_quattro_Phantomschwarz.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "AUDI",
     "model": "A6 ALLROAD 3.0 TDI BITURBO QUATTRO ONLY",
     "chassis": "C7",
@@ -171,14 +171,14 @@
     "source": "wikipedia"
   },
   "MXPL10": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/2022_Toyota_Sienta_Z_1.5_5BA-MXPC10G_%2820220823%29.jpg/960px-2022_Toyota_Sienta_Z_1.5_5BA-MXPC10G_%2820220823%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Sienta",
     "chassis": "MXPL10",
     "source": "wikipedia"
   },
   "P15": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/2025_Nissan_Kicks_SV_AWD_in_Deep_Blue_Pearl%2C_front_right%2C_2024-10-06.jpg/960px-2025_Nissan_Kicks_SV_AWD_in_Deep_Blue_Pearl%2C_front_right%2C_2024-10-06.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Nissan_Kicks_1.6_Advance_2017_%2842603985731%29.jpg/960px-Nissan_Kicks_1.6_Advance_2017_%2842603985731%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "NISSAN",
     "model": "Kicks",
     "chassis": "P15",
@@ -199,28 +199,28 @@
     "source": "wikipedia"
   },
   "E51": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Nissan_Prairie_Joy_001.JPG/960px-Nissan_Prairie_Joy_001.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/NISSAN_ELGRAND_%28E51%29_HONG_KONG.jpg/960px-NISSAN_ELGRAND_%28E51%29_HONG_KONG.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "NISSAN",
     "model": "ELGRAND Campervan",
     "chassis": "E51",
     "source": "wikipedia"
   },
   "E393MN": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/2025_Volkswagen_ID4_Pro_Redspot_front.jpg/960px-2025_Volkswagen_ID4_Pro_Redspot_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Volkswagen_ID.5_GTX_1X7A0318.jpg/960px-Volkswagen_ID.5_GTX_1X7A0318.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "VOLKSWAGEN",
     "model": "ID5",
     "chassis": "E393MN",
     "source": "wikipedia"
   },
   "4GC": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Audi_S6_Avant_C8_IMG_4309.jpg/960px-Audi_S6_Avant_C8_IMG_4309.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Audi_S6_Avant_%28C7%29_%E2%80%93_Frontansicht%2C_7._September_2013%2C_M%C3%BCnster.jpg/960px-Audi_S6_Avant_%28C7%29_%E2%80%93_Frontansicht%2C_7._September_2013%2C_M%C3%BCnster.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "AUDI",
     "model": "S6 Avant",
     "chassis": "4GC",
     "source": "wikipedia"
   },
   "FZ": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Audi80-1992.JPG/960px-Audi80-1992.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Audi_Q4_e-tron_IAA_2021_1X7A0224.jpg/960px-Audi_Q4_e-tron_IAA_2021_1X7A0224.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "AUDI",
     "model": "Q4 e-tron",
     "chassis": "FZ",
@@ -263,21 +263,21 @@
     "source": "wikipedia"
   },
   "130SERIESWELCAB": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Toyota_Vitz_2012.JPG/960px-Toyota_Vitz_2012.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Vitz Welcab ONLY",
     "chassis": "130 Series Welcab",
     "source": "wikipedia"
   },
   "PETE389": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Peterbilt_logo.svg/960px-Peterbilt_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Red_2012_Peterbilt_389_on_W_Lone_Mountain_Rd.jpg/960px-Red_2012_Peterbilt_389_on_W_Lone_Mountain_Rd.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "PETERBILT",
     "model": "389",
     "chassis": "Pete389",
     "source": "wikipedia"
   },
   "AVC10": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/The_interior_of_Lexus_RC300h_F_SPORT_prototype.JPG/960px-The_interior_of_Lexus_RC300h_F_SPORT_prototype.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Lexus_RC_300h_%28AVC10%29_IMG_1841.jpg/960px-Lexus_RC_300h_%28AVC10%29_IMG_1841.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "LEXUS",
     "model": "RC300h",
     "chassis": "AVC10",
@@ -285,7 +285,7 @@
   },
   "GROUNDPOUNDER": null,
   "ANNIV2B1": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Bozanic_2015_FFA_Cup_Victory_Adelaide.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/2020_Morgan_Plus_4_Auto.jpg/960px-2020_Morgan_Plus_4_Auto.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "MORGAN",
     "model": "FOURFOUR",
     "chassis": "Anni V2 B1",
@@ -306,7 +306,7 @@
     "source": "wikipedia"
   },
   "W906NVC3": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Mercedes-Benz_V_250_d_Exclusive_AMG_Line_Lang_%28V_447%29_%E2%80%93_Frontansicht%2C_29._Juni_2016%2C_D%C3%BCsseldorf.jpg/960px-Mercedes-Benz_V_250_d_Exclusive_AMG_Line_Lang_%28V_447%29_%E2%80%93_Frontansicht%2C_29._Juni_2016%2C_D%C3%BCsseldorf.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Mercedes-Benz_Sprinter_W906_China_2014-04-24.jpg/960px-Mercedes-Benz_Sprinter_W906_China_2014-04-24.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "Sprinter 231 CDI Campervan",
     "chassis": "W906 - NVC3",
@@ -320,7 +320,7 @@
     "source": "wikipedia"
   },
   "DS": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/2017_Ram_1500_Express_Crew_Cab%2C_front_left%2C_09-02-2022.jpg/960px-2017_Ram_1500_Express_Crew_Cab%2C_front_left%2C_09-02-2022.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2019_Ram_3500_Heavy_Duty_Turbo_Diesel_with_Cummins_engine_front_NYIAS_2019.jpg/960px-2019_Ram_3500_Heavy_Duty_Turbo_Diesel_with_Cummins_engine_front_NYIAS_2019.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "DODGE",
     "model": "RAM HEAVY DUTY 2500",
     "chassis": "DS",
@@ -342,7 +342,7 @@
   },
   "HEARSE": null,
   "JPD10": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Toyota_Mirai_%28JPD20%29_IMG_5303.jpg/960px-Toyota_Mirai_%28JPD20%29_IMG_5303.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Toyota_MIRAI_%28JPD10%29_front.JPG/960px-Toyota_MIRAI_%28JPD10%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Mirai",
     "chassis": "JPD10",
@@ -356,21 +356,21 @@
     "source": "wikipedia"
   },
   "AAHH40W": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/2018-2023_Toyota_Alphard_X.jpg/960px-2018-2023_Toyota_Alphard_X.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/TOYOTA_ALPHARD_%28AH40%29_HONG_KONG.jpg/960px-TOYOTA_ALPHARD_%28AH40%29_HONG_KONG.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Alphard / Vellfire",
     "chassis": "AAHH40W",
     "source": "wikipedia"
   },
   "F21ONLY": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/BMW_120_%28F70%29_Leonberg_2024_IMG_1068.jpg/960px-BMW_120_%28F70%29_Leonberg_2024_IMG_1068.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/BMW_M135i_%28F21%29_in_Uruguay_-_front.jpg/960px-BMW_M135i_%28F21%29_in_Uruguay_-_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "BMW",
     "model": "1 series",
     "chassis": "F21 ONLY",
     "source": "wikipedia"
   },
   "RP5HYBRID": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/2024_Honda_Stepwgn_e.HEV_Spada_in_Platinum_White_Pearl%2C_front_left.jpg/960px-2024_Honda_Stepwgn_e.HEV_Spada_in_Platinum_White_Pearl%2C_front_left.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/The_frontview_of_Honda_STEPWGN_SPADA_%28RP3%29_with_Modulo_parts.JPG/960px-The_frontview_of_Honda_STEPWGN_SPADA_%28RP3%29_with_Modulo_parts.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Honda",
     "model": "Stepwgn",
     "chassis": "RP5 Hybrid",
@@ -384,21 +384,21 @@
     "source": "wikipedia"
   },
   "ZVW30": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Toyota_Prius_ZVW30_front_20100725.jpg/960px-Toyota_Prius_ZVW30_front_20100725.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Prius Welcab",
     "chassis": "ZVW30",
     "source": "wikipedia"
   },
   "50SERIES": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Toyota_PRIUS_S_%28DAA-ZVW50-AHXEB%29_front.JPG/960px-Toyota_PRIUS_S_%28DAA-ZVW50-AHXEB%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Prius Welcab",
     "chassis": "50 Series",
     "source": "wikipedia"
   },
   "MUGENRZ": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/2014_Honda_CR-Z_Sport-T_i-VTEC_1.5_Front.jpg/960px-2014_Honda_CR-Z_Sport-T_i-VTEC_1.5_Front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Honda_cr-z_mugen_-_AIMS.JPG/960px-Honda_cr-z_mugen_-_AIMS.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Honda",
     "model": "CR-Z Mugen RZ",
     "chassis": "Mugen RZ",
@@ -435,7 +435,7 @@
   },
   "EQB": null,
   "NHP10": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Toyota_Prius_c_NHP10_Super_Red_01.jpg/960px-Toyota_Prius_c_NHP10_Super_Red_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Aqua Welcab",
     "chassis": "NHP10",
@@ -449,7 +449,7 @@
     "source": "wikipedia"
   },
   "5AANC1": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Honda%2C_Paris_Motor_Show_2018%2C_Paris_%281Y7A1625%29_%28cropped%29.jpg/960px-Honda%2C_Paris_Motor_Show_2018%2C_Paris_%281Y7A1625%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Osaka_Auto_Messe_2017_%2899%29_-_Honda_NSX_%28CAA-NC1%29.jpg/960px-Osaka_Auto_Messe_2017_%2899%29_-_Honda_NSX_%28CAA-NC1%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Honda",
     "model": "NSX Type S",
     "chassis": "5AA-NC1",
@@ -508,7 +508,7 @@
     "source": "wikipedia"
   },
   "GB5": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Ro_Khanna%2C_official_portrait%2C_115th_Congress_%283x4%29.jpg/960px-Ro_Khanna%2C_official_portrait%2C_115th_Congress_%283x4%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Honda_FREED%2B_%28DBA-GB5%29_front.jpg/960px-Honda_FREED%2B_%28DBA-GB5%29_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Honda",
     "model": "Freed Welfare",
     "chassis": "GB5",
@@ -564,14 +564,14 @@
     "source": "wikipedia"
   },
   "B3GTS": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Koinigg%2C_Helmut%2C_BMW_Alpina_-_1974-07-13.jpg/960px-Koinigg%2C_Helmut%2C_BMW_Alpina_-_1974-07-13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/BMW_Alpina_B3_Biturbo_E90_%2813697028265%29.jpg/960px-BMW_Alpina_B3_Biturbo_E90_%2813697028265%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "BMW",
     "model": "Alpina",
     "chassis": "B3 GTS",
     "source": "wikipedia"
   },
   "B3S": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Koinigg%2C_Helmut%2C_BMW_Alpina_-_1974-07-13.jpg/960px-Koinigg%2C_Helmut%2C_BMW_Alpina_-_1974-07-13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/BMW_Alpina_B3_Biturbo_E90_%2813697028265%29.jpg/960px-BMW_Alpina_B3_Biturbo_E90_%2813697028265%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "BMW",
     "model": "Alpina",
     "chassis": "B3S",
@@ -585,14 +585,14 @@
     "source": "wikipedia"
   },
   "UVF45": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/2010-2011_Lexus_LS460_--_10-04-2011.jpg/960px-2010-2011_Lexus_LS460_--_10-04-2011.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Lexus_LS_600h_L_Noble_Spinel_Mica.jpg/960px-Lexus_LS_600h_L_Noble_Spinel_Mica.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "LEXUS",
     "model": "LS600h AWD",
     "chassis": "UVF45",
     "source": "wikipedia"
   },
   "USF40": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/2019_Lexus_LS_500_AWD_beige%2C_front_Hagerty_6.1.19.jpg/960px-2019_Lexus_LS_500_AWD_beige%2C_front_Hagerty_6.1.19.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/2007_Lexus_LS_460_Starfire_Pearl.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "LEXUS",
     "model": "LS460",
     "chassis": "USF40",
@@ -620,7 +620,7 @@
     "source": "wikipedia"
   },
   "EP3": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2024_Honda_Civic_Type_R%2C_front_right%2C_06-15-2024.jpg/960px-2024_Honda_Civic_Type_R%2C_front_right%2C_06-15-2024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Honda_CIVIC_TYPE_R_%28EP3%29_front.jpg/960px-Honda_CIVIC_TYPE_R_%28EP3%29_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Honda",
     "model": "Civic Type R",
     "chassis": "EP3",
@@ -648,7 +648,7 @@
     "source": "wikipedia"
   },
   "BG": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Brabus_logo.svg/960px-Brabus_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/BRABUS_700_Mercedes-Benz_G63_AMG_6x6.JPG/960px-BRABUS_700_Mercedes-Benz_G63_AMG_6x6.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "BRABUS",
     "model": "XLP 6X6",
     "chassis": "B-G",
@@ -678,7 +678,7 @@
     "source": "wikipedia"
   },
   "HA": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Norweagian_stock_of_passenger_cars_by_type_of_powertrain_04_2025.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/2010_Mitsubishi_i-MiEV_%28GA_MY10%29_hatchback_%282015-11-11%29_01.jpg/960px-2010_Mitsubishi_i-MiEV_%28GA_MY10%29_hatchback_%282015-11-11%29_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "MITSUBISHI",
     "model": "i-MiEV",
     "chassis": "HA",
@@ -728,7 +728,7 @@
   },
   "40SERIESRC1": null,
   "222158": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Mercedes-Benz_W223_IMG_6663.jpg/960px-Mercedes-Benz_W223_IMG_6663.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/MERCEDES-BENZ_S-CLASS_%28W222%29_China_%283%29.jpg/960px-MERCEDES-BENZ_S-CLASS_%28W222%29_China_%283%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "S Class",
     "chassis": "222158",
@@ -778,7 +778,7 @@
     "source": "wikipedia"
   },
   "JESKO": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/GIMS_2019%2C_Le_Grand-Saconnex_%28GIMS0833%29.jpg/960px-GIMS_2019%2C_Le_Grand-Saconnex_%28GIMS0833%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Koenigsegg_Jesko_Auto_Zuerich_2023_1X7A1375.jpg/960px-Koenigsegg_Jesko_Auto_Zuerich_2023_1X7A1375.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "KOENIGSEGG",
     "model": "Jesko Attack",
     "chassis": "Jesko",
@@ -792,7 +792,7 @@
     "source": "wikipedia"
   },
   "AZSH36AZSH37": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Toyota_Crown_Sedan_FCEV.jpg/960px-Toyota_Crown_Sedan_FCEV.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Osaka_Mobility_Show_2023_%2825%29_-_TOYOTA_CROWN%22SPORT_RS%22_%286LA-AZSH37W-BNXGB%29.jpg/960px-Osaka_Mobility_Show_2023_%2825%29_-_TOYOTA_CROWN%22SPORT_RS%22_%286LA-AZSH37W-BNXGB%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Crown Sport",
     "chassis": "AZSH36 AZSH37",
@@ -827,7 +827,7 @@
     "source": "wikipedia"
   },
   "MK54S": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Spacia-mk42s-4WD-with-foglamps.jpg/960px-Spacia-mk42s-4WD-with-foglamps.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Suzuki_Spacia_Custom_HYBRID_XS_Turbo_2WD_%284AA-MK54S-ZTXB-ZN%29.jpg/960px-Suzuki_Spacia_Custom_HYBRID_XS_Turbo_2WD_%284AA-MK54S-ZTXB-ZN%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "SUZUKI",
     "model": "Spacia Custom",
     "chassis": "MK54S",
@@ -863,7 +863,7 @@
   },
   "ACR55": null,
   "KG11": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/GIMS_2019%2C_Le_Grand-Saconnex_%28GIMS0833%29.jpg/960px-GIMS_2019%2C_Le_Grand-Saconnex_%28GIMS0833%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Koenigsegg_Jesko_Auto_Zuerich_2023_1X7A1375.jpg/960px-Koenigsegg_Jesko_Auto_Zuerich_2023_1X7A1375.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "KOENIGSEGG",
     "model": "Jesko",
     "chassis": "KG-11",
@@ -877,7 +877,7 @@
     "source": "wikipedia"
   },
   "AZSH32": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Toyota_Crown_Sedan_FCEV.jpg/960px-Toyota_Crown_Sedan_FCEV.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2023_Toyota_Crown_Crossover_G_in_Black%2C_front_left.jpg/960px-2023_Toyota_Crown_Crossover_G_in_Black%2C_front_left.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Crown",
     "chassis": "AZSH32",
@@ -898,7 +898,7 @@
     "source": "wikipedia"
   },
   "X218218976": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Mercedes-AMG_CLS_53_1X7A6800.jpg/960px-Mercedes-AMG_CLS_53_1X7A6800.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/MERCEDES-BENZ_CLS-CLASS_SHOOTING_BRAKE_%28X218%29_China.jpg/960px-MERCEDES-BENZ_CLS-CLASS_SHOOTING_BRAKE_%28X218%29_China.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "AMG CLS 63 S 4MATIC",
     "chassis": "X218 - 218976",
@@ -927,14 +927,14 @@
   },
   "736G": null,
   "S212": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/2005_Mercedes-Benz_E-Class_E220_Classic_%28S211%29_-_2.2_CDI_%28150PS%29_automatic_-_2025-04-05%2C_front_left.jpg/960px-2005_Mercedes-Benz_E-Class_E220_Classic_%28S211%29_-_2.2_CDI_%28150PS%29_automatic_-_2025-04-05%2C_front_left.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Mercedes-Benz_E_Class_Estate_W212_%286656178939%29.jpg/960px-Mercedes-Benz_E_Class_Estate_W212_%286656178939%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "E550",
     "chassis": "S212",
     "source": "wikipedia"
   },
   "W212": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/2011_Mercedes-Benz_E250_Sport_CDi_BlueEFFICIENCY_Coupe_2.1_Front.jpg/960px-2011_Mercedes-Benz_E250_Sport_CDi_BlueEFFICIENCY_Coupe_2.1_Front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/MERCEDES-BENZ_E-CLASS_SEDAN_LWB_%28V212%29_China.jpg/960px-MERCEDES-BENZ_E-CLASS_SEDAN_LWB_%28V212%29_China.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "E550",
     "chassis": "W212",
@@ -977,7 +977,7 @@
     "source": "wikipedia"
   },
   "ANH10": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/2018-2023_Toyota_Alphard_X.jpg/960px-2018-2023_Toyota_Alphard_X.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Toyota_Alphard_G_ANH10_FL_2.4_AX_%27L_Edition%27_White_Pearl_Mica_01.jpg/960px-Toyota_Alphard_G_ANH10_FL_2.4_AX_%27L_Edition%27_White_Pearl_Mica_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Alphard",
     "chassis": "ANH10",
@@ -1019,7 +1019,7 @@
     "source": "wikipedia"
   },
   "599": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/2009_Ferrari_599_GTB_Fiorano_F1%2C_Rosso_Fiorano_-_front_right.jpg/960px-2009_Ferrari_599_GTB_Fiorano_F1%2C_Rosso_Fiorano_-_front_right.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Ferrari_599_SA_Aperta_%282011%29_%2852863659150%29.jpg/960px-Ferrari_599_SA_Aperta_%282011%29_%2852863659150%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "FERRARI",
     "model": "599 SA Aperta",
     "chassis": "599",
@@ -1041,14 +1041,14 @@
     "source": "wikipedia"
   },
   "ZRR702WD": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/2010_Toyota_Noah.jpg/960px-2010_Toyota_Noah.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "70 Series Welcab",
     "chassis": "ZRR70 (2WD)",
     "source": "wikipedia"
   },
   "ZRR754WD": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/2010_Toyota_Noah.jpg/960px-2010_Toyota_Noah.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "70 Series Welcab",
     "chassis": "ZRR75 (4WD)",
@@ -1057,28 +1057,28 @@
   "LF": null,
   "367": null,
   "ANH20WELCABONLY": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/AlphardANH20BlackR.jpg/960px-AlphardANH20BlackR.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "20 Series Welcab",
     "chassis": "ANH20 WELCAB ONLY",
     "source": "wikipedia"
   },
   "ANH25WELCABONLY": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/AlphardANH20BlackR.jpg/960px-AlphardANH20BlackR.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "20 Series Welcab",
     "chassis": "ANH25 WELCAB ONLY",
     "source": "wikipedia"
   },
   "GGH20WELCABONLY": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/AlphardANH20BlackR.jpg/960px-AlphardANH20BlackR.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "20 Series Welcab",
     "chassis": "GGH20 WELCAB ONLY",
     "source": "wikipedia"
   },
   "GGH25WELCABONLY": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/AlphardANH20BlackR.jpg/960px-AlphardANH20BlackR.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "20 Series Welcab",
     "chassis": "GGH25 WELCAB ONLY",
@@ -1086,7 +1086,7 @@
   },
   "BF2": null,
   "ZWE211W": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2018_Toyota_Corolla_%28MZEA12R%29_Ascent_Sport_hatchback_%282018-11-02%29_01.jpg/960px-2018_Toyota_Corolla_%28MZEA12R%29_Ascent_Sport_hatchback_%282018-11-02%29_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Toyota_Corolla_Trek_Hybrid_Genf_2019_1Y7A5587.jpg/960px-Toyota_Corolla_Trek_Hybrid_Genf_2019_1Y7A5587.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Corolla Touring Wagon",
     "chassis": "ZWE211W",
@@ -1114,7 +1114,7 @@
     "source": "wikipedia"
   },
   "SXE10": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/2021_Lexus_IS300_F-Sport%2C_Front_Left%2C_10-10-2021.jpg/960px-2021_Lexus_IS300_F-Sport%2C_Front_Left%2C_10-10-2021.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Toyota_ALTEZZA_RS200_%28SXE10%29_front.JPG/960px-Toyota_ALTEZZA_RS200_%28SXE10%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Altezza RS200",
     "chassis": "SXE10",
@@ -1135,7 +1135,7 @@
     "source": "wikipedia"
   },
   "DBAFK2": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2024_Honda_Civic_Type_R%2C_front_right%2C_06-15-2024.jpg/960px-2024_Honda_Civic_Type_R%2C_front_right%2C_06-15-2024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Honda_CIVIC_TYPE_R_%28DBA-FK2%29.jpg/960px-Honda_CIVIC_TYPE_R_%28DBA-FK2%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Honda",
     "model": "Civic Type R",
     "chassis": "DBA-FK2",
@@ -1156,7 +1156,7 @@
     "source": "wikipedia"
   },
   "SG5": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Tommykairawiki.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/2003_Subaru_Forester_2.5X_--_NHTSA.jpg/960px-2003_Subaru_Forester_2.5X_--_NHTSA.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "SUBARU",
     "model": "Forester",
     "chassis": "SG5",
@@ -1191,7 +1191,7 @@
     "source": "wikipedia"
   },
   "ABAFD2": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2024_Honda_Civic_Type_R%2C_front_right%2C_06-15-2024.jpg/960px-2024_Honda_Civic_Type_R%2C_front_right%2C_06-15-2024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Honda_Civic_Type_R_%28FD2%29_%2831082922363%29.jpg/960px-Honda_Civic_Type_R_%28FD2%29_%2831082922363%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Honda",
     "model": "Civic Type R",
     "chassis": "ABA-FD2",
@@ -1233,7 +1233,7 @@
     "source": "wikipedia"
   },
   "HA36S": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/1994-1997_Suzuki_Alto.jpg/960px-1994-1997_Suzuki_Alto.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Suzuki_ALTO_WORKS_%28DBA-HA36S%29_front.jpg/960px-Suzuki_ALTO_WORKS_%28DBA-HA36S%29_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "SUZUKI",
     "model": "Alto",
     "chassis": "HA36S",
@@ -1254,7 +1254,7 @@
     "source": "wikipedia"
   },
   "218SERIES": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Mercedes-AMG_CLS_53_1X7A6800.jpg/960px-Mercedes-AMG_CLS_53_1X7A6800.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Mercedes-Benz_C218_CLS_63_AMG_front.jpg/960px-Mercedes-Benz_C218_CLS_63_AMG_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "CLS63",
     "chassis": "218 series",
@@ -1276,28 +1276,28 @@
     "source": "wikipedia"
   },
   "TK10706": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/2022_Chevrolet_Tahoe_RST%2C_front_3.7.22.jpg/960px-2022_Chevrolet_Tahoe_RST%2C_front_3.7.22.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/2020_GMC_Yukon_SLT_4WD_in_silver%2C_front_left.jpg/960px-2020_GMC_Yukon_SLT_4WD_in_silver%2C_front_left.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "GMC",
     "model": "Yukon",
     "chassis": "TK10706",
     "source": "wikipedia"
   },
   "S213SERIES": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/1988_Mercedes-Benz_300d_Diesel_Automatic_3.0_Front.jpg/960px-1988_Mercedes-Benz_300d_Diesel_Automatic_3.0_Front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Mercedes-Benz_E-Class_%28W213%29_Estate%2C_2017.jpg/960px-Mercedes-Benz_E-Class_%28W213%29_Estate%2C_2017.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "213 Series",
     "chassis": "S213 series",
     "source": "wikipedia"
   },
   "ZRR70": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/2010_Toyota_Noah.jpg/960px-2010_Toyota_Noah.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "70 Series Welcab",
     "chassis": "ZRR70",
     "source": "wikipedia"
   },
   "ANH20": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/AlphardANH20BlackR.jpg/960px-AlphardANH20BlackR.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "20 Series Welcab",
     "chassis": "ANH20",
@@ -1332,7 +1332,7 @@
     "source": "wikipedia"
   },
   "210SERIES": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/2013_Toyota_Corolla-Axio-Hybrid_01.jpg/960px-2013_Toyota_Corolla-Axio-Hybrid_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Toyota_Corolla_Trek_Hybrid_Genf_2019_1Y7A5587.jpg/960px-Toyota_Corolla_Trek_Hybrid_Genf_2019_1Y7A5587.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Corolla Touring Hybrid",
     "chassis": "210 series",
@@ -1346,7 +1346,7 @@
     "source": "wikipedia"
   },
   "222SERIES": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Mercedes-Benz_W223_IMG_6663.jpg/960px-Mercedes-Benz_W223_IMG_6663.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/MERCEDES-BENZ_S-CLASS_%28W222%29_China_%283%29.jpg/960px-MERCEDES-BENZ_S-CLASS_%28W222%29_China_%283%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "S-Class",
     "chassis": "222 series",
@@ -1361,14 +1361,14 @@
     "source": "wikipedia"
   },
   "GEN4": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/2022_Chevrolet_Silverado_2500HD_High_Country%2C_Front_Left%2C_11-21-2021.jpg/960px-2022_Chevrolet_Silverado_2500HD_High_Country%2C_Front_Left%2C_11-21-2021.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/2019_GMC_Sierra_1500_Denali_au_SIAM_2019.jpg/960px-2019_GMC_Sierra_1500_Denali_au_SIAM_2019.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "GMC",
     "model": "Sierra 1500",
     "chassis": "Gen 4",
     "source": "wikipedia"
   },
   "VERSIONNISMO": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/1970-1973_Nissan_Fairlady_Z.jpg/960px-1970-1973_Nissan_Fairlady_Z.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Nissan_Fairlady_Z_NISMO_%285BA-RZ34%29_front.jpg/960px-Nissan_Fairlady_Z_NISMO_%285BA-RZ34%29_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "NISSAN",
     "model": "Fairlady Z",
     "chassis": "Version Nismo",
@@ -1382,7 +1382,7 @@
     "source": "wikipedia"
   },
   "AZ": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Suzuki_Swift_%282024%29_hybrid_DSC_6076.jpg/960px-Suzuki_Swift_%282024%29_hybrid_DSC_6076.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/2018_Suzuki_Swift_SZ5_Boosterjet_SHVS_1.0_Front.jpg/960px-2018_Suzuki_Swift_SZ5_Boosterjet_SHVS_1.0_Front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "SUZUKI",
     "model": "Swift",
     "chassis": "AZ",
@@ -1396,14 +1396,14 @@
     "source": "wikipedia"
   },
   "SL55AMG": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Mercedes-Benz_230_SL_BW_2016-09-03_13-32-29.jpg/960px-Mercedes-Benz_230_SL_BW_2016-09-03_13-32-29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/2008-07-04_Mercedes-Benz_R230_SL_55_AMG_1.jpg/960px-2008-07-04_Mercedes-Benz_R230_SL_55_AMG_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "230",
     "chassis": "SL55 AMG",
     "source": "wikipedia"
   },
   "S18": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Toyota_Crown_Sedan_FCEV.jpg/960px-Toyota_Crown_Sedan_FCEV.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Black_Toyota_Crown_S180_2.5_Royal_front.JPG/960px-Black_Toyota_Crown_S180_2.5_Royal_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Crown",
     "chassis": "S18",
@@ -1417,14 +1417,14 @@
     "source": "wikipedia"
   },
   "ZAB": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/BYD_Zhengzhou_All-Terrain_Circuit_entrance.png/960px-BYD_Zhengzhou_All-Terrain_Circuit_entrance.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Hino_300_Dutro_%28New_from_Hino_Motors_Manufacturing_Indonesia%29.jpg/960px-Hino_300_Dutro_%28New_from_Hino_Motors_Manufacturing_Indonesia%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Hino",
     "model": "300 Ser",
     "chassis": "ZAB",
     "source": "wikipedia"
   },
   "FR": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Fiat_e-Ducato_1X7A0350.jpg/960px-Fiat_e-Ducato_1X7A0350.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/HINO_700_3241_in_Cork.jpg/960px-HINO_700_3241_in_Cork.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Hino",
     "model": "700 Ser",
     "chassis": "FR",
@@ -1459,7 +1459,7 @@
     "source": "wikipedia"
   },
   "GDB": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Subaru_Impreza_%28GU%29_Automesse_Ludwigsburg_2024_IMG_1593.jpg/960px-Subaru_Impreza_%28GU%29_Automesse_Ludwigsburg_2024_IMG_1593.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Subaru_IMPREZA_WRX_STi_%28GDB%29_front.JPG/960px-Subaru_IMPREZA_WRX_STi_%28GDB%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "SUBARU",
     "model": "IMPREZA",
     "chassis": "GDB",
@@ -1494,7 +1494,7 @@
     "source": "wikipedia"
   },
   "212059212259207359": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/2019_Mercedes-Benz_E220d_SE_Automatic_2.0_Front.jpg/960px-2019_Mercedes-Benz_E220d_SE_Automatic_2.0_Front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/MERCEDES-BENZ_E-CLASS_SEDAN_LWB_%28V212%29_China.jpg/960px-MERCEDES-BENZ_E-CLASS_SEDAN_LWB_%28V212%29_China.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "E350",
     "chassis": "212059 212259 207359",
@@ -1522,7 +1522,7 @@
     "source": "wikipedia"
   },
   "TRH2XX": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/2020_Toyota_HiAce_%28front%29.jpg/960px-2020_Toyota_HiAce_%28front%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Toyota_Hiace_H200_511.JPG/960px-Toyota_Hiace_H200_511.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Hiace",
     "chassis": "TRH2XX",
@@ -1530,28 +1530,28 @@
   },
   "TR500": null,
   "S21": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Toyota_3UZ-FE_engine_001.JPG/960px-Toyota_3UZ-FE_engine_001.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/TOYOTA_CROWN_S210_Athlete_01.JPG/960px-TOYOTA_CROWN_S210_Athlete_01.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Crown",
     "chassis": "S21",
     "source": "wikipedia"
   },
   "S20": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Toyota_Crown_Sedan_FCEV.jpg/960px-Toyota_Crown_Sedan_FCEV.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/TOYOTA_CROWN_%28S200%29_China.jpg/960px-TOYOTA_CROWN_%28S200%29_China.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Crown",
     "chassis": "S20",
     "source": "wikipedia"
   },
   "GSE21": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/2021_Lexus_IS300_F-Sport%2C_Front_Left%2C_10-10-2021.jpg/960px-2021_Lexus_IS300_F-Sport%2C_Front_Left%2C_10-10-2021.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Lexus_IS350C_%28GSE21%29_front.JPG/960px-Lexus_IS350C_%28GSE21%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "LEXUS",
     "model": "IS350C",
     "chassis": "GSE21",
     "source": "wikipedia"
   },
   "NKE165": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Fiat_e-Ducato_1X7A0350.jpg/960px-Fiat_e-Ducato_1X7A0350.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Toyota_COROLLA_FIELDER_HYBRID_G%22W%C3%97B%22_%28DAA-NKE165G%29_front.JPG/960px-Toyota_COROLLA_FIELDER_HYBRID_G%22W%C3%97B%22_%28DAA-NKE165G%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Corolla 160 SER",
     "chassis": "NKE165",
@@ -1572,7 +1572,7 @@
     "source": "wikipedia"
   },
   "ZRR80": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Osaka_Auto_Messe_2022_%28322%29_-_AFFECTION_ZRR80_VOXY_latter-model.jpg/960px-Osaka_Auto_Messe_2022_%28322%29_-_AFFECTION_ZRR80_VOXY_latter-model.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "80 Series Welcab",
     "chassis": "ZRR80",
@@ -1616,35 +1616,35 @@
   "S700": null,
   "NVC3": null,
   "ANH25": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/2018-2023_Toyota_Alphard_X.jpg/960px-2018-2023_Toyota_Alphard_X.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/AlphardANH20BlackR.jpg/960px-AlphardANH20BlackR.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Alphard / Vellfire",
     "chassis": "ANH25",
     "source": "wikipedia"
   },
   "GGH20": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/2018-2023_Toyota_Alphard_X.jpg/960px-2018-2023_Toyota_Alphard_X.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/AlphardANH20BlackR.jpg/960px-AlphardANH20BlackR.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Alphard / Vellfire",
     "chassis": "GGH20",
     "source": "wikipedia"
   },
   "GGH25": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/2018-2023_Toyota_Alphard_X.jpg/960px-2018-2023_Toyota_Alphard_X.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/AlphardANH20BlackR.jpg/960px-AlphardANH20BlackR.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Alphard / Vellfire",
     "chassis": "GGH25",
     "source": "wikipedia"
   },
   "ATH20": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/2018-2023_Toyota_Alphard_X.jpg/960px-2018-2023_Toyota_Alphard_X.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/AlphardANH20BlackR.jpg/960px-AlphardANH20BlackR.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Alphard / Vellfire",
     "chassis": "ATH20",
     "source": "wikipedia"
   },
   "ZVW52": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/2024_Toyota_Prius_Excel_PHEV_-_1987cc_2.0_%28225PS%29_Plug-in_Hybrid_-_Silver_Metallic_-_10-2024%2C_Front_Quarter.jpg/960px-2024_Toyota_Prius_Excel_PHEV_-_1987cc_2.0_%28225PS%29_Plug-in_Hybrid_-_Silver_Metallic_-_10-2024%2C_Front_Quarter.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Toyota_PRIUS_S_%28DAA-ZVW50-AHXEB%29_front.JPG/960px-Toyota_PRIUS_S_%28DAA-ZVW50-AHXEB%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Prius",
     "chassis": "ZVW52",
@@ -1672,14 +1672,14 @@
     "source": "wikipedia"
   },
   "V36": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/The_frontview_of_Nissan_DAA-HV37_SKYLINE_HYBRID_GT_Type_SP_%28cropped%29.jpg/960px-The_frontview_of_Nissan_DAA-HV37_SKYLINE_HYBRID_GT_Type_SP_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Nissan_Skyline_Sedan_V36_in_2010.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "NISSAN",
     "model": "SKYLINE",
     "chassis": "V36",
     "source": "wikipedia"
   },
   "V35": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/The_frontview_of_Nissan_DAA-HV37_SKYLINE_HYBRID_GT_Type_SP_%28cropped%29.jpg/960px-The_frontview_of_Nissan_DAA-HV37_SKYLINE_HYBRID_GT_Type_SP_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Nissan_SKYLINE_SEDAN_250GT_%28GH-V35%29_front.jpg/960px-Nissan_SKYLINE_SEDAN_250GT_%28GH-V35%29_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "NISSAN",
     "model": "Skyline",
     "chassis": "V35",
@@ -1707,14 +1707,14 @@
     "source": "wikipedia"
   },
   "J50": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/The_frontview_of_Nissan_DAA-HV37_SKYLINE_HYBRID_GT_Type_SP_%28cropped%29.jpg/960px-The_frontview_of_Nissan_DAA-HV37_SKYLINE_HYBRID_GT_Type_SP_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Nissan_SKYLINE_CROSSOVER_370GT_%28J50%29_front.JPG/960px-Nissan_SKYLINE_CROSSOVER_370GT_%28J50%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "NISSAN",
     "model": "Skyline",
     "chassis": "J50",
     "source": "wikipedia"
   },
   "CL7": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/2023_Honda_Accord_LX%2C_front_left%2C_07-13-2023.jpg/960px-2023_Honda_Accord_LX%2C_front_left%2C_07-13-2023.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Honda_Accord_euro-R_%28CL7%29_front.JPG/960px-Honda_Accord_euro-R_%28CL7%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Honda",
     "model": "Accord",
     "chassis": "CL7",
@@ -1743,14 +1743,14 @@
     "source": "wikipedia"
   },
   "996": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Porsche_911_No_1000000%2C_70_Years_Porsche_Sports_Car%2C_Berlin_%281X7A3888%29.jpg/960px-Porsche_911_No_1000000%2C_70_Years_Porsche_Sports_Car%2C_Berlin_%281X7A3888%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/2005_Porsche_911_%28996%29_Carrera_4S.jpg/960px-2005_Porsche_911_%28996%29_Carrera_4S.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "PORSCHE",
     "model": "911",
     "chassis": "996",
     "source": "wikipedia"
   },
   "CT9A": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/2017-04-02_Mitsubishi_Lancer_Evolution_X_MR_SST_14_%282%29.jpg/960px-2017-04-02_Mitsubishi_Lancer_Evolution_X_MR_SST_14_%282%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/2005_Mitsubishi_Lancer_Evolution_IX_BS_O24.jpg/960px-2005_Mitsubishi_Lancer_Evolution_IX_BS_O24.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "MITSUBISHI",
     "model": "Lancer Evolution IX",
     "chassis": "CT9A",
@@ -1890,7 +1890,7 @@
     "source": "wikipedia"
   },
   "S17": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Toyota_Crown_Sedan_FCEV.jpg/960px-Toyota_Crown_Sedan_FCEV.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Toyota_Crown_Athlete_%28S170%29%2C_Bangladesh._%2840384916595%29.jpg/960px-Toyota_Crown_Athlete_%28S170%29%2C_Bangladesh._%2840384916595%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Crown",
     "chassis": "S17",
@@ -1925,7 +1925,7 @@
     "source": "wikipedia"
   },
   "DJII": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/2017_Ram_1500_Express_Crew_Cab%2C_front_left%2C_09-02-2022.jpg/960px-2017_Ram_1500_Express_Crew_Cab%2C_front_left%2C_09-02-2022.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/2019_Ram_3500_Heavy_Duty_Turbo_Diesel_with_Cummins_engine_front_NYIAS_2019.jpg/960px-2019_Ram_3500_Heavy_Duty_Turbo_Diesel_with_Cummins_engine_front_NYIAS_2019.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "RAM",
     "model": "2500",
     "chassis": "DJII",
@@ -1946,7 +1946,7 @@
     "source": "wikipedia"
   },
   "8R": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Audi_Q5_2.0_TDI_quattro_S_line_%28GU%29_%E2%80%93_f_13102025.jpg/960px-Audi_Q5_2.0_TDI_quattro_S_line_%28GU%29_%E2%80%93_f_13102025.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Audi_SQ5_8R_%282012%E2%80%932017%29_Wien_26_July_2020_JM_%281%29.jpg/960px-Audi_SQ5_8R_%282012%E2%80%932017%29_Wien_26_July_2020_JM_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "AUDI",
     "model": "8R SQ5",
     "chassis": "8R",
@@ -1974,7 +1974,7 @@
     "source": "wikipedia"
   },
   "GB3": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/2024_Honda_Freed_e-HEV_Air_EX.jpg/960px-2024_Honda_Freed_e-HEV_Air_EX.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Honda_FREED_Spike_G_Just_Selection_%28DBA-GB3%29_front.jpg/960px-Honda_FREED_Spike_G_Just_Selection_%28DBA-GB3%29_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Honda",
     "model": "Freed",
     "chassis": "GB3",
@@ -1988,7 +1988,7 @@
     "source": "wikipedia"
   },
   "MP": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/MP_Lafer_%28%2711_Auto_classique_VAQ_Mont_St-Hilaire%29.JPG/960px-MP_Lafer_%28%2711_Auto_classique_VAQ_Mont_St-Hilaire%29.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/2020_Morgan_Plus_4_Auto.jpg/960px-2020_Morgan_Plus_4_Auto.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "MORGAN",
     "model": "PLUS FOUR",
     "chassis": "MP",
@@ -2023,7 +2023,7 @@
     "source": "wikipedia"
   },
   "NSP172": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/2016_Toyota_Sienta_%28XP170%29_hybrid_van_%282017-11-28%29.jpg/960px-2016_Toyota_Sienta_%28XP170%29_hybrid_van_%282017-11-28%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Sienta Welcab",
     "chassis": "NSP172",
@@ -2076,7 +2076,7 @@
   "SPACESHIPSTOYOTA_SPACESHIPSESTIMACAMPERVAN": null,
   "VANTECH100SERIES": null,
   "BH5": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Subaru_EJ22_boxer_engine.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Subaru_LEGACY_TOURINGWAGON_GT-B_%28GF-BH5%29.jpg/960px-Subaru_LEGACY_TOURINGWAGON_GT-B_%28GF-BH5%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "SUBARU",
     "model": "LEGACY",
     "chassis": "BH5",
@@ -2104,7 +2104,7 @@
     "source": "wikipedia"
   },
   "P21": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Nissan_Leaf_and_Tesla_Model_S_in_Norway_cropped.jpg/960px-Nissan_Leaf_and_Tesla_Model_S_in_Norway_cropped.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/2020_Peugeot_e-208_GT.jpg/960px-2020_Peugeot_e-208_GT.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "PEUGEOT",
     "model": "e208",
     "chassis": "P21",
@@ -2118,7 +2118,7 @@
     "source": "wikipedia"
   },
   "GTE": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/2022_Toyota_GR86_Premium_in_Halo%2C_Front_Right%2C_04-10-2022.jpg/960px-2022_Toyota_GR86_Premium_in_Halo%2C_Front_Right%2C_04-10-2022.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/2018_Subaru_XV_%28G5X%29_2.0i-L_wagon_%282018-07-19%29_02.jpg/960px-2018_Subaru_XV_%28G5X%29_2.0i-L_wagon_%282018-07-19%29_02.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "SUBARU",
     "model": "XV Hybrid",
     "chassis": "GTE",
@@ -2132,7 +2132,7 @@
     "source": "wikipedia"
   },
   "ZWR80": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Hybrid_Synergy_Drive_Logo.jpg/960px-Hybrid_Synergy_Drive_Logo.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Osaka_Auto_Messe_2022_%28322%29_-_AFFECTION_ZRR80_VOXY_latter-model.jpg/960px-Osaka_Auto_Messe_2022_%28322%29_-_AFFECTION_ZRR80_VOXY_latter-model.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "80 Series Hybrid",
     "chassis": "ZWR80",
@@ -2140,14 +2140,14 @@
   },
   "S510P": null,
   "NCP170": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/2016_Toyota_Sienta_%28XP170%29_hybrid_van_%282017-11-28%29.jpg/960px-2016_Toyota_Sienta_%28XP170%29_hybrid_van_%282017-11-28%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Sienta",
     "chassis": "NCP170",
     "source": "wikipedia"
   },
   "NCP175": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/2016_Toyota_Sienta_%28XP170%29_hybrid_van_%282017-11-28%29.jpg/960px-2016_Toyota_Sienta_%28XP170%29_hybrid_van_%282017-11-28%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Sienta",
     "chassis": "NCP175",
@@ -2161,7 +2161,7 @@
     "source": "wikipedia"
   },
   "BRG": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/City_Holden_-_Mile_End%2C_Adelaide%2C_South_Australia_%28cropped%29.jpg/960px-City_Holden_-_Mile_End%2C_Adelaide%2C_South_Australia_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Subaru_Legacy_2.5i_Wagon_2010_%2850146498172%29.jpg/960px-Subaru_Legacy_2.5i_Wagon_2010_%2850146498172%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "SUBARU",
     "model": "Legacy",
     "chassis": "BRG",
@@ -2175,7 +2175,7 @@
     "source": "wikipedia"
   },
   "GYL20": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Lexus_RX_500h_F_SPORT%2B_%28V%29_%E2%80%93_f_14072024.jpg/960px-Lexus_RX_500h_F_SPORT%2B_%28V%29_%E2%80%93_f_14072024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/LEXUS_RX_450h_%28AL20%29_China.jpg/960px-LEXUS_RX_450h_%28AL20%29_China.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "LEXUS",
     "model": "RX 450h",
     "chassis": "GYL20",
@@ -2262,7 +2262,7 @@
     "source": "wikipedia"
   },
   "90SERIES": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Toyota_Comfort_SG.jpg/960px-Toyota_Comfort_SG.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/2022_Toyota_Noah_Hybrid_S-Z.jpg/960px-2022_Toyota_Noah_Hybrid_S-Z.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "90 SERIES WELCAB",
     "chassis": "90 SERIES",
@@ -2276,14 +2276,14 @@
     "source": "wikipedia"
   },
   "ZVW55": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Hybrid_Synergy_Drive_Logo.jpg/960px-Hybrid_Synergy_Drive_Logo.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Toyota_PRIUS_S_%28DAA-ZVW50-AHXEB%29_front.JPG/960px-Toyota_PRIUS_S_%28DAA-ZVW50-AHXEB%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Prius",
     "chassis": "ZVW55",
     "source": "wikipedia"
   },
   "USF45": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/2019_Lexus_LS_500_AWD_beige%2C_front_Hagerty_6.1.19.jpg/960px-2019_Lexus_LS_500_AWD_beige%2C_front_Hagerty_6.1.19.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/2007_Lexus_LS_460_Starfire_Pearl.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "LEXUS",
     "model": "LS460",
     "chassis": "USF45",
@@ -2319,7 +2319,7 @@
     "source": "wikipedia"
   },
   "3BDDA17V": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Suzuki_Carry_Truck_KC_4WD_DA16T.JPG/960px-Suzuki_Carry_Truck_KC_4WD_DA16T.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Suzuki_EVERY_PC_%28DA17V%29_front.JPG/960px-Suzuki_EVERY_PC_%28DA17V%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "SUZUKI",
     "model": "Every",
     "chassis": "3BD-DA17V",
@@ -2340,7 +2340,7 @@
     "source": "wikipedia"
   },
   "C298": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Mercedes-Benz_CLK_LM_-_Flickr_-_andrewbasterfield.jpg/960px-Mercedes-Benz_CLK_LM_-_Flickr_-_andrewbasterfield.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Mercedes-AMG_Project_One%2C_Frankfurt_%281Y7A3446%29.jpg/960px-Mercedes-AMG_Project_One%2C_Frankfurt_%281Y7A3446%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-AMG",
     "model": "ONE",
     "chassis": "C298",
@@ -2354,14 +2354,14 @@
     "source": "wikipedia"
   },
   "S402M": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/1997-1999_Toyota_TownAce_%28KR42R%29_van_01.jpg/960px-1997-1999_Toyota_TownAce_%28KR42R%29_van_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Toyota_TownAce_Van_1.5_DX_%28DBF-S402M%29_in_White%2C_rear_right.jpg/960px-Toyota_TownAce_Van_1.5_DX_%28DBF-S402M%29_in_White%2C_rear_right.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Townace",
     "chassis": "S402M",
     "source": "wikipedia"
   },
   "U68": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Mitsubishi_Minicab_2000.jpg/960px-Mitsubishi_Minicab_2000.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/The_frontview_of_Mitsubishi_MINICAB_MiEV_%28ZAB-U68V-HLDD%29_participating_in_Challenge_80.jpg/960px-The_frontview_of_Mitsubishi_MINICAB_MiEV_%28ZAB-U68V-HLDD%29_participating_in_Challenge_80.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "MITSUBISHI",
     "model": "Minicab MiEV",
     "chassis": "U68",
@@ -2382,21 +2382,21 @@
     "source": "wikipedia"
   },
   "AZSH21": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Toyota_Crown_Sedan_FCEV.jpg/960px-Toyota_Crown_Sedan_FCEV.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Osaka_Auto_Messe_2019_%28486%29_-_Toyota_CROWN_2.5HYBRID_RS_%286AA-AZSH20-AEXAB%29_tuned_by_T-DEMAND.jpg/960px-Osaka_Auto_Messe_2019_%28486%29_-_Toyota_CROWN_2.5HYBRID_RS_%286AA-AZSH20-AEXAB%29_tuned_by_T-DEMAND.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Crown Hybrid",
     "chassis": "AZSH21",
     "source": "wikipedia"
   },
   "GWS224": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Hybrid_Synergy_Drive_Logo.jpg/960px-Hybrid_Synergy_Drive_Logo.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Osaka_Auto_Messe_2019_%28486%29_-_Toyota_CROWN_2.5HYBRID_RS_%286AA-AZSH20-AEXAB%29_tuned_by_T-DEMAND.jpg/960px-Osaka_Auto_Messe_2019_%28486%29_-_Toyota_CROWN_2.5HYBRID_RS_%286AA-AZSH20-AEXAB%29_tuned_by_T-DEMAND.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Crown Hybrid",
     "chassis": "GWS224",
     "source": "wikipedia"
   },
   "AZSH20": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Toyota_Crown_Sedan_FCEV.jpg/960px-Toyota_Crown_Sedan_FCEV.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Osaka_Auto_Messe_2019_%28486%29_-_Toyota_CROWN_2.5HYBRID_RS_%286AA-AZSH20-AEXAB%29_tuned_by_T-DEMAND.jpg/960px-Osaka_Auto_Messe_2019_%28486%29_-_Toyota_CROWN_2.5HYBRID_RS_%286AA-AZSH20-AEXAB%29_tuned_by_T-DEMAND.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Crown Hybrid",
     "chassis": "AZSH20",
@@ -2483,21 +2483,21 @@
     "source": "wikipedia"
   },
   "USE20": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Lexus_IS250_2008_Tungsten_Pearl.jpg/960px-Lexus_IS250_2008_Tungsten_Pearl.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LEXUS_IS_F_%28USE20%29_front.JPG/960px-LEXUS_IS_F_%28USE20%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "LEXUS",
     "model": "IS F",
     "chassis": "USE20",
     "source": "wikipedia"
   },
   "E61WAGON": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/2018_BMW_M5_Automatic_4.4.jpg/960px-2018_BMW_M5_Automatic_4.4.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/BMW_M5_Touring_E61_%287179230624%29.jpg/960px-BMW_M5_Touring_E61_%287179230624%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "BMW",
     "model": "M5 Estate",
     "chassis": "E61 (wagon)",
     "source": "wikipedia"
   },
   "192342": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Festival_automobile_international_2015_-_Mercedes_AMG_GT_-_003.jpg/960px-Festival_automobile_international_2015_-_Mercedes_AMG_GT_-_003.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/MERCEDES-AMG_GT_4_DOOR_%28X290%29_China.jpg/960px-MERCEDES-AMG_GT_4_DOOR_%28X290%29_China.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "AMG GT 43",
     "chassis": "192342",
@@ -2532,7 +2532,7 @@
     "source": "wikipedia"
   },
   "C27": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Nissan_Serena_C28_e-Power_Highway_Star_V.jpg/960px-Nissan_Serena_C28_e-Power_Highway_Star_V.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2019_Nissan_Serena_Highway_Star_2.0_C27_%2820190623%29.jpg/960px-2019_Nissan_Serena_Highway_Star_2.0_C27_%2820190623%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "NISSAN",
     "model": "SERENA",
     "chassis": "C27",
@@ -2567,7 +2567,7 @@
     "source": "wikipedia"
   },
   "GMTT1XX": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/2015_Chevrolet_Suburban_1500_LTZ%2C_front_4.18.19.jpg/960px-2015_Chevrolet_Suburban_1500_LTZ%2C_front_4.18.19.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Chevrolet_Suburban_Z71_2022_%2853545707688%29.jpg/960px-Chevrolet_Suburban_Z71_2022_%2853545707688%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Chevrolet",
     "model": "Suburban",
     "chassis": "GMT T1XX",
@@ -2581,14 +2581,14 @@
     "source": "wikipedia"
   },
   "3100": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/2024_Renault_Trafic_LWB_Premium_front.jpg/960px-2024_Renault_Trafic_LWB_Premium_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Opel_Vivaro-e_IMG_5430.jpg/960px-Opel_Vivaro-e_IMG_5430.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "VAUXHALL",
     "model": "VIVARO-e",
     "chassis": "3100",
     "source": "wikipedia"
   },
   "MZRA90": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Toyota_Comfort_SG.jpg/960px-Toyota_Comfort_SG.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/2022_Toyota_Noah_Hybrid_S-Z.jpg/960px-2022_Toyota_Noah_Hybrid_S-Z.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "90 SERIES WELCAB",
     "chassis": "MZRA90",
@@ -2659,7 +2659,7 @@
     "source": "wikipedia"
   },
   "3BDS500U": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/2005-2009_Subaru_Sambar_Truck_rear.jpg/960px-2005-2009_Subaru_Sambar_Truck_rear.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Daihatsu_HIJET_TRUCK_Extra_%28S500P%29_rear.JPG/960px-Daihatsu_HIJET_TRUCK_Extra_%28S500P%29_rear.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Pixis Truck",
     "chassis": "3BD-S500U",
@@ -2673,21 +2673,21 @@
     "source": "wikipedia"
   },
   "3BDS321M": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/1990-1992_Daihatsu_Hijet_Pick_4WD_rear.jpg/960px-1990-1992_Daihatsu_Hijet_Pick_4WD_rear.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Daihatsu_Hijet_Cargo_1021.jpg/960px-Daihatsu_Hijet_Cargo_1021.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Pixis Van",
     "chassis": "3BD-S321M",
     "source": "wikipedia"
   },
   "3BDDS16T": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Mitsubishi_Minicab_2000.jpg/960px-Mitsubishi_Minicab_2000.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Mitsubishi_MINICAB_TRUCK_M_%28DS16T%29_front.JPG/960px-Mitsubishi_MINICAB_TRUCK_M_%28DS16T%29_front.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "MITSUBISHI",
     "model": "Minicab Truck",
     "chassis": "3BD-DS16T",
     "source": "wikipedia"
   },
   "3BDDS17V": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Mitsubishi_Minicab_2000.jpg/960px-Mitsubishi_Minicab_2000.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Mitsubishi_MINICAB_VAN_G_%28HBD-DS17V%29_front.jpg/960px-Mitsubishi_MINICAB_VAN_G_%28HBD-DS17V%29_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "MITSUBISHI",
     "model": "Minicab Van",
     "chassis": "3BD-DS17V",
@@ -2729,7 +2729,7 @@
     "source": "wikipedia"
   },
   "MXPK10": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/2017-2021_Toyota_Aqua.jpg/960px-2017-2021_Toyota_Aqua.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Toyota_Aqua_X_%28front%29.jpg/960px-Toyota_Aqua_X_%28front%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Aqua",
     "chassis": "MXPK10",
@@ -2778,7 +2778,7 @@
     "source": "wikipedia"
   },
   "S213261": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Mercedes-Benz_W214_1X7A1841.jpg/960px-Mercedes-Benz_W214_1X7A1841.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Mercedes-Benz_E-Class_%28W213%29_Estate%2C_2017.jpg/960px-Mercedes-Benz_E-Class_%28W213%29_Estate%2C_2017.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "E-Class",
     "chassis": "S213261",
@@ -2802,7 +2802,7 @@
     "source": "wikipedia"
   },
   "S213264": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Mercedes-Benz_W214_1X7A1841.jpg/960px-Mercedes-Benz_W214_1X7A1841.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Mercedes-Benz_E-Class_%28W213%29_Estate%2C_2017.jpg/960px-Mercedes-Benz_E-Class_%28W213%29_Estate%2C_2017.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mercedes-Benz",
     "model": "E-Class Station Wagon",
     "chassis": "S213264",
@@ -2830,7 +2830,7 @@
     "source": "wikipedia"
   },
   "MXWH61": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Hybrid_Synergy_Drive_Logo.jpg/960px-Hybrid_Synergy_Drive_Logo.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/2023_Toyota_Prius_Z_PHEV.jpg/960px-2023_Toyota_Prius_Z_PHEV.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "Prius",
     "chassis": "MXWH61",
@@ -2844,7 +2844,7 @@
     "source": "wikipedia"
   },
   "GF50": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Nissan_HGY51_CIMA%28M35hL%29.jpg/960px-Nissan_HGY51_CIMA%28M35hL%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/2001-2003_NISSAN_CIMA_450VIP.jpg/960px-2001-2003_NISSAN_CIMA_450VIP.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "NISSAN",
     "model": "Cima",
     "chassis": "GF50",
@@ -2872,7 +2872,7 @@
     "source": "wikipedia"
   },
   "P14": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/FIA_F1_Austria_2019_Nr._55_Sainz_1.jpg/960px-FIA_F1_Austria_2019_Nr._55_Sainz_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/2018_McLaren_720S_10.jpg/960px-2018_McLaren_720S_10.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "MCLAREN",
     "model": "P14",
     "chassis": "P14",
@@ -2886,21 +2886,21 @@
     "source": "wikipedia"
   },
   "TZSH35": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Toyota_Crown_Sedan_FCEV.jpg/960px-Toyota_Crown_Sedan_FCEV.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Toyota_CROWN_CROSSOVER_RS_%285AA-TZSH35-AETAT%29_front.jpg/960px-Toyota_CROWN_CROSSOVER_RS_%285AA-TZSH35-AETAT%29_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Toyota",
     "model": "CROWN CROSSOVER",
     "chassis": "TZSH35",
     "source": "wikipedia"
   },
   "ZABU69V": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Mitsubishi_Minicab_2000.jpg/960px-Mitsubishi_Minicab_2000.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/The_frontview_of_Mitsubishi_MINICAB_MiEV_%28ZAB-U68V-HLDD%29_participating_in_Challenge_80.jpg/960px-The_frontview_of_Mitsubishi_MINICAB_MiEV_%28ZAB-U68V-HLDD%29_participating_in_Challenge_80.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "MITSUBISHI",
     "model": "Minicab MiEV",
     "chassis": "ZAB-U69V",
     "source": "wikipedia"
   },
   "ZABU68V": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Mitsubishi_Minicab_2000.jpg/960px-Mitsubishi_Minicab_2000.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/The_frontview_of_Mitsubishi_MINICAB_MiEV_%28ZAB-U68V-HLDD%29_participating_in_Challenge_80.jpg/960px-The_frontview_of_Mitsubishi_MINICAB_MiEV_%28ZAB-U68V-HLDD%29_participating_in_Challenge_80.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "MITSUBISHI",
     "model": "Minicab MiEV",
     "chassis": "ZAB-U68V",
@@ -2928,7 +2928,7 @@
     "source": "wikipedia"
   },
   "C27SERIES": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Nissan_Serena_C28_e-Power_Highway_Star_V.jpg/960px-Nissan_Serena_C28_e-Power_Highway_Star_V.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2019_Nissan_Serena_Highway_Star_2.0_C27_%2820190623%29.jpg/960px-2019_Nissan_Serena_Highway_Star_2.0_C27_%2820190623%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "NISSAN",
     "model": "SERENA",
     "chassis": "C27 Series",
@@ -2942,7 +2942,7 @@
     "source": "wikipedia"
   },
   "GTC900": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Geneva_International_Motor_Show_logo_%28black%29.svg/960px-Geneva_International_Motor_Show_logo_%28black%29.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Brabus_750_GT%2C_EMS_2024%2C_Essen_%28P1031639%29.jpg/960px-Brabus_750_GT%2C_EMS_2024%2C_Essen_%28P1031639%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "BRABUS",
     "model": "GTC 900",
     "chassis": "GTC 900",
