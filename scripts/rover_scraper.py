@@ -652,6 +652,49 @@ async def enrich_with_details(browser, records, is_mre, limit=None):
     print(f"  Detail enrichment finished: {completed} processed, {errors} errors.")
 
 
+async def _advance_page(page, next_page, current_page, total_pages, prev_first_sig,
+                        max_attempts=3, timeout_ms=30000):
+    """Click through to the next page and wait for the AJAX pager to render new rows.
+
+    The ROVER portal is intermittently slow, so a single click+wait sometimes times out
+    even though the portal is healthy. We retry the click+wait a few times with a short
+    settle delay before giving up. We still raise (rather than silently continue) if every
+    attempt fails, so the cron alerts instead of losing records.
+    """
+    last_err = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            clicked = await page.evaluate(f"""
+                () => {{
+                    const ariaBtn = document.querySelector('[aria-label*="page {next_page}"]');
+                    if (ariaBtn) {{ ariaBtn.click(); return 'aria'; }}
+                    const allBtns = [...document.querySelectorAll('li a, li button, nav a, nav button')];
+                    const numBtn = allBtns.find(b => b.innerText.trim() === '{next_page}');
+                    if (numBtn) {{ numBtn.click(); return 'text'; }}
+                    const nextBtn = document.querySelector('[aria-label="Next"]') ||
+                                    document.querySelector('[title="Next"]');
+                    if (nextBtn) {{ nextBtn.click(); return 'next'; }}
+                    return null;
+                }}
+            """)
+            if not clicked:
+                raise RuntimeError(
+                    f"Could not find page {next_page} button (expected {total_pages} pages, "
+                    f"only got to {current_page})."
+                )
+            await _wait_for_page_change(page, prev_first_sig, timeout_ms=timeout_ms)
+            return
+        except Exception as e:
+            last_err = e
+            print(f"    advance attempt {attempt}/{max_attempts} failed: {e}", flush=True)
+            if attempt < max_attempts:
+                await page.wait_for_timeout(3000)
+    raise RuntimeError(
+        f"Pager did not advance to page {next_page} after {max_attempts} attempts. "
+        f"Aborting to prevent silent record loss (last error: {last_err})."
+    )
+
+
 async def fetch_all_records(browser, url, list_name):
     print(f"\n{'='*50}")
     print(f"Fetching: {list_name}")
@@ -702,29 +745,7 @@ async def fetch_all_records(browser, url, list_name):
 
         next_page = current_page + 1
         try:
-            clicked = await page.evaluate(f"""
-                () => {{
-                    const ariaBtn = document.querySelector('[aria-label*="page {next_page}"]');
-                    if (ariaBtn) {{ ariaBtn.click(); return 'aria'; }}
-                    const allBtns = [...document.querySelectorAll('li a, li button, nav a, nav button')];
-                    const numBtn = allBtns.find(b => b.innerText.trim() === '{next_page}');
-                    if (numBtn) {{ numBtn.click(); return 'text'; }}
-                    const nextBtn = document.querySelector('[aria-label="Next"]') ||
-                                    document.querySelector('[title="Next"]');
-                    if (nextBtn) {{ nextBtn.click(); return 'next'; }}
-                    return null;
-                }}
-            """)
-            if not clicked:
-                raise RuntimeError(
-                    f"Could not find page {next_page} button (expected {total_pages} pages, "
-                    f"only got to {current_page}). Aborting so the cron alerts."
-                )
-            # Wait for the AJAX pager to actually swap in new rows. We poll the
-            # first row's signature against the previous page's first row — once
-            # it changes, the new page has rendered. This replaces the old fixed
-            # 1500ms wait that was the root cause of silent record loss.
-            await _wait_for_page_change(page, last_first_row_sig, timeout_ms=15000)
+            await _advance_page(page, next_page, current_page, total_pages, last_first_row_sig)
             current_page += 1
         except Exception as e:
             print(f"  Pagination error: {e}")
