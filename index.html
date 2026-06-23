@@ -763,6 +763,35 @@ function closePanel(){
   document.body.style.overflow = '';
 }
 
+/* ---------- deep linking (e.g. from the ROVER Weekly email) ----------
+   Honors URL hashes so a shared/emailed link opens the exact vehicle:
+     #sev=SEV-000835   → open that SEV's detail panel
+     #mre=MRE-000123   → open that MRE's detail panel
+   Unknown / removed records fall through silently (homepage stays put). */
+function parseHash(){
+  const h = (location.hash||'').replace(/^#/,'');
+  const out = {};
+  if(!h) return out;
+  h.split('&').forEach(pair=>{
+    const i = pair.indexOf('=');
+    const k = i<0 ? pair : pair.slice(0,i);
+    const v = i<0 ? '' : pair.slice(i+1);
+    if(k) out[decodeURIComponent(k)] = decodeURIComponent(v||'');
+  });
+  return out;
+}
+function applyDeepLink(){
+  if(!rows || !rows.length) return;
+  const p = parseHash();
+  let target = null;
+  if(p.sev) target = sevByNum[p.sev.trim().toUpperCase()] || null;
+  if(!target && p.mre){
+    const id = p.mre.trim().toUpperCase();
+    target = rows.find(r=>r.type==='MRE' && (r.id||'').trim().toUpperCase()===id) || null;
+  }
+  if(target) openPanel(target);
+}
+
 /* ---------- CSV export ---------- */
 function exportCSV(){
   const list = filtered();
@@ -869,6 +898,9 @@ async function fetchFirst(urls){
     wire();
     $('loadBox').style.display='none';
     try{ render(); }catch(re){ console.error('render failed:', re); throw re; }
+    // Deep link from the ROVER Weekly email (#sev=… / #mre=…) → open the vehicle.
+    applyDeepLink();
+    addEventListener('hashchange', applyDeepLink);
   }catch(err){
     console.error('boot failed:', err);
     $('loadBox').style.display='';

@@ -1106,8 +1106,16 @@ def _build_vehicle_rows(records, register_type, is_removed=False):
 
         # ── Details cell (desktop only) ───────────────────────────────────────
         # Hyperlink to the in-house register + secondary build/variant info.
-        ref_html = (f'<a href="{site_link}" style="color:{link_color}; text-decoration:underline; '
-                    f'font-weight:600;">#{ref}</a>') if ref else ''
+        # Removed records are off the register, so their detail page no longer
+        # resolves — render the ref as plain text rather than a dead deep-link.
+        if ref and not is_removed:
+            ref_html = (f'<a href="{site_link}" target="_blank" rel="noopener noreferrer" '
+                        f'style="color:{link_color}; text-decoration:underline; '
+                        f'font-weight:600;">#{ref}</a>')
+        elif ref:
+            ref_html = f'<span style="color:#6b7280; font-weight:600;">#{ref}</span>'
+        else:
+            ref_html = ''
         detail_lines = [ref_html] if ref_html else []
         if secondary:
             detail_lines.append(f'<span style="color:#6b7280;">{secondary}</span>')
@@ -1132,7 +1140,16 @@ def _build_vehicle_rows(records, register_type, is_removed=False):
                         f'<a href="{quote_url}" style="font-size:12px; font-weight:600; '
                         f'color:#f5a623; text-decoration:none;">Get a quote &rarr;</a></div>')
 
-        vehicle_cell_inner = f'<div style="{name_style}">{name}</div>'
+        # Vehicle name doubles as the deep-link to its detail page. The #ref
+        # link lives in the detail column, which is hidden on mobile, so linking
+        # the name keeps every active row tappable on a phone. Removed records
+        # aren't on the site, so their name stays plain (strike-through only).
+        if ref and not is_removed:
+            name_html = (f'<a href="{site_link}" target="_blank" rel="noopener noreferrer" '
+                         f'style="{name_style} text-decoration:none;">{name}</a>')
+        else:
+            name_html = name
+        vehicle_cell_inner = f'<div style="{name_style}">{name_html}</div>'
         if subtitle:
             vehicle_cell_inner += (f'<div style="font-size:12px; color:{subtitle_color}; '
                                    f'margin-top:3px; line-height:1.4;">{subtitle}</div>')
@@ -1196,7 +1213,8 @@ def _expiring_single_row(r):
     meta_parts = []
     if ref:
         meta_parts.append(
-            f'<a href="{site_link}" style="color:#9ca3af; text-decoration:none; '
+            f'<a href="{site_link}" target="_blank" rel="noopener noreferrer" '
+            f'style="color:#9ca3af; text-decoration:underline; '
             f'font-family:\'JetBrains Mono\',Menlo,Consolas,monospace; font-size:12px;">SEV #{ref}</a>'
         )
     if model_code:
@@ -1339,7 +1357,7 @@ def _build_headline_rows(headlines):
         rows.append(
             f'<tr><td style="padding:12px 16px; border-bottom:1px solid #2e2820;">'
             f'<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
-            f'<td><a href="{h["url"]}" target="_blank" style="font-size:13px; font-weight:600; color:#e8eaea; text-decoration:none; line-height:1.4;">{h["title"]}</a>'
+            f'<td><a href="{h["url"]}" target="_blank" rel="noopener noreferrer" style="font-size:13px; font-weight:600; color:#e8eaea; text-decoration:none; line-height:1.4;">{h["title"]}</a>'
             f'<p style="margin:4px 0 0; font-size:12px; color:#6b7280; line-height:1.4;">{h["summary"]}</p></td>'
             f'<td width="70" align="right" valign="top">'
             f'<span style="display:inline-block; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:600; background-color:#0d1a2e; color:#60a5fa; border:1px solid #1e3a5f;">ATO</span>'
