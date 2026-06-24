@@ -403,6 +403,8 @@ const SOON = new Date(Date.now()+90*864e5);
 function statusOf(r){
   if(r.underReview) return {cls:'b-rev', label:'UNDER REVIEW', rank:2,
     tip:'The Government is currently reviewing this entry. Get advice before committing to a purchase.'};
+  if(r.sevBasisGone) return {cls:'b-bad', label:'NO LONGER ELIGIBLE', rank:4,
+    tip:'The SEVS Register entry this model report relied on has expired and is no longer on the register, so the car can’t be imported under this approval right now. Ask us — a current pathway may still exist.'};
   if(r.expiry){
     if(r.expiry < NOW) return {cls:'b-bad', label:'NO LONGER ELIGIBLE', rank:4,
       tip:'This approval has expired ('+r.expiryRaw+'). This exact entry can’t be used to import a car right now.'};
@@ -457,6 +459,11 @@ function build(data){
         (mresBySev[sn.trim().toUpperCase()] = mresBySev[sn.trim().toUpperCase()]||[]).push(r);
       }
     }
+    // A Specialist & Enthusiast model report rests on its scope SEV(s). If it
+    // names SEV(s) but none remain on the live SEVs register, that SEV
+    // eligibility has lapsed — the model can no longer be imported under this
+    // approval even though ROVER still lists the report itself as "In Force".
+    r.sevBasisGone = sevs.length>0 && !sevs.some(sn=>sevByNum[sn.trim().toUpperCase()]);
     out.push(r);
   });
   // merge pass 1: fold MREs into their SEV vehicle row via explicit SEV number links
@@ -493,6 +500,14 @@ function build(data){
     });
     if(p){ r.folded=true; (p.mres=p.mres||[]).push(r); }
     else { r._mk=mk; r._md=md; primaries.push(r); }
+  });
+  // A displayed (unfolded) MRE row stands for its whole group — itself plus any
+  // folded siblings. Only call it no-longer-eligible when EVERY member's SEV
+  // basis is gone; if a sibling still has a live or un-scoped (unknown) SEV,
+  // keep it eligible rather than risk a false "expired".
+  out.forEach(r=>{
+    if(r.type==='MRE' && !r.folded)
+      r.sevBasisGone = [r, ...(r.mres||[])].every(m=>m.sevBasisGone);
   });
   return out;
 }
@@ -555,7 +570,7 @@ function filtered(){
     if(F.view==='ready' && !ready) return false;
     if(F.view==='needs' && ready) return false;
     if(F.src && r.type!==F.src) return false;
-    if(!F.expired && r.expiry && r.expiry < NOW) return false;
+    if(!F.expired && ((r.expiry && r.expiry < NOW) || r.sevBasisGone)) return false;
     if(F.make && r.make.toUpperCase()!==F.make) return false;
     if(F.path && r.path!==F.path) return false;
     if(F.cat && r.cat!==F.cat) return false;
