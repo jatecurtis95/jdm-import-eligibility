@@ -229,13 +229,21 @@ footer a{color:var(--blue)}
   .tablewrap{display:none}
   .cards{display:block}
   .hero{padding-top:30px}
-  .stat{min-width:33%}
+  /* show the four tiles as a balanced 2x2 instead of 3 + 1 */
+  .stat{min-width:50%}
+  .stat:nth-child(2n){border-right:none}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
   .hright .stamp{display:none}
 }
 @media(max-width:560px){
   .fwrap{padding:11px 16px}
   .hwrap,.hero,.main,.fmeta{padding-left:16px;padding-right:16px}
   .seg button{padding:0 11px}
+  /* keep the header on one line so nothing clips at the right edge */
+  .hwrap{gap:10px}
+  .hlogo{height:26px}
+  .hdiv,.brand{display:none}
+  .btn.hdr{padding:8px 12px;font-size:11px}
 }
 </style>
 </head>
