@@ -44,7 +44,7 @@
   header.site{position:sticky;top:0;z-index:40;background:var(--header);color:var(--header-ink);border-bottom:1px solid #000;}
   .site .bar{display:flex;align-items:center;gap:12px;height:56px}
   .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--header-ink)}
-  .brand-logo{height:22px;width:auto;display:block}
+  .brand-logo{width:190px;max-width:52vw;height:auto;display:block}
   .brand .sub{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#9d937f;border-left:1px solid #3a342a;padding-left:10px;line-height:1.25;display:none;}
   .header-right{margin-left:auto;display:flex;align-items:center;gap:14px}
   .updated{font-size:11px;color:#9d937f;text-align:right;line-height:1.2;display:none}
@@ -53,7 +53,7 @@
   .btn-export:hover{background:#211b12;border-color:#7a6a45}
   .btn-export:active{transform:scale(.97)}
   .btn-export svg{width:15px;height:15px}
-  @media (min-width:560px){ .brand .sub{display:block} .brand-logo{height:26px} }
+  @media (min-width:560px){ .brand .sub{display:block} .brand-logo{width:225px;max-width:none} }
   @media (min-width:900px){ .updated{display:block} }
 
   .hero{padding:30px 0 10px}
@@ -162,7 +162,7 @@
   footer.site a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px}
   footer.site .powered{display:inline-flex;flex-direction:column;align-items:center;gap:8px;margin:0 auto 18px;text-decoration:none}
   footer.site .powered .lbl{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint)}
-  footer.site .powered img{height:30px;width:auto;display:block}
+  footer.site .powered img{width:240px;max-width:74vw;height:auto;display:block}
   footer.site .powered:hover .lbl{color:var(--muted)}
 
   /* ---------- detail panel (slide-over) ---------- */
