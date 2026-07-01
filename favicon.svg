@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EBCB6E"/>
+      <stop offset=".55" stop-color="#C79A33"/>
+      <stop offset="1" stop-color="#9A7727"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#15120D"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="#C79A33" stroke-opacity=".30" stroke-width="1.5"/>
+  <!-- body -->
+  <path fill="url(#gold)" d="M10 39 C10 36.5 11.5 35.4 14 35 L19.5 34.6 C21.6 30.8 25 28.2 31 28 C36.4 27.8 40.2 29.6 43 33.2 L50.5 34.2 C53.2 34.6 54.5 36 54.5 38.6 C54.5 39.6 53.9 40.2 52.8 40.2 L11.4 40.2 C10.4 40.2 10 39.9 10 39 Z"/>
+  <!-- windshield/cabin cut -->
+  <path fill="#15120D" d="M24 33.4 C25.6 30.9 28 29.6 31 29.5 C34 29.4 36.3 30.5 38.3 32.5 L38.6 33.4 Z"/>
+  <!-- wheels -->
+  <circle cx="21" cy="41" r="6.4" fill="#15120D"/><circle cx="21" cy="41" r="4.9" fill="url(#gold)"/><circle cx="21" cy="41" r="2" fill="#15120D"/>
+  <circle cx="44" cy="41" r="6.4" fill="#15120D"/><circle cx="44" cy="41" r="4.9" fill="url(#gold)"/><circle cx="44" cy="41" r="2" fill="#15120D"/>
+</svg>
