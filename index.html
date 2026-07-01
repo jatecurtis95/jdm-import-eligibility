@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>JDM Import Eligibility Checker Australia | SEVS &amp; MRE Register | JDM Connect</title>
 <meta name="description" content="Check if a car is eligible for import into Australia. Browse the full SEVS and MRE registers with live Government ROVER data, updated daily by JDM Connect." />
+<link rel="canonical" href="https://caniimportit.com.au/" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,8 +44,7 @@
   header.site{position:sticky;top:0;z-index:40;background:var(--header);color:var(--header-ink);border-bottom:1px solid #000;}
   .site .bar{display:flex;align-items:center;gap:12px;height:56px}
   .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--header-ink)}
-  .brand .mark{font-family:var(--font-display);font-weight:600;letter-spacing:.5px;font-size:18px}
-  .brand .mark b{color:var(--gold-bright)}
+  .brand-logo{width:190px;max-width:52vw;height:auto;display:block}
   .brand .sub{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#9d937f;border-left:1px solid #3a342a;padding-left:10px;line-height:1.25;display:none;}
   .header-right{margin-left:auto;display:flex;align-items:center;gap:14px}
   .updated{font-size:11px;color:#9d937f;text-align:right;line-height:1.2;display:none}
@@ -53,7 +53,7 @@
   .btn-export:hover{background:#211b12;border-color:#7a6a45}
   .btn-export:active{transform:scale(.97)}
   .btn-export svg{width:15px;height:15px}
-  @media (min-width:560px){ .brand .sub{display:block} }
+  @media (min-width:560px){ .brand .sub{display:block} .brand-logo{width:225px;max-width:none} }
   @media (min-width:900px){ .updated{display:block} }
 
   .hero{padding:30px 0 10px}
@@ -160,6 +160,10 @@
   footer.site .fjp{font-family:var(--font-display);font-style:italic;font-size:13px;letter-spacing:.18em;color:var(--faint);margin-bottom:10px}
   footer.site p{max-width:640px;margin:0 auto 6px;line-height:1.6}
   footer.site a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px}
+  footer.site .powered{display:inline-flex;flex-direction:column;align-items:center;gap:8px;margin:0 auto 18px;text-decoration:none}
+  footer.site .powered .lbl{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint)}
+  footer.site .powered img{width:240px;max-width:74vw;height:auto;display:block}
+  footer.site .powered:hover .lbl{color:var(--muted)}
 
   /* ---------- detail panel (slide-over) ---------- */
   .scrim{position:fixed;inset:0;background:rgba(20,16,10,.42);opacity:0;pointer-events:none;transition:opacity .22s;z-index:50}
@@ -214,8 +218,8 @@
 <header class="site">
   <div class="wrap bar">
     <a class="brand" href="https://jdmconnect.com.au" aria-label="JDM Connect">
-      <span class="mark"><b>JDM</b> CONNECT</span>
-      <span class="sub">Dealer<br/>Register</span>
+      <img class="brand-logo" src="/logo.png" alt="JDM Connect" width="225" height="24" />
+      <span class="sub">Import Eligibility<br/>Register</span>
     </a>
     <div class="header-right">
       <div class="updated">ROVER registers<br/><b id="updatedDate">loading…</b></div>
@@ -295,6 +299,10 @@
 
 <footer class="site">
   <div class="wrap">
+    <a class="powered" href="https://jdmconnect.com.au" aria-label="Powered by JDM Connect">
+      <span class="lbl">Powered by</span>
+      <img src="/logo.png" alt="JDM Connect" width="282" height="30" />
+    </a>
     <div class="fjp">日本車を、オーストラリアへ</div>
     <p>Data sourced live from the Australian Government ROVER portal (SEVS Register &amp; Model Report Approvals). Refreshed daily.</p>
     <p>This register is a guide only — always confirm eligibility with a licensed RAWS workshop before purchase.</p>

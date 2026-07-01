@@ -38,6 +38,9 @@ const mergedDataset = (() => {
 // Add any additional domains that embed or iframe the eligibility site.
 const ALLOWED_ORIGINS = [
   "https://eligibility.jdmconnect.com.au",
+  // "Can I Import It" brand — same site, canonical host is the .com.au.
+  "https://caniimportit.com.au",
+  "https://caniimportit.com",
   "https://jdmconnect.com.au",
   "https://www.jdmconnect.com.au",
   // Cloudflare preview domain — comment out once you don't need previews.
