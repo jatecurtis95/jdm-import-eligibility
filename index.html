@@ -797,10 +797,9 @@ function playIntro(){
   gsap.from('h1.title',{y:18,autoAlpha:0,duration:.7,ease:'power3.out'});
   gsap.from('.eyebrow',{y:10,autoAlpha:0,duration:.5,ease:'power2.out'});
   gsap.from('.stat',{y:14,autoAlpha:0,duration:.5,stagger:.08,delay:.05,ease:'power2.out'});
-  document.querySelectorAll('.stat .n').forEach(n=>{
-    const t=+n.dataset.count||0, o={v:0};
-    gsap.to(o,{v:t,duration:1.1,delay:.1,ease:'power2.out',onUpdate:()=>{ n.textContent=Math.round(o.v).toLocaleString(); }});
-  });
+  // Stat figures are set directly by setStat() once data loads. (No count-up
+  // animation: it raced the async data load and could leave the tiles stuck at
+  // "0", and it read as a gimmick rather than a professional data tool.)
   animateItems();
 }
 
