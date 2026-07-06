@@ -100,13 +100,13 @@
   .faq-item p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6;max-width:70ch}
   .faq-item p a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px}
 
-  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0 4px;}
-  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;min-height:66px;}
-  .stat .n{font-family:var(--font-text);font-weight:700;font-size:26px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--ink)}
-  .stat .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0 6px;}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-height:70px;}
+  .stat .n{font-family:var(--font-text);font-weight:700;font-size:26px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--ink);width:100%}
+  .stat .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:7px;width:100%}
   .stat.warn .n{color:var(--gold)}
   @media (max-width:520px){ .stat .n{font-size:22px} }
-  @media (min-width:720px){ .stats{grid-template-columns:repeat(4,1fr);gap:14px} }
+  @media (min-width:720px){ .stats{grid-template-columns:repeat(4,1fr);gap:16px} }
 
   .filters{position:sticky;top:56px;z-index:30;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line-strong);box-shadow:0 6px 14px -10px rgba(20,16,10,.18);padding:14px 0;margin-top:16px;}
   .filters .wrap{display:flex;flex-direction:column;gap:10px}
@@ -196,6 +196,11 @@
   .chassiscode{font-family:var(--font-mono);font-size:12.5px;color:var(--ink);word-break:break-word}
   .chev{color:var(--faint);font-size:18px}
 
+  .pagination{display:flex;align-items:center;justify-content:center;gap:14px;margin:28px auto 0;padding:14px 0}
+  .pag-btn{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px;padding:10px 16px;background:var(--panel);border:1px solid var(--line-strong);border-radius:10px;cursor:pointer;color:var(--ink);transition:border-color .15s, background .15s}
+  .pag-btn:hover:not(:disabled){border-color:var(--gold-line);background:var(--gold-soft)}
+  .pag-btn:disabled{opacity:.4;cursor:not-allowed}
+  .pag-info{font-size:13px;color:var(--muted);font-weight:500;min-width:140px;text-align:center}
   .loadmore{display:block;margin:24px auto 0;font-weight:600;font-size:13px;padding:12px 28px;background:var(--panel);border:1px solid var(--line-strong);border-radius:999px;cursor:pointer;color:var(--ink);transition:border-color .15s}
   .loadmore:hover{border-color:var(--ink)}
   .empty{text-align:center;padding:44px 20px;color:var(--muted);border:1px dashed var(--line-strong);border-radius:var(--radius);background:#FBF7EF;}
@@ -403,7 +408,11 @@
         <a id="emptyQuote" href="https://finder.jdmconnect.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=empty_state" target="_blank" rel="noopener">Get a free eligibility check →</a>
       </div>
     </div>
-    <button class="loadmore" id="moreBtn" style="display:none">Show more ↓</button>
+    <div id="pagination" class="pagination" style="display:none">
+      <button id="prevBtn" class="pag-btn">← Previous</button>
+      <span id="pageInfo" class="pag-info"></span>
+      <button id="nextBtn" class="pag-btn">Next →</button>
+    </div>
   </section>
 
   <section class="faq wrap" aria-labelledby="faqHeading">
@@ -482,8 +491,8 @@ const PATH_COLORS = {
 const CAR_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 11l1.5-3.5C6.8 6.6 7.6 6 8.6 6h6.8c1 0 1.8.6 2.1 1.5L19 11l1.3.5c.7.3 1.2 1 1.2 1.8V16c0 .6-.4 1-1 1h-1a2 2 0 1 1-4 0H8.5a2 2 0 1 1-4 0h-1c-.6 0-1-.4-1-1v-2.7c0-.8.5-1.5 1.2-1.8L5 11zm2.2-.5h9.6l-1-2.3c-.1-.3-.4-.4-.7-.4H8.9c-.3 0-.6.1-.7.4l-1 2.3z"/></svg>';
 
 let rows = [], photos = {}, photoIdx = {}, sevByNum = {}, mresBySev = {};
-let shown = 120;
-const PAGE = 120;
+const PAGE = 12;
+let currentPage = 1;
 // Below this many records the dataset is almost certainly truncated (bad scrape
 // / partial fetch) — treat it as a load failure rather than rendering a
 // misleadingly tiny "register". The real register is ~1500 rows.
@@ -772,16 +781,29 @@ function render(){
   const list = filtered();
   const total = list.length;
   const totalAll = rows.reduce((n,r)=>n+(r.folded?0:1),0);
-  $('count').innerHTML = 'Showing <b>'+total.toLocaleString()+'</b> of <b>'+totalAll.toLocaleString()+'</b> vehicles';
+  const maxPage = Math.ceil(total / PAGE);
+  currentPage = Math.max(1, Math.min(currentPage, maxPage));
+  const start = (currentPage - 1) * PAGE;
+  const slice = list.slice(start, start + PAGE);
+  $('count').innerHTML = 'Showing <b>'+slice.length.toLocaleString()+'</b> of <b>'+total.toLocaleString()+'</b> vehicles';
   $('empty').hidden = total>0;
   $('tableWrap').style.display = total ? '' : 'none';
-  const slice = list.slice(0, shown);
   $('cards').innerHTML = slice.map(cardHTML).join('');
   $('rows').innerHTML = slice.map(rowHTML).join('');
-  $('moreBtn').style.display = total > shown ? '' : 'none';
+  updatePagination(currentPage, maxPage);
   animateItems();
 }
-function resetAndRender(){ shown = PAGE; render(); }
+function updatePagination(current, max){
+  const pag = $('pagination');
+  if(!pag) return;
+  pag.style.display = max<=1 ? 'none' : '';
+  if(max>1){
+    $('prevBtn').disabled = current===1;
+    $('nextBtn').disabled = current===max;
+    $('pageInfo').innerHTML = 'Page <b>'+current+'</b> of <b>'+max+'</b>';
+  }
+}
+function resetAndRender(){ currentPage = 1; render(); }
 function scrollToResults(){
   const el = document.querySelector('.results');
   if(!el) return;
@@ -1007,7 +1029,8 @@ function wire(){
   // Checked = narrow to workshop-ready; unchecked (default) = show all eligible.
   $('tReady').addEventListener('change', e=>{F.view=e.target.checked?'ready':'all'; resetAndRender();});
   $('exportBtn').addEventListener('click', exportCSV);
-  $('moreBtn').addEventListener('click', ()=>{ shown+=PAGE; render(); });
+  $('prevBtn')?.addEventListener('click', ()=>{ currentPage--; render(); scrollToResults(); });
+  $('nextBtn')?.addEventListener('click', ()=>{ currentPage++; render(); scrollToResults(); });
   const openFrom = el=>{ const row = el.closest('[data-i]'); if(row) openPanel(rows[+row.dataset.i]); };
   $('cards').addEventListener('click', e=>openFrom(e.target));
   $('rows').addEventListener('click', e=>openFrom(e.target));
