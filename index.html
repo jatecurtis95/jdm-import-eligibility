@@ -108,32 +108,30 @@
   @media (min-width:720px){ .stats{grid-template-columns:repeat(4,1fr);gap:14px} }
 
   .filters{position:sticky;top:56px;z-index:30;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:saturate(1.1) blur(8px);-webkit-backdrop-filter:saturate(1.1) blur(8px);border-bottom:1px solid var(--line);padding:12px 0;margin-top:14px;}
-  .filters .row{display:flex;flex-direction:column;gap:10px}
+  .filters .wrap{display:flex;flex-direction:column;gap:10px}
   .search{position:relative}
   .search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--faint)}
-  .search input{width:100%;height:48px;padding:0 14px 0 40px;background:var(--panel);border:1px solid var(--line);border-radius:999px;font-size:16px;color:var(--ink);}
+  .search input{width:100%;height:44px;padding:0 14px 0 40px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-size:16px;color:var(--ink);}
   .selects{display:grid;grid-template-columns:1fr 1fr;gap:10px 8px}
   .fld{display:flex;flex-direction:column;gap:4px;min-width:0}
   .fld>span{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700;padding-left:2px}
   .selects select, .selects input{width:100%;height:42px;padding:0 12px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);font-size:14px;color:var(--ink);-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239A9183' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
   .selects input{background-image:none}
-  .legend{display:flex;flex-wrap:wrap;gap:9px 16px;align-items:center;margin:14px 0 0;padding:11px 14px;background:#FBF7EF;border:1px solid var(--line);border-radius:10px;font-size:12.5px;color:var(--muted);line-height:1.4}
-  .legend .li{display:inline-flex;align-items:center;gap:7px}
-  .legend .dot{width:8px;height:8px;border-radius:50%;flex:none}
-  .legend b{color:var(--ink);font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:5px 16px;align-items:center;margin:12px 0 2px;font-size:12px;color:var(--faint);line-height:1.5}
+  .legend .li{display:inline-flex;align-items:center;gap:6px}
+  .legend .dot{width:7px;height:7px;border-radius:50%;flex:none}
+  .legend b{color:var(--muted);font-weight:600}
   .toggles{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
   .toggle{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:13px;color:var(--muted);min-height:40px;user-select:none;cursor:pointer;}
   .toggle input{accent-color:var(--gold-bright);width:16px;height:16px}
   .count{margin-left:auto;font-size:13px;color:var(--muted)}
   .count b{color:var(--gold);font-weight:700}
   @media (min-width:720px){
-    .filters .row{flex-direction:row;align-items:center}
-    .search{flex:1 1 280px}
-    .selects{grid-template-columns:repeat(4,minmax(120px,1fr));flex:2 1 520px}
+    .selects{grid-template-columns:repeat(4,minmax(120px,1fr))}
   }
 
   .howto{border:1px solid var(--line);background:#FBF7EF;border-radius:var(--radius);margin:16px 0;overflow:hidden;}
-  .howto summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;gap:10px;font-weight:600;color:var(--gold);font-size:14px;}
+  .howto summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;align-items:center;gap:10px;font-weight:600;color:var(--ink);font-size:14px;}
   .howto summary::-webkit-details-marker{display:none}
   .howto summary .plus{margin-left:auto;color:var(--faint);font-size:18px;transition:transform .2s ease}
   .howto[open] summary .plus{transform:rotate(45deg)}
@@ -342,32 +340,28 @@
 <main>
   <section class="hero wrap">
     <div class="eyebrow"><span class="rule"></span> SEVS + MRE &middot; Live government data<span id="heroUpdated" class="hero-updated"></span></div>
-    <h1 class="title">Can I import it? <em>Check the register.</em></h1>
-    <div class="title-jp">&#36664;&#20837;&#36969;&#26684;&#24615;&#30331;&#37682;&#31807;</div>
-
-    <p class="lead">Check whether a car is <b>eligible to import into Australia</b>. This is the full <b>SEVS Register</b> and <b>Model Report (MRE)</b> list, pulled live from the Australian Government ROVER portal and refreshed daily. Search by make, model, chassis code or the year you want it built in.</p>
+    <h1 class="title">Can I import it?</h1>
+    <p class="lead">The full <b>SEVS</b> and <b>Model Report (MRE)</b> registers &mdash; live Australian Government ROVER data, updated daily.</p>
 
     <div class="stats" id="stats">
       <div class="stat"><div class="n" id="stSev" data-count="0">—</div><div class="l">SEVS entries</div></div>
       <div class="stat"><div class="n" id="stMre" data-count="0">—</div><div class="l">Model reports</div></div>
       <div class="stat"><div class="n" id="stMakes" data-count="0">—</div><div class="l">Makes</div></div>
-      <div class="stat warn"><div class="n" id="stExp" data-count="0">—</div><div class="l">Expiring &le; 90 days</div></div>
+      <div class="stat warn"><div class="n" id="stExp" data-count="0">—</div><div class="l">Expiring soon</div></div>
     </div>
   </section>
 
   <section class="filters" aria-label="Filter the register">
     <div class="wrap">
-      <div class="row">
-        <div class="search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-          <input id="q" type="search" placeholder="Search make, model or chassis code — e.g. Skyline, BNR34" aria-label="Search" autocomplete="off" />
-        </div>
-        <div class="selects">
-          <label class="fld"><span>Make</span><select id="fMake" aria-label="Filter by make"><option value="">All makes</option></select></label>
-          <label class="fld"><span>Criterion</span><select id="fCrit" aria-label="Filter by criterion"><option value="">All criteria</option></select></label>
-          <label class="fld"><span>Category</span><select id="fCat" aria-label="Filter by category"><option value="">All categories</option></select></label>
-          <label class="fld"><span>Built in year</span><input id="fYear" type="number" inputmode="numeric" placeholder="e.g. 2001" aria-label="Built in year" min="1950" max="2030" /></label>
-        </div>
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="q" type="search" placeholder="Search make, model or chassis code — e.g. Skyline, BNR34" aria-label="Search" autocomplete="off" />
+      </div>
+      <div class="selects">
+        <label class="fld"><span>Make</span><select id="fMake" aria-label="Filter by make"><option value="">All makes</option></select></label>
+        <label class="fld"><span>Criterion</span><select id="fCrit" aria-label="Filter by criterion"><option value="">All criteria</option></select></label>
+        <label class="fld"><span>Category</span><select id="fCat" aria-label="Filter by category"><option value="">All categories</option></select></label>
+        <label class="fld"><span>Built in year</span><input id="fYear" type="number" inputmode="numeric" placeholder="e.g. 2001" aria-label="Built in year" min="1950" max="2030" /></label>
       </div>
       <div class="toggles">
         <label class="toggle" title="Only show models a RAWS workshop already has an approved compliance package for"><input type="checkbox" id="tReady" /> Workshop-ready only</label>
@@ -379,11 +373,11 @@
 
   <div class="wrap">
     <div class="legend" aria-label="What the labels mean">
-      <span class="li"><span class="dot" style="background:var(--ok-ink)"></span><b>Eligible</b> — approved to import now</span>
-      <span class="li"><span class="dot" style="background:var(--warn-ink)"></span><b>Expiring</b> — approval ends soon</span>
-      <span class="li"><span class="dot" style="background:var(--exp-ink)"></span><b>Not eligible</b> — approval expired or lapsed</span>
-      <span class="li"><b>Criterion</b> — why it qualifies (performance, rarity…)</span>
-      <span class="li"><b>Workshop</b> — a licensed RAWS shop ready to comply it</span>
+      <span class="li"><span class="dot" style="background:var(--ok-ink)"></span><b>Eligible</b> — approved now</span>
+      <span class="li"><span class="dot" style="background:var(--warn-ink)"></span><b>Expiring</b> — ends soon</span>
+      <span class="li"><span class="dot" style="background:var(--exp-ink)"></span><b>Not eligible</b> — expired</span>
+      <span class="li"><b>Criterion</b> — why it qualifies</span>
+      <span class="li"><b>Workshop</b> — a shop ready to comply it</span>
     </div>
     <details class="howto">
       <summary>New to importing? How this works <span class="plus">+</span></summary>
