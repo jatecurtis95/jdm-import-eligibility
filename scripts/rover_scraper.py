@@ -13,6 +13,30 @@ import urllib.parse
 from datetime import datetime, timedelta
 
 try:
+    from zoneinfo import ZoneInfo
+    # JDM Connect operates on AWST (Perth) — matches the finder's contact widget.
+    AU_TZ = ZoneInfo("Australia/Perth")
+except Exception:  # pragma: no cover - zoneinfo present on py3.9+
+    AU_TZ = None
+
+
+def _now_local():
+    """Timezone-aware 'now' in the business timezone (AWST), falling back to a
+    naive local now only if zoneinfo is unavailable. Used for every customer- or
+    operator-facing timestamp so we never mislabel a UTC runner clock as AWST."""
+    return datetime.now(AU_TZ) if AU_TZ else datetime.now()
+
+
+# ── Publish safety gate ──────────────────────────────────────────────────────
+# A scrape must clear these before it can overwrite the live data.json. This is
+# the single guard that would have caught the 5 Apr 2026 incident (~100 MRE rows
+# silently dropped) and any recurrence of an under-counted pager. Override a
+# genuine register contraction with `snapshot --force`.
+PUBLISH_MIN_MRE = 100
+PUBLISH_MIN_SEV = 100
+PUBLISH_MAX_DROP = 0.10  # abort if either register shrinks by >10% vs last publish
+
+try:
     import requests as _requests
 except ImportError:
     _requests = None
@@ -466,6 +490,35 @@ def _shorten_workshop(holder):
 
 # ── Data extraction ─────────────────────────────────────────────────────────
 
+# ROVER renders an "Under review" badge *inside* the SEV#/Approval-number cell,
+# so the raw innerText comes back as e.g. "SEV-000742\nUnder review". Left alone
+# that badge text becomes part of the primary key — breaking cross-register
+# lookups, deep links, and week-over-week change detection. Pull just the ID.
+_APPROVAL_ID_RE = re.compile(r'((?:SEV|MRE)-\d+)', re.IGNORECASE)
+_ID_FIELDS = ('SEV #', 'Approval number')
+
+
+def _clean_id_value(raw):
+    if not raw:
+        return raw
+    s = str(raw)
+    m = _APPROVAL_ID_RE.search(s)
+    if m:
+        return m.group(1).upper()
+    # No SEV-/MRE- token found — fall back to the first line so badge text on a
+    # second line never contaminates the key.
+    return s.split('\n', 1)[0].strip()
+
+
+def _sanitize_record_ids(records):
+    """Strip badge/label contamination out of every record's ID field in place."""
+    for r in records:
+        for key in _ID_FIELDS:
+            if key in r:
+                r[key] = _clean_id_value(r[key])
+    return records
+
+
 async def extract_table_page(page):
     return await page.evaluate("""
         () => {
@@ -488,11 +541,22 @@ async def extract_table_page(page):
 
 
 async def get_total_pages(page):
+    # Reads the max page number from the pager. Also inspects aria-labels
+    # ("Go to page 12") so a restyle that drops visible numerals doesn't silently
+    # collapse the register to a single page. A wrong low value here is still
+    # backstopped by the publish gate (count-drop check) before anything ships.
     return await page.evaluate("""
         () => {
-            const btns = [...document.querySelectorAll('li a, li button, nav button, nav a')];
-            const nums = btns.map(b => parseInt(b.innerText.trim())).filter(n => !isNaN(n) && n > 0);
-            return nums.length ? Math.max(...nums) : 1;
+            const els = [...document.querySelectorAll('li a, li button, nav button, nav a, [aria-label]')];
+            let max = 1;
+            for (const b of els) {
+                const t = parseInt((b.innerText || '').trim());
+                if (!isNaN(t) && t > 0) max = Math.max(max, t);
+                const al = (b.getAttribute && b.getAttribute('aria-label')) || '';
+                const m = al.match(/page\\s+(\\d+)/i);
+                if (m) max = Math.max(max, parseInt(m[1], 10));
+            }
+            return max;
         }
     """)
 
@@ -695,7 +759,7 @@ async def _advance_page(page, next_page, current_page, total_pages, prev_first_s
     )
 
 
-async def fetch_all_records(browser, url, list_name):
+async def fetch_all_records(browser, url, list_name, id_field=None):
     print(f"\n{'='*50}")
     print(f"Fetching: {list_name}")
     print(f"URL: {url}")
@@ -712,6 +776,7 @@ async def fetch_all_records(browser, url, list_name):
 
     all_records = []
     current_page = 1
+    header_checked = False
     # Track the first row's "signature" so we can detect when the next page hasn't
     # actually rendered yet (ROVER's AJAX pager occasionally serves stale rows
     # if we don't wait long enough — that's the silent-loss bug that dropped
@@ -736,6 +801,18 @@ async def fetch_all_records(browser, url, list_name):
                     f"refusing to silently lose records. Aborting so the cron alerts."
                 )
 
+        # Column-remap guard: if ROVER inserts/renames/reorders a column, the
+        # positional header mapping silently files values under the wrong key.
+        # Verify the expected primary-key column exists before trusting any rows.
+        if not header_checked and id_field:
+            if id_field not in rows[0]:
+                raise RuntimeError(
+                    f"{list_name}: expected column '{id_field}' not found in scraped "
+                    f"headers {list(rows[0].keys())}. ROVER's table structure likely "
+                    f"changed — aborting so bad data can't ship."
+                )
+            header_checked = True
+
         all_records.extend(rows)
         print(f"{len(rows)} records")
         last_first_row_sig = _row_signature(rows[0]) if rows else None
@@ -752,6 +829,7 @@ async def fetch_all_records(browser, url, list_name):
             raise
 
     await context.close()
+    _sanitize_record_ids(all_records)
     print(f"  Total records fetched: {len(all_records)}")
     return all_records
 
@@ -1385,7 +1463,7 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
     added_count = len(added_mre) + len(added_sev)
     removed_count = len(removed_mre) + len(removed_sev)
     expiring_count = len(expiring)
-    week_date = datetime.now().strftime('%d %B %Y').lstrip('0')
+    week_date = _now_local().strftime('%d %B %Y').lstrip('0')
 
     parts = []
     if added_count: parts.append(f"{added_count} added")
@@ -1398,7 +1476,7 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
     all_mre = mre_records or []
 
     # Data-refreshed timestamp + month-over-month trend line
-    data_refreshed = datetime.now().strftime('%d %b %Y at %H:%M AWST')
+    data_refreshed = _now_local().strftime('%d %b %Y at %H:%M %Z')
     html = html.replace('{{DATA_REFRESHED}}', data_refreshed)
 
     trend_html = ''
@@ -1467,7 +1545,7 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
 
     # Footer cadence: next send is the next Wednesday (weekday() == 2). If
     # today is Wednesday, advance to the following week.
-    today = datetime.now()
+    today = _now_local()
     days_ahead = (2 - today.weekday()) % 7 or 7
     next_update = (today + timedelta(days=days_ahead)).strftime('%d %b %Y').lstrip('0')
     html = html.replace('{{NEXT_UPDATE}}', next_update)
@@ -1498,7 +1576,7 @@ def send_weekly_email(html, mre_changes, sev_changes):
     added_sev = sev_changes.get('added', [])
     added = len(added_mre) + len(added_sev)
     removed = len(mre_changes.get('removed', [])) + len(sev_changes.get('removed', []))
-    week = datetime.now().strftime('%d %b').lstrip('0')
+    week = _now_local().strftime('%d %b').lstrip('0')
     subject = _compose_subject(added_mre, added_sev, added, removed, week)
 
     token_url = f'https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token'
@@ -1602,7 +1680,35 @@ def _carry_forward_enrichment(mre_records, sev_records, prev_data):
     return mre_n, sev_n
 
 
-async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_limit=None, email_only_on_change=False, with_scope=False, scope_refresh=False):
+def _validate_before_publish(mre_records, sev_records, prev_data, force=False):
+    """Gate between a finished scrape and overwriting the live data.json.
+    Aborts (exit 1) if either register is implausibly small or has collapsed vs
+    the last publish — the check the pipeline was missing when it shipped a
+    truncated register on 5 Apr 2026. `--force` overrides a genuine contraction.
+    """
+    problems = []
+    if len(mre_records) < PUBLISH_MIN_MRE:
+        problems.append(f"MRE count {len(mre_records)} below floor {PUBLISH_MIN_MRE}")
+    if len(sev_records) < PUBLISH_MIN_SEV:
+        problems.append(f"SEV count {len(sev_records)} below floor {PUBLISH_MIN_SEV}")
+    if prev_data:
+        pm, ps = len(prev_data.get('mre', [])), len(prev_data.get('sev', []))
+        if pm and len(mre_records) < pm * (1 - PUBLISH_MAX_DROP):
+            problems.append(f"MRE dropped {pm} -> {len(mre_records)} (>{PUBLISH_MAX_DROP:.0%})")
+        if ps and len(sev_records) < ps * (1 - PUBLISH_MAX_DROP):
+            problems.append(f"SEV dropped {ps} -> {len(sev_records)} (>{PUBLISH_MAX_DROP:.0%})")
+    if not problems:
+        return
+    msg = "Refusing to publish data.json — " + "; ".join(problems)
+    if force:
+        print(f"WARNING: {msg} (overridden by --force)", flush=True)
+        return
+    print(f"ERROR: {msg}", flush=True)
+    print("If ROVER genuinely shrank the register, re-run with: snapshot --force", flush=True)
+    sys.exit(1)
+
+
+async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_limit=None, email_only_on_change=False, with_scope=False, scope_refresh=False, force=False):
     # Resolve and load the previous data.json up front. It's the persistent
     # source of truth for both change detection AND scope carry-forward (so we
     # don't re-scrape unchanged scope data every week).
@@ -1621,8 +1727,8 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        mre_records = await fetch_all_records(browser, MRE_URL, 'MRE List')
-        sev_records = await fetch_all_records(browser, SEV_URL, 'SEVS Register')
+        mre_records = await fetch_all_records(browser, MRE_URL, 'MRE List', id_field='Approval number')
+        sev_records = await fetch_all_records(browser, SEV_URL, 'SEVS Register', id_field='SEV #')
 
         # Carry enrichment (holder, category, scope of works, ...) forward from
         # the previous data.json onto the fresh records. Runs EVERY time so the
@@ -1667,9 +1773,14 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
     report = format_report(mre_records, sev_records, mre_changes, sev_changes)
     print("\n" + report)
 
+    # Safety gate — never overwrite the live data.json with an implausibly small
+    # or collapsed scrape. Runs before the write so bad data can't reach disk (and
+    # therefore can't be committed/deployed).
+    _validate_before_publish(mre_records, sev_records, prev_data, force=force)
+
     # Write data.json for the public site (overwrites the previous-version we just read)
     site_data = {
-        'fetched_at': datetime.now().isoformat(),
+        'fetched_at': _now_local().isoformat(),
         'mre': [{k: v for k, v in r.items() if k != 'Actions'} for r in mre_records],
         'sev': [{k: v for k, v in r.items() if k != 'Actions'} for r in sev_records],
     }
@@ -1691,7 +1802,13 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
             if added_count == 0 and removed_count == 0:
                 print("No additions or removals — skipping email (email_only_on_change=True).")
                 return report
-        send_weekly_email(email_html, mre_changes, sev_changes)
+        # data.json is already written above, so surfacing a send failure as a
+        # non-zero exit makes the workflow go red (firing GitHub's failure
+        # notification) WITHOUT costing the data update — the alert channel can
+        # no longer die silently on an expired O365 credential.
+        if not send_weekly_email(email_html, mre_changes, sev_changes):
+            print("ERROR: weekly digest email failed to send — see log above.", flush=True)
+            sys.exit(1)
 
     return report
 
@@ -1744,6 +1861,7 @@ if __name__ == '__main__':
             email_only_on_change=email_only_on_change,
             with_scope=with_scope,
             scope_refresh='--scope-refresh' in flags,
+            force='--force' in flags,
         ))
     elif mode == 'email-preview':
         asyncio.run(run_email_preview(output_dir))
@@ -1771,5 +1889,6 @@ if __name__ == '__main__':
         print("  python rover_scraper.py snapshot --with-detail         # Also enrich each record from its detail page")
         print("  python rover_scraper.py snapshot --with-scope          # Also scrape Vehicle Specification (seating/welcab/mass)")
         print("  python rover_scraper.py snapshot --with-detail --detail-limit=20  # Sample only the first 20")
+        print("  python rover_scraper.py snapshot --force               # Publish even if the register shrank >10% (use after verifying)")
         print("  python rover_scraper.py email-preview                  # Preview email as HTML file")
         print("  python rover_scraper.py send-email                     # Send from latest data")

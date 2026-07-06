@@ -15,6 +15,12 @@ on:
 permissions:
   contents: write
 
+# Serialize with the weekly run (same group) so a daily cron firing mid-weekly
+# scrape can't push a competing commit to main. Queued, not cancelled.
+concurrency:
+  group: rover-scrape
+  cancel-in-progress: false
+
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
@@ -33,7 +39,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install playwright requests
+          pip install -r scripts/requirements.txt
           playwright install chromium
           playwright install-deps chromium
 
@@ -50,29 +56,18 @@ jobs:
           cd scripts
           python rover_scraper.py snapshot --send-email --email-only-on-change
 
+      # Runs even if the scraper step failed. The scraper writes data.json BEFORE
+      # attempting the (non-fatal-to-data) email, and exits non-zero only after
+      # the write on an email failure — so we still want to detect and commit the
+      # good data, while the failed step keeps the job red for the alert. A real
+      # scrape crash or the publish gate aborts before the write, so data.json is
+      # unchanged and nothing gets committed.
       - name: Check for data changes
         id: changes
+        if: ${{ !cancelled() }}
         run: |
           git diff --quiet functions/_data/data.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push updated data
-        if: steps.changes.outputs.changed == 'true'
-        run: |
-          git config user.email "action@github.com"
-          git config user.name "GitHub Actions [ROVER Scraper]"
-          # data.json is wholly machine-generated — the fresh scrape always wins.
-          # Save it aside, fast-forward to origin/main, restore, commit, push.
-          # This avoids the rebase/editor conflict trap when daily + weekly runs
-          # land close together.
-          cp functions/_data/data.json /tmp/data.json.new
-          git fetch origin main
-          git reset --hard origin/main
-          mkdir -p functions/_data
-          mv /tmp/data.json.new functions/_data/data.json
-          git add functions/_data/data.json
-          if git diff --cached --quiet; then
-            echo "data.json identical to origin/main after refetch — nothing to commit"
-            exit 0
-          fi
-          git commit -m "Auto-update: ROVER data refreshed $(date -u +'%Y-%m-%d')"
-          git push
+        if: ${{ !cancelled() && steps.changes.outputs.changed == 'true' }}
+        uses: ./.github/actions/commit-data

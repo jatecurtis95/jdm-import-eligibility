@@ -37,6 +37,11 @@ on:
 permissions:
   contents: write
 
+# Same group as daily-scrape.yml so the two never push to main concurrently.
+concurrency:
+  group: rover-scrape
+  cancel-in-progress: false
+
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
@@ -57,7 +62,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install playwright requests
+          pip install -r scripts/requirements.txt
           playwright install chromium
           playwright install-deps chromium
 
@@ -91,29 +96,15 @@ jobs:
           echo "Running: python rover_scraper.py $ARGS"
           python rover_scraper.py $ARGS
 
+      # See daily-scrape.yml for why these run with !cancelled(): the scraper
+      # exits non-zero after a post-write email failure, and we still want the
+      # good data committed while the job stays red for the alert.
       - name: Check for data changes
         id: changes
+        if: ${{ !cancelled() }}
         run: |
           git diff --quiet functions/_data/data.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push updated data
-        if: steps.changes.outputs.changed == 'true'
-        run: |
-          git config user.email "action@github.com"
-          git config user.name "GitHub Actions [ROVER Scraper]"
-          # data.json is wholly machine-generated — the fresh scrape always wins.
-          # Save it aside, fast-forward to origin/main, restore, commit, push.
-          # This avoids the rebase/editor conflict trap when daily + weekly runs
-          # land close together.
-          cp functions/_data/data.json /tmp/data.json.new
-          git fetch origin main
-          git reset --hard origin/main
-          mkdir -p functions/_data
-          mv /tmp/data.json.new functions/_data/data.json
-          git add functions/_data/data.json
-          if git diff --cached --quiet; then
-            echo "data.json identical to origin/main after refetch — nothing to commit"
-            exit 0
-          fi
-          git commit -m "Auto-update: ROVER data refreshed $(date -u +'%Y-%m-%d')"
-          git push
+        if: ${{ !cancelled() && steps.changes.outputs.changed == 'true' }}
+        uses: ./.github/actions/commit-data
