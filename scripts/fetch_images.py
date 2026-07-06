@@ -44,6 +44,7 @@ def search_wikipedia_image(make: str, model: str) -> Optional[Dict[str, Any]]:
         query = f"{make} {model}".strip()
 
         # Try Wikipedia API first for article images
+        headers = {'User-Agent': 'JDM-Eligibility-Fetcher/1.0 (+https://caniimportit.com.au)'}
         wiki_url = "https://en.wikipedia.org/w/api.php"
         params = {
             'action': 'query',
@@ -54,7 +55,7 @@ def search_wikipedia_image(make: str, model: str) -> Optional[Dict[str, Any]]:
             'formatversion': 2,
         }
 
-        response = requests.get(wiki_url, params=params, timeout=5)
+        response = requests.get(wiki_url, params=params, headers=headers, timeout=5)
         response.raise_for_status()
         data = response.json()
 
@@ -93,7 +94,7 @@ def search_wikipedia_image(make: str, model: str) -> Optional[Dict[str, Any]]:
         return None
 
     except Exception as e:
-        print(f"  ⚠ Error fetching image for {make} {model}: {e}", flush=True)
+        print(f"  [!] Error fetching image for {make} {model}: {e}", flush=True)
         return None
 
 
@@ -157,7 +158,7 @@ def main():
             missing.append(v)
 
     if not missing:
-        print("✓ All vehicles have images!")
+        print("[OK] All vehicles have images!")
         return
 
     print(f"\nFound {len(missing)} vehicles without images. Fetching... (limit: {args.limit})")
@@ -175,9 +176,9 @@ def main():
             code_norm = v['code'].upper().replace(' ', '').replace('-', '')
             photos[code_norm] = img
             fetched += 1
-            print("✓")
+            print("[+]")
         else:
-            print("✗")
+            print("[-]")
 
     if fetched == 0:
         print("\nNo images were fetched. Try expanding your search or adding images manually.")
@@ -189,8 +190,8 @@ def main():
     with open(photos_path, 'w', encoding='utf-8') as f:
         json.dump(photos, f, indent=2, ensure_ascii=False)
 
-    print(f"✓ Done! Fetched {fetched} images.")
-    print(f"  {len(missing) - fetched} vehicles still missing images (limit reached)")
+    print(f"[OK] Done! Fetched {fetched} images.")
+    print(f"     {len(missing) - fetched} vehicles still missing images (limit reached)")
 
 
 if __name__ == '__main__':

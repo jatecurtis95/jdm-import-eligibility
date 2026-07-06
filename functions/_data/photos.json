@@ -2975,5 +2975,35 @@
     "model": "1994",
     "chassis": "",
     "source": "wikipedia"
+  },
+  "TOYOTARACTIS": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Toyota_Verso-S_1.33_VVT-i_Life_%E2%80%93_Frontansicht_%281%29%2C_31._M%C3%A4rz_2011%2C_Mettmann.jpg",
+    "source": "wikipedia",
+    "make": "Toyota",
+    "model": "Ractis"
+  },
+  "TOYOTACROWN": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/74/Toyota_Crown_Sedan_FCEV.jpg",
+    "source": "wikipedia",
+    "make": "Toyota",
+    "model": "Crown"
+  },
+  "MAZDARX7": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8c/1994_Mazda_RX-7_R2_in_Vintage_Red%2C_front_left_%28Lime_Rock%29.jpg",
+    "source": "wikipedia",
+    "make": "Mazda",
+    "model": "RX-7"
+  },
+  "TOYOTAALPHARD": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/2018-2023_Toyota_Alphard_X.jpg",
+    "source": "wikipedia",
+    "make": "Toyota",
+    "model": "Alphard"
+  },
+  "TOYOTAMARKX": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Toyota_MARK_X_250S_%28DBA-GRX130-AETSH%29_%28cropped%29.jpg",
+    "source": "wikipedia",
+    "make": "Toyota",
+    "model": "Mark X"
   }
 }
