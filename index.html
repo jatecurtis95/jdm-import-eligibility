@@ -3,13 +3,30 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>JDM Import Eligibility Checker Australia | SEVS &amp; MRE Register | JDM Connect</title>
-<meta name="description" content="Check if a car is eligible for import into Australia. Browse the full SEVS and MRE registers with live Government ROVER data, updated daily by JDM Connect." />
+
+<!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5QX9JQ4H');</script><!-- End Google Tag Manager -->
+<!-- Meta Pixel --><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','438613762049767');fbq('track','PageView');</script><!-- End Meta Pixel -->
+
+<title>Is My Car Eligible to Import to Australia? SEVS &amp; MRE Checker</title>
+<meta name="description" content="Check if a car is eligible to import into Australia. Search the full SEVS and MRE registers with live Government ROVER data, updated daily by JDM Connect." />
 <link rel="canonical" href="https://caniimportit.com.au/" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="alternate icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <meta name="theme-color" content="#15120D" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JDM Connect" />
+<meta property="og:title" content="Is My Car Eligible to Import to Australia? SEVS &amp; MRE Checker" />
+<meta property="og:description" content="Search the full SEVS and MRE import-eligibility registers — live Australian Government ROVER data, updated daily by JDM Connect." />
+<meta property="og:url" content="https://caniimportit.com.au/" />
+<meta property="og:image" content="https://caniimportit.com.au/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Is My Car Eligible to Import to Australia? SEVS &amp; MRE Checker" />
+<meta name="twitter:description" content="Search the full SEVS and MRE import-eligibility registers — live Government ROVER data, updated daily." />
+<meta name="twitter:image" content="https://caniimportit.com.au/og-image.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -57,7 +74,11 @@
   .btn-export:hover{background:#211b12;border-color:#7a6a45}
   .btn-export:active{transform:scale(.97)}
   .btn-export svg{width:15px;height:15px}
-  @media (min-width:560px){ .brand .sub{display:block} .brand-logo{width:225px;max-width:none} }
+  .btn-quote{display:inline-flex;align-items:center;gap:7px;background:var(--gold-bright);color:#1a1407;border:1px solid var(--gold-bright);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;min-height:40px;text-decoration:none;white-space:nowrap;transition:filter .15s ease, transform .08s ease;}
+  .btn-quote:hover{filter:brightness(1.06)}
+  .btn-quote:active{transform:scale(.97)}
+  .btn-export{display:none}
+  @media (min-width:560px){ .brand .sub{display:block} .brand-logo{width:225px;max-width:none} .btn-export{display:inline-flex} }
   @media (min-width:900px){ .updated{display:block} }
 
   .hero{padding:30px 0 10px}
@@ -66,6 +87,18 @@
   h1.title{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,8.5vw,68px);line-height:1.02;letter-spacing:-.01em;margin:.32em 0 .15em;}
   h1.title em{font-style:italic;color:var(--gold);font-weight:500}
   .title-jp{color:var(--faint);font-size:13px;letter-spacing:.32em}
+  .hero-updated{color:var(--gold-deep);font-weight:600}
+  @media (min-width:900px){ .hero-updated{display:none} }
+  .lead{max-width:60ch;margin:16px 0 0;color:var(--muted);font-size:16px;line-height:1.6}
+  .lead b{color:var(--ink);font-weight:600}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .faq{margin:8px 0 40px}
+  .faq h2{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,4vw,30px);letter-spacing:-.01em;margin:0 0 4px}
+  .faq .faq-sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .faq-item{border-top:1px solid var(--line);padding:18px 0}
+  .faq-item h3{font-family:var(--font-text);font-weight:700;font-size:16px;margin:0 0 6px;color:var(--ink)}
+  .faq-item p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6;max-width:70ch}
+  .faq-item p a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px}
 
   .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 6px;}
   .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);}
@@ -157,8 +190,11 @@
 
   .loadmore{display:block;margin:24px auto 0;font-weight:600;font-size:13px;padding:12px 28px;background:var(--panel);border:1px solid var(--line-strong);border-radius:999px;cursor:pointer;color:var(--ink);transition:border-color .15s}
   .loadmore:hover{border-color:var(--ink)}
-  .empty{text-align:center;padding:54px 20px;color:var(--muted);border:1px dashed var(--line-strong);border-radius:var(--radius);background:#FBF7EF;}
+  .empty{text-align:center;padding:44px 20px;color:var(--muted);border:1px dashed var(--line-strong);border-radius:var(--radius);background:#FBF7EF;}
   .empty h3{font-family:var(--font-display);font-weight:600;color:var(--ink);margin:0 0 6px;font-size:20px}
+  .empty-cta{margin:20px auto 0;max-width:44ch;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);line-height:1.55}
+  .empty-cta a{display:inline-block;margin-top:12px;background:var(--gold-bright);color:#1a1407;font-weight:700;text-decoration:none;border-radius:999px;padding:11px 20px;font-size:13.5px}
+  .empty-cta a:hover{filter:brightness(1.06)}
 
   footer.site{border-top:1px solid var(--line);padding:26px 0 44px;color:var(--faint);font-size:12.5px;text-align:center}
   footer.site .fjp{font-family:var(--font-display);font-style:italic;font-size:13px;letter-spacing:.18em;color:var(--faint);margin-bottom:10px}
@@ -211,13 +247,72 @@
   .cta{margin:28px 22px 0;background:var(--header);border-radius:12px;padding:20px;color:var(--header-ink);position:relative;overflow:hidden;border:1px solid #2e2820}
   .cta h4{font-family:var(--font-display);font-size:19px;font-weight:600;margin:0 0 5px;color:var(--gold-bright)}
   .cta p{font-size:12.5px;color:#A39C8A;margin:0 0 14px}
+  .cta-actions{display:flex;flex-wrap:wrap;gap:10px}
   .cta .btn-gold{display:inline-flex;align-items:center;gap:7px;background:var(--gold-bright);color:#1a1407;border-radius:999px;padding:10px 18px;font-size:13px;font-weight:700;text-decoration:none}
+  .cta .btn-line{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--gold-bright);border:1px solid #5a4e34;border-radius:999px;padding:10px 18px;font-size:13px;font-weight:600;text-decoration:none}
+  .cta .btn-line:hover{background:#211b12}
   .note{margin:18px 22px 0;font-size:11.5px;color:var(--faint);line-height:1.55}
 
   @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto !important} }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://caniimportit.com.au/#website",
+      "url": "https://caniimportit.com.au/",
+      "name": "Can I Import It — Australian Import Eligibility Register",
+      "description": "Search the SEVS and MRE registers to check if a car is eligible to import into Australia.",
+      "publisher": { "@id": "https://caniimportit.com.au/#org" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://caniimportit.com.au/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://caniimportit.com.au/#org",
+      "name": "JDM Connect",
+      "url": "https://jdmconnect.com.au",
+      "logo": "https://caniimportit.com.au/logo.png",
+      "description": "Japanese vehicle import specialists. JDM Connect sources, ships, and complies imported cars for Australia."
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://caniimportit.com.au/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the SEVS register?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The Specialist & Enthusiast Vehicle Scheme (SEVS) is an Australian Government register of vehicle models approved for import because they are rare, high-performance, or otherwise not sold new in Australia. If a model is on the SEVS register it can be imported and complied for road registration." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between SEVS and a Model Report (MRE)?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A SEVS entry says a model is eligible to import. A Model Report (MRE) is a RAWS workshop's approved compliance package for a specific model — the practical recipe to make it road-legal in Australia. A car with both a SEVS listing and a Model Report is the most straightforward to import." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I check if my car is eligible to import to Australia?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with a licensed RAWS workshop before you buy." }
+        },
+        {
+          "@type": "Question",
+          "name": "How current is this eligibility data?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It is pulled directly from the Australian Government ROVER portal (the SEVS Register and Model Report Approvals) and refreshed daily." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QX9JQ4H" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) --><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1" alt="" /></noscript>
 
 <header class="site">
   <div class="wrap bar">
@@ -231,15 +326,18 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
         Export CSV
       </button>
+      <a class="btn-quote" id="headerQuote" href="https://finder.jdmconnect.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=header" target="_blank" rel="noopener">Get a quote</a>
     </div>
   </div>
 </header>
 
 <main>
   <section class="hero wrap">
-    <div class="eyebrow"><span class="rule"></span> SEVS + MRE &middot; Live government data</div>
-    <h1 class="title">The import eligibility <em>register.</em></h1>
+    <div class="eyebrow"><span class="rule"></span> SEVS + MRE &middot; Live government data<span id="heroUpdated" class="hero-updated"></span></div>
+    <h1 class="title">Can I import it? <em>Check the register.</em></h1>
     <div class="title-jp">&#36664;&#20837;&#36969;&#26684;&#24615;&#30331;&#37682;&#31807;</div>
+
+    <p class="lead">Check whether a car is <b>eligible to import into Australia</b>. This is the full <b>SEVS Register</b> and <b>Model Report (MRE)</b> list, pulled live from the Australian Government ROVER portal and refreshed daily. Search by make, model, chassis code or the year you want it built in.</p>
 
     <div class="stats" id="stats">
       <div class="stat"><div class="n" id="stSev" data-count="0">—</div><div class="l">SEVS entries</div></div>
@@ -264,7 +362,7 @@
         </div>
       </div>
       <div class="toggles">
-        <label class="toggle"><input type="checkbox" id="tAll" /> Show all eligible cars</label>
+        <label class="toggle" title="Only show models a RAWS workshop already has an approved compliance package for"><input type="checkbox" id="tReady" /> Workshop-ready only</label>
         <label class="toggle"><input type="checkbox" id="tExpired" /> Show expired</label>
         <span class="count" id="count">Loading register…</span>
       </div>
@@ -283,6 +381,7 @@
   </div>
 
   <section class="results wrap">
+    <h2 class="sr-only">Search the SEVS and MRE import eligibility register</h2>
     <div class="loading" id="loadBox"><span class="pulse"></span>Pulling the live register…</div>
     <div class="cards" id="cards" aria-live="polite"></div>
     <div class="table-wrap" id="tableWrap" style="display:none">
@@ -294,10 +393,34 @@
       </table>
     </div>
     <div class="empty" id="empty" hidden>
-      <h3>No vehicles match those filters</h3>
-      <div>Try clearing the search or a filter — or tick “Show expired” to widen the results.</div>
+      <h3>No exact match in the register</h3>
+      <div>Try a shorter search (just the model or chassis code), clear a filter, or tick “Show expired” to widen the results.</div>
+      <div class="empty-cta">Can’t find your car? It may still be importable under a new or pending pathway — the register only shows what’s currently approved.
+        <a id="emptyQuote" href="https://finder.jdmconnect.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=empty_state" target="_blank" rel="noopener">Get a free eligibility check →</a>
+      </div>
     </div>
     <button class="loadmore" id="moreBtn" style="display:none">Show more ↓</button>
+  </section>
+
+  <section class="faq wrap" aria-labelledby="faqHeading">
+    <h2 id="faqHeading">Understanding import eligibility</h2>
+    <p class="faq-sub">The plain-English version of SEVS, MRE and what makes a car importable.</p>
+    <div class="faq-item">
+      <h3>What is the SEVS register?</h3>
+      <p>The Specialist &amp; Enthusiast Vehicle Scheme (SEVS) is an Australian Government register of vehicle models approved for import because they are rare, high-performance, or otherwise not sold new in Australia. If a model is on the SEVS register it can be imported and complied for road registration.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What is the difference between SEVS and a Model Report (MRE)?</h3>
+      <p>A SEVS entry says a model is eligible to import. A Model Report (MRE) is a RAWS workshop's approved compliance package for a specific model — the practical recipe to make it road-legal in Australia. A car with both a SEVS listing and a Model Report is the most straightforward to import.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How do I check if my car is eligible to import to Australia?</h3>
+      <p>Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with a licensed RAWS workshop before you buy — or <a href="https://finder.jdmconnect.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=faq" target="_blank" rel="noopener">ask JDM Connect for a free eligibility check</a>.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How current is this eligibility data?</h3>
+      <p>It is pulled directly from the Australian Government ROVER portal (the SEVS Register and Model Report Approvals) and refreshed daily. This register is a guide only — always confirm eligibility with a licensed RAWS workshop before purchase.</p>
+    </div>
   </section>
 </main>
 
@@ -323,7 +446,7 @@
   <div class="pbody" id="pBody"></div>
 </aside>
 
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 (function(){
 "use strict";
@@ -333,6 +456,16 @@ const DATA_URLS = [
 ];
 const PHOTOS_URL = 'https://raw.githubusercontent.com/jatecurtis95/rover-eligibility/main/functions/_data/photos.json';
 const QUOTE_EMAIL = 'info@jdmconnect.com.au';
+// Conversion channels. WhatsApp always opens (app or web) so it replaces the
+// mailto: that silently failed on machines without a mail client. The finder
+// form is a tracked lead capture into the JDM Connect CRM.
+const WA_NUMBER = '61415111221';
+const FINDER_REQUEST_URL = 'https://finder.jdmconnect.com.au/request';
+function finderHref(medium, extra){
+  const q = new URLSearchParams(Object.assign({src:'eligibility', utm_source:'eligibility', utm_medium:medium}, extra||{}));
+  return FINDER_REQUEST_URL+'?'+q.toString();
+}
+function waHref(text){ return 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(text); }
 
 const PATH_COLORS = {
   'performance':  ['var(--c-performance)','Performance'],
@@ -347,7 +480,16 @@ const CAR_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 11l1.5
 let rows = [], photos = {}, photoIdx = {}, sevByNum = {}, mresBySev = {};
 let shown = 120;
 const PAGE = 120;
-const F = { q:'', make:'', path:'', cat:'', year:'', src:'', expired:false, view:'ready' };
+// Below this many records the dataset is almost certainly truncated (bad scrape
+// / partial fetch) — treat it as a load failure rather than rendering a
+// misleadingly tiny "register". The real register is ~1500 rows.
+const DATA_FLOOR = 200;
+const FETCH_TIMEOUT_MS = 8000;
+function timeoutSignal(ms){ try{ return AbortSignal.timeout(ms); }catch(e){ return undefined; } }
+// view defaults to 'all' so the register never hides an eligible model — a
+// SEV-only car (no workshop package yet) is still importable and must show.
+// The "Workshop-ready only" toggle opts into the narrower 'ready' view.
+const F = { q:'', make:'', path:'', cat:'', year:'', src:'', expired:false, view:'all' };
 const $ = id => document.getElementById(id);
 let reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -383,6 +525,13 @@ function catCode(s){
   return m ? m[1] : String(s).slice(0,4);
 }
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+// Scraped URLs are semi-trusted — only ever emit http(s) into href/src so a
+// stray javascript:/data: value from a bad scrape can't become executable.
+function safeUrl(u){ return /^https?:\/\//i.test(String(u==null?'':u)) ? String(u) : ''; }
+// Analytics: push a GTM dataLayer event and (optionally) a Meta Pixel event.
+// Both are wrapped so a blocked/absent tag never breaks the UI.
+function track(event, params){ try{ (window.dataLayer=window.dataLayer||[]).push(Object.assign({event:event}, params||{})); }catch(e){} }
+function trackFb(name, params){ try{ window.fbq && fbq('track', name, params||{}); }catch(e){} }
 
 /* ---------- status ---------- */
 const NOW = new Date();
@@ -582,7 +731,7 @@ function pathHTML(r){
 function wkCount(r){ return r.type==='SEV' ? (r.mres?r.mres.length:0) : 1+((r.mres&&r.mres.length)||0); }
 function thumbHTML(r){
   const ph = photoFor(r);
-  if(ph) return '<img class="thumb" loading="lazy" src="'+esc(ph.url)+'" alt="" onerror="this.outerHTML=\'<div class=&quot;thumb ph&quot;>&mdash;</div>\'">';
+  if(ph) return '<img class="thumb" loading="lazy" src="'+esc(safeUrl(ph.url))+'" alt="" onerror="this.outerHTML=\'<div class=&quot;thumb ph&quot;>&mdash;</div>\'">';
   return '<div class="thumb ph">'+CAR_SVG+'</div>';
 }
 function cardHTML(r){
@@ -628,6 +777,12 @@ function render(){
   animateItems();
 }
 function resetAndRender(){ shown = PAGE; render(); }
+function scrollToResults(){
+  const el = document.querySelector('.results');
+  if(!el) return;
+  const top = el.getBoundingClientRect().top + window.pageYOffset - 116; // clear sticky header + filter bar
+  window.scrollTo({ top: Math.max(0, top), behavior: reduce ? 'auto' : 'smooth' });
+}
 
 function animateItems(){
   if(reduce || !window.gsap || document.visibilityState!=='visible') return;
@@ -668,7 +823,7 @@ function openPanel(r){
   const name = titleMake(r.make)+' '+r.model;
   let h='';
   if(ph){
-    h += '<img class="pphoto" src="'+esc(ph.url)+'" alt="'+esc(name)+'" onerror="this.remove();this.nextElementSibling&&this.nextElementSibling.remove()">';
+    h += '<img class="pphoto" src="'+esc(safeUrl(ph.url))+'" alt="'+esc(name)+'" onerror="this.remove();this.nextElementSibling&&this.nextElementSibling.remove()">';
     h += '<div class="pcredit">photo: '+esc(ph.source||'')+'</div>';
   }
   h += '<div class="psec"><div class="ptitle">'+esc(name)+'</div><div class="pchips">';
@@ -685,7 +840,7 @@ function openPanel(r){
   h += kvRow('Category', esc(r.catFull||r.cat), false);
   if(r.holder) h += kvRow('Approval holder', esc(r.holder), false);
   if(r.work && r.work !== (r.raw._variant_description||'')) h += kvRow('Work instructions', esc(r.work), false);
-  if(r.url) h += kvRow('Source', '<a href="'+esc(r.url)+'" target="_blank" rel="noopener">View on ROVER ↗</a>', false);
+  if(safeUrl(r.url)) h += kvRow('Source', '<a href="'+esc(safeUrl(r.url))+'" target="_blank" rel="noopener">View on ROVER ↗</a>', false);
   h += '</div></div>';
 
   // variants (MRE scope or SEV scope)
@@ -744,11 +899,13 @@ function openPanel(r){
     h += '</div>';
   }
 
-  // CTA
-  const subj = encodeURIComponent('Quote request: '+name+' ('+r.id+')');
-  const body = encodeURIComponent('Hi JDM Connect,\n\nI\'d like a landed quote for:\n\nVehicle: '+name+(r.code?'\nChassis: '+r.code:'')+'\nRegister entry: '+r.id+'\nBuild range: '+fmtRange(r.from,r.to)+'\n\nThanks');
+  // CTA — WhatsApp (always works, prefilled) + tracked online form.
+  const waText = 'Hi JDM Connect, I\'d like a landed quote for the '+name+(r.code?' ('+r.code+')':'')+' — register entry '+r.id+'. Is it still eligible to import?';
   h += '<div class="cta"><h4>Want this car landed?</h4><p>JDM Connect sources direct from Japanese auctions — bidding, compliance and delivery handled end to end.</p>'
-    +'<a class="btn-gold" href="mailto:'+QUOTE_EMAIL+'?subject='+subj+'&body='+body+'">Request a quote →</a></div>';
+    +'<div class="cta-actions">'
+    +'<a class="btn-gold cta-lead" data-ch="whatsapp" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(waHref(waText))+'" target="_blank" rel="noopener">WhatsApp us about this car</a>'
+    +'<a class="btn-line cta-lead" data-ch="form" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(finderHref('detail_panel'))+'" target="_blank" rel="noopener">Request a quote online →</a>'
+    +'</div></div>';
 
   h += '<div class="note">Register data from the Australian Government ROVER portal. Guidance only — confirm with a licensed RAWS workshop before committing to a purchase.</div>';
 
@@ -757,6 +914,8 @@ function openPanel(r){
   $('panel').classList.add('open');
   $('scrim').classList.add('open');
   document.body.style.overflow = 'hidden';
+  track('eligibility_view_vehicle', {vehicle:name, ref:r.id, type:r.type, status:st.label});
+  trackFb('ViewContent', {content_name:name, content_category:'eligibility_'+r.type, content_ids:[r.id]});
 }
 function closePanel(){
   $('panel').classList.remove('open');
@@ -790,16 +949,25 @@ function applyDeepLink(){
 }
 
 /* ---------- CSV export ---------- */
+// Quote a CSV cell, neutralising spreadsheet formula injection: a scraped value
+// starting with = + - @ (or a control char) is prefixed with ' so Excel/Sheets
+// treat it as text, not a formula.
+function csvCell(v){
+  let s = String(v==null?'':v);
+  if(/^[=+\-@\t\r]/.test(s)) s = "'"+s;
+  return '"'+s.replace(/"/g,'""')+'"';
+}
 function exportCSV(){
   const list = filtered();
   const cols = ['Type','Number','Make','Model','Chassis code','Build from','Build to','Category','Criterion','Expiry','Status','Workshops (MRE)','Approval holder','ROVER link'];
-  const lines = [cols.join(',')];
+  const lines = [cols.map(csvCell).join(',')];
   list.forEach(r=>{
     const st = statusOf(r);
     const ws = r.type==='SEV' ? (r.mres||[]).map(m=>m.id+' '+(m.workshop||m.holder||'')).join('; ') : (r.workshop||'');
     const vals = [r.type,r.id,titleMake(r.make),r.model,r.code,fmtMY(r.from),r.to?fmtMY(r.to):'',r.cat,r.pathRaw,r.expiryRaw,st.label,ws,r.holder||'',r.url];
-    lines.push(vals.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(','));
+    lines.push(vals.map(csvCell).join(','));
   });
+  track('eligibility_export_csv', {rows:list.length});
   const blob = new Blob([lines.join('\n')], {type:'text/csv'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -821,21 +989,34 @@ function populateFilters(){
   $('fCat').innerHTML = '<option value="">All categories</option>'+cats.map(c=>'<option value="'+esc(c)+'">'+esc(c)+'</option>').join('');
 }
 function wire(){
-  let t;
-  $('q').addEventListener('input', e=>{ clearTimeout(t); t=setTimeout(()=>{F.q=e.target.value; resetAndRender();},150); });
+  let t, searched=false;
+  $('q').addEventListener('input', e=>{ clearTimeout(t); t=setTimeout(()=>{
+    F.q=e.target.value; resetAndRender();
+    const q=F.q.trim();
+    if(q.length>=2){ track('eligibility_search',{q:q.toLowerCase()}); if(!searched){ searched=true; scrollToResults(); } }
+  },150); });
   $('fMake').addEventListener('change', e=>{F.make=e.target.value; resetAndRender();});
   $('fCrit').addEventListener('change', e=>{F.path=e.target.value; resetAndRender();});
   $('fCat').addEventListener('change', e=>{F.cat=e.target.value; resetAndRender();});
   $('fYear').addEventListener('input', e=>{F.year=e.target.value; resetAndRender();});
   $('tExpired').addEventListener('change', e=>{F.expired=e.target.checked; resetAndRender();});
-  $('tAll').addEventListener('change', e=>{F.view=e.target.checked?'all':'ready'; resetAndRender();});
+  // Checked = narrow to workshop-ready; unchecked (default) = show all eligible.
+  $('tReady').addEventListener('change', e=>{F.view=e.target.checked?'ready':'all'; resetAndRender();});
   $('exportBtn').addEventListener('click', exportCSV);
   $('moreBtn').addEventListener('click', ()=>{ shown+=PAGE; render(); });
   const openFrom = el=>{ const row = el.closest('[data-i]'); if(row) openPanel(rows[+row.dataset.i]); };
   $('cards').addEventListener('click', e=>openFrom(e.target));
   $('rows').addEventListener('click', e=>openFrom(e.target));
   $('cards').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ const c=e.target.closest('[data-i]'); if(c){ e.preventDefault(); openPanel(rows[+c.dataset.i]); } } });
-  $('pBody').addEventListener('click', e=>{ const l=e.target.closest('[data-link]'); if(l) openPanel(rows[+l.dataset.link]); });
+  $('pBody').addEventListener('click', e=>{
+    const cta=e.target.closest('.cta-lead');
+    if(cta){ track('eligibility_quote_click',{channel:cta.dataset.ch,vehicle:cta.dataset.veh,ref:cta.dataset.ref}); trackFb('Lead',{content_name:cta.dataset.veh,content_category:'eligibility_quote'}); return; }
+    const l=e.target.closest('[data-link]'); if(l) openPanel(rows[+l.dataset.link]);
+  });
+  // Persistent header + empty-state quote CTAs.
+  const quoteClick = source => () => { track('eligibility_quote_click',{channel:'form',source:source}); trackFb('Lead',{content_category:'eligibility_quote'}); };
+  const hq=$('headerQuote'); if(hq) hq.addEventListener('click', quoteClick('header'));
+  const eq=$('emptyQuote'); if(eq) eq.addEventListener('click', quoteClick('empty_state'));
   $('pClose').addEventListener('click', closePanel);
   $('scrim').addEventListener('click', closePanel);
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
@@ -844,7 +1025,9 @@ function wire(){
 /* ---------- boot ---------- */
 async function fetchFirst(urls){
   for(const u of urls){
-    try{ const r = await fetch(u, {cache:'no-cache'}); if(r.ok) return await r.json(); }catch(e){}
+    // Per-attempt timeout so a slow (not failed) primary source fails over to
+    // the next URL instead of hanging the page on the spinner forever.
+    try{ const r = await fetch(u, {signal:timeoutSignal(FETCH_TIMEOUT_MS)}); if(r.ok) return await r.json(); }catch(e){}
   }
   throw new Error('no data source reachable');
 }
@@ -852,8 +1035,10 @@ async function fetchFirst(urls){
   try{
     const [data, ph] = await Promise.all([
       fetchFirst(DATA_URLS),
-      fetch(PHOTOS_URL).then(r=>r.ok?r.json():{}).catch(()=>({}))
+      fetch(PHOTOS_URL, {signal:timeoutSignal(FETCH_TIMEOUT_MS)}).then(r=>r.ok?r.json():{}).catch(()=>({}))
     ]);
+    const nRec = ((data&&data.sev)||[]).length + ((data&&data.mre)||[]).length;
+    if(nRec < DATA_FLOOR) throw new Error('register data looks truncated ('+nRec+' records) — refusing to render');
     photos = ph||{};
     buildPhotoIdx();
     rows = build(data);
@@ -866,6 +1051,8 @@ async function fetchFirst(urls){
     setStat('stExp', rows.filter(r=>r.expiry && r.expiry>=NOW && r.expiry<SOON).length);
     const d = data.fetched_at ? new Date(data.fetched_at) : null;
     $('updatedDate').textContent = d ? d.toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}) : 'daily';
+    const hu = $('heroUpdated');
+    if(hu) hu.textContent = d ? ' · Updated '+d.toLocaleDateString('en-AU',{day:'numeric',month:'short'}) : '';
     populateFilters();
     wire();
     $('loadBox').style.display='none';
