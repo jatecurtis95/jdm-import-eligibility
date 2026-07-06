@@ -83,11 +83,21 @@ const PAYLOAD = JSON.stringify({
 // and compare the fixed-length digests, so neither the byte values nor the
 // length of SCOPE_API_KEY leak through response timing (a plain `!==` short-
 // circuits on the first mismatched byte).
-const HMAC_KEY = crypto.getRandomValues(new Uint8Array(32));
+//
+// The key is generated lazily on first request — the Workers runtime disallows
+// crypto.getRandomValues() at global (module-load) scope.
+let _hmacKeyPromise = null;
+function getHmacKey() {
+  if (!_hmacKeyPromise) {
+    const raw = crypto.getRandomValues(new Uint8Array(32));
+    _hmacKeyPromise = crypto.subtle.importKey(
+      "raw", raw, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  }
+  return _hmacKeyPromise;
+}
 async function safeEqual(a, b) {
   const enc = new TextEncoder();
-  const key = await crypto.subtle.importKey(
-    "raw", HMAC_KEY, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const key = await getHmacKey();
   const [da, db] = await Promise.all([
     crypto.subtle.sign("HMAC", key, enc.encode(String(a || ""))),
     crypto.subtle.sign("HMAC", key, enc.encode(String(b || ""))),
