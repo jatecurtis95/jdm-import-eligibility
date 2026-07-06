@@ -1,0 +1,6 @@
+# Pinned so a scheduled cron run can't silently pick up a breaking Playwright or
+# requests release. Bump deliberately (test the scrape after), never implicitly.
+# `playwright install chromium` downloads the Chromium build matched to this
+# exact Playwright version, so pinning here pins the browser too.
+playwright==1.49.1
+requests==2.32.3

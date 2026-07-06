@@ -1,0 +1,38 @@
+name: Commit ROVER data
+description: >
+  Rebase onto origin/main and commit the freshly scraped functions/_data/data.json.
+  Shared by daily-scrape.yml and weekly-scrape.yml so the git dance lives in one
+  place. data.json is wholly machine-generated, so the fresh scrape always wins:
+  we stash it aside, hard-reset to origin/main (dodging the rebase/editor trap
+  when daily + weekly land close together), restore it, then commit and push.
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        git config user.email "action@github.com"
+        git config user.name "GitHub Actions [ROVER Scraper]"
+        cp functions/_data/data.json /tmp/data.json.new
+        git fetch origin main
+        git reset --hard origin/main
+        mkdir -p functions/_data
+        mv /tmp/data.json.new functions/_data/data.json
+        git add functions/_data/data.json
+        if git diff --cached --quiet; then
+          echo "data.json identical to origin/main after refetch — nothing to commit"
+          exit 0
+        fi
+        git commit -m "Auto-update: ROVER data refreshed $(date -u +'%Y-%m-%d')"
+        # Push can lose a race if the other scrape pushed between fetch and now;
+        # one retry after re-syncing covers the narrow window.
+        git push || {
+          echo "push rejected — re-syncing and retrying once"
+          cp functions/_data/data.json /tmp/data.json.retry
+          git fetch origin main
+          git reset --hard origin/main
+          mv /tmp/data.json.retry functions/_data/data.json
+          git add functions/_data/data.json
+          git diff --cached --quiet || git commit -m "Auto-update: ROVER data refreshed $(date -u +'%Y-%m-%d')"
+          git push
+        }

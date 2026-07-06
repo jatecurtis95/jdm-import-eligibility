@@ -13,6 +13,12 @@ node_modules/
 # Scraper snapshot data (monthly JSON files)
 scripts/data/
 email-preview.html
+# Generated email preview artifact (rebuilt by scripts/_build_preview.py)
+scripts/email-template-v2-preview.html
+
+# Internal build artifacts — must never be published as static assets
+jdm-eligibility-rebuild.zip
+redesign-prototype.html
 
 # Email config with secrets
 scripts/email_config.json

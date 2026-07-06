@@ -79,6 +79,50 @@ const PAYLOAD = JSON.stringify({
   scope: SCOPE_MAP,
 });
 
+// Constant-time secret comparison. HMAC both sides with a random per-isolate key
+// and compare the fixed-length digests, so neither the byte values nor the
+// length of SCOPE_API_KEY leak through response timing (a plain `!==` short-
+// circuits on the first mismatched byte).
+//
+// The key is generated lazily on first request — the Workers runtime disallows
+// crypto.getRandomValues() at global (module-load) scope.
+let _hmacKeyPromise = null;
+function getHmacKey() {
+  if (!_hmacKeyPromise) {
+    const raw = crypto.getRandomValues(new Uint8Array(32));
+    _hmacKeyPromise = crypto.subtle.importKey(
+      "raw", raw, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  }
+  return _hmacKeyPromise;
+}
+async function safeEqual(a, b) {
+  const enc = new TextEncoder();
+  const key = await getHmacKey();
+  const [da, db] = await Promise.all([
+    crypto.subtle.sign("HMAC", key, enc.encode(String(a || ""))),
+    crypto.subtle.sign("HMAC", key, enc.encode(String(b || ""))),
+  ]);
+  const va = new Uint8Array(da), vb = new Uint8Array(db);
+  let diff = 0;
+  for (let i = 0; i < va.length; i++) diff |= va[i] ^ vb[i];
+  return diff === 0;
+}
+
+// Per-IP rate limit so an unlimited-guess brute force against SCOPE_API_KEY
+// isn't possible (best-effort, per isolate — same trade-off as /api/data).
+const HITS = new Map();
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_REQ = 60; // generous for a server-to-server caller, deadly to a guesser
+function rateLimit(ip) {
+  const now = Date.now();
+  let rec = HITS.get(ip);
+  if (!rec || now > rec.reset) rec = { count: 0, reset: now + WINDOW_MS };
+  rec.count++;
+  HITS.set(ip, rec);
+  if (HITS.size > 5000) { for (const [k, v] of HITS) if (now > v.reset) HITS.delete(k); }
+  return rec.count <= MAX_REQ;
+}
+
 export async function onRequest(context) {
   const { request, env } = context;
 
@@ -92,11 +136,19 @@ export async function onRequest(context) {
     return new Response("Method not allowed", { status: 405 });
   }
 
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  if (!rateLimit(ip)) {
+    return new Response(JSON.stringify({ error: "rate limit exceeded" }), {
+      status: 429,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   // Shared-secret gate. When SCOPE_API_KEY is unset we fail closed (403) rather
   // than expose the dataset — the key must be configured in the Pages project.
   const expected = env && env.SCOPE_API_KEY;
   const provided = request.headers.get("X-Api-Key") || "";
-  if (!expected || provided !== expected) {
+  if (!expected || !(await safeEqual(provided, expected))) {
     return new Response(JSON.stringify({ error: "forbidden" }), {
       status: 403,
       headers: { "Content-Type": "application/json" },

@@ -6,33 +6,11 @@
 // access on origin + per-IP rate limit.
 
 import dataset from "../_data/data.json";
-// 2026-05 photo manifest. Maintained by scripts/photo_scraper.py; keyed by
-// normalized chassis code (e.g. "BNR34", "GRS184"). Bundled at build time.
-// Entries are either { url, make, model, chassis, source } or null (miss).
-import photosManifest from "../_data/photos.json";
 
-// Normalize a chassis code the same way the client does so a Model code of
-// "GRS184" hits photosManifest["GRS184"]. Also handles slash/comma-delimited
-// codes by taking the first token.
-function normalizeChassis(modelCode) {
-  if (!modelCode) return "";
-  const first = String(modelCode).split(/[,/]/)[0].trim();
-  return first.toUpperCase().replace(/[^A-Z0-9]/g, "");
-}
-
-// Build the merged dataset once at module load. Subsequent requests reuse
-// the same object — no per-request cost. Each SEV record gets `_photo_url`
-// when the manifest has a hit for its chassis code; misses are left undefined
-// so the client falls back to the SVG silhouette placeholder.
-const mergedDataset = (() => {
-  const sev = (dataset.sev || []).map(r => {
-    const key = normalizeChassis(r["Model code"]);
-    const entry = key ? photosManifest[key] : null;
-    if (entry && entry.url) return { ...r, _photo_url: entry.url };
-    return r;
-  });
-  return { ...dataset, sev };
-})();
+// Served verbatim. (The client does its own photo matching against photos.json,
+// so we no longer merge a `_photo_url` here — that field was never read and only
+// added bundle size + cold-start cost.)
+const payload = JSON.stringify(dataset);
 
 // ─── Allowed origins ─────────────────────────────────────────────────────────
 // Add any additional domains that embed or iframe the eligibility site.
@@ -61,6 +39,10 @@ function rateLimit(ip) {
   if (!rec || now > rec.reset) rec = { count: 0, reset: now + WINDOW_MS };
   rec.count++;
   HITS.set(ip, rec);
+  // Prune expired entries so the map can't grow unbounded under rotating IPs.
+  if (HITS.size > 5000) {
+    for (const [k, v] of HITS) if (now > v.reset) HITS.delete(k);
+  }
   return rec.count <= MAX_REQ;
 }
 
@@ -115,7 +97,7 @@ export async function onRequest(context) {
     });
   }
 
-  return new Response(JSON.stringify(mergedDataset), {
+  return new Response(payload, {
     status: 200,
     headers: {
       ...cors,

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://eligibility.jdmconnect.com.au/sitemap.xml
+Sitemap: https://caniimportit.com.au/sitemap.xml
