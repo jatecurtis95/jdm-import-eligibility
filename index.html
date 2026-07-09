@@ -273,8 +273,8 @@
   .linklist{padding:10px 22px 0;display:flex;flex-direction:column;gap:8px}
   .linkrow{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px 14px;cursor:pointer;transition:border-color .12s}
   .linkrow:hover{border-color:var(--ink)}
-  .linkrow .ln{font-family:var(--font-mono);font-size:12.5px}
-  .linkrow .ls{font-size:12px;color:var(--muted);margin-left:auto}
+  .linkrow .ln{font-family:var(--font-mono);font-size:12.5px;margin-right:auto}
+  .linkrow .ls{font-size:12px;color:var(--muted)}
   .linkrow .lm{font-family:var(--font-mono);font-size:11px;color:var(--muted);background:var(--grey-soft);border-radius:999px;padding:3px 8px;line-height:1;white-space:nowrap}
   .cta{margin:28px 22px 0;background:var(--header);border-radius:12px;padding:20px;color:var(--header-ink);position:relative;overflow:hidden;border:1px solid #2e2820}
   .cta h4{font-family:var(--font-display);font-size:19px;font-weight:600;margin:0 0 5px;color:var(--gold-bright)}
@@ -325,12 +325,12 @@
         {
           "@type": "Question",
           "name": "What is the difference between SEVS and a Model Report (MRE)?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A SEVS entry says a model is eligible to import. A Model Report (MRE) is a RAWS workshop's approved compliance package for a specific model, the practical recipe to make it road-legal in Australia. A car with both a SEVS listing and a Model Report is the most straightforward to import." }
+          "acceptedAnswer": { "@type": "Answer", "text": "A SEVS entry says a model is eligible to import. A Model Report (MRE) is the approved specification for how that model may be modified to meet Australian standards. A registered automotive workshop follows its work instructions, and an authorised vehicle verifier independently checks the result. A car with both a SEVS listing and a Model Report is the most straightforward to import." }
         },
         {
           "@type": "Question",
           "name": "How do I check if my car is eligible to import to Australia?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with a licensed RAWS workshop before you buy." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with a registered automotive workshop before you buy." }
         },
         {
           "@type": "Question",
@@ -390,7 +390,7 @@
         <label class="fld"><span>Built in year</span><input id="fYear" type="number" inputmode="numeric" placeholder="e.g. 2001" aria-label="Built in year" min="1950" max="2030" /></label>
       </div>
       <div class="toggles">
-        <label class="toggle" title="Only show models a RAWS workshop already has an approved Model Report for"><input type="checkbox" id="tReady" /> Workshop-ready only</label>
+        <label class="toggle" title="Only show models that already have an approved Model Report"><input type="checkbox" id="tReady" /> Has a model report</label>
         <label class="toggle"><input type="checkbox" id="tExpired" /> Show expired</label>
       </div>
     </div>
@@ -402,7 +402,7 @@
       <div class="body">
         <b>1. It’s on the list.</b> Every car here has been approved by the Australian Government as eligible to import, on the SEVS register or as a Model Report (MRE).
         <b>2. We land it.</b> JDM Connect sources the car in Japan and ships it to Australia.
-        <b>3. It’s made road-ready.</b> A licensed RAWS compliance workshop certifies it, then it’s registered like any other car. Use the filters to search by model, chassis code, criterion, or the year you want it built in.
+        <b>3. It’s made road-ready.</b> A registered automotive workshop modifies it to the Model Report’s work instructions, an authorised vehicle verifier checks the work, and it goes on the Register of Approved Vehicles, then it’s registered like any other car. Use the filters to search by model, chassis code, criterion, or the year you want it built in.
       </div>
     </details>
   </div>
@@ -415,7 +415,7 @@
     <div class="table-wrap" id="tableWrap" style="display:none">
       <table class="reg">
         <thead>
-          <tr><th>Vehicle</th><th>Chassis / VIN</th><th>Build range</th><th>Criterion<span class="ith" title="Why the model qualifies for import: performance, environmental, rarity, mobility, etc.">i</span></th><th>Cat.</th><th>Workshops<span class="ith" title="Licensed RAWS workshops that already hold an approved Model Report, so they are a workshop that can carry out compliance for this model">i</span></th><th>Import from<span class="ith" title="The market each RAWS workshop's approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved compliance package. A dash means no Model Report exists yet.">i</span></th><th>Status</th><th></th></tr>
+          <tr><th>Vehicle</th><th>Chassis / VIN</th><th>Build range</th><th>Criterion<span class="ith" title="Why the model qualifies for import: performance, environmental, rarity, mobility, etc.">i</span></th><th>Cat.</th><th>Model reports<span class="ith" title="How many approved Model Reports ROVER publishes for this model. A Model Report is the approved specification for modifying it; a registered automotive workshop carries out the work and an authorised vehicle verifier checks it. The approval holder is not necessarily that workshop.">i</span></th><th>Import from<span class="ith" title="The market each approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved Model Report covering it. A dash means ROVER lists no current Model Report.">i</span></th><th>Status</th><th></th></tr>
         </thead>
         <tbody id="rows"></tbody>
       </table>
@@ -444,15 +444,15 @@
       </details>
       <details class="faq-item">
         <summary>What is the difference between SEVS and a Model Report (MRE)?<span class="plus" aria-hidden="true">+</span></summary>
-        <div class="faq-body"><p>A SEVS entry says a model is eligible to import. A Model Report (MRE) is a RAWS workshop's approved compliance package for a specific model, the practical recipe to make it road-legal in Australia. A car with both a SEVS listing and a Model Report is the most straightforward to import.</p></div>
+        <div class="faq-body"><p>A SEVS entry says a model is eligible to import. A Model Report (MRE) is the approved specification for how that model may be modified to meet Australian standards. A registered automotive workshop follows its work instructions, and an authorised vehicle verifier independently checks the result. A car with both a SEVS listing and a Model Report is the most straightforward to import.</p></div>
       </details>
       <details class="faq-item">
         <summary>How do I check if my car is eligible to import to Australia?<span class="plus" aria-hidden="true">+</span></summary>
-        <div class="faq-body"><p>Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with a licensed RAWS workshop before you buy. Or <a href="https://finder.jdmconnect.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=faq" target="_blank" rel="noopener">ask JDM Connect for a free eligibility check</a>.</p></div>
+        <div class="faq-body"><p>Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with a registered automotive workshop before you buy. Or <a href="https://finder.jdmconnect.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=faq" target="_blank" rel="noopener">ask JDM Connect for a free eligibility check</a>.</p></div>
       </details>
       <details class="faq-item">
         <summary>How current is this eligibility data?<span class="plus" aria-hidden="true">+</span></summary>
-        <div class="faq-body"><p>It is pulled directly from the Australian Government ROVER portal (the SEVS Register and Model Report Approvals) and refreshed daily. This register is a guide only, always confirm eligibility with a licensed RAWS workshop before purchase.</p></div>
+        <div class="faq-body"><p>It is pulled directly from the Australian Government ROVER portal (the SEVS Register and Model Report Approvals) and refreshed daily. This register is a guide only, always confirm eligibility with a registered automotive workshop before purchase.</p></div>
       </details>
     </div>
   </section>
@@ -466,7 +466,7 @@
     </a>
     <div class="fjp">日本車を、オーストラリアへ</div>
     <p>Data sourced live from the Australian Government ROVER portal (SEVS Register &amp; Model Report Approvals). Refreshed daily.</p>
-    <p>This register is a guide only, always confirm eligibility with a licensed RAWS workshop before purchase.</p>
+    <p>This register is a guide only, always confirm eligibility with a registered automotive workshop before purchase.</p>
     <p><a href="https://jdmconnect.com.au">jdmconnect.com.au</a> · <a href="mailto:info@jdmconnect.com.au">info@jdmconnect.com.au</a></p>
   </div>
 </footer>
@@ -521,8 +521,8 @@ const DATA_FLOOR = 200;
 const FETCH_TIMEOUT_MS = 8000;
 function timeoutSignal(ms){ try{ return AbortSignal.timeout(ms); }catch(e){ return undefined; } }
 // view defaults to 'all' so the register never hides an eligible model — a
-// SEV-only car (no workshop package yet) is still importable and must show.
-// The "Workshop-ready only" toggle opts into the narrower 'ready' view.
+// SEV-only car (no current model report) is still importable and must show.
+// The "Has a model report" toggle opts into the narrower 'ready' view.
 const F = { q:'', make:'', path:'', cat:'', year:'', src:'', expired:false, view:'all' };
 const $ = id => document.getElementById(id);
 let reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -616,7 +616,7 @@ function build(data){
       path:'', pathRaw:'',
       expiry:null, expiryRaw:'',
       underReview:false,
-      holder:m._approval_holder||'', workshop:m._workshop_short||'',
+      holder:m._approval_holder||'', holderShort:m._holder_short||'',
       url:m._detail_url||'', scope, sevs, work:m._work_instructions||'',
       status:m['Approval status']||'',
       markets: Array.isArray(m._source_markets)?m._source_markets:[],
@@ -751,7 +751,7 @@ function filtered(){
       if(!fy && !ty) return false;
     }
     if(q){
-      const hay = (r.make+' '+r.model+' '+r.id+' '+r.code+' '+(r.holder||'')+' '+(r.sevs||[]).join(' ')+' '+(r.mres||[]).map(m=>m.id+' '+(m.workshop||'')+' '+(m.holder||'')).join(' ')).toLowerCase();
+      const hay = (r.make+' '+r.model+' '+r.id+' '+r.code+' '+(r.holder||'')+' '+(r.sevs||[]).join(' ')+' '+(r.mres||[]).map(m=>m.id+' '+(m.holderShort||'')+' '+(m.holder||'')).join(' ')).toLowerCase();
       if(!hay.includes(q)) return false;
     }
     return true;
@@ -775,7 +775,7 @@ function wkCount(r){ return r.type==='SEV' ? (r.mres?r.mres.length:0) : 1+((r.mr
    we union across that group. Never render "no report" as "any market" — it
    means nobody has built a compliance package yet, which is the opposite. */
 const MARKET_SHORT = {'United Kingdom':'UK','United States of America':'USA','Hong Kong':'HK','New Zealand':'NZ'};
-const MARKET_TIP = 'The market each RAWS workshop’s approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved compliance package.';
+const MARKET_TIP = 'The market each approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved Model Report covering it.';
 const MARKET_NONE_TIP = 'No approved Model Report yet, so ROVER publishes no source market for this model.';
 function groupOf(r){ return r.type==='SEV' ? (r.mres||[]) : [r].concat(r.mres||[]); }
 function marketsFor(r){ return [...new Set(groupOf(r).flatMap(m=>m.markets||[]))].sort(); }
@@ -797,7 +797,7 @@ function chassisCell(r){
   return '<span class="chassiscode" title="Typical VIN: '+esc(v.join(' · '))+'">'+esc(v[0])+'</span>'
     + (v.length>1 ? moreTag(v.length-1) : '');
 }
-// Market tag for one model report inside the panel's workshop lists.
+// Market tag for one model report inside the panel's approval-holder lists.
 function linkMarket(m){
   const mk = (m.markets||[]).map(marketShort).join(' · ');
   return mk ? '<span class="lm" title="'+esc(MARKET_TIP)+'">'+esc(mk)+'</span>' : '';
@@ -818,7 +818,7 @@ function cardHTML(r){
     + '<div class="meta"><span class="sev">'+esc(r.id)+'</span><span class="range">'+fmtRange(r.from,r.to)+'</span>'+pathHTML(r)+'</div>'
     + '<div class="foot"><span class="cat">CAT '+esc(r.cat||'n/a')+'</span>'
     + marketCell(r, true)
-    + '<span class="wklabel">'+(wn?'<b>'+wn+'</b> workshop'+(wn===1?'':'s'):'no workshop yet')+'</span></div>'
+    + '<span class="wklabel">'+(wn?'<b>'+wn+'</b> model report'+(wn===1?'':'s'):'no model report')+'</span></div>'
     + '</article>';
 }
 function rowHTML(r){
@@ -899,13 +899,18 @@ function verdictHTML(r, st){
   if(st.rank===4){ cls='v-bad'; txt='<b>This approval has expired</b>, so it can’t be used to import a car right now. Similar cars may still be eligible, ask us and we’ll check.'; }
   else if(st.rank===2){ cls='v-warn'; txt='<b>This entry is under Government review.</b> Get advice before committing to a purchase.'; }
   else if(st.rank===3){ cls='v-warn'; txt='<b>✓ This car can be imported now</b>, but the approval ends on '+esc(r.expiryRaw)+'. It would need to be secured before then.'; }
-  else if(r.type==='MRE'){ txt='<b>✓ This car can be imported into Australia.</b> A licensed workshop already has an approved compliance package for it, which makes the process straightforward.'; }
-  else if(!(r.mres&&r.mres.length)){ txt='<b>✓ This model is approved for import</b>, but no workshop has a ready-made compliance package yet, one would need to be developed, which adds time and cost. Ask us and we’ll check the practical options.'; }
-  else { txt='<b>✓ This car can be imported into Australia.</b> '+r.mres.length+' licensed workshop'+(r.mres.length>1?'s are':' is')+' already approved to carry out its compliance once it lands.'; }
+  // Careful: an approved Model Report means an approved *specification* exists,
+  // not that its approval holder will modify your car. Under the RVSA the holder,
+  // the registered automotive workshop that does the work, and the authorised
+  // vehicle verifier that checks it are three separate roles — and ROVER tells us
+  // only who holds the report. Never promise a workshop we cannot see.
+  else if(r.type==='MRE'){ txt='<b>✓ This car can be imported into Australia.</b> An approved Model Report exists for it, which is the specification a registered automotive workshop follows to comply the car.'; }
+  else if(!(r.mres&&r.mres.length)){ txt='<b>✓ This model is approved for import</b>, but ROVER lists no current Model Report for it. One would have to be developed before a workshop could comply the car, which adds time and cost. Ask us and we’ll check the practical options.'; }
+  else { txt='<b>✓ This car can be imported into Australia.</b> '+r.mres.length+' approved Model Report'+(r.mres.length>1?'s already exist':' already exists')+' for it, so there is an approved path to comply it once it lands.'; }
   return '<div class="verdict '+cls+'">'+txt+'</div>';
 }
 function openPanel(r){
-  $('pType').textContent = r.type==='SEV' ? 'Eligible Model · SEVS Register' : 'Workshop Approved · Model Report';
+  $('pType').textContent = r.type==='SEV' ? 'Eligible Model · SEVS Register' : 'Approved Model Report · MRE';
   const st = statusOf(r);
   const ph = photoFor(r);
   const name = titleMake(r.make)+' '+r.model;
@@ -933,6 +938,10 @@ function openPanel(r){
   if(r.type==='MRE' && (r.vins||[]).length)
     h += kvRow('Typical VIN', esc(r.vins.slice(0,4).join(' · '))+(r.vins.length>4?moreTag(r.vins.length-4):''), true);
   if(r.work && r.work !== (r.raw._variant_description||'')) h += kvRow('Work instructions', esc(r.work), false);
+  // ROVER's free-text note on the model report. Often the only place a variant
+  // restriction ("welcab fitted with either front or second row swivel seat") is
+  // spelled out, so it is worth showing verbatim rather than paraphrasing.
+  if(r.type==='MRE' && r.raw._mr_notes) h += kvRow('Model report notes', esc(r.raw._mr_notes), false);
   if(safeUrl(r.url)) h += kvRow('Source', '<a href="'+esc(safeUrl(r.url))+'" target="_blank" rel="noopener">View on ROVER ↗</a>', false);
   h += '</div></div>';
 
@@ -967,7 +976,9 @@ function openPanel(r){
       h += '<div class="sechead">Linked SEVS entries</div><div class="linklist">';
       linked.forEach(s=>{
         const ss = statusOf(s);
-        h += '<div class="linkrow" data-link="'+s._ix+'"><span class="ln">'+esc(s.id)+': '+esc(titleMake(s.make))+' '+esc(s.model)+'</span><span class="badge '+ss.cls+'">'+ss.label+'</span></div>';
+        // The SEV, not the model report, is what expires — so show each one's date.
+        const exp = s.expiryRaw ? '<span class="lm" title="SEVS entry expiry">exp '+esc(s.expiryRaw)+'</span>' : '';
+        h += '<div class="linkrow" data-link="'+s._ix+'"><span class="ln">'+esc(s.id)+': '+esc(titleMake(s.make))+' '+esc(s.model)+'</span>'+exp+'<span class="badge '+ss.cls+'">'+ss.label+'</span></div>';
       });
       h += '</div>';
     }
@@ -975,19 +986,23 @@ function openPanel(r){
   if(r.type==='SEV'){
     const linked = r.mres||[];
     if(linked.length){
-      h += '<div class="sechead">RAWS workshops with approved model reports</div><div class="linklist">';
+      h += '<div class="sechead">Approved model reports for this vehicle</div><div class="linklist">';
       linked.slice(0,10).forEach(m=>{
-        h += '<div class="linkrow" data-link="'+m._ix+'"><span class="ln">'+esc(m.id)+'</span><span class="ls">'+esc(m.workshop||m.holder)+'</span>'+linkMarket(m)+'</div>';
+        h += '<div class="linkrow" data-link="'+m._ix+'"><span class="ln">'+esc(m.id)+'</span><span class="ls">'+esc(m.holderShort||m.holder)+'</span>'+linkMarket(m)+'</div>';
       });
       h += '</div>';
+      h += '<div class="note">Named above is each report\'s <b>approval holder</b>. They hold the Model Report; they are not necessarily the workshop that will modify your car. A registered automotive workshop carries out the work to the report\'s instructions, and an authorised vehicle verifier checks it.</div>';
     } else {
-      h += '<div class="note">No published model report found for this SEV yet, a RAWS workshop would need to develop one (or hold one unpublished). Ask us and we\'ll check.</div>';
+      // ROVER only publishes model reports that are in force — a withdrawn one
+      // simply disappears. So we cannot say none was ever developed, only that
+      // none is current. Don't invent history we don't have.
+      h += '<div class="note">ROVER lists no current model report for this SEV. One may never have been developed, or an earlier one may have been withdrawn, ROVER only publishes reports that are in force. A workshop would need an approved report before it could comply the car. Ask us and we\'ll check.</div>';
     }
   }
   if(r.type==='MRE' && r.mres && r.mres.length){
     h += '<div class="sechead">Also approved by</div><div class="linklist">';
     r.mres.forEach(m=>{
-      h += '<div class="linkrow" data-link="'+m._ix+'"><span class="ln">'+esc(m.id)+'</span><span class="ls">'+esc(m.workshop||m.holder||'')+'</span>'+linkMarket(m)+'</div>';
+      h += '<div class="linkrow" data-link="'+m._ix+'"><span class="ln">'+esc(m.id)+'</span><span class="ls">'+esc(m.holderShort||m.holder||'')+'</span>'+linkMarket(m)+'</div>';
     });
     h += '</div>';
   }
@@ -1000,7 +1015,7 @@ function openPanel(r){
     +'<a class="btn-line cta-lead" data-ch="form" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(finderHref('detail_panel'))+'" target="_blank" rel="noopener">Request a quote online →</a>'
     +'</div></div>';
 
-  h += '<div class="note">Register data from the Australian Government ROVER portal. Guidance only, confirm with a licensed RAWS workshop before committing to a purchase.</div>';
+  h += '<div class="note">Register data from the Australian Government ROVER portal. Guidance only, confirm with a registered automotive workshop before committing to a purchase.</div>';
 
   $('pBody').innerHTML = h;
   $('pBody').scrollTop = 0;
@@ -1052,11 +1067,11 @@ function csvCell(v){
 }
 function exportCSV(){
   const list = filtered();
-  const cols = ['Type','Number','Make','Model','Chassis code','Build from','Build to','Category','Criterion','Expiry','Status','Workshops (MRE)','Source market','Approval holder','ROVER link'];
+  const cols = ['Type','Number','Make','Model','Chassis code','Build from','Build to','Category','Criterion','Expiry','Status','Model reports (MRE)','Source market','Approval holder','ROVER link'];
   const lines = [cols.map(csvCell).join(',')];
   list.forEach(r=>{
     const st = statusOf(r);
-    const ws = r.type==='SEV' ? (r.mres||[]).map(m=>m.id+' '+(m.workshop||m.holder||'')).join('; ') : (r.workshop||'');
+    const ws = r.type==='SEV' ? (r.mres||[]).map(m=>m.id+' '+(m.holderShort||m.holder||'')).join('; ') : (r.holderShort||'');
     const vals = [r.type,r.id,titleMake(r.make),r.model,r.code,fmtMY(r.from),r.to?fmtMY(r.to):'',r.cat,r.pathRaw,r.expiryRaw,st.label,ws,marketsFor(r).join(' · '),r.holder||'',r.url];
     lines.push(vals.map(csvCell).join(','));
   });
@@ -1093,7 +1108,7 @@ function wire(){
   $('fCat').addEventListener('change', e=>{F.cat=e.target.value; resetAndRender();});
   $('fYear').addEventListener('input', e=>{F.year=e.target.value; resetAndRender();});
   $('tExpired').addEventListener('change', e=>{F.expired=e.target.checked; resetAndRender();});
-  // Checked = narrow to workshop-ready; unchecked (default) = show all eligible.
+  // Checked = narrow to models with a current model report; unchecked (default) = all eligible.
   $('tReady').addEventListener('change', e=>{F.view=e.target.checked?'ready':'all'; resetAndRender();});
   $('exportBtn').addEventListener('click', exportCSV);
   $('prevBtn')?.addEventListener('click', ()=>{ currentPage--; render(); scrollToResults(); });

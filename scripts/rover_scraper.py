@@ -321,7 +321,7 @@ async def fetch_scope_for_mre(context, detail_url):
 
 def _dedupe_specs(specs):
     """Drop duplicate variant specs (the same SEV scope reached via multiple
-    workshops/MREs). Signature = variant + seating + welcab."""
+    approval holders/MREs). Signature = variant + seating + welcab."""
     seen, out = set(), []
     for sp in specs:
         sig = (sp.get('variant'), sp.get('seating_raw'), sp.get('welcab'))
@@ -427,6 +427,12 @@ SOURCE_MARKET_LABELS = (
 TYPICAL_VIN_LABELS = (
     'typical vin', 'typical v.i.n.', 'representative vin',
 )
+# Free-text notes the department attaches to a Model Report — often the only
+# place a welcab/variant restriction is spelled out ("fitted with either front
+# or second row lift up and out swivel seat..."). Frequently empty.
+MODEL_REPORT_NOTES_LABELS = (
+    'model report notes', 'model report note',
+)
 
 # Maps the raw "Eligibility criteria" text seen on SEV detail pages into a
 # canonical short tag the front-end ELIGIBILITY_LABELS table understands.
@@ -472,8 +478,15 @@ def _normalise_propulsion(raw, model_name=''):
     if 'petrol' in blob or 'gasoline' in blob: return 'petrol'
     return ''
 
-# Map raw approval-holder strings into a short workshop label for the UI.
-_WORKSHOP_SHORT_MAP = {
+# Map raw approval-holder strings into a short label for the UI.
+#
+# These are MODEL REPORT APPROVAL HOLDERS — the businesses that hold the Model
+# Report. Do not call them "workshops". Under the RVSA they are a distinct role
+# from the registered automotive workshop (RAW) that modifies the car, and from
+# the authorised vehicle verifier (AVV) that checks the work. The largest holder
+# in the register, SYDNEY AVV PTY LTD, is a verifier: by definition it is not the
+# workshop for the vehicles it verifies. Others are consultancies or individuals.
+_HOLDER_SHORT_MAP = {
     'top secret': 'Top Secret',
     'bespoke': 'Bespoke',
     'sydney automotive': 'Sydney AVV',
@@ -487,11 +500,11 @@ _LEGAL_SUFFIX_RE = re.compile(
     re.IGNORECASE
 )
 
-def _shorten_workshop(holder):
+def _shorten_holder(holder):
     if not holder:
         return ''
     low = holder.lower()
-    for key, short in _WORKSHOP_SHORT_MAP.items():
+    for key, short in _HOLDER_SHORT_MAP.items():
         if key in low:
             return short
     cleaned = _LEGAL_SUFFIX_RE.sub('', holder).strip(' .,-')
@@ -525,6 +538,20 @@ def _clean_lines(raw):
         if val and len(val) <= _MAX_SHORT_FIELD_LEN and val not in out:
             out.append(val)
     return out
+
+
+# Model Report notes are free prose, not a short labelled value, so they get a
+# far more generous cap than _MAX_SHORT_FIELD_LEN.
+_MAX_NOTES_LEN = 1500
+
+
+def _clean_text(raw):
+    """Collapse a raw prose detail-page value to one tidy line, or '' if the read
+    looks wrong (empty, or long enough that we grabbed a container, not a field)."""
+    if not raw:
+        return ''
+    val = ' '.join(str(raw).split())
+    return val if len(val) <= _MAX_NOTES_LEN else ''
 
 
 # ── Data extraction ─────────────────────────────────────────────────────────
@@ -675,6 +702,23 @@ async def fetch_detail(page, url, is_mre):
                 }
                 return '';
             }
+            // "Model Report notes" is a SECTION HEADING (<h3 class="lsh">), not a
+            // label in a label/value cell — its prose sits in the element straight
+            // after it. When there are no notes that slot is blank and the next
+            // section ("Vehicle details") follows, so guard against reading it.
+            function sectionAfterHeading(names) {
+                const heads = document.querySelectorAll('h1, h2, h3, h4, h5, legend');
+                for (const h of heads) {
+                    const t = (h.textContent || '').trim().toLowerCase();
+                    if (!names.some(n => t === n)) continue;
+                    const nx = h.nextElementSibling;
+                    if (!nx) return '';
+                    const v = (nx.innerText || '').trim();
+                    if (!v || /^vehicle details/i.test(v)) return '';
+                    return v;
+                }
+                return '';
+            }
             return {
                 category: findFor(labels.category),
                 propulsion: findFor(labels.propulsion),
@@ -683,6 +727,7 @@ async def fetch_detail(page, url, is_mre):
                 work_instructions: findFor(labels.work_instructions),
                 source_market: findFor(labels.source_market),
                 typical_vin: findFor(labels.typical_vin),
+                mr_notes: sectionAfterHeading(labels.mr_notes),
             };
         }""",
         {
@@ -693,6 +738,7 @@ async def fetch_detail(page, url, is_mre):
             'work_instructions': list(WORK_INSTRUCTIONS_LABELS),
             'source_market': list(SOURCE_MARKET_LABELS),
             'typical_vin': list(TYPICAL_VIN_LABELS),
+            'mr_notes': list(MODEL_REPORT_NOTES_LABELS),
         }
     )
 
@@ -712,7 +758,7 @@ async def fetch_detail(page, url, is_mre):
         raw_holder = extracted.get('holder', '')
         if raw_holder:
             out['_approval_holder'] = raw_holder
-            out['_workshop_short'] = _shorten_workshop(raw_holder)
+            out['_holder_short'] = _shorten_holder(raw_holder)
         raw_prop = extracted.get('propulsion', '')
         prop = _normalise_propulsion(raw_prop)
         if prop:
@@ -730,6 +776,9 @@ async def fetch_detail(page, url, is_mre):
         vins = _clean_lines(extracted.get('typical_vin', ''))
         if vins:
             out['_typical_vins'] = vins
+        notes = _clean_text(extracted.get('mr_notes', ''))
+        if notes:
+            out['_mr_notes'] = notes
 
     return out
 
@@ -1252,12 +1301,12 @@ def _build_vehicle_rows(records, register_type, is_removed=False):
             ref = r.get('Approval number', '')
             site_link = f"{SITE_URL}/#mre={ref}" if ref else SITE_URL
             link_color = '#60a5fa'
-            workshop = r.get('_workshop_short') or r.get('_approval_holder') or ''
+            holder = r.get('_holder_short') or r.get('_approval_holder') or ''
             variant = r.get('_variant_description', '')
             build_range = r.get('Build date range', '')
             chassis = ''
             category_label = ''
-            extra_context = workshop
+            extra_context = holder
             secondary = variant if variant else build_range
             expiry_short = ''
         else:
@@ -1752,7 +1801,9 @@ def _resolve_data_json_path(output_dir):
 # Enrichment fields are underscore-prefixed and produced by the (weekly) detail
 # and scope passes. _detail_url is excluded — the fresh list scrape always
 # provides the current one (the portal's GUIDs can rotate).
-_CARRY_EXCLUDE = {'_detail_url', '_detail_error'}
+# _workshop_short is the retired name for _holder_short; excluding it stops the
+# misleading key being carried forward out of an older data.json for ever.
+_CARRY_EXCLUDE = {'_detail_url', '_detail_error', '_workshop_short'}
 
 
 def _carry_forward_enrichment(mre_records, sev_records, prev_data):
