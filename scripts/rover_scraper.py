@@ -433,6 +433,11 @@ TYPICAL_VIN_LABELS = (
 MODEL_REPORT_NOTES_LABELS = (
     'model report notes', 'model report note',
 )
+# ROVER has no "mileage limit" field. Where an odometer cap exists it is prose
+# inside "Compliance level notes", alongside the ADR compliance basis.
+COMPLIANCE_NOTES_LABELS = (
+    'compliance level notes', 'compliance level note',
+)
 
 # Maps the raw "Eligibility criteria" text seen on SEV detail pages into a
 # canonical short tag the front-end ELIGIBILITY_LABELS table understands.
@@ -552,6 +557,46 @@ def _clean_text(raw):
         return ''
     val = ' '.join(str(raw).split())
     return val if len(val) <= _MAX_NOTES_LEN else ''
+
+
+# An odometer cap stated as a CONDITION on the car being modified. Deliberately
+# narrow: it must be phrased as a restriction, so we never mistake the emissions
+# test vehicle's own mileage ("Using JC08 for compliance. With a Mileage of
+# 99,322km") for a limit, nor the condition-removal clause ("...a vehicle that has
+# travelled GREATER than 80,000kilometres...").
+_ODO_LIMIT_RE = re.compile(
+    r'(?:only\s+vehicles?\s+(?:with\s+an?\s+odometer\s+(?:reading\s+)?(?:of\s+)?'
+    r'(?:less\s+than|under|below|not\s+exceeding|no\s+more\s+than)'
+    r'|that\s+have\s+travelled\s+(?:fewer|less)\s+than)'
+    r'|must\s+not\s+have\s+travelled\s+(?:more\s+than|over))'
+    r'\s*([\d,]{1,12})\s*(?:kilometres|kilometers|kms|km)\b',
+    re.IGNORECASE)
+# Any mention that an odometer/km condition is in play at all, even where we
+# refuse to reduce it to one number.
+_ODO_CONDITION_RE = re.compile(
+    r'km\s+limit|odomet|must\s+not\s+have\s+travelled'
+    r'|have\s+travelled\s+(?:fewer|less)\s+than',
+    re.IGNORECASE)
+
+
+def _parse_odometer_condition(notes):
+    """Return (limit_km_or_None, condition_applies).
+
+    A single number is only emitted when the note yields exactly one distinct cap.
+    Some reports set a different cap per engine — MRE-000849 imposes none on the
+    YD25, 101,746 km on a late QR25 and 80,000 km on everything else. Collapsing
+    that to one figure would be a false claim about a car we can't identify, so we
+    flag the condition and let the verbatim note speak.
+    """
+    if not notes:
+        return None, False
+    values = {int(m.group(1).replace(',', '')) for m in _ODO_LIMIT_RE.finditer(notes)}
+    values = {v for v in values if v > 0}
+    if len(values) == 1:
+        return values.pop(), True
+    if values:                       # conflicting caps -> state the condition, not a number
+        return None, True
+    return None, bool(_ODO_CONDITION_RE.search(notes))
 
 
 # ── Data extraction ─────────────────────────────────────────────────────────
@@ -702,19 +747,25 @@ async def fetch_detail(page, url, is_mre):
                 }
                 return '';
             }
-            // "Model Report notes" is a SECTION HEADING (<h3 class="lsh">), not a
-            // label in a label/value cell — its prose sits in the element straight
-            // after it. When there are no notes that slot is blank and the next
-            // section ("Vehicle details") follows, so guard against reading it.
+            // "Model Report notes" and "Compliance level notes" are SECTION HEADINGS
+            // (<h3 class="lsh">), not labels in a label/value cell — their prose sits
+            // in the element straight after. When a section is empty that slot is
+            // blank and the NEXT section's content follows, so refuse anything that
+            // starts with a known section heading rather than swallow it.
+            const SECTIONS = ['vehicle details', 'model report scope', 'compliance level notes',
+                              'model report notes', 'pre-modification', 'post-modification',
+                              'approval details', 'contact details'];
             function sectionAfterHeading(names) {
                 const heads = document.querySelectorAll('h1, h2, h3, h4, h5, legend');
                 for (const h of heads) {
                     const t = (h.textContent || '').trim().toLowerCase();
                     if (!names.some(n => t === n)) continue;
                     const nx = h.nextElementSibling;
-                    if (!nx) return '';
+                    if (!nx || /^H[1-5]$/.test(nx.tagName)) return '';
                     const v = (nx.innerText || '').trim();
-                    if (!v || /^vehicle details/i.test(v)) return '';
+                    if (!v) return '';
+                    const low = v.toLowerCase();
+                    if (SECTIONS.some(s => low.startsWith(s))) return '';
                     return v;
                 }
                 return '';
@@ -728,6 +779,7 @@ async def fetch_detail(page, url, is_mre):
                 source_market: findFor(labels.source_market),
                 typical_vin: findFor(labels.typical_vin),
                 mr_notes: sectionAfterHeading(labels.mr_notes),
+                compliance_notes: sectionAfterHeading(labels.compliance_notes),
             };
         }""",
         {
@@ -739,6 +791,7 @@ async def fetch_detail(page, url, is_mre):
             'source_market': list(SOURCE_MARKET_LABELS),
             'typical_vin': list(TYPICAL_VIN_LABELS),
             'mr_notes': list(MODEL_REPORT_NOTES_LABELS),
+            'compliance_notes': list(COMPLIANCE_NOTES_LABELS),
         }
     )
 
@@ -779,6 +832,17 @@ async def fetch_detail(page, url, is_mre):
         notes = _clean_text(extracted.get('mr_notes', ''))
         if notes:
             out['_mr_notes'] = notes
+        # "Compliance level notes" carries the ADR compliance basis AND, on ~1 in 5
+        # reports, an odometer cap on the vehicle that may be modified. There is no
+        # structured field for it anywhere on ROVER.
+        comp = _clean_text(extracted.get('compliance_notes', ''))
+        if comp:
+            out['_compliance_notes'] = comp
+            limit_km, has_condition = _parse_odometer_condition(comp)
+            if has_condition:
+                out['_odometer_condition'] = True
+            if limit_km:
+                out['_odometer_limit_km'] = limit_km
 
     return out
 

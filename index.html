@@ -181,6 +181,10 @@
   /* Source market. Comes from the Model Report, so a model with no report has none. */
   .mk{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink);white-space:nowrap}
   .mkmore{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);background:var(--grey-soft);border-radius:999px;padding:2px 6px;line-height:1}
+  /* Odometer condition — a real constraint on what you may buy, so it reads as a
+     warning rather than a neutral fact. Only rendered where one actually applies. */
+  .odo{display:inline-block;margin-left:6px;font-family:var(--font-mono);font-size:10.5px;color:var(--gold-deep);background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:999px;padding:2px 7px;line-height:1;white-space:nowrap;cursor:help}
+  .card .meta .odo{margin-left:0}
   .cat{font-size:12px;font-family:var(--font-mono);color:var(--muted)}
 
   .cards{display:grid;grid-template-columns:1fr;gap:12px}
@@ -623,6 +627,7 @@ function build(data){
       status:m['Approval status']||'',
       markets: Array.isArray(m._source_markets)?m._source_markets:[],
       vins: Array.isArray(m._typical_vins)?m._typical_vins:[],
+      odoLimit: m._odometer_limit_km||null, odoCond: !!m._odometer_condition,
       raw:m
     };
     // inherit criterion + chassis code from linked SEV
@@ -804,6 +809,35 @@ function linkMarket(m){
   const mk = (m.markets||[]).map(marketShort).join(' · ');
   return mk ? '<span class="lm" title="'+esc(MARKET_TIP)+'">'+esc(mk)+'</span>' : '';
 }
+
+/* ---------- odometer condition ----------
+   ROVER has no mileage field; a cap is prose inside "Compliance level notes"
+   ("only vehicles with an odometer less than 80,000 kilometres may be modified").
+   A cap only actually binds a buyer if EVERY model report for the vehicle imposes
+   one — with a single uncapped report they can comply a high-km car through that
+   report instead. So we state a number only when all reports agree, and otherwise
+   just flag that a condition exists. Some reports set a different cap per engine,
+   which is why the scraper refuses to reduce those to one figure at all. */
+function odoInfo(r){
+  const reps = groupOf(r);
+  if(!reps.length) return null;
+  const caps = reps.filter(m=>m.odoLimit).map(m=>m.odoLimit);
+  if(caps.length === reps.length){
+    const cap = Math.max.apply(null, caps);
+    return {text:'≤'+cap.toLocaleString()+' km',
+            tip:'Odometer condition. '+(reps.length>1?'Every model report for':'This model report for')
+                +' this vehicle may only be used on a car showing under '+cap.toLocaleString()+' km.'};
+  }
+  const conds = reps.filter(m=>m.odoCond).length;
+  if(conds) return {text:'odo limit',
+    tip:conds+' of '+reps.length+' model reports impose an odometer condition, and the rest do not. '
+        +'Open a report to read the exact wording — some set a different limit per engine.'};
+  return null;
+}
+function odoChip(r){
+  const o = odoInfo(r);
+  return o ? '<span class="odo" title="'+esc(o.tip)+'">'+esc(o.text)+'</span>' : '';
+}
 function thumbHTML(r){
   const ph = photoFor(r);
   if(ph) return '<img class="thumb" loading="lazy" src="'+esc(safeUrl(ph.url))+'" alt="" onerror="this.outerHTML=\'<div class=&quot;thumb ph&quot;></div>\'">';
@@ -817,7 +851,7 @@ function cardHTML(r){
     + '<div class="top">'+thumbHTML(r)
     + '<div class="cmain"><div class="name">'+esc(name)+'</div>'+(r.code?'<div class="chassis">Chassis · '+esc(r.code)+'</div>':'')+'</div>'
     + '<div class="right"><span class="badge '+st.cls+'" title="'+esc(st.short)+'">'+st.label+'</span></div></div>'
-    + '<div class="meta"><span class="sev">'+esc(r.id)+'</span><span class="range">'+fmtRange(r.from,r.to)+'</span>'+pathHTML(r)+'</div>'
+    + '<div class="meta"><span class="sev">'+esc(r.id)+'</span><span class="range">'+fmtRange(r.from,r.to)+'</span>'+pathHTML(r)+odoChip(r)+'</div>'
     + '<div class="foot"><span class="cat">CAT '+esc(r.cat||'n/a')+'</span>'
     + marketCell(r, true)
     + '<span class="wklabel">'+(wn?'<b>'+wn+'</b> model report'+(wn===1?'':'s'):'no model report')+'</span></div>'
@@ -834,7 +868,7 @@ function rowHTML(r){
     + '<td class="range">'+fmtRange(r.from,r.to)+'</td>'
     + '<td>'+pathHTML(r)+'</td>'
     + '<td>'+(r.cat?'<span class="cattag">'+esc(r.cat)+'</span>':'<span class="wnone">n/a</span>')+'</td>'
-    + '<td>'+(wn?'<span class="wk"><b>'+wn+'</b></span>':'<span class="wnone">none yet</span>')+'</td>'
+    + '<td>'+(wn?'<span class="wk"><b>'+wn+'</b></span>':'<span class="wnone">none yet</span>')+odoChip(r)+'</td>'
     + '<td>'+marketCell(r)+'</td>'
     + '<td><span class="badge '+st.cls+'" title="'+esc(st.short)+'">'+st.label+'</span></td>'
     + '<td><span class="chev">›</span></td></tr>';
@@ -944,6 +978,13 @@ function openPanel(r){
   // restriction ("welcab fitted with either front or second row swivel seat") is
   // spelled out, so it is worth showing verbatim rather than paraphrasing.
   if(r.type==='MRE' && r.raw._mr_notes) h += kvRow('Model report notes', esc(r.raw._mr_notes), false);
+  // The odometer cap is a condition of the report, so show the parsed figure only
+  // when unambiguous, and always offer the verbatim wording underneath.
+  if(r.type==='MRE' && r.odoLimit)
+    h += kvRow('Odometer limit', 'Under '+r.odoLimit.toLocaleString()+' km', false);
+  else if(r.type==='MRE' && r.odoCond)
+    h += kvRow('Odometer limit', 'A condition applies and varies by variant, see the compliance notes below.', false);
+  if(r.type==='MRE' && r.raw._compliance_notes) h += kvRow('Compliance level notes', esc(r.raw._compliance_notes), false);
   if(safeUrl(r.url)) h += kvRow('Source', '<a href="'+esc(safeUrl(r.url))+'" target="_blank" rel="noopener">View on ROVER ↗</a>', false);
   h += '</div></div>';
 
@@ -1069,12 +1110,13 @@ function csvCell(v){
 }
 function exportCSV(){
   const list = filtered();
-  const cols = ['Type','Number','Make','Model','Chassis code','Build from','Build to','Category','Criterion','Expiry','Status','Model reports (MRE)','Source market','Approval holder','ROVER link'];
+  const cols = ['Type','Number','Make','Model','Chassis code','Build from','Build to','Category','Criterion','Expiry','Status','Model reports (MRE)','Source market','Odometer limit','Approval holder','ROVER link'];
   const lines = [cols.map(csvCell).join(',')];
   list.forEach(r=>{
     const st = statusOf(r);
     const ws = r.type==='SEV' ? (r.mres||[]).map(m=>m.id+' '+(m.holderShort||m.holder||'')).join('; ') : (r.holderShort||'');
-    const vals = [r.type,r.id,titleMake(r.make),r.model,r.code,fmtMY(r.from),r.to?fmtMY(r.to):'',r.cat,r.pathRaw,r.expiryRaw,st.label,ws,marketsFor(r).join(' · '),r.holder||'',r.url];
+    const o = odoInfo(r);
+    const vals = [r.type,r.id,titleMake(r.make),r.model,r.code,fmtMY(r.from),r.to?fmtMY(r.to):'',r.cat,r.pathRaw,r.expiryRaw,st.label,ws,marketsFor(r).join(' · '),o?o.text:'',r.holder||'',r.url];
     lines.push(vals.map(csvCell).join(','));
   });
   track('eligibility_export_csv', {rows:list.length});
