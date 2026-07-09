@@ -26,6 +26,10 @@ scripts/email_config.json
 # Local caches / build dirs
 .wrangler/
 scripts/__pycache__/
+__pycache__/
+
+# Local Python virtualenv (for running the scraper locally)
+.venv/
 
 # Backups (timestamped data.json + template .bak files)
 *.bak

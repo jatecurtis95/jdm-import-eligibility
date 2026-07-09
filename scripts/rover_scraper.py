@@ -541,20 +541,37 @@ async def extract_table_page(page):
 
 
 async def get_total_pages(page):
-    # Reads the max page number from the pager. Also inspects aria-labels
-    # ("Go to page 12") so a restyle that drops visible numerals doesn't silently
-    # collapse the register to a single page. A wrong low value here is still
-    # backstopped by the publish gate (count-drop check) before anything ships.
+    # ADVISORY ONLY. Reads the highest page number the pager advertises so we can
+    # log an expected count and cross-check it. It is NOT the loop's termination
+    # condition — pagination stops when the live pager exposes no "next" control
+    # (see fetch_all_records), so a mis-read here can neither truncate nor over-run
+    # the scrape.
+    #
+    # We only trust two unambiguous signals and ignore everything else. The old
+    # version did `parseInt(anyElementText)` over a `[aria-label]` catch-all, which
+    # let a stray number (e.g. a "Showing 1–10 of 389" counter) inflate the count
+    # to 389 for a register that only has ~60 real pages — the daily cron then
+    # chased pages that don't exist and aborted. Now we accept only:
+    #   • an element whose ENTIRE text is a bare page number, and
+    #   • an aria-label of the exact form "page N" / "go to page N".
     return await page.evaluate("""
         () => {
-            const els = [...document.querySelectorAll('li a, li button, nav button, nav a, [aria-label]')];
+            const pagers = [...document.querySelectorAll(
+                '.pagination, ul.pagination, nav[aria-label*="agination" i], [role="navigation"]'
+            )];
+            const roots = pagers.length ? pagers : [document.body];
             let max = 1;
-            for (const b of els) {
-                const t = parseInt((b.innerText || '').trim());
-                if (!isNaN(t) && t > 0) max = Math.max(max, t);
-                const al = (b.getAttribute && b.getAttribute('aria-label')) || '';
-                const m = al.match(/page\\s+(\\d+)/i);
-                if (m) max = Math.max(max, parseInt(m[1], 10));
+            const consider = (n) => {
+                if (Number.isInteger(n) && n > 0 && n < 100000) max = Math.max(max, n);
+            };
+            for (const root of roots) {
+                for (const el of root.querySelectorAll('a, button, li, span')) {
+                    const t = (el.innerText || '').trim();
+                    if (/^\\d+$/.test(t)) consider(parseInt(t, 10));
+                    const al = (el.getAttribute && el.getAttribute('aria-label')) || '';
+                    const m = al.match(/^(?:go to )?page\\s+(\\d+)$/i);
+                    if (m) consider(parseInt(m[1], 10));
+                }
             }
             return max;
         }
@@ -716,36 +733,65 @@ async def enrich_with_details(browser, records, is_mre, limit=None):
     print(f"  Detail enrichment finished: {completed} processed, {errors} errors.")
 
 
+# Infinite-loop backstop for the pagination loop. The register is ~60 pages
+# (~600 records); this cap (50k records at 10/page) is far above any plausible
+# real size, so hitting it means the pager is stuck/looping, not that the list
+# is genuinely that long.
+PAGE_HARD_CAP = 5000
+
+
+class NoNextPageControl(Exception):
+    """The pager exposes no control to advance past the current page.
+
+    This is the genuine end-of-list signal and is deliberately distinct from a
+    click-that-didn't-take (a timeout in _wait_for_page_change): an absent next
+    control means we've reached the last page and should stop cleanly, whereas a
+    stuck click means the portal glitched mid-list and we must abort rather than
+    silently drop the tail.
+    """
+
+
 async def _advance_page(page, next_page, current_page, total_pages, prev_first_sig,
                         max_attempts=3, timeout_ms=30000):
     """Click through to the next page and wait for the AJAX pager to render new rows.
 
     The ROVER portal is intermittently slow, so a single click+wait sometimes times out
     even though the portal is healthy. We retry the click+wait a few times with a short
-    settle delay before giving up. We still raise (rather than silently continue) if every
-    attempt fails, so the cron alerts instead of losing records.
+    settle delay before giving up.
+
+    Raises ``NoNextPageControl`` if no next-page control can be found (end of list) and
+    ``RuntimeError`` if a control was clicked but the page never advanced (a real glitch
+    worth alerting on, since it could silently drop records).
     """
     last_err = None
     for attempt in range(1, max_attempts + 1):
+        clicked = await page.evaluate(f"""
+            () => {{
+                const ariaBtn = document.querySelector('[aria-label*="page {next_page}"]');
+                if (ariaBtn) {{ ariaBtn.click(); return 'aria'; }}
+                const allBtns = [...document.querySelectorAll('li a, li button, nav a, nav button')];
+                const numBtn = allBtns.find(b => b.innerText.trim() === '{next_page}');
+                if (numBtn) {{ numBtn.click(); return 'text'; }}
+                const nextBtn = document.querySelector('[aria-label="Next"]') ||
+                                document.querySelector('[title="Next"]');
+                if (nextBtn) {{ nextBtn.click(); return 'next'; }}
+                return null;
+            }}
+        """)
+        # No next control found. This is normally just the end of the list, so we
+        # don't shout about it — but give a slow/still-rendering pager one short
+        # retry before concluding there's genuinely no more.
+        if not clicked:
+            if attempt < max_attempts:
+                await page.wait_for_timeout(1500)
+                continue
+            raise NoNextPageControl(
+                f"No page {next_page} control found (got to page {current_page}; "
+                f"advisory total was {total_pages})."
+            )
+        # A control was clicked but the rows didn't change — a real glitch worth
+        # alerting on, since silently continuing would drop the tail. Retry loudly.
         try:
-            clicked = await page.evaluate(f"""
-                () => {{
-                    const ariaBtn = document.querySelector('[aria-label*="page {next_page}"]');
-                    if (ariaBtn) {{ ariaBtn.click(); return 'aria'; }}
-                    const allBtns = [...document.querySelectorAll('li a, li button, nav a, nav button')];
-                    const numBtn = allBtns.find(b => b.innerText.trim() === '{next_page}');
-                    if (numBtn) {{ numBtn.click(); return 'text'; }}
-                    const nextBtn = document.querySelector('[aria-label="Next"]') ||
-                                    document.querySelector('[title="Next"]');
-                    if (nextBtn) {{ nextBtn.click(); return 'next'; }}
-                    return null;
-                }}
-            """)
-            if not clicked:
-                raise RuntimeError(
-                    f"Could not find page {next_page} button (expected {total_pages} pages, "
-                    f"only got to {current_page})."
-                )
             await _wait_for_page_change(page, prev_first_sig, timeout_ms=timeout_ms)
             return
         except Exception as e:
@@ -772,7 +818,7 @@ async def fetch_all_records(browser, url, list_name, id_field=None):
     await page.wait_for_timeout(2000)
 
     total_pages = await get_total_pages(page)
-    print(f"Total pages: {total_pages}")
+    print(f"Expected pages (advisory): {total_pages}")
 
     all_records = []
     current_page = 1
@@ -783,13 +829,19 @@ async def fetch_all_records(browser, url, list_name, id_field=None):
     # ~100 MRE records on the April 5 run).
     last_first_row_sig = None
 
-    while current_page <= total_pages:
-        print(f"  Page {current_page}/{total_pages}...", end=' ', flush=True)
+    # Termination is driven by the LIVE pager, not by total_pages: we stop when
+    # the pager exposes no "next" control (NoNextPageControl). ROVER's SEV pager
+    # has advertised a bogus page count (389 for a ~60-page register), so a
+    # total_pages-bounded loop chased pages that don't exist and aborted the run.
+    # total_pages is advisory; PAGE_HARD_CAP is only an infinite-loop backstop;
+    # the publish gate backstops any resulting under-count.
+    while current_page <= PAGE_HARD_CAP:
+        print(f"  Page {current_page}...", end=' ', flush=True)
         result = await extract_table_page(page)
         rows = result.get('rows', [])
 
-        # Sanity check: empty page is almost always a failure, not a real result.
-        # (We already know total_pages, so any page in range should have data.)
+        # Sanity check: we only land on a page the pager advanced us to, so an
+        # empty page is almost always a transient failure, not a real result.
         if not rows:
             print(f"EMPTY — retrying after wait")
             await page.wait_for_timeout(3000)
@@ -797,8 +849,8 @@ async def fetch_all_records(browser, url, list_name, id_field=None):
             rows = result.get('rows', [])
             if not rows:
                 raise RuntimeError(
-                    f"Page {current_page}/{total_pages} returned 0 rows after retry — "
-                    f"refusing to silently lose records. Aborting so the cron alerts."
+                    f"Page {current_page} returned 0 rows after retry — refusing to "
+                    f"silently lose records. Aborting so the cron alerts."
                 )
 
         # Column-remap guard: if ROVER inserts/renames/reorders a column, the
@@ -817,19 +869,32 @@ async def fetch_all_records(browser, url, list_name, id_field=None):
         print(f"{len(rows)} records")
         last_first_row_sig = _row_signature(rows[0]) if rows else None
 
-        if current_page >= total_pages:
-            break
-
         next_page = current_page + 1
         try:
             await _advance_page(page, next_page, current_page, total_pages, last_first_row_sig)
             current_page += 1
+        except NoNextPageControl:
+            # The live pager offers no way forward — genuine end of the list.
+            # Stop cleanly instead of aborting (total_pages may have over-counted).
+            print(f"  Reached last page at page {current_page} "
+                  f"(no page {next_page} control; advisory total was {total_pages}).")
+            break
         except Exception as e:
             print(f"  Pagination error: {e}")
             raise
+    else:
+        # Ran to the hard cap without a natural end — the pager is almost certainly
+        # stuck or looping. Fail loud rather than ship a runaway scrape.
+        raise RuntimeError(
+            f"{list_name}: hit page hard-cap {PAGE_HARD_CAP} without reaching the end "
+            f"of the list — aborting (pager likely stuck or looping)."
+        )
 
     await context.close()
     _sanitize_record_ids(all_records)
+    if total_pages > 1 and current_page < total_pages * 0.5:
+        print(f"  NOTE: scraped {current_page} page(s) but the pager advertised "
+              f"{total_pages} — advisory count looks inflated (safely ignored).")
     print(f"  Total records fetched: {len(all_records)}")
     return all_records
 
