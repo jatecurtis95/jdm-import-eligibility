@@ -93,6 +93,27 @@
   .lead b{color:var(--ink);font-weight:600}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
+  /* FAQ. Collapsed by default so it doesn't dump a wall of prose under the
+     table; the text stays in the HTML and expands on click, which keeps both
+     the organic value and the FAQPage schema legitimate. Shares the .howto
+     disclosure language so the page has one accordion idiom, not two. */
+  .faq{margin:8px 0 40px}
+  .faq h2{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,4vw,30px);letter-spacing:-.01em;margin:0 0 4px}
+  .faq .faq-sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .faq-list{display:grid;gap:8px}
+  .faq-item{border:1px solid var(--line);background:#FBF7EF;border-radius:var(--radius);overflow:hidden}
+  .faq-item summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;gap:12px;font-weight:700;font-size:15px;color:var(--ink);transition:background .15s ease}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary:hover{background:var(--gold-soft)}
+  .faq-item summary:focus-visible{outline:2px solid var(--gold-deep);outline-offset:-2px}
+  .faq-item .plus{margin-left:auto;color:var(--faint);font-size:18px;line-height:1;transition:transform .2s ease}
+  .faq-item[open] .plus{transform:rotate(45deg)}
+  .faq-item[open] summary{border-bottom:1px solid var(--line)}
+  .faq-body{padding:14px 16px 16px;color:var(--muted);font-size:14.5px;line-height:1.6;max-width:70ch}
+  .faq-body p{margin:0}
+  .faq-body a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px}
+  @media (prefers-reduced-motion:reduce){ .faq-item .plus,.faq-item summary{transition:none} }
+
   .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0 6px;}
   .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-height:70px;}
   .stat .n{font-family:var(--font-text);font-weight:700;font-size:26px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--ink);width:100%}
@@ -291,6 +312,32 @@
       "url": "https://jdmconnect.com.au",
       "logo": "https://caniimportit.com.au/logo.png",
       "description": "Japanese vehicle import specialists. JDM Connect sources, ships, and complies imported cars for Australia."
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://caniimportit.com.au/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the SEVS register?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The Specialist & Enthusiast Vehicle Scheme (SEVS) is an Australian Government register of vehicle models approved for import because they are rare, high-performance, or otherwise not sold new in Australia. If a model is on the SEVS register it can be imported and complied for road registration." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between SEVS and a Model Report (MRE)?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A SEVS entry says a model is eligible to import. A Model Report (MRE) is a RAWS workshop's approved compliance package for a specific model, the practical recipe to make it road-legal in Australia. A car with both a SEVS listing and a Model Report is the most straightforward to import." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I check if my car is eligible to import to Australia?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with a licensed RAWS workshop before you buy." }
+        },
+        {
+          "@type": "Question",
+          "name": "How current is this eligibility data?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It is pulled directly from the Australian Government ROVER portal (the SEVS Register and Model Report Approvals) and refreshed daily." }
+        }
+      ]
     }
   ]
 }
@@ -387,6 +434,28 @@
     </div>
   </section>
 
+  <section class="faq wrap" aria-labelledby="faqHeading">
+    <h2 id="faqHeading">Understanding import eligibility</h2>
+    <p class="faq-sub">The plain-English version of SEVS, MRE and what makes a car importable.</p>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What is the SEVS register?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq-body"><p>The Specialist &amp; Enthusiast Vehicle Scheme (SEVS) is an Australian Government register of vehicle models approved for import because they are rare, high-performance, or otherwise not sold new in Australia. If a model is on the SEVS register it can be imported and complied for road registration.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What is the difference between SEVS and a Model Report (MRE)?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq-body"><p>A SEVS entry says a model is eligible to import. A Model Report (MRE) is a RAWS workshop's approved compliance package for a specific model, the practical recipe to make it road-legal in Australia. A car with both a SEVS listing and a Model Report is the most straightforward to import.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I check if my car is eligible to import to Australia?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq-body"><p>Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with a licensed RAWS workshop before you buy. Or <a href="https://finder.jdmconnect.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=faq" target="_blank" rel="noopener">ask JDM Connect for a free eligibility check</a>.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>How current is this eligibility data?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq-body"><p>It is pulled directly from the Australian Government ROVER portal (the SEVS Register and Model Report Approvals) and refreshed daily. This register is a guide only, always confirm eligibility with a licensed RAWS workshop before purchase.</p></div>
+      </details>
+    </div>
+  </section>
 </main>
 
 <footer class="site">
