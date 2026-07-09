@@ -416,6 +416,17 @@ WORK_INSTRUCTIONS_LABELS = (
     'work instructions document identifier',
     'work instructions',
 )
+# MRE detail pages carry the market the compliance package was built for
+# ("Japan", "United Kingdom", ...) and a representative VIN for that variant.
+# NOTE: these live on the MODEL REPORT, not the SEV entry — a SEV can have
+# several model reports sourced from different markets, and a SEV with no model
+# report has no source market at all. The UI must not collapse that to one value.
+SOURCE_MARKET_LABELS = (
+    'source market', 'source country', 'market of origin',
+)
+TYPICAL_VIN_LABELS = (
+    'typical vin', 'typical v.i.n.', 'representative vin',
+)
 
 # Maps the raw "Eligibility criteria" text seen on SEV detail pages into a
 # canonical short tag the front-end ELIGIBILITY_LABELS table understands.
@@ -486,6 +497,34 @@ def _shorten_workshop(holder):
     cleaned = _LEGAL_SUFFIX_RE.sub('', holder).strip(' .,-')
     cleaned = re.sub(r'\s{2,}', ' ', cleaned)
     return cleaned or holder.strip()
+
+
+# Per-LINE sanity cap for short labelled detail fields. A value element is
+# sometimes a container rather than a leaf, in which case nearestValue() hands
+# back a block of unrelated text; any single line far too long for a "Source
+# market" / "Typical VIN" value is a bad read and gets dropped.
+_MAX_SHORT_FIELD_LEN = 120
+
+
+def _clean_lines(raw):
+    """Split a raw detail-page value into its list of values.
+
+    ROVER renders a multi-valued field as newline-separated lines inside one
+    cell — e.g. source market 'South Africa\\nUnited Kingdom', or ten typical
+    VINs for a model report covering ten variants. We must keep them as a list:
+    joining them is unrecoverable, since a single value can itself contain a
+    space ('South Africa', 'United States of America').
+
+    Returns [] when the field is absent or every line fails the sanity cap.
+    """
+    if not raw:
+        return []
+    out = []
+    for line in str(raw).splitlines():
+        val = ' '.join(line.split())
+        if val and len(val) <= _MAX_SHORT_FIELD_LEN and val not in out:
+            out.append(val)
+    return out
 
 
 # ── Data extraction ─────────────────────────────────────────────────────────
@@ -642,6 +681,8 @@ async def fetch_detail(page, url, is_mre):
                 holder: findFor(labels.holder),
                 expiry_reason: findFor(labels.expiry_reason),
                 work_instructions: findFor(labels.work_instructions),
+                source_market: findFor(labels.source_market),
+                typical_vin: findFor(labels.typical_vin),
             };
         }""",
         {
@@ -650,6 +691,8 @@ async def fetch_detail(page, url, is_mre):
             'holder': list(APPROVAL_HOLDER_LABELS),
             'expiry_reason': list(EXPIRY_REASON_LABELS),
             'work_instructions': list(WORK_INSTRUCTIONS_LABELS),
+            'source_market': list(SOURCE_MARKET_LABELS),
+            'typical_vin': list(TYPICAL_VIN_LABELS),
         }
     )
 
@@ -677,6 +720,16 @@ async def fetch_detail(page, url, is_mre):
         work_instr = extracted.get('work_instructions', '')
         if work_instr:
             out['_work_instructions'] = work_instr
+        # The market(s) this model report's compliance package is built for, and
+        # the representative VIN(s) of the variants it covers. Both are lists —
+        # a report can cover several markets and several variants. Only
+        # meaningful per-approval; see SOURCE_MARKET_LABELS.
+        markets = _clean_lines(extracted.get('source_market', ''))
+        if markets:
+            out['_source_markets'] = markets
+        vins = _clean_lines(extracted.get('typical_vin', ''))
+        if vins:
+            out['_typical_vins'] = vins
 
     return out
 

@@ -162,6 +162,9 @@
   .wk{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
   .wk b{color:var(--ink);font-weight:700}
   .wnone{font-size:12px;color:var(--faint)}
+  /* Source market. Comes from the Model Report, so a model with no report has none. */
+  .mk{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink);white-space:nowrap}
+  .mkmore{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);background:var(--grey-soft);border-radius:999px;padding:2px 6px;line-height:1}
   .cat{font-size:12px;font-family:var(--font-mono);color:var(--muted)}
 
   .cards{display:grid;grid-template-columns:1fr;gap:12px}
@@ -175,6 +178,7 @@
   .card .meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
   .card .range{font-size:13px;color:var(--muted)}
   .card .foot{display:flex;align-items:center;gap:12px;margin-top:12px}
+  .card .foot .mk{font-size:12px;color:var(--muted)}
   .card .foot .wklabel{margin-left:auto;font-size:13px;color:var(--muted)}
   .card .foot .wklabel b{color:var(--ink)}
   @media (min-width:600px){ .cards{grid-template-columns:1fr 1fr} }
@@ -256,7 +260,8 @@
   .linkrow{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px 14px;cursor:pointer;transition:border-color .12s}
   .linkrow:hover{border-color:var(--ink)}
   .linkrow .ln{font-family:var(--font-mono);font-size:12.5px}
-  .linkrow .ls{font-size:12px;color:var(--muted)}
+  .linkrow .ls{font-size:12px;color:var(--muted);margin-left:auto}
+  .linkrow .lm{font-family:var(--font-mono);font-size:11px;color:var(--muted);background:var(--grey-soft);border-radius:999px;padding:3px 8px;line-height:1;white-space:nowrap}
   .cta{margin:28px 22px 0;background:var(--header);border-radius:12px;padding:20px;color:var(--header-ink);position:relative;overflow:hidden;border:1px solid #2e2820}
   .cta h4{font-family:var(--font-display);font-size:19px;font-weight:600;margin:0 0 5px;color:var(--gold-bright)}
   .cta p{font-size:12.5px;color:#A39C8A;margin:0 0 14px}
@@ -396,7 +401,7 @@
     <div class="table-wrap" id="tableWrap" style="display:none">
       <table class="reg">
         <thead>
-          <tr><th>Vehicle</th><th>Chassis / VIN</th><th>Build range</th><th>Criterion<span class="ith" title="Why the model qualifies for import: performance, environmental, rarity, mobility, etc.">i</span></th><th>Cat.</th><th>Workshops<span class="ith" title="Licensed RAWS workshops that already hold an approved Model Report, so they are a workshop that can carry out compliance for this model">i</span></th><th>Status</th><th></th></tr>
+          <tr><th>Vehicle</th><th>Chassis / VIN</th><th>Build range</th><th>Criterion<span class="ith" title="Why the model qualifies for import: performance, environmental, rarity, mobility, etc.">i</span></th><th>Cat.</th><th>Workshops<span class="ith" title="Licensed RAWS workshops that already hold an approved Model Report, so they are a workshop that can carry out compliance for this model">i</span></th><th>Import from<span class="ith" title="The market each RAWS workshop's approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved compliance package. A dash means no Model Report exists yet.">i</span></th><th>Status</th><th></th></tr>
         </thead>
         <tbody id="rows"></tbody>
       </table>
@@ -597,7 +602,10 @@ function build(data){
       underReview:false,
       holder:m._approval_holder||'', workshop:m._workshop_short||'',
       url:m._detail_url||'', scope, sevs, work:m._work_instructions||'',
-      status:m['Approval status']||'', raw:m
+      status:m['Approval status']||'',
+      markets: Array.isArray(m._source_markets)?m._source_markets:[],
+      vins: Array.isArray(m._typical_vins)?m._typical_vins:[],
+      raw:m
     };
     // inherit criterion + chassis code from linked SEV
     for(const sn of sevs){
@@ -742,6 +750,42 @@ function pathHTML(r){
   return '<span class="crit"><span class="cdot" style="background:'+pc[0]+'"></span>'+esc(label)+'</span>';
 }
 function wkCount(r){ return r.type==='SEV' ? (r.mres?r.mres.length:0) : 1+((r.mres&&r.mres.length)||0); }
+
+/* ---------- source market ----------
+   Source market is a property of the MODEL REPORT, not of the vehicle. One SEV
+   can carry several reports sourced from different markets, and a SEV with no
+   report has no published market at all. A displayed row stands for a whole
+   group (a SEV plus its reports, or a primary MRE plus its folded siblings), so
+   we union across that group. Never render "no report" as "any market" — it
+   means nobody has built a compliance package yet, which is the opposite. */
+const MARKET_SHORT = {'United Kingdom':'UK','United States of America':'USA','Hong Kong':'HK','New Zealand':'NZ'};
+const MARKET_TIP = 'The market each RAWS workshop’s approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved compliance package.';
+const MARKET_NONE_TIP = 'No approved Model Report yet, so ROVER publishes no source market for this model.';
+function groupOf(r){ return r.type==='SEV' ? (r.mres||[]) : [r].concat(r.mres||[]); }
+function marketsFor(r){ return [...new Set(groupOf(r).flatMap(m=>m.markets||[]))].sort(); }
+function vinsFor(r){ return [...new Set(groupOf(r).flatMap(m=>m.vins||[]))]; }
+function marketShort(m){ return MARKET_SHORT[m] || m; }
+function moreTag(n){ return '<span class="mkmore">+'+n+'</span>'; }
+function marketCell(r, blankWhenNone){
+  const ms = marketsFor(r);
+  if(!ms.length) return blankWhenNone ? '' : '<span class="wnone" title="'+esc(MARKET_NONE_TIP)+'">—</span>';
+  return '<span class="mk" title="'+esc(ms.join(' · '))+'">'+esc(marketShort(ms[0]))
+    + (ms.length>1 ? moreTag(ms.length-1) : '') + '</span>';
+}
+// The column is "Chassis / VIN": when ROVER gives us no model code, the model
+// report's typical VIN is the next best identifier for an auction sheet.
+function chassisCell(r){
+  if(r.code) return '<span class="chassiscode">'+esc(r.code)+'</span>';
+  const v = vinsFor(r);
+  if(!v.length) return '<span class="wnone">n/a</span>';
+  return '<span class="chassiscode" title="Typical VIN: '+esc(v.join(' · '))+'">'+esc(v[0])+'</span>'
+    + (v.length>1 ? moreTag(v.length-1) : '');
+}
+// Market tag for one model report inside the panel's workshop lists.
+function linkMarket(m){
+  const mk = (m.markets||[]).map(marketShort).join(' · ');
+  return mk ? '<span class="lm" title="'+esc(MARKET_TIP)+'">'+esc(mk)+'</span>' : '';
+}
 function thumbHTML(r){
   const ph = photoFor(r);
   if(ph) return '<img class="thumb" loading="lazy" src="'+esc(safeUrl(ph.url))+'" alt="" onerror="this.outerHTML=\'<div class=&quot;thumb ph&quot;></div>\'">';
@@ -757,6 +801,7 @@ function cardHTML(r){
     + '<div class="right"><span class="badge '+st.cls+'" title="'+esc(st.short)+'">'+st.label+'</span></div></div>'
     + '<div class="meta"><span class="sev">'+esc(r.id)+'</span><span class="range">'+fmtRange(r.from,r.to)+'</span>'+pathHTML(r)+'</div>'
     + '<div class="foot"><span class="cat">CAT '+esc(r.cat||'n/a')+'</span>'
+    + marketCell(r, true)
     + '<span class="wklabel">'+(wn?'<b>'+wn+'</b> workshop'+(wn===1?'':'s'):'no workshop yet')+'</span></div>'
     + '</article>';
 }
@@ -767,11 +812,12 @@ function rowHTML(r){
   return '<tr data-i="'+r._ix+'">'
     + '<td><div class="veh">'+thumbHTML(r)+'<div><div class="name">'+esc(name)+'</div>'
       + '<div class="vsub"><span class="sev">'+esc(r.id)+'</span><span class="typetag '+(r.type==='SEV'?'sev':'mre')+'">'+(r.type==='SEV'?'SEVS':'MRE')+'</span></div></div></div></td>'
-    + '<td>'+(r.code?'<span class="chassiscode">'+esc(r.code)+'</span>':'<span class="wnone">n/a</span>')+'</td>'
+    + '<td>'+chassisCell(r)+'</td>'
     + '<td class="range">'+fmtRange(r.from,r.to)+'</td>'
     + '<td>'+pathHTML(r)+'</td>'
     + '<td>'+(r.cat?'<span class="cattag">'+esc(r.cat)+'</span>':'<span class="wnone">n/a</span>')+'</td>'
     + '<td>'+(wn?'<span class="wk"><b>'+wn+'</b></span>':'<span class="wnone">none yet</span>')+'</td>'
+    + '<td>'+marketCell(r)+'</td>'
     + '<td><span class="badge '+st.cls+'" title="'+esc(st.short)+'">'+st.label+'</span></td>'
     + '<td><span class="chev">›</span></td></tr>';
 }
@@ -856,6 +902,8 @@ function openPanel(r){
   h += '<span class="badge '+st.cls+'" title="'+esc(st.tip)+'">'+st.label+'</span>';
   if(r.code) h += '<span class="chip" title="Chassis / model code, found on the car’s ID plate and auction sheets">'+esc(r.code)+'</span>';
   if(r.pathRaw) h += '<span class="chip" title="Why this model qualifies for import under the SEVS scheme">'+esc(r.pathRaw)+'</span>';
+  const pmk = marketsFor(r);
+  if(pmk.length) h += '<span class="chip" title="'+esc(MARKET_TIP)+'">Import from: '+esc(pmk.join(' · '))+'</span>';
   h += '</div>';
   h += verdictHTML(r, st);
 
@@ -865,6 +913,9 @@ function openPanel(r){
   if(r.expiryRaw) h += kvRow('SEV expiry', esc(r.expiryRaw), true);
   h += kvRow('Category', esc(r.catFull||r.cat), false);
   if(r.holder) h += kvRow('Approval holder', esc(r.holder), false);
+  if(r.type==='MRE' && (r.markets||[]).length) h += kvRow('Source market', esc(r.markets.join(' · ')), false);
+  if(r.type==='MRE' && (r.vins||[]).length)
+    h += kvRow('Typical VIN', esc(r.vins.slice(0,4).join(' · '))+(r.vins.length>4?moreTag(r.vins.length-4):''), true);
   if(r.work && r.work !== (r.raw._variant_description||'')) h += kvRow('Work instructions', esc(r.work), false);
   if(safeUrl(r.url)) h += kvRow('Source', '<a href="'+esc(safeUrl(r.url))+'" target="_blank" rel="noopener">View on ROVER ↗</a>', false);
   h += '</div></div>';
@@ -910,7 +961,7 @@ function openPanel(r){
     if(linked.length){
       h += '<div class="sechead">RAWS workshops with approved model reports</div><div class="linklist">';
       linked.slice(0,10).forEach(m=>{
-        h += '<div class="linkrow" data-link="'+m._ix+'"><span class="ln">'+esc(m.id)+'</span><span class="ls">'+esc(m.workshop||m.holder)+'</span></div>';
+        h += '<div class="linkrow" data-link="'+m._ix+'"><span class="ln">'+esc(m.id)+'</span><span class="ls">'+esc(m.workshop||m.holder)+'</span>'+linkMarket(m)+'</div>';
       });
       h += '</div>';
     } else {
@@ -920,7 +971,7 @@ function openPanel(r){
   if(r.type==='MRE' && r.mres && r.mres.length){
     h += '<div class="sechead">Also approved by</div><div class="linklist">';
     r.mres.forEach(m=>{
-      h += '<div class="linkrow" data-link="'+m._ix+'"><span class="ln">'+esc(m.id)+'</span><span class="ls">'+esc(m.workshop||m.holder||'')+'</span></div>';
+      h += '<div class="linkrow" data-link="'+m._ix+'"><span class="ln">'+esc(m.id)+'</span><span class="ls">'+esc(m.workshop||m.holder||'')+'</span>'+linkMarket(m)+'</div>';
     });
     h += '</div>';
   }
@@ -985,12 +1036,12 @@ function csvCell(v){
 }
 function exportCSV(){
   const list = filtered();
-  const cols = ['Type','Number','Make','Model','Chassis code','Build from','Build to','Category','Criterion','Expiry','Status','Workshops (MRE)','Approval holder','ROVER link'];
+  const cols = ['Type','Number','Make','Model','Chassis code','Build from','Build to','Category','Criterion','Expiry','Status','Workshops (MRE)','Source market','Approval holder','ROVER link'];
   const lines = [cols.map(csvCell).join(',')];
   list.forEach(r=>{
     const st = statusOf(r);
     const ws = r.type==='SEV' ? (r.mres||[]).map(m=>m.id+' '+(m.workshop||m.holder||'')).join('; ') : (r.workshop||'');
-    const vals = [r.type,r.id,titleMake(r.make),r.model,r.code,fmtMY(r.from),r.to?fmtMY(r.to):'',r.cat,r.pathRaw,r.expiryRaw,st.label,ws,r.holder||'',r.url];
+    const vals = [r.type,r.id,titleMake(r.make),r.model,r.code,fmtMY(r.from),r.to?fmtMY(r.to):'',r.cat,r.pathRaw,r.expiryRaw,st.label,ws,marketsFor(r).join(' · '),r.holder||'',r.url];
     lines.push(vals.map(csvCell).join(','));
   });
   track('eligibility_export_csv', {rows:list.length});
