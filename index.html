@@ -97,7 +97,9 @@
      table; the text stays in the HTML and expands on click, which keeps both
      the organic value and the FAQPage schema legitimate. Shares the .howto
      disclosure language so the page has one accordion idiom, not two. */
-  .faq{margin:8px 0 40px}
+  /* `auto` on the sides, not 0 — .faq is also a .wrap, and a `margin: 8px 0 40px`
+     shorthand here would reset .wrap's `margin: 0 auto` and pin the section left. */
+  .faq{margin:8px auto 40px}
   .faq h2{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,4vw,30px);letter-spacing:-.01em;margin:0 0 4px}
   .faq .faq-sub{color:var(--muted);font-size:14px;margin:0 0 18px}
   .faq-list{display:grid;gap:8px}
