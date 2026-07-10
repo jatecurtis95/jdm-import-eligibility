@@ -3,10 +3,16 @@
 # breaking analytics or the data fetch on a live lead tool. Verify the browser
 # console shows no CSP violations on the preview, then rename the header to
 # `Content-Security-Policy` (drop `-Report-Only`) to enforce it.
+#
+# Cloudflare injects its own Web Analytics beacon from static.cloudflareinsights.com
+# and posts RUM data back to cloudflareinsights.com. Neither was allowed, so every
+# page view reported a violation — the one thing blocking enforcement above. Its
+# other injected script (/cdn-cgi/scripts/.../email-decode.min.js) is same-origin
+# and already covered by 'self'.
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com https://connect.facebook.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://raw.githubusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://connect.facebook.net https://www.facebook.com; frame-src https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com https://connect.facebook.net https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://raw.githubusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://cloudflareinsights.com; frame-src https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'

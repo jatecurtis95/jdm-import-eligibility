@@ -559,16 +559,23 @@ def _clean_text(raw):
     return val if len(val) <= _MAX_NOTES_LEN else ''
 
 
-# An odometer cap stated as a CONDITION on the car being modified. Deliberately
-# narrow: it must be phrased as a restriction, so we never mistake the emissions
-# test vehicle's own mileage ("Using JC08 for compliance. With a Mileage of
-# 99,322km") for a limit, nor the condition-removal clause ("...a vehicle that has
-# travelled GREATER than 80,000kilometres...").
+# An odometer cap stated as a CONDITION on the car being modified.
+#
+# Anchored on the restriction phrase itself rather than on a leading "only
+# vehicles", because the department writes it many ways: "must have an odometer
+# reading of less than 80,000 kilometres", "only 1TR-FE engine vehicles with an
+# odometer less than 80,000 kilometres", "must not have travelled more than
+# 136,546 km". Anchoring on "only vehicles" missed 11 single-cap reports.
+#
+# It stays narrow enough to ignore:
+#   • the emissions test vehicle's own mileage ("With a Mileage of 99,322km")
+#   • the condition-removal clause ("...has travelled GREATER than 80,000kilometres")
+#   • a note that imposes no cap at all ("have no km limit imposed")
 _ODO_LIMIT_RE = re.compile(
-    r'(?:only\s+vehicles?\s+(?:with\s+an?\s+odometer\s+(?:reading\s+)?(?:of\s+)?'
+    r'(?:odometer(?:\s+reading)?\s*(?:of\s+)?'
     r'(?:less\s+than|under|below|not\s+exceeding|no\s+more\s+than)'
-    r'|that\s+have\s+travelled\s+(?:fewer|less)\s+than)'
-    r'|must\s+not\s+have\s+travelled\s+(?:more\s+than|over))'
+    r'|must\s+not\s+have\s+travelled\s+(?:more\s+than|over)'
+    r'|have\s+travelled\s+(?:fewer|less)\s+than)'
     r'\s*([\d,]{1,12})\s*(?:kilometres|kilometers|kms|km)\b',
     re.IGNORECASE)
 # Any mention that an odometer/km condition is in play at all, even where we
