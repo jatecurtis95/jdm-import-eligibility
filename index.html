@@ -165,9 +165,6 @@
   .crit{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink)}
   .crit .cdot{width:9px;height:9px;border-radius:3px;flex:none}
   .sev{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
-  .typetag{display:inline-flex;align-items:center;font-size:10px;letter-spacing:.06em;font-weight:700;border-radius:999px;padding:3px 8px;line-height:1}
-  .typetag.sev{color:var(--sev-ink);background:var(--sev-bg)}
-  .typetag.mre{color:var(--mre-ink);background:var(--mre-bg)}
   .cattag{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--muted);background:var(--grey-soft);border-radius:999px;padding:3px 9px;line-height:1}
   .badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;border-radius:999px;padding:4px 10px;white-space:nowrap;line-height:1}
   .badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
@@ -232,6 +229,7 @@
   .empty-cta{margin:20px auto 0;max-width:44ch;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);line-height:1.55}
   .empty-cta a{display:inline-block;margin-top:12px;background:var(--gold-bright);color:#1a1407;font-weight:700;text-decoration:none;border-radius:999px;padding:11px 20px;font-size:13.5px}
   .empty-cta a:hover{filter:brightness(1.06)}
+  .linkbtn{background:none;border:none;padding:0;font:inherit;color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 
   footer.site{border-top:1px solid var(--line);padding:26px 0 44px;color:var(--faint);font-size:12.5px;text-align:center}
   footer.site .fjp{font-family:var(--font-display);font-style:italic;font-size:13px;letter-spacing:.18em;color:var(--faint);margin-bottom:10px}
@@ -247,10 +245,12 @@
   .scrim.open{opacity:1;pointer-events:auto}
   .panel{position:fixed;top:0;right:-560px;width:min(540px,100vw);height:100vh;height:100dvh;background:var(--bg);z-index:60;transition:right .26s cubic-bezier(.3,.8,.3,1);display:flex;flex-direction:column;border-left:1px solid var(--line-strong);box-shadow:-20px 0 50px -20px rgba(20,16,10,.4)}
   .panel.open{right:0}
-  .phead{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--line);flex-shrink:0}
+  .phead{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line);flex-shrink:0}
   .phead .pk{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-  .pclose{background:none;border:1px solid var(--line-strong);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;color:var(--ink);transition:border-color .15s}
+  .pclose{background:none;border:1px solid var(--line-strong);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;color:var(--ink);transition:border-color .15s;margin-left:auto;flex:none}
   .pclose:hover{border-color:var(--ink)}
+  .pback{background:none;border:1px solid var(--line-strong);height:34px;padding:0 12px;border-radius:8px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;flex:none;transition:border-color .15s}
+  .pback:hover{border-color:var(--ink)}
   .pbody{overflow-y:auto;flex:1;padding:0 0 30px}
   .pphoto{width:100%;height:230px;object-fit:cover;display:block;background:var(--grey-soft)}
   .pcredit{font-family:var(--font-mono);font-size:9.5px;color:var(--faint);text-align:right;padding:4px 22px 0}
@@ -326,17 +326,17 @@
         {
           "@type": "Question",
           "name": "What is the SEVS register?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The Specialist & Enthusiast Vehicle Scheme (SEVS) is an Australian Government register of vehicle models approved for import because they are rare, high-performance, or otherwise not sold new in Australia. If a model is on the SEVS register it can be imported and complied for road registration." }
+          "acceptedAnswer": { "@type": "Answer", "text": "The Specialist & Enthusiast Vehicle Scheme (SEVS) is an Australian Government register of vehicles eligible for import. Vehicles must fit into certain criteria such as Performance, Environmental, Rarity, Campervan/Motorhome or Mobility. Vehicles under the Performance or Environmental criteria must not have been sold new in Australia, as well as other requirements. A vehicle must have an entry on the SEVS register as well as a corresponding Model Report (MRE) to be imported and complied in Australia." }
         },
         {
           "@type": "Question",
-          "name": "What is the difference between SEVS and a Model Report (MRE)?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A SEVS entry says a model is eligible to import. A Model Report (MRE) is the approved specification for how that model may be modified to meet Australian standards. A registered automotive workshop follows its work instructions, and an authorised vehicle verifier independently checks the result. A car with both a SEVS listing and a Model Report is the most straightforward to import." }
+          "name": "What is a Model Report?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A Model Report (MRE) is a document that describes how a vehicle on the SEV register may be modified to comply with Australian Design Rules (ADR). The work described in a Model Report is followed by a Registered Automotive Workshop (RAW) and then checked by an Authorised Vehicle Verifier (AVV) before being signed off and completed." }
         },
         {
           "@type": "Question",
           "name": "How do I check if my car is eligible to import to Australia?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with a registered automotive workshop before you buy." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with an import agent before you buy." }
         },
         {
           "@type": "Question",
@@ -364,7 +364,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
         Export CSV
       </button>
-      <a class="btn-quote" id="headerQuote" href="https://finder.jdmconnect.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=header" target="_blank" rel="noopener">Get a quote</a>
+      <a class="btn-quote" id="headerQuote" href="https://jdmfinder.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=header" target="_blank" rel="noopener">Get a quote</a>
     </div>
   </div>
 </header>
@@ -396,7 +396,7 @@
         <label class="fld"><span>Built in year</span><input id="fYear" type="number" inputmode="numeric" placeholder="e.g. 2001" aria-label="Built in year" min="1950" max="2030" /></label>
       </div>
       <div class="toggles">
-        <label class="toggle" title="Only show models that already have an approved Model Report"><input type="checkbox" id="tReady" /> Has a model report</label>
+        <label class="toggle" title="Only show vehicles that can be imported and complied right now — a current SEVS entry with an approved Model Report. Untick to also see SEVS entries that don't have a Model Report yet."><input type="checkbox" id="tReady" checked /> Currently eligible</label>
         <label class="toggle"><input type="checkbox" id="tExpired" /> Show expired</label>
       </div>
     </div>
@@ -406,9 +406,9 @@
     <details class="howto">
       <summary>New to importing? How this works <span class="plus">+</span></summary>
       <div class="body">
-        <b>1. It’s on the list.</b> Every car here has been approved by the Australian Government as eligible to import, on the SEVS register or as a Model Report (MRE).
-        <b>2. We land it.</b> JDM Connect sources the car in Japan and ships it to Australia.
-        <b>3. It’s made road-ready.</b> A registered automotive workshop modifies it to the Model Report’s work instructions, an authorised vehicle verifier checks the work, and it goes on the Register of Approved Vehicles, then it’s registered like any other car. Use the filters to search by model, chassis code, criterion, or the year you want it built in.
+        <b>1. Check the register.</b> Search by make, model or chassis code. To be imported and complied in Australia, a car needs a current SEVS register entry plus an approved Model Report (MRE), and that’s exactly what the “Currently eligible” filter shows.
+        <b>2. We land it.</b> JDM Connect sources the car in Japan, handles auction bidding, shipping and customs, end to end.
+        <b>3. It’s complied and registered.</b> A Registered Automotive Workshop (RAW) carries out the Model Report’s work instructions, an Authorised Vehicle Verifier (AVV) checks and signs off the work, and the car goes on the Register of Approved Vehicles, ready to register like any other car.
       </div>
     </details>
   </div>
@@ -428,9 +428,9 @@
     </div>
     <div class="empty" id="empty" hidden>
       <h3>No exact match in the register</h3>
-      <div>Try a shorter search (just the model or chassis code), clear a filter, or tick “Show expired” to widen the results.</div>
+      <div id="emptyMsg">Try a shorter search (just the model or chassis code), clear a filter, or untick “Currently eligible” to include models that don’t have a Model Report yet.</div>
       <div class="empty-cta">Can’t find your car? It may still be importable under a new or pending pathway, the register only shows what’s currently approved.
-        <a id="emptyQuote" href="https://finder.jdmconnect.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=empty_state" target="_blank" rel="noopener">Get a free eligibility check →</a>
+        <a id="emptyQuote" href="https://jdmfinder.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=empty_state" target="_blank" rel="noopener">Get a free eligibility check →</a>
       </div>
     </div>
     <div id="pagination" class="pagination" style="display:none">
@@ -446,19 +446,19 @@
     <div class="faq-list">
       <details class="faq-item">
         <summary>What is the SEVS register?<span class="plus" aria-hidden="true">+</span></summary>
-        <div class="faq-body"><p>The Specialist &amp; Enthusiast Vehicle Scheme (SEVS) is an Australian Government register of vehicle models approved for import because they are rare, high-performance, or otherwise not sold new in Australia. If a model is on the SEVS register it can be imported and complied for road registration.</p></div>
+        <div class="faq-body"><p>The Specialist &amp; Enthusiast Vehicle Scheme (SEVS) is an Australian Government register of vehicles eligible for import. Vehicles must fit into certain criteria such as Performance, Environmental, Rarity, Campervan/Motorhome or Mobility. Vehicles under the Performance or Environmental criteria must not have been sold new in Australia, as well as other requirements. A vehicle must have an entry on the SEVS register as well as a corresponding Model Report (MRE) to be imported and complied in Australia.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What is the difference between SEVS and a Model Report (MRE)?<span class="plus" aria-hidden="true">+</span></summary>
-        <div class="faq-body"><p>A SEVS entry says a model is eligible to import. A Model Report (MRE) is the approved specification for how that model may be modified to meet Australian standards. A registered automotive workshop follows its work instructions, and an authorised vehicle verifier independently checks the result. A car with both a SEVS listing and a Model Report is the most straightforward to import.</p></div>
+        <summary>What is a Model Report?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq-body"><p>A Model Report (MRE) is a document that describes how a vehicle on the SEV register may be modified to comply with Australian Design Rules (ADR). The work described in a Model Report is followed by a Registered Automotive Workshop (RAW) and then checked by an Authorised Vehicle Verifier (AVV) before being signed off and completed.</p></div>
       </details>
       <details class="faq-item">
         <summary>How do I check if my car is eligible to import to Australia?<span class="plus" aria-hidden="true">+</span></summary>
-        <div class="faq-body"><p>Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with a registered automotive workshop before you buy. Or <a href="https://finder.jdmconnect.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=faq" target="_blank" rel="noopener">ask JDM Connect for a free eligibility check</a>.</p></div>
+        <div class="faq-body"><p>Search this register by make, model, chassis code, or the year you want the car built in. A green ELIGIBLE badge means the model is currently approved. Always confirm with an import agent before you buy. Or <a href="https://jdmconnect.com.au/contact-us/?utm_source=eligibility&amp;utm_medium=faq" target="_blank" rel="noopener">ask JDM Connect for a free eligibility check</a>.</p></div>
       </details>
       <details class="faq-item">
         <summary>How current is this eligibility data?<span class="plus" aria-hidden="true">+</span></summary>
-        <div class="faq-body"><p>It is pulled directly from the Australian Government ROVER portal (the SEVS Register and Model Report Approvals) and refreshed daily. This register is a guide only, always confirm eligibility with a registered automotive workshop before purchase.</p></div>
+        <div class="faq-body"><p>It is pulled directly from the Australian Government ROVER portal (the SEVS Register and Model Report Approvals) and refreshed daily. This register is a guide only, always confirm eligibility with an import agent before purchase.</p></div>
       </details>
     </div>
   </section>
@@ -472,7 +472,7 @@
     </a>
     <div class="fjp">日本車を、オーストラリアへ</div>
     <p>Data sourced live from the Australian Government ROVER portal (SEVS Register &amp; Model Report Approvals). Refreshed daily.</p>
-    <p>This register is a guide only, always confirm eligibility with a registered automotive workshop before purchase.</p>
+    <p>This register is a guide only, always confirm eligibility with an import agent before purchase.</p>
     <p><a href="https://jdmconnect.com.au">jdmconnect.com.au</a> · <a href="mailto:info@jdmconnect.com.au">info@jdmconnect.com.au</a></p>
   </div>
 </footer>
@@ -480,6 +480,7 @@
 <div class="scrim" id="scrim"></div>
 <aside class="panel" id="panel" aria-label="Vehicle details">
   <div class="phead">
+    <button class="pback" id="pBack" type="button" hidden>← Back</button>
     <span class="pk" id="pType">Record</span>
     <button class="pclose" id="pClose" aria-label="Close">✕</button>
   </div>
@@ -498,9 +499,10 @@ const PHOTOS_URL = 'https://raw.githubusercontent.com/jatecurtis95/rover-eligibi
 const QUOTE_EMAIL = 'info@jdmconnect.com.au';
 // Conversion channels. WhatsApp always opens (app or web) so it replaces the
 // mailto: that silently failed on machines without a mail client. The finder
-// form is a tracked lead capture into the JDM Connect CRM.
+// form is a tracked lead capture into the JDM Connect CRM. Link straight to
+// jdmfinder.com.au — the old finder.jdmconnect.com.au host now just 301s there.
 const WA_NUMBER = '61415111221';
-const FINDER_REQUEST_URL = 'https://finder.jdmconnect.com.au/request';
+const FINDER_REQUEST_URL = 'https://jdmfinder.com.au/request';
 function finderHref(medium, extra){
   const q = new URLSearchParams(Object.assign({src:'eligibility', utm_source:'eligibility', utm_medium:medium}, extra||{}));
   return FINDER_REQUEST_URL+'?'+q.toString();
@@ -526,10 +528,11 @@ let currentPage = 1;
 const DATA_FLOOR = 200;
 const FETCH_TIMEOUT_MS = 8000;
 function timeoutSignal(ms){ try{ return AbortSignal.timeout(ms); }catch(e){ return undefined; } }
-// view defaults to 'all' so the register never hides an eligible model — a
-// SEV-only car (no current model report) is still importable and must show.
-// The "Has a model report" toggle opts into the narrower 'ready' view.
-const F = { q:'', make:'', path:'', cat:'', year:'', src:'', expired:false, view:'all' };
+// view defaults to 'ready' — the "Currently eligible" toggle is ticked by
+// default so the register opens on vehicles that can actually be imported and
+// complied today (a current SEVS entry with an approved Model Report).
+// Unticking it widens to SEV-only entries with no current report.
+const F = { q:'', make:'', path:'', cat:'', year:'', src:'', expired:false, view:'ready' };
 const $ = id => document.getElementById(id);
 let reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -559,11 +562,31 @@ function titleMake(s){
   if(s.length<=3) return s.toUpperCase();
   return s.split(/\s+/).map(w=>w.length<=3&&w===w.toUpperCase()?w:w[0].toUpperCase()+w.slice(1).toLowerCase()).join(' ');
 }
+// Category code from either register's raw value: SEVs publish "MD2 - Light
+// Omnibus", MREs publish bare "MD2". Letters + optional digit, trimmed — the
+// old 2-letter match left "MD2 " (trailing space) for SEV rows and "MD2" for
+// MRE rows, which doubled codes in the Category dropdown.
 function catCode(s){
   if(!s) return '';
-  const m = String(s).match(/^([A-Z]{2})\b/);
-  return m ? m[1] : String(s).slice(0,4);
+  const t = String(s).trim().toUpperCase();
+  const m = t.match(/^([A-Z]+\d*)/);
+  return m ? m[1] : t.slice(0,4);
 }
+// Plain-English labels for the ADR vehicle category codes shown in the
+// Category filter. Data-derived labels (from the SEV "code - label" strings)
+// override these in populateFilters; this map covers codes that only ever
+// appear bare on MRE records.
+const CAT_LABELS = {
+  LA:'Moped (2 wheels)', LB:'Moped (3 wheels)', LC:'Motorcycle',
+  LD:'Motorcycle with sidecar', LEG:'3 Wheeled L-group Vehicles',
+  LEM:'3 Wheeled L-group Vehicles', LEP:'3 Wheeled L-group Vehicles',
+  MA:'Passenger Vehicle', MB:'Forward-Control Passenger Vehicle',
+  MC:'Off-Road Passenger Vehicle', MD1:'Light Omnibus', MD2:'Light Omnibus',
+  MD3:'Light Omnibus', MD4:'Light Omnibus', ME:'Heavy Omnibus',
+  NA:'Light Goods Vehicle', NB:'Medium Goods Vehicle',
+  NB1:'Medium Goods Vehicle', NB2:'Medium Goods Vehicle',
+  NC:'Heavy Goods Vehicle'
+};
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 // Scraped URLs are semi-trusted — only ever emit http(s) into href/src so a
 // stray javascript:/data: value from a bad scrape can't become executable.
@@ -614,11 +637,18 @@ function build(data){
   (data.mre||[]).forEach(m=>{
     const [from,to] = parseRange(m['Build date range']);
     const scope = Array.isArray(m._scope)?m._scope:[];
-    const sevs = [...new Set(scope.flatMap(v=>v.sev||[]))];
+    // ROVER's "Based on" field is the authoritative statement of which SEV(s)
+    // a model report rests on. The SEV numbers on scope/spec pages are only a
+    // fallback — they can name historic SEVs (and are missing entirely on
+    // un-scoped reports). Never let a report attach to a SEV it isn't based on:
+    // MRE-000198 (based on the expired SEV-000283) must not appear under the
+    // current RX-8 entry SEV-001077.
+    const basedOn = Array.isArray(m._based_on_sevs)?m._based_on_sevs.filter(Boolean):[];
+    const sevs = basedOn.length ? basedOn : [...new Set(scope.flatMap(v=>v.sev||[]))];
     const r = {
       type:'MRE', id:m['Approval number']||'', make:m.Make||'', model:m.Model||'',
       code:'', from, to,
-      cat:m['Post-modification category']||'', catFull:m['Post-modification category']||'',
+      cat:catCode(m['Post-modification category']), catFull:m['Post-modification category']||'',
       path:'', pathRaw:'',
       expiry:null, expiryRaw:'',
       underReview:false,
@@ -639,10 +669,11 @@ function build(data){
         (mresBySev[sn.trim().toUpperCase()] = mresBySev[sn.trim().toUpperCase()]||[]).push(r);
       }
     }
-    // A Specialist & Enthusiast model report rests on its scope SEV(s). If it
-    // names SEV(s) but none remain on the live SEVs register, that SEV
+    // A Specialist & Enthusiast model report rests on its based-on SEV(s). If
+    // it names SEV(s) but none remain on the live SEVs register, that SEV
     // eligibility has lapsed — the model can no longer be imported under this
     // approval even though ROVER still lists the report itself as "In Force".
+    r.explicitLink = sevs.length>0;
     r.sevBasisGone = sevs.length>0 && !sevs.some(sn=>sevByNum[sn.trim().toUpperCase()]);
     out.push(r);
   });
@@ -651,10 +682,14 @@ function build(data){
     if(r.type==='SEV') r.mres = mresBySev[r.id.trim().toUpperCase()]||[];
     else r.folded = (r.sevs||[]).some(sn=>sevByNum[sn.trim().toUpperCase()]);
   });
-  // merge pass 2: fold remaining MREs by exact make+model and overlapping build range
+  // merge pass 2: fold remaining MREs by exact make+model and overlapping build
+  // range. ONLY for reports with no explicit SEV linkage at all — a report that
+  // names its based-on SEV(s) either folded in pass 1 (SEV still live) or its
+  // basis is gone (sevBasisGone) and it must surface as no-longer-eligible, not
+  // be guessed onto a different, still-current SEV for the same model.
   const mv = o => o ? o.y*12+o.m : null;
   out.forEach(r=>{
-    if(r.type!=='MRE' || r.folded) return;
+    if(r.type!=='MRE' || r.folded || r.explicitLink) return;
     const mk=(r.make||'').toUpperCase().trim(), md=(r.model||'').toUpperCase().trim();
     if(!mk || !md) return;
     const mf=mv(r.from), mt=mv(r.to);
@@ -666,10 +701,13 @@ function build(data){
     });
     if(sev){ r.folded=true; sev.mres.push(r); }
   });
-  // merge pass 3: group remaining standalone MREs for the same car into one row
+  // merge pass 3: group remaining standalone MREs for the same car into one
+  // row. A report whose SEV basis is gone stays its own row — grouping it with
+  // an eligible sibling would hide the "no longer eligible" status inside an
+  // eligible group.
   const primaries=[];
   out.forEach(r=>{
-    if(r.type!=='MRE' || r.folded) return;
+    if(r.type!=='MRE' || r.folded || r.sevBasisGone) return;
     const mk=(r.make||'').toUpperCase().trim(), md=(r.model||'').toUpperCase().trim();
     if(!mk || !md) return;
     const mf=mv(r.from), mt=mv(r.to);
@@ -739,12 +777,33 @@ function photoFor(r){
 }
 
 /* ---------- filtering ---------- */
-function filtered(){
+// Curated front page: with no search or filters applied, the most-asked-about
+// enthusiast models surface first instead of whatever sorts last by register
+// number. Rank = index of the first matching pattern; unmatched models keep
+// their register-number order after the curated set.
+const POPULAR = [
+  /skyline|gt-?r\b|bnr3|r3[234]/i, /supra/i, /rx-?7/i, /silvia|180sx|200sx/i,
+  /lancer.*evo|evolution/i, /impreza|wrx|sti\b/i, /chaser|mark ?ii|cresta/i,
+  /fairlady|300zx|350z/i, /nsx/i, /s2000/i, /land ?cruiser/i, /delica/i,
+  /elgrand/i, /alphard|vellfire/i, /hiace/i, /soarer|aristo/i, /crown/i,
+  /pajero/i, /stagea/i, /cappuccino|beat\b|copen|s660/i
+];
+function popRank(r){
+  if(r._pop==null){
+    const hay = r.make+' '+r.model+' '+(r.code||'');
+    r._pop = POPULAR.length;
+    for(let i=0;i<POPULAR.length;i++){ if(POPULAR[i].test(hay)){ r._pop = i; break; } }
+  }
+  return r._pop;
+}
+function filtered(viewOverride){
+  const view = viewOverride || F.view;
   const q = F.q.trim().toLowerCase();
+  const curated = !q && !F.make && !F.path && !F.cat && !F.year;
   return rows.filter(r=>{
     if(r.folded) return false;
     const ready = r.type==='MRE' || (r.mres&&r.mres.length>0);
-    if(F.view==='ready' && !ready) return false;
+    if(view==='ready' && !ready) return false;
     if(F.src && r.type!==F.src) return false;
     if(!F.expired && ((r.expiry && r.expiry < NOW) || r.sevBasisGone)) return false;
     if(F.make && r.make.toUpperCase()!==F.make) return false;
@@ -762,7 +821,13 @@ function filtered(){
       if(!hay.includes(q)) return false;
     }
     return true;
-  }).sort((a,b)=> a.id<b.id ? 1 : a.id>b.id ? -1 : 0);
+  }).sort((a,b)=>{
+    if(curated){
+      const pa = popRank(a), pb = popRank(b);
+      if(pa!==pb) return pa-pb;
+    }
+    return a.id<b.id ? 1 : a.id>b.id ? -1 : 0;
+  });
 }
 
 /* ---------- cell builders ---------- */
@@ -863,7 +928,7 @@ function rowHTML(r){
   const wn = wkCount(r);
   return '<tr data-i="'+r._ix+'">'
     + '<td><div class="veh">'+thumbHTML(r)+'<div><div class="name">'+esc(name)+'</div>'
-      + '<div class="vsub"><span class="sev">'+esc(r.id)+'</span><span class="typetag '+(r.type==='SEV'?'sev':'mre')+'">'+(r.type==='SEV'?'SEVS':'MRE')+'</span></div></div></div></td>'
+      + '<div class="vsub"><span class="sev">'+esc(r.id)+'</span></div></div></div></td>'
     + '<td>'+chassisCell(r)+'</td>'
     + '<td class="range">'+fmtRange(r.from,r.to)+'</td>'
     + '<td>'+pathHTML(r)+'</td>'
@@ -885,6 +950,16 @@ function render(){
   const slice = list.slice(start, start + PAGE);
   $('count').innerHTML = 'Showing <b>'+slice.length.toLocaleString()+'</b> of <b>'+total.toLocaleString()+'</b> vehicles';
   $('empty').hidden = total>0;
+  // Search dead-end guard: with "Currently eligible" on, a model whose only
+  // report(s) rest on lapsed SEVs (e.g. the RX-8) matches nothing even though
+  // its SEVS entry is live. Never leave that as a bare "no match" — say what's
+  // hidden and offer the one-click widen.
+  if(!total){
+    const hiddenN = F.view==='ready' ? filtered('all').length : 0;
+    $('emptyMsg').innerHTML = hiddenN
+      ? '<b>'+hiddenN+'</b> matching model'+(hiddenN===1?' is':'s are')+' on the SEVS register but '+(hiddenN===1?'has':'have')+' no current Model Report, so '+(hiddenN===1?'it isn’t':'they aren’t')+' importable as-is. <button type="button" class="linkbtn" id="showAllBtn">Show '+(hiddenN===1?'it':'them')+' anyway</button>'
+      : 'Try a shorter search (just the model or chassis code), clear a filter, or untick “Currently eligible” to include models that don’t have a Model Report yet.';
+  }
   $('tableWrap').style.display = total ? '' : 'none';
   $('cards').innerHTML = slice.map(cardHTML).join('');
   $('rows').innerHTML = slice.map(rowHTML).join('');
@@ -940,12 +1015,24 @@ function verdictHTML(r, st){
   // the registered automotive workshop that does the work, and the authorised
   // vehicle verifier that checks it are three separate roles — and ROVER tells us
   // only who holds the report. Never promise a workshop we cannot see.
-  else if(r.type==='MRE'){ txt='<b>✓ This car can be imported into Australia.</b> An approved Model Report exists for it, which is the specification a registered automotive workshop follows to comply the car.'; }
+  else if(r.type==='MRE'){ txt='<b>✓ This car can be complied in Australia.</b> An approved Model Report exists for it, which is the specification a registered automotive workshop follows to comply the car.'; }
   else if(!(r.mres&&r.mres.length)){ txt='<b>✓ This model is approved for import</b>, but ROVER lists no current Model Report for it. One would have to be developed before a workshop could comply the car, which adds time and cost. Ask us and we’ll check the practical options.'; }
   else { txt='<b>✓ This car can be imported into Australia.</b> '+r.mres.length+' approved Model Report'+(r.mres.length>1?'s already exist':' already exists')+' for it, so there is an approved path to comply it once it lands.'; }
   return '<div class="verdict '+cls+'">'+txt+'</div>';
 }
-function openPanel(r){
+// In-panel navigation history so drilling from a SEV into one of its model
+// reports offers a "← Back" to the SEV. nav: 'push' = drill-in from inside the
+// panel, 'back' = returning via the back button, anything else = fresh open
+// from the list / a deep link (clears the trail).
+let panelStack = [], panelCurrent = null;
+function openPanel(r, nav){
+  if(nav==='push' && panelCurrent && panelCurrent!==r) panelStack.push(panelCurrent);
+  else if(nav!=='push' && nav!=='back') panelStack = [];
+  panelCurrent = r;
+  const pb = $('pBack');
+  const prev = panelStack[panelStack.length-1];
+  pb.hidden = !prev;
+  if(prev){ pb.textContent = '← '+prev.id; pb.title = 'Back to '+titleMake(prev.make)+' '+prev.model; }
   $('pType').textContent = r.type==='SEV' ? 'Eligible Model · SEVS Register' : 'Approved Model Report · MRE';
   const st = statusOf(r);
   const ph = photoFor(r);
@@ -988,13 +1075,22 @@ function openPanel(r){
   if(safeUrl(r.url)) h += kvRow('Source', '<a href="'+esc(safeUrl(r.url))+'" target="_blank" rel="noopener">View on ROVER ↗</a>', false);
   h += '</div></div>';
 
-  // variants (MRE scope or SEV scope)
-  const scope = Array.isArray(r.scope)?r.scope:[];
+  // variants (MRE scope or SEV scope). On a SEV panel only show the variants
+  // whose spec page actually names this SEV — the scope list is mirrored from
+  // the model report, which can span several SEVs. And only ever chip SEV
+  // numbers still on the live register: spec pages can cite historic SEVs
+  // (e.g. SEV-000057) that no longer exist on ROVER and just confuse.
+  let scope = Array.isArray(r.scope)?r.scope:[];
+  if(r.type==='SEV'){
+    const myId = r.id.trim().toUpperCase();
+    scope = scope.filter(v=>!(v.sev&&v.sev.length) || v.sev.some(sn=>String(sn).trim().toUpperCase()===myId));
+  }
   if(scope.length){
     h += '<div class="sechead">Approved variants</div>';
     scope.slice(0,12).forEach(v=>{
+      const liveSevs = (v.sev||[]).filter(sn=>sevByNum[String(sn).trim().toUpperCase()]);
       h += '<div class="varcard"><div class="vn"><span>'+esc(v.variant||r.model)+'</span>'
-        +(v.sev&&v.sev.length?'<span class="chip">'+v.sev.map(esc).join(' · ')+'</span>':'')+'</div><div class="specgrid">';
+        +(liveSevs.length?'<span class="chip">'+liveSevs.map(esc).join(' · ')+'</span>':'')+'</div><div class="specgrid">';
       const sp = (k,val)=>{ if(val!=null&&val!=='') h += '<div class="spec"><div class="k">'+k+'</div><div class="v">'+esc(val)+'</div></div>'; };
       sp('Engine', v.engine_model);
       sp('Capacity', v.engine_cc?(v.engine_cc/1000).toFixed(1)+' L':null);
@@ -1012,20 +1108,8 @@ function openPanel(r){
     if(scope.length>12) h += '<div class="note">+ '+(scope.length-12)+' more variants, see ROVER for the full scope.</div>';
   }
 
-  // cross-links
-  if(r.type==='MRE' && r.sevs && r.sevs.length){
-    const linked = r.sevs.map(sn=>sevByNum[sn.trim().toUpperCase()]).filter(Boolean);
-    if(linked.length){
-      h += '<div class="sechead">Linked SEVS entries</div><div class="linklist">';
-      linked.forEach(s=>{
-        const ss = statusOf(s);
-        // The SEV, not the model report, is what expires — so show each one's date.
-        const exp = s.expiryRaw ? '<span class="lm" title="SEVS entry expiry">exp '+esc(s.expiryRaw)+'</span>' : '';
-        h += '<div class="linkrow" data-link="'+s._ix+'"><span class="ln">'+esc(s.id)+': '+esc(titleMake(s.make))+' '+esc(s.model)+'</span>'+exp+'<span class="badge '+ss.cls+'">'+ss.label+'</span></div>';
-      });
-      h += '</div>';
-    }
-  }
+  // cross-links. (No "Linked SEVS entries" list on MRE panels — the way in is
+  // via the SEV, and the panel's ← Back button covers the way back.)
   if(r.type==='SEV'){
     const linked = r.mres||[];
     if(linked.length){
@@ -1034,7 +1118,7 @@ function openPanel(r){
         h += '<div class="linkrow" data-link="'+m._ix+'"><span class="ln">'+esc(m.id)+'</span><span class="ls">'+esc(m.holderShort||m.holder)+'</span>'+linkMarket(m)+'</div>';
       });
       h += '</div>';
-      h += '<div class="note">Named above is each report\'s <b>approval holder</b>. They hold the Model Report; they are not necessarily the workshop that will modify your car. A registered automotive workshop carries out the work to the report\'s instructions, and an authorised vehicle verifier checks it.</div>';
+      h += '<div class="note">Named above is each report\'s <b>approval holder</b>. A registered automotive workshop carries out the work to the report\'s instructions, and an authorised vehicle verifier checks it.</div>';
     } else {
       // ROVER only publishes model reports that are in force — a withdrawn one
       // simply disappears. So we cannot say none was ever developed, only that
@@ -1058,7 +1142,7 @@ function openPanel(r){
     +'<a class="btn-line cta-lead" data-ch="form" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(finderHref('detail_panel'))+'" target="_blank" rel="noopener">Request a quote online →</a>'
     +'</div></div>';
 
-  h += '<div class="note">Register data from the Australian Government ROVER portal. Guidance only, confirm with a registered automotive workshop before committing to a purchase.</div>';
+  h += '<div class="note">Register data from the Australian Government ROVER portal. Guidance only, confirm with an import agency before committing to a purchase.</div>';
 
   $('pBody').innerHTML = h;
   $('pBody').scrollTop = 0;
@@ -1069,6 +1153,7 @@ function openPanel(r){
   trackFb('ViewContent', {content_name:name, content_category:'eligibility_'+r.type, content_ids:[r.id]});
 }
 function closePanel(){
+  panelStack = []; panelCurrent = null;
   $('panel').classList.remove('open');
   $('scrim').classList.remove('open');
   document.body.style.overflow = '';
@@ -1137,8 +1222,19 @@ function populateFilters(){
     const lbl = (PATH_COLORS[p]&&PATH_COLORS[p][1]) || (rows.find(r=>r.path===p)||{}).pathRaw || p;
     return '<option value="'+esc(p)+'">'+esc(lbl)+'</option>';
   }).join('');
+  // Category options read "MD2 — Light Omnibus". Prefer the label ROVER itself
+  // publishes on SEV entries ("MD2 - Light Omnibus"); fall back to CAT_LABELS
+  // for codes that only appear bare on MRE records.
+  const catLabel = {};
+  rows.forEach(r=>{
+    const m = String(r.catFull||'').match(/^\s*[A-Z]+\d*\s*-\s*(.+)$/i);
+    if(m && r.cat && !catLabel[r.cat]) catLabel[r.cat] = m[1].trim();
+  });
   const cats = [...new Set(rows.map(r=>r.cat).filter(Boolean))].sort();
-  $('fCat').innerHTML = '<option value="">All categories</option>'+cats.map(c=>'<option value="'+esc(c)+'">'+esc(c)+'</option>').join('');
+  $('fCat').innerHTML = '<option value="">All categories</option>'+cats.map(c=>{
+    const lbl = catLabel[c] || CAT_LABELS[c] || '';
+    return '<option value="'+esc(c)+'">'+esc(c)+(lbl?' — '+esc(lbl):'')+'</option>';
+  }).join('');
 }
 function wire(){
   let t, searched=false;
@@ -1152,8 +1248,14 @@ function wire(){
   $('fCat').addEventListener('change', e=>{F.cat=e.target.value; resetAndRender();});
   $('fYear').addEventListener('input', e=>{F.year=e.target.value; resetAndRender();});
   $('tExpired').addEventListener('change', e=>{F.expired=e.target.checked; resetAndRender();});
-  // Checked = narrow to models with a current model report; unchecked (default) = all eligible.
+  // Checked (default) = currently eligible only (SEVS entry with a current
+  // model report); unchecked = every current SEVS entry, report or not.
   $('tReady').addEventListener('change', e=>{F.view=e.target.checked?'ready':'all'; resetAndRender();});
+  // "Show them anyway" in the empty state widens the view, same as unticking
+  // the toggle (delegated — the button is re-rendered with the message).
+  $('empty').addEventListener('click', e=>{
+    if(e.target.closest('#showAllBtn')){ $('tReady').checked=false; F.view='all'; resetAndRender(); }
+  });
   $('exportBtn').addEventListener('click', exportCSV);
   $('prevBtn')?.addEventListener('click', ()=>{ currentPage--; render(); scrollToResults(); });
   $('nextBtn')?.addEventListener('click', ()=>{ currentPage++; render(); scrollToResults(); });
@@ -1164,8 +1266,9 @@ function wire(){
   $('pBody').addEventListener('click', e=>{
     const cta=e.target.closest('.cta-lead');
     if(cta){ track('eligibility_quote_click',{channel:cta.dataset.ch,vehicle:cta.dataset.veh,ref:cta.dataset.ref}); trackFb('Lead',{content_name:cta.dataset.veh,content_category:'eligibility_quote'}); return; }
-    const l=e.target.closest('[data-link]'); if(l) openPanel(rows[+l.dataset.link]);
+    const l=e.target.closest('[data-link]'); if(l) openPanel(rows[+l.dataset.link], 'push');
   });
+  $('pBack').addEventListener('click', ()=>{ const prev = panelStack.pop(); if(prev) openPanel(prev, 'back'); });
   // Persistent header + empty-state quote CTAs.
   const quoteClick = source => () => { track('eligibility_quote_click',{channel:'form',source:source}); trackFb('Lead',{content_category:'eligibility_quote'}); };
   const hq=$('headerQuote'); if(hq) hq.addEventListener('click', quoteClick('header'));

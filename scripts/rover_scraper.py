@@ -438,6 +438,15 @@ MODEL_REPORT_NOTES_LABELS = (
 COMPLIANCE_NOTES_LABELS = (
     'compliance level notes', 'compliance level note',
 )
+# "Based on" on an MRE detail page names the SEVs Register entry (or entries)
+# the model report rests on. This is the AUTHORITATIVE MRE->SEV link: an
+# "In Force" report whose based-on SEV has dropped off the live register can no
+# longer be used to import a car. The front-end must use this rather than
+# guessing by make/model/build-range overlap (which wrongly attached e.g.
+# MRE-000198 — based on the expired SEV-000283 — to the current SEV-001077).
+BASED_ON_LABELS = (
+    'based on',
+)
 
 # Maps the raw "Eligibility criteria" text seen on SEV detail pages into a
 # canonical short tag the front-end ELIGIBILITY_LABELS table understands.
@@ -777,6 +786,32 @@ async def fetch_detail(page, url, is_mre):
                 }
                 return '';
             }
+            // "Based on" is a label whose value is one or more SEV links
+            // (e.g. "SEV-000283"). The value can sit in the nearest-value slot
+            // or in the element(s) that follow, so collect text from both and
+            // pull out the SEV numbers. The fallback is deliberately narrow:
+            // only anchors that actually POINT AT a SEV detail page count —
+            // a page-wide sweep of anything SEV-shaped could attribute a
+            // breadcrumb or see-also link as the report's basis, which is the
+            // exact class of wrong-linkage bug this field exists to fix.
+            function basedOnSevs(keywordList) {
+                if (!keywordList || !keywordList.length) return [];
+                const all = document.querySelectorAll('th, td, dt, label, span, div, strong, b, h1, h2, h3, h4, h5, legend');
+                for (const el of all) {
+                    const txt = (el.textContent || '').trim().toLowerCase();
+                    if (!keywordList.some(kw => txt === kw || txt === kw + ':' || txt.startsWith(kw + ':'))) continue;
+                    const texts = [];
+                    const v = nearestValue(el);
+                    if (v) texts.push(v);
+                    let n = el.parentElement ? el.parentElement.nextElementSibling : null;
+                    for (let i = 0; n && i < 4; i++) { texts.push(n.innerText || ''); n = n.nextElementSibling; }
+                    const found = texts.join(' ').match(/SEV-\\d+/gi) || [];
+                    if (found.length) return found;
+                }
+                return [...document.querySelectorAll('a[href*="/SEVDetails/"]')]
+                    .map(a => (a.textContent || '').trim())
+                    .filter(t => /^SEV-\\d+$/i.test(t));
+            }
             return {
                 category: findFor(labels.category),
                 propulsion: findFor(labels.propulsion),
@@ -787,6 +822,7 @@ async def fetch_detail(page, url, is_mre):
                 typical_vin: findFor(labels.typical_vin),
                 mr_notes: sectionAfterHeading(labels.mr_notes),
                 compliance_notes: sectionAfterHeading(labels.compliance_notes),
+                based_on: basedOnSevs(labels.based_on),
             };
         }""",
         {
@@ -799,6 +835,9 @@ async def fetch_detail(page, url, is_mre):
             'typical_vin': list(TYPICAL_VIN_LABELS),
             'mr_notes': list(MODEL_REPORT_NOTES_LABELS),
             'compliance_notes': list(COMPLIANCE_NOTES_LABELS),
+            # "Based on" only exists on model report pages; passing an empty
+            # label list skips the whole DOM scan on SEV pages.
+            'based_on': list(BASED_ON_LABELS) if is_mre else [],
         }
     )
 
@@ -850,6 +889,17 @@ async def fetch_detail(page, url, is_mre):
                 out['_odometer_condition'] = True
             if limit_km:
                 out['_odometer_limit_km'] = limit_km
+        # The SEV(s) this report is based on. Normalise + dedupe, preserving
+        # page order. Only set when found so carry-forward keeps an older value
+        # rather than blanking it on a partial page load.
+        based_raw = extracted.get('based_on') or []
+        based = []
+        for b in based_raw:
+            sev_num = str(b).strip().upper()
+            if sev_num and sev_num not in based:
+                based.append(sev_num)
+        if based:
+            out['_based_on_sevs'] = based
 
     return out
 
