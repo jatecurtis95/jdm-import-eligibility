@@ -1,9 +1,12 @@
 name: Daily ROVER Scrape
 
-# Daily list-only scrape. Catches new MRE/SEV additions within 24h
-# (vs the 7-day lag of weekly-scrape.yml). No detail-page enrichment —
-# that's the weekly job's responsibility. Email only fires when there's
-# a real addition or removal, so empty days don't spam the inbox.
+# Daily scrape WITH detail enrichment. Catches new MRE/SEV additions within
+# 24h (vs the 7-day lag of weekly-scrape.yml). Detail pages became cheap once
+# the scraper's fast mode landed (grid JSON lists + document-only detail
+# fetches, ~5 min total), so holders, based-on SEV links and compliance notes
+# now refresh daily too; the weekly job keeps the heavier Scope-of-Works pass
+# and the always-send digest email. Email only fires when there's a real
+# addition or removal, so empty days don't spam the inbox.
 
 on:
   schedule:
@@ -24,7 +27,9 @@ concurrency:
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Fast mode finishes in ~5 min; the headroom is for the automatic
+    # full-browser fallback (~45 min) if ROVER's grid service changes.
+    timeout-minutes: 60
 
     steps:
       - uses: actions/checkout@v4
@@ -43,7 +48,7 @@ jobs:
           playwright install chromium
           playwright install-deps chromium
 
-      - name: Run ROVER scraper (list-only, gated email)
+      - name: Run ROVER scraper (with detail enrichment, gated email)
         env:
           REPO_ROOT: ${{ github.workspace }}
           ROVER_DATA_DIR: ${{ github.workspace }}/scripts/data
@@ -54,7 +59,7 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: |
           cd scripts
-          python rover_scraper.py snapshot --send-email --email-only-on-change
+          python rover_scraper.py snapshot --send-email --email-only-on-change --with-detail
 
       # Runs even if the scraper step failed. The scraper writes data.json BEFORE
       # attempting the (non-fatal-to-data) email, and exits non-zero only after

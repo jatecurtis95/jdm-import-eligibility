@@ -105,6 +105,45 @@ If scraping abuse shows up in Cloudflare Analytics after deploy (sudden spike in
 
 ---
 
+# Addendum (2026-07) — Fast scrape mode (grid JSON + document-only details)
+
+## What changed
+
+ROVER is a Microsoft Power Pages portal. Two discoveries let the scraper skip
+most of its headless-browser work:
+
+1. **List pages don't contain the table data.** The grid widget fetches rows as
+   JSON from `/_services/entity-grid-data.json/<view>` (with a per-session
+   anti-forgery token from `/_layout/tokenhtml`). `fetch_all_records_fast()`
+   calls that service directly — the full MRE register arrives in 4 POSTs
+   instead of ~92 browser page loads, and the view's own `Columns` metadata
+   maps CRM logical names to the same display headers the HTML table shows, so
+   records stay byte-identical to browser-scraped ones (verified field-by-field
+   against a same-day browser scrape: 0 mismatches across 1,511 records after
+   date/whitespace normalisation).
+2. **Detail pages are fully server-rendered.** The detail pass now runs on a
+   JS-disabled context with every subresource blocked (`fast=True`), so each
+   page costs one HTTP round-trip. Extraction JS is UNCHANGED — same code, same
+   fields. Anything that comes back suspect (error, empty, or a SEV page
+   without its category) is automatically retried with full rendering.
+
+Net effect: a full `snapshot --with-detail` drops from ~45 minutes to a few
+minutes, and the daily cron now runs `--with-detail` (previously weekly-only),
+so approval holders, `_based_on_sevs` links and compliance notes refresh daily.
+
+## Safety
+
+- The grid service is an **undocumented internal endpoint**. Any inconsistency
+  (missing config, token failure, count mismatch, missing record Ids) raises,
+  and `run_snapshot` falls back to the classic Playwright pager per register.
+- The publish gate (`PUBLISH_MIN_*` / `PUBLISH_MAX_DROP`) still guards both
+  paths, so a broken fast path can never ship a truncated register.
+- `snapshot --no-fast` forces the old full-browser behaviour end to end.
+- The Scope-of-Works pass (weekly) still uses the full browser — its spec pages
+  are dynamic tabs and it stays incremental anyway.
+
+---
+
 # Addendum (2026-06) — Vehicle Specification "Scope of Works" pass
 
 ## What it adds

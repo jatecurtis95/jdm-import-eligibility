@@ -5,12 +5,14 @@ Saves snapshots, generates change reports, and sends branded email alerts via Of
 """
 
 import asyncio
+import base64
+import html as _html
 import json
 import os
 import re
 import sys
 import urllib.parse
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 try:
     from zoneinfo import ZoneInfo
@@ -64,6 +66,12 @@ SEV_URL = 'https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVApprova
 
 DETAIL_CONCURRENCY = 5
 DETAIL_TIMEOUT_MS = 30000
+DETAIL_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+# Fast detail mode loads only the HTML document (JS off, every subresource
+# blocked), so each page costs one HTTP round-trip instead of a full render —
+# that supports a higher concurrency without hammering the portal any harder
+# than the classic mode did.
+FAST_DETAIL_CONCURRENCY = 12
 
 # ── Phase 2 — Vehicle Specification ("Scope of Works") enrichment ────────────
 # A level deeper than the detail pass. Each MRE detail page links to its
@@ -705,12 +713,18 @@ async def get_total_pages(page):
     """)
 
 
-async def fetch_detail(page, url, is_mre):
+async def fetch_detail(page, url, is_mre, fast=False):
     """Visit a single ROVER detail page and pull the enrichment fields.
     Returns a dict of underscore-prefixed keys to merge into the record.
-    Resilient to missing fields — missing data → empty string."""
+    Resilient to missing fields — missing data → empty string.
+
+    fast=True is used on a JS-disabled, document-only context: the pages are
+    fully server-rendered, so waiting for domcontentloaded is enough and the
+    page costs one HTTP round-trip instead of a full render."""
     try:
-        await page.goto(url, wait_until='networkidle', timeout=DETAIL_TIMEOUT_MS)
+        await page.goto(url,
+                        wait_until='domcontentloaded' if fast else 'networkidle',
+                        timeout=DETAIL_TIMEOUT_MS)
     except Exception as e:
         return {'_detail_error': f'goto failed: {type(e).__name__}'}
 
@@ -915,45 +929,256 @@ def _enrich_variant_descriptions(records):
                 r['_variant_description'] = variant
 
 
-async def enrich_with_details(browser, records, is_mre, limit=None):
+async def _run_detail_batch(context, targets, is_mre, concurrency, fast):
+    """Enrich `targets` in place through one browser context. Returns the
+    records whose extraction failed (or, in fast mode, looked suspect) so the
+    caller can retry them with full rendering."""
+    semaphore = asyncio.Semaphore(concurrency)
+    completed = 0
+    failed = []
+
+    def suspect(detail):
+        if detail.get('_detail_error'):
+            return True
+        if not fast:
+            return False
+        # Fast mode renders without JS or CSS; if that ever changes what the
+        # extraction sees, catch it here and let the full-render retry decide.
+        # An entirely-empty result is always suspect; a SEV page without its
+        # category is too (every SEV page publishes one — MRE holders are NOT
+        # universal, so they can't be used as the equivalent signal).
+        return (not detail) or (not is_mre and '_sev_category' not in detail)
+
+    async def work(record):
+        nonlocal completed
+        async with semaphore:
+            page = await context.new_page()
+            try:
+                detail = await fetch_detail(page, record['_detail_url'], is_mre, fast=fast)
+                if suspect(detail):
+                    failed.append(record)
+                else:
+                    record.update(detail)
+                completed += 1
+                if completed % 25 == 0:
+                    print(f"    {completed}/{len(targets)} done "
+                          f"({len(failed)} {'to retry' if fast else 'errors'})")
+            finally:
+                await page.close()
+
+    await asyncio.gather(*(work(r) for r in targets))
+    return failed
+
+
+async def enrich_with_details(browser, records, is_mre, limit=None, fast=False):
     """Visit each record's _detail_url with bounded concurrency and merge the
-    enrichment fields back into the record dict in place."""
+    enrichment fields back into the record dict in place.
+
+    fast=True runs a JS-disabled, document-only pass first (the detail pages
+    are fully server-rendered) and re-runs anything suspect through the classic
+    fully-rendered path, so a fast-mode miss can only cost time, not data."""
     targets = [r for r in records if r.get('_detail_url')]
     if limit is not None and limit > 0:
         targets = targets[:limit]
     if not targets:
         print(f"  No records with _detail_url to enrich.")
         return
-    print(f"  Enriching {len(targets)} {'MRE' if is_mre else 'SEV'} records "
-          f"(concurrency={DETAIL_CONCURRENCY})...")
+    kind = 'MRE' if is_mre else 'SEV'
 
-    semaphore = asyncio.Semaphore(DETAIL_CONCURRENCY)
-    context = await browser.new_context(
-        user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
-    )
+    if fast:
+        print(f"  Enriching {len(targets)} {kind} records "
+              f"(fast: document-only, concurrency={FAST_DETAIL_CONCURRENCY})...")
+        context = await browser.new_context(user_agent=DETAIL_UA,
+                                            java_script_enabled=False)
 
-    completed = 0
+        async def _document_only(route):
+            if route.request.resource_type == 'document':
+                await route.continue_()
+            else:
+                await route.abort()
+
+        await context.route('**/*', _document_only)
+        remaining = await _run_detail_batch(context, targets, is_mre,
+                                            FAST_DETAIL_CONCURRENCY, fast=True)
+        await context.close()
+        if remaining:
+            print(f"  Fast pass flagged {len(remaining)} page(s) — retrying with full rendering...")
+    else:
+        print(f"  Enriching {len(targets)} {kind} records "
+              f"(concurrency={DETAIL_CONCURRENCY})...")
+        remaining = targets
+
     errors = 0
+    if remaining:
+        context = await browser.new_context(user_agent=DETAIL_UA)
+        still_failed = await _run_detail_batch(context, remaining, is_mre,
+                                               DETAIL_CONCURRENCY, fast=False)
+        await context.close()
+        errors = len(still_failed)
+    print(f"  Detail enrichment finished: {len(targets)} processed, {errors} errors.")
 
-    async def work(record):
-        nonlocal completed, errors
-        async with semaphore:
-            page = await context.new_page()
-            try:
-                detail = await fetch_detail(page, record['_detail_url'], is_mre)
-                if detail.get('_detail_error'):
-                    errors += 1
-                else:
-                    record.update(detail)
-                completed += 1
-                if completed % 25 == 0:
-                    print(f"    {completed}/{len(targets)} done ({errors} errors)")
-            finally:
-                await page.close()
 
-    await asyncio.gather(*(work(r) for r in targets))
-    await context.close()
-    print(f"  Detail enrichment finished: {completed} processed, {errors} errors.")
+# ── Fast list fetch — the portal's own grid JSON service ────────────────────
+# ROVER is a Microsoft Power Pages portal: its list pages ship without the
+# table data, and the grid widget fetches rows as JSON from
+# /_services/entity-grid-data.json/<view> using a per-session anti-forgery
+# token. Calling that service directly replaces ~150 headless-browser page
+# loads (and the stall-prone AJAX pager) with a handful of HTTP POSTs.
+#
+# It is an UNDOCUMENTED internal endpoint and can change without notice, so
+# fetch_all_records_fast raises on ANY inconsistency and run_snapshot falls
+# back to the Playwright pager; the publish gate still backstops the result
+# either way. The view's own Columns metadata maps CRM logical names to the
+# same display headers the HTML table shows ("Approval number", "SEV #", ...),
+# so fast records are shaped identically to browser-scraped ones.
+
+ROVER_BASE = 'https://www.rover.infrastructure.gov.au'
+GRID_PAGE_SIZE = 250
+GRID_PAGE_HARD_CAP = 200  # 200 × 250 = 50k records — far above any real size
+
+# Date-column normalisation. The grid returns epochs ("/Date(1338508800000)/")
+# whose display strings differ from what the HTML table renders, and fast
+# records must stay byte-identical to browser-scraped ones — otherwise the
+# first fast run would flag every SEV as "changed" in the email diff.
+# Verified against the full browser-scraped register (2026-07-13):
+#   Build date from/to  HTML "06/2012"        grid display "1/06/2012"
+#   Build date to null  HTML "No end date"    grid omits the attribute
+#   Expiry              HTML "01/08/2026"     grid display "1/08/2026"
+_GRID_MONTH_YEAR_COLUMNS = {'Build date from', 'Build date to'}
+_GRID_DAY_DATE_COLUMNS = {'Expiry'}
+_GRID_NULL_PLACEHOLDERS = {'Build date to': 'No end date'}
+
+
+def _grid_epoch(value):
+    m = re.match(r'/Date\((\d+)\)/', str(value or ''))
+    if not m:
+        return None
+    return datetime.fromtimestamp(int(m.group(1)) / 1000, tz=timezone.utc)
+
+
+def _grid_month_year(value, display_value):
+    dt = _grid_epoch(value)
+    if dt:
+        return dt.strftime('%m/%Y')
+    m = re.match(r'^\s*(\d{1,2})/(\d{1,2})/(\d{4})\s*$', str(display_value or ''))
+    if m:
+        return f'{int(m.group(2)):02d}/{m.group(3)}'
+    return str(display_value or '')
+
+
+def _grid_day_date(value, display_value):
+    dt = _grid_epoch(value)
+    if dt:
+        return dt.strftime('%d/%m/%Y')
+    m = re.match(r'^\s*(\d{1,2})/(\d{1,2})/(\d{4})\s*$', str(display_value or ''))
+    if m:
+        return f'{int(m.group(1)):02d}/{int(m.group(2)):02d}/{m.group(3)}'
+    return str(display_value or '')
+
+
+def _map_grid_record(rec, columns, detail_path):
+    """One grid Record -> the same dict shape extract_table_page produces:
+    display-header keys, display-string values, absolute _detail_url."""
+    attrs = {a.get('Name'): a for a in rec.get('Attributes', [])}
+    out = {}
+    for logical, name in columns:
+        a = attrs.get(logical)
+        if a is None:
+            out[name] = _GRID_NULL_PLACEHOLDERS.get(name, '')
+        elif name in _GRID_MONTH_YEAR_COLUMNS:
+            out[name] = _grid_month_year(a.get('Value'), a.get('DisplayValue'))
+        elif name in _GRID_DAY_DATE_COLUMNS:
+            out[name] = _grid_day_date(a.get('Value'), a.get('DisplayValue'))
+        else:
+            dv = a.get('DisplayValue')
+            # Collapse whitespace runs exactly like the browser's innerText
+            # did, so raw grid values ("TRH2XX,  KDH2XX") stay byte-identical
+            # to what the HTML scrape produced.
+            out[name] = '' if dv is None else re.sub(r'\s+', ' ', str(dv)).strip()
+    rid = rec.get('Id')
+    if rid:
+        out['_detail_url'] = f'{ROVER_BASE}{detail_path}?id={rid}'
+    return out
+
+
+def fetch_all_records_fast(list_url, list_name, id_field, detail_path):
+    """Fetch a full register through the grid JSON service (no browser).
+    Raises on any inconsistency — the caller falls back to the browser pager,
+    so this function never silently returns a partial register."""
+    if _requests is None:
+        raise RuntimeError('requests not installed')
+    s = _requests.Session()
+    s.headers['User-Agent'] = DETAIL_UA
+    print(f"\n{'='*50}")
+    print(f"Fetching (fast): {list_name}")
+    print(f"URL: {list_url}")
+    print('=' * 50)
+
+    page_resp = s.get(list_url, timeout=30)
+    page_resp.raise_for_status()
+    lm = re.search(r"data-view-layouts\s*=\s*'([^']+)'", page_resp.text)
+    gm = re.search(r'data-get-url\s*=\s*"([^"]+)"', page_resp.text)
+    if not lm or not gm:
+        raise RuntimeError('grid configuration not found on the list page')
+    layouts = json.loads(base64.b64decode(_html.unescape(lm.group(1))))
+    layout = layouts[0]
+    sv = re.search(r'data-selected-view\s*=\s*"([^"]+)"', page_resp.text)
+    if sv:
+        layout = next((l for l in layouts
+                       if str(l.get('Id', '')).lower() == sv.group(1).lower()), layouts[0])
+    columns = [(c.get('LogicalName'), c.get('Name')) for c in layout.get('Columns', [])
+               if c.get('LogicalName') and c.get('Name') and not str(c['Name']).startswith('<')]
+    names = [n for _, n in columns]
+    # Same column guard the browser path has: a renamed/reordered view must
+    # abort, not silently file values under wrong keys.
+    if id_field not in names:
+        raise RuntimeError(f"expected column '{id_field}' not in grid view columns {names}")
+
+    tok_resp = s.get(f'{ROVER_BASE}/_layout/tokenhtml', timeout=30)
+    tm = re.search(r'value="([^"]+)"', tok_resp.text)
+    if not tm:
+        raise RuntimeError('anti-forgery token not found')
+    grid_url = ROVER_BASE + _html.unescape(gm.group(1))
+
+    records, page_n, item_count = [], 1, None
+    while page_n <= GRID_PAGE_HARD_CAP:
+        r = s.post(grid_url, json={
+            'base64SecureConfiguration': layout['Base64SecureConfiguration'],
+            'sortExpression': layout.get('SortExpression') or '',
+            'search': '',
+            'page': page_n,
+            'pageSize': GRID_PAGE_SIZE,
+            'filter': None,
+            'metaFilter': None,
+            # 0 = UTC, matching the timezone the CI browser scrape rendered
+            # dates in, so date-valued display strings stay comparable.
+            'timezoneOffset': 0,
+            'customParameters': [],
+        }, headers={'__RequestVerificationToken': tm.group(1),
+                    'X-Requested-With': 'XMLHttpRequest'}, timeout=90)
+        r.raise_for_status()
+        data = r.json()
+        batch = data.get('Records') or []
+        if data.get('ItemCount') is not None:
+            item_count = data.get('ItemCount')
+        records.extend(_map_grid_record(rec, columns, detail_path) for rec in batch)
+        print(f"  Page {page_n}... {len(batch)} records ({len(records)} total)")
+        if not data.get('MoreRecords'):
+            break
+        if not batch:
+            raise RuntimeError('grid reported MoreRecords but returned an empty page')
+        page_n += 1
+    else:
+        raise RuntimeError(f'hit grid page cap {GRID_PAGE_HARD_CAP} without an end-of-list')
+
+    if item_count is not None and len(records) != item_count:
+        raise RuntimeError(f'fetched {len(records)} records but the service reported {item_count}')
+    missing_url = sum(1 for rec in records if not rec.get('_detail_url'))
+    if missing_url:
+        raise RuntimeError(f'{missing_url} record(s) returned without an Id / _detail_url')
+    _sanitize_record_ids(records)
+    print(f"  Total records fetched: {len(records)}")
+    return records
 
 
 # Infinite-loop backstop for the pagination loop. The register is ~60 pages
@@ -1998,7 +2223,7 @@ def _validate_before_publish(mre_records, sev_records, prev_data, force=False):
     sys.exit(1)
 
 
-async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_limit=None, email_only_on_change=False, with_scope=False, scope_refresh=False, force=False):
+async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_limit=None, email_only_on_change=False, with_scope=False, scope_refresh=False, force=False, fast=True):
     # Resolve and load the previous data.json up front. It's the persistent
     # source of truth for both change detection AND scope carry-forward (so we
     # don't re-scrape unchanged scope data every week).
@@ -2017,8 +2242,24 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        mre_records = await fetch_all_records(browser, MRE_URL, 'MRE List', id_field='Approval number')
-        sev_records = await fetch_all_records(browser, SEV_URL, 'SEVS Register', id_field='SEV #')
+
+        # Lists come from the portal's grid JSON service when fast mode is on
+        # (the default); ANY failure there falls back to the browser pager per
+        # register, and the publish gate below backstops both paths.
+        async def _list(url, name, id_field, detail_path):
+            if fast:
+                try:
+                    return await asyncio.to_thread(
+                        fetch_all_records_fast, url, name, id_field, detail_path)
+                except Exception as e:
+                    print(f"Fast list fetch failed for {name} "
+                          f"({type(e).__name__}: {e}) — falling back to the browser pager.")
+            return await fetch_all_records(browser, url, name, id_field=id_field)
+
+        mre_records = await _list(MRE_URL, 'MRE List', 'Approval number',
+                                  '/PublishedApprovals/ModelReportDetails/')
+        sev_records = await _list(SEV_URL, 'SEVS Register', 'SEV #',
+                                  '/PublishedApprovals/SEVDetails/')
 
         # Carry enrichment (holder, category, scope of works, ...) forward from
         # the previous data.json onto the fresh records. Runs EVERY time so the
@@ -2031,8 +2272,8 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
         # Phase 1 — opt-in detail-page enrichment.
         if with_detail:
             print(f"\n{'='*50}\nDetail-page enrichment pass\n{'='*50}")
-            await enrich_with_details(browser, sev_records, is_mre=False, limit=detail_limit)
-            await enrich_with_details(browser, mre_records, is_mre=True, limit=detail_limit)
+            await enrich_with_details(browser, sev_records, is_mre=False, limit=detail_limit, fast=fast)
+            await enrich_with_details(browser, mre_records, is_mre=True, limit=detail_limit, fast=fast)
             _enrich_variant_descriptions(mre_records)
 
         # Phase 2 — opt-in Vehicle Specification ("Scope of Works") enrichment.
@@ -2152,6 +2393,7 @@ if __name__ == '__main__':
             with_scope=with_scope,
             scope_refresh='--scope-refresh' in flags,
             force='--force' in flags,
+            fast='--no-fast' not in flags,
         ))
     elif mode == 'email-preview':
         asyncio.run(run_email_preview(output_dir))
@@ -2180,5 +2422,6 @@ if __name__ == '__main__':
         print("  python rover_scraper.py snapshot --with-scope          # Also scrape Vehicle Specification (seating/welcab/mass)")
         print("  python rover_scraper.py snapshot --with-detail --detail-limit=20  # Sample only the first 20")
         print("  python rover_scraper.py snapshot --force               # Publish even if the register shrank >10% (use after verifying)")
+        print("  python rover_scraper.py snapshot --no-fast             # Disable the grid-JSON/document-only fast paths (full browser rendering)")
         print("  python rover_scraper.py email-preview                  # Preview email as HTML file")
         print("  python rover_scraper.py send-email                     # Send from latest data")
