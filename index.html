@@ -987,7 +987,14 @@ function scrollToResults(){
 function animateItems(){
   if(reduce || !window.gsap || document.visibilityState!=='visible') return;
   const items = [...document.querySelectorAll('#cards > .card, #rows > tr')].slice(0,28);
-  if(items.length) gsap.from(items,{autoAlpha:0,y:14,duration:.4,stagger:.025,ease:'power2.out',overwrite:true});
+  // fromTo, NOT from: render() and playIntro() can both call this in the same
+  // tick. With from(), the second tween captures the first one's just-applied
+  // start state (opacity 0) as its destination and overwrite kills the first —
+  // rows stay invisible forever. fromTo pins both ends so any double call
+  // still lands visible, and clearProps removes the inline styles after.
+  if(items.length) gsap.fromTo(items,
+    {autoAlpha:0, y:14},
+    {autoAlpha:1, y:0, duration:.4, stagger:.025, ease:'power2.out', overwrite:true, clearProps:'opacity,visibility,transform'});
 }
 let introDone=false;
 function playIntro(){
