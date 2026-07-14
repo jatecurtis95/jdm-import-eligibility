@@ -144,7 +144,7 @@
   .count{font-size:13px;color:var(--muted)}
   .count b{color:var(--ink);font-weight:700}
   @media (min-width:720px){
-    .selects{grid-template-columns:repeat(4,minmax(120px,1fr))}
+    .selects{grid-template-columns:repeat(5,minmax(110px,1fr))}
   }
 
   .howto{border:1px solid var(--line);background:#FBF7EF;border-radius:var(--radius);margin:16px 0;overflow:hidden;}
@@ -273,6 +273,9 @@
   .sechead::after{content:"";height:1px;flex:1;background:var(--line-strong)}
   .varcard{margin:12px 22px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:14px 16px}
   .varcard .vn{font-weight:700;font-size:14px;margin-bottom:9px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .vchips{display:flex;gap:6px;flex-wrap:wrap}
+  .chip.vlink{cursor:pointer;transition:background .15s ease,color .15s ease}
+  .chip.vlink:hover{background:var(--gold-soft);color:var(--gold-deep)}
   .specgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:9px 14px}
   .spec .k{font-weight:700;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
   .spec .v{font-family:var(--font-mono);font-size:12px;margin-top:1px}
@@ -391,6 +394,7 @@
       </div>
       <div class="selects">
         <label class="fld"><span>Make</span><select id="fMake" aria-label="Filter by make"><option value="">All makes</option></select></label>
+        <label class="fld"><span>Model</span><select id="fModel" aria-label="Filter by model"><option value="">All models</option></select></label>
         <label class="fld"><span>Criterion</span><select id="fCrit" aria-label="Filter by criterion"><option value="">All criteria</option></select></label>
         <label class="fld"><span>Category</span><select id="fCat" aria-label="Filter by category"><option value="">All categories</option></select></label>
         <label class="fld"><span>Built in year</span><input id="fYear" type="number" inputmode="numeric" placeholder="e.g. 2001" aria-label="Built in year" min="1950" max="2030" /></label>
@@ -519,7 +523,7 @@ const PATH_COLORS = {
 };
 const CAR_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 11l1.5-3.5C6.8 6.6 7.6 6 8.6 6h6.8c1 0 1.8.6 2.1 1.5L19 11l1.3.5c.7.3 1.2 1 1.2 1.8V16c0 .6-.4 1-1 1h-1a2 2 0 1 1-4 0H8.5a2 2 0 1 1-4 0h-1c-.6 0-1-.4-1-1v-2.7c0-.8.5-1.5 1.2-1.8L5 11zm2.2-.5h9.6l-1-2.3c-.1-.3-.4-.4-.7-.4H8.9c-.3 0-.6.1-.7.4l-1 2.3z"/></svg>';
 
-let rows = [], photos = {}, photoIdx = {}, sevByNum = {}, mresBySev = {};
+let rows = [], photos = {}, photoIdx = {}, sevByNum = {}, mreByNum = {}, mresBySev = {};
 const PAGE = 12;
 let currentPage = 1;
 // Below this many records the dataset is almost certainly truncated (bad scrape
@@ -532,7 +536,7 @@ function timeoutSignal(ms){ try{ return AbortSignal.timeout(ms); }catch(e){ retu
 // default so the register opens on vehicles that can actually be imported and
 // complied today (a current SEVS entry with an approved Model Report).
 // Unticking it widens to SEV-only entries with no current report.
-const F = { q:'', make:'', path:'', cat:'', year:'', src:'', expired:false, view:'ready' };
+const F = { q:'', make:'', model:'', path:'', cat:'', year:'', src:'', expired:false, view:'ready' };
 const $ = id => document.getElementById(id);
 let reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -675,6 +679,7 @@ function build(data){
     // approval even though ROVER still lists the report itself as "In Force".
     r.explicitLink = sevs.length>0;
     r.sevBasisGone = sevs.length>0 && !sevs.some(sn=>sevByNum[sn.trim().toUpperCase()]);
+    if(r.id) mreByNum[r.id.trim().toUpperCase()] = r;
     out.push(r);
   });
   // merge pass 1: fold MREs into their SEV vehicle row via explicit SEV number links
@@ -799,7 +804,7 @@ function popRank(r){
 function filtered(viewOverride){
   const view = viewOverride || F.view;
   const q = F.q.trim().toLowerCase();
-  const curated = !q && !F.make && !F.path && !F.cat && !F.year;
+  const curated = !q && !F.make && !F.model && !F.path && !F.cat && !F.year;
   return rows.filter(r=>{
     if(r.folded) return false;
     const ready = r.type==='MRE' || (r.mres&&r.mres.length>0);
@@ -807,6 +812,7 @@ function filtered(viewOverride){
     if(F.src && r.type!==F.src) return false;
     if(!F.expired && ((r.expiry && r.expiry < NOW) || r.sevBasisGone)) return false;
     if(F.make && r.make.toUpperCase()!==F.make) return false;
+    if(F.model && r.model.toUpperCase().trim()!==F.model) return false;
     if(F.path && r.path!==F.path) return false;
     if(F.cat && r.cat!==F.cat) return false;
     if(F.year){
@@ -817,7 +823,9 @@ function filtered(viewOverride){
       if(!fy && !ty) return false;
     }
     if(q){
-      const hay = (r.make+' '+r.model+' '+r.id+' '+r.code+' '+(r.holder||'')+' '+(r.sevs||[]).join(' ')+' '+(r.mres||[]).map(m=>m.id+' '+(m.holderShort||'')+' '+(m.holder||'')).join(' ')).toLowerCase();
+      // Variant names ("STi", "Cross Sport", "E400 S213 Wagon") are searchable
+      // too — they're how buyers actually name the car they're after.
+      const hay = (r.make+' '+r.model+' '+r.id+' '+r.code+' '+(r.holder||'')+' '+(r.sevs||[]).join(' ')+' '+(r.mres||[]).map(m=>m.id+' '+(m.holderShort||'')+' '+(m.holder||'')).join(' ')+' '+(r.scope||[]).map(v=>v.variant||'').join(' ')).toLowerCase();
       if(!hay.includes(q)) return false;
     }
     return true;
@@ -850,7 +858,12 @@ const MARKET_SHORT = {'United Kingdom':'UK','United States of America':'USA','Ho
 const MARKET_TIP = 'The market each approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved Model Report covering it.';
 const MARKET_NONE_TIP = 'No approved Model Report yet, so ROVER publishes no source market for this model.';
 function groupOf(r){ return r.type==='SEV' ? (r.mres||[]) : [r].concat(r.mres||[]); }
-function marketsFor(r){ return [...new Set(groupOf(r).flatMap(m=>m.markets||[]))].sort(); }
+// Japan first, always: it's the dominant source market and the one buyers ask
+// about, so it must never hide behind a "+N" just because Germany or Hong Kong
+// sorts earlier alphabetically. (No flag emojis — Windows renders them as bare
+// letter pairs, which looks broken for a large share of visitors.)
+function sortMarkets(ms){ return ms.sort((a,b)=>(a==='Japan'?-1:b==='Japan'?1:a<b?-1:a>b?1:0)); }
+function marketsFor(r){ return sortMarkets([...new Set(groupOf(r).flatMap(m=>m.markets||[]))]); }
 function vinsFor(r){ return [...new Set(groupOf(r).flatMap(m=>m.vins||[]))]; }
 function marketShort(m){ return MARKET_SHORT[m] || m; }
 function moreTag(n){ return '<span class="mkmore">+'+n+'</span>'; }
@@ -871,7 +884,7 @@ function chassisCell(r){
 }
 // Market tag for one model report inside the panel's approval-holder lists.
 function linkMarket(m){
-  const mk = (m.markets||[]).map(marketShort).join(' · ');
+  const mk = sortMarkets([...(m.markets||[])]).map(marketShort).join(' · ');
   return mk ? '<span class="lm" title="'+esc(MARKET_TIP)+'">'+esc(mk)+'</span>' : '';
 }
 
@@ -889,7 +902,7 @@ function odoInfo(r){
   const caps = reps.filter(m=>m.odoLimit).map(m=>m.odoLimit);
   if(caps.length === reps.length){
     const cap = Math.max.apply(null, caps);
-    return {text:'≤'+cap.toLocaleString()+' km',
+    return {text:'<'+cap.toLocaleString()+' km',
             tip:'Odometer condition. '+(reps.length>1?'Every model report for':'This model report for')
                 +' this vehicle may only be used on a car showing under '+cap.toLocaleString()+' km.'};
   }
@@ -902,6 +915,16 @@ function odoInfo(r){
 function odoChip(r){
   const o = odoInfo(r);
   return o ? '<span class="odo" title="'+esc(o.tip)+'">'+esc(o.text)+'</span>' : '';
+}
+/* On a SEV row the mirrored scope can span several SEVs — only the variants
+   whose spec page actually names this SEV belong to it (the panel rule). */
+function scopeFor(r){
+  let scope = Array.isArray(r.scope)?r.scope:[];
+  if(r.type==='SEV'){
+    const myId = r.id.trim().toUpperCase();
+    scope = scope.filter(v=>!(v.sev&&v.sev.length) || v.sev.some(sn=>String(sn).trim().toUpperCase()===myId));
+  }
+  return scope;
 }
 function thumbHTML(r){
   const ph = photoFor(r);
@@ -1062,9 +1085,12 @@ function openPanel(r, nav){
   h += kvRow(r.type==='SEV'?'SEV number':'MRE number', esc(r.id), true);
   h += kvRow('Build range', fmtRange(r.from,r.to), true);
   if(r.expiryRaw) h += kvRow('SEV expiry', esc(r.expiryRaw), true);
+  // The chassis / model code also lives in the chip strip up top, but it's the
+  // number people copy off auction sheets — worth a proper labelled row too.
+  if(r.code) h += kvRow('Chassis / model code', esc(r.code), true);
   h += kvRow('Category', esc(r.catFull||r.cat), false);
   if(r.holder) h += kvRow('Approval holder', esc(r.holder), false);
-  if(r.type==='MRE' && (r.markets||[]).length) h += kvRow('Source market', esc(r.markets.join(' · ')), false);
+  if(r.type==='MRE' && (r.markets||[]).length) h += kvRow('Source market', esc(sortMarkets([...r.markets]).join(' · ')), false);
   if(r.type==='MRE' && (r.vins||[]).length)
     h += kvRow('Typical VIN', esc(r.vins.slice(0,4).join(' · '))+(r.vins.length>4?moreTag(r.vins.length-4):''), true);
   if(r.work && r.work !== (r.raw._variant_description||'')) h += kvRow('Work instructions', esc(r.work), false);
@@ -1082,22 +1108,27 @@ function openPanel(r, nav){
   if(safeUrl(r.url)) h += kvRow('Source', '<a href="'+esc(safeUrl(r.url))+'" target="_blank" rel="noopener">View on ROVER ↗</a>', false);
   h += '</div></div>';
 
-  // variants (MRE scope or SEV scope). On a SEV panel only show the variants
-  // whose spec page actually names this SEV — the scope list is mirrored from
-  // the model report, which can span several SEVs. And only ever chip SEV
-  // numbers still on the live register: spec pages can cite historic SEVs
-  // (e.g. SEV-000057) that no longer exist on ROVER and just confuse.
-  let scope = Array.isArray(r.scope)?r.scope:[];
-  if(r.type==='SEV'){
-    const myId = r.id.trim().toUpperCase();
-    scope = scope.filter(v=>!(v.sev&&v.sev.length) || v.sev.some(sn=>String(sn).trim().toUpperCase()===myId));
-  }
+  // variants (MRE scope or SEV scope) — scopeFor applies the this-SEV-only
+  // filter. Only ever chip register numbers that still resolve: spec pages can
+  // cite historic SEVs (e.g. SEV-000057) that no longer exist on ROVER.
+  const scope = scopeFor(r);
   if(scope.length){
     h += '<div class="sechead">Approved variants</div>';
     scope.slice(0,12).forEach(v=>{
-      const liveSevs = (v.sev||[]).filter(sn=>sevByNum[String(sn).trim().toUpperCase()]);
+      // On a SEV panel the useful cross-reference is the model report(s)
+      // covering the variant — a SEV chip would just repeat the page itself.
+      // Chips open the report (data-link). On an MRE panel keep the live-SEV
+      // cross-reference, that's the direction a reader needs there.
+      let chips = '';
+      if(r.type==='SEV'){
+        const vm = [...new Set((v.mre||[]).map(x=>String(x).trim().toUpperCase()))].filter(x=>mreByNum[x]);
+        chips = vm.map(x=>'<span class="chip vlink" data-link="'+mreByNum[x]._ix+'" title="Model report covering this variant — click to open">'+esc(x)+'</span>').join('');
+      }else{
+        const liveSevs = (v.sev||[]).filter(sn=>sevByNum[String(sn).trim().toUpperCase()]);
+        if(liveSevs.length) chips = '<span class="chip">'+liveSevs.map(esc).join(' · ')+'</span>';
+      }
       h += '<div class="varcard"><div class="vn"><span>'+esc(v.variant||r.model)+'</span>'
-        +(liveSevs.length?'<span class="chip">'+liveSevs.map(esc).join(' · ')+'</span>':'')+'</div><div class="specgrid">';
+        +(chips?'<span class="vchips">'+chips+'</span>':'')+'</div><div class="specgrid">';
       const sp = (k,val)=>{ if(val!=null&&val!=='') h += '<div class="spec"><div class="k">'+k+'</div><div class="v">'+esc(val)+'</div></div>'; };
       sp('Engine', v.engine_model);
       sp('Capacity', v.engine_cc?(v.engine_cc/1000).toFixed(1)+' L':null);
@@ -1242,6 +1273,24 @@ function populateFilters(){
     const lbl = catLabel[c] || CAT_LABELS[c] || '';
     return '<option value="'+esc(c)+'">'+esc(c)+(lbl?' — '+esc(lbl):'')+'</option>';
   }).join('');
+  populateModels();
+}
+// Model options track the chosen make — a bare list of all ~500 models is
+// unusable. Values compare uppercase (ROVER's casing wanders); labels keep the
+// register's own spelling. Folded rows are skipped so the list only names
+// models a user can actually land on.
+function populateModels(){
+  const seen = {};
+  rows.forEach(r=>{
+    if(r.folded || !r.model) return;
+    if(F.make && r.make.toUpperCase()!==F.make) return;
+    const k = r.model.toUpperCase().trim();
+    if(k && !seen[k]) seen[k] = r.model.trim();
+  });
+  if(F.model && !seen[F.model]) F.model = '';
+  const keys = Object.keys(seen).sort();
+  $('fModel').innerHTML = '<option value="">All models</option>'+keys.map(k=>
+    '<option value="'+esc(k)+'"'+(k===F.model?' selected':'')+'>'+esc(seen[k])+'</option>').join('');
 }
 function wire(){
   let t, searched=false;
@@ -1250,7 +1299,8 @@ function wire(){
     const q=F.q.trim();
     if(q.length>=2){ track('eligibility_search',{q:q.toLowerCase()}); if(!searched){ searched=true; scrollToResults(); } }
   },150); });
-  $('fMake').addEventListener('change', e=>{F.make=e.target.value; resetAndRender();});
+  $('fMake').addEventListener('change', e=>{F.make=e.target.value; populateModels(); resetAndRender();});
+  $('fModel').addEventListener('change', e=>{F.model=e.target.value; resetAndRender();});
   $('fCrit').addEventListener('change', e=>{F.path=e.target.value; resetAndRender();});
   $('fCat').addEventListener('change', e=>{F.cat=e.target.value; resetAndRender();});
   $('fYear').addEventListener('input', e=>{F.year=e.target.value; resetAndRender();});

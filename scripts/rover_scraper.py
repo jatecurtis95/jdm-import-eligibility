@@ -328,14 +328,20 @@ async def fetch_scope_for_mre(context, detail_url):
 
 
 def _dedupe_specs(specs):
-    """Drop duplicate variant specs (the same SEV scope reached via multiple
-    approval holders/MREs). Signature = variant + seating + welcab."""
-    seen, out = set(), []
+    """Collapse duplicate variant specs (the same SEV scope reached via multiple
+    approval holders/MREs), merging their 'mre' provenance lists so the kept
+    spec still names every model report that covers the variant.
+    Signature = variant + seating + welcab."""
+    seen, out = {}, []
     for sp in specs:
         sig = (sp.get('variant'), sp.get('seating_raw'), sp.get('welcab'))
-        if sig in seen:
+        kept = seen.get(sig)
+        if kept is not None:
+            for apn in sp.get('mre') or []:
+                if apn not in kept.setdefault('mre', []):
+                    kept['mre'].append(apn)
             continue
-        seen.add(sig)
+        seen[sig] = sp
         out.append(sp)
     return out
 
@@ -381,12 +387,23 @@ async def enrich_with_scope(browser, mre_records, sev_records, limit=None, skip_
                 specs = []
                 errors += 1
             if specs:
+                # Stamp provenance — which model report each variant spec came
+                # from. The eligibility site chips this on SEV variant cards
+                # (the SEV number there would just repeat the page itself).
+                apn = (record.get('Approval number') or '').strip()
+                for sp in specs:
+                    if apn:
+                        sp['mre'] = [apn]
                 record['_scope'] = specs
                 variants_found += len(specs)
                 for sp in specs:
                     for sevnum in sp.get('sev', []):
                         for srec in sev_index.get(sevnum, []):
-                            srec.setdefault('_scope', []).append(sp)
+                            # Mirror a COPY: the SEV-side dedupe merges 'mre'
+                            # lists in place, and that must never leak sibling
+                            # report numbers back into this MRE's own _scope.
+                            srec.setdefault('_scope', []).append(
+                                {**sp, 'mre': list(sp.get('mre', []))})
             completed += 1
             if completed % 25 == 0:
                 print(f"    {completed}/{len(targets)} MREs scoped "
