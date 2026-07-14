@@ -193,6 +193,12 @@
   .card .chassis{font-family:var(--font-mono);font-size:12px;color:var(--faint);margin-top:2px;word-break:break-word}
   .card .right{margin-left:auto;text-align:right;flex:none}
   .card .meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+  .card .vars{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:10px}
+  .varhead{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-right:2px}
+  .varname{font-size:12px;color:var(--muted);background:var(--grey-soft);border-radius:6px;padding:2px 8px;white-space:nowrap}
+  .varlist{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+  .varlist .varname{max-width:170px;overflow:hidden;text-overflow:ellipsis}
+  .varlist[title]{cursor:help}
   .card .range{font-size:13px;color:var(--muted)}
   .card .foot{display:flex;align-items:center;gap:12px;margin-top:12px}
   .card .foot .mk{font-size:12px;color:var(--muted)}
@@ -425,7 +431,7 @@
     <div class="table-wrap" id="tableWrap" style="display:none">
       <table class="reg">
         <thead>
-          <tr><th>Vehicle</th><th>Chassis / VIN</th><th>Build range</th><th>Criterion<span class="ith" title="Why the model qualifies for import: performance, environmental, rarity, mobility, etc.">i</span></th><th>Cat.</th><th>Model reports<span class="ith" title="How many approved Model Reports ROVER publishes for this model. A Model Report is the approved specification for modifying it; a registered automotive workshop carries out the work and an authorised vehicle verifier checks it. The approval holder is not necessarily that workshop.">i</span></th><th>Import from<span class="ith" title="The market each approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved Model Report covering it. A dash means ROVER lists no current Model Report.">i</span></th><th>Status</th><th></th></tr>
+          <tr><th>Vehicle</th><th>Chassis / VIN</th><th>Variants<span class="ith" title="Approved variants from the Model Report’s scope of works. Hover a +N for the full list. A dash means ROVER publishes no per-variant scope for this entry — it does not mean no variants are approved.">i</span></th><th>Build range</th><th>Criterion<span class="ith" title="Why the model qualifies for import: performance, environmental, rarity, mobility, etc.">i</span></th><th>Cat.</th><th>Model reports<span class="ith" title="How many approved Model Reports ROVER publishes for this model. A Model Report is the approved specification for modifying it; a registered automotive workshop carries out the work and an authorised vehicle verifier checks it. The approval holder is not necessarily that workshop.">i</span></th><th>Import from<span class="ith" title="The market each approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved Model Report covering it. A dash means ROVER lists no current Model Report.">i</span></th><th>Status</th><th></th></tr>
         </thead>
         <tbody id="rows"></tbody>
       </table>
@@ -916,8 +922,11 @@ function odoChip(r){
   const o = odoInfo(r);
   return o ? '<span class="odo" title="'+esc(o.tip)+'">'+esc(o.text)+'</span>' : '';
 }
-/* On a SEV row the mirrored scope can span several SEVs — only the variants
-   whose spec page actually names this SEV belong to it (the panel rule). */
+/* ---------- variants on results ----------
+   The variant names come from the Model Report scope of works. On a SEV row the
+   mirrored scope can span several SEVs, so only count the variants whose spec
+   page actually names this SEV — the same rule the detail panel applies. Only
+   about half the register publishes a scope, so absence is normal, not an error. */
 function scopeFor(r){
   let scope = Array.isArray(r.scope)?r.scope:[];
   if(r.type==='SEV'){
@@ -925,6 +934,28 @@ function scopeFor(r){
     scope = scope.filter(v=>!(v.sev&&v.sev.length) || v.sev.some(sn=>String(sn).trim().toUpperCase()===myId));
   }
   return scope;
+}
+function variantNames(r){
+  return [...new Set(scopeFor(r).map(v=>(v.variant||'').trim()).filter(Boolean))];
+}
+const VAR_SHOW = 3;
+function variantsCell(r){
+  const names = variantNames(r);
+  if(!names.length) return '<span class="wnone" title="ROVER publishes no per-variant scope of works for this entry.">—</span>';
+  const shown = names.slice(0,VAR_SHOW);
+  const extra = names.length - shown.length;
+  return '<div class="varlist"'+(extra>0?' title="'+esc(names.join(' · '))+'"':'')+'>'
+    + shown.map(n=>'<span class="varname">'+esc(n)+'</span>').join('')
+    + (extra>0?'<span class="mkmore">+'+extra+'</span>':'')+'</div>';
+}
+function variantsLine(r){
+  const names = variantNames(r);
+  if(!names.length) return '';
+  const shown = names.slice(0,VAR_SHOW);
+  const extra = names.length - shown.length;
+  return '<div class="vars"><span class="varhead">Variants</span>'
+    + shown.map(n=>'<span class="varname">'+esc(n)+'</span>').join('')
+    + (extra>0?'<span class="mkmore" title="'+esc(names.slice(VAR_SHOW).join(' · '))+'">+'+extra+'</span>':'')+'</div>';
 }
 function thumbHTML(r){
   const ph = photoFor(r);
@@ -940,6 +971,7 @@ function cardHTML(r){
     + '<div class="cmain"><div class="name">'+esc(name)+'</div>'+(r.code?'<div class="chassis">Chassis · '+esc(r.code)+'</div>':'')+'</div>'
     + '<div class="right"><span class="badge '+st.cls+'" title="'+esc(st.short)+'">'+st.label+'</span></div></div>'
     + '<div class="meta"><span class="sev">'+esc(r.id)+'</span><span class="range">'+fmtRange(r.from,r.to)+'</span>'+pathHTML(r)+odoChip(r)+'</div>'
+    + variantsLine(r)
     + '<div class="foot"><span class="cat">CAT '+esc(r.cat||'n/a')+'</span>'
     + marketCell(r, true)
     + '<span class="wklabel">'+(wn?'<b>'+wn+'</b> model report'+(wn===1?'':'s'):'no model report')+'</span></div>'
@@ -953,6 +985,7 @@ function rowHTML(r){
     + '<td><div class="veh">'+thumbHTML(r)+'<div><div class="name">'+esc(name)+'</div>'
       + '<div class="vsub"><span class="sev">'+esc(r.id)+'</span></div></div></div></td>'
     + '<td>'+chassisCell(r)+'</td>'
+    + '<td>'+variantsCell(r)+'</td>'
     + '<td class="range">'+fmtRange(r.from,r.to)+'</td>'
     + '<td>'+pathHTML(r)+'</td>'
     + '<td>'+(r.cat?'<span class="cattag">'+esc(r.cat)+'</span>':'<span class="wnone">n/a</span>')+'</td>'
