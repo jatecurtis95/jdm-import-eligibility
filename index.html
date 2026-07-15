@@ -39,7 +39,7 @@
     --gold-soft:#F4ECD8; --gold-line:#E0D2A8; --gold-deep:#96762B;
     --header:#15120D; --header-ink:#F3ECDD;
     --c-performance:#C0392B; --c-environmental:#1E8E5A; --c-rarity:#7C5CBF;
-    --c-lhd:#5B6B7A; --c-camper:#9A6A33; --c-mobility:#2D6CB5; --c-none:#B7AE9E;
+    --c-lhd:#5B6B7A; --c-camper:#C06A14; --c-mobility:#2D6CB5; --c-none:#B7AE9E;
     --ok-bg:#E7F4EC; --ok-ink:#1E7A48; --exp-bg:#F3E7E6; --exp-ink:#A23B30;
     --warn-bg:#F8EFD9; --warn-ink:#8A6410; --rev-bg:#E7ECF6; --rev-ink:#33508A;
     --sev-bg:#EAF1FA; --sev-ink:#3A6EA5; --mre-bg:#EFE9F5; --mre-ink:#6A4B8A;
@@ -519,13 +519,17 @@ function finderHref(medium, extra){
 }
 function waHref(text){ return 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(text); }
 
+// Keys MUST match the scraper's _normalise_sev_category outputs exactly:
+// performance / environmental / welcab / rarity / camper / other. The old
+// 'mobility' and 'campervan' keys matched nothing, so 64 welcab and 81
+// campervan entries rendered with the grey fallback dot.
 const PATH_COLORS = {
   'performance':  ['var(--c-performance)','Performance'],
   'environmental':['var(--c-environmental)','Environmental'],
-  'mobility':     ['var(--c-mobility)','Mobility'],
+  'welcab':       ['var(--c-mobility)','Mobility'],
   'rarity':       ['var(--c-rarity)','Rarity'],
-  'left':         ['var(--c-lhd)','Left-hand drive'],
-  'campervan':    ['var(--c-camper)','Campervan'],
+  'camper':       ['var(--c-camper)','Campervan / Motorhome'],
+  'other':        ['var(--c-lhd)','Other'],
 };
 const CAR_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 11l1.5-3.5C6.8 6.6 7.6 6 8.6 6h6.8c1 0 1.8.6 2.1 1.5L19 11l1.3.5c.7.3 1.2 1 1.2 1.8V16c0 .6-.4 1-1 1h-1a2 2 0 1 1-4 0H8.5a2 2 0 1 1-4 0h-1c-.6 0-1-.4-1-1v-2.7c0-.8.5-1.5 1.2-1.8L5 11zm2.2-.5h9.6l-1-2.3c-.1-.3-.4-.4-.7-.4H8.9c-.3 0-.6.1-.7.4l-1 2.3z"/></svg>';
 
@@ -849,7 +853,9 @@ function pathHTML(r){
   if(!r.path && !r.pathRaw) return '<span class="wnone">n/a</span>';
   const pc = PATH_COLORS[r.path] || ['var(--c-none)', r.pathRaw||''];
   const label = (r.pathRaw||pc[1]||'').replace(/ Criterion$/i,'');
-  return '<span class="crit"><span class="cdot" style="background:'+pc[0]+'"></span>'+esc(label)+'</span>';
+  // Text takes the criterion colour too (not just the dot) — the palette is
+  // dark enough to stay readable on the cream background.
+  return '<span class="crit" style="color:'+pc[0]+'"><span class="cdot" style="background:'+pc[0]+'"></span>'+esc(label)+'</span>';
 }
 function wkCount(r){ return r.type==='SEV' ? (r.mres?r.mres.length:0) : 1+((r.mres&&r.mres.length)||0); }
 

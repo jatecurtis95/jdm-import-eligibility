@@ -1,0 +1,5 @@
+{
+  "_comment": "Manual photo corrections, applied last by fetch_images.py on every run. Key = photos.json key (normalised: uppercase, no spaces/dashes). Value = null to DELETE a bad auto-match, or a full photo object {url, source, make, model} to force one. Keys starting with _ are ignored.",
+  "_GGA10_reason": "GGA10 is the Toyota Mark X ZiO minivan. No ZiO exists on the register, but the code-first photo lookup made every Mark X SEV (GGA10, GRX121, GRX133) show the minivan. Deleting the key lets those SEVs fall back to the correct Mark X sedan photo under TOYOTAMARKX.",
+  "GGA10": null
+}
