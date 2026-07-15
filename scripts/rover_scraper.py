@@ -14,6 +14,10 @@ import sys
 import urllib.parse
 from datetime import datetime, timedelta, timezone
 
+# Sibling module — the variant-display extraction pass (Phase 1b). Both are run
+# as `python scripts/rover_scraper.py`, so scripts/ is on sys.path.
+import extract_variants
+
 try:
     from zoneinfo import ZoneInfo
     # JDM Connect operates on AWST (Perth) — matches the finder's contact widget.
@@ -2376,6 +2380,20 @@ async def run_snapshot(output_dir, send_email=False, with_detail=False, detail_l
         'mre': [{k: v for k, v in r.items() if k != 'Actions'} for r in mre_records],
         'sev': [{k: v for k, v in r.items() if k != 'Actions'} for r in sev_records],
     }
+    # Phase 1b — derive the clean display fields (_display_variant / model code /
+    # engine) from the messy source fields. Runs every scrape so the fields stay
+    # fresh; deterministic + idempotent, reads scripts/data/variant_overrides.json.
+    try:
+        extract_stats = extract_variants.annotate(
+            site_data, os.path.dirname(os.path.abspath(__file__)))
+        es = extract_stats['stats']
+        print(f"Variant extraction: {es['with_variant']} variants, "
+              f"{es['with_code']} codes, {es['with_engine']} engines "
+              f"({extract_stats['overrides']} overrides, {len(extract_stats['review'])} to review).")
+    except Exception as e:
+        # Never let display-field derivation block publishing the register.
+        print(f"Warning: variant extraction skipped ({type(e).__name__}: {e}).")
+
     with open(data_json_path, 'w') as f:
         json.dump(site_data, f)
     print(f"data.json written -> {data_json_path} ({len(mre_records)} MRE + {len(sev_records)} SEV)")

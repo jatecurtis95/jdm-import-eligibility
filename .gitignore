@@ -15,6 +15,7 @@ node_modules/
 # CI scrape and photo fetch apply them).
 scripts/data/*
 !scripts/data/photo_overrides.json
+!scripts/data/variant_overrides.json
 email-preview.html
 # Generated email preview artifact (rebuilt by scripts/_build_preview.py)
 scripts/email-template-v2-preview.html

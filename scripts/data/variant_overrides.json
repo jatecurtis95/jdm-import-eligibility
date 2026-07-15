@@ -1,0 +1,4 @@
+{
+  "_comment": "Hand-curated corrections for the variant extractor, keyed by SEV number. Any of model_code / variant / engine present here wins over the deterministic engine. This is the 'manually clean up the residue' layer AND the seam where a programmatic LLM extractor would later write the same shape. Keys starting with _ are ignored. Corrections survive every daily scrape (carried as _display_* enrichment).",
+  "_example": {"SEV-000000": {"model_code": "XYZ123", "variant": "Type R", "engine": "K20A"}}
+}
