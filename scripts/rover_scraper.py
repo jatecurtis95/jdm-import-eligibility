@@ -463,6 +463,19 @@ MODEL_REPORT_NOTES_LABELS = (
 COMPLIANCE_NOTES_LABELS = (
     'compliance level notes', 'compliance level note',
 )
+# The SEV entry's own variant identifiers. ROVER's field usage is famously
+# inconsistent — on the Toyota Crown, "Model code" holds the series shorthand
+# "S17" while the REAL model code (JZS171) sits in "Variant" and the real
+# variant name ("ATHLETE V 2.5LT TURBO SEDAN") sits in "Variant details".
+# Capture both verbatim; the extraction pipeline downstream decides which
+# field means what per model. "variant" must be matched EXACTLY (findExact),
+# otherwise the label "Variant details" would satisfy a startsWith test.
+SEV_VARIANT_LABELS = (
+    'variant',
+)
+SEV_VARIANT_DETAILS_LABELS = (
+    'variant details',
+)
 # "Based on" on an MRE detail page names the SEVs Register entry (or entries)
 # the model report rests on. This is the AUTHORITATIVE MRE->SEV link: an
 # "In Force" report whose based-on SEV has dropped off the live register can no
@@ -794,6 +807,23 @@ async def fetch_detail(page, url, is_mre, fast=False):
                 }
                 return '';
             }
+            // Exact-label variant of findFor, for labels that are a prefix of
+            // ANOTHER label on the same page ("Variant" vs "Variant details") —
+            // findFor's startsWith clauses would hit whichever comes first in
+            // DOM order, which is not a guarantee worth relying on.
+            function findExact(keywordList) {
+                if (!keywordList || !keywordList.length) return '';
+                const all = document.querySelectorAll('th, td, dt, label, span, div, strong, b');
+                for (const el of all) {
+                    const txt = (el.innerText || '').trim().toLowerCase();
+                    if (!txt || txt.length > 80) continue;
+                    if (keywordList.some(kw => txt === kw || txt === kw + ':')) {
+                        const val = nearestValue(el);
+                        if (val) return val;
+                    }
+                }
+                return '';
+            }
             // "Model Report notes" and "Compliance level notes" are SECTION HEADINGS
             // (<h3 class="lsh">), not labels in a label/value cell — their prose sits
             // in the element straight after. When a section is empty that slot is
@@ -845,6 +875,8 @@ async def fetch_detail(page, url, is_mre, fast=False):
             }
             return {
                 category: findFor(labels.category),
+                variant: findExact(labels.variant),
+                variant_details: findFor(labels.variant_details),
                 propulsion: findFor(labels.propulsion),
                 holder: findFor(labels.holder),
                 expiry_reason: findFor(labels.expiry_reason),
@@ -858,6 +890,9 @@ async def fetch_detail(page, url, is_mre, fast=False):
         }""",
         {
             'category': list(SEV_CATEGORY_LABELS),
+            # SEV-page-only fields; empty lists skip the DOM scan on MRE pages.
+            'variant': [] if is_mre else list(SEV_VARIANT_LABELS),
+            'variant_details': [] if is_mre else list(SEV_VARIANT_DETAILS_LABELS),
             'propulsion': list(PROPULSION_LABELS),
             'holder': list(APPROVAL_HOLDER_LABELS),
             'expiry_reason': list(EXPIRY_REASON_LABELS),
@@ -878,6 +913,15 @@ async def fetch_detail(page, url, is_mre, fast=False):
         if raw_cat:
             out['_sev_category_raw'] = raw_cat
             out['_sev_category'] = _normalise_sev_category(raw_cat)
+        # The SEV's own variant identifiers, verbatim (see SEV_VARIANT_LABELS
+        # for the Crown example of why both fields matter). Only set when
+        # found, so carry-forward keeps an older value on a partial page load.
+        raw_variant = (extracted.get('variant') or '').strip()
+        if raw_variant:
+            out['_variant'] = raw_variant
+        raw_vd = (extracted.get('variant_details') or '').strip()
+        if raw_vd:
+            out['_variant_details'] = raw_vd
         raw_prop = extracted.get('propulsion', '')
         prop = _normalise_propulsion(raw_prop)
         if prop:
