@@ -10,8 +10,11 @@ Thumbs.db
 # Node
 node_modules/
 
-# Scraper snapshot data (monthly JSON files)
-scripts/data/
+# Scraper snapshot data (monthly JSON files) — ignore the folder's contents,
+# but keep the hand-maintained override files tracked (they must ship so the
+# CI scrape and photo fetch apply them).
+scripts/data/*
+!scripts/data/photo_overrides.json
 email-preview.html
 # Generated email preview artifact (rebuilt by scripts/_build_preview.py)
 scripts/email-template-v2-preview.html

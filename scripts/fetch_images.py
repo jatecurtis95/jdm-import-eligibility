@@ -110,6 +110,26 @@ def load_json_safe(path: str) -> Dict:
         return {}
 
 
+def apply_photo_overrides(photos: Dict, overrides: Dict) -> int:
+    """Apply manual corrections from photo_overrides.json. A null value DELETES
+    a bad auto-match (e.g. GGA10 -> Mark X ZiO minivan on every Mark X SEV); an
+    object value forces that photo entry. Keys starting with '_' are comments.
+    Runs last so a re-fetch can never resurrect a known-bad match.
+    Returns the number of entries changed."""
+    changed = 0
+    for key, value in overrides.items():
+        if key.startswith('_'):
+            continue
+        if value is None:
+            if key in photos:
+                del photos[key]
+                changed += 1
+        elif photos.get(key) != value:
+            photos[key] = value
+            changed += 1
+    return changed
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Auto-fetch vehicle images from Wikipedia for new vehicles in data.json'
@@ -133,6 +153,12 @@ def main():
 
     print(f"Loading photos from {photos_path}")
     photos = load_json_safe(str(photos_path))
+
+    overrides_path = repo_root / 'scripts' / 'data' / 'photo_overrides.json'
+    overrides = load_json_safe(str(overrides_path))
+    override_changes = apply_photo_overrides(photos, overrides)
+    if override_changes:
+        print(f"Applied {override_changes} photo override(s) from {overrides_path.name}")
 
     # Collect all vehicles
     vehicles = []
@@ -158,7 +184,12 @@ def main():
             missing.append(v)
 
     if not missing:
-        print("[OK] All vehicles have images!")
+        if override_changes:
+            with open(photos_path, 'w', encoding='utf-8') as f:
+                json.dump(photos, f, indent=2, ensure_ascii=False)
+            print(f"[OK] All vehicles have images; wrote {photos_path} with overrides applied.")
+        else:
+            print("[OK] All vehicles have images!")
         return
 
     print(f"\nFound {len(missing)} vehicles without images. Fetching... (limit: {args.limit})")
@@ -180,9 +211,12 @@ def main():
         else:
             print("[-]")
 
-    if fetched == 0:
+    if fetched == 0 and not override_changes:
         print("\nNo images were fetched. Try expanding your search or adding images manually.")
         return
+
+    # Overrides run LAST so a fresh fetch can never resurrect a known-bad match.
+    apply_photo_overrides(photos, overrides)
 
     # Write photos.json
     print(f"\nSaving {fetched} new images to {photos_path}")

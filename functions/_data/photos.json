@@ -1578,13 +1578,6 @@
     "chassis": "ZRR80",
     "source": "wikipedia"
   },
-  "GGA10": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/2007_Toyota_Mark-X-Zio_01.jpg/960px-2007_Toyota_Mark-X-Zio_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "make": "Toyota",
-    "model": "Mark X",
-    "chassis": "GGA10",
-    "source": "wikipedia"
-  },
   "FD3S": {
     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/1994_Mazda_RX-7_R2_in_Vintage_Red%2C_front_left_%28Lime_Rock%29.jpg/960px-1994_Mazda_RX-7_R2_in_Vintage_Red%2C_front_left_%28Lime_Rock%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Mazda",
