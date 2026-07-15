@@ -143,8 +143,20 @@
   .resulthead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px}
   .count{font-size:13px;color:var(--muted)}
   .count b{color:var(--ink);font-weight:700}
+  /* Filter controls: dropdowns + toggles stack on small screens, then share
+     one row on wide screens (dropdowns flex to fill, toggles pinned at the end
+     and bottom-aligned to the select boxes). */
+  .controls{display:flex;flex-direction:column;gap:10px}
   @media (min-width:720px){
     .selects{grid-template-columns:repeat(5,minmax(110px,1fr))}
+  }
+  @media (min-width:1024px){
+    /* One filter row: dropdowns flex to fill, toggles pinned at the end and
+       bottom-aligned to the select boxes. min-width:0 lets the dropdown grid
+       shrink enough to leave room for the toggles instead of overflowing. */
+    .controls{flex-direction:row;align-items:flex-end;gap:12px}
+    .controls .selects{flex:1 1 auto;min-width:0}
+    .controls .toggles{flex:0 0 auto}
   }
 
   .howto{border:1px solid var(--line);background:#FBF7EF;border-radius:var(--radius);margin:16px 0;overflow:hidden;}
@@ -217,7 +229,9 @@
   @media (min-width:900px){ .cards{display:none} }
 
   .table-wrap{display:none}
-  @media (min-width:900px){ .table-wrap{display:block} }
+  /* At 900-1023px the 9-column table is wider than the viewport — let it scroll
+     inside its own container so the page body never scrolls sideways. */
+  @media (min-width:900px){ .table-wrap{display:block;overflow-x:auto} }
   table.reg{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
   table.reg thead th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:600;padding:13px 16px;border-bottom:1px solid var(--line);background:#FCFAF5;white-space:nowrap;}
   table.reg tbody td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:middle;font-size:14px}
@@ -407,6 +421,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         <input id="q" type="search" placeholder="Search make, model or chassis code, e.g. Skyline, BNR34" aria-label="Search" autocomplete="off" />
       </div>
+      <div class="controls">
       <div class="selects">
         <label class="fld"><span>Make</span><select id="fMake" aria-label="Filter by make"><option value="">All makes</option></select></label>
         <label class="fld"><span>Model</span><select id="fModel" aria-label="Filter by model"><option value="">All models</option></select></label>
@@ -417,6 +432,7 @@
       <div class="toggles">
         <label class="toggle" title="Only show vehicles that can be imported and complied right now — a current SEVS entry with an approved Model Report. Untick to also see SEVS entries that don't have a Model Report yet."><input type="checkbox" id="tReady" checked /> Currently eligible</label>
         <label class="toggle"><input type="checkbox" id="tExpired" /> Show expired</label>
+      </div>
       </div>
     </div>
   </section>
