@@ -190,7 +190,9 @@
   .card .top{display:flex;gap:12px;align-items:flex-start}
   .card .cmain{flex:1;min-width:0}
   .card .name{font-weight:700;font-size:16px;line-height:1.25}
+  .card .dvar{font-size:13px;color:var(--gold-deep);font-weight:600;line-height:1.3;margin-top:3px}
   .card .chassis{font-family:var(--font-mono);font-size:12px;color:var(--faint);margin-top:2px;word-break:break-word}
+  .veh .dvar{font-size:13px;color:var(--gold-deep);font-weight:600;line-height:1.3;margin-top:2px;max-width:34ch}
   .card .right{margin-left:auto;text-align:right;flex:none}
   .card .meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
   .card .vars{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:10px}
@@ -576,6 +578,20 @@ function titleMake(s){
   if(s.length<=3) return s.toUpperCase();
   return s.split(/\s+/).map(w=>w.length<=3&&w===w.toUpperCase()?w:w[0].toUpperCase()+w.slice(1).toLowerCase()).join(' ');
 }
+// Tidy a derived variant name for display. ROVER writes many in ALL CAPS
+// ("ATHLETE V 2.5LT TURBO SEDAN"); title-case only the long all-caps words and
+// leave everything else exactly as sourced — codes/units (2.5LT, JZS171), short
+// tokens (V, IX, WRX, AWD), and already-cased names (STi, A-Line, berlinetta).
+function titleVariant(s){
+  if(!s) return '';
+  return s.split(/\s+/).map(w=>{
+    if(/[a-z]/.test(w) || /\d/.test(w) || w.length<=3) return w;
+    return w[0]+w.slice(1).toLowerCase();
+  }).join(' ');
+}
+// The code shown in results — the cleaned model code from the extraction pass
+// (JZS171, not the Crown's junk 'S17'), falling back to the raw field.
+function dispCodeOf(r){ return r.dispVariant!==undefined ? (r.dispCode||r.code) : r.code; }
 // Category code from either register's raw value: SEVs publish "MD2 - Light
 // Omnibus", MREs publish bare "MD2". Letters + optional digit, trimmed — the
 // old 2-letter match left "MD2 " (trailing space) for SEV rows and "MD2" for
@@ -639,6 +655,8 @@ function build(data){
     const r = {
       type:'SEV', id:s['SEV #']||'', make:s.Make||'', model:s.Model||'',
       code:s['Model code']||'', from, to,
+      // Phase 1b display fields — the cleaned variant identity for this SEV.
+      dispVariant:s._display_variant||'', dispCode:s._display_model_code||'', dispEngine:s._display_engine||'',
       cat:catCode(s.Category), catFull:s.Category||'',
       path:(s._sev_category||'').toLowerCase(), pathRaw:s._sev_category_raw||'',
       expiry:parseDMY(s.Expiry), expiryRaw:s.Expiry||'',
@@ -833,9 +851,10 @@ function filtered(viewOverride){
       if(!fy && !ty) return false;
     }
     if(q){
-      // Variant names ("STi", "Cross Sport", "E400 S213 Wagon") are searchable
-      // too — they're how buyers actually name the car they're after.
-      const hay = (r.make+' '+r.model+' '+r.id+' '+r.code+' '+(r.holder||'')+' '+(r.sevs||[]).join(' ')+' '+(r.mres||[]).map(m=>m.id+' '+(m.holderShort||'')+' '+(m.holder||'')).join(' ')+' '+(r.scope||[]).map(v=>v.variant||'').join(' ')).toLowerCase();
+      // Variant names ("STi", "Cross Sport", "E400 S213 Wagon") and the derived
+      // display identity ("Athlete V Sedan", "JZS171") are searchable too —
+      // they're how buyers actually name the car they're after.
+      const hay = (r.make+' '+r.model+' '+r.id+' '+r.code+' '+(r.dispVariant||'')+' '+(r.dispCode||'')+' '+(r.holder||'')+' '+(r.sevs||[]).join(' ')+' '+(r.mres||[]).map(m=>m.id+' '+(m.holderShort||'')+' '+(m.holder||'')).join(' ')+' '+(r.scope||[]).map(v=>v.variant||'').join(' ')).toLowerCase();
       if(!hay.includes(q)) return false;
     }
     return true;
@@ -888,7 +907,8 @@ function marketCell(r, blankWhenNone){
 // The column is "Chassis / VIN": when ROVER gives us no model code, the model
 // report's typical VIN is the next best identifier for an auction sheet.
 function chassisCell(r){
-  if(r.code) return '<span class="chassiscode">'+esc(r.code)+'</span>';
+  const code = dispCodeOf(r);
+  if(code) return '<span class="chassiscode">'+esc(code)+'</span>';
   const v = vinsFor(r);
   if(!v.length) return '<span class="wnone">n/a</span>';
   return '<span class="chassiscode" title="Typical VIN: '+esc(v.join(' · '))+'">'+esc(v[0])+'</span>'
@@ -974,7 +994,9 @@ function cardHTML(r){
   const wn = wkCount(r);
   return '<article class="card" data-i="'+r._ix+'" tabindex="0" role="button" aria-label="'+esc(name)+'">'
     + '<div class="top">'+thumbHTML(r)
-    + '<div class="cmain"><div class="name">'+esc(name)+'</div>'+(r.code?'<div class="chassis">Chassis · '+esc(r.code)+'</div>':'')+'</div>'
+    + '<div class="cmain"><div class="name">'+esc(name)+'</div>'
+    + (r.dispVariant?'<div class="dvar">'+esc(titleVariant(r.dispVariant))+'</div>':'')
+    + (dispCodeOf(r)?'<div class="chassis">'+esc(dispCodeOf(r))+'</div>':'')+'</div>'
     + '<div class="right"><span class="badge '+st.cls+'" title="'+esc(st.short)+'">'+st.label+'</span></div></div>'
     + '<div class="meta"><span class="sev">'+esc(r.id)+'</span><span class="range">'+fmtRange(r.from,r.to)+'</span>'+pathHTML(r)+odoChip(r)+'</div>'
     + variantsLine(r)
@@ -989,6 +1011,7 @@ function rowHTML(r){
   const wn = wkCount(r);
   return '<tr data-i="'+r._ix+'">'
     + '<td><div class="veh">'+thumbHTML(r)+'<div><div class="name">'+esc(name)+'</div>'
+      + (r.dispVariant?'<div class="dvar">'+esc(titleVariant(r.dispVariant))+'</div>':'')
       + '<div class="vsub"><span class="sev">'+esc(r.id)+'</span></div></div></div></td>'
     + '<td>'+chassisCell(r)+'</td>'
     + '<td>'+variantsCell(r)+'</td>'
