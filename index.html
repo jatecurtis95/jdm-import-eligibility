@@ -47,7 +47,7 @@
     --radius:14px; --radius-sm:10px;
     --shadow:0 1px 2px rgba(20,16,10,.04), 0 6px 20px rgba(20,16,10,.05);
     --shadow-lift:0 2px 6px rgba(20,16,10,.06), 0 14px 34px rgba(20,16,10,.10);
-    --maxw:1200px;
+    --maxw:1280px;
     --font-display:"Fraunces", Georgia, "Times New Roman", serif;
     --font-text:"Manrope", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     --font-mono:ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -172,6 +172,13 @@
   .b-warn{background:var(--warn-bg);color:var(--warn-ink)}
   .b-bad{background:var(--exp-bg);color:var(--exp-ink)}
   .b-rev{background:var(--rev-bg);color:var(--rev-ink)}
+  /* Compact status marker for the table — colour AND shape (tick/cross/dash) so
+     it reads without relying on colour alone; label kept for screen readers. */
+  .sglyph{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-size:15px;font-weight:800;cursor:help}
+  .sglyph.b-ok{background:var(--ok-bg);color:var(--ok-ink)}
+  .sglyph.b-warn{background:var(--warn-bg);color:var(--warn-ink)}
+  .sglyph.b-bad{background:var(--exp-bg);color:var(--exp-ink)}
+  .sglyph.b-rev{background:var(--rev-bg);color:var(--rev-ink)}
   .wk{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
   .wk b{color:var(--ink);font-weight:700}
   .wnone{font-size:12px;color:var(--faint)}
@@ -433,7 +440,7 @@
     <div class="table-wrap" id="tableWrap" style="display:none">
       <table class="reg">
         <thead>
-          <tr><th>Vehicle</th><th>Chassis / VIN</th><th>Variants<span class="ith" title="Approved variants from the Model Report’s scope of works. Hover a +N for the full list. A dash means ROVER publishes no per-variant scope for this entry — it does not mean no variants are approved.">i</span></th><th>Build range</th><th>Criterion<span class="ith" title="Why the model qualifies for import: performance, environmental, rarity, mobility, etc.">i</span></th><th>Cat.</th><th>Model reports<span class="ith" title="How many approved Model Reports ROVER publishes for this model. A Model Report is the approved specification for modifying it; a registered automotive workshop carries out the work and an authorised vehicle verifier checks it. The approval holder is not necessarily that workshop.">i</span></th><th>Import from<span class="ith" title="The market each approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved Model Report covering it. A dash means ROVER lists no current Model Report.">i</span></th><th>Status</th><th></th></tr>
+          <tr><th>Vehicle</th><th>Chassis / VIN</th><th>Variants<span class="ith" title="Approved variants from the Model Report’s scope of works. Hover a +N for the full list. A dash means ROVER publishes no per-variant scope for this entry — it does not mean no variants are approved.">i</span></th><th>Build range</th><th>Criterion<span class="ith" title="Why the model qualifies for import: performance, environmental, rarity, mobility, etc.">i</span></th><th>Model reports<span class="ith" title="How many approved Model Reports ROVER publishes for this model. A Model Report is the approved specification for modifying it; a registered automotive workshop carries out the work and an authorised vehicle verifier checks it. The approval holder is not necessarily that workshop.">i</span></th><th>Import from<span class="ith" title="The market each approved Model Report is built for. Not a legal restriction, but an example sourced from another market may have no approved Model Report covering it. A dash means ROVER lists no current Model Report.">i</span></th><th>Status</th><th></th></tr>
         </thead>
         <tbody id="rows"></tbody>
       </table>
@@ -948,6 +955,14 @@ function odoChip(r){
   const o = odoInfo(r);
   return o ? '<span class="odo" title="'+esc(o.tip)+'">'+esc(o.text)+'</span>' : '';
 }
+// Compact status marker for the dense table view. Tick = eligible (green),
+// cross = no longer eligible (red), dash = under review (amber) — shape plus
+// colour, with the full label exposed to assistive tech and on hover.
+function statusGlyph(st){
+  const g = st.cls==='b-bad' ? '✕' : st.cls==='b-rev' ? '–' : '✓';
+  return '<span class="sglyph '+st.cls+'" title="'+esc(st.tip)+'" role="img" aria-label="'+esc(st.label)+'">'
+    + '<span aria-hidden="true">'+g+'</span><span class="sr-only">'+esc(st.label)+'</span></span>';
+}
 /* ---------- variants on results ----------
    The variant names come from the Model Report scope of works. On a SEV row the
    mirrored scope can span several SEVs, so only count the variants whose spec
@@ -1000,7 +1015,7 @@ function cardHTML(r){
     + '<div class="right"><span class="badge '+st.cls+'" title="'+esc(st.short)+'">'+st.label+'</span></div></div>'
     + '<div class="meta"><span class="sev">'+esc(r.id)+'</span><span class="range">'+fmtRange(r.from,r.to)+'</span>'+pathHTML(r)+odoChip(r)+'</div>'
     + variantsLine(r)
-    + '<div class="foot"><span class="cat">CAT '+esc(r.cat||'n/a')+'</span>'
+    + '<div class="foot">'
     + marketCell(r, true)
     + '<span class="wklabel">'+(wn?'<b>'+wn+'</b> model report'+(wn===1?'':'s'):'no model report')+'</span></div>'
     + '</article>';
@@ -1017,10 +1032,9 @@ function rowHTML(r){
     + '<td>'+variantsCell(r)+'</td>'
     + '<td class="range">'+fmtRange(r.from,r.to)+'</td>'
     + '<td>'+pathHTML(r)+'</td>'
-    + '<td>'+(r.cat?'<span class="cattag">'+esc(r.cat)+'</span>':'<span class="wnone">n/a</span>')+'</td>'
     + '<td>'+(wn?'<span class="wk"><b>'+wn+'</b></span>':'<span class="wnone">none yet</span>')+odoChip(r)+'</td>'
     + '<td>'+marketCell(r)+'</td>'
-    + '<td><span class="badge '+st.cls+'" title="'+esc(st.short)+'">'+st.label+'</span></td>'
+    + '<td>'+statusGlyph(st)+'</td>'
     + '<td><span class="chev">›</span></td></tr>';
 }
 
@@ -1136,7 +1150,7 @@ function openPanel(r, nav){
   }
   h += '<div class="psec"><div class="ptitle">'+esc(name)+'</div><div class="pchips">';
   h += '<span class="badge '+st.cls+'" title="'+esc(st.tip)+'">'+st.label+'</span>';
-  if(r.code) h += '<span class="chip" title="Chassis / model code, found on the car’s ID plate and auction sheets">'+esc(r.code)+'</span>';
+  if(dispCodeOf(r)) h += '<span class="chip" title="Chassis / model code, found on the car’s ID plate and auction sheets">'+esc(dispCodeOf(r))+'</span>';
   if(r.pathRaw) h += '<span class="chip" title="Why this model qualifies for import under the SEVS scheme">'+esc(r.pathRaw)+'</span>';
   const pmk = marketsFor(r);
   if(pmk.length) h += '<span class="chip" title="'+esc(MARKET_TIP)+'">Import from: '+esc(pmk.join(' · '))+'</span>';
@@ -1149,7 +1163,11 @@ function openPanel(r, nav){
   if(r.expiryRaw) h += kvRow('SEV expiry', esc(r.expiryRaw), true);
   // The chassis / model code also lives in the chip strip up top, but it's the
   // number people copy off auction sheets — worth a proper labelled row too.
-  if(r.code) h += kvRow('Chassis / model code', esc(r.code), true);
+  // ROVER has no variant/engine field on the SEV page, so we surface the
+  // derived ones right under the code (per the V1.2 notes).
+  if(dispCodeOf(r)) h += kvRow('Chassis / model code', esc(dispCodeOf(r)), true);
+  if(r.dispVariant) h += kvRow('Variant', esc(titleVariant(r.dispVariant)), false);
+  if(r.dispEngine) h += kvRow('Engine', esc(r.dispEngine), true);
   h += kvRow('Category', esc(r.catFull||r.cat), false);
   if(r.holder) h += kvRow('Approval holder', esc(r.holder), false);
   if(r.type==='MRE' && (r.markets||[]).length) h += kvRow('Source market', esc(sortMarkets([...r.markets]).join(' · ')), false);
