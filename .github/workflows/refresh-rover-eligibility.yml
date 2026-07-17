@@ -1,0 +1,51 @@
+# ============================================================================
+# .github/workflows/refresh-rover-eligibility.yml
+# ----------------------------------------------------------------------------
+# Daily mirror of this repo's scraped data.json into the jdm-connect Supabase
+# rover_eligibility table. Relocated here from the (now archived) auction repo
+# jatecurtis95/JDMCAuctionsearch, which used to own this glue.
+#
+# Runs at 23:45 UTC, after daily-scrape.yml has produced a fresh data.json.
+# The script upserts rover_eligibility; the rover_variant_sync_trg trigger then
+# rebuilds rover_variant for each row, and model_code is filled from the scope
+# variants.
+#
+# REQUIRED secret (set on this repo before it can run):
+#   SUPABASE_PAT          Supabase Personal Access Token (sbp_...)
+# Optional:
+#   SUPABASE_PROJECT_REF  defaults to rrvuxgajwaxadwwolgox in the script.
+# ============================================================================
+name: refresh-rover-eligibility
+
+"on":
+  schedule:
+    - cron: "45 23 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: refresh-rover-eligibility
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: refresh rover eligibility mirror
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: refresh
+        # tsx is fetched on demand; the script is dependency-free (global fetch).
+        run: npx --yes tsx@4 scripts/refresh-rover-eligibility.ts
+        env:
+          SUPABASE_PAT:         ${{ secrets.SUPABASE_PAT }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
