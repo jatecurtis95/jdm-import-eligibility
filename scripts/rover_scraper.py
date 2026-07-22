@@ -1669,6 +1669,98 @@ def _propulsion_badge_html(propulsion):
 
 QUOTE_EMAIL = 'info@jdmconnect.com.au'
 
+# ── Model intel (jdm-brain knowledge layer) ───────────────────────────────────
+# rover_model_intel in the jdm-connect Supabase project holds a curated profile
+# per register model (canonical name, demand level, why it matters). It is
+# public-read via the publishable key, so no secret is required here. Every
+# helper fails soft: if the fetch breaks, the email renders exactly as it did
+# before this enrichment existed.
+
+SUPABASE_URL = 'https://rrvuxgajwaxadwwolgox.supabase.co'
+SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_lW6AJvxMbdAG0FiqGO2Dmw_HbEJM_Id'
+
+_intel_cache = None
+
+
+def _fetch_model_intel():
+    """Return {(MAKE, model lower): intel row}, keeping the highest-demand row
+    when a model has several (per-generation dossiers). Memoised per run so the
+    body builder and the subject composer share one fetch."""
+    global _intel_cache
+    if _intel_cache is not None:
+        return _intel_cache
+    _intel_cache = {}
+    if _requests is None:
+        return _intel_cache
+    rank = {'high': 2, 'medium': 1}
+    try:
+        offset = 0
+        while True:
+            resp = _requests.get(
+                f'{SUPABASE_URL}/rest/v1/rover_model_intel',
+                params={'select': 'make_norm,model,canonical_name,demand_level,why_desirable',
+                        'limit': '500', 'offset': str(offset)},
+                headers={'apikey': SUPABASE_PUBLISHABLE_KEY,
+                         'Authorization': f'Bearer {SUPABASE_PUBLISHABLE_KEY}'},
+                timeout=15)
+            if resp.status_code != 200:
+                break
+            page = resp.json()
+            for row in page:
+                key = ((row.get('make_norm') or '').strip().upper(),
+                       (row.get('model') or '').strip().lower())
+                cur = _intel_cache.get(key)
+                if cur is None or rank.get(row.get('demand_level'), 0) > rank.get(cur.get('demand_level'), 0):
+                    _intel_cache[key] = row
+            if len(page) < 500:
+                break
+            offset += 500
+        print(f"Model intel loaded: {len(_intel_cache)} models")
+    except Exception as e:
+        print(f"Model intel fetch skipped: {e}")
+    return _intel_cache
+
+
+def _intel_for(record):
+    """Intel row for a scraped register record, or None."""
+    return _fetch_model_intel().get(
+        ((record.get('Make') or '').strip().upper(),
+         (record.get('Model') or '').strip().lower()))
+
+
+def _demand_chip_html(intel_row):
+    """Gold HIGH DEMAND chip. Only 'high' renders — medium/low stay quiet so
+    the chip keeps its signal value."""
+    if not intel_row or intel_row.get('demand_level') != 'high':
+        return ''
+    return (' <span style="display:inline-block; padding:2px 8px; margin-left:6px; '
+            'border-radius:20px; font-size:9px; font-weight:700; letter-spacing:1.5px; '
+            'background-color:#2a1f0a; color:#C9A84C; border:1px solid #8a6e1c; '
+            'vertical-align:middle;">HIGH DEMAND</span>')
+
+
+def _intel_blurb_html(intel_row, display_name):
+    """One-line 'what this car actually is' note under an Added row: canonical
+    name (when it adds information) + a trimmed why-it-matters sentence."""
+    if not intel_row:
+        return ''
+    pieces = []
+    canonical = (intel_row.get('canonical_name') or '').strip()
+    # Only show the canonical name when it adds information the row title
+    # doesn't already carry (e.g. 'Corolla 160 SER' -> 'Corolla Axio/Fielder
+    # Hybrid'). A canonical that merely appends the chassis code is noise.
+    if canonical and display_name.lower() not in canonical.lower():
+        pieces.append(f'<span style="color:#C9A84C; font-weight:600;">{canonical}</span>')
+    blurb = (intel_row.get('why_desirable') or '').strip()
+    if blurb:
+        if len(blurb) > 140:
+            blurb = blurb[:139].rstrip() + '&hellip;'
+        pieces.append(blurb)
+    if not pieces:
+        return ''
+    return (f'<div style="font-size:12px; color:#9ca3af; margin-top:5px; '
+            f'line-height:1.5;">{" &mdash; ".join(pieces)}</div>')
+
 
 def _quote_mailto(name, ref, register_type):
     """Build a prefilled mailto link so each Added row converts straight from
@@ -1805,10 +1897,15 @@ def _build_vehicle_rows(records, register_type, is_removed=False):
                          f'style="{name_style} text-decoration:none;">{name}</a>')
         else:
             name_html = name
-        vehicle_cell_inner = f'<div style="{name_style}">{name_html}</div>'
+        # jdm-brain intel: demand chip beside the name, one-line profile under
+        # the subtitle. Removed rows stay bare — no point selling a dead entry.
+        intel_row = None if is_removed else _intel_for(r)
+        vehicle_cell_inner = f'<div style="{name_style}">{name_html}{_demand_chip_html(intel_row)}</div>'
         if subtitle:
             vehicle_cell_inner += (f'<div style="font-size:12px; color:{subtitle_color}; '
                                    f'margin-top:3px; line-height:1.4;">{subtitle}</div>')
+        if intel_row:
+            vehicle_cell_inner += _intel_blurb_html(intel_row, name)
         vehicle_cell_inner += cta_html
 
         rows.append(
@@ -1882,12 +1979,15 @@ def _expiring_single_row(r):
         meta_parts.append(f'<span style="color:#6b7280; font-size:12px;">Expires {expiry_short}</span>')
     meta_line = ' &middot; '.join(meta_parts)
 
+    # High-demand chip: an expiring approval on a car people actually want is
+    # a stock-up-now signal, not just admin noise.
+    demand_chip = _demand_chip_html(_intel_for(r))
     return (
         '<tr><td style="padding:14px 0; border-bottom:1px solid #2a2f37;">'
         '<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
         '<td style="vertical-align:middle;">'
         f'<div style="font-family:\'Inter\',sans-serif; font-size:15px; font-weight:600; '
-        f'color:#e8eaea; line-height:1.3;">{name}</div>'
+        f'color:#e8eaea; line-height:1.3;">{name}{demand_chip}</div>'
         f'<div style="margin-top:4px; line-height:1.5;">{meta_line}</div>'
         '</td>'
         '<td align="right" valign="middle" style="vertical-align:middle; width:80px;">'
@@ -1950,6 +2050,12 @@ def _choose_featured_addition(added_mre, added_sev):
     most readers, so they fall to the back of the queue. MRE additions are
     last because they tend to be utility vehicles (trucks, vans).
     """
+    # A known high-demand model (per the jdm-brain intel) beats everything —
+    # that is the subject line that earns an open regardless of category.
+    for r in added_sev + added_mre:
+        intel_row = _intel_for(r)
+        if intel_row and intel_row.get('demand_level') == 'high':
+            return r
     PREFERRED = ('performance', 'rarity')
     for r in added_sev:
         if (r.get('_sev_category') or '').lower() in PREFERRED:
