@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jdm-brain",
+  "account_id": "78a4648f57e3da163587fff349bf8b19",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "durable_objects": {
+    "bindings": [{ "name": "ROVER_BRAIN", "class_name": "RoverBrain" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["RoverBrain"] }],
+  "vars": {
+    // Publishable (anon) key: safe to commit, read-only via RLS. All rover_*
+    // tables are public-read; the brain never needs a privileged key.
+    "SUPABASE_URL": "https://rrvuxgajwaxadwwolgox.supabase.co",
+    "SUPABASE_KEY": "sb_publishable_lW6AJvxMbdAG0FiqGO2Dmw_HbEJM_Id"
+  },
+  "observability": { "enabled": true }
+}
