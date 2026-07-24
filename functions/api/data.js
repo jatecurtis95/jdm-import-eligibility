@@ -15,8 +15,11 @@ const payload = JSON.stringify(dataset);
 // ─── Allowed origins ─────────────────────────────────────────────────────────
 // Add any additional domains that embed or iframe the eligibility site.
 const ALLOWED_ORIGINS = [
+  // ImportCheck — current canonical brand/host.
+  "https://importcheck.com.au",
+  "https://www.importcheck.com.au",
   "https://eligibility.jdmconnect.com.au",
-  // "Can I Import It" brand — same site, canonical host is the .com.au.
+  // "Can I Import It" — legacy brand, now 301s to importcheck.com.au.
   "https://caniimportit.com.au",
   "https://caniimportit.com",
   "https://jdmconnect.com.au",

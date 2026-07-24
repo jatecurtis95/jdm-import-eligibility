@@ -9,7 +9,7 @@
 
 <title>Is My Car Eligible to Import to Australia? SEVS &amp; MRE Checker</title>
 <meta name="description" content="Check if a car is eligible to import into Australia. Search the full SEVS and MRE registers with live Government ROVER data, updated daily by JDM Connect." />
-<link rel="canonical" href="https://caniimportit.com.au/" />
+<link rel="canonical" href="https://importcheck.com.au/" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="alternate icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -19,14 +19,14 @@
 <meta property="og:site_name" content="JDM Connect" />
 <meta property="og:title" content="Is My Car Eligible to Import to Australia? SEVS &amp; MRE Checker" />
 <meta property="og:description" content="Search the full SEVS and MRE import-eligibility registers, live Australian Government ROVER data, updated daily by JDM Connect." />
-<meta property="og:url" content="https://caniimportit.com.au/" />
-<meta property="og:image" content="https://caniimportit.com.au/og-image.png" />
+<meta property="og:url" content="https://importcheck.com.au/" />
+<meta property="og:image" content="https://importcheck.com.au/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Is My Car Eligible to Import to Australia? SEVS &amp; MRE Checker" />
 <meta name="twitter:description" content="Search the full SEVS and MRE import-eligibility registers, live Government ROVER data, updated daily." />
-<meta name="twitter:image" content="https://caniimportit.com.au/og-image.png" />
+<meta name="twitter:image" content="https://importcheck.com.au/og-image.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -321,6 +321,17 @@
   .cta .btn-gold{display:inline-flex;align-items:center;gap:7px;background:var(--gold-bright);color:#1a1407;border-radius:999px;padding:10px 18px;font-size:13px;font-weight:700;text-decoration:none}
   .cta .btn-line{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--gold-bright);border:1px solid #5a4e34;border-radius:999px;padding:10px 18px;font-size:13px;font-weight:600;text-decoration:none}
   .cta .btn-line:hover{background:#211b12}
+  /* ---------- share / send-to-client block ---------- */
+  .sharebox{margin:14px 22px 0;background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:12px;padding:16px 18px}
+  .sharebox h4{font-family:var(--font-display);font-size:16px;font-weight:600;margin:0 0 3px;color:var(--gold-deep)}
+  .sharebox p{font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.5}
+  .share-actions{display:flex;flex-wrap:wrap;gap:8px}
+  .btn-share{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:#F6F2EB;border:1px solid var(--ink);border-radius:999px;padding:9px 16px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:filter .15s ease, transform .08s ease}
+  .btn-share:hover{filter:brightness(1.18)}
+  .btn-share:active{transform:scale(.97)}
+  .btn-share.copied{background:var(--ok-ink);border-color:var(--ok-ink)}
+  .btn-share-line{display:inline-flex;align-items:center;gap:7px;background:#fff;color:var(--ink);border:1px solid var(--line-strong);border-radius:999px;padding:9px 16px;font-size:12.5px;font-weight:600;text-decoration:none;transition:border-color .15s}
+  .btn-share-line:hover{border-color:var(--ink)}
   .note{margin:18px 22px 0;font-size:11.5px;color:var(--faint);line-height:1.55}
 
   @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto !important} }
@@ -526,9 +537,13 @@
 <script>
 (function(){
 "use strict";
+// Same-origin /api/data first: it's served from our own Cloudflare edge (no
+// third-party runtime dependency) and gated against scraping. The GitHub raw
+// copy is the fallback if the Function ever errors, so a data outage needs
+// BOTH to fail. Order matters — GitHub raw is not a supported production CDN.
 const DATA_URLS = [
-  'https://raw.githubusercontent.com/jatecurtis95/rover-eligibility/main/functions/_data/data.json',
-  '/api/data'
+  '/api/data',
+  'https://raw.githubusercontent.com/jatecurtis95/rover-eligibility/main/functions/_data/data.json'
 ];
 const PHOTOS_URL = 'https://raw.githubusercontent.com/jatecurtis95/rover-eligibility/main/functions/_data/photos.json';
 const QUOTE_EMAIL = 'info@jdmconnect.com.au';
@@ -538,6 +553,14 @@ const QUOTE_EMAIL = 'info@jdmconnect.com.au';
 // jdmfinder.com.au — the old finder.jdmconnect.com.au host now just 301s there.
 const WA_NUMBER = '61415111221';
 const FINDER_REQUEST_URL = 'https://jdmfinder.com.au/request';
+// Canonical public host — used to build shareable vehicle links a user can send
+// to a client. Fixed to the brand domain so a shared link always lands on the
+// canonical site regardless of which host (preview, .com) it was copied from.
+const SITE_URL = 'https://importcheck.com.au';
+// Deep-link hash for a record: #sev=SEV-000646 / #mre=MRE-xxxxx (matches
+// applyDeepLink). Empty string if the record has no id (shouldn't happen).
+function vehicleHash(r){ return r&&r.id ? '#'+(r.type==='SEV'?'sev=':'mre=')+encodeURIComponent(r.id) : ''; }
+function shareUrlFor(r){ return SITE_URL+'/'+vehicleHash(r); }
 function finderHref(medium, extra){
   const q = new URLSearchParams(Object.assign({src:'eligibility', utm_source:'eligibility', utm_medium:medium}, extra||{}));
   return FINDER_REQUEST_URL+'?'+q.toString();
@@ -1276,6 +1299,23 @@ function openPanel(r, nav){
     +'<a class="btn-line cta-lead" data-ch="form" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(finderHref('detail_panel'))+'" target="_blank" rel="noopener">Request a quote online →</a>'
     +'</div></div>';
 
+  // Send-to-client: a shareable deep link that reopens this exact vehicle.
+  // "Share link" uses the native share sheet on mobile (send straight into
+  // WhatsApp/Messages) and copies to clipboard on desktop; the WhatsApp/Email
+  // buttons are direct prefilled links for either.
+  const sName = name + (dispCodeOf(r)?' ('+dispCodeOf(r)+')':'');
+  const sUrl = shareUrlFor(r);
+  const sText = sName+' — check its Australian import eligibility on ImportCheck: '+sUrl;
+  const waShare = 'https://wa.me/?text='+encodeURIComponent(sText);
+  const mailShare = 'mailto:?subject='+encodeURIComponent(sName+' — Australian import eligibility')+'&body='+encodeURIComponent(sText);
+  h += '<div class="sharebox"><h4>Send this vehicle to a client</h4>'
+    +'<p>Share a direct link that reopens '+esc(sName)+' on this register.</p>'
+    +'<div class="share-actions">'
+    +'<button type="button" class="btn-share" data-share="native" data-url="'+esc(sUrl)+'" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" data-name="'+esc(sName)+'"><span aria-hidden="true">↗</span><span class="slabel">Share link</span></button>'
+    +'<a class="btn-share-line" data-share="wa" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(waShare)+'" target="_blank" rel="noopener">WhatsApp</a>'
+    +'<a class="btn-share-line" data-share="email" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(mailShare)+'">Email</a>'
+    +'</div></div>';
+
   h += '<div class="note">Register data from the Australian Government ROVER portal. Guidance only, confirm with an import agency before committing to a purchase.</div>';
 
   $('pBody').innerHTML = h;
@@ -1283,6 +1323,10 @@ function openPanel(r, nav){
   $('panel').classList.add('open');
   $('scrim').classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Reflect the open vehicle in the URL so it's directly shareable/bookmarkable
+  // (and the "Share link" button always matches what's on screen). replaceState
+  // does NOT fire hashchange, so this can't re-enter applyDeepLink.
+  try{ const hash=vehicleHash(r); if(hash && location.hash!==hash) history.replaceState(null,'',location.pathname+location.search+hash); }catch(e){}
   track('eligibility_view_vehicle', {vehicle:name, ref:r.id, type:r.type, status:st.label});
   trackFb('ViewContent', {content_name:name, content_category:'eligibility_'+r.type, content_ids:[r.id]});
 }
@@ -1291,6 +1335,35 @@ function closePanel(){
   $('panel').classList.remove('open');
   $('scrim').classList.remove('open');
   document.body.style.overflow = '';
+  // Drop the vehicle hash so a refresh/share of the closed page is the register,
+  // not a re-opened panel.
+  try{ if(location.hash) history.replaceState(null,'',location.pathname+location.search); }catch(e){}
+}
+// "Share link" button. Mobile: native OS share sheet, so the user picks a
+// contact and sends the vehicle straight into WhatsApp/Messages/etc. Desktop
+// (no navigator.share): copy the link to the clipboard with inline "copied"
+// feedback. Both fall back gracefully.
+async function shareVehicleLink(btn){
+  const url = btn.dataset.url;
+  const label = btn.querySelector('.slabel');
+  const flash = txt => { if(!label) return; const o=label.textContent; label.textContent=txt; btn.classList.add('copied'); setTimeout(()=>{ label.textContent=o; btn.classList.remove('copied'); }, 2000); };
+  if(navigator.share){
+    try{
+      await navigator.share({ title: (btn.dataset.name||btn.dataset.veh)+' — import eligibility',
+                              text: (btn.dataset.name||btn.dataset.veh)+' — check its Australian import eligibility on ImportCheck:',
+                              url });
+      track('eligibility_share',{method:'native',vehicle:btn.dataset.veh,ref:btn.dataset.ref});
+      return;
+    }catch(err){ if(err && err.name==='AbortError') return; } // cancelled → stop; other errors → copy fallback
+  }
+  const copied = () => { flash('Link copied ✓'); track('eligibility_share',{method:'copy',vehicle:btn.dataset.veh,ref:btn.dataset.ref}); };
+  try{ await navigator.clipboard.writeText(url); copied(); }
+  catch(e){
+    const ta=document.createElement('textarea'); ta.value=url; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); copied(); }catch(_){ window.prompt('Copy this link to share:', url); }
+    ta.remove();
+  }
 }
 
 /* ---------- deep linking (#sev=… / #mre=…) ---------- */
@@ -1419,6 +1492,12 @@ function wire(){
   $('pBody').addEventListener('click', e=>{
     const cta=e.target.closest('.cta-lead');
     if(cta){ track('eligibility_quote_click',{channel:cta.dataset.ch,vehicle:cta.dataset.veh,ref:cta.dataset.ref}); trackFb('Lead',{content_name:cta.dataset.veh,content_category:'eligibility_quote'}); return; }
+    const sh=e.target.closest('[data-share]');
+    if(sh){
+      if(sh.dataset.share==='native'){ e.preventDefault(); shareVehicleLink(sh); }
+      else { track('eligibility_share',{method:sh.dataset.share,vehicle:sh.dataset.veh,ref:sh.dataset.ref}); } // wa/email links navigate normally
+      return;
+    }
     const l=e.target.closest('[data-link]'); if(l) openPanel(rows[+l.dataset.link], 'push');
   });
   $('pBack').addEventListener('click', ()=>{ const prev = panelStack.pop(); if(prev) openPanel(prev, 'back'); });
