@@ -1,11 +1,18 @@
-// Canonical-host redirect for the "Can I Import It" brand.
+// Canonical-host redirect for the ImportCheck brand.
 //
-// The site is served on several hostnames (eligibility.jdmconnect.com.au,
-// caniimportit.com.au, caniimportit.com, *.pages.dev). caniimportit.com.au is
-// the canonical brand, so 301 the .com variants to it and let every other
-// host fall straight through untouched.
-const CANONICAL_HOST = "caniimportit.com.au";
-const REDIRECT_HOSTS = new Set(["caniimportit.com", "www.caniimportit.com"]);
+// The site is served on several hostnames (importcheck.com.au, the www variant,
+// eligibility.jdmconnect.com.au, the legacy caniimportit.* family, *.pages.dev).
+// importcheck.com.au (apex, no www) is the canonical brand and matches the
+// <link rel="canonical"> in the page, so 301 the www variant and every legacy
+// host to it and let the canonical host + previews fall through untouched.
+const CANONICAL_HOST = "importcheck.com.au";
+const REDIRECT_HOSTS = new Set([
+  "www.importcheck.com.au",
+  "caniimportit.com.au",
+  "www.caniimportit.com.au",
+  "caniimportit.com",
+  "www.caniimportit.com"
+]);
 
 export async function onRequest(context) {
   const { request, next } = context;
