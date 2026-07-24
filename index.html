@@ -90,6 +90,12 @@
   .hero-updated{color:var(--gold-deep);font-weight:600}
   @media (min-width:900px){ .hero-updated{display:none} }
   .lead{max-width:64ch;margin:12px 0 0;color:var(--muted);font-size:15px;line-height:1.55}
+  .hero-cta-line{max-width:64ch;margin:10px 0 0;color:var(--muted);font-size:13.5px;line-height:1.5}
+  .hero-cta{color:var(--gold-deep);font-weight:700;text-decoration:none;border-bottom:1px solid var(--gold-line);white-space:nowrap}
+  .hero-cta:hover{border-bottom-color:var(--gold-deep)}
+  /* Skip link — hidden until keyboard-focused. */
+  .skip-link{position:absolute;left:12px;top:-48px;z-index:100;background:var(--ink);color:#F6F2EB;padding:9px 14px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:top .15s ease}
+  .skip-link:focus{top:12px}
   .lead b{color:var(--ink);font-weight:600}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
@@ -121,6 +127,12 @@
   .stat .n{font-family:var(--font-text);font-weight:700;font-size:26px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--ink);width:100%}
   .stat .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:7px;width:100%}
   .stat.warn .n{color:var(--gold)}
+  .stat.clickable{cursor:pointer;transition:border-color .15s ease, background .15s ease, box-shadow .15s ease}
+  .stat.clickable:hover{border-color:var(--gold-line);box-shadow:0 4px 12px -8px rgba(20,16,10,.25)}
+  .stat.clickable .l{display:flex;align-items:center;gap:6px}
+  .stat.clickable .l::after{content:"filter \2192";font-size:9px;letter-spacing:.04em;color:var(--faint);border:1px solid var(--line-strong);border-radius:999px;padding:1px 6px}
+  .stat.warn.active{background:var(--warn-bg);border-color:var(--gold)}
+  .stat.warn.active .l::after{content:"clear \2715";color:var(--gold-deep);border-color:var(--gold-line)}
   @media (max-width:520px){ .stat .n{font-size:22px} }
   @media (min-width:720px){ .stats{grid-template-columns:repeat(4,1fr);gap:16px} }
 
@@ -186,7 +198,8 @@
   .b-rev{background:var(--rev-bg);color:var(--rev-ink)}
   /* Compact status marker for the table — colour AND shape (tick/cross/dash) so
      it reads without relying on colour alone; label kept for screen readers. */
-  .sglyph{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-size:15px;font-weight:800;cursor:help}
+  .sglyph{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;font-size:11.5px;font-weight:700;cursor:help;white-space:nowrap}
+  .sglyph .sg-ico{font-size:12px;font-weight:800;line-height:1}
   .sglyph.b-ok{background:var(--ok-bg);color:var(--ok-ink)}
   .sglyph.b-warn{background:var(--warn-bg);color:var(--warn-ink)}
   .sglyph.b-bad{background:var(--exp-bg);color:var(--exp-ink)}
@@ -395,6 +408,7 @@
 <body>
 <!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QX9JQ4H" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) --><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=438613762049767&ev=PageView&noscript=1" alt="" /></noscript>
 
+<a class="skip-link" href="#q">Skip to search</a>
 <header class="site">
   <div class="wrap bar">
     <a class="brand" href="https://jdmconnect.com.au" aria-label="JDM Connect">
@@ -417,12 +431,13 @@
     <div class="eyebrow"><span class="rule"></span> SEVS + MRE &middot; Live government data<span id="heroUpdated" class="hero-updated"></span></div>
     <h1 class="title">Can I import it?</h1>
     <p class="lead">The full <b>SEVS</b> and <b>Model Report (MRE)</b> registers, live Australian Government ROVER data, updated daily.</p>
+    <p class="hero-cta-line">Know the model? Search below. Not sure where to start? <a id="heroQuote" class="hero-cta" href="https://jdmfinder.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=hero" target="_blank" rel="noopener">Get a free eligibility check &rarr;</a></p>
 
     <div class="stats" id="stats">
       <div class="stat"><div class="n" id="stSev" data-count="0"></div><div class="l">SEVS entries</div></div>
       <div class="stat"><div class="n" id="stMre" data-count="0"></div><div class="l">Model reports</div></div>
       <div class="stat"><div class="n" id="stMakes" data-count="0"></div><div class="l">Makes</div></div>
-      <div class="stat warn"><div class="n" id="stExp" data-count="0"></div><div class="l">Expiring soon</div></div>
+      <div class="stat warn clickable" id="stExpTile" role="button" tabindex="0" aria-pressed="false" aria-label="Filter the register to approvals expiring soon"><div class="n" id="stExp" data-count="0"></div><div class="l">Expiring soon</div></div>
     </div>
   </section>
 
@@ -594,7 +609,7 @@ function timeoutSignal(ms){ try{ return AbortSignal.timeout(ms); }catch(e){ retu
 // default so the register opens on vehicles that can actually be imported and
 // complied today (a current SEVS entry with an approved Model Report).
 // Unticking it widens to SEV-only entries with no current report.
-const F = { q:'', make:'', model:'', path:'', cat:'', year:'', src:'', expired:false, view:'ready' };
+const F = { q:'', make:'', model:'', path:'', cat:'', year:'', src:'', expired:false, view:'ready', soon:false };
 const $ = id => document.getElementById(id);
 let reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -876,11 +891,15 @@ function popRank(r){
   return r._pop;
 }
 function filtered(viewOverride){
-  const view = viewOverride || F.view;
+  // "Expiring soon" spans eligible entries with or without a model report, so it
+  // reads against the full set (matches the stat-tile count) rather than the
+  // narrower "ready" default view.
+  const view = viewOverride || (F.soon ? 'all' : F.view);
   const q = F.q.trim().toLowerCase();
   const curated = !q && !F.make && !F.model && !F.path && !F.cat && !F.year;
   return rows.filter(r=>{
     if(r.folded) return false;
+    if(F.soon && !(r.expiry && r.expiry>=NOW && r.expiry<SOON)) return false;
     const ready = r.type==='MRE' || (r.mres&&r.mres.length>0);
     if(view==='ready' && !ready) return false;
     if(F.src && r.type!==F.src) return false;
@@ -999,8 +1018,10 @@ function odoChip(r){
 // colour, with the full label exposed to assistive tech and on hover.
 function statusGlyph(st){
   const g = st.cls==='b-bad' ? '✕' : st.cls==='b-rev' ? '–' : '✓';
+  const short = st.cls==='b-bad' ? 'Not eligible' : st.cls==='b-rev' ? 'Under review' : st.cls==='b-warn' ? 'Expiring' : 'Eligible';
   return '<span class="sglyph '+st.cls+'" title="'+esc(st.tip)+'" role="img" aria-label="'+esc(st.label)+'">'
-    + '<span aria-hidden="true">'+g+'</span><span class="sr-only">'+esc(st.label)+'</span></span>';
+    + '<span class="sg-ico" aria-hidden="true">'+g+'</span><span class="sg-txt" aria-hidden="true">'+short+'</span>'
+    + '<span class="sr-only">'+esc(st.label)+'</span></span>';
 }
 /* ---------- variants on results ----------
    The variant names come from the Model Report scope of works. On a SEV row the
@@ -1501,10 +1522,18 @@ function wire(){
     const l=e.target.closest('[data-link]'); if(l) openPanel(rows[+l.dataset.link], 'push');
   });
   $('pBack').addEventListener('click', ()=>{ const prev = panelStack.pop(); if(prev) openPanel(prev, 'back'); });
-  // Persistent header + empty-state quote CTAs.
+  // Persistent header + hero + empty-state quote CTAs.
   const quoteClick = source => () => { track('eligibility_quote_click',{channel:'form',source:source}); trackFb('Lead',{content_category:'eligibility_quote'}); };
   const hq=$('headerQuote'); if(hq) hq.addEventListener('click', quoteClick('header'));
+  const hrq=$('heroQuote'); if(hrq) hrq.addEventListener('click', quoteClick('hero'));
   const eq=$('emptyQuote'); if(eq) eq.addEventListener('click', quoteClick('empty_state'));
+  // "Expiring soon" stat tile toggles a filter to just those approvals.
+  const expTile=$('stExpTile');
+  if(expTile){
+    const toggleSoon=()=>{ F.soon=!F.soon; expTile.classList.toggle('active',F.soon); expTile.setAttribute('aria-pressed',F.soon?'true':'false'); if(F.soon) track('eligibility_filter_expiring',{count:expTile.querySelector('.n')?.textContent||''}); resetAndRender(); scrollToResults(); };
+    expTile.addEventListener('click', toggleSoon);
+    expTile.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleSoon(); } });
+  }
   $('pClose').addEventListener('click', closePanel);
   $('scrim').addEventListener('click', closePanel);
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
