@@ -19,7 +19,7 @@
 // No separate service role key needed.
 // ============================================================================
 
-const SB_REF = process.env.SUPABASE_PROJECT_REF ?? "rrvuxgajwaxadwwolgox";
+const SB_REF = process.env.SUPABASE_PROJECT_REF || "rrvuxgajwaxadwwolgox";
 const SB_PAT = process.env.SUPABASE_PAT;
 const ROVER_URL =
   "https://raw.githubusercontent.com/jatecurtis95/rover-eligibility/main/functions/_data/data.json";
