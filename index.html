@@ -231,7 +231,10 @@
   .varhead{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-right:2px}
   .varname{font-size:12px;color:var(--muted);background:var(--grey-soft);border-radius:6px;padding:2px 8px;white-space:nowrap}
   .varlist{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
-  .varlist .varname{max-width:170px;overflow:hidden;text-overflow:ellipsis}
+  /* Was max-width:170px + overflow:hidden + text-overflow:ellipsis, which cut
+     "130 Series Welcab" mid-word. A code you cannot finish reading is not a
+     code, so it wraps instead — nothing here is decorative enough to truncate. */
+  .varlist .varname{max-width:100%;white-space:normal;overflow-wrap:anywhere}
   .varlist[title]{cursor:help}
   .card .range{font-size:13px;color:var(--muted)}
   .card .foot{display:flex;align-items:center;gap:12px;margin-top:12px}
@@ -257,6 +260,7 @@
   .veh .vsub{margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
   .veh .vsub .sev{font-size:11.5px}
   .chassiscode{font-family:var(--font-mono);font-size:12.5px;color:var(--ink);word-break:break-word}
+  .codelist{display:flex;flex-wrap:wrap;gap:3px 8px}
   .chev{color:var(--faint);font-size:18px}
 
   .pagination{display:flex;align-items:center;justify-content:center;gap:14px;margin:28px auto 0;padding:14px 0}
@@ -971,9 +975,25 @@ function marketCell(r, blankWhenNone){
 }
 // The column is "Chassis / VIN": when ROVER gives us no model code, the model
 // report's typical VIN is the next best identifier for an auction sheet.
+/* ROVER states a model code as ONE string that is frequently several codes:
+   "E51, NE51, ME51, MNE51", "X118 / 118654". photoFor() has always split those
+   to look a photo up; the table never split them to SHOW them, so the whole run
+   was printed as one unbreakable string AND the scope page then listed the same
+   codes again under Variants. Split once, here, and both go away. Spaces are not
+   separators — "130 Series Welcab" is one code. */
+function codeList(code){
+  const seen = new Set(), out = [];
+  String(code||'').split(/[,;\/]+/).forEach(c=>{
+    const t = c.trim(); if(!t) return;
+    const k = t.toUpperCase(); if(seen.has(k)) return;
+    seen.add(k); out.push(t);
+  });
+  return out;
+}
 function chassisCell(r){
-  const code = dispCodeOf(r);
-  if(code) return '<span class="chassiscode">'+esc(code)+'</span>';
+  const codes = codeList(dispCodeOf(r));
+  if(codes.length) return '<div class="codelist">'
+    + codes.map(c=>'<span class="chassiscode">'+esc(c)+'</span>').join('') + '</div>';
   const v = vinsFor(r);
   if(!v.length) return '<span class="wnone">n/a</span>';
   return '<span class="chassiscode" title="Typical VIN: '+esc(v.join(' · '))+'">'+esc(v[0])+'</span>'
@@ -1037,7 +1057,12 @@ function scopeFor(r){
   return scope;
 }
 function variantNames(r){
-  return [...new Set(scopeFor(r).map(v=>(v.variant||'').trim()).filter(Boolean))];
+  // Drop anything that is already shown as a chassis code. The Elgrand
+  // Campervan's scope names E51/NE51/ME51/MNE51 and its model code IS those
+  // four, so without this every code is printed twice on the same row.
+  const codes = new Set(codeList(dispCodeOf(r)).map(c=>c.toUpperCase()));
+  return [...new Set(scopeFor(r).map(v=>(v.variant||'').trim()).filter(Boolean))]
+    .filter(v=>!codes.has(v.toUpperCase()));
 }
 const VAR_SHOW = 3;
 function variantsCell(r){
