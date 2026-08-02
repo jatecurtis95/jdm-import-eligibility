@@ -1565,26 +1565,112 @@ EMAIL_CONFIG_DEFAULTS = {
 ATO_RSS_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.ato.gov.au%2Fabout-ato%2Fnewsroom%2Fin-detail%2Frss&count=3'
 
 
-def _find_expiring_sevs(sev_records, days=30):
-    expiring = []
-    now = datetime.now()
-    cutoff = now + timedelta(days=days)
-    for r in sev_records:
-        expiry_str = r.get('Expiry', '')
-        if not expiry_str or '/' not in expiry_str:
-            continue
-        parts = expiry_str.split('/')
-        if len(parts) != 3:
-            continue
+# ── Shared eligibility model ─────────────────────────────────────────────────
+# These mirror the website's status logic in index.html (statusOf / build).
+# Both surfaces must agree on what "eligible", "expiring" and "expired" mean —
+# before this block the email re-derived all three from raw strings on a UTC
+# clock and disagreed with the site on every one of them.
+
+# The site's SOON window (index.html: `SOON = Date.now()+90*864e5`). The email
+# only *lists* the ≤30-day rows (those are the actionable ones) but reports the
+# 90-day figure too, so the two surfaces reconcile instead of contradicting.
+EXPIRY_SOON_DAYS = 90
+EXPIRY_ACTION_DAYS = 30
+
+
+def _parse_dmy(raw):
+    """Parse a ROVER date into a naive date. Mirrors the site's parseDMY, but
+    also accepts the handful of alternate formats the portal emits."""
+    if not raw:
+        return None
+    s = str(raw).strip()
+    m = re.match(r'(\d{1,2})/(\d{1,2})/(\d{4})', s)
+    if m:
         try:
-            expiry_date = datetime(int(parts[2]), int(parts[1]), int(parts[0]))
-        except (ValueError, IndexError):
+            return datetime(int(m.group(3)), int(m.group(2)), int(m.group(1))).date()
+        except ValueError:
+            return None
+    for fmt in ('%d-%m-%Y', '%Y-%m-%d', '%d %b %Y', '%d %B %Y'):
+        try:
+            return datetime.strptime(s, fmt).date()
+        except ValueError:
             continue
-        if now < expiry_date <= cutoff:
-            days_left = (expiry_date - now).days
-            expiring.append({**r, '_days_left': days_left})
+    return None
+
+
+def _today_local():
+    """Today's date in the business timezone. Every expiry comparison goes
+    through this — using the runner's UTC clock made a Perth reader see an
+    already-expired approval filed under 'act this week'."""
+    return _now_local().date()
+
+
+def _days_until(expiry_date, today=None):
+    """Whole days from today to `expiry_date`, counting the way the website
+    does (index.html uses Math.ceil on a date difference). Date-based, so it
+    can't drift with the time of day the scraper happens to run."""
+    if expiry_date is None:
+        return None
+    return (expiry_date - (today or _today_local())).days
+
+
+def _find_expiring_sevs(sev_records, days=EXPIRY_ACTION_DAYS):
+    """Active SEVS approvals expiring within `days`. Anything already past its
+    expiry date is excluded — it is expired, not expiring."""
+    today = _today_local()
+    expiring = []
+    for r in sev_records:
+        expiry_date = _parse_dmy(r.get('Expiry', ''))
+        if expiry_date is None:
+            continue
+        days_left = _days_until(expiry_date, today)
+        if 0 <= days_left <= days:
+            expiring.append({**r, '_days_left': days_left, '_expiry_date': expiry_date})
     expiring.sort(key=lambda x: x['_days_left'])
     return expiring
+
+
+def _count_expiring(sev_records, days):
+    today = _today_local()
+    n = 0
+    for r in sev_records:
+        d = _days_until(_parse_dmy(r.get('Expiry', '')), today)
+        if d is not None and 0 <= d <= days:
+            n += 1
+    return n
+
+
+def _is_under_review(record):
+    return str(record.get('Under review') or '').strip().lower().startswith('y')
+
+
+def _compute_sev_basis(mre_records, sev_records):
+    """Port of the website's `sevBasisGone` rule (index.html:766-775).
+
+    A Specialist & Enthusiast model report rests on the SEVS entry it is
+    "Based on". If it names SEV(s) and none of them remain on the live SEVS
+    register, that eligibility has lapsed — the car can no longer be imported
+    under that report even though ROVER still lists it as "In Force".
+
+    Returns (dead_approval_numbers, dependents_by_sev) where dependents_by_sev
+    maps a SEV number to the model reports that rest on it. The second half is
+    what lets the email report the knock-on effect of a SEV removal.
+    """
+    live_sevs = {(r.get('SEV #') or '').strip().upper()
+                 for r in sev_records if (r.get('SEV #') or '').strip()}
+    dead = set()
+    dependents = {}
+    for m in mre_records:
+        based_on = [s.strip().upper() for s in (m.get('_based_on_sevs') or []) if s and s.strip()]
+        if not based_on:
+            continue  # no explicit linkage — never guess it dead
+        for sn in based_on:
+            dependents.setdefault(sn, []).append(m)
+        if not any(sn in live_sevs for sn in based_on):
+            num = (m.get('Approval number') or '').strip().upper()
+            if num:
+                dead.add(num)
+    return dead, dependents
 
 
 def _fetch_ato_headlines():
@@ -1628,6 +1714,18 @@ def _urgency_colors(days_left):
 
 SITE_URL = 'https://eligibility.jdmconnect.com.au'
 
+# Every link out of the email carries campaign parameters. Without them all
+# email-driven traffic landed in analytics as direct, so the digest could not
+# be attributed at all — while the site itself already tags four internal CTAs.
+UTM = 'utm_source=rover_email&utm_medium=email&utm_campaign=rover_digest'
+
+
+def _site_link(anchor='', content='row'):
+    """Deep-link into the register. Query string goes before the fragment, or
+    the browser treats the whole tail as part of the anchor."""
+    url = f'{SITE_URL}/?{UTM}&utm_content={content}'
+    return f'{url}#{anchor}' if anchor else url
+
 ELIGIBILITY_LABELS = {
     'environmental': 'Environmental',
     'welcab': 'Welcab / Mobility',
@@ -1651,8 +1749,157 @@ def _extract_chassis_codes(raw):
         return ''
     if re.search(r'specialist|bespoke|workshop', raw, re.IGNORECASE) and not re.search(r'[A-Z]\d', raw):
         return ''
-    parts = [s.strip() for s in re.split(r'[,/]', raw) if s.strip() and len(s.strip()) <= 30]
+    parts = [s.strip() for s in re.split(r'[,/;]', raw) if s.strip() and len(s.strip()) <= 30]
     return ', '.join(dict.fromkeys(parts))  # de-dupe preserving order
+
+
+def _cap_codes(codes, limit=3):
+    """Show at most `limit` chassis codes, then '+N'. Unbounded lists wrapped
+    to three lines on mobile and buried the rest of the row."""
+    if not codes:
+        return ''
+    parts = [p.strip() for p in codes.split(',') if p.strip()]
+    if len(parts) <= limit:
+        return ', '.join(parts)
+    return ', '.join(parts[:limit]) + f' +{len(parts) - limit}'
+
+
+def _esc(value):
+    """Escape a scraped value before it goes into HTML. 31 live records carry
+    '&' in Make / Model / Model code / holder / variant fields."""
+    return _html.escape(str(value or ''), quote=True)
+
+
+# ── Display normalisation (ports of the website's helpers) ───────────────────
+
+def _title_make(raw):
+    """Port of the site's titleMake (index.html:641). ROVER publishes makes in
+    mixed casing — 277 of 583 SEVS entries are ALL CAPS and 306 are title case,
+    so an un-normalised list renders 'NISSAN STAGEA' next to 'Toyota Mirai'."""
+    s = (raw or '').strip()
+    if not s:
+        return ''
+    if len(s) <= 3:
+        return s.upper()
+
+    def cased(w):
+        if not w:
+            return w
+        if len(w) <= 3 and w == w.upper():
+            return w
+        return w[0].upper() + w[1:].lower()
+
+    # Split on hyphens too, which the site's version does not — it renders
+    # 'MERCEDES-BENZ' as 'Mercedes-benz'.
+    return ' '.join('-'.join(cased(p) for p in w.split('-')) for w in s.split())
+
+
+# Four-plus-character tokens that must stay upper-case through title-casing.
+VARIANT_ACRONYMS = {
+    'PHEV', 'BEV', 'FCEV', 'MHEV', 'AWD', 'RWD', 'FWD', '4WD', '2WD', '4X4', '6X6',
+    'DOHC', 'SOHC', 'VVTI', 'VTEC', 'TRD', 'AMG', 'STI', 'WRX',
+    'GTR', 'LWB', 'SWB', 'MPV', 'SUV', 'CVT', 'DCT', 'ABS', 'LPG', 'CNG',
+    'USA', 'JDM', 'UK', 'EU',
+}
+
+
+def _title_variant(raw):
+    """Port of the site's titleVariant (index.html:650). Title-cases only the
+    long all-caps words, leaving codes/units (2.5LT, JZS171), short tokens
+    (V, IX, WRX, AWD) and already-cased names (STi, A-Line) exactly as sourced."""
+    s = (raw or '').strip()
+    if not s:
+        return ''
+    out = []
+    for w in s.split():
+        # Acronyms longer than the site's 3-char guard, which would otherwise
+        # be lowercased into nonsense ('PHEV' -> 'Phev').
+        if w.strip('.,/()').upper() in VARIANT_ACRONYMS:
+            out.append(w.upper() if w.isalpha() else w)
+        elif re.search(r'[a-z]', w) or re.search(r'\d', w) or len(w) <= 3:
+            out.append(w)
+        else:
+            out.append(w[0] + w[1:].lower())
+    return ' '.join(out)
+
+
+# Sentence-shaped junk that ROVER leaves in the SEVS variant field — it is
+# commentary about the entry, not a variant name.
+_VARIANT_PROSE_RE = re.compile(r'\b(this sevs? entry|are by this|see (the )?scope|refer to)\b', re.I)
+
+
+def _variant_label(record, register_type, limit=64):
+    """The approved variant, cleaned for display — the field that actually
+    tells you which car to bid on ('Alphard' vs 'Alphard 3.5 Executive Lounge').
+
+    Two register-specific traps:
+
+    * MRE — ROVER stores the work-instruction reference in the same field as
+      the variant description. 844 of 925 model reports carry only that code
+      ('WIZRR701I', 'RC-R35GTR-01G'), which is meaningless to a reader. A real
+      description always has words in it, so single-token values are dropped.
+    * SEVS — `_display_variant` (the extraction pass's cleaned field, 68% of
+      entries) sometimes holds commentary rather than a variant name.
+
+    The email previously used neither: SEVS variants were never read at all,
+    and MRE variants went into the desktop-only Details column, so the useful
+    9% were invisible on a phone.
+    """
+    if register_type == 'MRE':
+        raw = (record.get('_variant_description') or '').strip()
+        if ' ' not in raw:
+            return ''
+    else:
+        raw = (record.get('_display_variant') or '').strip()
+    if not raw or _VARIANT_PROSE_RE.search(raw):
+        return ''
+    label = _title_variant(raw)
+    if len(label) > limit:
+        cut = label[:limit].rsplit(' ', 1)[0].rstrip(' ,;/-')
+        label = (cut or label[:limit].rstrip()) + '…'
+    return label
+
+
+# Long official market names -> what people actually say. Mirrors the site's
+# MARKET_SHORT map so both surfaces label a country the same way.
+MARKET_SHORT = {
+    'United States of America': 'USA',
+    'United Kingdom': 'UK',
+    'United Arab Emirates': 'UAE',
+    'Republic of Korea': 'South Korea',
+    'Hong Kong': 'Hong Kong',
+    'New Zealand': 'New Zealand',
+}
+
+
+def _market_label(record):
+    """Source-market label for a model report, e.g. 'Japan' or 'Japan +2'.
+
+    MRE records carry _source_markets on 100% of the register (Japan 733, UK
+    153, USA 77 ...). SEVS entries have no market field at all — a SEVS entry
+    says the *model* is eligible; the country comes from the model report that
+    complies it. So this deliberately returns '' for SEVS rather than inventing
+    a country for the row.
+    """
+    markets = [m for m in (record.get('_source_markets') or []) if m]
+    if not markets:
+        return ''
+    first = MARKET_SHORT.get(markets[0], markets[0])
+    extra = len(markets) - 1
+    return f'{first} +{extra}' if extra > 0 else first
+
+
+def _odometer_label(record):
+    """Odometer cap for a model report, when ROVER states one (16% of the
+    register). Absence means 'not stated', NOT 'no limit', so an unknown
+    record renders nothing at all rather than an implied all-clear."""
+    limit = record.get('_odometer_limit_km')
+    if not limit:
+        return ''
+    try:
+        return f'Max {int(limit):,} km'
+    except (TypeError, ValueError):
+        return ''
 
 
 def _propulsion_badge_html(propulsion):
@@ -1739,6 +1986,18 @@ def _demand_chip_html(intel_row):
             'vertical-align:middle;">HIGH DEMAND</span>')
 
 
+def _under_review_chip_html(record):
+    """Amber UNDER REVIEW chip. The website has carried this status since
+    launch (index.html:698) and the email had no concept of it — a reader
+    would have seen a normal row for an entry the Department is reviewing."""
+    if not _is_under_review(record):
+        return ''
+    return (' <span style="display:inline-block; padding:2px 8px; margin-left:6px; '
+            'border-radius:20px; font-size:9px; font-weight:700; letter-spacing:1.5px; '
+            'background-color:#2a1f0a; color:#fbbf24; border:1px solid #8a6e1c; '
+            'vertical-align:middle;">UNDER REVIEW</span>')
+
+
 def _intel_blurb_html(intel_row, display_name):
     """One-line 'what this car actually is' note under an Added row: canonical
     name (when it adds information) + a trimmed why-it-matters sentence."""
@@ -1762,63 +2021,93 @@ def _intel_blurb_html(intel_row, display_name):
             f'line-height:1.5;">{" &mdash; ".join(pieces)}</div>')
 
 
-def _quote_mailto(name, ref, register_type):
+def _quote_mailto(name, ref, register_type, variant=''):
     """Build a prefilled mailto link so each Added row converts straight from
-    the inbox. Subject carries the make/model + reference for instant context."""
+    the inbox. Subject carries the make/model + variant + reference, so a reply
+    identifies the exact approved car rather than just the model line."""
     label = f"{register_type} {ref}" if ref else register_type
-    subject = f"Quote on {name} ({label})"
+    full = f"{name} — {variant}" if variant else name
+    subject = f"Quote on {full} ({label})"
     body = (f"Hi JDM Connect,\n\n"
-            f"I saw {name} ({label}) in the weekly ROVER update and would like a quote.\n\n"
+            f"I saw {full} ({label}) in the ROVER update and would like a quote.\n\n"
             f"Thanks,\n")
     return (f'mailto:{QUOTE_EMAIL}'
             f'?subject={urllib.parse.quote(subject)}'
             f'&body={urllib.parse.quote(body)}')
 
 
-def _removal_reason(r):
-    """Best-effort summary of WHY a record left the register. Prefers an
-    enriched reason field; otherwise infers from the expiry date."""
+def _removal_reason(r, register_type='SEVS'):
+    """Best-effort summary of WHY a record left the register.
+
+    Model reports carry no Expiry field at all (0 of 925 in the live data) —
+    their eligibility runs through the SEVS entry they are based on, exactly as
+    the website models it. Reading `Expiry` on an MRE could only ever fall
+    through to a generic string, so MREs get their own wording.
+    """
     reason = (r.get('_expiry_reason') or '').strip()
     if reason:
         return reason
-    expiry = r.get('Expiry', '').strip()
-    if expiry:
-        for fmt in ('%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d', '%d %b %Y', '%d %B %Y'):
-            try:
-                d = datetime.strptime(expiry, fmt)
-                return 'Expired' if d < datetime.now() else 'Withdrawn'
-            except ValueError:
-                continue
+    if register_type == 'MRE':
+        return 'Model report withdrawn'
+    expiry_date = _parse_dmy(r.get('Expiry', ''))
+    if expiry_date:
+        return 'Expired' if expiry_date < _today_local() else 'Withdrawn'
     return 'Removed from register'
 
 
-def _build_vehicle_rows(records, register_type, is_removed=False):
+def _knockon_html(record, register_type, dependents):
+    """When a SEVS entry leaves the register it takes every model report based
+    on it with it (the website's sevBasisGone rule). The email used to report
+    the SEV removal alone, so the consequence — 'and these N approvals are now
+    unusable' — was invisible. 270 model reports are currently in that state."""
+    if register_type != 'SEVS' or not dependents:
+        return ''
+    ref = (record.get('SEV #') or '').strip().upper()
+    dependent_mres = dependents.get(ref) or []
+    if not dependent_mres:
+        return ''
+    n = len(dependent_mres)
+    refs = ', '.join(_esc(m.get('Approval number', '')) for m in dependent_mres[:3])
+    if n > 3:
+        refs += f' +{n - 3}'
+    noun = 'model report' if n == 1 else 'model reports'
+    verb = 'relies' if n == 1 else 'rely'
+    return (f'<div style="margin-top:6px; padding:7px 10px; border-left:2px solid #8a2d33; '
+            f'background-color:#2a0f12; font-size:12px; color:#f0a9ac; line-height:1.5;">'
+            f'<b>{n} {noun}</b> {verb} on this entry and can no longer be used to import: '
+            f'<span style="font-family:Menlo,Monaco,monospace;">{refs}</span></div>')
+
+
+def _build_vehicle_rows(records, register_type, is_removed=False, dependents=None):
     rows = []
     for r in records:
-        name = f"{r.get('Make', '')} {r.get('Model', '')}".strip()
+        name = f"{_title_make(r.get('Make', ''))} {r.get('Model', '')}".strip()
         propulsion_html = _propulsion_badge_html(r.get('_propulsion', ''))
+        variant = _variant_label(r, register_type)
 
         # Compute reference + per-register context once; used in both the
         # Vehicle cell subtitle (mobile-visible) and the Details cell (desktop).
         if register_type == 'MRE':
             ref = r.get('Approval number', '')
-            site_link = f"{SITE_URL}/#mre={ref}" if ref else SITE_URL
+            site_link = _site_link(f'mre={ref}', 'added_mre') if ref else _site_link(content='added_mre')
             link_color = '#60a5fa'
             holder = r.get('_holder_short') or r.get('_approval_holder') or ''
-            variant = r.get('_variant_description', '')
             build_range = r.get('Build date range', '')
             chassis = ''
             category_label = ''
             extra_context = holder
-            secondary = variant if variant else build_range
+            # The variant moved out of `secondary` and into the subtitle below:
+            # this column is display:none on mobile, so putting the variant here
+            # hid the one field that says which car the approval actually covers.
+            secondary = build_range
             expiry_short = ''
         else:
             ref = r.get('SEV #', '')
-            site_link = f"{SITE_URL}/#sev={ref}" if ref else SITE_URL
+            site_link = _site_link(f'sev={ref}', 'added_sev') if ref else _site_link(content='added_sev')
             link_color = '#4ade80'
             sev_cat_raw = (r.get('_sev_category') or '').lower()
             category_label = ELIGIBILITY_LABELS.get(sev_cat_raw, '')
-            chassis = _extract_chassis_codes(r.get('Model code', ''))
+            chassis = _cap_codes(_extract_chassis_codes(r.get('Model code', '')))
             build_from = r.get('Build date from', '')
             build_to = r.get('Build date to', '')
             build_range = ''
@@ -1832,23 +2121,40 @@ def _build_vehicle_rows(records, register_type, is_removed=False):
         # ── Vehicle cell subtitle ─────────────────────────────────────────────
         # Holds the most-important context so it survives when the Details
         # column is hidden on mobile (.detail-col display:none).
+        # Source market + odometer cap are model-report facts; SEVS entries
+        # carry neither (see _market_label). Both are new in this pass — the
+        # market especially, since "which country can we actually buy it in"
+        # was previously nowhere in the email.
+        market = _market_label(r) if register_type == 'MRE' else ''
+        odometer = _odometer_label(r) if register_type == 'MRE' else ''
+
         if is_removed:
-            subtitle_parts = [_removal_reason(r)]
+            # The reference lives in the Details column, which is display:none
+            # under 600px — so on a phone a removed row used to have no
+            # identifying number at all. Repeat it here where it survives.
+            subtitle_parts = [_removal_reason(r, register_type)]
+            if ref:
+                subtitle_parts.append(
+                    f'<span style="font-family:Menlo,Monaco,monospace;">{_esc(ref)}</span>')
             if chassis:
                 subtitle_parts.append(
-                    f'<span style="font-family:Menlo,Monaco,monospace;">{chassis}</span>')
+                    f'<span style="font-family:Menlo,Monaco,monospace;">{_esc(chassis)}</span>')
             subtitle_color = '#9ca3af'
         else:
             subtitle_parts = []
             if category_label:
-                subtitle_parts.append(category_label)
+                subtitle_parts.append(_esc(category_label))
+            if market:
+                subtitle_parts.append(_esc(market))
             if extra_context:
-                subtitle_parts.append(extra_context)
+                subtitle_parts.append(_esc(extra_context))
             if chassis:
                 subtitle_parts.append(
-                    f'<span style="font-family:Menlo,Monaco,monospace;">{chassis}</span>')
+                    f'<span style="font-family:Menlo,Monaco,monospace;">{_esc(chassis)}</span>')
+            if odometer:
+                subtitle_parts.append(_esc(odometer))
             if expiry_short:
-                subtitle_parts.append(f'Expires {expiry_short}')
+                subtitle_parts.append(f'Expires {_esc(expiry_short)}')
             subtitle_color = '#9ca3af'
         subtitle = ' &middot; '.join(p for p in subtitle_parts if p)
 
@@ -1866,7 +2172,7 @@ def _build_vehicle_rows(records, register_type, is_removed=False):
             ref_html = ''
         detail_lines = [ref_html] if ref_html else []
         if secondary:
-            detail_lines.append(f'<span style="color:#6b7280;">{secondary}</span>')
+            detail_lines.append(f'<span style="color:#6b7280;">{_esc(secondary)}</span>')
         detail_html = '<br>'.join(detail_lines)
 
         # ── Type cell + name styling ──────────────────────────────────────────
@@ -1883,7 +2189,7 @@ def _build_vehicle_rows(records, register_type, is_removed=False):
         # Mobile-visible mailto so each row is a one-tap lead-gen surface.
         cta_html = ''
         if not is_removed:
-            quote_url = _quote_mailto(name, ref, register_type)
+            quote_url = _quote_mailto(name, ref, register_type, variant)
             cta_html = (f'<div style="margin-top:6px;">'
                         f'<a href="{quote_url}" style="font-size:12px; font-weight:600; '
                         f'color:#f5a623; text-decoration:none;">Get a quote &rarr;</a></div>')
@@ -1894,18 +2200,29 @@ def _build_vehicle_rows(records, register_type, is_removed=False):
         # aren't on the site, so their name stays plain (strike-through only).
         if ref and not is_removed:
             name_html = (f'<a href="{site_link}" target="_blank" rel="noopener noreferrer" '
-                         f'style="{name_style} text-decoration:none;">{name}</a>')
+                         f'style="{name_style} text-decoration:none;">{_esc(name)}</a>')
         else:
-            name_html = name
+            name_html = _esc(name)
         # jdm-brain intel: demand chip beside the name, one-line profile under
         # the subtitle. Removed rows stay bare — no point selling a dead entry.
         intel_row = None if is_removed else _intel_for(r)
-        vehicle_cell_inner = f'<div style="{name_style}">{name_html}{_demand_chip_html(intel_row)}</div>'
+        chips = '' if is_removed else _demand_chip_html(intel_row) + _under_review_chip_html(r)
+        vehicle_cell_inner = f'<div style="{name_style}">{name_html}{chips}</div>'
+        # Variant sits directly under the name and above the metadata — it is
+        # part of the car's identity ("Alphard 3.5 Executive Lounge AWD"), not
+        # a detail, and it is what tells you whether an approval covers the car
+        # you are actually looking at.
+        if variant:
+            variant_color = '#9ca3af' if is_removed else '#c3c9c9'
+            vehicle_cell_inner += (f'<div style="font-size:13px; color:{variant_color}; '
+                                   f'margin-top:3px; line-height:1.45;">{_esc(variant)}</div>')
         if subtitle:
             vehicle_cell_inner += (f'<div style="font-size:12px; color:{subtitle_color}; '
                                    f'margin-top:3px; line-height:1.4;">{subtitle}</div>')
         if intel_row:
             vehicle_cell_inner += _intel_blurb_html(intel_row, name)
+        if is_removed:
+            vehicle_cell_inner += _knockon_html(r, register_type, dependents)
         vehicle_cell_inner += cta_html
 
         rows.append(
@@ -1922,14 +2239,21 @@ def _format_expiry_short(expiry_str):
     """Render an expiry date as a short, scannable form like '21 May'.
     Falls back to the raw string if it doesn't parse — ROVER returns several
     formats (DD/MM/YYYY, DD MMM YYYY, etc.)."""
-    if not expiry_str:
-        return ''
-    for fmt in ('%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d', '%d %b %Y', '%d %B %Y'):
-        try:
-            return datetime.strptime(expiry_str.strip(), fmt).strftime('%d %b').lstrip('0')
-        except ValueError:
-            continue
-    return expiry_str
+    d = _parse_dmy(expiry_str)
+    return d.strftime('%d %b').lstrip('0') if d else (expiry_str or '')
+
+
+def _countdown_label(days_left):
+    """Human day-count for an expiring approval.
+
+    Never renders a bare '0' — the previous build showed '0 DAYS' under an
+    'Act this week' heading for approvals that were already dead by the time
+    the mail landed. Returns (big, caption)."""
+    if days_left <= 0:
+        return 'Today', 'Last day'
+    if days_left == 1:
+        return '1', 'Day'
+    return str(days_left), 'Days'
 
 
 def _expiring_band_header(label, color, sublabel):
@@ -1949,9 +2273,10 @@ def _expiring_band_header(label, color, sublabel):
 def _expiring_single_row(r):
     """One row of the expiring table. Layout: vehicle + chassis/expiry on the
     left, big day-count on the right (the eye anchor for urgency)."""
-    name = f"{r.get('Make', '')} {r.get('Model', '')}".strip()
+    name = f"{_title_make(r.get('Make', ''))} {r.get('Model', '')}".strip()
+    variant = _variant_label(r, 'SEVS')
     ref = r.get('SEV #', '')
-    site_link = f"{SITE_URL}/#sev={ref}" if ref else SITE_URL
+    site_link = _site_link(f'sev={ref}', 'expiring') if ref else _site_link(content='expiring')
     days_left = r['_days_left']
     # Colour the day-count by urgency so it pops; everything else stays neutral.
     if days_left <= 7:
@@ -1961,40 +2286,50 @@ def _expiring_single_row(r):
     else:
         day_color = '#9ca3af'
 
-    model_code = r.get('Model code', '')
+    # Model codes go through the same cleaner the Added rows use, then get
+    # capped — SEV-000506 lists six codes (50 chars) and wrapped to three lines
+    # on a phone, pushing the day-count away from the car it belongs to.
+    model_code = _cap_codes(_extract_chassis_codes(r.get('Model code', '')))
     expiry_short = _format_expiry_short(r.get('Expiry', ''))
     meta_parts = []
     if ref:
+        # `ref` is already 'SEV-000503'; the old label prefixed it again and
+        # rendered 'SEV #SEV-000503' on every row.
         meta_parts.append(
             f'<a href="{site_link}" target="_blank" rel="noopener noreferrer" '
             f'style="color:#9ca3af; text-decoration:underline; '
-            f'font-family:\'JetBrains Mono\',Menlo,Consolas,monospace; font-size:12px;">SEV #{ref}</a>'
+            f'font-family:\'JetBrains Mono\',Menlo,Consolas,monospace; font-size:12px;">{_esc(ref)}</a>'
         )
     if model_code:
         meta_parts.append(
             f'<span style="font-family:\'JetBrains Mono\',Menlo,Consolas,monospace; '
-            f'color:#6b7280; font-size:12px;">{model_code}</span>'
+            f'color:#6b7280; font-size:12px;">{_esc(model_code)}</span>'
         )
     if expiry_short:
-        meta_parts.append(f'<span style="color:#6b7280; font-size:12px;">Expires {expiry_short}</span>')
+        meta_parts.append(f'<span style="color:#6b7280; font-size:12px;">Expires {_esc(expiry_short)}</span>')
     meta_line = ' &middot; '.join(meta_parts)
 
     # High-demand chip: an expiring approval on a car people actually want is
     # a stock-up-now signal, not just admin noise.
     demand_chip = _demand_chip_html(_intel_for(r))
+    count_big, count_caption = _countdown_label(days_left)
+    # "Today" needs to fit the same 88px column a two-digit number sits in.
+    count_size = '22px' if count_big.isdigit() else '17px'
     return (
         '<tr><td style="padding:14px 0; border-bottom:1px solid #2a2f37;">'
         '<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"><tr>'
         '<td style="vertical-align:middle;">'
         f'<div style="font-family:\'Inter\',sans-serif; font-size:15px; font-weight:600; '
-        f'color:#e8eaea; line-height:1.3;">{name}{demand_chip}</div>'
-        f'<div style="margin-top:4px; line-height:1.5;">{meta_line}</div>'
+        f'color:#e8eaea; line-height:1.3;">{_esc(name)}{demand_chip}{_under_review_chip_html(r)}</div>'
+        + (f'<div style="font-size:13px; color:#c3c9c9; margin-top:3px; '
+           f'line-height:1.45;">{_esc(variant)}</div>' if variant else '')
+        + f'<div style="margin-top:4px; line-height:1.5;">{meta_line}</div>'
         '</td>'
-        '<td align="right" valign="middle" style="vertical-align:middle; width:80px;">'
-        f'<div style="font-family:\'JetBrains Mono\',Menlo,Consolas,monospace; font-size:22px; '
-        f'font-weight:600; color:{day_color}; line-height:1; letter-spacing:-0.5px;">{days_left}</div>'
-        '<div style="font-family:\'Inter\',sans-serif; font-size:9px; color:#6b7280; '
-        'letter-spacing:2px; text-transform:uppercase; margin-top:4px;">Days</div>'
+        '<td align="right" valign="middle" style="vertical-align:middle; width:88px;">'
+        f'<div style="font-family:\'JetBrains Mono\',Menlo,Consolas,monospace; font-size:{count_size}; '
+        f'font-weight:600; color:{day_color}; line-height:1; letter-spacing:-0.5px;">{count_big}</div>'
+        f'<div style="font-family:\'Inter\',sans-serif; font-size:9px; color:#6b7280; '
+        f'letter-spacing:2px; text-transform:uppercase; margin-top:4px;">{count_caption}</div>'
         '</td></tr></table></td></tr>'
     )
 
@@ -2067,28 +2402,38 @@ def _choose_featured_addition(added_mre, added_sev):
     return None
 
 
-def _compose_subject(added_mre, added_sev, added_count, removed_count, week):
-    """Lead with the featured car so the inbox preview earns the click.
+def _compose_subject(added_mre, added_sev, added_count, removed_count, week,
+                     expiring=None, critical_count=0):
+    """Lead with the most actionable thing in the email.
 
-    Falls back gracefully to a count-based subject when there are no adds, and
-    to a quiet 'no changes' line when nothing moved at all.
+    Order: a featured addition > an imminent expiry > removals > quiet week.
+    Expiring outranks removals because an approval about to lapse is something
+    you can still act on, while a removal is already done. The previous build
+    had no expiring branch at all, so a week with 11 expiring approvals — two
+    of them terminal — went out titled "2 removed".
     """
     prefix = EMAIL_CONFIG_DEFAULTS['subject_prefix']
     feature = _choose_featured_addition(added_mre, added_sev)
     if feature:
-        name = f"{feature.get('Make', '')} {feature.get('Model', '')}".strip()
+        name = f"{_title_make(feature.get('Make', ''))} {feature.get('Model', '')}".strip()
         # Trim aggressively; mail clients clip subjects past ~70 chars.
         if len(name) > 38:
             name = name[:37].rstrip() + '…'
         more = added_count - 1
         tail = f" (+{more} more)" if more > 0 else ''
         return f"{prefix} — {name} now eligible{tail}"
+    if critical_count:
+        noun = 'approval' if critical_count == 1 else 'approvals'
+        return f"{prefix} — {critical_count} {noun} expire within 7 days"
+    if expiring:
+        return f"{prefix} — {len(expiring)} approvals expiring, {removed_count} removed"
     if removed_count:
         return f"{prefix} — {week} · {removed_count} removed"
     return f"{prefix} — {week} · quiet week"
 
 
-def _build_register_totals(mre_records, sev_records, prev_mre_count=None, prev_sev_count=None):
+def _build_register_totals(mre_records, sev_records, prev_mre_count=None, prev_sev_count=None,
+                           dead_mre=None):
     """Build a single-line footer summary of register totals.
 
     Replaces the older Register Snapshot section. Top Makes and category
@@ -2107,9 +2452,21 @@ def _build_register_totals(mre_records, sev_records, prev_mre_count=None, prev_s
             sign = '+' if diff > 0 else ''
             color = '#4ade80' if diff > 0 else '#f87171'
             delta = f' <span style="color:{color};">({sign}{diff})</span>'
+    # Report what is actually usable. ROVER still lists a model report as
+    # "In Force" after the SEVS entry it rests on has expired; the website has
+    # always discounted those (sevBasisGone) and the email's headline total did
+    # not, overstating the register by ~22%.
+    n_dead = len(dead_mre or ())
+    usable = total - n_dead
+    dead_note = ''
+    if n_dead:
+        dead_note = (f' &middot; <span style="color:#f0a9ac;">{n_dead:,} model '
+                     f'{"report" if n_dead == 1 else "reports"} no longer usable '
+                     f'(SEVS basis expired)</span>')
     return (
-        f'Register stands at <span style="color:#e8eaea; font-family:\'JetBrains Mono\',Menlo,Consolas,monospace;">{total:,}</span> entries'
+        f'Register stands at <span style="color:#e8eaea; font-family:\'JetBrains Mono\',Menlo,Consolas,monospace;">{usable:,}</span> usable entries'
         f'{delta} &middot; <span style="color:#9ca3af;">{total_sev:,} SEVS &middot; {total_mre:,} MRE</span>'
+        f'{dead_note}'
     )
 
 
@@ -2141,8 +2498,13 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
     added_sev = sev_changes.get('added', [])
     removed_mre = mre_changes.get('removed', [])
     removed_sev = sev_changes.get('removed', [])
-    expiring = _find_expiring_sevs(sev_records, days=30)
+    expiring = _find_expiring_sevs(sev_records, days=EXPIRY_ACTION_DAYS)
+    expiring_90 = _count_expiring(sev_records, EXPIRY_SOON_DAYS)
     headlines = _fetch_ato_headlines()
+
+    # Shared eligibility model — see _compute_sev_basis. `dependents` lets a
+    # removed SEVS row state which model reports it just invalidated.
+    dead_mre, sev_dependents = _compute_sev_basis(mre_records or [], sev_records)
 
     added_count = len(added_mre) + len(added_sev)
     removed_count = len(removed_mre) + len(removed_sev)
@@ -2153,11 +2515,48 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
     if added_count: parts.append(f"{added_count} added")
     if removed_count: parts.append(f"{removed_count} removed")
     if expiring_count: parts.append(f"{expiring_count} expiring soon")
-    preheader = ', '.join(parts) + ' — Weekly ROVER update' if parts else 'No changes this week'
+    preheader = ', '.join(parts) + ' — ROVER register update' if parts else 'No register changes'
 
     html = html.replace('{{PREHEADER_TEXT}}', preheader)
     html = html.replace('{{WEEK_DATE}}', week_date)
     all_mre = mre_records or []
+
+    # ── Headline, expiring note and CTA now describe THIS email ──────────────
+    # The masthead used to read "Weekly register update." on every send, which
+    # is both untrue (the register is checked daily) and content-free — it was
+    # the largest element on the first screen and said nothing.
+    critical = [r for r in expiring if r['_days_left'] <= 7]
+    if added_count:
+        title = f"{added_count} new {'approval' if added_count == 1 else 'approvals'}."
+    elif critical:
+        title = f"{len(critical)} {'approval' if len(critical) == 1 else 'approvals'} about to lapse."
+    elif removed_count:
+        title = f"{removed_count} {'approval' if removed_count == 1 else 'approvals'} off the register."
+    elif expiring:
+        title = 'Approvals closing in.'
+    else:
+        title = 'A quiet week.'
+    html = html.replace('{{EMAIL_TITLE}}', title)
+
+    # Reconcile with the website, which counts a 90-day window on its
+    # "Expiring soon" tile. Listing only the actionable ≤30-day rows while
+    # quoting both figures stops the two surfaces contradicting each other.
+    note = (f'Approvals expiring within {EXPIRY_ACTION_DAYS} days, grouped by urgency.')
+    if expiring_90 > len(expiring):
+        note += (f' {expiring_90} expire within {EXPIRY_SOON_DAYS} days &mdash; '
+                 f'<a href="{_site_link(content="expiring_all")}" style="color:#C9A84C;">see the full register</a>.')
+    html = html.replace('{{EXPIRING_NOTE}}', note)
+
+    if expiring:
+        cta_label = f"SEE {len(expiring)} EXPIRING APPROVALS &rarr;"
+        cta_url = _site_link(content='cta_expiring')
+    elif added_count:
+        cta_label = 'VIEW THE FULL REGISTER &rarr;'
+        cta_url = _site_link(content='cta_added')
+    else:
+        cta_label = 'VIEW THE FULL REGISTER &rarr;'
+        cta_url = _site_link(content='cta_default')
+    html = html.replace('{{CTA_LABEL}}', cta_label).replace('{{CTA_URL}}', cta_url)
 
     # Data-refreshed timestamp + month-over-month trend line
     data_refreshed = _now_local().strftime('%d %b %Y at %H:%M %Z')
@@ -2186,7 +2585,8 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
 
     for tag, count, rows_fn in [
         ('ADDED', added_count, lambda: _build_vehicle_rows(added_mre, 'MRE') + _build_vehicle_rows(added_sev, 'SEVS')),
-        ('REMOVED', removed_count, lambda: _build_vehicle_rows(removed_mre, 'MRE', True) + _build_vehicle_rows(removed_sev, 'SEVS', True)),
+        ('REMOVED', removed_count, lambda: _build_vehicle_rows(removed_mre, 'MRE', True)
+            + _build_vehicle_rows(removed_sev, 'SEVS', True, dependents=sev_dependents)),
     ]:
         if count > 0:
             html = html.replace(f'{{{{#IF_{tag}}}}}', '').replace(f'{{{{/IF_{tag}}}}}', '')
@@ -2217,7 +2617,8 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
     if all_mre or sev_records:
         totals_line = _build_register_totals(all_mre, sev_records,
                                              prev_mre_count=prev_mre_count,
-                                             prev_sev_count=prev_sev_count)
+                                             prev_sev_count=prev_sev_count,
+                                             dead_mre=dead_mre)
     else:
         totals_line = ''
     html = html.replace('{{REGISTER_TOTALS}}', totals_line)
@@ -2227,10 +2628,13 @@ def generate_email_html(mre_changes, sev_changes, sev_records, template_dir, mre
     else:
         html = re.sub(r'\{\{#IF_NO_CHANGES\}\}.*?\{\{/IF_NO_CHANGES\}\}', '', html, flags=re.DOTALL)
 
-    # Footer cadence: next send is the next Wednesday (weekday() == 2). If
-    # today is Wednesday, advance to the following week.
+    # Footer cadence. The email previously claimed "Sent every Wednesday" and
+    # computed the next send as the next Wednesday — neither was true. The
+    # register is scraped daily at 04:00 AWST (daily-scrape.yml, Tue–Sun) and a
+    # guaranteed digest goes out Monday 04:00 AWST (weekly-scrape.yml, cron
+    # '0 20 * * 0' UTC). Change alerts fire on any day the register moves.
     today = _now_local()
-    days_ahead = (2 - today.weekday()) % 7 or 7
+    days_ahead = (0 - today.weekday()) % 7 or 7  # next Monday AWST
     next_update = (today + timedelta(days=days_ahead)).strftime('%d %b %Y').lstrip('0')
     html = html.replace('{{NEXT_UPDATE}}', next_update)
 
@@ -2261,7 +2665,18 @@ def send_weekly_email(html, mre_changes, sev_changes):
     added = len(added_mre) + len(added_sev)
     removed = len(mre_changes.get('removed', [])) + len(sev_changes.get('removed', []))
     week = _now_local().strftime('%d %b').lstrip('0')
-    subject = _compose_subject(added_mre, added_sev, added, removed, week)
+    # Subject needs the same expiry view the body has, so a zero-add week leads
+    # with what is still actionable instead of with what has already gone.
+    sev_records = []
+    try:
+        snap = load_latest_snapshot('sev', os.path.join(os.path.dirname(__file__), '..', 'outputs'))
+        sev_records = snap.get('records', []) if snap else []
+    except Exception:
+        sev_records = []
+    expiring = _find_expiring_sevs(sev_records, days=EXPIRY_ACTION_DAYS) if sev_records else []
+    critical = sum(1 for r in expiring if r['_days_left'] <= 7)
+    subject = _compose_subject(added_mre, added_sev, added, removed, week,
+                               expiring=expiring, critical_count=critical)
 
     token_url = f'https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token'
     token_resp = _requests.post(token_url, data={
@@ -2281,12 +2696,16 @@ def send_weekly_email(html, mre_changes, sev_changes):
         return False
 
     send_url = f'https://graph.microsoft.com/v1.0/users/{from_email}/sendMail'
+    # Recipients go in bcc, with the sending mailbox as the only visible To.
+    # Every subscriber previously appeared in toRecipients, so the whole list
+    # was exposed to everyone on it — harmless at two addresses, not at fifty.
     message = {
         'message': {
             'subject': subject,
             'body': {'contentType': 'HTML', 'content': html},
             'from': {'emailAddress': {'address': from_email}},
-            'toRecipients': [{'emailAddress': {'address': a.strip()}} for a in to_emails],
+            'toRecipients': [{'emailAddress': {'address': from_email}}],
+            'bccRecipients': [{'emailAddress': {'address': a.strip()}} for a in to_emails],
         },
         'saveToSentItems': True,
     }

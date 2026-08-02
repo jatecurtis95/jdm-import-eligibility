@@ -70,7 +70,7 @@
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                       <tr>
                         <td valign="middle" style="vertical-align:middle;">
-                          <a href="https://eligibility.jdmconnect.com.au" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://eligibility.jdmconnect.com.au/logo.png" alt="JDM Connect" width="140" style="display:block; max-width:140px; height:auto; border:0;" /></a>
+                          <a href="https://eligibility.jdmconnect.com.au/?utm_source=rover_email&utm_medium=email&utm_campaign=rover_digest&utm_content=masthead" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://eligibility.jdmconnect.com.au/logo.png" alt="JDM Connect" width="140" style="display:block; max-width:140px; height:auto; border:0;" /></a>
                         </td>
                         <td align="right" valign="middle" class="mobile-hide" style="vertical-align:middle;">
                           <div style="font-family: 'Playfair Display',Georgia,'Times New Roman',serif; font-size:14px; color:#C9A84C; letter-spacing:3px; font-weight:400; font-style:italic;">ROVER&nbsp;Weekly</div>
@@ -97,9 +97,9 @@
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
                   <td style="padding: 44px 40px 0;" class="mobile-pad">
-                    <div style="font-family: 'Inter',sans-serif; font-size:11px; color:#6b7280; letter-spacing:4px; text-transform:uppercase; font-weight:600;">Week ending {{WEEK_DATE}}</div>
-                    <h1 class="h1-week" style="margin:14px 0 12px; font-family: 'Playfair Display',Georgia,'Times New Roman',serif; font-size:38px; font-weight:700; color:#e8eaea; line-height:1.1; letter-spacing:-0.5px;">
-                      Weekly register update.
+                    <div style="font-family: 'Inter',sans-serif; font-size:11px; color:#6b7280; letter-spacing:3px; text-transform:uppercase; font-weight:600;">Register movement &middot; {{WEEK_DATE}}</div>
+                    <h1 class="h1-week" style="margin:14px 0 12px; font-family: 'Playfair Display',Georgia,'Times New Roman',serif; font-size:34px; font-weight:700; color:#e8eaea; line-height:1.15; letter-spacing:-0.5px;">
+                      {{EMAIL_TITLE}}
                     </h1>
                     <p style="margin:0; font-family: 'Inter',sans-serif; font-size:13px; color:#9ca3af; line-height:1.6;">
                       Refreshed <span style="font-family:'JetBrains Mono','Menlo','Consolas',monospace; font-size:12px;">{{DATA_REFRESHED}}</span>{{MONTHLY_TREND}}
@@ -182,7 +182,7 @@
                 <tr>
                   <td style="padding: 30px 40px 4px;" class="mobile-pad">
                     <h2 class="section-title" style="margin:0; font-family: 'Playfair Display',Georgia,'Times New Roman',serif; font-size:26px; font-weight:600; color:#e8eaea; line-height:1.2; font-style:italic; letter-spacing:-0.3px;">Closing window.</h2>
-                    <p style="margin:8px 0 0; font-family:'Inter',sans-serif; font-size:13px; color:#9ca3af; line-height:1.6;">Approvals expiring within the next 30 days, grouped by urgency.</p>
+                    <p style="margin:8px 0 0; font-family:'Inter',sans-serif; font-size:13px; color:#9ca3af; line-height:1.6;">{{EXPIRING_NOTE}}</p>
                   </td>
                 </tr>
                 <tr>
@@ -234,7 +234,7 @@
                 <tr>
                   <td style="padding: 40px 40px 44px; text-align:center;" class="mobile-pad">
                     <h2 style="margin:0 0 10px; font-family: 'Playfair Display',Georgia,'Times New Roman',serif; font-size:26px; font-weight:600; color:#e8eaea; line-height:1.3; font-style:italic;">A quiet week.</h2>
-                    <p style="margin:0; font-family: 'Inter',sans-serif; font-size:14px; color:#9ca3af; line-height:1.65; max-width:400px; display:inline-block;">The registers held steady. We'll be back Wednesday with the next dispatch.</p>
+                    <p style="margin:0; font-family: 'Inter',sans-serif; font-size:14px; color:#9ca3af; line-height:1.65; max-width:400px; display:inline-block;">The registers held steady. We check daily and will write again the moment something moves.</p>
                   </td>
                 </tr>
               </table>
@@ -278,17 +278,17 @@
                 <tr>
                   <td style="padding: 24px 40px 44px;" class="mobile-pad" align="center">
                     <!--[if mso]>
-                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://eligibility.jdmconnect.com.au" style="height:46px;v-text-anchor:middle;width:240px;" arcsize="6%" fillcolor="#C9A84C" strokecolor="#C9A84C" strokeweight="0px">
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{CTA_URL}}" style="height:46px;v-text-anchor:middle;width:240px;" arcsize="6%" fillcolor="#C9A84C" strokecolor="#C9A84C" strokeweight="0px">
                       <w:anchorlock/>
-                      <center style="color:#0c0a08;font-family:sans-serif;font-size:12px;font-weight:bold;letter-spacing:2px;">VIEW FULL REGISTER &rarr;</center>
+                      <center style="color:#0c0a08;font-family:sans-serif;font-size:12px;font-weight:bold;letter-spacing:2px;">{{CTA_LABEL}}</center>
                     </v:roundrect>
                     <![endif]-->
                     <!--[if !mso]><!-->
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                       <tr>
                         <td style="border-radius:2px; background-color:#C9A84C;">
-                          <a href="https://eligibility.jdmconnect.com.au" target="_blank" rel="noopener noreferrer" style="display:inline-block; padding:15px 34px; font-family: 'Inter',sans-serif; font-size:12px; font-weight:700; color:#0c0a08; text-decoration:none; letter-spacing:2px;">
-                            VIEW FULL REGISTER &rarr;
+                          <a href="{{CTA_URL}}" target="_blank" rel="noopener noreferrer" style="display:inline-block; padding:15px 34px; font-family: 'Inter',sans-serif; font-size:12px; font-weight:700; color:#0c0a08; text-decoration:none; letter-spacing:2px;">
+                            {{CTA_LABEL}}
                           </a>
                         </td>
                       </tr>
@@ -306,7 +306,7 @@
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
                   <td style="padding: 30px 40px 22px;" class="mobile-pad" align="center">
-                    <a href="https://eligibility.jdmconnect.com.au" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://eligibility.jdmconnect.com.au/logo.png" alt="JDM Connect" width="120" style="display:block; margin:0 auto; max-width:120px; height:auto; border:0;" /></a>
+                    <a href="https://eligibility.jdmconnect.com.au/?utm_source=rover_email&utm_medium=email&utm_campaign=rover_digest&utm_content=footer" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="https://eligibility.jdmconnect.com.au/logo.png" alt="JDM Connect" width="120" style="display:block; margin:0 auto; max-width:120px; height:auto; border:0;" /></a>
                     <div style="font-family: 'Inter',sans-serif; font-size:10px; color:#4a5252; letter-spacing:3px; font-weight:600; margin-top:14px; text-transform:uppercase;">ROVER Weekly &middot; A Dispatch from Perth</div>
                   </td>
                 </tr>
@@ -315,7 +315,9 @@
                     <p style="margin:0; font-family: 'Inter',sans-serif; font-size:11px; color:#6b7280; line-height:1.8; text-align:center;">
                       {{REGISTER_TOTALS}}<br>
                       Data &middot; <a href="https://rover.infrastructure.gov.au" target="_blank" rel="noopener noreferrer" style="color:#6b7280; text-decoration:underline;">rover.infrastructure.gov.au</a> &middot; Policy &middot; <a href="https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-safety-design/mvsa-vehicle-type-approvals/personal-importation-scheme-sevs" target="_blank" rel="noopener noreferrer" style="color:#6b7280; text-decoration:underline;">DITRDCA</a><br>
-                      Sent every Wednesday &middot; Next dispatch {{NEXT_UPDATE}}<br>
+                      Register checked daily &middot; alerts sent when it moves &middot; full digest every Monday<br>
+                      Next scheduled digest {{NEXT_UPDATE}}<br>
+                      JDM Connect &middot; Perth, Western Australia<br>
                       <a href="{{UNSUBSCRIBE_URL}}" style="color:#4a5252; text-decoration:underline;">Unsubscribe</a>
                     </p>
                   </td>
