@@ -4,8 +4,15 @@ import { type BrainEnv, likeTerm, sbSelect, SupabaseError } from "./supabase";
 
 // Column lists kept explicit so responses stay compact and stable even if the
 // underlying tables grow columns.
+// Every eligibility read goes through rover_eligibility_status, the view that
+// carries the single derived verdict shared with the register site and the
+// ROVER digest email. Reading the bare table means re-deriving eligibility
+// here — which is exactly how this server came to report ~254 model reports
+// as importable after the SEVS entries they rest on had lapsed.
+const ELIGIBILITY_TABLE = "rover_eligibility_status";
+
 const ELIGIBILITY_SUMMARY =
-  "scheme,approval_number,make,model,model_code,category_group,build_date_range,build_from,build_to,build_open,approval_status,compliance_level,under_review,expiry_date,holder_short,is_active";
+  "scheme,approval_number,make,model,model_code,category_group,build_date_range,build_from,build_to,build_open,approval_status,compliance_level,under_review,expiry_date,holder_short,is_active,based_on_sevs,sev_basis_gone,eligibility_status";
 
 const ELIGIBILITY_DETAIL =
   ELIGIBILITY_SUMMARY +
@@ -28,6 +35,9 @@ interface EligibilityRow {
   approval_status: string | null;
   under_review: boolean | null;
   expiry_date: string | null;
+  eligibility_status?: string | null;
+  sev_basis_gone?: boolean | null;
+  based_on_sevs?: string[] | null;
   [key: string]: unknown;
 }
 
@@ -61,7 +71,7 @@ export function registerTools(server: McpServer, env: BrainEnv): void {
     {
       title: "Search the ROVER register",
       description:
-        "Search Australia's ROVER import-approval register (SEVs entry + Model Reports) by make, model or chassis/model code (e.g. 'Supra', 'JZS171', 'Toyota Crown'). Returns matching approvals with build-date windows and status. Start here when asked about a car.",
+        "Search Australia's ROVER import-approval register (SEVs entry + Model Reports) by make, model or chassis/model code (e.g. 'Supra', 'JZS171', 'Toyota Crown'). Returns matching approvals with build-date windows and a derived eligibility_status (eligible / expiring / expired / sev_basis_gone / under_review / off_register). Only eligible and expiring can carry an import today. Start here when asked about a car.",
       inputSchema: {
         query: z.string().min(1).describe("Make, model, nickname or model/chassis code to search for"),
         active_only: z.boolean().default(true).describe("Only approvals currently active on the register"),
@@ -93,7 +103,7 @@ export function registerTools(server: McpServer, env: BrainEnv): void {
           hint:
             approvals.length === 0 && intel.length === 0
               ? "No match. Try a shorter term (single model name or chassis code); nicknames may not be indexed yet."
-              : "Use get_vehicle_details with an approval_number for variants and full detail.",
+              : "Check eligibility_status on each approval - an entry listed In Force can still be unusable (sev_basis_gone). Use get_vehicle_details with an approval_number for variants and full detail.",
         });
       } catch (error) {
         return errorResult(error);
@@ -115,7 +125,7 @@ export function registerTools(server: McpServer, env: BrainEnv): void {
       try {
         const approvalEq = `eq.${approval_number.trim().toUpperCase()}`;
         const [entries, variants] = await Promise.all([
-          sbSelect<EligibilityRow>(env, "rover_eligibility", {
+          sbSelect<EligibilityRow>(env, ELIGIBILITY_TABLE, {
             select: ELIGIBILITY_DETAIL + ",make_norm",
             approval_number: approvalEq,
             limit: "5",
@@ -184,7 +194,7 @@ export function registerTools(server: McpServer, env: BrainEnv): void {
     {
       title: "Can this car be imported?",
       description:
-        "Check whether a make/model (optionally a specific build year) is covered by an active ROVER approval, and under which approval numbers. Explains build-window fit and flags under-review or variant-scoped approvals.",
+        "Check whether a make/model (optionally a specific build year) can actually be imported under a ROVER approval, and under which approval numbers. Discounts approvals that ROVER still lists as In Force but which rest on lapsed SEVS entries, plus expired ones; explains build-window fit and flags under-review, expiring and variant-scoped approvals.",
       inputSchema: {
         make: z.string().min(1),
         model: z.string().min(1),
@@ -193,7 +203,7 @@ export function registerTools(server: McpServer, env: BrainEnv): void {
     },
     async ({ make, model, year }) => {
       try {
-        const rows = await sbSelect<EligibilityRow>(env, "rover_eligibility", {
+        const rows = await sbSelect<EligibilityRow>(env, ELIGIBILITY_TABLE, {
           select: ELIGIBILITY_SUMMARY,
           make: `ilike.${likeTerm(make)}`,
           model: `ilike.${likeTerm(model)}`,
@@ -207,15 +217,44 @@ export function registerTools(server: McpServer, env: BrainEnv): void {
             note: "No active approval matches that make/model on the register. Double-check spelling with search_vehicles - eligibility depends on exact register entries.",
           });
         }
-        const covering = year == null ? rows : rows.filter((row) => coversYear(row, year));
+
+        // Being listed is not the same as being usable. A model report whose
+        // based-on SEVS entry has lapsed still reads "In Force" on ROVER, and
+        // an approval past its expiry date is simply dead. Only 'eligible' and
+        // 'expiring' can carry an import today.
+        const USABLE = new Set(["eligible", "expiring"]);
+        const usable = rows.filter((row) => USABLE.has(String(row.eligibility_status ?? "eligible")));
+        const unusable = rows.filter((row) => !USABLE.has(String(row.eligibility_status ?? "eligible")));
+
+        const covering = year == null ? usable : usable.filter((row) => coversYear(row, year));
         const caveats: string[] = [];
+        if (covering.some((row) => row.eligibility_status === "expiring")) {
+          caveats.push(
+            "At least one covering approval expires within 90 days - the car must be secured before that date.",
+          );
+        }
         if (covering.some((row) => row.under_review)) caveats.push("At least one covering approval is under review.");
-        if (year == null) caveats.push("No build year given - windows not checked; every active approval for the model is listed.");
+        if (unusable.some((row) => row.eligibility_status === "sev_basis_gone")) {
+          caveats.push(
+            "Some approvals for this model are listed by ROVER as In Force but rest on SEVS entries that have left the register, so they can no longer be used to import. They are in unusable_approvals, not in the covering list.",
+          );
+        }
+        if (year == null) caveats.push("No build year given - windows not checked; every usable approval for the model is listed.");
         caveats.push("Approvals can be variant-scoped: confirm the exact variant with get_vehicle_details before promising eligibility.");
+
+        let verdict: string;
+        if (covering.length > 0) {
+          verdict = "covered_by_active_approval";
+        } else if (usable.length > 0) {
+          verdict = "model_listed_but_year_outside_windows";
+        } else {
+          verdict = "listed_but_no_usable_approval";
+        }
         return json({
-          verdict: covering.length > 0 ? "covered_by_active_approval" : "model_listed_but_year_outside_windows",
+          verdict,
           covering_approvals: covering,
-          other_approvals_for_model: year == null ? [] : rows.filter((row) => !coversYear(row, year)),
+          other_approvals_for_model: year == null ? [] : usable.filter((row) => !coversYear(row, year)),
+          unusable_approvals: unusable,
           caveats,
         });
       } catch (error) {
@@ -235,7 +274,7 @@ export function registerTools(server: McpServer, env: BrainEnv): void {
     async () => {
       try {
         const [makes, intel] = await Promise.all([
-          sbSelect<{ make_norm: string; model: string }>(env, "rover_eligibility", {
+          sbSelect<{ make_norm: string; model: string }>(env, ELIGIBILITY_TABLE, {
             select: "make_norm,model",
             is_active: "eq.true",
             limit: "3000",

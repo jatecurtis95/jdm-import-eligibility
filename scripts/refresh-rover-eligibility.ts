@@ -279,10 +279,44 @@ async function main(): Promise<void> {
     console.log("ok");
   }
 
+  // Reconcile is_active against what the register actually carries now.
+  //
+  // Nothing maintained this flag before: rows were upserted and left active
+  // for ever, so approvals that had dropped off ROVER stayed flagged live.
+  // At the time this was added, 600 SEVS entries were marked active against
+  // 583 on the register, and no model report had ever been deactivated. The
+  // flag feeds rover_eligibility_status.sev_basis_gone, so a stale one makes
+  // a dead model report look importable.
+  //
+  // Rows are never deleted — an approval that leaves the register is history
+  // worth keeping, and the status view reports it as off_register.
+  const seen = rows.map((r) => `('${r.scheme}','${r.approval_number.replace(/'/g, "''")}')`);
+  const reconcileSql = `
+with present(scheme, approval_number) as (values ${seen.join(",")})
+update rover_eligibility e
+set is_active = exists (
+      select 1 from present p
+      where p.scheme = e.scheme and p.approval_number = e.approval_number
+    )
+where e.is_active is distinct from exists (
+      select 1 from present p
+      where p.scheme = e.scheme and p.approval_number = e.approval_number
+    )
+returning e.scheme, e.approval_number, e.is_active;`;
+  process.stdout.write("Reconciling is_active... ");
+  const changed = await runSql(reconcileSql);
+  const changedRows = Array.isArray(changed) ? changed : [];
+  console.log(`${changedRows.length} row(s) changed`);
+
   const count = await runSql(
-    "select scheme, count(*)::int as n from rover_eligibility group by scheme order by scheme;",
+    "select scheme, count(*)::int as n, count(*) filter (where is_active)::int as active from rover_eligibility group by scheme order by scheme;",
   );
   console.log("Final counts:", JSON.stringify(count));
+
+  const status = await runSql(
+    "select eligibility_status, count(*)::int as n from rover_eligibility_status group by eligibility_status order by eligibility_status;",
+  );
+  console.log("Eligibility status:", JSON.stringify(status));
 }
 
 main().catch((err: unknown) => {
