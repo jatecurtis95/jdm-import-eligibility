@@ -1,0 +1,61 @@
+name: Deploy jdm-brain
+
+# The jdm-brain Worker had no deploy automation at all — every release was a
+# manual `npx wrangler deploy` from someone's laptop. That is how the Worker
+# came to be serving code that predated the eligibility-status work: the
+# change was merged to main and simply never shipped.
+#
+# Setup (one time): add a repository secret CLOUDFLARE_API_TOKEN with an
+# "Edit Cloudflare Workers" token for account 78a4648f57e3da163587fff349bf8b19.
+# Create it at https://dash.cloudflare.com/profile/api-tokens — use the
+# "Edit Cloudflare Workers" template. Add it under
+# Settings -> Secrets and variables -> Actions. Never paste the token into a
+# commit, an issue, or a chat window.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'brain/**'
+      - '.github/workflows/deploy-brain.yml'
+  workflow_dispatch:
+
+# One deploy at a time. A queued run should supersede an older pending one
+# rather than race it onto the same Worker.
+concurrency:
+  group: deploy-jdm-brain
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        working-directory: brain
+        run: npm ci
+
+      # Typecheck before shipping. The Worker is the answer surface for
+      # "can I import this car" — a broken deploy is worse than a late one.
+      - name: Typecheck
+        working-directory: brain
+        run: npm run check
+
+      - name: Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: brain
+
+      - name: Summary
+        run: |
+          echo "### jdm-brain deployed" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Commit: \`${GITHUB_SHA::7}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "Endpoint: https://jdm-brain.jate-curtis.workers.dev/mcp" >> "$GITHUB_STEP_SUMMARY"
