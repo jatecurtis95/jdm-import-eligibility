@@ -1,0 +1,108 @@
+name: AVTONET Photo Harvest
+
+# Fills photo gaps from the Japanese auction feed. Each accepted photo is
+# matched on the lot's own chassis code (with make and build-year guards), so
+# the register shows a picture of the actual car rather than a Wikipedia
+# lookalike — see scripts/avto_photos.py for the matching rules.
+#
+# Runs AFTER the daily ROVER scrape, so newly-added register entries get a
+# photo the same night they appear. Incremental by design: a code that already
+# has an auction photo is skipped, so a normal night is a handful of feed
+# queries, not hundreds.
+
+on:
+  schedule:
+    # 7:00 AM AEST (21:00 UTC), an hour behind daily-scrape.yml so it works
+    # from the fresh data.json rather than racing it.
+    - cron: '0 21 * * 1-6'
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Only process the first N codes (0 = no limit). Use this to backfill in chunks.'
+        required: false
+        default: '0'
+      refresh:
+        description: 'Re-match every code, replacing existing auction photos'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+
+# photos.json and data.json are both committed to main by scheduled jobs. Share
+# the scrape's concurrency group so the two can never push competing commits.
+concurrency:
+  group: rover-scrape
+  cancel-in-progress: false
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Only `requests` is needed here — no Playwright, so this stays a fast job.
+      - name: Install dependencies
+        run: pip install "requests==2.32.3"
+
+      - name: Harvest auction photos
+        env:
+          AVTONET_API_BASE: ${{ secrets.AVTONET_API_BASE }}
+          AVTONET_CODE: ${{ secrets.AVTONET_CODE }}
+          AVTONET_QUERY_PARAM: ${{ secrets.AVTONET_QUERY_PARAM }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: |
+          python scripts/avto_photos.py \
+            ${{ github.event.inputs.refresh == 'true' && '--refresh' || '' }} \
+            --limit ${{ github.event.inputs.limit || 0 }}
+
+      - name: Check for photo changes
+        id: changes
+        if: ${{ !cancelled() }}
+        run: |
+          git diff --quiet functions/_data/photos.json \
+            && echo "changed=false" >> $GITHUB_OUTPUT \
+            || echo "changed=true" >> $GITHUB_OUTPUT
+
+      # photos.json is wholly machine-generated (manual corrections live in
+      # scripts/data/photo_overrides.json and are re-applied on every run), so
+      # the fresh harvest always wins — same reset-and-restore dance as
+      # .github/actions/commit-data uses for data.json.
+      - name: Commit and push updated photos
+        if: ${{ !cancelled() && steps.changes.outputs.changed == 'true' }}
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Actions [AVTONET Photos]"
+          cp functions/_data/photos.json /tmp/photos.json.new
+          git fetch origin main
+          git reset --hard origin/main
+          mv /tmp/photos.json.new functions/_data/photos.json
+          git add functions/_data/photos.json
+          if git diff --cached --quiet; then
+            echo "photos.json identical to origin/main after refetch — nothing to commit"
+            exit 0
+          fi
+          git commit -m "Auto-update: auction photos refreshed $(date -u +'%Y-%m-%d')"
+          git push || {
+            echo "push rejected — re-syncing and retrying once"
+            cp functions/_data/photos.json /tmp/photos.json.retry
+            git fetch origin main
+            git reset --hard origin/main
+            mv /tmp/photos.json.retry functions/_data/photos.json
+            git add functions/_data/photos.json
+            git diff --cached --quiet || git commit -m "Auto-update: auction photos refreshed $(date -u +'%Y-%m-%d')"
+            git push
+          }

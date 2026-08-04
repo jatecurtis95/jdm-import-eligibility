@@ -16,9 +16,15 @@ node_modules/
 scripts/data/*
 !scripts/data/photo_overrides.json
 !scripts/data/variant_overrides.json
+# Negative cache: codes the auction feed has no car for. Committed so the
+# nightly job doesn't re-query ~425 dead codes every single night.
+!scripts/data/avto_misses.json
 email-preview.html
 # Generated email preview artifact (rebuilt by scripts/_build_preview.py)
 scripts/email-template-v2-preview.html
+# Auction-photo contact sheet (scripts/avto_photos.py --review). A local review
+# artifact with the photos inlined — several MB, and never a published asset.
+avto-review.html
 
 # Internal build artifacts — must never be published as static assets
 jdm-eligibility-rebuild.zip

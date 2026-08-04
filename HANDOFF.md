@@ -195,3 +195,140 @@ Touring Wagon publishes `seating = 2` and a GVM below its unladen mass). The
 scraper extracts these faithfully — they are not bugs on our side. The card's
 "official ROVER spec" label and footnote ("if your car differs, talk to us")
 cover this.
+
+---
+
+# Addendum (2026-08) — Vehicle photos now come from the AVTONET auction feed
+
+## Why
+
+Photos were scraped from Wikipedia by matching make/model **words**, which had
+no way to tell one generation from another and no way to fail safely. It put a
+Toyota Ractis on the McLaren P1 (the P1's "P12" code substring-matched the
+Ractis's "NSP120"), a Mark X ZiO minivan on every Mark X sedan, and a Mark II on
+Chaser entries. Wrong photos on a lead tool cost trust.
+
+The auction feed carries `kuzov` — the chassis code itself — so a JZA80 entry can
+be matched to an actual JZA80 rather than to whatever article shares its name.
+
+## How the matching works
+
+`scripts/avto_photos.py` queries the same AVTONET SQL gateway the finder uses
+(`jdm-vehicle-finder/src/avtonet.js`), one filtered SELECT per chassis code, and
+every candidate must clear three independent guards:
+
+1. **Anchored code** — the feed's `kuzov` must *be* the register's code, not
+   merely contain it. `TRH200` may match `TRH200V` (a trailing body letter); it
+   may never match `NSP120`. This alone kills the whole P1-Ractis class of bug.
+2. **Make agreement** — `marka_name` must equal the register `Make`.
+3. **Year overlap** — the lot's year must fall inside the approval's build-date
+   range (±1yr for JDM build/model-year drift), so an R32 entry can never show
+   an R34.
+
+Emissions prefixes are stripped both sides (`3BD-DA17V` ↔ `DA17V`), free text is
+rejected by shape (a chassis code has both letters and digits, so "WELFARE" and
+"01C" never cost a query), and non-Japanese makes are skipped entirely — a
+Bessacarr will never be in a Japanese auction, so it keeps its Wikipedia photo.
+
+Measured on a 40-code sample: **36 matched, 0 wrong**.
+
+## Excluded lots — USS and R grade
+
+Two hard exclusions, applied in the SQL and re-checked in code so a gateway that
+ignores a clause can't put an excluded car on the site:
+
+- **USS** — every USS house in the feed is named `USS <place>` (`USS Kobe`,
+  `USS JAA`, `USS R-Nagoya`), so a prefix test catches all eight.
+- **R grade** — repair/accident history is recorded as `R`, `RA`, `RB`, `RC`,
+  `R1`, `R2`, `RA1`, `RA2`, `R?` or `WR`. Every damage grade in the feed
+  contains an `R` and no clean grade (`0`–`6`, `S`, `X`, `N`, `*`) does, so
+  "contains R" is both exact and robust against new spellings.
+
+Scoring additionally *prefers* a higher numeric grade, so a grade-5 car wins
+over a grade-3 when both are available. Re-running the same 40-code sample with
+both exclusions on: still **36 matched**, grades used were 3.5/4/4.5/5/6, no USS
+house — so on this sample the exclusions cost no coverage. USS is the largest
+auction group in Japan, though, so expect a rare model to lose its photo rather
+than take a USS one. `lot.auction` and `lot.rate` are recorded in photos.json so
+any leak is auditable without re-querying.
+
+## Storage — why R2 and not hotlinking
+
+The feed only retains sold lots ~3 months (verified: oldest `stats` row with
+images was 2026-05-07), so hotlinked CDN URLs would rot. Each accepted photo is
+downloaded once and copied to an R2 bucket; `photos.json` stores a host-relative
+`/img/avto/<CODE>-<hash>.jpg`, served by `functions/img/[[path]].js`. Keys are
+content-addressed, so they're cached `immutable` and replacing a photo mints a
+new URL. Host-relative means the same file works on caniimportit.com.au,
+importcheck.com.au and the pages.dev preview with no hardcoded host.
+
+Resolution ceiling: the CDN offers exactly three renditions — plain (100×75),
+`&w=320` (320×240) and `&h=50` (66×50). 320×240 is the maximum and is what we
+store. Ample for the 64×48 card thumbnails; softer than the old Wikipedia images
+on the detail panel, which is the trade for showing the right car.
+
+## Infrastructure (done 2026-08-04)
+
+- **R2 bucket** `caniimportit-photos` on account `78a4648f…` (the jdmconnect
+  account that also owns the Pages project). Created in ENAM; objects are served
+  through the Function with `immutable` caching, so they edge-cache after first
+  fetch and the region hint doesn't matter much.
+- **Pages binding** `PHOTOS_BUCKET` → that bucket, on **both** the production
+  and preview environments of the `rover-eligibility` project. Applied by
+  `PATCH /accounts/{acc}/pages/projects/rover-eligibility`, which is a *merge* —
+  verified on a scratch project first, because that project's `SCOPE_API_KEY`
+  secret reads back empty and a replacing PATCH would have destroyed it
+  unrecoverably. Bindings only take effect on deployments made after the patch.
+- **Repo secrets** set: `CLOUDFLARE_ACCOUNT_ID`, `R2_BUCKET`,
+  `AVTONET_API_BASE`, `AVTONET_QUERY_PARAM`. `CLOUDFLARE_API_TOKEN` already
+  existed.
+
+### Uploads use an API token, not R2 access keys
+
+The harvester writes through R2's REST object API
+(`PUT /accounts/{acc}/r2/buckets/{bucket}/objects/{key}`, bearer auth) rather
+than the S3-compatible endpoint. That means an ordinary Cloudflare API token
+with **Workers R2 Storage: Edit** — no separate access-key pair to mint, store
+and rotate. The nightly Action reuses the existing `CLOUDFLARE_API_TOKEN`.
+
+### Still on you
+
+- **`AVTONET_CODE`** is deliberately *not* set. The finder's `.dev.vars` carries
+  an explicit "rotate if this file ever leaves the machine" warning, and the
+  token that works from a local IP may not be the one GitHub runners need — the
+  relay exists precisely because the provider IP-restricts direct access. Set it
+  to the same value as the finder Worker's `AVTONET_CODE` secret:
+  `gh secret set AVTONET_CODE --repo jatecurtis95/jdm-import-eligibility`
+- **Confirm `CLOUDFLARE_API_TOKEN` has Workers R2 Storage: Edit.** If the
+  nightly run fails on upload, that permission is why.
+
+Neither blocks the site: the initial backfill was run locally, so every photo is
+already in R2 and in `photos.json`. These two only affect *ongoing* nightly
+top-ups for newly-added register entries.
+
+## Operating it
+
+```
+python scripts/avto_photos.py                      # incremental: fill gaps
+python scripts/avto_photos.py --refresh            # re-match everything
+python scripts/avto_photos.py --dry-run --limit 20 # match and report only
+python scripts/avto_photos.py --review out.html    # contact sheet to eyeball
+```
+
+`--review` writes a self-contained HTML sheet (photos inlined, nothing
+hotlinked) pairing each photo with the ROVER line it was matched to. It is
+gitignored — a local review artifact, never a published asset.
+
+Corrections go in `scripts/data/photo_overrides.json`, unchanged and still
+applied last on every run: `null` deletes a bad match, an object forces one.
+
+## Site-side changes
+
+- `safeUrl()` now also accepts a single-leading-slash relative path (protocol-
+  relative `//evil.example` is still rejected).
+- `photoOk()`'s filename heuristic is skipped for auction photos — their CDN
+  filenames are opaque hashes with no words to check, and their provenance is
+  already established by the three guards above.
+- `photoFor()`'s make/model fallback now prefers Wikipedia over auction photos.
+  A generic Skyline shot is the right fallback for an unmatched Skyline; the
+  R34's auction photo is not.

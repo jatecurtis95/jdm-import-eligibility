@@ -1,5 +1,5 @@
 {
-  "_comment": "Manual photo corrections, applied last by fetch_images.py on every run. Key = photos.json key (normalised: uppercase, no spaces/dashes). Value = null to DELETE a bad auto-match, or a full photo object {url, source, make, model} to force one. Keys starting with _ are ignored.",
-  "_GGA10_reason": "GGA10 is the Toyota Mark X ZiO minivan. No ZiO exists on the register, but the code-first photo lookup made every Mark X SEV (GGA10, GRX121, GRX133) show the minivan. Deleting the key lets those SEVs fall back to the correct Mark X sedan photo under TOYOTAMARKX.",
+  "_comment": "Manual photo corrections, applied last by scripts/avto_photos.py (and fetch_images.py) on every run. Key = photos.json key (normalised: uppercase, no spaces/dashes). Value = null to DELETE a bad auto-match, or a full photo object {url, source, make, model} to force one. Keys starting with _ are ignored.",
+  "_GGA10_reason": "GGA10 is the Toyota Mark X ZiO minivan. SEV-000740/741/742 are all 'Toyota Mark X' but publish 'GGA10, GRX121, GRX133' as their code, and GGA10 leads — so a code-first lookup puts a minivan on all three. Still required after the move to auction photos (2026-08): the feed matches GGA10 to a real ZiO, which is right for the code but wrong for the register entry. Deleting the key now falls through to GRX121, which has its own exact Mark X sedan photo from the feed — a better result than the old make/model fallback.",
   "GGA10": null
 }

@@ -685,7 +685,14 @@ const CAT_LABELS = {
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 // Scraped URLs are semi-trusted — only ever emit http(s) into href/src so a
 // stray javascript:/data: value from a bad scrape can't become executable.
-function safeUrl(u){ return /^https?:\/\//i.test(String(u==null?'':u)) ? String(u) : ''; }
+// Absolute https URLs (Wikipedia photos) or a same-origin root-relative path
+// (auction photos served from our R2 bucket via /img/...). The second pattern
+// requires a single leading slash so a protocol-relative "//evil.example" —
+// which the browser would treat as absolute — can never slip through.
+function safeUrl(u){
+  const s = String(u==null?'':u);
+  return (/^https?:\/\//i.test(s) || /^\/[^/]/.test(s)) ? s : '';
+}
 // Analytics: push a GTM dataLayer event and (optionally) a Meta Pixel event.
 // Both are wrapped so a blocked/absent tag never breaks the UI.
 function track(event, params){ try{ (window.dataLayer=window.dataLayer||[]).push(Object.assign({event:event}, params||{})); }catch(e){} }
@@ -831,7 +838,16 @@ function build(data){
 /* ---------- photos ---------- */
 function pnorm(s){ return String(s||'').toUpperCase().replace(/[^A-Z0-9]/g,''); }
 let photoList = [];
+// Sanity check for Wikipedia photos, which were matched on make/model *words*
+// and so could land on the wrong car: the filename has to mention the make,
+// model or chassis code, or we don't trust it.
+//
+// Auction photos are exempt. They are matched in scripts/avto_photos.py on the
+// lot's own chassis code, with make and build-year guards, so provenance is
+// already established — and their CDN filenames are opaque hashes that carry no
+// words to check. Running this heuristic over them would reject every one.
 function photoOk(k, ph){
+  if(ph && ph.source === 'avtonet') return true;
   try{
     const fn = pnorm(decodeURIComponent(String(ph.url)).split('/').pop());
     const words = (String(ph.make||'')+' '+String(ph.model||'')+' '+k)
@@ -865,10 +881,18 @@ function photoFor(r){
     const p = photoIdx[pnorm(c)];
     if(p) return p;
   }
+  // No chassis-code hit: fall back to any photo of the same make and model.
+  // Wikipedia entries are tried first here on purpose. They are generic model
+  // shots, whereas an auction photo is one specific generation — falling back
+  // to one would put an R34 on an R32 entry, which is the mismatch this whole
+  // pipeline exists to remove. Better a generic Skyline than the wrong Skyline.
   const mk = pnorm(r.make), md = pnorm(r.model);
   if(mk && md){
-    for(const ph of photoList){
-      if(pnorm(ph.make)===mk && pnorm(ph.model)===md) return ph;
+    for(const generic of [true, false]){
+      for(const ph of photoList){
+        if((ph.source!=='avtonet')!==generic) continue;
+        if(pnorm(ph.make)===mk && pnorm(ph.model)===md) return ph;
+      }
     }
   }
   return null;
@@ -1231,7 +1255,15 @@ function openPanel(r, nav){
   let h='';
   if(ph){
     h += '<img class="pphoto" src="'+esc(safeUrl(ph.url))+'" alt="'+esc(name)+'" onerror="this.remove();this.nextElementSibling&&this.nextElementSibling.remove()">';
-    h += '<div class="pcredit">photo: '+esc(ph.source||'')+'</div>';
+    // Auction photos carry a written credit ("Japanese auction listing") plus
+    // the lot's own year and chassis code, so the panel says which car this
+    // actually is rather than just naming the data source.
+    const lot = ph.lot||{};
+    const credit = ph.credit || ph.source || '';
+    const detail = ph.source==='avtonet' && (lot.year||lot.kuzov)
+      ? ' · '+esc([lot.year, lot.kuzov].filter(Boolean).join(' '))
+      : '';
+    h += '<div class="pcredit">photo: '+esc(credit)+detail+'</div>';
   }
   h += '<div class="psec"><div class="ptitle">'+esc(name)+'</div><div class="pchips">';
   h += '<span class="badge '+st.cls+'" title="'+esc(st.tip)+'">'+st.label+'</span>';
