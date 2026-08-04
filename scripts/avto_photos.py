@@ -23,10 +23,14 @@ match here must clear three independent guards before it is accepted:
                      (±1yr for JDM build/model-year drift), so an R32 SEV can
                      never show an R34.
 
-Codes shorter than 4 characters are never queried — "P12", "SP3", "232" are
-trim fragments, not chassis codes, and they are precisely what produced the
-worst mismatches. Non-Japanese makes are skipped entirely: they cannot appear
-in a Japanese domestic auction, so they keep their Wikipedia photo.
+Free text is rejected by shape: a chassis code carries both letters and digits,
+so "WELFARE", "200 Series" and the "01C" revision markers never cost a query.
+Non-Japanese makes are skipped entirely — they cannot appear in a Japanese
+domestic auction, so they keep their Wikipedia photo.
+
+The kuzov match is anchored in the SQL, not just checked afterwards. A bare
+LIKE '%S15%' also matches BMW "6S15" and Isuzu "FRR35L3", and with LIMIT 25 that
+noise crowded the real Silvia out of the result window entirely.
 
 Storage
 -------
@@ -93,6 +97,10 @@ MISSES_PATH = ROOT / "scripts" / "data" / "avto_misses.json"
 # How long a miss is trusted. New models do appear at auction, so a code gets
 # another chance roughly monthly rather than being written off forever.
 MISS_TTL_DAYS = 30
+# Bumped whenever the matching rules change. A miss recorded under older rules
+# says nothing about the new ones, so a bump silently retires the whole cache
+# instead of freezing in yesterday's coverage.
+MATCHER_VERSION = 2
 
 DEFAULT_API_BASE = "https://jdmconnect.com.au/jdm-relay.php"
 # Matches the finder's client (src/avtonet.js) — the gateway is fronted by a
@@ -142,6 +150,9 @@ REVISION_RE = re.compile(r"^\d{1,2}[A-Z]$")
 # register's code (TRH200 -> TRH200V, ANH20 -> ANH20W). More than that is a
 # different car.
 MAX_BODY_SUFFIX = 2
+# Nissan and others prefix the body code with engine/drivetrain letters
+# (E52 -> TE52/PE52, E26 -> VW2E26). Bounded, and the make/year guards still apply.
+MAX_BODY_PREFIX = 3
 YEAR_SLACK = 1
 # Below this, the feed convention is [front, rear] with no inspection sheet.
 # At or above it the first image is the sheet and must be skipped, or the site
@@ -307,6 +318,14 @@ def anchored(feed_kuzov: str, token: str) -> bool:
         tail = k[len(token):]
         if (k.startswith(token) and 0 < len(tail) <= MAX_BODY_SUFFIX
                 and tail.isalpha()):
+            return True
+        # ...and Nissan puts the engine/drivetrain letter in FRONT: the register
+        # says "E52" for the Elgrand, the feed says "TE52"/"PE52"; "E26" for the
+        # NV350 against "VW2E26". Bounded to MAX_BODY_PREFIX leading characters,
+        # and still gated by the make and build-year guards, so the BMW "6S15"
+        # that this admits cannot survive a NISSAN target.
+        head = k[:-len(token)] if k.endswith(token) else None
+        if head is not None and 0 < len(head) <= MAX_BODY_PREFIX:
             return True
     return False
 
@@ -497,6 +516,29 @@ class R2:
 
 # ── harvest ──────────────────────────────────────────────────────────────────
 
+def kuzov_clause(token: str) -> str:
+    """Anchored SQL match for a chassis code.
+
+    A bare `LIKE '%S15%'` also matches BMW "6S15" and Isuzu "FRR35L3", and with
+    `ORDER BY auction_date DESC LIMIT 25` that noise crowds the real cars out of
+    the result window entirely — which is why the S15 Silvia and R35 GT-R came
+    back empty despite both being on the feed. Anchoring in SQL means the LIMIT
+    is spent on plausible rows instead of coincidences.
+
+    Mirrors anchored(): the code itself, up to two trailing body-style letters
+    (TRH200 -> TRH200V), and the emissions-prefixed form (GF-BNR34).
+    """
+    t = sql_like(token)
+    pats = [f"UPPER(kuzov) = '{t}'"]
+    for tail in ("_", "__"):
+        pats.append(f"UPPER(kuzov) LIKE '{t}{tail}'")
+    for head in ("%-", "_", "__", "___"):
+        pats.append(f"UPPER(kuzov) LIKE '{head}{t}'")
+        for tail in ("_", "__"):
+            pats.append(f"UPPER(kuzov) LIKE '{head}{t}{tail}'")
+    return "(" + " OR ".join(pats) + ")"
+
+
 def find_lot(feed: Feed, target: dict[str, Any], table: str) -> tuple[dict | None, str | None]:
     """Best lot for a target in `main` (live) or `stats` (sold), or (None, None).
 
@@ -507,7 +549,7 @@ def find_lot(feed: Feed, target: dict[str, Any], table: str) -> tuple[dict | Non
         rows = feed.query(
             "SELECT id, marka_name, model_name, year, kuzov, grade, rate, "
             f"auction, auction_date, images FROM {table} "
-            f"WHERE UPPER(kuzov) LIKE '%{sql_like(token)}%' AND images <> '' "
+            f"WHERE {kuzov_clause(token)} AND images <> '' "
             f"AND UPPER(auction) NOT LIKE '{EXCLUDE_HOUSE_PREFIX}%' "
             f"AND (rate IS NULL OR UPPER(rate) NOT LIKE '%{EXCLUDE_RATE_CHAR}%') "
             f"ORDER BY auction_date DESC LIMIT {FEED_LIMIT}"
@@ -538,7 +580,12 @@ def harvest(args: argparse.Namespace) -> int:
 
     misses: dict[str, str] = {}
     if MISSES_PATH.exists() and not args.refresh:
-        misses = json.loads(MISSES_PATH.read_text(encoding="utf-8"))
+        raw = json.loads(MISSES_PATH.read_text(encoding="utf-8"))
+        if raw.get("_version") == MATCHER_VERSION:
+            misses = {k: v for k, v in raw.items() if not k.startswith("_")}
+        else:
+            print(f"matching rules changed (v{raw.get('_version')} -> "
+                  f"v{MATCHER_VERSION}) — rechecking every code")
     cutoff = (dt.date.today() - dt.timedelta(days=MISS_TTL_DAYS)).isoformat()
     fresh_misses = {k for k, seen in misses.items()
                     if isinstance(seen, str) and seen >= cutoff}
@@ -594,7 +641,8 @@ def harvest(args: argparse.Namespace) -> int:
             encoding="utf-8")
         MISSES_PATH.parent.mkdir(parents=True, exist_ok=True)
         MISSES_PATH.write_text(
-            json.dumps(dict(sorted(misses.items())), indent=2) + "\n", encoding="utf-8")
+            json.dumps({"_version": MATCHER_VERSION, **dict(sorted(misses.items()))},
+                       indent=2) + "\n", encoding="utf-8")
 
     try:
         matched, uploaded, failed = run_codes(

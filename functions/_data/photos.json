@@ -120,20 +120,20 @@
     "source": "wikipedia"
   },
   "C28": {
-    "url": "/img/avto/C28-42d9eed3.jpg",
+    "url": "/img/avto/C28-5fec52b8.jpg",
     "make": "NISSAN",
     "model": "SERENA",
     "chassis": "C28",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "4u8LNHM8PuWo8v",
-      "kuzov": "C28",
+      "id": "9etlkmmpFmbVqsS",
+      "kuzov": "GC28",
       "year": "2025",
-      "grade": "XV",
-      "rate": "4",
-      "auction": "NAA Osaka",
-      "auction_date": "2026-08-06 00:00:00",
+      "grade": "e Power -XV",
+      "rate": "5",
+      "auction": "MIRIVE Aichi",
+      "auction_date": "2026-08-07 10:26:00",
       "table": "main",
       "matched_on": "C28"
     },
@@ -160,20 +160,20 @@
     "harvested_at": "2026-08-04"
   },
   "AYH30": {
-    "url": "/img/avto/AYH30-6aecb461.jpg",
+    "url": "/img/avto/AYH30-b9363329.jpg",
     "make": "TOYOTA",
     "model": "ALPHARD",
     "chassis": "AYH30",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "4V7UZNsCKSNL3ab",
+      "id": "32wv3il7VQFy28R",
       "kuzov": "AYH30W",
-      "year": "2023",
-      "grade": "SR C Package 4WD",
-      "rate": "4",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-08-08 00:00:00",
+      "year": "2021",
+      "grade": "4WD Hybrid X",
+      "rate": "4.5",
+      "auction": "JU Gunma",
+      "auction_date": "2026-08-06 00:00:00",
       "table": "main",
       "matched_on": "AYH30"
     },
@@ -251,20 +251,20 @@
     "source": "wikipedia"
   },
   "E51": {
-    "url": "/img/avto/E51-83e7ca67.jpg",
+    "url": "/img/avto/E51-6e558ff8.jpg",
     "make": "NISSAN",
     "model": "ELGRAND",
     "chassis": "E51",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "cNRu2c9COzCYT56",
-      "kuzov": "E51",
-      "year": "2007",
-      "grade": "Highway Star - Black Leather -LTD",
-      "rate": "3.5",
-      "auction": "JU Aichi",
-      "auction_date": "2026-08-06 00:00:00",
+      "id": "ZtS8qPF7qLVi7i",
+      "kuzov": "ME51",
+      "year": "2010",
+      "grade": "Highway Star - Black Leather - Navi Edition V",
+      "rate": "4",
+      "auction": "MIRIVE Osaka",
+      "auction_date": "2026-08-06 10:56:00",
       "table": "main",
       "matched_on": "E51"
     },
@@ -325,7 +325,26 @@
     },
     "harvested_at": "2026-08-04"
   },
-  "E26": null,
+  "E26": {
+    "url": "/img/avto/E26-a7205382.jpg",
+    "make": "NISSAN",
+    "model": "CARAVAN VAN",
+    "chassis": "E26",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "mtmeTSj51B5mj5",
+      "kuzov": "VN6E26",
+      "year": "2023",
+      "grade": "4WD &#65400;&#65438;&#65431;&#65437;&#65412;&#65438; Premium GX",
+      "rate": "4.5",
+      "auction": "JU Miyagi",
+      "auction_date": "2026-08-07 00:00:00",
+      "table": "main",
+      "matched_on": "E26"
+    },
+    "harvested_at": "2026-08-04"
+  },
   "GMT400": {
     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Chevrolet-CK.jpg/960px-Chevrolet-CK.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Chevrolet",
@@ -703,7 +722,7 @@
       "grade": "G",
       "rate": "5",
       "auction": "JU Fukushima",
-      "auction_date": "2026-08-06 12:33:00",
+      "auction_date": "2026-08-06 13:21:00",
       "table": "main",
       "matched_on": "GB5"
     },
@@ -1400,21 +1419,21 @@
     "source": "wikipedia"
   },
   "CL1": {
-    "url": "/img/avto/CL1-2eb5a2c4.jpg",
+    "url": "/img/avto/CL1-81827f68.jpg",
     "make": "HONDA",
-    "model": "ACCORD",
+    "model": "TORNEO",
     "chassis": "CL1",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "2qqRu2JgfyeQMn4",
+      "id": "EvenJ0e0S5cBY1",
       "kuzov": "CL1",
-      "year": "2001",
+      "year": "2000",
       "grade": "Euro R",
       "rate": "3.5",
-      "auction": "JU Gifu",
-      "auction_date": "2026-08-01 08:08:00",
-      "table": "stats",
+      "auction": "JU Ibaraki",
+      "auction_date": "2026-08-05 12:16:00",
+      "table": "main",
       "matched_on": "CL1"
     },
     "harvested_at": "2026-08-04"
@@ -1934,7 +1953,7 @@
     "source": "wikipedia"
   },
   "CT9W": {
-    "url": "/img/avto/CT9W-a5da50b2.jpg",
+    "url": "/img/avto/CT9W-dea18f2b.jpg",
     "make": "MITSUBISHI",
     "model": "LANCER",
     "chassis": "CT9W",
@@ -1944,10 +1963,10 @@
       "id": "jDvEz3swL1zApYu",
       "kuzov": "CT9W",
       "year": "2006",
-      "grade": "4WD EVOLUTION GT-A",
+      "grade": "4WD Evolution GT-A",
       "rate": "3.5",
       "auction": "BAYAUC",
-      "auction_date": "2026-08-05 00:00:00",
+      "auction_date": "2026-08-05 10:21:00",
       "table": "main",
       "matched_on": "CT9W"
     },
@@ -2319,7 +2338,7 @@
       "grade": "Type RB",
       "rate": "3",
       "auction": "JU Ibaraki",
-      "auction_date": "2026-08-05 11:47:00",
+      "auction_date": "2026-08-05 11:58:00",
       "table": "main",
       "matched_on": "FD3S"
     },
@@ -2616,7 +2635,7 @@
       "grade": "20A",
       "rate": "3.5",
       "auction": "CAA Tokyo",
-      "auction_date": "2026-08-04 14:44:00",
+      "auction_date": "2026-08-04 08:05:00",
       "table": "main",
       "matched_on": "CL7"
     },
@@ -3006,20 +3025,20 @@
     "harvested_at": "2026-08-04"
   },
   "GB3": {
-    "url": "/img/avto/GB3-8cf92bb8.jpg",
+    "url": "/img/avto/GB3-ec42ba0b.jpg",
     "make": "HONDA",
     "model": "FREED",
     "chassis": "GB3",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "3xu3wZMeVtjmELX",
+      "id": "25PRq9FJnd7f2cW",
       "kuzov": "GB3",
-      "year": "2016",
-      "grade": "G PREMIUM EDITION",
+      "year": "2015",
+      "grade": "G Premium Edition",
       "rate": "4",
       "auction": "LAA Okayama",
-      "auction_date": "2026-08-07 10:04:00",
+      "auction_date": "2026-08-07 12:56:00",
       "table": "main",
       "matched_on": "GB3"
     },
@@ -3291,7 +3310,7 @@
       "grade": "4WD GSR Evolution X",
       "rate": "4",
       "auction": "BAYAUC",
-      "auction_date": "2026-08-05 00:00:00",
+      "auction_date": "2026-08-05 12:09:00",
       "table": "main",
       "matched_on": "CZ4A"
     },
@@ -3379,11 +3398,24 @@
     "source": "wikipedia"
   },
   "E52": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/2013_Nissan_Elgrand_3.5_Highway_Star_E52_%2820220726%29.jpg/960px-2013_Nissan_Elgrand_3.5_Highway_Star_E52_%2820220726%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "/img/avto/E52-750f8cba.jpg",
     "make": "NISSAN",
-    "model": "Elgrand",
+    "model": "ELGRAND",
     "chassis": "E52",
-    "source": "wikipedia"
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "vHtiYMSwD63n4",
+      "kuzov": "PE52",
+      "year": "2017",
+      "grade": "350 Highway Star",
+      "rate": "4",
+      "auction": "TAA Yokohama",
+      "auction_date": "2026-08-08 00:00:00",
+      "table": "main",
+      "matched_on": "E52"
+    },
+    "harvested_at": "2026-08-04"
   },
   "NHP130": {
     "url": "/img/avto/NHP130-16cd1a6f.jpg",
@@ -3947,20 +3979,20 @@
     "source": "wikipedia"
   },
   "C27": {
-    "url": "/img/avto/C27-b99b530b.jpg",
+    "url": "/img/avto/C27-1d6fa6fd.jpg",
     "make": "NISSAN",
     "model": "SERENA",
     "chassis": "C27",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "2LcEUEN75IACQG2",
-      "kuzov": "C27",
-      "year": "2022",
-      "grade": "S",
-      "rate": "3.5",
-      "auction": "JU Hiroshima",
-      "auction_date": "2026-08-06 14:27:00",
+      "id": "9eNht4TLmRzaFRM",
+      "kuzov": "GFC27",
+      "year": "2020",
+      "grade": "Highway Star -V",
+      "rate": "4.5",
+      "auction": "MIRIVE Aichi",
+      "auction_date": "2026-08-07 10:37:00",
       "table": "main",
       "matched_on": "C27"
     },
@@ -4705,40 +4737,40 @@
     "harvested_at": "2026-08-04"
   },
   "AYH30B": {
-    "url": "/img/avto/AYH30B-9d951a7c.jpg",
+    "url": "/img/avto/AYH30B-b9363329.jpg",
     "make": "TOYOTA",
     "model": "ALPHARD",
     "chassis": "AYH30B",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "lhj8uFLhDBVJg",
+      "id": "32wv3il7VQFy28R",
       "kuzov": "AYH30W",
       "year": "2021",
-      "grade": "S Type Gold 2 4WD",
-      "rate": "4",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-08-08 00:00:00",
+      "grade": "4WD Hybrid X",
+      "rate": "4.5",
+      "auction": "JU Gunma",
+      "auction_date": "2026-08-06 00:00:00",
       "table": "main",
       "matched_on": "AYH30"
     },
     "harvested_at": "2026-08-04"
   },
   "AYH30W1A": {
-    "url": "/img/avto/AYH30W1A-9d951a7c.jpg",
+    "url": "/img/avto/AYH30W1A-b9363329.jpg",
     "make": "TOYOTA",
     "model": "ALPHARD",
     "chassis": "AYH30W1A",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "lhj8uFLhDBVJg",
+      "id": "32wv3il7VQFy28R",
       "kuzov": "AYH30W",
       "year": "2021",
-      "grade": "S Type Gold 2 4WD",
-      "rate": "4",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-08-08 00:00:00",
+      "grade": "4WD Hybrid X",
+      "rate": "4.5",
+      "auction": "JU Gunma",
+      "auction_date": "2026-08-06 00:00:00",
       "table": "main",
       "matched_on": "AYH30W"
     },
@@ -4865,40 +4897,40 @@
     "harvested_at": "2026-08-04"
   },
   "C25": {
-    "url": "/img/avto/C25-6c558264.jpg",
+    "url": "/img/avto/C25-85b5e197.jpg",
     "make": "NISSAN",
     "model": "SERENA",
     "chassis": "C25",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "3wYTyaFdUTpPf5E",
-      "kuzov": "C25",
-      "year": "2008",
-      "grade": "20S",
+      "id": "bMdcxUY0NYQaZo",
+      "kuzov": "CC25",
+      "year": "2011",
+      "grade": "",
       "rate": "4",
-      "auction": "MIRIVE Osaka",
-      "auction_date": "2026-08-06 10:24:00",
+      "auction": "ZERO Shonan",
+      "auction_date": "2026-08-06 13:00:00",
       "table": "main",
       "matched_on": "C25"
     },
     "harvested_at": "2026-08-04"
   },
   "C26": {
-    "url": "/img/avto/C26-0b4b4bee.jpg",
+    "url": "/img/avto/C26-05ca96d9.jpg",
     "make": "NISSAN",
     "model": "SERENA",
     "chassis": "C26",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "tJDm2WbUv5IB5xf",
-      "kuzov": "C26",
-      "year": "2012",
-      "grade": "RIDER BLACK LINE",
-      "rate": "3.5",
-      "auction": "MIRIVE Aichi",
-      "auction_date": "2026-08-07 10:11:00",
+      "id": "2pr3U9SAE2cr7I",
+      "kuzov": "HFC26",
+      "year": "2015",
+      "grade": "H Star - V Selection +&#65406;&#65420;&#65411;&#65384;SHV",
+      "rate": "4",
+      "auction": "TAA Yokohama",
+      "auction_date": "2026-08-08 00:00:00",
       "table": "main",
       "matched_on": "C26"
     },
@@ -4938,7 +4970,7 @@
       "grade": "20A",
       "rate": "3.5",
       "auction": "CAA Tokyo",
-      "auction_date": "2026-08-04 14:44:00",
+      "auction_date": "2026-08-04 08:05:00",
       "table": "main",
       "matched_on": "CL7"
     },
@@ -5025,9 +5057,9 @@
     "harvested_at": "2026-08-04"
   },
   "CV1W": {
-    "url": "/img/avto/CV1W-916327be.jpg",
+    "url": "/img/avto/CV1W-c606eee3.jpg",
     "make": "MITSUBISHI",
-    "model": "DELICA",
+    "model": "DELICA D5",
     "chassis": "CV1W",
     "source": "avtonet",
     "credit": "Japanese auction listing",
@@ -5035,7 +5067,7 @@
       "id": "YGrHwuLMOemj0O",
       "kuzov": "CV1W",
       "year": "2024",
-      "grade": "P 4WD AWD 4WD",
+      "grade": "P 4WD",
       "rate": "4.5",
       "auction": "MIRIVE Osaka",
       "auction_date": "2026-08-06 11:47:00",
@@ -5058,7 +5090,7 @@
       "grade": "4WD G Power",
       "rate": "4",
       "auction": "JU Fukushima",
-      "auction_date": "2026-08-06 12:19:00",
+      "auction_date": "2026-08-06 13:05:00",
       "table": "main",
       "matched_on": "CV5W"
     },
@@ -5078,7 +5110,7 @@
       "grade": "4WD GSR Evolution X",
       "rate": "4",
       "auction": "BAYAUC",
-      "auction_date": "2026-08-05 00:00:00",
+      "auction_date": "2026-08-05 12:09:00",
       "table": "main",
       "matched_on": "CZ4A"
     },
@@ -5238,7 +5270,7 @@
       "grade": "M AT&#65404;&#65388;",
       "rate": "6",
       "auction": "IAA Osaka",
-      "auction_date": "2026-08-05 13:25:00",
+      "auction_date": "2026-08-05 14:47:00",
       "table": "main",
       "matched_on": "DS16T"
     },
@@ -5265,20 +5297,20 @@
     "harvested_at": "2026-08-04"
   },
   "E13A": {
-    "url": "/img/avto/E13A-8402d010.jpg",
+    "url": "/img/avto/E13A-3b62a600.jpg",
     "make": "NISSAN",
-    "model": "NOTE",
+    "model": "AURA",
     "chassis": "E13A",
     "source": "avtonet",
     "credit": "Japanese auction listing",
     "lot": {
-      "id": "2HCCNVzBK6K99oh",
-      "kuzov": "E13",
-      "year": "2021",
-      "grade": "2WD",
-      "rate": "4.5",
-      "auction": "LUM Kobe Nyusatsu",
-      "auction_date": "2026-08-06 15:00:00",
+      "id": "xGsAtoV2MTB0IE",
+      "kuzov": "FE13",
+      "year": "2025",
+      "grade": "G",
+      "rate": "5",
+      "auction": "JU Miyagi",
+      "auction_date": "2026-08-07 00:00:00",
       "table": "main",
       "matched_on": "E13"
     },
@@ -5298,7 +5330,7 @@
       "grade": "Type R",
       "rate": "4",
       "auction": "CAA Tokyo",
-      "auction_date": "2026-08-04 11:02:00",
+      "auction_date": "2026-08-04 08:05:00",
       "table": "main",
       "matched_on": "FD2"
     },
@@ -8981,6 +9013,26 @@
       "auction_date": "2026-08-07 00:00:00",
       "table": "main",
       "matched_on": "ZYX10"
+    },
+    "harvested_at": "2026-08-04"
+  },
+  "ARVCSS21401D": {
+    "url": "/img/avto/ARVCSS21401D-f9005011.jpg",
+    "make": "TOYOTA",
+    "model": "CROWN",
+    "chassis": "ARVCSS21401D",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "71enrzE7gUza9yS",
+      "kuzov": "GWS214",
+      "year": "2017",
+      "grade": "F Ver. J-&#65420; Low &#65437;&#65411;&#65384;&#65393;",
+      "rate": "4",
+      "auction": "JU Saitama",
+      "auction_date": "2026-08-04 08:05:00",
+      "table": "main",
+      "matched_on": "S214"
     },
     "harvested_at": "2026-08-04"
   }
