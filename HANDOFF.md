@@ -291,20 +291,35 @@ than the S3-compatible endpoint. That means an ordinary Cloudflare API token
 with **Workers R2 Storage: Edit** — no separate access-key pair to mint, store
 and rotate. The nightly Action reuses the existing `CLOUDFLARE_API_TOKEN`.
 
-### Still on you
+### Credentials — both verified 2026-08-04
 
-- **`AVTONET_CODE`** is deliberately *not* set. The finder's `.dev.vars` carries
-  an explicit "rotate if this file ever leaves the machine" warning, and the
-  token that works from a local IP may not be the one GitHub runners need — the
-  relay exists precisely because the provider IP-restricts direct access. Set it
-  to the same value as the finder Worker's `AVTONET_CODE` secret:
-  `gh secret set AVTONET_CODE --repo jatecurtis95/jdm-import-eligibility`
-- **Confirm `CLOUDFLARE_API_TOKEN` has Workers R2 Storage: Edit.** If the
-  nightly run fails on upload, that permission is why.
+A live `workflow_dispatch` run (`limit=8`) exercised the whole path end to end
+and succeeded:
 
-Neither blocks the site: the initial backfill was run locally, so every photo is
-already in R2 and in `photos.json`. These two only affect *ongoing* nightly
-top-ups for newly-added register entries.
+- **`AVTONET_CODE`** is set to the provider's direct endpoint + token (the same
+  pair as the finder's local `.dev.vars`), and it works from GitHub runners —
+  14 feed queries, 0 retries, no IP block. The relay is *not* required here.
+  If the provider ever tightens IP access, switch `AVTONET_API_BASE` to
+  `https://jdmconnect.com.au/jdm-relay.php`, `AVTONET_QUERY_PARAM` to `q`, and
+  `AVTONET_CODE` to the relay token (the finder Worker's secret of that name).
+- **`CLOUDFLARE_API_TOKEN`** does carry Workers R2 Storage: Edit — the run
+  uploaded successfully.
+
+That run also confirmed the job is idempotent: its only match was `GGA10`, which
+`photo_overrides.json` deletes, so `photos.json` came out byte-identical and
+nothing was committed.
+
+### Known rough edges
+
+- **Duplicate objects.** Codes that resolve to the same lot photo (`A202A` and
+  `A202A01C`, both the Raize) get separate R2 keys holding identical bytes —
+  roughly 15–20% overhead on a ~15MB bucket. Fixable by naming objects purely by
+  content hash, at the cost of losing the greppable chassis code in the key.
+- **Two corrupt source images** (`MZRA97`, `S402M`) — the CDN served a 43-byte
+  stub and a truncated JPEG. Correctly rejected; they retry on each nightly run.
+- **~425 codes will never match.** Mostly ROVER revision artefacts (`WIH401B`,
+  `WIRX81C`) and US-market or campervan models. They keep their Wikipedia photo
+  and are skipped for 30 days at a time.
 
 ## Operating it
 

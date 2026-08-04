@@ -618,8 +618,11 @@ def harvest(args: argparse.Namespace) -> int:
 
     save()
 
+    # Count what was actually written, not the in-memory dict: overrides are
+    # applied on the way to disk, so a deleted key (GGA10) would otherwise be
+    # reported as present and the summary wouldn't match the file.
     by_source: dict[str, int] = {}
-    for v in photos.values():
+    for v in apply_overrides(dict(photos)).values():
         if isinstance(v, dict):
             by_source[v.get("source", "?")] = by_source.get(v.get("source", "?"), 0) + 1
 
