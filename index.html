@@ -560,11 +560,16 @@
 // third-party runtime dependency) and gated against scraping. The GitHub raw
 // copy is the fallback if the Function ever errors, so a data outage needs
 // BOTH to fail. Order matters — GitHub raw is not a supported production CDN.
+// Canonical repo name. These pointed at `rover-eligibility`, which still
+// resolves only because GitHub redirects renamed repositories — and the second
+// DATA_URLS entry is the site's safety net if /api/data is down, so leaning it
+// on a redirect GitHub could retire was a quiet single point of failure. The
+// redirect also costs an extra hop on every cold load.
 const DATA_URLS = [
   '/api/data',
-  'https://raw.githubusercontent.com/jatecurtis95/rover-eligibility/main/functions/_data/data.json'
+  'https://raw.githubusercontent.com/jatecurtis95/jdm-import-eligibility/main/functions/_data/data.json'
 ];
-const PHOTOS_URL = 'https://raw.githubusercontent.com/jatecurtis95/rover-eligibility/main/functions/_data/photos.json';
+const PHOTOS_URL = 'https://raw.githubusercontent.com/jatecurtis95/jdm-import-eligibility/main/functions/_data/photos.json';
 const QUOTE_EMAIL = 'info@jdmconnect.com.au';
 // Conversion channels. WhatsApp always opens (app or web) so it replaces the
 // mailto: that silently failed on machines without a mail client. The finder
