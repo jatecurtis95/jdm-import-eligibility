@@ -113,10 +113,15 @@ FEED_DELAY_S = 0.4
 FEED_LIMIT = 25
 FEED_RETRIES = 4
 FEED_BACKOFF_S = 5
-# Matches are checkpointed to photos.json this often. A backfill is a long run
-# against a gateway that will drop a connection eventually; losing 20 minutes of
-# work to the last query is not acceptable, so progress is durable as it goes.
-CHECKPOINT_EVERY = 20
+# Checkpoint every N codes PROCESSED — not per match found. Most codes on the
+# remaining backlog are ROVER artefacts that will never match, so a match-based
+# checkpoint almost never fired and a killed run lost every miss it had recorded,
+# leaving the nightly job to re-query the same dead codes forever.
+CHECKPOINT_EVERY = 25
+# Stop cleanly before the CI job's own timeout kills us. A hard kill loses
+# whatever hasn't been checkpointed and, worse, makes no durable progress — the
+# run must end on its own terms and save.
+DEFAULT_MAX_MINUTES = 35
 # R2's API rate-limits sustained uploads (31 photos were dropped to HTTP 429 on
 # the first full backfill), so uploads retry on their own schedule.
 R2_RETRIES = 4
@@ -688,7 +693,13 @@ def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, a
     matched = uploaded = failed = 0
     unmatched: list[str] = []
 
+    deadline = (time.monotonic() + args.max_minutes * 60) if args.max_minutes else None
     for i, key in enumerate(todo, 1):
+        if deadline and time.monotonic() > deadline:
+            save()
+            print(f"\nreached the {args.max_minutes}-minute budget after {i - 1} codes — "
+                  f"stopping cleanly with {len(todo) - i + 1} left for the next run")
+            break
         t = addressable[key]
         lot, token, table = None, None, None
         for tbl in ("main", "stats"):  # live lots first, sold history as backup
@@ -702,6 +713,8 @@ def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, a
             unmatched.append(key)
             misses[key] = today  # don't re-query this one every night
             print(f"{label} — no auction match (keeps existing photo)")
+            if i % CHECKPOINT_EVERY == 0:
+                save()
             continue
 
         src_url = lot_photo_url(lot)
@@ -773,9 +786,8 @@ def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, a
         print(f"{label} → {table}/{lot.get('kuzov')} {lot.get('year')} "
               f"{lot.get('model_name')}")
 
-        if matched % CHECKPOINT_EVERY == 0:
+        if i % CHECKPOINT_EVERY == 0:
             save()
-            print(f"    … checkpointed {matched} matches to photos.json")
 
     if unmatched:
         print(f"\nno auction match ({len(unmatched)}): {', '.join(unmatched[:20])}"
@@ -858,6 +870,8 @@ def main() -> int:
                    help="match and report; write no files and upload nothing")
     p.add_argument("--no-upload", action="store_true",
                    help="write photos.json but skip R2 (local testing)")
+    p.add_argument("--max-minutes", type=float, default=DEFAULT_MAX_MINUTES,
+                   help="stop cleanly after this many minutes (0 = no budget)")
     p.add_argument("--review", metavar="PATH",
                    help="write an HTML contact sheet of this run's matches for review")
     return harvest(p.parse_args())
