@@ -1593,11 +1593,24 @@
     "harvested_at": "2026-08-04"
   },
   "R35": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/2009-2010_Nissan_GT-R_%28R35%29_coupe_01.jpg/960px-2009-2010_Nissan_GT-R_%28R35%29_coupe_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "/img/avto/R35-859300af.jpg",
     "make": "NISSAN",
     "model": "GT-R",
     "chassis": "R35",
-    "source": "wikipedia"
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "JqjdPSwucRfNkz",
+      "kuzov": "R35",
+      "year": "2018",
+      "grade": "&#65414;&#65405;&#65427; 4WD",
+      "rate": "4.5",
+      "auction": "CAA Chubu",
+      "auction_date": "2026-07-29 08:03:00",
+      "table": "stats",
+      "matched_on": "R35"
+    },
+    "harvested_at": "2026-08-04"
   },
   "SXE10": {
     "url": "/img/avto/SXE10-54a0de58.jpg",
@@ -9033,6 +9046,46 @@
       "auction_date": "2026-08-04 08:05:00",
       "table": "main",
       "matched_on": "S214"
+    },
+    "harvested_at": "2026-08-04"
+  },
+  "JDWINZSH35B": {
+    "url": "/img/avto/JDWINZSH35B-5dc69c24.jpg",
+    "make": "TOYOTA",
+    "model": "CROWN CROSSOVER",
+    "chassis": "JDWINZSH35B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2jRuT9lUaej5Y1Z",
+      "kuzov": "TZSH35",
+      "year": "2023",
+      "grade": "RS Advanced 4WD",
+      "rate": "6",
+      "auction": "JU Aichi",
+      "auction_date": "2026-08-06 00:00:00",
+      "table": "main",
+      "matched_on": "ZSH35"
+    },
+    "harvested_at": "2026-08-04"
+  },
+  "R34": {
+    "url": "/img/avto/R34-aa6134da.jpg",
+    "make": "NISSAN",
+    "model": "SKYLINE",
+    "chassis": "R34",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "ncFEjyhEWyxxKh",
+      "kuzov": "BNR34",
+      "year": "2002",
+      "grade": "V Specification 2&#65414;&#65389;&#65433; 4WD",
+      "rate": "4.5",
+      "auction": "JU Ibaraki",
+      "auction_date": "2026-08-05 11:36:00",
+      "table": "main",
+      "matched_on": "R34"
     },
     "harvested_at": "2026-08-04"
   }
