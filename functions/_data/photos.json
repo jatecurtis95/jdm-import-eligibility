@@ -3684,11 +3684,24 @@
     "source": "wikipedia"
   },
   "S402M": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Toyota_TownAce_Van_1.5_DX_%28DBF-S402M%29_in_White%2C_rear_right.jpg/960px-Toyota_TownAce_Van_1.5_DX_%28DBF-S402M%29_in_White%2C_rear_right.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "make": "Toyota",
-    "model": "Townace",
+    "url": "/img/avto/S402M-b5939033.jpg",
+    "make": "TOYOTA",
+    "model": "TOWN ACE VAN",
     "chassis": "S402M",
-    "source": "wikipedia"
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "24HaK1R8SOM9sDl",
+      "kuzov": "S402M",
+      "year": "2020",
+      "grade": "GL",
+      "rate": "4",
+      "auction": "JU Tochigi",
+      "auction_date": "2026-08-07 13:16:00",
+      "table": "main",
+      "matched_on": "S402M"
+    },
+    "harvested_at": "2026-08-05"
   },
   "U68": {
     "url": "/img/avto/U68-477bc7be.jpg",
