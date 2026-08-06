@@ -538,6 +538,7 @@
     <div class="fjp">日本車を、オーストラリアへ</div>
     <p>Data sourced live from the Australian Government ROVER portal (SEVS Register &amp; Model Report Approvals). Refreshed daily.</p>
     <p>This register is a guide only, always confirm eligibility with an import agent before purchase.</p>
+    <p>Know it can come in? Work out what it costs on the road with the free <a id="footerCalc" href="https://jdmfinder.com.au/tools/calculator?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=footer" target="_blank" rel="noopener">landed cost calculator</a>.</p>
     <p><a href="https://jdmconnect.com.au">jdmconnect.com.au</a> · <a href="mailto:info@jdmconnect.com.au">info@jdmconnect.com.au</a></p>
   </div>
 </footer>
@@ -577,6 +578,17 @@ const QUOTE_EMAIL = 'info@jdmconnect.com.au';
 // jdmfinder.com.au — the old finder.jdmconnect.com.au host now just 301s there.
 const WA_NUMBER = '61415111221';
 const FINDER_REQUEST_URL = 'https://jdmfinder.com.au/request';
+// The finder's free landed-cost calculator. This register answers "can it come
+// in?"; that answers "what does it cost on the road?" — the other half of the
+// only two questions that decide an import. Until now every link out of here
+// went to /request, so the cross-link ran one way only.
+//
+// NOTE the absence of an `f` parameter, and do not add one. In the calculator's
+// form parser `f` means "the form has been submitted", which makes every
+// unticked checkbox mean OFF — a link carrying it would quote the car with no
+// on-road costs and read thousands under the truth. Without it the calculator
+// opens on its own sensible defaults.
+const FINDER_CALCULATOR_URL = 'https://jdmfinder.com.au/tools/calculator';
 // Canonical public host — used to build shareable vehicle links a user can send
 // to a client. Fixed to the brand domain so a shared link always lands on the
 // canonical site regardless of which host (preview, .com) it was copied from.
@@ -588,6 +600,13 @@ function shareUrlFor(r){ return SITE_URL+'/'+vehicleHash(r); }
 function finderHref(medium, extra){
   const q = new URLSearchParams(Object.assign({src:'eligibility', utm_source:'eligibility', utm_medium:medium}, extra||{}));
   return FINDER_REQUEST_URL+'?'+q.toString();
+}
+// Same tracking shape as finderHref, pointed at the calculator instead. The
+// register carries no price (it lists approved models, not listings), so there
+// is nothing to prefill — the link just opens the tool.
+function calculatorHref(medium){
+  const q = new URLSearchParams({src:'eligibility', utm_source:'eligibility', utm_medium:medium});
+  return FINDER_CALCULATOR_URL+'?'+q.toString();
 }
 function waHref(text){ return 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(text); }
 
@@ -1380,6 +1399,9 @@ function openPanel(r, nav){
     +'<div class="cta-actions">'
     +'<a class="btn-gold cta-lead" data-ch="whatsapp" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(waHref(waText))+'" target="_blank" rel="noopener">WhatsApp us about this car</a>'
     +'<a class="btn-line cta-lead" data-ch="form" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(finderHref('detail_panel'))+'" target="_blank" rel="noopener">Request a quote online →</a>'
+    // Deliberately not a .cta-lead: this opens a free tool, it is not a lead
+    // capture, and tagging it as one would inflate the Lead conversion count.
+    +'<a class="btn-line cta-tool" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(calculatorHref('detail_panel'))+'" target="_blank" rel="noopener">Work out the landed cost →</a>'
     +'</div></div>';
 
   // Send-to-client: a shareable deep link that reopens this exact vehicle.
@@ -1575,6 +1597,10 @@ function wire(){
   $('pBody').addEventListener('click', e=>{
     const cta=e.target.closest('.cta-lead');
     if(cta){ track('eligibility_quote_click',{channel:cta.dataset.ch,vehicle:cta.dataset.veh,ref:cta.dataset.ref}); trackFb('Lead',{content_name:cta.dataset.veh,content_category:'eligibility_quote'}); return; }
+    // A free-tool click, counted on its own. No Lead event: nobody has given us
+    // their details by opening a calculator.
+    const tool=e.target.closest('.cta-tool');
+    if(tool){ track('eligibility_tool_click',{tool:'calculator',vehicle:tool.dataset.veh,ref:tool.dataset.ref}); return; }
     const sh=e.target.closest('[data-share]');
     if(sh){
       if(sh.dataset.share==='native'){ e.preventDefault(); shareVehicleLink(sh); }
