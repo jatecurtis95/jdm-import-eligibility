@@ -49,3 +49,15 @@ jobs:
         env:
           SUPABASE_PAT:         ${{ secrets.SUPABASE_PAT }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+
+      # Verify the mirror actually matches the register it was built from.
+      # The eligibility rule lives in four independent implementations (see the
+      # script header); this is what stops one of them drifting silently. Runs
+      # even if the refresh step failed, because a half-finished sync is exactly
+      # the state worth reporting.
+      - name: check for drift
+        if: ${{ !cancelled() }}
+        run: npx --yes tsx@4 scripts/check-eligibility-drift.ts
+        env:
+          SUPABASE_PAT:         ${{ secrets.SUPABASE_PAT }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
