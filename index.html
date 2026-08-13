@@ -70,15 +70,10 @@
   .header-right{margin-left:auto;display:flex;align-items:center;gap:14px}
   .updated{display:none;align-items:center;gap:6px;font-size:11.5px;color:#c9bfa8;background:#211b12;border:1px solid #3a342a;border-radius:999px;padding:0 13px;min-height:40px;white-space:nowrap;line-height:1;}
   .updated b{color:var(--header-ink);font-weight:600}
-  .btn-export{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--gold-bright);border:1px solid #5a4e34;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600;min-height:40px;transition:background .2s ease, border-color .2s ease, transform .08s ease;}
-  .btn-export:hover{background:#211b12;border-color:#7a6a45}
-  .btn-export:active{transform:scale(.97)}
-  .btn-export svg{width:15px;height:15px}
   .btn-quote{display:inline-flex;align-items:center;gap:7px;background:var(--gold-bright);color:#1a1407;border:1px solid var(--gold-bright);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;min-height:40px;text-decoration:none;white-space:nowrap;transition:filter .15s ease, transform .08s ease;}
   .btn-quote:hover{filter:brightness(1.06)}
   .btn-quote:active{transform:scale(.97)}
-  .btn-export{display:none}
-  @media (min-width:560px){ .brand .sub{display:block} .brand-logo{width:225px;max-width:none} .btn-export{display:inline-flex} }
+  @media (min-width:560px){ .brand .sub{display:block} .brand-logo{width:225px;max-width:none} }
   @media (min-width:900px){ .updated{display:inline-flex} }
 
   .hero{padding:26px 0 8px}
@@ -421,11 +416,7 @@
     </a>
     <div class="header-right">
       <div class="updated">Data updated&nbsp;<b id="updatedDate">loading…</b></div>
-      <button class="btn-export" id="exportBtn" type="button" aria-label="Export the current filtered list as CSV" title="Download the current filtered list as a spreadsheet (CSV)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
-        Export CSV
-      </button>
-      <a class="btn-quote" id="headerQuote" href="https://jdmfinder.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=header" target="_blank" rel="noopener">Get a quote</a>
+      <a class="btn-quote" id="headerQuote" href="https://jdmfinder.com.au/tools/calculator?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=header" target="_blank" rel="noopener">Get a quote</a>
     </div>
   </div>
 </header>
@@ -435,7 +426,7 @@
     <div class="eyebrow"><span class="rule"></span> SEVS + MRE &middot; Live government data<span id="heroUpdated" class="hero-updated"></span></div>
     <h1 class="title">Can I import it?</h1>
     <p class="lead">The full <b>SEVS</b> and <b>Model Report (MRE)</b> registers, live Australian Government ROVER data, updated daily.</p>
-    <p class="hero-cta-line">Know the model? Search below. Not sure where to start? <a id="heroQuote" class="hero-cta" href="https://jdmfinder.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=hero" target="_blank" rel="noopener">Get a free eligibility check &rarr;</a></p>
+    <p class="hero-cta-line">Know the model? Search below. Not sure where to start? <a id="heroQuote" class="hero-cta" href="https://jdmfinder.com.au/signup?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=hero" target="_blank" rel="noopener">Get a free eligibility check &rarr;</a></p>
 
     <div class="stats" id="stats">
       <div class="stat"><div class="n" id="stSev" data-count="0"></div><div class="l">SEVS entries</div></div>
@@ -495,7 +486,7 @@
       <h3>No exact match in the register</h3>
       <div id="emptyMsg">Try a shorter search (just the model or chassis code), clear a filter, or untick “Currently eligible” to include models that don’t have a Model Report yet.</div>
       <div class="empty-cta">Can’t find your car? It may still be importable under a new or pending pathway, the register only shows what’s currently approved.
-        <a id="emptyQuote" href="https://jdmfinder.com.au/request?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=empty_state" target="_blank" rel="noopener">Get a free eligibility check →</a>
+        <a id="emptyQuote" href="https://jdmfinder.com.au/signup?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=empty_state" target="_blank" rel="noopener">Get a free eligibility check →</a>
       </div>
     </div>
     <div id="pagination" class="pagination" style="display:none">
@@ -576,7 +567,10 @@ const QUOTE_EMAIL = 'info@jdmconnect.com.au';
 // form is a tracked lead capture into the JDM Connect CRM. Link straight to
 // jdmfinder.com.au — the old finder.jdmconnect.com.au host now just 301s there.
 const WA_NUMBER = '61415111221';
-const FINDER_REQUEST_URL = 'https://jdmfinder.com.au/request';
+// V1.15 (owner): the old /request wizard is retired as a destination. Quote
+// intent goes to the finder's landed cost calculator; the free-check CTAs go
+// to the free signup (the account is how a human check is requested now).
+const FINDER_REQUEST_URL = 'https://jdmfinder.com.au/tools/calculator';
 // Canonical public host — used to build shareable vehicle links a user can send
 // to a client. Fixed to the brand domain so a shared link always lands on the
 // canonical site regardless of which host (preview, .com) it was copied from.
@@ -1474,34 +1468,8 @@ function applyDeepLink(){
   if(target) openPanel(target);
 }
 
-/* ---------- CSV export ---------- */
-// Quote a CSV cell, neutralising spreadsheet formula injection: a scraped value
-// starting with = + - @ (or a control char) is prefixed with ' so Excel/Sheets
-// treat it as text, not a formula.
-function csvCell(v){
-  let s = String(v==null?'':v);
-  if(/^[=+\-@\t\r]/.test(s)) s = "'"+s;
-  return '"'+s.replace(/"/g,'""')+'"';
-}
-function exportCSV(){
-  const list = filtered();
-  const cols = ['Type','Number','Make','Model','Chassis code','Build from','Build to','Category','Criterion','Expiry','Status','Model reports (MRE)','Source market','Odometer limit','Approval holder','ROVER link'];
-  const lines = [cols.map(csvCell).join(',')];
-  list.forEach(r=>{
-    const st = statusOf(r);
-    const ws = r.type==='SEV' ? (r.mres||[]).map(m=>m.id+' '+(m.holderShort||m.holder||'')).join('; ') : (r.holderShort||'');
-    const o = odoInfo(r);
-    const vals = [r.type,r.id,titleMake(r.make),r.model,r.code,fmtMY(r.from),r.to?fmtMY(r.to):'',r.cat,r.pathRaw,r.expiryRaw,st.label,ws,marketsFor(r).join(' · '),o?o.text:'',r.holder||'',r.url];
-    lines.push(vals.map(csvCell).join(','));
-  });
-  track('eligibility_export_csv', {rows:list.length});
-  const blob = new Blob([lines.join('\n')], {type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'jdmconnect-register-'+new Date().toISOString().slice(0,10)+'.csv';
-  a.click();
-  URL.revokeObjectURL(a.href);
-}
+/* CSV export removed (V1.15, owner): the register is a lookup, not a bulk
+   dataset handout. */
 
 /* ---------- wiring ---------- */
 function populateFilters(){
@@ -1565,7 +1533,6 @@ function wire(){
   $('empty').addEventListener('click', e=>{
     if(e.target.closest('#showAllBtn')){ $('tReady').checked=false; F.view='all'; resetAndRender(); }
   });
-  $('exportBtn').addEventListener('click', exportCSV);
   $('prevBtn')?.addEventListener('click', ()=>{ currentPage--; render(); scrollToResults(); });
   $('nextBtn')?.addEventListener('click', ()=>{ currentPage++; render(); scrollToResults(); });
   const openFrom = el=>{ const row = el.closest('[data-i]'); if(row) openPanel(rows[+row.dataset.i]); };
