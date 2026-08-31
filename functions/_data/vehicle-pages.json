@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-31T05:57:03.752Z",
-  "page_count": 36,
-  "published_count": 21,
+  "generated_at": "2026-08-31T06:58:59.479Z",
+  "page_count": 37,
+  "published_count": 22,
   "scheduled_count": 15,
   "drifted_count": 0,
   "pages": [
@@ -5902,23 +5902,23 @@
       ],
       "slug": "toyota-aqua",
       "intel": {
-        "segment": "light hybrid",
-        "is_gated": false,
+        "segment": "accessibility hybrid",
+        "is_gated": true,
         "body_type": "hatch",
         "fuel_type": "petrol hybrid",
-        "gate_note": null,
+        "gate_note": "Welcab conversion scope.",
         "seats_max": null,
         "seats_min": null,
         "confidence": "medium",
-        "drivetrain": "FWD / E-Four",
-        "generation": "P10 (2011-2021) / P16 (2021-)",
+        "drivetrain": "FWD",
+        "generation": "P10 (2011-2021)",
         "seats_note": null,
-        "watch_outs": "First-gen battery age; check for taxi use.",
-        "engine_desc": "1.5 hybrid; new MXPK series adds bipolar NiMH battery and E-Four.",
-        "demand_level": "medium",
+        "watch_outs": "Welcab seat mechanism service; approval is Welcab-scoped.",
+        "engine_desc": "1.5 hybrid with factory rotating/lift passenger seat.",
+        "demand_level": "low",
         "transmission": "e-CVT",
-        "buyer_profile": "City hybrid buyers; the new-gen Aqua was never sold here.",
-        "why_desirable": "Ultra-frugal and cheap; second-gen is a genuinely modern small hybrid."
+        "buyer_profile": "Accessibility buyers wanting a small efficient car.",
+        "why_desirable": "Factory Toyota Welcab quality in the cheapest hybrid package."
       },
       "counts": {
         "usable": 10,
@@ -6279,6 +6279,131 @@
       "scheduled_publish_at": "2026-10-16T00:00:00+00:00",
       "reviewed_availability": "importable",
       "embargoed": true
+    },
+    {
+      "h1": "Is the Toyota Chaser eligible for import to Australia?",
+      "faqs": [
+        {
+          "a": "Some are. The table above shows the live register approvals. Many JZX100s are also old enough for the 25-year pathway, which is a rolling date and does not use this register at all, so check your build month before assuming you need an approval.",
+          "q": "Is the Toyota Chaser eligible for import to Australia?"
+        },
+        {
+          "a": "The turbocharged JZX100 Chaser with the 1JZ-GTE. Tourer S is the naturally aspirated one. If someone is selling you a Tourer S at Tourer V money, walk away.",
+          "q": "What is a Tourer V?"
+        },
+        {
+          "a": "Three bodies on the same platform, sold through different Toyota dealer networks in Japan. The Chaser is the one with the reputation, but the others are the same car underneath and usually cheaper.",
+          "q": "Chaser, Mark II or Cresta?"
+        },
+        {
+          "a": "Whether the engine is original and whether the car has been drifted. These have been thrashed for twenty five years and a tidy shell can hide a hard life. Auction sheet, compression check, and look at the rails.",
+          "q": "What should I check?"
+        },
+        {
+          "a": "It is a genuinely strong engine and there is a deep aftermarket for it here. That is also the problem: most have been modified, and a stock one with paperwork is worth paying up for.",
+          "q": "Is the 1JZ as good as everyone says?"
+        }
+      ],
+      "slug": "toyota-chaser",
+      "intel": {
+        "segment": "performance sedan",
+        "is_gated": false,
+        "body_type": "sedan",
+        "fuel_type": "petrol",
+        "gate_note": null,
+        "seats_max": null,
+        "seats_min": null,
+        "confidence": "medium",
+        "drivetrain": "RWD",
+        "generation": "X100 (1996-2001)",
+        "seats_note": null,
+        "watch_outs": "Most have drift history: inspect chassis rails, rear quarters and diff condition; verify genuine factory manuals.",
+        "engine_desc": "Turbo 1JZ-GTE with optional factory 5-speed manual.",
+        "demand_level": "high",
+        "transmission": "4-speed auto or 5MT",
+        "buyer_profile": "Drifters and JDM sedan enthusiasts; manual cars command big premiums.",
+        "why_desirable": "The definitive drift sedan - factory turbo, RWD, manual available, Toyota reliability."
+      },
+      "counts": {
+        "usable": 3,
+        "expired": 0,
+        "under_review": 0,
+        "expiring_soon": 0,
+        "sev_basis_gone": 0
+      },
+      "aka_names": [
+        "Chaser",
+        "JZX100",
+        "Tourer V",
+        "JZX90",
+        "1JZ",
+        "Chaser Tourer V"
+      ],
+      "approvals": [
+        {
+          "model": "Chaser Tourer V",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2001-07-01",
+          "category": null,
+          "build_from": "1996-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=8c96a7aa-66a2-ed11-aad1-00224893b509",
+          "model_code": "JZX100 (MANUAL) / JZX100 (AUTOMATIC) / MARK II JZX100 (MANUAL) / MARK II JZX100 (AUTOMATIC)",
+          "approval_number": "MRE-000164",
+          "build_date_range": "1/1996 - 7/2001",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Chaser Tourer V",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2001-07-01",
+          "category": null,
+          "build_from": "1996-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=08f624c3-6ef5-ed11-8849-002248933225",
+          "model_code": "VSA-JZX100",
+          "approval_number": "MRE-000263",
+          "build_date_range": "1/1996 - 7/2001",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Chaser Tourer V",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2001-07-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "1996-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=f177ea12-06a4-f011-bbd3-00224897a93b",
+          "model_code": "JZX100",
+          "approval_number": "SEV-000963",
+          "build_date_range": null,
+          "compliance_level": null
+        }
+      ],
+      "make_norm": "TOYOTA",
+      "title_tag": "Toyota Chaser Import Eligibility Australia | JDM Connect",
+      "intro_copy": "A four door sedan with a turbocharged straight six and rear wheel drive, which is a sentence nobody gets to write about a new car any more.\n\nThe Tourer V is the one. JZX100, 1JZ-GTE, and the reason the Chaser has the following it does. It was the sensible-looking car that was not sensible at all, and prices have finally worked that out.\n\nMost JZX100s are old enough now that age gets them in without touching this register. The table below is the register route, and which one applies comes down to your build month.",
+      "reviewed_at": "2026-08-31T06:58:27.880313+00:00",
+      "reviewed_by": "jate (approved in advance)",
+      "availability": "importable",
+      "publish_ready": true,
+      "canonical_name": "Toyota Chaser",
+      "primary_keyword": "toyota chaser import australia",
+      "usable_build_to": "2001-07-01",
+      "meta_description": "Can a Toyota Chaser Tourer V be imported to Australia? Live approvals by build date, read from the ROVER register and rechecked daily.",
+      "usable_build_from": "1996-01-01",
+      "usable_build_open": false,
+      "secondary_keywords": [
+        "jzx100 chaser import",
+        "chaser tourer v import",
+        "1jz chaser australia",
+        "chaser sevs"
+      ],
+      "scheduled_publish_at": null,
+      "reviewed_availability": "importable"
     },
     {
       "h1": "Is the Toyota Corolla Fielder eligible for import to Australia?",
