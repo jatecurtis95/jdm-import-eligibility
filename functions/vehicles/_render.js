@@ -39,8 +39,14 @@ export function esc(v) {
 // still describing a car you can buy. scripts/build-vehicle-pages.ts sets
 // stale when the verdict has moved, and the page drops out of the index until
 // someone rereads it.
+//
+// embargoed is the same mechanism pointed the other way: a page written and
+// approved ahead of time, held back until its scheduled date so a batch of new
+// pages arrives as a trickle rather than all at once.
 export function isLive(page) {
-  return Boolean(page && page.publish_ready && page.reviewed_by && !page.stale);
+  return Boolean(
+    page && page.publish_ready && page.reviewed_by && !page.stale && !page.embargoed,
+  );
 }
 
 const CSS = `

@@ -88,6 +88,7 @@ select jsonb_build_object(
   'reviewed_by',       st.reviewed_by,
   'reviewed_at',       st.reviewed_at,
   'reviewed_availability', mp.reviewed_availability,
+  'scheduled_publish_at', mp.scheduled_publish_at,
   'usable_build_from', st.usable_build_from,
   'usable_build_to',   st.usable_build_to,
   'usable_build_open', st.usable_build_open,
@@ -181,7 +182,7 @@ function xmlEscape(s: string): string {
 // Only reviewed, publish_ready pages go in the sitemap. Everything else is
 // served noindex, and asking Google to crawl a noindex URL is just noise.
 function rewriteSitemap(pages: any[]): number {
-  const live = pages.filter((p) => p.publish_ready && p.reviewed_by && !p.stale);
+  const live = pages.filter((p) => p.publish_ready && p.reviewed_by && !p.stale && !p.embargoed);
   const today = new Date().toISOString().slice(0, 10);
 
   const urls = [
@@ -293,10 +294,25 @@ async function main(): Promise<void> {
   assertSane(pages);
   const drifted = markDrift(pages);
 
+  // A future date holds the page back regardless of approval. The nightly
+  // build is the release mechanism, so a page goes live on the first build
+  // after its moment passes and nobody has to remember anything.
+  const now = Date.now();
+  let scheduled = 0;
+  for (const p of pages) {
+    if (!p.scheduled_publish_at) continue;
+    const at = Date.parse(p.scheduled_publish_at);
+    if (Number.isFinite(at) && at > now) {
+      p.embargoed = true;
+      scheduled++;
+    }
+  }
+
   const bundle = {
     generated_at: new Date().toISOString(),
     page_count: pages.length,
-    published_count: pages.filter((p) => p.publish_ready && p.reviewed_by && !p.stale).length,
+    published_count: pages.filter((p) => p.publish_ready && p.reviewed_by && !p.stale && !p.embargoed).length,
+    scheduled_count: pages.filter((p) => p.embargoed).length,
     drifted_count: pages.filter((p) => p.stale).length,
     pages,
   };
@@ -307,14 +323,16 @@ async function main(): Promise<void> {
 
   console.log(
     `vehicle-pages.json: ${pages.length} pages, ` +
-      `${bundle.published_count} published, ${inSitemap} in sitemap`,
+      `${bundle.published_count} published, ${bundle.scheduled_count} scheduled, ${inSitemap} in sitemap`,
   );
   for (const p of pages) {
     const state = p.stale
       ? "DRIFTED "
-      : p.publish_ready && p.reviewed_by
-        ? "LIVE    "
-        : "noindex ";
+      : p.embargoed
+        ? `DUE ${String(p.scheduled_publish_at).slice(0, 10)}`
+        : p.publish_ready && p.reviewed_by
+          ? "LIVE      "
+          : "noindex   ";
     console.log(
       `  ${state} ${String(p.slug).padEnd(26)} ${String(p.availability).padEnd(18)} ` +
         `${p.approvals.length} live approval(s)` +

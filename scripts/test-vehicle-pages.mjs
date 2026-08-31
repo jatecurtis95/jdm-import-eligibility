@@ -111,6 +111,17 @@ check("a drifted page is dropped from the hub listing", !driftedIdx.includes("/v
 check("a hub with only drifted pages is itself noindex",
   renderVehicleIndex([{ ...SIGNED_OFF, stale: true }], WHEN).headers.get("X-Robots-Tag") === "noindex, nofollow");
 
+// Embargo. A page can be fully written and fully approved and still have to
+// wait, so that a batch of new pages arrives as a trickle rather than all at
+// once. Same gate as drift, pointed the other way.
+check("an embargoed page is not live", !isLive({ publish_ready: true, reviewed_by: "jate", embargoed: true }));
+const embargoed = renderVehiclePage({ ...SIGNED_OFF, embargoed: true }, WHEN);
+const eh = await embargoed.text();
+check("an embargoed page renders noindex", eh.includes('content="noindex,nofollow'));
+check("an embargoed page sends the noindex header", embargoed.headers.get("X-Robots-Tag") === "noindex, nofollow");
+const embIdx = await renderVehicleIndex([{ ...SIGNED_OFF, embargoed: true }], WHEN).text();
+check("an embargoed page is not linked from the hub", !embIdx.includes("/vehicles/nissan-silvia-s15"));
+
 console.log("\nescaping");
 check("script tags from the database are escaped", !lh.includes("<script>alert"));
 check("ampersands are escaped", lh.includes("Silvia &amp; the one"));
