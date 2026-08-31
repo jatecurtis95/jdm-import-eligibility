@@ -30,9 +30,17 @@ export function esc(v) {
     .replace(/'/g, "&#39;");
 }
 
-// A page is indexable only when a person has read it and signed it off.
+// A page is indexable only when a person has read it and signed it off, AND
+// the register still says what it said when they did.
+//
+// That last clause is the drift guard. These pages regenerate their numbers
+// every night but not their words, so a page approved while a model was
+// importable can end up with an empty table and three paragraphs above it
+// still describing a car you can buy. scripts/build-vehicle-pages.ts sets
+// stale when the verdict has moved, and the page drops out of the index until
+// someone rereads it.
 export function isLive(page) {
-  return Boolean(page && page.publish_ready && page.reviewed_by);
+  return Boolean(page && page.publish_ready && page.reviewed_by && !page.stale);
 }
 
 const CSS = `

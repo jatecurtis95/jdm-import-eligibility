@@ -57,6 +57,7 @@ jobs:
         env:
           SUPABASE_PAT:         ${{ secrets.SUPABASE_PAT }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          DRIFT_MARKER_FILE:    ${{ runner.temp }}/drift.txt
 
       - name: commit
         shell: bash
@@ -81,3 +82,24 @@ jobs:
             git diff --cached --quiet || git commit -m "Auto-update: vehicle pages rebuilt $(date -u +'%Y-%m-%d')"
             git push
           }
+
+      # Deliberately AFTER the commit. A page whose register verdict moved is
+      # already back on noindex and out of the sitemap by the time this runs,
+      # so the risk is gone before anyone is told. This step exists to make
+      # sure someone IS told: a red run sends a notification, and the page
+      # sits in the review queue until it is reread.
+      - name: fail if a published page drifted
+        if: always()
+        shell: bash
+        run: |
+          if [ -f "${{ runner.temp }}/drift.txt" ]; then
+            echo "::error title=Published pages no longer match the register::$(head -1 "${{ runner.temp }}/drift.txt")"
+            cat "${{ runner.temp }}/drift.txt"
+            echo
+            echo "These pages have already been pulled back to noindex and removed"
+            echo "from the sitemap by this run. Nothing is publicly wrong right now."
+            echo "Reread the copy at https://importcheck.com.au/vehicles/review and"
+            echo "re-approve them once it matches."
+            exit 1
+          fi
+          echo "no drift"

@@ -98,6 +98,19 @@ check("publish_ready without a reviewer is not live", !isLive({ publish_ready: t
 check("a reviewer without publish_ready is not live", !isLive({ publish_ready: false, reviewed_by: "jate" }));
 check("both together are live", isLive({ publish_ready: true, reviewed_by: "jate" }));
 
+// Drift guard. A page whose verdict moved after sign-off must come back out of
+// the index, however thoroughly it was approved at the time.
+check("a signed-off page that drifted is not live", !isLive({ publish_ready: true, reviewed_by: "jate", stale: true }));
+const drifted = renderVehiclePage({ ...SIGNED_OFF, stale: true }, WHEN);
+const dh2 = await drifted.text();
+check("a drifted page renders noindex", dh2.includes('content="noindex,nofollow'));
+check("a drifted page sends the noindex header", drifted.headers.get("X-Robots-Tag") === "noindex, nofollow");
+check("a drifted page drops its structured data", !dh2.includes("FAQPage"));
+const driftedIdx = await renderVehicleIndex([{ ...SIGNED_OFF, stale: true }], WHEN).text();
+check("a drifted page is dropped from the hub listing", !driftedIdx.includes("/vehicles/nissan-silvia-s15"));
+check("a hub with only drifted pages is itself noindex",
+  renderVehicleIndex([{ ...SIGNED_OFF, stale: true }], WHEN).headers.get("X-Robots-Tag") === "noindex, nofollow");
+
 console.log("\nescaping");
 check("script tags from the database are escaped", !lh.includes("<script>alert"));
 check("ampersands are escaped", lh.includes("Silvia &amp; the one"));

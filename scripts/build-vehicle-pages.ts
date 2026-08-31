@@ -87,6 +87,7 @@ select jsonb_build_object(
   'publish_ready',     coalesce(st.publish_ready, false),
   'reviewed_by',       st.reviewed_by,
   'reviewed_at',       st.reviewed_at,
+  'reviewed_availability', mp.reviewed_availability,
   'usable_build_from', st.usable_build_from,
   'usable_build_to',   st.usable_build_to,
   'usable_build_open', st.usable_build_open,
@@ -180,7 +181,7 @@ function xmlEscape(s: string): string {
 // Only reviewed, publish_ready pages go in the sitemap. Everything else is
 // served noindex, and asking Google to crawl a noindex URL is just noise.
 function rewriteSitemap(pages: any[]): number {
-  const live = pages.filter((p) => p.publish_ready && p.reviewed_by);
+  const live = pages.filter((p) => p.publish_ready && p.reviewed_by && !p.stale);
   const today = new Date().toISOString().slice(0, 10);
 
   const urls = [
@@ -228,6 +229,58 @@ function rewriteSitemap(pages: any[]): number {
   return live.length;
 }
 
+// A signed-off page whose verdict has moved since sign-off is stale: the
+// numbers on it regenerated tonight, the words on it did not. Mark it, and
+// isLive() in the renderer will drop it back to noindex and out of the
+// sitemap until a human rereads it.
+//
+// Fix first, alarm second. The demotion is written into the bundle and
+// committed, so the risk is gone before anyone is told about it. The workflow
+// reads the marker file afterwards and fails the run so the failure lands in
+// someone's inbox.
+function markDrift(pages: any[]): any[] {
+  const drifted: any[] = [];
+
+  for (const p of pages) {
+    const signedOff = p.publish_ready && p.reviewed_by;
+    if (!signedOff) continue;
+
+    // No baseline recorded means it was signed off before this guard existed.
+    // Treat today as the baseline rather than pulling a good page down.
+    if (!p.reviewed_availability) {
+      p.reviewed_availability = p.availability;
+      continue;
+    }
+
+    if (p.reviewed_availability !== p.availability) {
+      p.stale = true;
+      drifted.push({
+        slug: p.slug,
+        was: p.reviewed_availability,
+        now: p.availability,
+        usable: p.counts.usable,
+      });
+    }
+  }
+
+  if (drifted.length) {
+    const lines = drifted.map(
+      (d) =>
+        `  ${d.slug}: was "${d.was}" when signed off, now "${d.now}" (${d.usable} live approval(s))`,
+    );
+    const report =
+      `${drifted.length} published page(s) no longer match the register they were approved against.\n` +
+      `They have been pulled back to noindex and removed from the sitemap.\n` +
+      `The copy on them needs rereading before they go back up.\n\n` +
+      lines.join("\n") + "\n";
+    console.error("\nDRIFT DETECTED\n" + report);
+    const marker = process.env.DRIFT_MARKER_FILE;
+    if (marker) writeFileSync(marker, report, "utf8");
+  }
+
+  return drifted;
+}
+
 async function main(): Promise<void> {
   const rows = await runSql(QUERY);
   const pages = (rows as Array<{ page: any }>).map((r) => r.page);
@@ -238,11 +291,13 @@ async function main(): Promise<void> {
   }
 
   assertSane(pages);
+  const drifted = markDrift(pages);
 
   const bundle = {
     generated_at: new Date().toISOString(),
     page_count: pages.length,
-    published_count: pages.filter((p) => p.publish_ready && p.reviewed_by).length,
+    published_count: pages.filter((p) => p.publish_ready && p.reviewed_by && !p.stale).length,
+    drifted_count: pages.filter((p) => p.stale).length,
     pages,
   };
 
@@ -255,7 +310,11 @@ async function main(): Promise<void> {
       `${bundle.published_count} published, ${inSitemap} in sitemap`,
   );
   for (const p of pages) {
-    const state = p.publish_ready && p.reviewed_by ? "LIVE    " : "noindex ";
+    const state = p.stale
+      ? "DRIFTED "
+      : p.publish_ready && p.reviewed_by
+        ? "LIVE    "
+        : "noindex ";
     console.log(
       `  ${state} ${String(p.slug).padEnd(26)} ${String(p.availability).padEnd(18)} ` +
         `${p.approvals.length} live approval(s)` +

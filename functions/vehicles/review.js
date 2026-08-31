@@ -31,7 +31,12 @@ export async function onRequest() {
   const pages = [...(bundle.pages || [])].sort((a, b) =>
     String(a.slug).localeCompare(String(b.slug)),
   );
-  const drafts = pages.filter((p) => !isLive(p));
+  // Three buckets, and the order matters. Drift is the urgent one: those pages
+  // were public until tonight's build noticed the register had moved under
+  // them, so they are the ones with a real chance of having said something
+  // wrong to a real buyer.
+  const drifted = pages.filter((p) => p.stale);
+  const drafts = pages.filter((p) => !isLive(p) && !p.stale);
   const signed = pages.filter(isLive);
 
   const card = (p) => {
@@ -73,6 +78,22 @@ ${faqs.map((f) => `<p><b>${esc(f.q)}</b><br />${esc(f.a)}</p>`).join("\n")}
 <strong>What you are checking for</strong>
 <p>Not spelling. Whether the page claims a car is importable when the register no longer says so. Approvals that read In Force on ROVER can be resting on a SEVS entry that has been removed, and those are already stripped out of the numbers below. What you are checking is whether the words agree with the numbers.</p>
 </div></div>
+
+${
+  drifted.length
+    ? `<h2 class="urgent">Changed since you approved them (${drifted.length})</h2>
+<div class="banner b-no"><span class="dot"></span><div>
+<strong>These were live and have been pulled down</strong>
+<p>The register moved after you signed these off. The numbers on each page updated themselves overnight, the words did not, so they have been taken out of Google and off the models page until you reread them. Check whether the copy still matches the verdict, then say the word and they go back up.</p>
+</div></div>
+${drifted
+  .map(
+    (p) =>
+      `<div class="card drift">${card(p)}<p class="was">Approved as <b>${esc(VERDICT[p.reviewed_availability]?.[0] || p.reviewed_availability)}</b>. Now <b>${esc(VERDICT[p.availability]?.[0] || p.availability)}</b>.</p></div>`,
+  )
+  .join("\n")}`
+    : ""
+}
 
 <h2>Drafts (${drafts.length})</h2>
 ${drafts.length ? drafts.map(card).join("\n") : `<div class="card"><p style="margin:0">Nothing waiting.</p></div>`}
@@ -119,6 +140,10 @@ ${signed
 .qs p{font-size:14px;color:#332C21;margin:10px 0 0}
 .ask{font-size:13.5px;color:var(--muted);margin:12px 0 0;padding-top:10px;border-top:1px dashed var(--line)}
 .card.done{opacity:.72}
+h2.urgent{color:var(--exp-ink)}
+.card.drift{border-color:#E3C4C0;padding:0;background:transparent;box-shadow:none}
+.card.drift > .card{margin:0 0 8px}
+.was{font-size:13.5px;color:var(--exp-ink);margin:0 0 18px;padding-left:2px}
 </style>`;
 
   const html = shell({
