@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-31T05:33:08.992Z",
+  "generated_at": "2026-08-31T05:36:39.216Z",
   "page_count": 21,
-  "published_count": 20,
-  "drifted_count": 1,
+  "published_count": 21,
+  "drifted_count": 0,
   "pages": [
     {
       "h1": "Is the Honda Civic Type R eligible for import to Australia?",
@@ -1722,8 +1722,7 @@
         "e13 note australia",
         "nissan note hybrid australia"
       ],
-      "reviewed_availability": "importable",
-      "stale": true
+      "reviewed_availability": "basis_gone"
     },
     {
       "h1": "Is the Nissan Serena eligible for import to Australia?",
