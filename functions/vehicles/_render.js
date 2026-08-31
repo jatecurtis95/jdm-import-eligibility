@@ -365,6 +365,20 @@ function structuredData(page, canonicalPath) {
 }
 
 
+// The copy is written as prose with blank lines between paragraphs, so it has
+// to come out as separate <p> elements rather than one wall of text. Splitting
+// here rather than storing HTML keeps the database holding words, not markup,
+// which matters because the same copy is read back in the review queue.
+function lede(text) {
+  if (!text) return "";
+  return String(text)
+    .split(/\r?\n\s*\r?\n/)
+    .map((para) => para.trim())
+    .filter(Boolean)
+    .map((para) => `<p class="lede">${esc(para)}</p>`)
+    .join("\n");
+}
+
 // ─── Page renderers ──────────────────────────────────────────────────────────
 // These take plain objects, not the bundle, so scripts/test-vehicle-pages.mjs
 // can exercise them directly. The route files are thin wrappers that do the
@@ -378,7 +392,7 @@ export function renderVehiclePage(page, generatedAt) {
     `<div class="crumbs"><a href="/">Import Check</a> &rsaquo; <a href="/vehicles">Models</a> &rsaquo; ${esc(page.canonical_name)}</div>`,
     `<h1>${esc(page.h1 || page.canonical_name)}</h1>`,
     banner(page),
-    page.intro_copy ? `<p class="lede">${esc(page.intro_copy)}</p>` : "",
+    lede(page.intro_copy),
     approvalsTable(page),
     specs(page),
     prose(page),

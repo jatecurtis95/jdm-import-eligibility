@@ -33,7 +33,7 @@ const SIGNED_OFF = {
   h1: "Is the Nissan Silvia S15 eligible for import to Australia?",
   title_tag: "Nissan Silvia S15 Import Eligibility Australia | Import Check",
   meta_description: "Check whether a Nissan Silvia S15 can be imported to Australia.",
-  intro_copy: 'The S15 is the last Silvia & the one everybody wants. <script>alert(1)</script>',
+  intro_copy: 'The S15 is the last Silvia & the one everybody wants.\n\nWatch the dates. <script>alert(1)</script>',
   faqs: [{ q: "Is the S15 eligible?", a: "It depends on the build date." }],
   availability: "importable",
   publish_ready: true,
@@ -103,6 +103,12 @@ check("script tags from the database are escaped", !lh.includes("<script>alert")
 check("ampersands are escaped", lh.includes("Silvia &amp; the one"));
 check("esc handles quotes", esc(`a"b'c`) === "a&quot;b&#39;c");
 check("esc handles null", esc(null) === "");
+
+console.log("\nprose");
+// The copy is written with blank lines between paragraphs. If this collapses,
+// every page turns into one unreadable block and nobody notices until it ships.
+check("blank lines become separate paragraphs", (lh.match(/<p class="lede">/g) || []).length === 2);
+check("paragraph split does not swallow text", lh.includes("Watch the dates."));
 
 console.log("\napprovals table");
 check("build window is spelled out", lh.includes("Dec 1998 to Aug 2000"));
