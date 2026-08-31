@@ -130,11 +130,22 @@ async function runSql(query: string): Promise<any> {
 // ─── Guard rails ─────────────────────────────────────────────────────────────
 // Each of these refuses to write rather than warning. A bad bundle that ships
 // is worse than a build that fails loudly.
+const RESERVED_SLUGS = new Set(["index", "review", "_render"]);
+
 function assertSane(pages: any[]): void {
   const problems: string[] = [];
 
   for (const p of pages) {
     if (!p.slug) problems.push("a page has no slug");
+
+    // functions/vehicles/ has real files at these names, and a literal
+    // filename beats the [slug] parameter, so a model with one of these slugs
+    // would silently never render.
+    if (RESERVED_SLUGS.has(String(p.slug).toLowerCase())) {
+      problems.push(
+        `${p.slug}: that slug is taken by a route in functions/vehicles/ and the page would never be reachable`,
+      );
+    }
     if (!p.h1) problems.push(`${p.slug}: no h1`);
     if (!p.title_tag) problems.push(`${p.slug}: no title_tag`);
 

@@ -171,12 +171,12 @@ function siteFooter(generatedAt) {
 </div></footer>`;
 }
 
-export function shell({ page, live, canonicalPath, body, jsonLd, generatedAt }) {
+export function shell({ page, live, canonicalPath, body, jsonLd, generatedAt, hideDraftBar }) {
   return `<!doctype html><html lang="en-AU"><head>
 ${head(page, live, canonicalPath)}
 ${live && jsonLd ? `<script type="application/ld+json">${jsonLd.replace(/</g, "\\u003c")}</script>` : ""}
 </head><body>
-${live ? "" : draftBar(page)}
+${live || hideDraftBar ? "" : draftBar(page)}
 ${siteHeader()}
 <main><div class="wrap">
 ${body}
