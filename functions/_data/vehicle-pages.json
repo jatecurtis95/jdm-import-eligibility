@@ -1,7 +1,1416 @@
 {
-  "generated_at": null,
-  "page_count": 0,
+  "generated_at": "2026-08-31T04:06:13.013Z",
+  "page_count": 9,
   "published_count": 0,
-  "pages": [],
-  "_note": "PLACEHOLDER. Generated for real by scripts/build-vehicle-pages.ts, which runs daily via .github/workflows/build-vehicle-pages.yml and commits the result. An empty bundle is a safe state: /vehicles renders an empty hub with noindex and every /vehicles/<slug> returns 404, so a failed build degrades to nothing rather than to something wrong."
+  "pages": [
+    {
+      "h1": "Is the Honda Fit (Jazz) eligible for import to Australia?",
+      "faqs": [
+        {
+          "a": "Yes. Fit is the Japanese and North American name, Jazz is the name used in Australia and Europe. Same car.",
+          "q": "Is the Honda Fit the same as the Honda Jazz?"
+        },
+        {
+          "a": "Check the code and build date against the table above, because it lists only the approvals that are live today. GP5 and GP6 are the third generation. GR3 and GR4 are the fourth generation e:HEV. Not every code has a complete pathway at any one time, and the table is the reliable answer rather than the generation name.",
+          "q": "Which Honda Fit Hybrid can I import?"
+        },
+        {
+          "a": "GP5 is front-wheel drive, GP6 is all-wheel drive. Otherwise the same car.",
+          "q": "What is the difference between GP5 and GP6?"
+        },
+        {
+          "a": "Yes. The Jazz was sold here for years and shares most service parts, so any Honda dealer or independent mechanic can handle routine work.",
+          "q": "Can I get parts for an imported Honda Fit in Australia?"
+        }
+      ],
+      "slug": "honda-fit-jazz",
+      "intel": {
+        "segment": "Small car",
+        "is_gated": false,
+        "body_type": "Hatchback",
+        "fuel_type": "Hybrid",
+        "gate_note": null,
+        "seats_max": 5,
+        "seats_min": 5,
+        "confidence": "high",
+        "drivetrain": "FWD",
+        "generation": "3rd gen (2013-2020)",
+        "seats_note": null,
+        "watch_outs": null,
+        "engine_desc": "1.5L i-DCD hybrid",
+        "demand_level": "medium",
+        "transmission": null,
+        "buyer_profile": "Economy buyers who know it as the Jazz",
+        "why_desirable": null
+      },
+      "counts": {
+        "usable": 12,
+        "expired": 0,
+        "under_review": 0,
+        "expiring_soon": 0,
+        "sev_basis_gone": 2
+      },
+      "aka_names": [
+        "Fit",
+        "Jazz",
+        "Fit Hybrid",
+        "Jazz Hybrid",
+        "Fit e:HEV",
+        "Fit RS"
+      ],
+      "approvals": [
+        {
+          "model": "Fit Hybrid",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2020-03-01",
+          "category": null,
+          "build_from": "2017-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=54ffb79e-50b1-ec11-a31d-0050569ede77",
+          "model_code": null,
+          "approval_number": "MRE-000026",
+          "build_date_range": "7/2017 - 3/2020",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2020-03-01",
+          "category": null,
+          "build_from": "2017-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=3f82f942-ccc6-ec11-a30b-0050569e60b7",
+          "model_code": null,
+          "approval_number": "MRE-000049",
+          "build_date_range": "7/2017 - 3/2020",
+          "compliance_level": ""
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2020-03-01",
+          "category": null,
+          "build_from": "2017-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=73a50fe6-2105-ee11-8f6e-00224893ba6c",
+          "model_code": "GP5",
+          "approval_number": "MRE-000277",
+          "build_date_range": "7/2017 - 3/2020",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2020-03-01",
+          "category": null,
+          "build_from": "2017-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=57d77425-bc52-ee11-be6f-00224812298a",
+          "model_code": null,
+          "approval_number": "MRE-000355",
+          "build_date_range": "7/2017 - 3/2020",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2020-03-01",
+          "category": null,
+          "build_from": "2017-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=fe1b2c35-314d-ef11-a316-000d3ad15e1a",
+          "model_code": "GP5",
+          "approval_number": "MRE-000612",
+          "build_date_range": "7/2017 - 3/2020",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2020-03-01",
+          "category": null,
+          "build_from": "2017-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=ba689716-0b6c-ef11-a670-000d3acab43a",
+          "model_code": null,
+          "approval_number": "MRE-000642",
+          "build_date_range": "7/2017 - 3/2020",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2020-03-01",
+          "category": null,
+          "build_from": "2017-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=9be3523a-24b1-ef11-b8e9-0022481214c1",
+          "model_code": "GP5",
+          "approval_number": "MRE-000710",
+          "build_date_range": "7/2017 - 3/2020",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2020-03-01",
+          "category": null,
+          "build_from": "2017-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=48132d14-f073-f011-b4cc-000d3ad1290a",
+          "model_code": "GP5",
+          "approval_number": "MRE-000837",
+          "build_date_range": "7/2017 - 3/2020",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2020-02-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=e6ebf5cd-d87e-ef11-ac21-000d3acbed23",
+          "model_code": "GR3 Hybrid",
+          "approval_number": "SEV-000664",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2020-03-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2017-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=ec2d9b64-d97e-ef11-ac21-000d3acbed23",
+          "model_code": "GP5",
+          "approval_number": "SEV-000667",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2020-03-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2017-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=1d2e9b64-d97e-ef11-ac21-000d3acbed23",
+          "model_code": "GP6",
+          "approval_number": "SEV-000668",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Fit Hybrid",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2020-02-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=89592fd0-62b0-f011-bbd2-7c1e5289eeab",
+          "model_code": "GR4",
+          "approval_number": "SEV-000970",
+          "build_date_range": null,
+          "compliance_level": null
+        }
+      ],
+      "make_norm": "HONDA",
+      "title_tag": "Honda Fit / Jazz Import Eligibility Australia | JDM Connect",
+      "intro_copy": "If you know this car as the Jazz, you are already in the right place. Fit is the Japanese name for the same car. The hybrid versions never came to Australia in any real numbers, which is why they are on the register. The magic seats and the packaging are unchanged from the Jazz you know, but the JDM cars are better equipped and the hybrid drivetrain is genuinely frugal.",
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "availability": "importable",
+      "publish_ready": false,
+      "canonical_name": "Honda Fit (Jazz)",
+      "primary_keyword": "honda fit import australia",
+      "usable_build_to": "2020-03-01",
+      "meta_description": "Can you import a Honda Fit to Australia? The Fit is sold here as the Jazz. Live SEVS and MRE build windows by chassis code, updated daily.",
+      "usable_build_from": "2017-07-01",
+      "usable_build_open": true,
+      "secondary_keywords": [
+        "honda jazz import australia",
+        "honda fit hybrid australia",
+        "honda fit sevs",
+        "is the honda fit eligible for import",
+        "honda fit e:hev import",
+        "gp5 fit import",
+        "honda jazz hybrid japan import"
+      ]
+    },
+    {
+      "h1": "Is the Mazda RX-7 FD3S eligible for import to Australia?",
+      "faqs": [
+        {
+          "a": "Yes, by one of two routes. The register approval covers the later Series 8 build window. Earlier FD cars are eligible under the 25-year pathway instead.",
+          "q": "Is the Mazda RX-7 eligible for import to Australia?"
+        },
+        {
+          "a": "The final JDM revision of the FD, built from 1999. It has the best engine calibration of the run and includes the Spirit R at the very end.",
+          "q": "What is a Series 8 RX-7?"
+        },
+        {
+          "a": "The final special edition, built in 2002. Only a small number were made and they are the most valuable FD variant.",
+          "q": "What is an RX-7 Spirit R?"
+        },
+        {
+          "a": "You should inspect it properly. Compression testing before purchase is not optional on a rotary, and the auction grade and inspector notes carry more weight here than on a piston engine car.",
+          "q": "Should I worry about the rotary engine?"
+        }
+      ],
+      "slug": "mazda-rx-7",
+      "intel": {
+        "segment": "Sports car",
+        "is_gated": false,
+        "body_type": "Coupe",
+        "fuel_type": "Petrol",
+        "gate_note": null,
+        "seats_max": 4,
+        "seats_min": 2,
+        "confidence": "high",
+        "drivetrain": "RWD",
+        "generation": "Series 8 (1999-2002)",
+        "seats_note": "2+2",
+        "watch_outs": "Approval covers Series 8 only. FD production ran 1991-2002; earlier cars need the 25-year route. Compression test before bidding.",
+        "engine_desc": "13B-REW 1.3 twin-turbo rotary",
+        "demand_level": "high",
+        "transmission": null,
+        "buyer_profile": "Enthusiasts and collectors",
+        "why_desirable": null
+      },
+      "counts": {
+        "usable": 3,
+        "expired": 0,
+        "under_review": 0,
+        "expiring_soon": 0,
+        "sev_basis_gone": 1
+      },
+      "aka_names": [
+        "RX-7",
+        "RX7",
+        "FD3S",
+        "RX-7 Spirit R",
+        "RX-7 Type RS",
+        "FD RX-7"
+      ],
+      "approvals": [
+        {
+          "model": "RX-7",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2002-12-01",
+          "category": null,
+          "build_from": "1999-09-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=726cd07b-b09a-ec11-a31b-0050569ede77",
+          "model_code": null,
+          "approval_number": "MRE-000011",
+          "build_date_range": "9/1999 - 12/2002",
+          "compliance_level": "Complies"
+        },
+        {
+          "model": "RX-7",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2002-12-01",
+          "category": null,
+          "build_from": "1999-09-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=1398ed5c-5aa7-ed11-aad1-002248933df6",
+          "model_code": null,
+          "approval_number": "MRE-000167",
+          "build_date_range": "9/1999 - 12/2002",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "RX-7",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2002-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "1999-09-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=4516a499-f1bc-ef11-b8e8-7c1e52624683",
+          "model_code": "FD3S",
+          "approval_number": "SEV-000749",
+          "build_date_range": null,
+          "compliance_level": null
+        }
+      ],
+      "make_norm": "MAZDA",
+      "title_tag": "Mazda RX-7 FD3S Import Eligibility Australia | JDM Connect",
+      "intro_copy": "The FD is the last of the twin-turbo rotaries and prices reflect it. The important detail most listings skip: the register approval covers the final Series 8 cars only, not the whole 1991 to 2002 production run. Earlier FDs are still importable, but on the 25-year pathway, not this approval. Rotary condition risk also means auction grade matters more on this car than on almost anything else you will look at.",
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "availability": "importable",
+      "publish_ready": false,
+      "canonical_name": "Mazda RX-7 (FD3S)",
+      "primary_keyword": "mazda rx-7 import australia",
+      "usable_build_to": "2002-12-01",
+      "meta_description": "Can you import an FD RX-7 to Australia? Live SEVS and MRE build windows, why the approval covers Series 8 only, and the 25-year alternative.",
+      "usable_build_from": "1999-09-01",
+      "usable_build_open": false,
+      "secondary_keywords": [
+        "fd rx-7 import australia",
+        "rx7 fd3s import",
+        "mazda rx-7 sevs",
+        "rx-7 spirit r australia",
+        "is the rx-7 eligible for import",
+        "rx-7 25 year rule australia"
+      ]
+    },
+    {
+      "h1": "Is the Mercedes-Benz SL55 AMG (R230) eligible for import to Australia?",
+      "faqs": [
+        {
+          "a": "R230 SL55 AMG models hold current approvals. The exact build window is listed above and refreshes daily from ROVER.",
+          "q": "Is the Mercedes SL55 AMG eligible for import to Australia?"
+        },
+        {
+          "a": "A 5.4 litre supercharged V8, the M113K, producing around 500 horsepower depending on year.",
+          "q": "What engine is in the SL55 AMG?"
+        },
+        {
+          "a": "Yes. Two seats, rear-wheel drive, with a folding metal roof.",
+          "q": "Is the SL55 AMG a two-seater?"
+        }
+      ],
+      "slug": "mercedes-benz-sl55-amg",
+      "intel": {
+        "segment": "Performance convertible",
+        "is_gated": false,
+        "body_type": "Roadster",
+        "fuel_type": "Petrol",
+        "gate_note": null,
+        "seats_max": 2,
+        "seats_min": 2,
+        "confidence": "high",
+        "drivetrain": "RWD",
+        "generation": "R230 (2002-2008)",
+        "seats_note": null,
+        "watch_outs": "Register fields are inverted: 230 is the chassis, SL55 AMG is the model.",
+        "engine_desc": "5.4L supercharged V8 (M113K), approx 500hp",
+        "demand_level": "medium",
+        "transmission": null,
+        "buyer_profile": "Collectors and fast-GT buyers",
+        "why_desirable": null
+      },
+      "counts": {
+        "usable": 3,
+        "expired": 0,
+        "under_review": 0,
+        "expiring_soon": 0,
+        "sev_basis_gone": 0
+      },
+      "aka_names": [
+        "SL55",
+        "SL55 AMG",
+        "R230",
+        "SL-Class",
+        "SL 55"
+      ],
+      "approvals": [
+        {
+          "model": "230",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2006-12-01",
+          "category": null,
+          "build_from": "2003-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=d99afa82-65be-ef11-b8e8-000d3aca74f3",
+          "model_code": null,
+          "approval_number": "MRE-000721",
+          "build_date_range": "1/2003 - 12/2006",
+          "compliance_level": "Complies"
+        },
+        {
+          "model": "230",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2006-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2003-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=96a2127e-d39c-ef11-8a6a-00224810ab2d",
+          "model_code": "SL55 AMG",
+          "approval_number": "SEV-000695",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "230",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2006-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2003-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=1fa5edce-fdbc-ef11-b8e9-000d3aca8e98",
+          "model_code": "SL55 AMG",
+          "approval_number": "SEV-000751",
+          "build_date_range": null,
+          "compliance_level": null
+        }
+      ],
+      "make_norm": "MERCEDES-BENZ",
+      "title_tag": "Mercedes SL55 AMG R230 Import Eligibility | JDM Connect",
+      "intro_copy": "The SL55 AMG is the supercharged one, and it is the reason people still talk about the R230. A 5.4 litre V8 with a blower on top, a folding hardtop, and around 500 horsepower in a car that will still cross a continent. On the register it is filed under the number 230 with SL55 AMG buried in the chassis code field, which is backwards, and means a search for SL55 currently returns nothing.",
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "availability": "importable",
+      "publish_ready": false,
+      "canonical_name": "Mercedes-Benz SL55 AMG (R230)",
+      "primary_keyword": "mercedes sl55 amg import australia",
+      "usable_build_to": "2006-12-01",
+      "meta_description": "Can you import an R230 SL55 AMG to Australia? Live SEVS and MRE build windows for the supercharged 5.4 V8 roadster, updated daily.",
+      "usable_build_from": "2003-01-01",
+      "usable_build_open": false,
+      "secondary_keywords": [
+        "r230 sl55 import australia",
+        "sl55 amg sevs",
+        "mercedes sl55 import",
+        "is the sl55 amg eligible for import australia",
+        "mercedes sl55 amg price australia"
+      ]
+    },
+    {
+      "h1": "Is the Nissan Note eligible for import to Australia?",
+      "faqs": [
+        {
+          "a": "Not at the moment. Seven model reports for the Note still show as In Force, but all seven rest on the same SEVS entry, and that entry is no longer on the register. With nothing live underneath them, none of them gives you a way in. This page rechecks daily and will change here as soon as it changes on ROVER.",
+          "q": "Is the Nissan Note eligible for import to Australia?"
+        },
+        {
+          "a": "Because each model report still reads In Force when you look it up on its own. The problem only appears when you follow every one of them back to the SEVS entry it depends on and find that entry gone. That second check is what this page does.",
+          "q": "Why do other sites say the Note is importable?"
+        },
+        {
+          "a": "A series hybrid. The 1.2 litre petrol engine only ever runs a generator, and the wheels are always driven by the electric motor. It feels like an EV to drive but never needs plugging in.",
+          "q": "What is e-POWER?"
+        },
+        {
+          "a": "The Aura is the premium version of the same car, on chassis code FE13. It is listed separately on the register, so it needs checking on its own rather than being assumed to follow the Note.",
+          "q": "Is the Nissan Aura the same as a Note?"
+        },
+        {
+          "a": "Yes. A new SEVS entry, or a new model report resting on a live one, would open it up again. Nothing about this is permanent. The page reads the register daily, so it will update on its own.",
+          "q": "Could the Nissan Note become importable again?"
+        }
+      ],
+      "slug": "nissan-note",
+      "intel": {
+        "segment": "Small car",
+        "is_gated": false,
+        "body_type": "Hatchback",
+        "fuel_type": "Hybrid",
+        "gate_note": null,
+        "seats_max": 5,
+        "seats_min": 5,
+        "confidence": "medium",
+        "drivetrain": "FWD, or e-4ORCE AWD",
+        "generation": "3rd gen E13 (2020-)",
+        "seats_note": null,
+        "watch_outs": "Unclear whether this approval also covers the Aura (FE13). Verify against the approval number.",
+        "engine_desc": "1.2L e-POWER series hybrid",
+        "demand_level": "medium",
+        "transmission": null,
+        "buyer_profile": "City buyers wanting EV feel without charging",
+        "why_desirable": null
+      },
+      "counts": {
+        "usable": 0,
+        "expired": 0,
+        "under_review": 0,
+        "expiring_soon": 0,
+        "sev_basis_gone": 7
+      },
+      "aka_names": [
+        "Note",
+        "Note e-POWER",
+        "E13",
+        "Note Aura"
+      ],
+      "approvals": [],
+      "make_norm": "NISSAN",
+      "title_tag": "Nissan Note Import Eligibility Australia | JDM Connect",
+      "intro_copy": "Short answer today: no. The Note is Nissan's small hatch, and the e-POWER version is the interesting one, a petrol engine that never drives the wheels and only charges a battery that does. It drives like an EV without the charging problem, and Nissan Australia never brought it here. Look the Note up on ROVER and you will find seven model reports that still read In Force, which is why you will see it described as importable elsewhere. Every one of them is built on a single SEVS entry that has since left the register. A model report with no live SEVS entry underneath it is not a pathway in. This page rechecks that every day, so if a live approval appears it will show up here.",
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "availability": "basis_gone",
+      "publish_ready": false,
+      "canonical_name": "Nissan Note",
+      "primary_keyword": "nissan note import australia",
+      "usable_build_to": null,
+      "meta_description": "Can a Nissan Note or Note e-POWER be imported to Australia? Right now, no. Every approval on the register rests on a SEVS entry that has been removed. Rechecked daily.",
+      "usable_build_from": null,
+      "usable_build_open": null,
+      "secondary_keywords": [
+        "nissan note e-power australia",
+        "nissan note sevs",
+        "is the nissan note eligible for import",
+        "nissan note epower import",
+        "e13 note australia",
+        "nissan note hybrid australia"
+      ]
+    },
+    {
+      "h1": "Is the Nissan Silvia S15 eligible for import to Australia?",
+      "faqs": [
+        {
+          "a": "It depends on the build date. Cars inside the register window shown above come in on that approval. Cars built after that window are not covered by it, and only become eligible once they are more than 25 years old, which is a rolling date. The last of the production run is not old enough yet.",
+          "q": "Is the Nissan Silvia S15 eligible for import to Australia?"
+        },
+        {
+          "a": "The Spec-R has the turbocharged SR20DET, a six-speed manual and a limited slip differential. The Spec-S has the naturally aspirated SR20DE and a five-speed. They are very different cars and priced accordingly.",
+          "q": "What is the difference between Spec-R and Spec-S?"
+        },
+        {
+          "a": "Related but not identical. The Australian 200SX was sold here new, so it is a local car. JDM Spec-R cars have equipment and drivetrain differences that matter to buyers.",
+          "q": "Is the S15 the same as an Australian 200SX?"
+        },
+        {
+          "a": "The convertible S15, converted by Autech. Rare, and a different proposition to the coupe.",
+          "q": "What is a Silvia Varietta?"
+        }
+      ],
+      "slug": "nissan-silvia-s15",
+      "intel": {
+        "segment": "Sports car",
+        "is_gated": false,
+        "body_type": "Coupe",
+        "fuel_type": "Petrol",
+        "gate_note": null,
+        "seats_max": 4,
+        "seats_min": 4,
+        "confidence": "high",
+        "drivetrain": "RWD",
+        "generation": "S15 (1999-2002)",
+        "seats_note": "Varietta convertible is a 2+2",
+        "watch_outs": "Register window closes 2000-08 but production ran to 2002. Later cars need the 25-year route.",
+        "engine_desc": "SR20DE 2.0, or SR20DET 2.0 turbo (Spec-R)",
+        "demand_level": "high",
+        "transmission": null,
+        "buyer_profile": "Enthusiasts, highest heat in the book",
+        "why_desirable": null
+      },
+      "counts": {
+        "usable": 2,
+        "expired": 0,
+        "under_review": 0,
+        "expiring_soon": 0,
+        "sev_basis_gone": 0
+      },
+      "aka_names": [
+        "Silvia",
+        "S15",
+        "Silvia Spec-R",
+        "Silvia Spec-S",
+        "Silvia Varietta",
+        "200SX"
+      ],
+      "approvals": [
+        {
+          "model": "Silvia",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2000-08-01",
+          "category": null,
+          "build_from": "1998-12-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=ae12bf88-c6a4-ec11-a31c-0050569ede77",
+          "model_code": null,
+          "approval_number": "MRE-000013",
+          "build_date_range": "12/1998 - 8/2000",
+          "compliance_level": "Complies"
+        },
+        {
+          "model": "Silvia",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2000-08-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "1998-12-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=b5fa21c4-cfe1-ef11-9342-000d3ad1fbaf",
+          "model_code": "S15",
+          "approval_number": "SEV-000767",
+          "build_date_range": null,
+          "compliance_level": null
+        }
+      ],
+      "make_norm": "NISSAN",
+      "title_tag": "Nissan Silvia S15 Import Eligibility Australia | JDM Connect",
+      "intro_copy": "The S15 is the last Silvia and the one everybody wants. Australia got a version of it as the 200SX, which complicates the picture, but the JDM Spec-R with the SR20DET, the six-speed and the LSD is a materially different car. Watch the dates carefully here. The register approval window closes earlier than production did, so later cars are not covered by it at all. Some of those qualify instead on the 25-year pathway, which is a rolling date, and the very last cars of the run are not old enough for it yet. Which route applies, or whether either does, changes your costs completely.",
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "availability": "importable",
+      "publish_ready": false,
+      "canonical_name": "Nissan Silvia S15",
+      "primary_keyword": "nissan silvia s15 import australia",
+      "usable_build_to": "2000-08-01",
+      "meta_description": "Can you import an S15 Silvia to Australia? Live SEVS and MRE build windows, why the approval stops before production did, and the 25-year route.",
+      "usable_build_from": "1998-12-01",
+      "usable_build_open": false,
+      "secondary_keywords": [
+        "s15 silvia import australia",
+        "silvia spec-r import",
+        "nissan silvia sevs",
+        "is the s15 eligible for import australia",
+        "s15 silvia 25 year rule",
+        "nissan 200sx s15 import"
+      ]
+    },
+    {
+      "h1": "Is the Suzuki Jimny JB64 eligible for import to Australia?",
+      "faqs": [
+        {
+          "a": "The kei JB64 holds current approvals because it was never sold here. The JB74 Sierra is sold in Australia new, so it is not an import candidate under the same pathway.",
+          "q": "Is the Suzuki Jimny eligible for import to Australia?"
+        },
+        {
+          "a": "The JB64 is the kei version with a 660cc turbo engine and a narrower body. The JB74 Sierra has the 1.5 litre engine and wider guards, and is the one sold in Australian dealers.",
+          "q": "What is the difference between a JB64 and a JB74?"
+        },
+        {
+          "a": "It is a 660cc turbo in a light car. It is fine around town and on back roads, and it is honestly not a highway cruiser. Buy it for what it does well.",
+          "q": "Is the kei Jimny too slow for Australian roads?"
+        },
+        {
+          "a": "Four.",
+          "q": "How many seats does the JB64 Jimny have?"
+        }
+      ],
+      "slug": "suzuki-jimny",
+      "intel": {
+        "segment": "Kei 4WD",
+        "is_gated": true,
+        "body_type": "Off-road SUV",
+        "fuel_type": "Petrol",
+        "gate_note": "Kei JB64 only, not the JB74 Sierra",
+        "seats_max": 4,
+        "seats_min": 4,
+        "confidence": "high",
+        "drivetrain": "Part-time 4WD with low range",
+        "generation": "JB64 (2018-)",
+        "seats_note": null,
+        "watch_outs": "JB64 only. The 1.5L Jimny Sierra is JB74W and is sold new in Australia.",
+        "engine_desc": "660cc R06A turbo",
+        "demand_level": "high",
+        "transmission": null,
+        "buyer_profile": "Enthusiasts locked out by local waiting lists",
+        "why_desirable": null
+      },
+      "counts": {
+        "usable": 2,
+        "expired": 0,
+        "under_review": 0,
+        "expiring_soon": 0,
+        "sev_basis_gone": 0
+      },
+      "aka_names": [
+        "Jimny",
+        "Jimny kei",
+        "JB64",
+        "Jimny XC",
+        "Jimny XL"
+      ],
+      "approvals": [
+        {
+          "model": "Jimny",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2025-02-01",
+          "category": null,
+          "build_from": "2018-05-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=0a421b1e-ec32-f111-88b4-6045bde69d17",
+          "model_code": "JB64W",
+          "approval_number": "MRE-000931",
+          "build_date_range": "5/2018 - 2/2025",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Jimny",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2018-05-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=84a99f12-4776-ef11-a670-002248934dd0",
+          "model_code": "JB64W",
+          "approval_number": "SEV-000654",
+          "build_date_range": null,
+          "compliance_level": null
+        }
+      ],
+      "make_norm": "SUZUKI",
+      "title_tag": "Suzuki Jimny JB64 Import Eligibility Australia | JDM Connect",
+      "intro_copy": "Two Jimnys exist and only one of them is on this register. The JB74 Sierra, with the 1.5 litre engine, is sold new in Australia and is not an import candidate. The JB64 is the kei version: 660cc turbo, narrower body, and never sold here at all. It is a real ladder-frame off-roader with low range, and the waiting lists on the local car are what push people towards importing one.",
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "availability": "importable",
+      "publish_ready": false,
+      "canonical_name": "Suzuki Jimny JB64 (kei)",
+      "primary_keyword": "suzuki jimny import australia",
+      "usable_build_to": "2025-02-01",
+      "meta_description": "The kei Suzuki Jimny JB64 is not sold in Australia. Check live SEVS and MRE build windows, and how it differs from the JB74 Sierra sold here.",
+      "usable_build_from": "2018-05-01",
+      "usable_build_open": true,
+      "secondary_keywords": [
+        "jb64 jimny import australia",
+        "kei jimny australia",
+        "suzuki jimny sevs",
+        "jimny jb64 vs jb74",
+        "is the suzuki jimny eligible for import",
+        "japanese kei jimny import"
+      ]
+    },
+    {
+      "h1": "Is the Toyota Harrier eligible for import to Australia?",
+      "faqs": [
+        {
+          "a": "Fourth-generation Harrier Hybrid models hold current approvals. The exact build window is listed above and refreshes daily from ROVER.",
+          "q": "Is the Toyota Harrier eligible for import to Australia?"
+        },
+        {
+          "a": "AXUH80 is front-wheel drive. AXUH85 has Toyota's E-Four electric all-wheel drive. AXUP85 is the plug-in hybrid.",
+          "q": "What is the difference between AXUH80 and AXUH85?"
+        },
+        {
+          "a": "Same platform and drivetrain, very different car above the floorpan. The Harrier is longer, lower and considerably better trimmed inside.",
+          "q": "Is the Harrier the same as a RAV4?"
+        },
+        {
+          "a": "Yes. The hybrid drivetrain is shared with the Australian-delivered RAV4 Hybrid, so parts and servicing are straightforward through any Toyota dealer.",
+          "q": "Can I service a Harrier in Australia?"
+        }
+      ],
+      "slug": "toyota-harrier",
+      "intel": {
+        "segment": "Mid-size SUV",
+        "is_gated": false,
+        "body_type": "SUV",
+        "fuel_type": "Hybrid",
+        "gate_note": null,
+        "seats_max": 5,
+        "seats_min": 5,
+        "confidence": "high",
+        "drivetrain": "AXUH80 = FWD, AXUH85 = E-Four AWD",
+        "generation": "4th gen (2020-)",
+        "seats_note": null,
+        "watch_outs": "Shares drivetrain with the Australian RAV4 Hybrid, so parts and servicing are easy.",
+        "engine_desc": "2.5L A25A-FXS hybrid",
+        "demand_level": "high",
+        "transmission": null,
+        "buyer_profile": "Buyers wanting an SUV that is not another RAV4",
+        "why_desirable": null
+      },
+      "counts": {
+        "usable": 2,
+        "expired": 0,
+        "under_review": 0,
+        "expiring_soon": 1,
+        "sev_basis_gone": 0
+      },
+      "aka_names": [
+        "Harrier",
+        "Harrier Hybrid",
+        "Harrier PHEV"
+      ],
+      "approvals": [
+        {
+          "model": "Harrier Hybrid",
+          "scheme": "SEV",
+          "status": "expiring",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2022-09-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=88f80e40-9a5d-ee11-be6f-002248933665",
+          "model_code": "AXUP85",
+          "approval_number": "SEV-000524",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Harrier Hybrid",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2020-06-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=04281602-cd99-f011-b41c-00224897a93b",
+          "model_code": "AXUH80/AXUH85",
+          "approval_number": "SEV-000957",
+          "build_date_range": null,
+          "compliance_level": null
+        }
+      ],
+      "make_norm": "TOYOTA",
+      "title_tag": "Toyota Harrier Import Eligibility Australia | JDM Connect",
+      "intro_copy": "The Harrier is what the Lexus RX would be if it wore a Toyota badge and cost a lot less, which is exactly what it was until Lexus split off as its own brand. The fourth generation shares its platform and 2.5 hybrid drivetrain with the RAV4, but the interior and the styling are a long way upmarket of one. Never sold in Australia, well supported by RAV4 parts, and one of the cleanest cars on the register to comply.",
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "availability": "importable",
+      "publish_ready": false,
+      "canonical_name": "Toyota Harrier",
+      "primary_keyword": "toyota harrier import australia",
+      "usable_build_to": null,
+      "meta_description": "Can you import a Toyota Harrier to Australia? Live SEVS and MRE build windows, AXUH80 and AXUH85 chassis codes, and real compliance costs.",
+      "usable_build_from": "2020-06-01",
+      "usable_build_open": true,
+      "secondary_keywords": [
+        "toyota harrier hybrid australia",
+        "toyota harrier sevs",
+        "is the toyota harrier eligible for import",
+        "axuh80 import australia",
+        "toyota harrier price australia",
+        "toyota harrier vs rav4"
+      ]
+    },
+    {
+      "h1": "Is the Toyota Noah or Voxy eligible for import to Australia?",
+      "faqs": [
+        {
+          "a": "It depends on the build date and chassis code. The registers list Noah and Voxy approvals under several different names, including 80 Series Hybrid and 90 Series Welcab. Check your build date against the code table above.",
+          "q": "Is the Toyota Noah eligible for import to Australia?"
+        },
+        {
+          "a": "Almost nothing mechanically. Same platform, same drivetrain, different front-end styling and different Japanese dealer channels. The Voxy is the sportier-looking one, the Esquire the most formal.",
+          "q": "What is the difference between a Noah, a Voxy and an Esquire?"
+        },
+        {
+          "a": "The 80-series hybrid (ZWR80) is front-wheel drive only. If you need 4WD in that generation you are looking at the petrol ZRR85. The 90-series offers 4WD in both.",
+          "q": "Is the Noah hybrid available in 4WD?"
+        },
+        {
+          "a": "Seven or eight depending on grade. The auction sheet states it in the seating capacity field, which is the only reliable check.",
+          "q": "How many seats does a Toyota Noah have?"
+        },
+        {
+          "a": "Landed cost depends on auction price, shipping and compliance. Use the JDM Connect landed cost calculator for a full breakdown including duty, GST and compliance.",
+          "q": "What does it cost to import a Toyota Noah to Australia?"
+        }
+      ],
+      "slug": "toyota-noah-voxy",
+      "intel": {
+        "segment": "People mover",
+        "is_gated": false,
+        "body_type": "MPV",
+        "fuel_type": "Hybrid",
+        "gate_note": null,
+        "seats_max": 8,
+        "seats_min": 7,
+        "confidence": "high",
+        "drivetrain": "FWD",
+        "generation": "80-series hybrid (2014-2021)",
+        "seats_note": "7 or 8 by grade, verify seating capacity on the auction sheet",
+        "watch_outs": "Hybrid 80-series is FWD only. 4WD in this generation means the petrol ZRR85.",
+        "engine_desc": "1.8L 2ZR-FXE hybrid",
+        "demand_level": "high",
+        "transmission": null,
+        "buyer_profile": "Family buyers cross-shopping an Alphard on budget",
+        "why_desirable": null
+      },
+      "counts": {
+        "usable": 18,
+        "expired": 0,
+        "under_review": 0,
+        "expiring_soon": 0,
+        "sev_basis_gone": 0
+      },
+      "aka_names": [
+        "Noah",
+        "Voxy",
+        "Esquire",
+        "Noah Hybrid",
+        "Voxy Hybrid",
+        "Noah Si",
+        "Voxy ZS"
+      ],
+      "approvals": [
+        {
+          "model": "70 Series Welcab",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2013-12-01",
+          "category": null,
+          "build_from": "2007-06-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=431a0945-f75f-ed11-9562-002248933ce7",
+          "model_code": null,
+          "approval_number": "MRE-000111",
+          "build_date_range": "6/2007 - 12/2013",
+          "compliance_level": "Complies"
+        },
+        {
+          "model": "80 Series Welcab",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2021-12-01",
+          "category": null,
+          "build_from": "2014-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=e05335c3-176a-ed11-81ac-002248933108",
+          "model_code": null,
+          "approval_number": "MRE-000115",
+          "build_date_range": "1/2014 - 12/2021",
+          "compliance_level": "Complies"
+        },
+        {
+          "model": "70 Series Welcab",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2013-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2007-06-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=e913e881-1164-ef11-a671-00224894508a",
+          "model_code": "ZRR70 (2WD)",
+          "approval_number": "SEV-000634",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "70 Series Welcab",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2013-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2007-06-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=7068ec87-1164-ef11-a671-00224894508a",
+          "model_code": "ZRR75 (4WD)",
+          "approval_number": "SEV-000635",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "70 Series Welcab",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2013-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2007-06-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=1b955c1b-bd7f-ef11-ac21-000d3acbed23",
+          "model_code": "ZRR70 / ZRR75",
+          "approval_number": "SEV-000675",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "80 Series Welcab",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2022-01-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2014-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=a74519a7-57bc-ef11-b8e8-00224893f91b",
+          "model_code": "ZRR80, ZRR85",
+          "approval_number": "SEV-000738",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "80 Series Welcab",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2022-01-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2014-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=76de18ad-57bc-ef11-b8e8-00224893f91b",
+          "model_code": "ZRR80, ZRR85",
+          "approval_number": "SEV-000739",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Noah / Voxy",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2007-06-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2001-11-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=7b67759d-5d08-f011-bae3-00224892d1b3",
+          "model_code": "AZR60 / AZR65",
+          "approval_number": "SEV-000835",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "80 Series Hybrid",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2021-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2018-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=1d690efb-6e4a-f011-877b-000d3ad0c06c",
+          "model_code": "ZWR80",
+          "approval_number": "SEV-000887",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "80 Series Hybrid",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2021-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2018-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=4f690efb-6e4a-f011-877b-000d3ad0c06c",
+          "model_code": "ZWR80",
+          "approval_number": "SEV-000888",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "80 Series Hybrid",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2021-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2018-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=07601001-6f4a-f011-877b-000d3ad0c06c",
+          "model_code": "ZWR80",
+          "approval_number": "SEV-000889",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Voxy",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2022-01-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=2f783ad8-c857-f011-bec1-000d3aca86f7",
+          "model_code": "ZWR9",
+          "approval_number": "SEV-000902",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "90 SERIES WELCAB",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2022-01-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=971dc5ec-0969-f011-bec3-002248960804",
+          "model_code": "90 SERIES",
+          "approval_number": "SEV-000915",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "90 SERIES WELCAB",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2022-01-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=f597c4f2-0969-f011-bec3-002248960804",
+          "model_code": "90 SERIES",
+          "approval_number": "SEV-000916",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "90 SERIES WELCAB",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2022-01-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=3c98c4f2-0969-f011-bec3-002248960804",
+          "model_code": "90 SERIES",
+          "approval_number": "SEV-000917",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Noah",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2022-01-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=8f7fe878-afa5-f011-bbd3-002248987e7f",
+          "model_code": "ZWR9",
+          "approval_number": "SEV-000964",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "90 SERIES WELCAB",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2022-01-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=76c4c54c-edc4-f011-bbd3-6045bdc43a54",
+          "model_code": "MZRA90/MZRA95",
+          "approval_number": "SEV-000987",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "80 Series Campervan",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2022-01-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2014-01-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=fb29a259-f2c4-f011-bbd3-6045bdc43a54",
+          "model_code": "ZRR80, ZRR85, ZWR80",
+          "approval_number": "SEV-000991",
+          "build_date_range": null,
+          "compliance_level": null
+        }
+      ],
+      "make_norm": "TOYOTA",
+      "title_tag": "Toyota Noah & Voxy Import Eligibility | JDM Connect",
+      "intro_copy": "The Noah, Voxy and Esquire are the same eight-seat van wearing three badges, sold through three different Japanese dealer networks. Australia never got any of them, which is why they sit on the import registers. They are the sensible alternative to an Alphard: sliding doors, the same 1.8 hybrid drivetrain as a Prius, and roughly half the money. Eligibility depends entirely on the chassis code, and the registers list this car under five names that never mention Noah or Voxy at all.",
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "availability": "importable",
+      "publish_ready": false,
+      "canonical_name": "Toyota Noah / Voxy",
+      "primary_keyword": "toyota noah import australia",
+      "usable_build_to": "2022-01-01",
+      "meta_description": "Can you import a Toyota Noah or Voxy to Australia? Live SEVS and MRE build date windows by chassis code, plus what compliance actually costs.",
+      "usable_build_from": "2001-11-01",
+      "usable_build_open": true,
+      "secondary_keywords": [
+        "toyota voxy import australia",
+        "toyota noah sevs",
+        "is the toyota voxy eligible for import",
+        "toyota noah hybrid australia",
+        "toyota esquire import",
+        "zwr80 import australia",
+        "toyota noah compliance cost",
+        "japanese 8 seater import australia"
+      ]
+    },
+    {
+      "h1": "Is the Toyota Porte or Spade eligible for import to Australia?",
+      "faqs": [
+        {
+          "a": "A tall, compact five-seat van with one very large sliding door on the passenger side and a conventional door on the driver's side. It was designed around easy entry and exit.",
+          "q": "What is a Toyota Porte?"
+        },
+        {
+          "a": "Yes. Same car, sold through a different Japanese dealer network with different badging and trim.",
+          "q": "Is the Toyota Spade the same as a Porte?"
+        },
+        {
+          "a": "The layout suits limited mobility very well, and Toyota also built factory Welcab versions with ramps and lifts. Those are listed separately on the register.",
+          "q": "Is the Porte good for wheelchair access?"
+        },
+        {
+          "a": "NCP145 is the four-wheel drive code. The rest are front-wheel drive.",
+          "q": "Is the Toyota Porte available in 4WD?"
+        }
+      ],
+      "slug": "toyota-porte-spade",
+      "intel": {
+        "segment": "Tall compact van",
+        "is_gated": false,
+        "body_type": "MPV",
+        "fuel_type": "Petrol",
+        "gate_note": null,
+        "seats_max": 5,
+        "seats_min": 5,
+        "confidence": "high",
+        "drivetrain": "FWD, NCP145 = 4WD",
+        "generation": "2nd gen (2012-2020)",
+        "seats_note": null,
+        "watch_outs": "One huge sliding door on the kerb side only. Driver side is a conventional hinged door.",
+        "engine_desc": "1.3L or 1.5L petrol",
+        "demand_level": "medium",
+        "transmission": null,
+        "buyer_profile": "Mobility buyers and parents with young kids",
+        "why_desirable": null
+      },
+      "counts": {
+        "usable": 8,
+        "expired": 0,
+        "under_review": 0,
+        "expiring_soon": 0,
+        "sev_basis_gone": 2
+      },
+      "aka_names": [
+        "Porte",
+        "Spade",
+        "Porte Welcab",
+        "Toyota Spade"
+      ],
+      "approvals": [
+        {
+          "model": "Porte / Spade",
+          "scheme": "MRE",
+          "status": "eligible",
+          "build_to": "2020-12-01",
+          "category": null,
+          "build_from": "2012-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=0d75eab4-0340-ef11-a316-002248110172",
+          "model_code": null,
+          "approval_number": "MRE-000601",
+          "build_date_range": "7/2012 - 12/2020",
+          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+        },
+        {
+          "model": "Porte / Spade",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2020-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2012-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=58629c7a-44fa-ef11-bae2-000d3acabb64",
+          "model_code": "NSP140, NCP141, NCP145, NSP141",
+          "approval_number": "SEV-000805",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Porte / Spade",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2020-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2012-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=073f0e81-44fa-ef11-bae2-000d3acabb64",
+          "model_code": "NSP140, NCP141, NCP145, NSP141",
+          "approval_number": "SEV-000806",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Porte / Spade",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2020-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2012-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=6e3f0e81-44fa-ef11-bae2-000d3acabb64",
+          "model_code": "NSP140, NCP141, NCP145, NSP141",
+          "approval_number": "SEV-000807",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Porte / Spade",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": "2020-12-01",
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2012-07-01",
+          "build_open": false,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=b23f0e81-44fa-ef11-bae2-000d3acabb64",
+          "model_code": "NSP140, NCP141, NCP145, NSP141",
+          "approval_number": "SEV-000808",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Porte / Spade",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2004-07-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=c0b36555-46fa-ef11-bae2-002248112dcc",
+          "model_code": "P series",
+          "approval_number": "SEV-000809",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Porte / Spade",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2004-07-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=edb36555-46fa-ef11-bae2-002248112dcc",
+          "model_code": "P series",
+          "approval_number": "SEV-000810",
+          "build_date_range": null,
+          "compliance_level": null
+        },
+        {
+          "model": "Porte / Spade",
+          "scheme": "SEV",
+          "status": "eligible",
+          "build_to": null,
+          "category": "MA - Passenger Vehicle",
+          "build_from": "2004-07-01",
+          "build_open": true,
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=1eb46555-46fa-ef11-bae2-002248112dcc",
+          "model_code": "P series",
+          "approval_number": "SEV-000811",
+          "build_date_range": null,
+          "compliance_level": null
+        }
+      ],
+      "make_norm": "TOYOTA",
+      "title_tag": "Toyota Porte & Spade Import Eligibility | JDM Connect",
+      "intro_copy": "Almost nobody in Australia knows this car exists, which is the whole opportunity. The Porte and Spade are the same vehicle through different Japanese dealer networks, and their defining feature is one enormous sliding door on the kerb side only, with a normal hinged door on the driver's side. That layout makes it exceptional for anyone with mobility needs, or for getting kids into car seats in a tight car park.",
+      "reviewed_at": null,
+      "reviewed_by": null,
+      "availability": "importable",
+      "publish_ready": false,
+      "canonical_name": "Toyota Porte / Spade",
+      "primary_keyword": "toyota porte import australia",
+      "usable_build_to": "2020-12-01",
+      "meta_description": "The Toyota Porte and Spade share one huge kerb-side sliding door. Check live SEVS and MRE build windows and whether yours can be imported.",
+      "usable_build_from": "2004-07-01",
+      "usable_build_open": true,
+      "secondary_keywords": [
+        "toyota spade import australia",
+        "toyota porte sevs",
+        "toyota porte wheelchair access",
+        "is the toyota porte eligible for import",
+        "nsp140 import australia",
+        "toyota porte disability vehicle",
+        "japanese sliding door car import"
+      ]
+    }
+  ]
 }
