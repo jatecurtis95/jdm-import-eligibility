@@ -16,7 +16,8 @@
 //     escaped on the way out, without exception.
 // ============================================================================
 
-export const BRAND = "Import Check";
+// The visible brand on every page is the JDM Connect logo with "Import\n// Eligibility Register" beside it, so that is what the metadata says too.
+export const BRAND = "JDM Connect Import Eligibility Register";
 export const ORIGIN = "https://importcheck.com.au";
 
 export function esc(v) {
@@ -55,12 +56,20 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-text)
 a{color:var(--gold-deep)}
 img{max-width:100%;display:block}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-header.site{background:var(--header);color:var(--header-ink);padding:14px 0}
-header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+header.site{position:sticky;top:0;z-index:40;background:var(--header);color:var(--header-ink);border-bottom:1px solid #000}
+header.site .bar{display:flex;align-items:center;gap:16px;min-height:64px}
 header.site a{color:var(--header-ink);text-decoration:none}
-.brand{font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em}
-.brand span{color:var(--gold-bright)}
-header.site nav{font-size:14px;display:flex;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--header-ink)}
+.brand-logo{width:190px;max-width:52vw;height:auto;display:block}
+.brand .sub{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#9d937f;border-left:1px solid #3a342a;padding-left:10px;line-height:1.25;display:none}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.navlink{font-size:13px;color:#c9bfa8;white-space:nowrap;display:none}
+.navlink:hover{color:var(--header-ink)}
+.btn-quote{display:inline-flex;align-items:center;gap:7px;background:var(--gold-bright);color:#1a1407;border:1px solid var(--gold-bright);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;min-height:40px;text-decoration:none;white-space:nowrap;transition:filter .15s ease, transform .08s ease}
+.btn-quote:hover{filter:brightness(1.06)}
+.btn-quote:active{transform:scale(.97)}
+@media(min-width:560px){.brand .sub{display:block}.brand-logo{width:225px;max-width:none}}
+@media(min-width:760px){.navlink{display:inline-flex}}
 main{padding:26px 0 60px}
 .crumbs{font-size:13px;color:var(--muted);margin-bottom:14px}
 .crumbs a{color:var(--muted);text-decoration:none}
@@ -112,8 +121,14 @@ tbody tr:last-child td{border-bottom:0}
 .draft{background:#2B1F0B;color:#F6E7C4;border-bottom:2px solid var(--gold);padding:11px 0;font-size:14px}
 .draft .wrap{display:flex;gap:10px;align-items:center}
 .draft b{color:var(--gold-bright)}
-footer.site{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40px;font-size:13.5px;color:var(--muted)}
-footer.site a{color:var(--muted)}
+footer.site{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 44px;color:var(--faint);font-size:12.5px;text-align:center}
+footer.site .fjp{font-family:var(--font-display);font-style:italic;font-size:13px;letter-spacing:.18em;color:var(--faint);margin-bottom:10px}
+footer.site p{max-width:640px;margin:0 auto 6px;line-height:1.6}
+footer.site a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px}
+footer.site .powered{display:inline-flex;flex-direction:column;align-items:center;gap:8px;margin:0 auto 18px;text-decoration:none}
+footer.site .powered .lbl{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint)}
+footer.site .powered img{width:240px;max-width:74vw;height:auto;display:block}
+footer.site .powered:hover .lbl{color:var(--muted)}
 @media(max-width:560px){.banner{flex-direction:column;gap:8px}.banner .dot{margin-top:0}}
 `;
 
@@ -149,10 +164,21 @@ ${robots}
 <style>${CSS}</style>`;
 }
 
+// Lifted from index.html rather than reinvented. These pages sit on the same
+// domain as the checker and have to read as the same site, so the logo, the
+// subtitle, the quote button and the sticky dark bar are all copied verbatim.
+// If the masthead changes on the homepage it has to change here too.
 function siteHeader() {
-  return `<header class="site"><div class="wrap">
-<a class="brand" href="/">Import<span>Check</span></a>
-<nav><a href="/">Eligibility checker</a><a href="/vehicles">Models</a></nav>
+  return `<header class="site"><div class="wrap bar">
+<a class="brand" href="https://jdmconnect.com.au" aria-label="JDM Connect">
+  <img class="brand-logo" src="/logo.png" alt="JDM Connect" width="225" height="24" />
+  <span class="sub">Import Eligibility<br />Register</span>
+</a>
+<div class="header-right">
+  <a class="navlink" href="/">Eligibility checker</a>
+  <a class="navlink" href="/vehicles">Models</a>
+  <a class="btn-quote" href="https://jdmfinder.com.au/tools/calculator?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=vehicle-page" target="_blank" rel="noopener">Get a quote</a>
+</div>
 </div></header>`;
 }
 
@@ -163,11 +189,22 @@ function draftBar(page) {
 </div></div>`;
 }
 
+// Same footer as index.html, including the disclaimer. That line is not
+// decoration: these pages tell people whether a car can be imported, and the
+// register is the final word, not us. The build date replaces the homepage's
+// live "data updated" pill, since these pages are rendered from a bundle.
 function siteFooter(generatedAt) {
   const when = generatedAt ? new Date(generatedAt).toISOString().slice(0, 10) : "";
   return `<footer class="site"><div class="wrap">
-<p>Register data refreshed from ROVER${when ? ` on ${esc(when)}` : ""}. ${esc(BRAND)} reads the public Australian ROVER register and checks that every model report still has a live SEVS entry beneath it. It is a research tool, not compliance advice, and the register itself is always the final word.</p>
-<p><a href="/">Eligibility checker</a> &nbsp;&middot;&nbsp; <a href="/vehicles">All models</a> &nbsp;&middot;&nbsp; <a href="https://jdmconnect.com.au">JDM Connect</a></p>
+<a class="powered" href="https://jdmconnect.com.au" aria-label="Powered by JDM Connect">
+  <span class="lbl">Powered by</span>
+  <img src="/logo.png" alt="JDM Connect" width="282" height="30" />
+</a>
+<div class="fjp">\u65e5\u672c\u8eca\u3092\u3001\u30aa\u30fc\u30b9\u30c8\u30e9\u30ea\u30a2\u3078</div>
+<p>Data sourced live from the Australian Government ROVER portal (SEVS Register &amp; Model Report Approvals). Refreshed daily${when ? `, last on ${esc(when)}` : ""}.</p>
+<p>Only approvals that are currently live are shown. A model report whose SEVS entry has been removed still reads In Force on ROVER, so it is deliberately left out rather than displayed as usable.</p>
+<p>This register is a guide only, always confirm eligibility with an import agent before purchase.</p>
+<p><a href="https://jdmconnect.com.au">jdmconnect.com.au</a> &middot; <a href="mailto:info@jdmconnect.com.au">info@jdmconnect.com.au</a> &middot; <a href="/">Eligibility checker</a> &middot; <a href="/vehicles">All models</a></p>
 </div></footer>`;
 }
 
@@ -342,7 +379,7 @@ function structuredData(page, canonicalPath) {
     {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Import Check", item: ORIGIN + "/" },
+        { "@type": "ListItem", position: 1, name: "Import Eligibility Register", item: ORIGIN + "/" },
         { "@type": "ListItem", position: 2, name: "Models", item: ORIGIN + "/vehicles" },
         { "@type": "ListItem", position: 3, name: page.canonical_name, item: url },
       ],
@@ -389,7 +426,7 @@ export function renderVehiclePage(page, generatedAt) {
   const canonicalPath = `/vehicles/${page.slug}`;
 
   const body = [
-    `<div class="crumbs"><a href="/">Import Check</a> &rsaquo; <a href="/vehicles">Models</a> &rsaquo; ${esc(page.canonical_name)}</div>`,
+    `<div class="crumbs"><a href="/">Import Eligibility Register</a> &rsaquo; <a href="/vehicles">Models</a> &rsaquo; ${esc(page.canonical_name)}</div>`,
     `<h1>${esc(page.h1 || page.canonical_name)}</h1>`,
     banner(page),
     lede(page.intro_copy),
@@ -442,7 +479,7 @@ export function renderVehicleIndex(pages, generatedAt) {
     .join("\n");
 
   const body = live.length
-    ? `<div class="crumbs"><a href="/">Import Check</a> &rsaquo; Models</div>
+    ? `<div class="crumbs"><a href="/">Import Eligibility Register</a> &rsaquo; Models</div>
 <h1>Import eligibility by model</h1>
 <p class="lede">One page per model, read straight from the Australian ROVER register and rechecked every day. Each one shows only the approvals that are actually live, because a model report whose SEVS entry has been removed still reads In Force and will tell you a car is importable when it is not.</p>
 <div class="tablewrap"><table>
@@ -454,7 +491,7 @@ export function renderVehicleIndex(pages, generatedAt) {
 <p>These are the models written up so far. The checker covers the whole register, not just these.</p>
 <a class="btn" href="/">Open the eligibility checker</a>
 </div>`
-    : `<div class="crumbs"><a href="/">Import Check</a> &rsaquo; Models</div>
+    : `<div class="crumbs"><a href="/">Import Eligibility Register</a> &rsaquo; Models</div>
 <h1>Import eligibility by model</h1>
 <p class="lede">Model pages are being written and reviewed. Nothing is published yet.</p>
 <div class="cta"><h3>In the meantime</h3><p>The checker already covers every model on the register.</p>
@@ -497,7 +534,7 @@ export function notFound() {
   return new Response(
     `<!doctype html><html lang="en-AU"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="robots" content="noindex" /><title>Model not found | Import Check</title>
+<meta name="robots" content="noindex" /><title>Model not found | JDM Connect</title>
 <style>body{font-family:system-ui,sans-serif;background:#F6F2EB;color:#16130D;margin:0;padding:70px 20px;text-align:center}
 a{color:#96762B}</style></head><body>
 <h1>We do not have a page for that model</h1>

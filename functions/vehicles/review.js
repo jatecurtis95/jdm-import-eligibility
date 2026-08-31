@@ -66,7 +66,7 @@ ${faqs.map((f) => `<p><b>${esc(f.q)}</b><br />${esc(f.a)}</p>`).join("\n")}
 </div>`;
   };
 
-  const body = `<div class="crumbs"><a href="/">Import Check</a> &rsaquo; <a href="/vehicles">Models</a> &rsaquo; Review</div>
+  const body = `<div class="crumbs"><a href="/">Import Eligibility Register</a> &rsaquo; <a href="/vehicles">Models</a> &rsaquo; Review</div>
 <h1>Pages waiting on you</h1>
 <p class="lede">Every one of these is written and live at its own address, and every one is invisible to Google until you say otherwise. Nothing here can be indexed, linked from the models page, or put in the sitemap while it sits in this list.</p>
 <div class="banner b-warn"><span class="dot"></span><div>
@@ -100,7 +100,7 @@ ${signed
     slug: "review",
     canonical_name: "Review queue",
     h1: "Pages waiting on you",
-    title_tag: "Review queue | Import Check",
+    title_tag: "Review queue | JDM Connect",
     meta_description: "Model pages awaiting sign-off.",
   };
 
