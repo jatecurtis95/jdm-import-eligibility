@@ -1,0 +1,7 @@
+{
+  "generated_at": null,
+  "page_count": 0,
+  "published_count": 0,
+  "pages": [],
+  "_note": "PLACEHOLDER. Generated for real by scripts/build-vehicle-pages.ts, which runs daily via .github/workflows/build-vehicle-pages.yml and commits the result. An empty bundle is a safe state: /vehicles renders an empty hub with noindex and every /vehicles/<slug> returns 404, so a failed build degrades to nothing rather than to something wrong."
+}

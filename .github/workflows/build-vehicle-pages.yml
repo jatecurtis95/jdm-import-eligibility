@@ -1,0 +1,83 @@
+# ============================================================================
+# .github/workflows/build-vehicle-pages.yml
+# ----------------------------------------------------------------------------
+# Rebuild functions/_data/vehicle-pages.json (and sitemap.xml) from Supabase,
+# so the per-model landing pages under /vehicles track the register.
+#
+# Ordering matters. The daily chain is:
+#   daily-scrape.yml            scrapes ROVER  -> functions/_data/data.json
+#   refresh-rover-eligibility   data.json      -> Supabase rover_eligibility
+#   THIS WORKFLOW               Supabase       -> vehicle-pages.json
+# so it runs at 00:15 UTC, after the 23:45 UTC refresh has landed.
+#
+# The build script refuses to write a bundle that contains a dead approval, so
+# a red run here means the data changed shape, not that the pages are stale.
+# Leave the last good bundle in place and look at the failure.
+#
+# REQUIRED secret (already set on this repo for refresh-rover-eligibility):
+#   SUPABASE_PAT          Supabase Personal Access Token (sbp_...)
+# Optional:
+#   SUPABASE_PROJECT_REF  defaults to rrvuxgajwaxadwwolgox in the script.
+# ============================================================================
+name: build-vehicle-pages
+
+"on":
+  schedule:
+    - cron: "15 0 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-vehicle-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: rebuild vehicle landing pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: checkout
+        uses: actions/checkout@v6
+
+      - name: setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+
+      - name: test the renderer
+        # Runs before the build so a broken review gate stops the pipeline
+        # rather than shipping alongside fresh data.
+        run: node scripts/test-vehicle-pages.mjs
+
+      - name: build bundle
+        run: npx --yes tsx@4 scripts/build-vehicle-pages.ts
+        env:
+          SUPABASE_PAT:         ${{ secrets.SUPABASE_PAT }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+
+      - name: commit
+        shell: bash
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Actions [Vehicle Pages]"
+          git add functions/_data/vehicle-pages.json sitemap.xml
+          if git diff --cached --quiet; then
+            echo "no change"
+            exit 0
+          fi
+          git commit -m "Auto-update: vehicle pages rebuilt $(date -u +'%Y-%m-%d')"
+          git push || {
+            echo "push rejected, re-syncing and retrying once"
+            cp functions/_data/vehicle-pages.json /tmp/vp.json
+            cp sitemap.xml /tmp/sitemap.xml
+            git fetch origin main
+            git reset --hard origin/main
+            mv /tmp/vp.json functions/_data/vehicle-pages.json
+            mv /tmp/sitemap.xml sitemap.xml
+            git add functions/_data/vehicle-pages.json sitemap.xml
+            git diff --cached --quiet || git commit -m "Auto-update: vehicle pages rebuilt $(date -u +'%Y-%m-%d')"
+            git push
+          }
