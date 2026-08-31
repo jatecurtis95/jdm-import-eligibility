@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- The canonical home of this tool is importcheck.com.au. caniimportit.com.au
+     is the old domain and redirects here; it must never appear in this file, or
+     the sitemap tells Google to index the address we are trying to retire. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://caniimportit.com.au/</loc>
-    <lastmod>2026-07-06</lastmod>
+    <loc>https://importcheck.com.au/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>

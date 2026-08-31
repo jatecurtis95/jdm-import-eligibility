@@ -355,28 +355,30 @@
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://caniimportit.com.au/#website",
-      "url": "https://caniimportit.com.au/",
-      "name": "Can I Import It: Australian Import Eligibility Register",
+      "@id": "https://importcheck.com.au/#website",
+      "url": "https://importcheck.com.au/",
+      "name": "Import Check: Australian Import Eligibility Register",
       "description": "Search the SEVS and MRE registers to check if a car is eligible to import into Australia.",
-      "publisher": { "@id": "https://caniimportit.com.au/#org" },
+      "publisher": { "@id": "https://importcheck.com.au/#org" },
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://caniimportit.com.au/?q={search_term_string}",
+        "target": "https://importcheck.com.au/?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     },
     {
       "@type": "Organization",
-      "@id": "https://caniimportit.com.au/#org",
+      "@id": "https://importcheck.com.au/#org",
       "name": "JDM Connect",
       "url": "https://jdmconnect.com.au",
-      "logo": "https://caniimportit.com.au/logo.png",
+      "logo": "https://importcheck.com.au/logo.png",
+      "areaServed": "AU",
+      "sameAs": ["https://jdmconnect.com.au"],
       "description": "Japanese vehicle import specialists. JDM Connect sources, ships, and complies imported cars for Australia."
     },
     {
       "@type": "FAQPage",
-      "@id": "https://caniimportit.com.au/#faq",
+      "@id": "https://importcheck.com.au/#faq",
       "mainEntity": [
         {
           "@type": "Question",

@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://caniimportit.com.au/sitemap.xml
+# Must match the canonical host in index.html. This line pointed at
+# caniimportit.com.au (the retired domain): Google ignores a sitemap served
+# from one host that lists URLs on another, so the site effectively had no
+# sitemap at all.
+Sitemap: https://importcheck.com.au/sitemap.xml
