@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T04:19:38.365Z",
+  "generated_at": "2026-08-31T05:12:45.909Z",
   "page_count": 21,
   "published_count": 0,
   "pages": [
@@ -7,24 +7,24 @@
       "h1": "Is the Honda Civic Type R eligible for import to Australia?",
       "faqs": [
         {
-          "a": "Some generations are. The table above lists the codes and build windows that are live today. Which generations appear tracks which ones Honda Australia did not sell here.",
+          "a": "Some generations are. The table above has the codes and build windows that are live today, and which ones show up depends on what Honda Australia didn't sell here.",
           "q": "Is the Honda Civic Type R eligible for import to Australia?"
         },
         {
-          "a": "The Japanese-market four door Type R built from 2007, with the K20A engine, a limited slip differential and a much stiffer body than the hatch. It was never sold in Australia, which is why it is the one most people are searching for.",
-          "q": "What is an FD2 Type R?"
+          "a": "The Japanese four door Type R from 2007. K20A, limited slip diff, and a shell that's stiffer than the hatch by a long way. Never sold in Australia, which is exactly why it's the one everyone's searching for.",
+          "q": "What's an FD2?"
         },
         {
-          "a": "The FD2 is the Japanese four door with the K20A. The FN2 is the European three door hatch with the milder K20Z4. They are quite different cars and the FD2 is the one with the reputation.",
-          "q": "What is the difference between an FD2 and an FN2?"
+          "a": "FD2 is the Japanese sedan with the K20A. FN2 is the European hatch with the softer K20Z4. Not the same car and not the same reputation. If someone's selling you an FN2 as the real thing, walk.",
+          "q": "FD2 or FN2?"
         },
         {
-          "a": "Accident history and engine work. These are cheap enough to be thrashed and expensive enough to be repaired badly. The auction sheet and an inspection matter more here than on a family car, and a genuine unmodified example is worth paying for.",
-          "q": "What should I watch for on a Type R?"
+          "a": "Crash history and what's been done to the engine. These are cheap enough to get thrashed and expensive enough to get repaired badly. The auction sheet and an inspection matter more here than on a Corolla, and a genuinely standard one is worth paying up for.",
+          "q": "What should I check?"
         },
         {
-          "a": "Yes. The K20 is well understood and Honda specialists are easy to find. Type R specific parts, particularly interior trim and body panels, are the ones that need ordering from Japan.",
-          "q": "Can I service a Type R in Australia?"
+          "a": "Easy. The K20 is everywhere and Honda specialists are in every city. Type R specific trim and body panels are the ones you'll be ordering from Japan and waiting on.",
+          "q": "Servicing?"
         }
       ],
       "slug": "honda-civic-type-r",
@@ -178,7 +178,7 @@
       ],
       "make_norm": "HONDA",
       "title_tag": "Honda Civic Type R Import Eligibility Australia | Import Check",
-      "intro_copy": "The Type R people import is almost always the FD2, the Japanese-only four door with the K20A and a 8,400rpm redline, which Australia never received. The EP3 and the later FK2 also appear on the register. What makes this one worth checking carefully is that Honda Australia sold some Type R generations and not others, and the register reflects that gap precisely, so eligibility tracks the chassis code rather than the name on the boot. The table below is the reliable answer.",
+      "intro_copy": "Nine times out of ten the Type R people are chasing is the FD2. Japanese-only four door, K20A, 8,400rpm, and Honda Australia never brought one in.\n\nThe EP3 and the FK2 also turn up on the register. Which generations appear and which don't tracks almost exactly what Honda did and didn't sell here, so the answer follows the chassis code rather than the badge on the boot.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -200,20 +200,24 @@
       "h1": "Is the Honda Fit (Jazz) eligible for import to Australia?",
       "faqs": [
         {
-          "a": "Yes. Fit is the Japanese and North American name, Jazz is the name used in Australia and Europe. Same car.",
-          "q": "Is the Honda Fit the same as the Honda Jazz?"
+          "a": "Yes. Fit in Japan and North America, Jazz here and in Europe. Same car.",
+          "q": "Is the Honda Fit the same as the Jazz?"
         },
         {
-          "a": "Check the code and build date against the table above, because it lists only the approvals that are live today. GP5 and GP6 are the third generation. GR3 and GR4 are the fourth generation e:HEV. Not every code has a complete pathway at any one time, and the table is the reliable answer rather than the generation name.",
-          "q": "Which Honda Fit Hybrid can I import?"
+          "a": "Check the code and build month against the table above, because it only lists what's live today. GP5 and GP6 are the third generation, GR3 and GR4 the fourth generation e:HEV. Not every code has a complete pathway at any one moment, so the table is the answer rather than the generation name.",
+          "q": "Which Fit Hybrid can I import?"
         },
         {
-          "a": "GP5 is front-wheel drive, GP6 is all-wheel drive. Otherwise the same car.",
-          "q": "What is the difference between GP5 and GP6?"
+          "a": "GP5 is front drive, GP6 is all wheel drive. Otherwise the same car.",
+          "q": "GP5 or GP6?"
         },
         {
-          "a": "Yes. The Jazz was sold here for years and shares most service parts, so any Honda dealer or independent mechanic can handle routine work.",
-          "q": "Can I get parts for an imported Honda Fit in Australia?"
+          "a": "Easy. The Jazz sold here for years and shares most service parts, so any Honda dealer or decent independent can handle it.",
+          "q": "Parts here?"
+        },
+        {
+          "a": "If you want the fuel figures and the better JDM trim, yes. If you just want a small hatch, the local Jazz is sitting on every used lot in the country and costs less to get into.",
+          "q": "Is a hybrid Jazz worth importing?"
         }
       ],
       "slug": "honda-fit-jazz",
@@ -423,7 +427,7 @@
       ],
       "make_norm": "HONDA",
       "title_tag": "Honda Fit / Jazz Import Eligibility Australia | Import Check",
-      "intro_copy": "If you know this car as the Jazz, you are already in the right place. Fit is the Japanese name for the same car. The hybrid versions never came to Australia in any real numbers, which is why they are on the register. The magic seats and the packaging are unchanged from the Jazz you know, but the JDM cars are better equipped and the hybrid drivetrain is genuinely frugal.",
+      "intro_copy": "If you know this car as the Jazz, you're in the right place. Fit is just the Japanese name.\n\nThe hybrids are what's on the register, because they never really came here. Same magic seats, same packaging you already know, but better equipped than the local cars and genuinely frugal.\n\nOne thing to get right before you bid: eligibility follows the chassis code, and not every code has a complete pathway at the same time. Read the table, not the generation.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -448,20 +452,24 @@
       "h1": "Is the Mazda RX-7 FD3S eligible for import to Australia?",
       "faqs": [
         {
-          "a": "Yes, by one of two routes. The register approval covers the later Series 8 build window. Earlier FD cars are eligible under the 25-year pathway instead.",
+          "a": "Yes, by one of two routes. The register approval covers the later Series 8 window. Earlier FDs go the 25-year pathway instead.",
           "q": "Is the Mazda RX-7 eligible for import to Australia?"
         },
         {
-          "a": "The final JDM revision of the FD, built from 1999. It has the best engine calibration of the run and includes the Spirit R at the very end.",
-          "q": "What is a Series 8 RX-7?"
+          "a": "The final JDM revision of the FD, from 1999. Best engine calibration of the run, and it includes the Spirit R at the very end.",
+          "q": "What's a Series 8?"
         },
         {
-          "a": "The final special edition, built in 2002. Only a small number were made and they are the most valuable FD variant.",
-          "q": "What is an RX-7 Spirit R?"
+          "a": "The last special edition, built in 2002. Small numbers, and the most valuable FD variant by a margin.",
+          "q": "What's a Spirit R?"
         },
         {
-          "a": "You should inspect it properly. Compression testing before purchase is not optional on a rotary, and the auction grade and inspector notes carry more weight here than on a piston engine car.",
-          "q": "Should I worry about the rotary engine?"
+          "a": "You should inspect it properly. Compression testing before purchase isn't optional on a rotary, and the auction grade and inspector notes carry far more weight here than on a piston car. A rebuilt engine with no paperwork is a no.",
+          "q": "Should I be worried about the rotary?"
+        },
+        {
+          "a": "Yes, and getting worse. A cheap FD is almost always a compression problem waiting to introduce itself. Budget for the good one or budget for the rebuild.",
+          "q": "Is a good one expensive?"
         }
       ],
       "slug": "mazda-rx-7",
@@ -545,7 +553,7 @@
       ],
       "make_norm": "MAZDA",
       "title_tag": "Mazda RX-7 FD3S Import Eligibility Australia | Import Check",
-      "intro_copy": "The FD is the last of the twin-turbo rotaries and prices reflect it. The important detail most listings skip: the register approval covers the final Series 8 cars only, not the whole 1991 to 2002 production run. Earlier FDs are still importable, but on the 25-year pathway, not this approval. Rotary condition risk also means auction grade matters more on this car than on almost anything else you will look at.",
+      "intro_copy": "Last of the twin-turbo rotaries, and the prices know it.\n\nHere's the detail most listings skip: the register approval covers the final Series 8 cars only, not the whole 1991 to 2002 run. Earlier FDs are still importable, but on the 25-year pathway, not this one.\n\nAnd because it's a rotary, auction grade matters more here than on almost anything else you'll look at. Condition isn't a nice-to-have on this car, it's the entire purchase.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -569,16 +577,24 @@
       "h1": "Is the Mercedes-Benz SL55 AMG (R230) eligible for import to Australia?",
       "faqs": [
         {
-          "a": "R230 SL55 AMG models hold current approvals. The exact build window is listed above and refreshes daily from ROVER.",
+          "a": "R230 SL55 AMG models hold current approvals. The exact build window is in the table above and refreshes daily from the register.",
           "q": "Is the Mercedes SL55 AMG eligible for import to Australia?"
         },
         {
-          "a": "A 5.4 litre supercharged V8, the M113K, producing around 500 horsepower depending on year.",
-          "q": "What engine is in the SL55 AMG?"
+          "a": "The M113K. 5.4 litres, supercharged, around 500 horsepower depending on the year.",
+          "q": "What engine is it?"
         },
         {
-          "a": "Yes. Two seats, rear-wheel drive, with a folding metal roof.",
-          "q": "Is the SL55 AMG a two-seater?"
+          "a": "Yes. Two seats, rear drive, folding metal roof.",
+          "q": "Is it a two seater?"
+        },
+        {
+          "a": "The hydraulic suspension and the roof mechanism are the ones that hurt. Both are fixable and neither is cheap. Buy the one with the history, not the one with the lowest price.",
+          "q": "What goes wrong with them?"
+        },
+        {
+          "a": "Because the register has it under 230 with SL55 AMG sitting in the chassis code field. It's a data quirk on their end. This page pulls it together so you don't have to guess.",
+          "q": "Why does searching SL55 find nothing?"
         }
       ],
       "slug": "mercedes-benz-sl55-amg",
@@ -661,7 +677,7 @@
       ],
       "make_norm": "MERCEDES-BENZ",
       "title_tag": "Mercedes SL55 AMG R230 Import Eligibility | Import Check",
-      "intro_copy": "The SL55 AMG is the supercharged one, and it is the reason people still talk about the R230. A 5.4 litre V8 with a blower on top, a folding hardtop, and around 500 horsepower in a car that will still cross a continent. On the register it is filed under the number 230 with SL55 AMG buried in the chassis code field, which is backwards, and means a search for SL55 currently returns nothing.",
+      "intro_copy": "The supercharged one. This is the reason people still talk about the R230.\n\nA 5.4 litre V8 with a blower on top, a folding metal roof, and around 500 horsepower in a car that will still cross a continent without complaining.\n\nOne quirk worth knowing: on the register it's filed under the number 230 with SL55 AMG buried in the chassis code field, which is backwards, and means searching for SL55 turns up nothing at all.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -684,24 +700,24 @@
       "h1": "Is the Mitsubishi Delica eligible for import to Australia?",
       "faqs": [
         {
-          "a": "It depends on which one and when it was built. The table above lists the approvals that are live today. Older Space Gear vans may also qualify on the separate 25-year pathway, which does not use this register at all.",
+          "a": "Depends which one and when it was built. The table above has what's live today. Older Space Gears may come in on age instead, through the 25-year pathway, which doesn't use this register at all.",
           "q": "Is the Mitsubishi Delica eligible for import to Australia?"
         },
         {
-          "a": "The Space Gear, chassis code PD8W and similar, is the tall boxy van from the nineties, usually with the 2.8 litre 4M40 diesel. The D:5 is the generation that followed, on a car-based platform, with much better ride and steering. They are different vehicles that happen to share a name.",
-          "q": "What is the difference between a Space Gear and a D:5?"
+          "a": "Different vehicles that share a badge. The Space Gear (PD8W and friends) is the nineties van, usually with the 2.8 4M40 diesel, and it's the one people build for touring. The D:5 rides and steers like something from this century. Buy the Space Gear for the tracks, the D:5 for everything else.",
+          "q": "Space Gear or D:5?"
         },
         {
-          "a": "The Space Gear genuinely is, with selectable four wheel drive and low range under a van body. The D:5 is all-wheel drive and very capable on dirt roads and beaches, but it is not the same ladder-frame proposition. Match the version to what you actually plan to drive.",
-          "q": "Is the Delica actually good off road?"
+          "a": "The Space Gear genuinely is. Selectable 4WD, low range, under a van body, which is a combination almost nobody else built. The D:5 is very good on dirt and sand but it's all-wheel drive on a car platform, not the same animal. Match it to what you'll actually drive.",
+          "q": "Is it actually good off road?"
         },
         {
-          "a": "Rust around the rear quarters and under the sliding door on the older vans, and the condition of the diesel's timing components. Ask for the auction sheet and a proper inspection. These are old commercial-derived vehicles and condition varies more than the photos suggest.",
-          "q": "What should I watch for on a Delica?"
+          "a": "Rust. Rear quarters and under the sliding door on the older vans, and it hides. After that it's the diesel's timing gear. Get the auction sheet and pay someone to look at it properly, because condition on a thirty year old commercial van varies more than any photo will show you.",
+          "q": "What kills these?"
         },
         {
-          "a": "The diesels are well understood and there are specialists in most capital cities because of how many are already here. Parts are a mix: mechanical items are findable, body and trim take longer.",
-          "q": "Is a Delica hard to service in Australia?"
+          "a": "No. There are enough of them on the road now that most capitals have someone who knows them, and the diesels are well understood. Mechanical parts turn up. Body and trim take longer.",
+          "q": "Hard to look after here?"
         }
       ],
       "slug": "mitsubishi-delica",
@@ -897,7 +913,7 @@
       ],
       "make_norm": "MITSUBISHI",
       "title_tag": "Mitsubishi Delica Import Eligibility Australia | Import Check",
-      "intro_copy": "The Delica is a van on a four wheel drive chassis, and that combination is why it has the following it does here. Nothing sold new in Australia gives you eight seats, a diesel and genuine low range in one vehicle at Delica money. Two very different cars share the name: the L400 Space Gear from the nineties, which is the boxy one people convert for touring, and the D:5, which is the modern one with the sharp face and the far better on-road manners. They sit in different places on the register and on the 25-year pathway, so which one you are looking at changes the answer completely.",
+      "intro_copy": "A van on a four wheel drive chassis. That's the whole pitch, and it's why the Delica has the following it does here. Nothing on sale new in Australia gives you eight seats, a diesel and real low range for Delica money.\n\nTwo very different cars share the name. The L400 Space Gear is the tall boxy one from the nineties, the one that ends up with a roof rack and a snorkel. The D:5 is the sharp-faced one that came after, built on a car platform, and it's a far better thing to drive to work.\n\nThey sit in different places on the register and on the 25-year clock, so which one you mean changes the answer completely.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -919,24 +935,24 @@
       "h1": "Is the Mitsubishi Lancer Evolution eligible for import to Australia?",
       "faqs": [
         {
-          "a": "It depends on the generation and the build date. The table above lists what is live on the register today. Earlier Evos may qualify instead on the 25-year pathway, which is a rolling date and does not use this register.",
-          "q": "Is the Mitsubishi Lancer Evolution eligible for import to Australia?"
+          "a": "Depends on the generation and the build month. The table above has what's live today. Earlier cars may go the 25-year route instead, which rolls forward each year and doesn't use this register.",
+          "q": "Is the Lancer Evolution eligible for import to Australia?"
         },
         {
-          "a": "The CT9W, an Evo IX drivetrain in a station wagon body, sold only in Japan and only briefly. It came with the six-speed manual or an automatic, and it is the practical Evo nobody expects to see.",
-          "q": "What is an Evolution Wagon?"
+          "a": "CT9W. Evo IX running gear, station wagon body, sold only in Japan and only briefly. Six speed manual or an auto. The Evo that fits a pram, which nobody expects.",
+          "q": "What's an Evolution Wagon?"
         },
         {
-          "a": "Mitsubishi Australia brought in some generations officially and skipped others, which is exactly why the register carries approvals for the ones it skipped. Check the table above rather than assuming, since the specific versions matter as much as the generation.",
-          "q": "Which Evos were sold in Australia?"
+          "a": "Some generations, not others, which is exactly why the register carries approvals for the ones it skipped. Check the table rather than going off the generation number, because the specific version matters as much as the numeral.",
+          "q": "Which Evos came here officially?"
         },
         {
-          "a": "Engine and gearbox history, and whether the car has been on a track. The 4G63 is strong but not immortal and a rebuilt one with no paperwork is a gamble. Get the auction sheet and pay for an inspection.",
-          "q": "What should I check before buying an Evo?"
+          "a": "Engine and gearbox history, and track time. The 4G63 is tough but it isn't immortal, and a rebuilt one with no paperwork is a coin flip. Auction sheet, inspection, and be suspicious of a cheap one.",
+          "q": "What kills an Evo purchase?"
         },
         {
-          "a": "Mechanical and performance parts, yes, because there is a large local following and an aftermarket to match. Genuine interior and body parts for the Japanese-only versions are the slow ones.",
-          "q": "Are Evo parts available in Australia?"
+          "a": "Mechanical and performance parts are easy, there's a big local following and an aftermarket to match. Genuine trim and body panels for the Japan-only versions are the slow ones.",
+          "q": "Parts?"
         }
       ],
       "slug": "mitsubishi-lancer-evolution",
@@ -1217,7 +1233,7 @@
       ],
       "make_norm": "MITSUBISHI",
       "title_tag": "Mitsubishi Lancer Evolution Import Eligibility | Import Check",
-      "intro_copy": "Mitsubishi Australia sold some Evos and not others, and the register maps that gap almost exactly. The generations that never came here officially, and the Japanese-only versions of the ones that did, are what you will find below. The Evolution Wagon on the CT9W code is the standout oddity: an Evo IX drivetrain under a station wagon body, sold only in Japan, and the sort of car that no local dealer ever had. Older generations may also clear the 25-year pathway instead, which is a separate route with its own costs.",
+      "intro_copy": "Mitsubishi Australia sold some Evos and skipped others, and the register maps that gap almost perfectly. What you'll find below is the generations that never came officially, plus the Japanese-only versions of the ones that did.\n\nThe odd one out is the CT9W. That's an Evo IX drivetrain under a station wagon body, Japan only, and no dealer here ever had one.\n\nOlder generations may come in on age instead through the 25-year pathway, which is a separate process with its own costs.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -1239,24 +1255,24 @@
       "h1": "Is the Nissan Elgrand eligible for import to Australia?",
       "faqs": [
         {
-          "a": "It depends on the chassis code and build date. The table above shows only the approvals that are live today, including the campervan conversions, which are listed separately.",
+          "a": "Depends on the code and the build month. The table above shows what's live today, including the campervan conversions, which sit on their own separate entries.",
           "q": "Is the Nissan Elgrand eligible for import to Australia?"
         },
         {
-          "a": "The E51 is the earlier generation, taller and available with a 3.5 litre V6. The E52 replaced it with a lower floor, a lower centre of gravity and a much better drive, in 2.5 and 3.5 litre forms. The E52 is the one most people want.",
-          "q": "What is the difference between an E51 and an E52 Elgrand?"
+          "a": "E51 is the earlier one, taller, with the 3.5 V6 on offer. E52 replaced it with a lower floor and a much better drive, in 2.5 and 3.5. The E52 is the one most people are actually after.",
+          "q": "E51 or E52?"
         },
         {
-          "a": "The Alphard has the stronger name in Australia and holds money better. The Elgrand usually buys you more van for the same budget and the E52 drives well. If you are keeping it, the Elgrand is good value. If you are watching resale, the Alphard has the edge.",
+          "a": "The Alphard is the safer resale bet, no argument. The Elgrand gets you more van for the same money and the E52 is genuinely good to drive. If you're keeping it, the Elgrand is the smarter buy. If you're flipping it, take the Alphard.",
           "q": "Elgrand or Alphard?"
         },
         {
-          "a": "Some are, under their own register entries rather than the standard van's. They appear on the register as campervan variants with their own approval numbers, so check the table above for the specific code.",
-          "q": "Are Elgrand campervans eligible?"
+          "a": "They're on the register under their own approval numbers rather than the standard van's, so check the table for the specific code rather than assuming the van covers it.",
+          "q": "What about the campervan versions?"
         },
         {
-          "a": "Mechanical parts are generally straightforward because the engines are shared with other Nissans. Interior trim and body panels are the slow ones, since the van was never sold here, so factor that in on a car with damage.",
-          "q": "Can I get parts for an Elgrand in Australia?"
+          "a": "Mechanicals are fine, the engines are shared across the Nissan range. Trim and body panels are the wait, since the van never officially existed here. Something to think about on a car with a mark on the sheet.",
+          "q": "Parts?"
         }
       ],
       "slug": "nissan-elgrand",
@@ -1436,7 +1452,7 @@
       ],
       "make_norm": "NISSAN",
       "title_tag": "Nissan Elgrand Import Eligibility Australia | Import Check",
-      "intro_copy": "The Elgrand is the Alphard alternative, and it is usually the cheaper one for the same amount of van. The E51 is the older shape with the V6, the E52 is the current one with the lower floor and the better ride. Neither was sold new in Australia, which is what puts them on the register. Buyers who cross-shop the two normally land on the Elgrand when the budget is tighter and on the Alphard when resale matters more, because the Alphard has the stronger name here. Eligibility runs off the chassis code and build date, so read the table before the badge.",
+      "intro_copy": "The Elgrand is what you buy when you want the Alphard money to go further. Same job, less badge tax.\n\nE51 is the older shape, taller, and available with the 3.5 V6. E52 is the one that dropped the floor, dropped the centre of gravity, and actually drives properly. Neither was ever sold here new, which is what puts them on the register in the first place.\n\nMost people who cross-shop the two end up on the Elgrand when the budget's tight and the Alphard when they're thinking about selling it again. Either way it's the chassis code and build month that decides, not the badge.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -1458,23 +1474,23 @@
       "h1": "Is the Nissan GT-R R35 eligible for import to Australia?",
       "faqs": [
         {
-          "a": "Some are. The R35 was sold here new, so the approvals on the register cover particular cars and build dates rather than the model as a whole. The table above lists the ones that are live today, and the build dates on each row are what your car has to fall inside.",
+          "a": "Some are. The car was sold here new, so the approvals cover particular cars and build dates rather than the whole run. The table above shows what's live, and the build dates on each row are what yours has to fall inside.",
           "q": "Is the Nissan GT-R R35 eligible for import to Australia?"
         },
         {
-          "a": "Because the car was available new in Australia. Concessional import pathways exist for vehicles the local market did not supply, so they tend to be written around the specific years and specifications that were genuinely unavailable here rather than around the whole model.",
-          "q": "Why does the register not just cover every R35?"
+          "a": "Because you could walk into a Nissan dealer here and buy one. These pathways exist for cars the local market didn't supply, so they get written around the years and specs that genuinely weren't available.",
+          "q": "Why isn't the whole model just covered?"
         },
         {
-          "a": "The core car is the same. Differences are in specification and options, and the early Japanese cars have some equipment that never came here. The bigger practical difference is price and the size of the pool you are choosing from.",
-          "q": "Is a Japanese R35 different from an Australian one?"
+          "a": "Same car underneath. The differences are spec and options, and some of the early Japanese equipment never came here. The bigger practical difference is price and how many you get to choose from.",
+          "q": "Is a Japanese R35 different?"
         },
         {
-          "a": "Yes, and more than people expect. Transmission servicing, tyres and brakes are all serious money, and a cheap example that has skipped them is not a cheap example. Budget for a proper inspection and for the service history.",
-          "q": "Is an R35 expensive to run?"
+          "a": "More than people budget for. Gearbox servicing, tyres and brakes are all serious money, and a cheap one that's skipped them isn't cheap. Buy the service history, not the car.",
+          "q": "What does one actually cost to run?"
         },
         {
-          "a": "No. The Skyline name was dropped for the R35, and the register treats it as its own model with its own approvals. The R32, R33 and R34 GT-Rs are the Skyline ones.",
+          "a": "No. The name was dropped for the R35 and the register treats it as its own model. The R32, R33 and R34 GT-Rs are the Skyline ones.",
           "q": "Is the R35 a Skyline?"
         }
       ],
@@ -1600,7 +1616,7 @@
       ],
       "make_norm": "NISSAN",
       "title_tag": "Nissan GT-R R35 Import Eligibility Australia | Import Check",
-      "intro_copy": "Australia sold the R35 GT-R new, which is exactly why the import question is interesting rather than simple. The Japanese domestic cars are cheaper for the same year, and the early ones in particular sold in numbers here that never matched demand. What decides it is the specific approval and build window on the register, because a locally delivered R35 and a Japanese one are close enough that a concession has to be precise about which cars it covers. Note also that the R35 dropped the Skyline name, so it is filed as its own model and searching Skyline will not find it.",
+      "intro_copy": "Australia sold the R35 new, which is what makes this one interesting rather than obvious.\n\nJapanese cars are cheaper for the same year, and the early ones sold in numbers here that never came close to the demand. So the question isn't whether the R35 is importable in general, it's whether the specific car you're looking at falls inside an approval that's currently alive.\n\nWorth knowing: the R35 dropped the Skyline name. It sits on the register as its own model, so searching Skyline gets you nothing.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -1622,24 +1638,24 @@
       "h1": "Is the Nissan Note eligible for import to Australia?",
       "faqs": [
         {
-          "a": "Not at the moment. Seven model reports for the Note still show as In Force, but all seven rest on the same SEVS entry, and that entry is no longer on the register. With nothing live underneath them, none of them gives you a way in. This page rechecks daily and will change here as soon as it changes on ROVER.",
+          "a": "Not at the moment. Seven model reports still show as In Force, but all seven rest on the same SEVS entry and that entry is gone from the register. With nothing live underneath them, none of them gets you in. Checked daily, and this page will change the moment ROVER does.",
           "q": "Is the Nissan Note eligible for import to Australia?"
         },
         {
-          "a": "Because each model report still reads In Force when you look it up on its own. The problem only appears when you follow every one of them back to the SEVS entry it depends on and find that entry gone. That second check is what this page does.",
-          "q": "Why do other sites say the Note is importable?"
+          "a": "Because each model report still reads In Force when you look it up on its own. The problem only shows when you follow every one of them back to the SEVS entry it depends on and find it missing. That second check is what this page does and most don't.",
+          "q": "Why do other sites say it's importable?"
         },
         {
-          "a": "A series hybrid. The 1.2 litre petrol engine only ever runs a generator, and the wheels are always driven by the electric motor. It feels like an EV to drive but never needs plugging in.",
+          "a": "A series hybrid. The 1.2 petrol engine only ever runs a generator and the wheels are always driven by the electric motor. Feels like an EV, never needs plugging in.",
           "q": "What is e-POWER?"
         },
         {
-          "a": "The Aura is the premium version of the same car, on chassis code FE13. It is listed separately on the register, so it needs checking on its own rather than being assumed to follow the Note.",
-          "q": "Is the Nissan Aura the same as a Note?"
+          "a": "The Aura is the premium version of the same car, on FE13. It's listed separately on the register, so check it on its own rather than assuming it follows the Note.",
+          "q": "Is the Aura the same as a Note?"
         },
         {
-          "a": "Yes. A new SEVS entry, or a new model report resting on a live one, would open it up again. Nothing about this is permanent. The page reads the register daily, so it will update on its own.",
-          "q": "Could the Nissan Note become importable again?"
+          "a": "Yes, and it might. A new SEVS entry, or a model report resting on a live one, opens it straight back up. Nothing here is permanent. The page reads the register daily and updates on its own.",
+          "q": "Could this change?"
         }
       ],
       "slug": "nissan-note",
@@ -1678,7 +1694,7 @@
       "approvals": [],
       "make_norm": "NISSAN",
       "title_tag": "Nissan Note Import Eligibility Australia | Import Check",
-      "intro_copy": "Short answer today: no. The Note is Nissan's small hatch, and the e-POWER version is the interesting one, a petrol engine that never drives the wheels and only charges a battery that does. It drives like an EV without the charging problem, and Nissan Australia never brought it here. Look the Note up on ROVER and you will find seven model reports that still read In Force, which is why you will see it described as importable elsewhere. Every one of them is built on a single SEVS entry that has since left the register. A model report with no live SEVS entry underneath it is not a pathway in. This page rechecks that every day, so if a live approval appears it will show up here.",
+      "intro_copy": "Short version: no, not right now.\n\nThe Note is Nissan's small hatch, and e-POWER is the interesting one. Petrol engine that never drives the wheels, only charges a battery that does. Drives like an EV, never gets plugged in. Nissan Australia never brought it here.\n\nLook it up on ROVER and you'll find seven model reports that still read In Force, which is why other sites will tell you it's importable. Every single one of them is built on one SEVS entry that has since left the register, and a model report with nothing live underneath it isn't a way in.\n\nWe recheck this every day. The moment a live approval appears, it shows up here.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "basis_gone",
@@ -1702,24 +1718,24 @@
       "h1": "Is the Nissan Serena eligible for import to Australia?",
       "faqs": [
         {
-          "a": "It depends on the chassis code and the build date. The table above shows only the approvals that are live today, across each of the names the register files the Serena under.",
+          "a": "Depends on the code and the build month. The table above shows what's live today, across each of the names the register uses for this van.",
           "q": "Is the Nissan Serena eligible for import to Australia?"
         },
         {
-          "a": "A series hybrid. The petrol engine runs a generator and never drives the wheels; the electric motor always does. It feels like an EV to drive and never needs to be plugged in.",
-          "q": "What is Serena e-POWER?"
+          "a": "A series hybrid. The petrol engine spins a generator and never touches the wheels. The electric motor does all the driving. It feels like an EV and you never plug it in.",
+          "q": "What's e-POWER?"
         },
         {
-          "a": "Very close call. The Serena is usually the cheaper buy and has the wider sliding door aperture. The Toyotas have the stronger resale here and a slightly larger parts and service network. Both are eight-seaters that Australia never sold.",
+          "a": "Close call. Serena is usually cheaper and has the wider door opening. The Toyotas hold money better here and have a slightly bigger service and parts network. Both are eight-seaters we never got.",
           "q": "Serena or Noah and Voxy?"
         },
         {
-          "a": "Seven or eight depending on grade and generation. The auction sheet lists the seating capacity, and that is the only reliable check, since the same model was sold in several configurations.",
-          "q": "How many seats does a Serena have?"
+          "a": "Depends on the grade and generation. The auction sheet states the seating capacity and that's the only number worth trusting, because the same model was sold in several layouts.",
+          "q": "Seven seats or eight?"
         },
         {
-          "a": "Routine work, yes, at any competent workshop. The e-POWER drivetrain is less common here, so it is worth finding someone who has seen one before you need them.",
-          "q": "Can I service a Serena in Australia?"
+          "a": "Routine work, yes, anywhere competent. e-POWER is less common on the ground here, so find someone who's seen one before you need them, not after.",
+          "q": "Can anyone here service it?"
         }
       ],
       "slug": "nissan-serena",
@@ -1998,7 +2014,7 @@
       ],
       "make_norm": "NISSAN",
       "title_tag": "Nissan Serena Import Eligibility Australia | Import Check",
-      "intro_copy": "The Serena is the sensible eight-seater that Australia never sold, and it is usually the cheapest way into a Japanese people mover with sliding doors on both sides. The C27 generation is the one most people end up buying, and its e-POWER version is the interesting one: a petrol engine that only ever charges a battery, with the wheels always driven by the electric motor. It drives like an EV and never needs plugging in. Eligibility runs off the chassis code and build date, and the register files this van under several names, so read the table rather than the badge.",
+      "intro_copy": "The Serena is the sensible eight-seater Australia never bothered with, and usually the cheapest way into a Japanese van with sliding doors both sides.\n\nC27 is the one most people land on. Its e-POWER version is the interesting bit: a petrol engine that never drives the wheels, only charges a battery that does. Drives like an EV, never gets plugged in.\n\nRegister files this van under several different names, so read the table rather than the badge.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -2020,20 +2036,24 @@
       "h1": "Is the Nissan Silvia S15 eligible for import to Australia?",
       "faqs": [
         {
-          "a": "It depends on the build date. Cars inside the register window shown above come in on that approval. Cars built after that window are not covered by it, and only become eligible once they are more than 25 years old, which is a rolling date. The last of the production run is not old enough yet.",
+          "a": "Depends on the build month. Cars inside the register window above come in on that approval. Cars built after it aren't covered and only become eligible once they're more than 25 years old, and that date moves forward each year. The last of the run isn't there yet.",
           "q": "Is the Nissan Silvia S15 eligible for import to Australia?"
         },
         {
-          "a": "The Spec-R has the turbocharged SR20DET, a six-speed manual and a limited slip differential. The Spec-S has the naturally aspirated SR20DE and a five-speed. They are very different cars and priced accordingly.",
-          "q": "What is the difference between Spec-R and Spec-S?"
+          "a": "Spec-R has the turbocharged SR20DET, six speed and a limited slip diff. Spec-S has the naturally aspirated SR20DE and a five speed. Very different cars, priced accordingly, and plenty of Spec-S cars wear Spec-R badges.",
+          "q": "Spec-R or Spec-S?"
         },
         {
-          "a": "Related but not identical. The Australian 200SX was sold here new, so it is a local car. JDM Spec-R cars have equipment and drivetrain differences that matter to buyers.",
-          "q": "Is the S15 the same as an Australian 200SX?"
+          "a": "Related, not identical. The 200SX was sold here new so it's a local car. JDM Spec-R cars have equipment and drivetrain differences buyers actually care about.",
+          "q": "Is it the same as an Australian 200SX?"
         },
         {
-          "a": "The convertible S15, converted by Autech. Rare, and a different proposition to the coupe.",
-          "q": "What is a Silvia Varietta?"
+          "a": "The convertible S15, converted by Autech. Rare, and a completely different proposition to the coupe.",
+          "q": "What's a Varietta?"
+        },
+        {
+          "a": "Whether it's been drifted, and how honestly the seller answers that. Check the shell, the rails and the diff, and treat a fresh respray as a question rather than a feature.",
+          "q": "What should I check?"
         }
       ],
       "slug": "nissan-silvia-s15",
@@ -2103,7 +2123,7 @@
       ],
       "make_norm": "NISSAN",
       "title_tag": "Nissan Silvia S15 Import Eligibility Australia | Import Check",
-      "intro_copy": "The S15 is the last Silvia and the one everybody wants. Australia got a version of it as the 200SX, which complicates the picture, but the JDM Spec-R with the SR20DET, the six-speed and the LSD is a materially different car. Watch the dates carefully here. The register approval window closes earlier than production did, so later cars are not covered by it at all. Some of those qualify instead on the 25-year pathway, which is a rolling date, and the very last cars of the run are not old enough for it yet. Which route applies, or whether either does, changes your costs completely.",
+      "intro_copy": "Last of the Silvias and the one everybody wants. Australia got a version of it as the 200SX, which muddies things, but the JDM Spec-R with the SR20DET, the six speed and the LSD is a materially different car.\n\nWatch the dates on this one. The register window closes earlier than production did, so later cars aren't covered by it at all. Some of those come in on age instead, but that date rolls forward and the very last of the run hasn't reached it yet.\n\nWhich route applies, or whether either does, changes your costs completely.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -2127,24 +2147,24 @@
       "h1": "Is the Nissan Skyline eligible for import to Australia?",
       "faqs": [
         {
-          "a": "It depends entirely on which one and when it was built. The table above shows the approvals that are live today. Cars built more than 25 years ago have a separate pathway that does not use this register, and that is how most R32 and R33 cars come in.",
+          "a": "Which one, and what's the build month? That's the whole answer. The table above covers what's live on the register. Anything built more than 25 years ago has its own pathway that doesn't touch this register, and that's how most R32s and R33s get here.",
           "q": "Is the Nissan Skyline eligible for import to Australia?"
         },
         {
-          "a": "By build date. The 25-year pathway is a rolling date, so R34s built before that cutoff qualify on age alone, and later ones need a live register approval instead. The table above shows what is currently on the register; the age route is separate and is checked against your car's build month.",
-          "q": "How do I import an R34 Skyline?"
+          "a": "Check the build month first. The 25-year date rolls forward, so early R34s clear it on age alone and later ones don't. If yours is too young for that, it needs a live approval instead, and the table above is where you look.",
+          "q": "How do I get an R34 in?"
         },
         {
-          "a": "The current-shape Skyline sedan with the 3.0 litre twin-turbo VR30DDTT tuned by NISMO to 400ps. It is a modern car, nowhere near 25 years old, so it lives or dies on the register approval shown above.",
-          "q": "What is a V37 400R?"
+          "a": "Current-shape Skyline sedan, 3.0 twin-turbo VR30DDTT, turned up to 400ps by NISMO. Modern car, so age gets you nowhere. It's the register or nothing.",
+          "q": "What's a V37 400R?"
         },
         {
-          "a": "It wears the badge and the register files it under Skyline with a J50 or NJ50 code, but it is an SUV closely related to the Infiniti EX. If you are searching for a coupe or a sedan, these are the entries to skip past.",
-          "q": "Is the Skyline Crossover a Skyline?"
+          "a": "That's the J50 Crossover. It wears the badge and the register files it under Skyline, but it's essentially an Infiniti EX. If you want a coupe or a sedan, scroll past those rows.",
+          "q": "Why does a Skyline SUV keep showing up?"
         },
         {
-          "a": "The GT-R versions of the R32, R33 and R34 are Skylines. The R35 GT-R that followed dropped the Skyline name and is a separate model on the register, so it has its own entries and its own answer.",
-          "q": "Is a Skyline GT-R the same as a Skyline?"
+          "a": "The R32, R33 and R34 GT-Rs are Skylines, yes. The R35 dropped the name and sits on the register as its own model with its own approvals, so searching Skyline won't find it.",
+          "q": "Is a GT-R the same as a Skyline?"
         }
       ],
       "slug": "nissan-skyline",
@@ -2525,7 +2545,7 @@
       ],
       "make_norm": "NISSAN",
       "title_tag": "Nissan Skyline Import Eligibility Australia | Import Check",
-      "intro_copy": "Skyline covers more than fifty years and about eight different cars, and the eligibility answer is different for nearly all of them. The R32, R33 and R34 are the ones everyone means, and most of them are now old enough for the 25-year pathway, which does not touch this register at all. The newer ones are the opposite case: a V37 400R or a NISMO is far too young for 25 years and depends entirely on a live register approval. In between sit the V35 and V36, and the J50 Skyline Crossover, which is an SUV and confuses every search. Read the table, not the name.",
+      "intro_copy": "Skyline covers fifty years and about eight completely different cars, so the answer changes depending on which one you mean.\n\nR32, R33, R34: most of these are old enough now that the register doesn't come into it. They come in on age, on the 25-year pathway, and that's a different process entirely.\n\nV37, the 400R, the NISMO: nowhere near old enough. These live or die on a live approval, and that's what the table below shows.\n\nIn between sit the V35 and V36. And then there's the J50, which wears a Skyline badge on an SUV and clutters up every search you'll ever run on this car.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -2547,24 +2567,24 @@
       "h1": "Is the Subaru Impreza WRX or STI eligible for import to Australia?",
       "faqs": [
         {
-          "a": "Specific versions are. The table above shows what is live on the register today. Because the WRX sold here in volume, the approvals tend to cover the Japanese-only specifications rather than the model as a whole.",
-          "q": "Is the Subaru Impreza WRX or STI eligible for import to Australia?"
+          "a": "Specific versions are. The table above shows what's live now. Because the WRX sold here in volume, the approvals lean towards the Japanese-only specs rather than the model as a whole.",
+          "q": "Is the Subaru WRX or STI eligible for import to Australia?"
         },
         {
-          "a": "A Japanese-market STI with an automatic transmission and a softer, torque-focused tune. It was never sold in Australia and it is one of the versions that shows up on the register for that reason.",
-          "q": "What is a WRX STI A-Line?"
+          "a": "A Japanese STI with an automatic and a torque-focused tune instead of the peaky one. Never sold here. It's one of the versions that turns up on the register for exactly that reason.",
+          "q": "What's an A-Line?"
         },
         {
-          "a": "The lightweight, stripped-back homologation-minded STI sold only in Japan, with thinner glass, less sound deadening and various chassis changes depending on the year. Rare, and the reason a lot of people start looking at imports.",
-          "q": "What is a Spec C?"
+          "a": "The stripped one. Thinner glass, less sound deadening, various chassis changes depending on the year, built with homologation in mind. Rare, and the reason a lot of people start looking overseas in the first place.",
+          "q": "What's a Spec C?"
         },
         {
-          "a": "You would not, for a standard car. The case for importing is the version, not the model: an A-Line, a Spec C, or a limited edition that never came here. For anything else the local market is cheaper and simpler.",
-          "q": "Why import a WRX when Australia sold so many?"
+          "a": "For a standard car, you should. The only argument for importing is the version. An A-Line, a Spec C, or a limited edition that never left Japan. Anything else and the local market wins on price and hassle.",
+          "q": "Why not just buy locally?"
         },
         {
-          "a": "Engine history above everything. These get modified and they get driven hard, and a rebuilt EJ with no paperwork is a real risk. The auction sheet, a compression check and an inspection are all worth the money.",
-          "q": "What should I check on an imported STI?"
+          "a": "The engine, above everything. These get modified and they get driven hard, and a rebuilt EJ with no receipts is a real risk. Auction sheet, compression test, proper inspection. Spend the money.",
+          "q": "What should I check?"
         }
       ],
       "slug": "subaru-impreza-wrx-sti",
@@ -2846,7 +2866,7 @@
       ],
       "make_norm": "SUBARU",
       "title_tag": "Subaru WRX STI Import Eligibility Australia | Import Check",
-      "intro_copy": "Australia bought more WRXs per head than almost anywhere, so importing one only makes sense for the versions we never got. That is what sits on the register: the Japanese-only specifications, the A-Line with the automatic and the different tune, the stripped-out Spec C, and the limited runs that never left Japan. A standard WRX the same as a locally delivered car is rarely worth the freight and compliance. Check the code and the build date against the table, because the difference between a JDM-only version and a car we sold here is the whole question.",
+      "intro_copy": "We bought more WRXs per head than almost anyone, so importing a standard one makes no sense at all. Shipping and compliance on a car you could go and buy in Dandenong is money on fire.\n\nWhat's worth importing is the versions we never got. The A-Line with the auto and the softer tune. The Spec C with the thin glass and the missing sound deadening. The limited runs that stayed in Japan.\n\nThat's what sits on the register, and it's why the code and build month matter more here than on almost anything else.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -2868,20 +2888,24 @@
       "h1": "Is the Suzuki Jimny JB64 eligible for import to Australia?",
       "faqs": [
         {
-          "a": "The kei JB64 holds current approvals because it was never sold here. The JB74 Sierra is sold in Australia new, so it is not an import candidate under the same pathway.",
+          "a": "The kei JB64 holds current approvals because it was never sold here. The JB74 Sierra is in Australian dealers new, so it isn't an import candidate on the same pathway.",
           "q": "Is the Suzuki Jimny eligible for import to Australia?"
         },
         {
-          "a": "The JB64 is the kei version with a 660cc turbo engine and a narrower body. The JB74 Sierra has the 1.5 litre engine and wider guards, and is the one sold in Australian dealers.",
-          "q": "What is the difference between a JB64 and a JB74?"
+          "a": "JB64 is the kei version, 660cc turbo, narrower body. JB74 Sierra has the 1.5 and the wide guards and is the one you can buy locally. If you want the narrow one, you import.",
+          "q": "JB64 or JB74?"
         },
         {
-          "a": "It is a 660cc turbo in a light car. It is fine around town and on back roads, and it is honestly not a highway cruiser. Buy it for what it does well.",
-          "q": "Is the kei Jimny too slow for Australian roads?"
+          "a": "On the highway, honestly yes. Around town and on back roads it's fine and it's a hoot. Buy it for what it's good at and don't plan a Nullarbor crossing.",
+          "q": "Is 660cc too slow for here?"
         },
         {
           "a": "Four.",
-          "q": "How many seats does the JB64 Jimny have?"
+          "q": "How many seats?"
+        },
+        {
+          "a": "Not really. Low range, light weight and short overhangs matter more than power on anything technical. It will out-climb things that cost five times as much.",
+          "q": "Does the small engine hurt it off road?"
         }
       ],
       "slug": "suzuki-jimny",
@@ -2950,7 +2974,7 @@
       ],
       "make_norm": "SUZUKI",
       "title_tag": "Suzuki Jimny JB64 Import Eligibility Australia | Import Check",
-      "intro_copy": "Two Jimnys exist and only one of them is on this register. The JB74 Sierra, with the 1.5 litre engine, is sold new in Australia and is not an import candidate. The JB64 is the kei version: 660cc turbo, narrower body, and never sold here at all. It is a real ladder-frame off-roader with low range, and the waiting lists on the local car are what push people towards importing one.",
+      "intro_copy": "Two Jimnys exist and only one of them is on this register.\n\nThe JB74 Sierra, 1.5 litre, is sold new in Australian dealers. Not an import candidate. The JB64 is the kei one: 660cc turbo, narrower body, never sold here at all.\n\nIt's a proper ladder-frame off-roader with low range in a car the size of a shopping trolley. The waiting lists on the local Sierra are what push most people towards importing the kei version instead.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -2974,24 +2998,24 @@
       "h1": "Is the Toyota Alphard or Vellfire eligible for import to Australia?",
       "faqs": [
         {
-          "a": "It depends on the chassis code and build date. The table above lists only the approvals that are live today, across every name the register files these vans under. Check your car's code and build month against it rather than going by the generation name.",
+          "a": "Depends on the code and the build month, not the generation. The table above shows what's live today across every listing name. Find your car's row. If it isn't there, it isn't coming in on this pathway.",
           "q": "Is the Toyota Alphard eligible for import to Australia?"
         },
         {
-          "a": "Almost nothing mechanically. Same platform, same drivetrains, different front-end styling and different Japanese dealer channels. The Vellfire is the more aggressive looking of the two. They are listed separately on the register, so check the one you are actually buying.",
-          "q": "What is the difference between an Alphard and a Vellfire?"
+          "a": "Mechanically, pick either. Same platform, same drivetrains, same van underneath. The Vellfire looks meaner and the Alphard holds money slightly better here. Just check the one you're actually bidding on, because the register treats them as different cars.",
+          "q": "Alphard or Vellfire?"
         },
         {
-          "a": "A factory mobility version, built by Toyota with a wheelchair ramp or a lift-up and swing-out passenger seat. They are approved separately from the standard van and appear under their own register entries, which is why a Welcab can be eligible when the equivalent standard model is not.",
-          "q": "What is a Welcab Alphard?"
+          "a": "Toyota's factory mobility build. Wheelchair ramp out the back, or a passenger seat that lifts and swings out to the kerb. They get their own approvals, which is why a Welcab can be eligible when the standard van in the same year isn't. Worth knowing even if you don't need the ramp.",
+          "q": "What's a Welcab?"
         },
         {
-          "a": "The four cylinder is the cheaper buy and the more economical one. The V6 is the effortless one and the one that tows. The hybrid sits between them on running cost and is the pick if the van does mostly city work. All three appear on the register under different codes.",
-          "q": "Which Alphard engine should I look for?"
+          "a": "The four is the cheap one to buy and run. The V6 is the one that doesn't care, and the one to have if you're towing. The hybrid wins if the van lives in traffic. All three sit under different codes on the register, so the engine you want may not be the engine that's approved for the year you want.",
+          "q": "Four cylinder, V6 or hybrid?"
         },
         {
-          "a": "Yes. The engines and hybrid systems are shared with Toyota models sold here, so a Toyota dealer or a competent independent can handle routine work. Body panels and interior trim are the parts that take longer to source.",
-          "q": "Can I service an Alphard in Australia?"
+          "a": "Yes. The engines and hybrid gear are shared with Toyotas sold new in Australia, so any decent workshop can handle it. Body panels and interior trim are the slow parts, so factor that in on anything with damage on the sheet.",
+          "q": "Can I get one serviced here?"
         }
       ],
       "slug": "toyota-alphard-vellfire",
@@ -3620,7 +3644,7 @@
       ],
       "make_norm": "TOYOTA",
       "title_tag": "Toyota Alphard & Vellfire Import Eligibility | Import Check",
-      "intro_copy": "The Alphard is the most imported people mover in Australia and it is not close. Leather, sliding doors, a lounge for the second row, and a level of finish nothing sold here matches at the money. The Vellfire is the same van with a sharper face, sold through a different Toyota dealer network in Japan, and it is treated as its own model on the register. That matters more than it sounds: your eligibility depends on the chassis code and build date, not the badge, and the register lists these vans under Alphard, Vellfire, Alphard / Vellfire and a set of Welcab entries that never say Alphard at all. The table below pulls all of them together.",
+      "intro_copy": "Nothing else comes close. The Alphard is the most imported people mover in the country, and half the ones doing school pickup came in through a scheme the cars around them have never heard of.\n\nThe Vellfire is the same van with the angry face, sold through a different Toyota network in Japan. On the register it's a separate model. So is Alphard/Vellfire. So are the Welcab entries, which never say Alphard anywhere in the listing.\n\nThat's the trap. You're not looking up a name, you're looking up a chassis code and a build month. Get it wrong and you'll have a deposit sitting on a car that can't land. The table below is every approval that's alive today, pulled from all of those listings at once.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -3642,24 +3666,24 @@
       "h1": "Is the Toyota Crown eligible for import to Australia?",
       "faqs": [
         {
-          "a": "Many versions are. The Crown carries more live register approvals than any other model, spread across generations and body styles, so the table above is the reliable answer for the specific car you are looking at.",
+          "a": "A lot of versions are. The Crown carries more live approvals than any other model on the register, spread across generations and body styles, so the table above is the only sensible starting point for the specific car you're looking at.",
           "q": "Is the Toyota Crown eligible for import to Australia?"
         },
         {
-          "a": "The sportier trim of the traditional rear-drive Crown sedan, with a firmer setup and, on some versions, a turbocharged or larger engine. The Royal was the comfort-focused alternative and the Majesta sat above both.",
-          "q": "What is a Crown Athlete?"
+          "a": "The sporting trim of the traditional rear-drive sedan. Firmer setup, and on some versions a turbo or a bigger engine. Royal was the comfortable one, Majesta sat above both.",
+          "q": "What's a Crown Athlete?"
         },
         {
-          "a": "Closely related for much of its life. The Crown is the Japanese-market luxury Toyota and shares a great deal of its engineering with Lexus models, without the badge or the price. That is the whole reason people import them.",
-          "q": "Is the Crown the same as a Lexus?"
+          "a": "Closely related for most of its life. The Crown is the Japanese-market luxury Toyota and shares a lot of its engineering with Lexus, minus the badge and minus the money. That's the entire reason people import them.",
+          "q": "Is it really a Lexus?"
         },
         {
-          "a": "The current generation, which moved the Crown away from a traditional sedan to a raised, crossover-shaped car with a hybrid drivetrain. It is a recent model, so its eligibility depends entirely on a live approval rather than age.",
-          "q": "What is the Crown Crossover?"
+          "a": "The current generation, which stopped being a sedan and became a raised, crossover-shaped hybrid thing. Recent car, so age gets you nowhere and it's the register or nothing.",
+          "q": "What's the Crown Crossover?"
         },
         {
-          "a": "Yes for routine work, since the engines and hybrid systems are shared with Toyota and Lexus models sold here. Body panels and Crown-specific interior trim are the parts that take time to source.",
-          "q": "Can I service a Toyota Crown in Australia?"
+          "a": "Fine for anything routine. The engines and hybrid systems are shared with Toyotas and Lexuses sold here. Body panels and Crown-specific trim are the wait.",
+          "q": "Servicing?"
         }
       ],
       "slug": "toyota-crown",
@@ -4697,7 +4721,7 @@
       ],
       "make_norm": "TOYOTA",
       "title_tag": "Toyota Crown Import Eligibility Australia | Import Check",
-      "intro_copy": "The Crown is Toyota's Japanese luxury sedan, sold at home for seventy years and never here. It is a Lexus in everything but badge and price, and it carries more live approvals than any other model on the register, which tells you how many different versions exist. That is also the catch. Crown covers rear-drive sedans, hybrids, the recent Crossover and the Crown Sport, across chassis codes from GRS to AZSH to GWS, and they are separate entries with separate build windows. The table below is the only sensible place to start.",
+      "intro_copy": "A Lexus without the badge or the price. Toyota has sold the Crown at home for seventy years and never here, and it carries more live approvals than anything else on the register.\n\nThat's the problem as much as the appeal. Crown covers rear-drive sedans, hybrids, the Crossover and the Crown Sport, across codes running GRS, AZSH, GWS and more, and every one of those is a separate entry with its own build window.\n\nStart with the table. Guessing from the generation name will get you nowhere on this car.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -4719,20 +4743,24 @@
       "h1": "Is the Toyota Harrier eligible for import to Australia?",
       "faqs": [
         {
-          "a": "Fourth-generation Harrier Hybrid models hold current approvals. The exact build window is listed above and refreshes daily from ROVER.",
+          "a": "Fourth generation Harrier Hybrids hold current approvals. The exact build window is in the table above and it refreshes daily from the register.",
           "q": "Is the Toyota Harrier eligible for import to Australia?"
         },
         {
-          "a": "AXUH80 is front-wheel drive. AXUH85 has Toyota's E-Four electric all-wheel drive. AXUP85 is the plug-in hybrid.",
-          "q": "What is the difference between AXUH80 and AXUH85?"
+          "a": "AXUH80 is front drive. AXUH85 has Toyota's E-Four electric all wheel drive. AXUP85 is the plug-in hybrid.",
+          "q": "AXUH80 or AXUH85?"
         },
         {
-          "a": "Same platform and drivetrain, very different car above the floorpan. The Harrier is longer, lower and considerably better trimmed inside.",
-          "q": "Is the Harrier the same as a RAV4?"
+          "a": "Same platform and drivetrain, completely different car above the floor. The Harrier is longer, lower, and the interior is in another league. Nobody cross-shopping the two ends up confused.",
+          "q": "Is it just a RAV4?"
         },
         {
-          "a": "Yes. The hybrid drivetrain is shared with the Australian-delivered RAV4 Hybrid, so parts and servicing are straightforward through any Toyota dealer.",
-          "q": "Can I service a Harrier in Australia?"
+          "a": "Yes. The hybrid drivetrain is shared with the Australian RAV4 Hybrid, so parts and servicing go through any Toyota dealer.",
+          "q": "Can I service it here?"
+        },
+        {
+          "a": "Because you want the interior and the look, not the mechanicals. If the drivetrain is all you care about, buy the RAV4 and save yourself the freight.",
+          "q": "Why import one instead of buying a RAV4?"
         }
       ],
       "slug": "toyota-harrier",
@@ -4799,7 +4827,7 @@
       ],
       "make_norm": "TOYOTA",
       "title_tag": "Toyota Harrier Import Eligibility Australia | Import Check",
-      "intro_copy": "The Harrier is what the Lexus RX would be if it wore a Toyota badge and cost a lot less, which is exactly what it was until Lexus split off as its own brand. The fourth generation shares its platform and 2.5 hybrid drivetrain with the RAV4, but the interior and the styling are a long way upmarket of one. Never sold in Australia, well supported by RAV4 parts, and one of the cleanest cars on the register to comply.",
+      "intro_copy": "The Harrier is what a Lexus RX would be with a Toyota badge and a much smaller price, which is literally what it was before Lexus became its own brand in Japan.\n\nThe fourth generation shares its platform and 2.5 hybrid drivetrain with the RAV4, but everything above the floorpan is a long way upmarket of one. Never sold here, well supported by RAV4 parts, and one of the easier cars on the register to comply.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -4823,24 +4851,24 @@
       "h1": "Is the Toyota Hiace eligible for import to Australia?",
       "faqs": [
         {
-          "a": "Some are. The register covers particular 200 series codes and build windows, and the table above shows only the ones that are live today. A Hiace that is identical to one sold here new is a harder case than a 4WD diesel or a factory campervan that never was.",
+          "a": "Some are. The table above shows what's live right now. Be realistic though: a Hiace that's the same as one sold here new is a hard case. A 4WD diesel or a factory camper is a different story.",
           "q": "Is the Toyota Hiace eligible for import to Australia?"
         },
         {
-          "a": "They are the engine families. KDH is the 3.0 litre 1KD-FTV diesel, TRH is the 2.7 litre 2TR-FE petrol, and GDH is the later 2.8 litre 1GD-FTV diesel. The number after tells you wheelbase, roof height and drive. The register lists approvals by these codes, so it is the first thing to read off a listing.",
-          "q": "What do KDH, TRH and GDH mean?"
+          "a": "That's the engine. KDH is the 3.0 diesel (1KD-FTV), TRH is the 2.7 petrol (2TR-FE), GDH is the later 2.8 diesel (1GD-FTV). The numbers after tell you wheelbase, roof height and drive. First thing to read off any listing.",
+          "q": "KDH, TRH, GDH. What's the difference?"
         },
         {
-          "a": "For the versions Australia did not get. The 4WD diesel is the big one, along with the factory campervan conversions and the higher grade interiors. If you want a van the same as a local one, importing rarely makes sense once you add shipping and compliance.",
-          "q": "Why import a Hiace when Australia sold them new?"
+          "a": "If you want a standard van, do exactly that. Shipping and compliance don't make sense on a car you can drive to a yard and buy. Import when you want the version Australia never got.",
+          "q": "Why not just buy one here?"
         },
         {
-          "a": "Some are, under their own register entries rather than the standard van's. Conversions vary enormously, from a bed platform to a full pop-top with a kitchen, and how a particular one is approved depends on the builder and the code. Check the table above.",
-          "q": "Are Japanese Hiace campervans eligible?"
+          "a": "Some, under their own entries rather than the standard van's. The conversions range from a bed platform to a full pop-top with a sink and a fridge, and how one is approved depends on the builder and the code. Check the table.",
+          "q": "Are the Japanese campervans eligible?"
         },
         {
-          "a": "Less than an Australian one of the same age, usually by a lot. Japanese commercial vans are inspected regularly and the auction sheet records the odometer and the grade. Treat a very low reading on an old commercial vehicle as something to verify, not something to trust.",
-          "q": "How many kilometres should a Japanese Hiace have?"
+          "a": "Usually, and usually lower than you'd expect. Japanese commercial vans get inspected on a schedule and the auction sheet records the reading. But a genuinely old van with genuinely low kilometres is worth a second look, not blind faith.",
+          "q": "Are the kilometres real?"
         }
       ],
       "slug": "toyota-hiace",
@@ -5301,7 +5329,7 @@
       ],
       "make_norm": "TOYOTA",
       "title_tag": "Toyota Hiace Import Eligibility Australia | Import Check",
-      "intro_copy": "Australia got the Hiace, so the obvious question is why import one. Three reasons, and they are the ones that show up in every enquiry: the Japanese market got the 4WD diesel that was never sold here, it got factory campervan conversions from Toyota-affiliated builders that would cost a fortune to replicate locally, and low-kilometre Japanese examples are simply better cared for than a van that has spent ten years on Australian building sites. The 200 series is the one on the register, under a long list of codes starting KDH, TRH and GDH. Which one you are looking at decides everything.",
+      "intro_copy": "Australia sold the Hiace, so why import one? Three reasons, and they're the same three every time.\n\nJapan got the 4WD diesel we never did. Japan got factory campervan conversions that would cost you a fortune to build here. And a Japanese van at 90,000km has been inspected every two years, while the Australian equivalent has spent a decade on building sites.\n\nIt's the 200 series on the register, listed under a wall of codes starting KDH, TRH and GDH. Which letters you're looking at decides everything else.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -5323,24 +5351,24 @@
       "h1": "Is the Toyota Noah or Voxy eligible for import to Australia?",
       "faqs": [
         {
-          "a": "It depends on the build date and chassis code. The registers list Noah and Voxy approvals under several different names, including 80 Series Hybrid and 90 Series Welcab. Check your build date against the code table above.",
-          "q": "Is the Toyota Noah eligible for import to Australia?"
+          "a": "Depends on the build date and the chassis code. The register lists these under several names, including 80 Series Hybrid and 90 Series Welcab. Check your build month against the table above.",
+          "q": "Is the Toyota Noah or Voxy eligible for import to Australia?"
         },
         {
-          "a": "Almost nothing mechanically. Same platform, same drivetrain, different front-end styling and different Japanese dealer channels. The Voxy is the sportier-looking one, the Esquire the most formal.",
-          "q": "What is the difference between a Noah, a Voxy and an Esquire?"
+          "a": "Mechanically, nothing in it. Same platform, same drivetrain, different front ends and different dealer channels in Japan. Voxy looks the sportiest, Esquire the most formal. Buy on condition, not badge.",
+          "q": "Noah, Voxy or Esquire?"
         },
         {
-          "a": "The 80-series hybrid (ZWR80) is front-wheel drive only. If you need 4WD in that generation you are looking at the petrol ZRR85. The 90-series offers 4WD in both.",
-          "q": "Is the Noah hybrid available in 4WD?"
+          "a": "Not in the 80 series. The ZWR80 hybrid is front drive only, so if you need 4WD in that generation you're looking at the petrol ZRR85. The 90 series offers 4WD both ways.",
+          "q": "Can I get a hybrid with 4WD?"
         },
         {
-          "a": "Seven or eight depending on grade. The auction sheet states it in the seating capacity field, which is the only reliable check.",
-          "q": "How many seats does a Toyota Noah have?"
+          "a": "Depends on the grade. The auction sheet lists seating capacity and that's the only reliable check.",
+          "q": "Seven seats or eight?"
         },
         {
-          "a": "Landed cost depends on auction price, shipping and compliance. Use the JDM Connect landed cost calculator for a full breakdown including duty, GST and compliance.",
-          "q": "What does it cost to import a Toyota Noah to Australia?"
+          "a": "Depends on auction price, shipping and compliance. Use the JDM Connect landed cost calculator for the full breakdown including duty, GST and compliance rather than guessing off the hammer price.",
+          "q": "What does one cost to land?"
         }
       ],
       "slug": "toyota-noah-voxy",
@@ -5635,7 +5663,7 @@
       ],
       "make_norm": "TOYOTA",
       "title_tag": "Toyota Noah & Voxy Import Eligibility | Import Check",
-      "intro_copy": "The Noah, Voxy and Esquire are the same eight-seat van wearing three badges, sold through three different Japanese dealer networks. Australia never got any of them, which is why they sit on the import registers. They are the sensible alternative to an Alphard: sliding doors, the same 1.8 hybrid drivetrain as a Prius, and roughly half the money. Eligibility depends entirely on the chassis code, and the registers list this car under five names that never mention Noah or Voxy at all.",
+      "intro_copy": "Noah, Voxy and Esquire are one eight-seat van wearing three badges, sold through three different Japanese dealer networks. Australia got none of them.\n\nThis is the sensible alternative to an Alphard. Sliding doors, the same 1.8 hybrid drivetrain as a Prius, and roughly half the money.\n\nThe catch is naming. Eligibility runs off the chassis code, and the registers list this van under five different names, several of which don't say Noah or Voxy anywhere.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -5661,20 +5689,24 @@
       "h1": "Is the Toyota Porte or Spade eligible for import to Australia?",
       "faqs": [
         {
-          "a": "A tall, compact five-seat van with one very large sliding door on the passenger side and a conventional door on the driver's side. It was designed around easy entry and exit.",
+          "a": "A tall, compact five seat van with one very large sliding door on the passenger side and a conventional door on the driver's side. The whole car is designed around getting in and out easily.",
           "q": "What is a Toyota Porte?"
         },
         {
-          "a": "Yes. Same car, sold through a different Japanese dealer network with different badging and trim.",
-          "q": "Is the Toyota Spade the same as a Porte?"
+          "a": "Same car. Different Japanese dealer network, different badging and trim. Buy whichever one comes up in the right condition.",
+          "q": "Is the Spade the same as a Porte?"
         },
         {
-          "a": "The layout suits limited mobility very well, and Toyota also built factory Welcab versions with ramps and lifts. Those are listed separately on the register.",
-          "q": "Is the Porte good for wheelchair access?"
+          "a": "The layout suits limited mobility very well as standard, and Toyota also built factory Welcab versions with ramps and lifts. Those are listed separately on the register, so check the table for the specific one.",
+          "q": "Is it good for wheelchair access?"
         },
         {
-          "a": "NCP145 is the four-wheel drive code. The rest are front-wheel drive.",
-          "q": "Is the Toyota Porte available in 4WD?"
+          "a": "NCP145 is the four wheel drive code. Everything else is front drive.",
+          "q": "Is there a 4WD version?"
+        },
+        {
+          "a": "The table above shows the approvals that are live today. Check your code and build month against it.",
+          "q": "Is it eligible right now?"
         }
       ],
       "slug": "toyota-porte-spade",
@@ -5826,7 +5858,7 @@
       ],
       "make_norm": "TOYOTA",
       "title_tag": "Toyota Porte & Spade Import Eligibility | Import Check",
-      "intro_copy": "Almost nobody in Australia knows this car exists, which is the whole opportunity. The Porte and Spade are the same vehicle through different Japanese dealer networks, and their defining feature is one enormous sliding door on the kerb side only, with a normal hinged door on the driver's side. That layout makes it exceptional for anyone with mobility needs, or for getting kids into car seats in a tight car park.",
+      "intro_copy": "Almost nobody here knows this car exists, which is the entire opportunity.\n\nPorte and Spade are the same vehicle through different Japanese dealer networks. The defining feature is one enormous sliding door on the kerb side only, with a normal hinged door for the driver.\n\nSounds like a gimmick until you've tried to get a kid into a car seat in a shopping centre car park, or watched someone with limited mobility get in and out of a normal car. Then it makes complete sense.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
@@ -5851,24 +5883,24 @@
       "h1": "Is the Toyota Supra eligible for import to Australia?",
       "faqs": [
         {
-          "a": "Depending on which one and when it was built, yes. The table above shows the live register approvals. Older JZA80 cars may instead qualify on the 25-year pathway, which is a separate route with its own costs.",
+          "a": "Depends which one and when it was built. The table above has the live register approvals. Older JZA80s may not need any of it and come in on age instead.",
           "q": "Is the Toyota Supra eligible for import to Australia?"
         },
         {
-          "a": "Usually on age. The 25-year pathway is a rolling date, so most A80s now clear it, and that route does not depend on this register at all. Cars built too late for it need a live approval instead.",
-          "q": "How do I import a JZA80 Supra?"
+          "a": "Usually on age. The 25-year date rolls forward, so most A80s clear it now, and that pathway doesn't touch this register. Cars built too late for it need a live approval.",
+          "q": "How do I get a JZA80 in?"
         },
         {
-          "a": "It is the one everybody wants and the one that carries the price. The naturally aspirated 2JZ-GE cars are far cheaper and drive well, and they are worth considering if you want the shape rather than the drag strip numbers. Verify which one you are actually buying; conversions exist.",
-          "q": "Is the twin-turbo the one to buy?"
+          "a": "The twin turbo is the one everyone wants and it's priced accordingly. The naturally aspirated 2JZ-GE is a lot of money less and still a good car if you want the shape rather than the timeslip. Just make sure you know which one you're buying, because plenty have been converted.",
+          "q": "Twin turbo or NA?"
         },
         {
-          "a": "Whether it is standard, and whether the odometer and the auction sheet agree with the car. These have been modified and traded hard for thirty years. An untouched example is worth a lot more than a fast one and is much harder to find.",
-          "q": "What should I check on an A80?"
+          "a": "Whether it's standard, and whether the odometer and the auction sheet agree. These have been modified and traded hard for thirty years. An untouched one is worth far more than a fast one and much harder to find.",
+          "q": "What should I check?"
         },
         {
-          "a": "Yes, both generations were, which is part of why the register windows are specific rather than open. That also means service knowledge and some parts exist locally.",
-          "q": "Was the Supra sold in Australia?"
+          "a": "Both generations were, which is why the register windows are specific rather than open. Upside is that local knowledge and some parts already exist.",
+          "q": "Was it sold here?"
         }
       ],
       "slug": "toyota-supra",
@@ -5994,7 +6026,7 @@
       ],
       "make_norm": "TOYOTA",
       "title_tag": "Toyota Supra Import Eligibility Australia | Import Check",
-      "intro_copy": "Two Supras, thirty years apart, and the register covers both. The JZA80 is the one with the 2JZ, and most of them are now old enough for the 25-year pathway, which does not use this register at all. The current A90 is the opposite: far too young for the age route, and Australia sold it new, so an import depends on a live approval for the specific build window. If you are shopping the A80, check your car's build month against the age cutoff first, because that route is usually the cheaper one when it applies.",
+      "intro_copy": "Two Supras, thirty years apart, and the register has both.\n\nThe JZA80 is the 2JZ one. Most of them are old enough now that the register is beside the point, because they come in on age through the 25-year pathway. Check your build month before you look anywhere else, because that route is usually cheaper when it applies.\n\nThe A90 is the opposite problem. Far too young for age, and Australia sold it new, so it needs a live approval for the specific build window.",
       "reviewed_at": null,
       "reviewed_by": null,
       "availability": "importable",
