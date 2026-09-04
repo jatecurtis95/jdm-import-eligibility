@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T04:37:41.156Z",
+  "generated_at": "2026-09-04T04:39:18.142Z",
   "page_count": 37,
   "published_count": 22,
   "scheduled_count": 15,
@@ -105,7 +105,7 @@
           "model_code": "F150 Crew cab / F150 Crew cab (1) / F150 Crew cab (2)",
           "approval_number": "MRE-000332",
           "build_date_range": "12/2020 to current",
-          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
+          "compliance_level": "Complies"
         },
         {
           "model": "F150",
@@ -6497,14 +6497,14 @@
           "model": "Corolla 160 SER",
           "scheme": "MRE",
           "status": "eligible",
-          "build_to": null,
+          "build_to": "2025-02-01",
           "category": null,
           "build_from": "2020-10-01",
-          "build_open": true,
+          "build_open": false,
           "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=f9a0b887-efb6-ec11-a30a-0050569e60b7",
           "model_code": null,
           "approval_number": "MRE-000033",
-          "build_date_range": "10/2020 to current",
+          "build_date_range": "10/2020 - 2/2025",
           "compliance_level": "Complies"
         },
         {
