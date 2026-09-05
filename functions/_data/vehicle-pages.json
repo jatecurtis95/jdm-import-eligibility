@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T04:39:18.142Z",
+  "generated_at": "2026-09-05T04:35:17.611Z",
   "page_count": 37,
   "published_count": 22,
   "scheduled_count": 15,
@@ -10038,7 +10038,7 @@
         "usable": 6,
         "expired": 0,
         "under_review": 0,
-        "expiring_soon": 0,
+        "expiring_soon": 1,
         "sev_basis_gone": 0
       },
       "aka_names": [
@@ -10095,7 +10095,7 @@
         {
           "model": "Supra",
           "scheme": "SEV",
-          "status": "eligible",
+          "status": "expiring",
           "build_to": "2002-08-01",
           "category": "MA - Passenger Vehicle",
           "build_from": "1993-04-01",
