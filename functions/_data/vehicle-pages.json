@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T04:44:58.780Z",
+  "generated_at": "2026-09-07T04:48:12.435Z",
   "page_count": 37,
   "published_count": 22,
   "scheduled_count": 15,
@@ -3833,11 +3833,11 @@
         "why_desirable": "The definitive JDM icon. 25-year US eligibility waves keep pushing values; Australia's SEVS path lets buyers land examples before prices climb further."
       },
       "counts": {
-        "usable": 24,
+        "usable": 22,
         "expired": 0,
         "under_review": 0,
-        "expiring_soon": 1,
-        "sev_basis_gone": 2
+        "expiring_soon": 0,
+        "sev_basis_gone": 3
       },
       "aka_names": [
         "Skyline",
@@ -3978,20 +3978,6 @@
           "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
         },
         {
-          "model": "SKYLINE",
-          "scheme": "MRE",
-          "status": "eligible",
-          "build_to": "2025-02-01",
-          "category": null,
-          "build_from": "2013-11-01",
-          "build_open": false,
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=5de6d400-cee7-ee11-904c-002248953910",
-          "model_code": "VSHV37B",
-          "approval_number": "MRE-000513",
-          "build_date_range": "11/2013 - 2/2025",
-          "compliance_level": "Substantially Complies - Minor and Inconsequential non-compliance"
-        },
-        {
           "model": "Skyline",
           "scheme": "MRE",
           "status": "eligible",
@@ -4060,20 +4046,6 @@
           "approval_number": "MRE-000930",
           "build_date_range": "10/2007 - 5/2013",
           "compliance_level": "Complies"
-        },
-        {
-          "model": "SKYLINE",
-          "scheme": "SEV",
-          "status": "expiring",
-          "build_to": null,
-          "category": "MA - Passenger Vehicle",
-          "build_from": "2013-11-01",
-          "build_open": true,
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=fc7997d1-454d-ee11-be6f-002248933225",
-          "model_code": "HV37/HNV37",
-          "approval_number": "SEV-000517",
-          "build_date_range": null,
-          "compliance_level": null
         },
         {
           "model": "Skyline",
@@ -6450,7 +6422,7 @@
         "why_desirable": "A hybrid Corolla wagon unavailable new in Australia."
       },
       "counts": {
-        "usable": 36,
+        "usable": 35,
         "expired": 0,
         "under_review": 0,
         "expiring_soon": 1,
@@ -6490,20 +6462,6 @@
           "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=9d282e6f-efb6-ec11-a30a-0050569e60b7",
           "model_code": "TOYOTA COROLLA FIELDER HYBRID NKE165",
           "approval_number": "MRE-000032",
-          "build_date_range": "10/2020 - 2/2025",
-          "compliance_level": "Complies"
-        },
-        {
-          "model": "Corolla 160 SER",
-          "scheme": "MRE",
-          "status": "eligible",
-          "build_to": "2025-02-01",
-          "category": null,
-          "build_from": "2020-10-01",
-          "build_open": false,
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=f9a0b887-efb6-ec11-a30a-0050569e60b7",
-          "model_code": null,
-          "approval_number": "MRE-000033",
           "build_date_range": "10/2020 - 2/2025",
           "compliance_level": "Complies"
         },
@@ -9657,11 +9615,11 @@
         "why_desirable": "Hybrid wagon accessibility package unavailable locally."
       },
       "counts": {
-        "usable": 23,
+        "usable": 17,
         "expired": 0,
         "under_review": 0,
-        "expiring_soon": 3,
-        "sev_basis_gone": 3
+        "expiring_soon": 1,
+        "sev_basis_gone": 7
       },
       "aka_names": [
         "Prius PHV",
@@ -9729,20 +9687,6 @@
           "compliance_level": "Complies"
         },
         {
-          "model": "Prius Welcab",
-          "scheme": "MRE",
-          "status": "eligible",
-          "build_to": "2015-11-01",
-          "category": null,
-          "build_from": "2009-04-01",
-          "build_open": false,
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=7aa63761-6d8e-ee11-be36-002248933691",
-          "model_code": null,
-          "approval_number": "MRE-000418",
-          "build_date_range": "4/2009 - 11/2015",
-          "compliance_level": "Complies"
-        },
-        {
           "model": "Prius",
           "scheme": "MRE",
           "status": "eligible",
@@ -9754,20 +9698,6 @@
           "model_code": "MXWH61",
           "approval_number": "MRE-000525",
           "build_date_range": "12/2022 - 2/2025",
-          "compliance_level": "Complies"
-        },
-        {
-          "model": "Prius Welcab",
-          "scheme": "MRE",
-          "status": "eligible",
-          "build_to": "2022-12-01",
-          "category": null,
-          "build_from": "2015-12-01",
-          "build_open": false,
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=d0656fdc-2e01-ef11-9f8a-00224810679d",
-          "model_code": null,
-          "approval_number": "MRE-000539",
-          "build_date_range": "12/2015 - 12/2022",
           "compliance_level": "Complies"
         },
         {
@@ -9813,20 +9743,6 @@
           "compliance_level": "Complies"
         },
         {
-          "model": "Prius Welcab",
-          "scheme": "MRE",
-          "status": "eligible",
-          "build_to": "2015-11-01",
-          "category": null,
-          "build_from": "2009-04-01",
-          "build_open": false,
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=b210056c-0709-f011-bae2-000d3a6abb78",
-          "model_code": null,
-          "approval_number": "MRE-000770",
-          "build_date_range": "4/2009 - 11/2015",
-          "compliance_level": "Complies"
-        },
-        {
           "model": "Prius Alpha Welcab",
           "scheme": "MRE",
           "status": "eligible",
@@ -9838,20 +9754,6 @@
           "model_code": null,
           "approval_number": "MRE-000784",
           "build_date_range": "5/2011 - 9/2020",
-          "compliance_level": "Complies"
-        },
-        {
-          "model": "Prius Welcab",
-          "scheme": "MRE",
-          "status": "eligible",
-          "build_to": "2022-12-01",
-          "category": null,
-          "build_from": "2015-12-01",
-          "build_open": false,
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=d67bb6fe-d626-f011-8c4e-6045bde526e8",
-          "model_code": null,
-          "approval_number": "MRE-000787",
-          "build_date_range": "12/2015 - 12/2022",
           "compliance_level": "Complies"
         },
         {
@@ -9881,34 +9783,6 @@
           "approval_number": "MRE-000880",
           "build_date_range": "1/2018 - 12/2022",
           "compliance_level": "Complies"
-        },
-        {
-          "model": "Prius Welcab",
-          "scheme": "SEV",
-          "status": "expiring",
-          "build_to": "2015-11-01",
-          "category": "MA - Passenger Vehicle",
-          "build_from": "2009-04-01",
-          "build_open": false,
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=f95df575-424d-ee11-be6f-002248933225",
-          "model_code": "ZVW30",
-          "approval_number": "SEV-000514",
-          "build_date_range": null,
-          "compliance_level": null
-        },
-        {
-          "model": "Prius Welcab",
-          "scheme": "SEV",
-          "status": "expiring",
-          "build_to": "2022-12-01",
-          "category": "MA - Passenger Vehicle",
-          "build_from": "2015-12-01",
-          "build_open": false,
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=15ff42b8-424d-ee11-be6f-002248933225",
-          "model_code": "50 Series",
-          "approval_number": "SEV-000515",
-          "build_date_range": null,
-          "compliance_level": null
         },
         {
           "model": "Prius Alpha Welcab",
