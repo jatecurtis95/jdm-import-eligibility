@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-09-08T05:04:25.097Z",
-  "page_count": 45,
-  "published_count": 30,
+  "page_count": 49,
+  "published_count": 34,
   "scheduled_count": 15,
   "drifted_count": 0,
   "pages": [
@@ -1328,6 +1328,165 @@
       "last_modified": "2026-09-08"
     },
     {
+      "slug": "honda-freed",
+      "canonical_name": "Honda Freed",
+      "make_norm": "HONDA",
+      "aka_names": [
+        "Freed"
+      ],
+      "h1": "Honda Freed import eligibility in Australia",
+      "title_tag": "Honda Freed Import Eligibility Australia | Import Check",
+      "meta_description": "Check Honda Freed register entries, chassis codes, build dates and variant restrictions. See original ROVER records and ask about your exact car.",
+      "intro_copy": "Freed records distinguish GB7/GB8, the GT5/GT6/GT7/GT8 e-HEV variants, and a GB3/GB4 entry restricted to special mobility-assistive configurations. The mobility entry is not evidence that a standard passenger GB3 or GB4 is covered.\n\nCheck the exact chassis, powertrain, build month and seating equipment in the same approval. Freed Welfare configurations need a separate record check; the approvals below do not establish coverage for every vehicle carrying a Freed badge.",
+      "availability": "importable",
+      "approvals": [
+        {
+          "approval_number": "MRE-000833",
+          "scheme": "MRE",
+          "model": "Freed",
+          "model_code": "VSGT1C",
+          "build_from": "2024-05-01",
+          "build_to": "2025-02-01",
+          "build_open": false,
+          "build_date_range": "5/2024 - 2/2025",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=c9014aa9-d770-f011-b4cd-00224894ce7f",
+          "category": "MA",
+          "source_variant": "WIGT1C",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": 80000,
+          "based_on_sevs": [
+            "SEV-000755"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "MRE-000874",
+          "scheme": "MRE",
+          "model": "Freed",
+          "model_code": "VSA-GB7 / VSA-GB8",
+          "build_from": "2019-10-01",
+          "build_to": "2024-06-01",
+          "build_open": false,
+          "build_date_range": "10/2019 - 6/2024",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=66cd9e94-bfaf-f011-bbd2-7ced8da255df",
+          "category": "MA",
+          "source_variant": "WIGB1B",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": 80000,
+          "based_on_sevs": [
+            "SEV-000624"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "MRE-000876",
+          "scheme": "MRE",
+          "model": "Freed",
+          "model_code": "GB7 / GB8",
+          "build_from": "2019-10-01",
+          "build_to": "2025-02-01",
+          "build_open": false,
+          "build_date_range": "10/2019 - 2/2025",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=1a9069c1-60b8-f011-bbd2-7ced8da1753f",
+          "category": "MA",
+          "source_variant": "WIGB801A\nWIGB701A",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": 114496,
+          "based_on_sevs": [
+            "SEV-000624"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "SEV-000624",
+          "scheme": "SEV",
+          "model": "Freed",
+          "model_code": "GB7, GB8",
+          "build_from": "2019-10-01",
+          "build_to": null,
+          "build_open": true,
+          "build_date_range": null,
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=ad5f8180-5242-ef11-a316-0022489279b9",
+          "category": "MA - Passenger Vehicle",
+          "source_variant": "ALL",
+          "variant_details": null,
+          "expiry": "14/07/2027",
+          "criterion": "Environmental Criterion",
+          "odometer_limit_km": null,
+          "based_on_sevs": [],
+          "source_markets": []
+        },
+        {
+          "approval_number": "SEV-000755",
+          "scheme": "SEV",
+          "model": "Freed",
+          "model_code": "GT5, GT6, GT7, GT8",
+          "build_from": "2024-05-01",
+          "build_to": null,
+          "build_open": true,
+          "build_date_range": null,
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=0a99da3c-cad3-ef11-8ee9-7c1e52624683",
+          "category": "MA - Passenger Vehicle",
+          "source_variant": "e-HEV Air and Crosstar",
+          "variant_details": "e-HEV variants fitted with LEB-H5 hybrid drivetrain.",
+          "expiry": "15/01/2028",
+          "criterion": "Environmental Criterion",
+          "odometer_limit_km": null,
+          "based_on_sevs": [],
+          "source_markets": []
+        },
+        {
+          "approval_number": "SEV-000847",
+          "scheme": "SEV",
+          "model": "Freed",
+          "model_code": "GB3 / GB4",
+          "build_from": "2008-05-01",
+          "build_to": "2016-09-01",
+          "build_open": false,
+          "build_date_range": null,
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=44ff6bf7-df14-f011-998a-6045bde65659",
+          "category": "MA - Passenger Vehicle",
+          "source_variant": "Only special mobility assistive variants.",
+          "variant_details": "mobility assistive variants. only",
+          "expiry": "08/04/2028",
+          "criterion": "Mobility Criterion",
+          "odometer_limit_km": null,
+          "based_on_sevs": [],
+          "source_markets": []
+        }
+      ],
+      "counts": {
+        "usable": 6,
+        "sev_basis_gone": 0,
+        "expired": 0
+      },
+      "publish_ready": true,
+      "reviewed_by": "Codex source review, authorised by site owner",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "intel": {},
+      "faqs": [],
+      "register_checked_at": "2026-09-08T05:04:28.555Z",
+      "last_modified": "2026-09-08"
+    },
+    {
       "h1": "Is the Japanese Honda Odyssey eligible for import to Australia?",
       "faqs": [],
       "slug": "honda-odyssey-jdm",
@@ -2106,6 +2265,149 @@
       "last_modified": "2026-09-08"
     },
     {
+      "slug": "lexus-gs-f",
+      "canonical_name": "Lexus GS F",
+      "make_norm": "LEXUS",
+      "aka_names": [
+        "GS F"
+      ],
+      "h1": "Lexus GS F import eligibility in Australia",
+      "title_tag": "Lexus GS F Import Eligibility Australia | Import Check",
+      "meta_description": "Check Lexus GS F register entries, chassis codes, build dates and variant restrictions. See original ROVER records and ask about your exact car.",
+      "intro_copy": "GS F records identify the URL10 chassis and a specific build window. A GS F badge or registration year is not enough: obtain the actual build month and compare it with the SEVS entry and the applicable model report.\n\nThese records are for GS F, not every model in the Lexus GS range. Check the exact variant and report conditions with the workshop before committing to a car.",
+      "availability": "importable",
+      "approvals": [
+        {
+          "approval_number": "MRE-000774",
+          "scheme": "MRE",
+          "model": "GS F",
+          "model_code": null,
+          "build_from": "2015-10-01",
+          "build_to": "2016-01-01",
+          "build_open": false,
+          "build_date_range": "10/2015 - 1/2016",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=3bc0b617-ad0e-f011-9989-6045bdc4ab5f",
+          "category": "MA",
+          "source_variant": "WIURL1001B",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": null,
+          "based_on_sevs": [
+            "SEV-000701"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "MRE-000775",
+          "scheme": "MRE",
+          "model": "GS F",
+          "model_code": null,
+          "build_from": "2015-10-01",
+          "build_to": "2016-01-01",
+          "build_open": false,
+          "build_date_range": "10/2015 - 1/2016",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=a321a335-ad0e-f011-9989-6045bdc4ab5f",
+          "category": "MA",
+          "source_variant": "WIURL1001A",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": null,
+          "based_on_sevs": [
+            "SEV-000701"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "MRE-000802",
+          "scheme": "MRE",
+          "model": "GS F",
+          "model_code": null,
+          "build_from": "2015-10-01",
+          "build_to": "2016-01-01",
+          "build_open": false,
+          "build_date_range": "10/2015 - 1/2016",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=8ac9f142-fd47-f011-877a-00224892d1b3",
+          "category": "MA",
+          "source_variant": "WIURL101A",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": null,
+          "based_on_sevs": [
+            "SEV-000701"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "MRE-000898",
+          "scheme": "MRE",
+          "model": "GS F",
+          "model_code": "URL10",
+          "build_from": "2015-10-01",
+          "build_to": "2016-01-01",
+          "build_open": false,
+          "build_date_range": "10/2015 - 1/2016",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=a89ab94f-fdef-f011-8407-6045bde72a1c",
+          "category": "MA",
+          "source_variant": "RC-URL10-01A",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": null,
+          "based_on_sevs": [
+            "SEV-000701"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "SEV-000701",
+          "scheme": "SEV",
+          "model": "GS F",
+          "model_code": "URL10",
+          "build_from": "2015-10-01",
+          "build_to": "2016-01-01",
+          "build_open": false,
+          "build_date_range": null,
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=37d14472-da9e-ef11-8a6a-000d3acbed23",
+          "category": "MA - Passenger Vehicle",
+          "source_variant": "ALL",
+          "variant_details": null,
+          "expiry": "09/11/2027",
+          "criterion": "Performance Criterion",
+          "odometer_limit_km": null,
+          "based_on_sevs": [],
+          "source_markets": []
+        }
+      ],
+      "counts": {
+        "usable": 5,
+        "sev_basis_gone": 0,
+        "expired": 0
+      },
+      "publish_ready": true,
+      "reviewed_by": "Codex source review, authorised by site owner",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "intel": {},
+      "faqs": [],
+      "register_checked_at": "2026-09-08T05:04:28.555Z",
+      "last_modified": "2026-09-08"
+    },
+    {
       "slug": "lexus-is500",
       "canonical_name": "Lexus IS 500 F-Sport",
       "make_norm": "LEXUS",
@@ -2457,6 +2759,146 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
+      "register_checked_at": "2026-09-08T05:04:28.555Z",
+      "last_modified": "2026-09-08"
+    },
+    {
+      "slug": "lexus-rc-f",
+      "canonical_name": "Lexus RC F",
+      "make_norm": "LEXUS",
+      "aka_names": [
+        "RC-F",
+        "RC F"
+      ],
+      "h1": "Lexus RC F import eligibility in Australia",
+      "title_tag": "Lexus RC F Import Eligibility Australia | Import Check",
+      "meta_description": "Check Lexus RC F register entries, chassis codes, build dates and variant restrictions. See original ROVER records and ask about your exact car.",
+      "intro_copy": "RC-F and RC F are spelling variants used in these USC10 records. They share this guide, but each approval keeps its own build window and linked SEVS basis. Do not join the earliest and latest dates into one continuous period of coverage.\n\nMatch the car to a single applicable entry and report. The RC F records do not establish coverage for an RC300h or another RC powertrain, even where the body looks similar.",
+      "availability": "importable",
+      "approvals": [
+        {
+          "approval_number": "MRE-000887",
+          "scheme": "MRE",
+          "model": "RC-F",
+          "model_code": "VSA-RC-F",
+          "build_from": "2014-09-01",
+          "build_to": "2015-01-01",
+          "build_open": false,
+          "build_date_range": "9/2014 - 1/2015",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=91faeac1-71bb-f011-bbd2-7ced8d335fa0",
+          "category": "MA",
+          "source_variant": "WIUSC101B",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": null,
+          "based_on_sevs": [
+            "SEV-000909"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "MRE-000889",
+          "scheme": "MRE",
+          "model": "RC-F",
+          "model_code": "USC10",
+          "build_from": "2014-09-01",
+          "build_to": "2015-01-01",
+          "build_open": false,
+          "build_date_range": "9/2014 - 1/2015",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=a4aae5cf-94c6-f011-bbd3-7c1e5289fc77",
+          "category": "MA",
+          "source_variant": "RC-USC10-01A",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": null,
+          "based_on_sevs": [
+            "SEV-000909"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "MRE-000981",
+          "scheme": "MRE",
+          "model": "RC F",
+          "model_code": "USC10 Base / USC10 Carbon / USC10 Performance / USC10 Final Edition",
+          "build_from": "2021-12-01",
+          "build_to": "2025-02-01",
+          "build_open": false,
+          "build_date_range": "12/2021 - 2/2025",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=3929185f-7b9b-f111-b8db-00224812329b",
+          "category": "MA",
+          "source_variant": "WIUSC101C",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": null,
+          "based_on_sevs": [
+            "SEV-001084"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "SEV-000909",
+          "scheme": "SEV",
+          "model": "RC-F",
+          "model_code": "USC10",
+          "build_from": "2014-09-01",
+          "build_to": "2015-01-01",
+          "build_open": false,
+          "build_date_range": null,
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=5cb5c02d-e565-f011-bec3-00224897a93b",
+          "category": "MA - Passenger Vehicle",
+          "source_variant": "ALL",
+          "variant_details": null,
+          "expiry": "20/07/2028",
+          "criterion": "Performance Criterion",
+          "odometer_limit_km": null,
+          "based_on_sevs": [],
+          "source_markets": []
+        },
+        {
+          "approval_number": "SEV-001084",
+          "scheme": "SEV",
+          "model": "RC F",
+          "model_code": "USC10",
+          "build_from": "2021-12-01",
+          "build_to": "2025-12-01",
+          "build_open": false,
+          "build_date_range": null,
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=4b3e1ed2-6b7f-f111-ab0e-7c1e528a7792",
+          "category": "MA - Passenger Vehicle",
+          "source_variant": "ALL",
+          "variant_details": "Lexus USC10 series vehicles of specific build date range ONLY",
+          "expiry": "13/07/2029",
+          "criterion": "Performance Criterion",
+          "odometer_limit_km": null,
+          "based_on_sevs": [],
+          "source_markets": []
+        }
+      ],
+      "counts": {
+        "usable": 5,
+        "sev_basis_gone": 0,
+        "expired": 0
+      },
+      "publish_ready": true,
+      "reviewed_by": "Codex source review, authorised by site owner",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "intel": {},
+      "faqs": [],
       "register_checked_at": "2026-09-08T05:04:28.555Z",
       "last_modified": "2026-09-08"
     },
@@ -6514,6 +6956,101 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
+      "register_checked_at": "2026-09-08T05:04:28.555Z",
+      "last_modified": "2026-09-08"
+    },
+    {
+      "slug": "subaru-forester",
+      "canonical_name": "Subaru Forester",
+      "make_norm": "SUBARU",
+      "aka_names": [
+        "Forester"
+      ],
+      "h1": "Subaru Forester import eligibility in Australia",
+      "title_tag": "Subaru Forester Import Eligibility Australia | Import Check",
+      "meta_description": "Check Subaru Forester register entries, chassis codes, build dates and variant restrictions. See original ROVER records and ask about your exact car.",
+      "intro_copy": "The current Forester SEVS entry identifies SG5 and SG9, including named Cross Sports, XT and STi variants. Match the actual chassis, engine and build date to the source row; these records are not blanket coverage for every Forester generation.\n\nSome recorded model reports have lost their explicitly linked SEVS basis and are withheld from the table. An older SF-series car needs its own pathway assessment. An In Force report for a different or removed entry cannot substitute for a current match.",
+      "availability": "importable",
+      "approvals": [
+        {
+          "approval_number": "MRE-000044",
+          "scheme": "MRE",
+          "model": "Forester",
+          "model_code": "Cross Sport SG5 / STi SG9 / XT SG5",
+          "build_from": "2002-02-01",
+          "build_to": "2007-12-01",
+          "build_open": false,
+          "build_date_range": "2/2002 - 12/2007",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=f3d462b1-35c1-ec11-a30a-0050569e60b7",
+          "category": "MA",
+          "source_variant": "RC-SG9STI-01D",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": null,
+          "based_on_sevs": [
+            "SEV-000653"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "MRE-000171",
+          "scheme": "MRE",
+          "model": "Forester",
+          "model_code": null,
+          "build_from": "2002-10-01",
+          "build_to": "2007-12-01",
+          "build_open": false,
+          "build_date_range": "10/2002 - 12/2007",
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=0019bf7f-5aab-ed11-83ff-0022489333a7",
+          "category": "MA",
+          "source_variant": "WISG51C",
+          "variant_details": null,
+          "expiry": null,
+          "criterion": null,
+          "odometer_limit_km": null,
+          "based_on_sevs": [
+            "SEV-000653"
+          ],
+          "source_markets": [
+            "Japan"
+          ]
+        },
+        {
+          "approval_number": "SEV-000653",
+          "scheme": "SEV",
+          "model": "Forester",
+          "model_code": "SG5, SG9",
+          "build_from": "2002-02-01",
+          "build_to": "2007-12-01",
+          "build_open": false,
+          "build_date_range": null,
+          "status": "eligible",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=7d377273-5575-ef11-a670-002248127868",
+          "category": "MA - Passenger Vehicle",
+          "source_variant": "Forester",
+          "variant_details": "SG9 (STi) and SG5 (Cross Sports and XT)",
+          "expiry": "17/09/2027",
+          "criterion": "Performance Criterion",
+          "odometer_limit_km": null,
+          "based_on_sevs": [],
+          "source_markets": []
+        }
+      ],
+      "counts": {
+        "usable": 3,
+        "sev_basis_gone": 4,
+        "expired": 0
+      },
+      "publish_ready": true,
+      "reviewed_by": "Codex source review, authorised by site owner",
+      "reviewed_at": "2026-09-08T00:00:00Z",
+      "intel": {},
+      "faqs": [],
       "register_checked_at": "2026-09-08T05:04:28.555Z",
       "last_modified": "2026-09-08"
     },

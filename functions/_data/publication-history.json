@@ -76,6 +76,19 @@
         "SEV-000970"
       ]
     },
+    "honda-freed": {
+      "hash": "4b2f2e8b0f1b68dac7b3ca13d83c957cd91fb2a2b40a191aca8848609fda3650",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000833",
+        "MRE-000874",
+        "MRE-000876",
+        "SEV-000624",
+        "SEV-000755",
+        "SEV-000847"
+      ]
+    },
     "honda-odyssey-jdm": {
       "hash": "10ea364571ccf9b1aec775444aef685110afe388a39ae67c6fcab5d7b5a34469",
       "last_modified": "2026-09-08",
@@ -131,6 +144,18 @@
         "SEV-000665"
       ]
     },
+    "lexus-gs-f": {
+      "hash": "0be9fd5a24c21c67a061ad0c932f8845559fc272048d572bd407a9e5592a674d",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000774",
+        "MRE-000775",
+        "MRE-000802",
+        "MRE-000898",
+        "SEV-000701"
+      ]
+    },
     "lexus-is500": {
       "hash": "943b889e35e9facee5a52b0bcc2721aac9a4b7057ea6c94d3e18f3d15dde055b",
       "last_modified": "2026-09-08",
@@ -155,6 +180,18 @@
         "SEV-000550",
         "SEV-000920",
         "SEV-000921"
+      ]
+    },
+    "lexus-rc-f": {
+      "hash": "e86f0a89cf46749dbc59d4f77120f9cf5a7186d409159da3d45f0260ae0caee5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000887",
+        "MRE-000889",
+        "MRE-000981",
+        "SEV-000909",
+        "SEV-001084"
       ]
     },
     "mazda-rx-7": {
@@ -414,6 +451,16 @@
         "SEV-000988",
         "SEV-000989",
         "SEV-001008"
+      ]
+    },
+    "subaru-forester": {
+      "hash": "2800b777e435c7be1f7f1375492746c7fc8b0f83e77f7ea86142f1dfee3db548",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000044",
+        "MRE-000171",
+        "SEV-000653"
       ]
     },
     "subaru-impreza-wrx-sti": {
