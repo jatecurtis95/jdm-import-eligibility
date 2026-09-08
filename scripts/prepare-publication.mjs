@@ -2,20 +2,32 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { introductions, additions } from './model-editorial.mjs';
 import { isLive } from '../functions/vehicles/_render.js';
+import { catalogueStillReviewed } from './catalogue-review.mjs';
 const root = new URL('../', import.meta.url);
 const read = async path => JSON.parse(await readFile(new URL(path, root), 'utf8'));
 const write = async (path, data) => writeFile(new URL(path, root), JSON.stringify(data,null,2)+'\n');
 const bundle = await read('functions/_data/vehicle-pages.json');
+const catalogue = JSON.parse(await readFile(new URL('reviewed-catalogue.json', import.meta.url), 'utf8'));
 const snapshot = JSON.parse(await readFile(process.env.REVIEW_SNAPSHOT || new URL('functions/_data/review-snapshot.json',root), 'utf8'));
 if (Date.now()-Date.parse(snapshot.checked_at) > 48*3600000) throw new Error('Review snapshot is more than 48 hours old');
 const records = new Map(snapshot.records.map(r => [r.approval_number,r]));
 const usable = r => r?.is_active && ['eligible','expiring'].includes(r.eligibility_status) && (r.scheme !== 'MRE' || r.raw_row['Approval status'] === 'In Force');
 const approval = r => ({approval_number:r.approval_number,scheme:r.scheme,model:r.model,model_code:r.model_code,build_from:r.build_from,build_to:r.build_to,build_open:r.build_open,build_date_range:r.raw_row['Build date range'] || null,status:r.eligibility_status,detail_url:r.detail_url,category:r.raw_row.Category || r.raw_row['Post-modification category'] || null,source_variant:r.raw_row._variant || r.raw_row._variant_description || null,variant_details:r.raw_row._variant_details || null,expiry:r.raw_row.Expiry || null,criterion:r.raw_row._sev_category_raw || null,odometer_limit_km:r.raw_row._odometer_limit_km || null,based_on_sevs:r.raw_row._based_on_sevs || [],source_markets:r.raw_row._source_markets || []});
-for (const [slug,name,make,names,intro] of additions) {
+const catalogueBySlug = new Map(catalogue.map(r => [r.slug, r]));
+for (const [slug,name,make,names,intro] of [...additions, ...catalogue.map(r => [r.slug,r.name,r.make,r.names,r.intro])]) {
   const source = snapshot.records.filter(r => r.make.toUpperCase() === make && names.some(n => n.toLowerCase() === r.model.toLowerCase()));
   if (!source.length) throw new Error(`No records for ${slug}`);
   const approvals = source.filter(usable).map(approval);
   const page = {slug,canonical_name:name,make_norm:make,aka_names:names,h1:`${name} import eligibility in Australia`,title_tag:`${name} Import Eligibility Australia | Import Check`,meta_description:`Check ${name} register entries, chassis codes, build dates and variant restrictions. See original ROVER records and ask about your exact car.`,intro_copy:intro,availability:approvals.length?'importable':'no_live_approval',approvals,counts:{usable:approvals.length,sev_basis_gone:source.filter(r=>r.eligibility_status==='sev_basis_gone').length,expired:source.filter(r=>r.eligibility_status==='expired').length},publish_ready:true,reviewed_by:'Codex source review, authorised by site owner',reviewed_at:'2026-09-08T00:00:00Z',intel:{},faqs:[]};
+  const review = catalogueBySlug.get(slug);
+  if (review && !catalogueStillReviewed(review, snapshot.records)) {
+    page.stale = true;
+    page.publish_ready = false;
+    page.availability = 'unverified';
+    page.approvals = [];
+    page.counts.usable = 0;
+    page.intro_copy = 'The source records have changed since this guide was reviewed. Check the original register and ask a workshop to assess the exact vehicle while this guide is being reviewed again.';
+  }
   bundle.pages = bundle.pages.filter(p=>p.slug!==slug);
   bundle.pages.push(page);
 }

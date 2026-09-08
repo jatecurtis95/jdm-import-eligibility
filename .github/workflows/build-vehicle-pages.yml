@@ -89,6 +89,7 @@ jobs:
           node scripts/test-vehicle-coverage.mjs
           node scripts/test-guide-mapping-integrity.mjs
           node scripts/test-publication.mjs
+          node scripts/test-catalogue-review.mjs
 
       - name: commit
         if: github.ref == 'refs/heads/main'

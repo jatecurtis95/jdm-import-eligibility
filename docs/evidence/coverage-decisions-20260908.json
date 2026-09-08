@@ -1,0 +1,4700 @@
+[
+  {
+    "candidate": "register-adambowescommercials-gbb255motorhome",
+    "name": "Adam Bowes Commercials GBB255 Motorhome",
+    "make": "ADAM BOWES COMMERCIALS",
+    "ids": [
+      "SEV-000670",
+      "MRE-000795"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "adam-bowes-commercials-gbb255-motorhome"
+  },
+  {
+    "candidate": "register-adria-compactsupremedl",
+    "name": "ADRIA Compact Supreme DL",
+    "make": "ADRIA",
+    "ids": [
+      "SEV-000519",
+      "MRE-000578",
+      "MRE-000611"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "adria-compact-supreme-dl"
+  },
+  {
+    "candidate": "register-alfaromeo-156sportwagongta",
+    "name": "ALFA ROMEO 156 Sportwagon GTA",
+    "make": "ALFA ROMEO",
+    "ids": [
+      "SEV-000631",
+      "MRE-000747"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "alfa-romeo-156-sportwagon-gta"
+  },
+  {
+    "candidate": "register-alfaromeo-brera",
+    "name": "ALFA ROMEO Brera",
+    "make": "ALFA ROMEO",
+    "ids": [
+      "SEV-000603"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "alfa-romeo-brera"
+  },
+  {
+    "candidate": "register-alliedvehicles-anxnforddream",
+    "name": "Allied Vehicles ANXN Ford Dream",
+    "make": "ALLIED VEHICLES",
+    "ids": [
+      "SEV-001029"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "allied-vehicles-anxn-ford-dream"
+  },
+  {
+    "candidate": "register-alliedvehicles-anxnfordindependence",
+    "name": "Allied Vehicles ANXN Ford Independence",
+    "make": "ALLIED VEHICLES",
+    "ids": [
+      "SEV-001028"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "allied-vehicles-anxn-ford-independence"
+  },
+  {
+    "candidate": "register-alliedvehicles-anxnfordm1multivan",
+    "name": "Allied Vehicles ANXN Ford M1 Multivan",
+    "make": "ALLIED VEHICLES",
+    "ids": [
+      "SEV-001027"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "allied-vehicles-anxn-ford-m1-multivan"
+  },
+  {
+    "candidate": "register-alxhorseboxes-alx21",
+    "name": "ALX Horseboxes ALX-21",
+    "make": "ALX HORSEBOXES",
+    "ids": [
+      "SEV-000997",
+      "MRE-000360"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "alx-horseboxes-alx-21"
+  },
+  {
+    "candidate": "register-ariel-atom",
+    "name": "Ariel Atom",
+    "make": "ARIEL",
+    "ids": [
+      "SEV-000960",
+      "MRE-000522"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ariel-atom"
+  },
+  {
+    "candidate": "register-ariel-atom4",
+    "name": "Ariel Atom 4",
+    "make": "ARIEL",
+    "ids": [
+      "SEV-001064",
+      "MRE-000439"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ariel-atom"
+  },
+  {
+    "candidate": "register-ariel-nomad",
+    "name": "Ariel Nomad",
+    "make": "ARIEL",
+    "ids": [
+      "SEV-000816"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ariel-nomad"
+  },
+  {
+    "candidate": "register-astonmartin-db7",
+    "name": "ASTON MARTIN DB7",
+    "make": "ASTON MARTIN",
+    "ids": [
+      "SEV-000606",
+      "MRE-000599"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "aston-martin-db7"
+  },
+  {
+    "candidate": "register-astonmartin-dbsgtzagato",
+    "name": "ASTON MARTIN DBS GT Zagato",
+    "make": "ASTON MARTIN",
+    "ids": [
+      "MRE-000165"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-astonmartin-speedster",
+    "name": "ASTON MARTIN Speedster",
+    "make": "ASTON MARTIN",
+    "ids": [
+      "SEV-000552",
+      "MRE-000708"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "aston-martin-speedster"
+  },
+  {
+    "candidate": "register-astonmartin-v12vantages",
+    "name": "ASTON MARTIN V12 Vantage S",
+    "make": "ASTON MARTIN",
+    "ids": [
+      "SEV-000604",
+      "MRE-000765"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "aston-martin-v12-vantage-s"
+  },
+  {
+    "candidate": "register-astonmartin-v8vantagegt8",
+    "name": "ASTON MARTIN V8 Vantage GT8",
+    "make": "ASTON MARTIN",
+    "ids": [
+      "SEV-001034"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "aston-martin-v8-vantage-gt8"
+  },
+  {
+    "candidate": "register-astonmartin-valkyrie",
+    "name": "ASTON MARTIN Valkyrie",
+    "make": "ASTON MARTIN",
+    "ids": [
+      "SEV-000532"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "aston-martin-valkyrie"
+  },
+  {
+    "candidate": "register-astonmartin-vanquish",
+    "name": "ASTON MARTIN VANQUISH",
+    "make": "ASTON MARTIN",
+    "ids": [
+      "SEV-000553",
+      "MRE-000801"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "aston-martin-vanquish"
+  },
+  {
+    "candidate": "register-atozrvtoyota-atozrvcamroad",
+    "name": "A to Z RV Toyota A to Z RV Camroad",
+    "make": "A TO Z RV TOYOTA",
+    "ids": [
+      "SEV-000879",
+      "MRE-000827"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "a-to-z-rv-toyota-a-to-z-rv-camroad"
+  },
+  {
+    "candidate": "register-audi-4s",
+    "name": "AUDI 4S",
+    "make": "AUDI",
+    "ids": [
+      "SEV-000752",
+      "SEV-000753",
+      "MRE-000241",
+      "MRE-000253",
+      "MRE-000255",
+      "MRE-000258",
+      "MRE-000313"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000253 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-audi-8rsq5",
+    "name": "AUDI 8R SQ5",
+    "make": "AUDI",
+    "ids": [
+      "SEV-000843",
+      "MRE-000819"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "audi-8r-sq5"
+  },
+  {
+    "candidate": "register-audi-etron",
+    "name": "AUDI e-tron",
+    "make": "AUDI",
+    "ids": [
+      "MRE-000343",
+      "MRE-000398",
+      "MRE-000465",
+      "MRE-000491"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-audi-q4etron",
+    "name": "AUDI Q4 e-tron",
+    "make": "AUDI",
+    "ids": [
+      "MRE-000413",
+      "MRE-000538",
+      "MRE-000591"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-audi-q7",
+    "name": "AUDI Q7",
+    "make": "AUDI",
+    "ids": [
+      "SEV-000880",
+      "MRE-000692",
+      "MRE-000822"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "audi-q7"
+  },
+  {
+    "candidate": "register-audi-r8",
+    "name": "AUDI R8",
+    "make": "AUDI",
+    "ids": [
+      "SEV-000584",
+      "MRE-000576",
+      "MRE-000587"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "audi-r8-type-42"
+  },
+  {
+    "candidate": "register-audi-r8lmsgt2",
+    "name": "AUDI R8 LMS GT2",
+    "make": "AUDI",
+    "ids": [
+      "SEV-000878"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Competition-specific GT2 variant; road-use pathway requires specialist confirmation."
+    ]
+  },
+  {
+    "candidate": "register-audi-s6avant",
+    "name": "AUDI S6 Avant",
+    "make": "AUDI",
+    "ids": [
+      "SEV-001086",
+      "MRE-000382"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "audi-s6-avant"
+  },
+  {
+    "candidate": "register-audi-ttquattrosport",
+    "name": "AUDI TT Quattro Sport",
+    "make": "AUDI",
+    "ids": [
+      "MRE-000356"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-autotrail-fline",
+    "name": "AUTOTRAIL F-LINE",
+    "make": "AUTOTRAIL",
+    "ids": [
+      "SEV-000564"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "autotrail-f-line"
+  },
+  {
+    "candidate": "register-autotrail-imala",
+    "name": "AUTOTRAIL Imala",
+    "make": "AUTOTRAIL",
+    "ids": [
+      "SEV-000610",
+      "MRE-000792"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "autotrail-imala"
+  },
+  {
+    "candidate": "register-bacbriggsautomotivecompany-mono",
+    "name": "BAC (Briggs Automotive Company) Mono",
+    "make": "BAC (BRIGGS AUTOMOTIVE COMPANY)",
+    "ids": [
+      "SEV-000868"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bac-briggs-automotive-company-mono"
+  },
+  {
+    "candidate": "register-bentley-azure",
+    "name": "BENTLEY Azure",
+    "make": "BENTLEY",
+    "ids": [
+      "SEV-000679",
+      "MRE-000745"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bentley-azure"
+  },
+  {
+    "candidate": "register-bentley-continentalgt3r",
+    "name": "BENTLEY Continental GT3-R",
+    "make": "BENTLEY",
+    "ids": [
+      "SEV-001071"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bentley-continental-gt3-r"
+  },
+  {
+    "candidate": "register-bentley-mulsanne",
+    "name": "BENTLEY Mulsanne",
+    "make": "BENTLEY",
+    "ids": [
+      "SEV-000557"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bentley-mulsanne"
+  },
+  {
+    "candidate": "register-bessacarrfiat-e500series",
+    "name": "BESSACARR FIAT E500 SERIES",
+    "make": "BESSACARR FIAT",
+    "ids": [
+      "SEV-000944",
+      "MRE-000949"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bessacarr-fiat-e500-series"
+  },
+  {
+    "candidate": "register-bloomfieldsfiat-ducatohorsebox",
+    "name": "Bloomfields Fiat Ducato Horsebox",
+    "make": "BLOOMFIELDS FIAT",
+    "ids": [
+      "SEV-000642",
+      "MRE-000678"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bloomfields-fiat-ducato-horsebox"
+  },
+  {
+    "candidate": "register-bmw-335itouring3seriestouringf31335i3g92",
+    "name": "BMW 335i Touring - 3 Series Touring (F31) - 335i (3G92)",
+    "make": "BMW",
+    "ids": [
+      "SEV-001025"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-335i-touring"
+  },
+  {
+    "candidate": "register-bmw-340itouring3seriestouringf318h12",
+    "name": "BMW 340i Touring - 3 Series Touring (F31- 8H12)",
+    "make": "BMW",
+    "ids": [
+      "SEV-001024"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-340i-touring"
+  },
+  {
+    "candidate": "register-bmw-630i",
+    "name": "BMW 630i",
+    "make": "BMW",
+    "ids": [
+      "SEV-000929",
+      "SEV-000937",
+      "MRE-000195",
+      "MRE-000759"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000759 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-bmw-8series",
+    "name": "BMW 8 Series",
+    "make": "BMW",
+    "ids": [
+      "SEV-000572",
+      "SEV-000573",
+      "SEV-000574",
+      "MRE-000616"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-8-series"
+  },
+  {
+    "candidate": "register-bmw-alpina",
+    "name": "BMW Alpina",
+    "make": "BMW",
+    "ids": [
+      "SEV-000546",
+      "SEV-000547"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-alpina"
+  },
+  {
+    "candidate": "register-bmw-alpinab6edition50",
+    "name": "BMW Alpina B6 Edition 50",
+    "make": "BMW",
+    "ids": [
+      "SEV-000535",
+      "MRE-000619",
+      "MRE-000625"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-alpina-b6-edition-50"
+  },
+  {
+    "candidate": "register-bmw-i7",
+    "name": "BMW i7",
+    "make": "BMW",
+    "ids": [
+      "SEV-000959"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-i7"
+  },
+  {
+    "candidate": "register-bmw-i8",
+    "name": "BMW i8",
+    "make": "BMW",
+    "ids": [
+      "SEV-000608",
+      "SEV-000609",
+      "MRE-000662",
+      "MRE-000695",
+      "MRE-000769"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-i8"
+  },
+  {
+    "candidate": "register-bmw-k50",
+    "name": "BMW K50",
+    "make": "BMW",
+    "ids": [
+      "MRE-000919"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000919 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-bmw-m140i3door",
+    "name": "BMW M140i 3 Door",
+    "make": "BMW",
+    "ids": [
+      "SEV-000596"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-m140i-3-door"
+  },
+  {
+    "candidate": "register-bmw-m3",
+    "name": "BMW M3",
+    "make": "BMW",
+    "ids": [
+      "MRE-000394",
+      "MRE-000395"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-bmw-m340ixdrivetouringwagonwithsingletci6engineonly",
+    "name": "BMW M340i xDrive Touring (Wagon) with single-TC I6 engine ONLY",
+    "make": "BMW",
+    "ids": [
+      "SEV-000632",
+      "MRE-000809",
+      "MRE-000907"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-m340i-xdrive-touring"
+  },
+  {
+    "candidate": "register-bmw-m3gts",
+    "name": "BMW M3 GTS",
+    "make": "BMW",
+    "ids": [
+      "SEV-000583",
+      "MRE-000766"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-m3-gts"
+  },
+  {
+    "candidate": "register-bmw-m5estate",
+    "name": "BMW M5 Estate",
+    "make": "BMW",
+    "ids": [
+      "SEV-000966"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-m5-estate"
+  },
+  {
+    "candidate": "register-bmw-r1200",
+    "name": "BMW R1200",
+    "make": "BMW",
+    "ids": [
+      "MRE-000666"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000666 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-bmw-x5m50d",
+    "name": "BMW X5 M50d",
+    "make": "BMW",
+    "ids": [
+      "SEV-000792",
+      "MRE-000885"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bmw-x5-m50d"
+  },
+  {
+    "candidate": "register-brabus-bodo",
+    "name": "BRABUS BODO",
+    "make": "BRABUS",
+    "ids": [
+      "SEV-001097"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "brabus-bodo"
+  },
+  {
+    "candidate": "register-brabus-brabusgclass",
+    "name": "BRABUS BRABUS G-CLASS",
+    "make": "BRABUS",
+    "ids": [
+      "SEV-000826",
+      "SEV-000827",
+      "SEV-000830",
+      "SEV-000834",
+      "MRE-000843"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "brabus-g-class"
+  },
+  {
+    "candidate": "register-brabus-g700b636x6",
+    "name": "BRABUS G700 B63 6x6",
+    "make": "BRABUS",
+    "ids": [
+      "SEV-000757",
+      "MRE-000763"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "brabus-g700-b63-6x6"
+  },
+  {
+    "candidate": "register-brabus-gt900",
+    "name": "BRABUS GT 900",
+    "make": "BRABUS",
+    "ids": [
+      "SEV-001056"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "brabus-gt-900"
+  },
+  {
+    "candidate": "register-brabus-gtc900",
+    "name": "BRABUS GTC 900",
+    "make": "BRABUS",
+    "ids": [
+      "SEV-001057"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "brabus-gtc-900"
+  },
+  {
+    "candidate": "register-brabus-rocketr",
+    "name": "BRABUS ROCKET R",
+    "make": "BRABUS",
+    "ids": [
+      "SEV-000560"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "brabus-rocket-r"
+  },
+  {
+    "candidate": "register-brabus-xlp6x6",
+    "name": "BRABUS XLP 6X6",
+    "make": "BRABUS",
+    "ids": [
+      "SEV-000558",
+      "SEV-000559"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "brabus-xlp-6x6"
+  },
+  {
+    "candidate": "register-bugatti-chiron",
+    "name": "BUGATTI Chiron",
+    "make": "BUGATTI",
+    "ids": [
+      "SEV-001103",
+      "MRE-000473",
+      "MRE-000474"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bugatti-chiron"
+  },
+  {
+    "candidate": "register-bugatti-veyron",
+    "name": "BUGATTI VEYRON",
+    "make": "BUGATTI",
+    "ids": [
+      "SEV-000791",
+      "MRE-000441",
+      "MRE-000442"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "bugatti-veyron"
+  },
+  {
+    "candidate": "register-cadillac-escalade",
+    "name": "CADILLAC Escalade",
+    "make": "CADILLAC",
+    "ids": [
+      "SEV-000521"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "cadillac-escalade"
+  },
+  {
+    "candidate": "register-caparo-t1",
+    "name": "Caparo T1",
+    "make": "CAPARO",
+    "ids": [
+      "SEV-000980"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "caparo-t1"
+  },
+  {
+    "candidate": "register-caterham-cvw7",
+    "name": "CATERHAM CVW7",
+    "make": "CATERHAM",
+    "ids": [
+      "MRE-000521"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-caterham-seven",
+    "name": "CATERHAM Seven",
+    "make": "CATERHAM",
+    "ids": [
+      "SEV-001053"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "caterham-seven"
+  },
+  {
+    "candidate": "register-chevrolet-camaro",
+    "name": "Chevrolet Camaro",
+    "make": "CHEVROLET",
+    "ids": [
+      "MRE-000752",
+      "MRE-000794"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-chevrolet-ck",
+    "name": "Chevrolet CK",
+    "make": "CHEVROLET",
+    "ids": [
+      "SEV-001087"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "chevrolet-ck"
+  },
+  {
+    "candidate": "register-chevrolet-corvette",
+    "name": "Chevrolet Corvette",
+    "make": "CHEVROLET",
+    "ids": [
+      "SEV-000956",
+      "SEV-001072",
+      "MRE-000156",
+      "MRE-000227",
+      "MRE-000462",
+      "MRE-000628",
+      "MRE-000900",
+      "MRE-000920",
+      "MRE-000929",
+      "MRE-000951"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000462 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-chevrolet-silveradoev",
+    "name": "Chevrolet Silverado EV",
+    "make": "CHEVROLET",
+    "ids": [
+      "SEV-000766"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "chevrolet-silverado-ev"
+  },
+  {
+    "candidate": "register-chevrolet-silveradohd",
+    "name": "Chevrolet Silverado HD",
+    "make": "CHEVROLET",
+    "ids": [
+      "SEV-000706",
+      "MRE-000764"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "chevrolet-silverado-hd"
+  },
+  {
+    "candidate": "register-chevrolet-suburban",
+    "name": "Chevrolet Suburban",
+    "make": "CHEVROLET",
+    "ids": [
+      "SEV-000982"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "chevrolet-suburban"
+  },
+  {
+    "candidate": "register-chevrolet-zr1corvette",
+    "name": "Chevrolet ZR1 Corvette",
+    "make": "CHEVROLET",
+    "ids": [
+      "SEV-001065"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "chevrolet-zr1-corvette"
+  },
+  {
+    "candidate": "register-citroen-edispatch",
+    "name": "CITROEN E-Dispatch",
+    "make": "CITROEN",
+    "ids": [
+      "MRE-000383"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-colemanmilne-etivehearse",
+    "name": "COLEMAN MILNE ETIVE HEARSE",
+    "make": "COLEMAN MILNE",
+    "ids": [
+      "SEV-000615",
+      "MRE-000817"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "coleman-milne-etive-hearse"
+  },
+  {
+    "candidate": "register-colemanmilneford-cardinalhearse",
+    "name": "Coleman Milne Ford Cardinal Hearse",
+    "make": "COLEMAN MILNE FORD",
+    "ids": [
+      "SEV-001045"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "coleman-milne-ford-cardinal-hearse"
+  },
+  {
+    "candidate": "register-daihatsu-atrai",
+    "name": "DAIHATSU ATRAI",
+    "make": "DAIHATSU",
+    "ids": [
+      "SEV-000971",
+      "MRE-000975"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "daihatsu-atrai"
+  },
+  {
+    "candidate": "register-daihatsu-canbus",
+    "name": "DAIHATSU CANBUS",
+    "make": "DAIHATSU",
+    "ids": [
+      "SEV-000922",
+      "MRE-000891"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "daihatsu-canbus"
+  },
+  {
+    "candidate": "register-daihatsu-copen",
+    "name": "DAIHATSU COPEN",
+    "make": "DAIHATSU",
+    "ids": [
+      "SEV-000940",
+      "MRE-000903"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "daihatsu-copen"
+  },
+  {
+    "candidate": "register-daihatsu-eatrai",
+    "name": "DAIHATSU e-Atrai",
+    "make": "DAIHATSU",
+    "ids": [
+      "SEV-001104"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "daihatsu-e-atrai"
+  },
+  {
+    "candidate": "register-daihatsu-ehijetcargo",
+    "name": "DAIHATSU e Hijet Cargo",
+    "make": "DAIHATSU",
+    "ids": [
+      "SEV-001105"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "daihatsu-e-hijet-cargo"
+  },
+  {
+    "candidate": "register-daihatsu-hijet",
+    "name": "DAIHATSU HIJET",
+    "make": "DAIHATSU",
+    "ids": [
+      "MRE-000183",
+      "MRE-000244",
+      "MRE-000306",
+      "MRE-000315",
+      "MRE-000722",
+      "MRE-000816",
+      "MRE-000842"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-daihatsu-move",
+    "name": "DAIHATSU Move",
+    "make": "DAIHATSU",
+    "ids": [
+      "SEV-001005"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "daihatsu-move"
+  },
+  {
+    "candidate": "register-daihatsu-rocky",
+    "name": "DAIHATSU Rocky",
+    "make": "DAIHATSU",
+    "ids": [
+      "MRE-000588"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-daihatsu-tanto",
+    "name": "DAIHATSU Tanto",
+    "make": "DAIHATSU",
+    "ids": [
+      "SEV-000551"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "daihatsu-tanto"
+  },
+  {
+    "candidate": "register-dallara-stradale",
+    "name": "Dallara Stradale",
+    "make": "DALLARA",
+    "ids": [
+      "SEV-001067"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "dallara-stradale"
+  },
+  {
+    "candidate": "register-dfsk-ec35",
+    "name": "DFSK EC35",
+    "make": "DFSK",
+    "ids": [
+      "MRE-000713"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-dodge-challenger",
+    "name": "DODGE Challenger",
+    "make": "DODGE",
+    "ids": [
+      "SEV-000837",
+      "MRE-000267",
+      "MRE-000288",
+      "MRE-000773"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000267 includes missing or unusable linked bases; exact scope unresolved.",
+      "MRE-000288 includes missing or unusable linked bases; exact scope unresolved.",
+      "MRE-000773 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-dodge-charger",
+    "name": "DODGE CHARGER",
+    "make": "DODGE",
+    "ids": [
+      "SEV-000815",
+      "MRE-000224"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000224 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-dodge-durango",
+    "name": "DODGE DURANGO",
+    "make": "DODGE",
+    "ids": [
+      "SEV-000981"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "dodge-durango"
+  },
+  {
+    "candidate": "register-dodge-vipergen4",
+    "name": "DODGE VIPER GEN 4",
+    "make": "DODGE",
+    "ids": [
+      "SEV-000618"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "dodge-viper-gen-4"
+  },
+  {
+    "candidate": "register-dodge-vipergen5",
+    "name": "DODGE Viper Gen 5",
+    "make": "DODGE",
+    "ids": [
+      "SEV-000780",
+      "SEV-000985",
+      "MRE-000815"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "dodge-viper-gen-5"
+  },
+  {
+    "candidate": "register-dongfengmotorcoltd-box",
+    "name": "DONGFENG MOTOR CO., LTD. Box",
+    "make": "DONGFENG MOTOR CO., LTD.",
+    "ids": [
+      "SEV-000925",
+      "MRE-000901"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "dongfeng-motor-co-ltd-box"
+  },
+  {
+    "candidate": "register-dsautomobiles-ds3etense",
+    "name": "DS Automobiles DS 3 E-Tense",
+    "make": "DS AUTOMOBILES",
+    "ids": [
+      "MRE-000450"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-ducati-panigale",
+    "name": "DUCATI Panigale",
+    "make": "DUCATI",
+    "ids": [
+      "MRE-000808"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000808 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-eqman-tgl4x2eq12",
+    "name": "EQ MAN TGL 4x2 EQ12",
+    "make": "EQ MAN",
+    "ids": [
+      "SEV-000614",
+      "MRE-000780"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "eq-man-tgl-4x2-eq12"
+  },
+  {
+    "candidate": "register-farizon-supervan",
+    "name": "Farizon SuperVAN",
+    "make": "FARIZON",
+    "ids": [
+      "SEV-000687"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "farizon-supervan"
+  },
+  {
+    "candidate": "register-ferrari-296gt3",
+    "name": "FERRARI 296 GT3",
+    "make": "FERRARI",
+    "ids": [
+      "SEV-000851"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Competition-specific variant; road-use pathway requires specialist confirmation."
+    ]
+  },
+  {
+    "candidate": "register-ferrari-360",
+    "name": "FERRARI 360",
+    "make": "FERRARI",
+    "ids": [
+      "MRE-000259",
+      "MRE-000373",
+      "MRE-000757"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-ferrari-550maranello",
+    "name": "FERRARI 550 MARANELLO",
+    "make": "FERRARI",
+    "ids": [
+      "SEV-000591",
+      "SEV-000592",
+      "SEV-000593"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Entry names include 575M within 550 build dates. Requires individual source interpretation."
+    ]
+  },
+  {
+    "candidate": "register-ferrari-599saaperta",
+    "name": "FERRARI 599 SA Aperta",
+    "make": "FERRARI",
+    "ids": [
+      "SEV-000630",
+      "MRE-000709"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ferrari-599-sa-aperta"
+  },
+  {
+    "candidate": "register-ferrari-612scaglietti",
+    "name": "FERRARI 612 Scaglietti",
+    "make": "FERRARI",
+    "ids": [
+      "SEV-000947",
+      "MRE-000210",
+      "MRE-000274",
+      "MRE-000768"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000274 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-ferrari-daytonasp3",
+    "name": "FERRARI DAYTONA SP3",
+    "make": "FERRARI",
+    "ids": [
+      "SEV-000680",
+      "MRE-000705",
+      "MRE-000850"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ferrari-daytona-sp3"
+  },
+  {
+    "candidate": "register-ferrari-enzo",
+    "name": "FERRARI Enzo",
+    "make": "FERRARI",
+    "ids": [
+      "SEV-000775",
+      "MRE-000176"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ferrari-enzo"
+  },
+  {
+    "candidate": "register-ferrari-f12berlinetta",
+    "name": "FERRARI F12 berlinetta",
+    "make": "FERRARI",
+    "ids": [
+      "SEV-000540",
+      "MRE-000871"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ferrari-f12-berlinetta"
+  },
+  {
+    "candidate": "register-ferrari-f80",
+    "name": "FERRARI F80",
+    "make": "FERRARI",
+    "ids": [
+      "SEV-000953",
+      "MRE-000924"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ferrari-f80"
+  },
+  {
+    "candidate": "register-ferrari-laferrari",
+    "name": "FERRARI LaFerrari",
+    "make": "FERRARI",
+    "ids": [
+      "SEV-000716",
+      "MRE-000174"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000174 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-ferrari-monzasp",
+    "name": "FERRARI MONZA SP",
+    "make": "FERRARI",
+    "ids": [
+      "SEV-000671",
+      "MRE-000700",
+      "MRE-000825"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "SEV-000671 SEVModelCodeName differs from public detail page"
+    ]
+  },
+  {
+    "candidate": "register-ford-bronco",
+    "name": "Ford Bronco",
+    "make": "FORD",
+    "ids": [
+      "SEV-000844",
+      "SEV-001043",
+      "MRE-000488",
+      "MRE-000978"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ford-bronco"
+  },
+  {
+    "candidate": "register-ford-f150lightning",
+    "name": "Ford F-150 Lightning",
+    "make": "FORD",
+    "ids": [
+      "MRE-000449",
+      "MRE-000506"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-ford-gt",
+    "name": "Ford GT",
+    "make": "FORD",
+    "ids": [
+      "SEV-000855",
+      "MRE-000595",
+      "MRE-000622"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ford-gt"
+  },
+  {
+    "candidate": "register-ford-mustang",
+    "name": "Ford Mustang",
+    "make": "FORD",
+    "ids": [
+      "SEV-000865",
+      "SEV-001036",
+      "SEV-001037",
+      "SEV-001054",
+      "SEV-001059",
+      "MRE-000372",
+      "MRE-000991"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000372 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-ford-mustang2",
+    "name": "Ford Mustang 2",
+    "make": "FORD",
+    "ids": [
+      "MRE-000753"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000753 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-gmc-hummerev",
+    "name": "GMC Hummer EV",
+    "make": "GMC",
+    "ids": [
+      "SEV-000779",
+      "MRE-000977"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "gmc-hummer-ev"
+  },
+  {
+    "candidate": "register-gmc-sierra1500",
+    "name": "GMC Sierra 1500",
+    "make": "GMC",
+    "ids": [
+      "SEV-000688",
+      "SEV-000689",
+      "SEV-000732",
+      "SEV-000856",
+      "MRE-000756"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000756 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-gmc-sierra2500hdat4at4x",
+    "name": "GMC SIERRA 2500HD AT4 / AT4X",
+    "make": "GMC",
+    "ids": [
+      "SEV-000858",
+      "SEV-000859",
+      "MRE-000830",
+      "MRE-000836"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000830 date window extends beyond its current linked SEVS windows.",
+      "MRE-000836 date window extends beyond its current linked SEVS windows."
+    ]
+  },
+  {
+    "candidate": "register-gmc-sierra3500hd",
+    "name": "GMC SIERRA 3500 HD",
+    "make": "GMC",
+    "ids": [
+      "SEV-000857",
+      "MRE-000834",
+      "MRE-000848"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "gmc-sierra-3500-hd"
+  },
+  {
+    "candidate": "register-gmc-sierra3500hdat4",
+    "name": "GMC SIERRA 3500HD AT4",
+    "make": "GMC",
+    "ids": [
+      "SEV-000907",
+      "MRE-000892"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "gmc-sierra-3500hd-at4"
+  },
+  {
+    "candidate": "register-gmc-sierrahd",
+    "name": "GMC Sierra HD",
+    "make": "GMC",
+    "ids": [
+      "SEV-000973",
+      "MRE-000229",
+      "MRE-000336"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Generic HD naming overlaps size-specific guides; resolve cab and model identity."
+    ]
+  },
+  {
+    "candidate": "register-gmc-yukon",
+    "name": "GMC Yukon",
+    "make": "GMC",
+    "ids": [
+      "SEV-000673",
+      "MRE-000317"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "gmc-yukon"
+  },
+  {
+    "candidate": "register-gumpert-apollo",
+    "name": "Gumpert Apollo",
+    "make": "GUMPERT",
+    "ids": [
+      "SEV-001033",
+      "SEV-001046",
+      "MRE-000503",
+      "MRE-000504"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "gumpert-apollo"
+  },
+  {
+    "candidate": "register-harleydavidson-flhseries",
+    "name": "HARLEY DAVIDSON FLH SERIES",
+    "make": "HARLEY DAVIDSON",
+    "ids": [
+      "MRE-000606"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000606 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-harleydavidson-flhtcutg",
+    "name": "HARLEY DAVIDSON FLHTCUTG",
+    "make": "HARLEY DAVIDSON",
+    "ids": [
+      "MRE-000687"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000687 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-harleydavidson-flhtcutgflrt",
+    "name": "HARLEY DAVIDSON FLHTCUTG, FLRT",
+    "make": "HARLEY DAVIDSON",
+    "ids": [
+      "MRE-000714"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000714 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-harleydavidson-fxdyna",
+    "name": "HARLEY DAVIDSON FX DYNA",
+    "make": "HARLEY DAVIDSON",
+    "ids": [
+      "MRE-000464"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000464 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-harleydavidson-softail",
+    "name": "HARLEY DAVIDSON SOFTAIL",
+    "make": "HARLEY DAVIDSON",
+    "ids": [
+      "MRE-000541",
+      "MRE-000927"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000541 includes missing or unusable linked bases; exact scope unresolved.",
+      "MRE-000927 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-harleydavidson-vrodvrsseries",
+    "name": "HARLEY DAVIDSON V-ROD VRS Series",
+    "make": "HARLEY DAVIDSON",
+    "ids": [
+      "MRE-000379"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000379 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-harleydavidson-vrsseries",
+    "name": "HARLEY DAVIDSON VRS SERIES",
+    "make": "HARLEY DAVIDSON",
+    "ids": [
+      "MRE-000440",
+      "MRE-000804"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000440 includes missing or unusable linked bases; exact scope unresolved.",
+      "MRE-000804 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-hino-300ser",
+    "name": "Hino 300 Ser",
+    "make": "HINO",
+    "ids": [
+      "SEV-000702",
+      "MRE-000729"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "hino-300-ser"
+  },
+  {
+    "candidate": "register-hino-700ser",
+    "name": "Hino 700 Ser",
+    "make": "HINO",
+    "ids": [
+      "SEV-000703"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "hino-700-ser"
+  },
+  {
+    "candidate": "register-hino-liesseii",
+    "name": "Hino Liesse II",
+    "make": "HINO",
+    "ids": [
+      "SEV-001099",
+      "MRE-000989"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "hino-liesse-ii"
+  },
+  {
+    "candidate": "register-hino-liesseiicampervanmotorhome",
+    "name": "Hino Liesse II Campervan / Motorhome",
+    "make": "HINO",
+    "ids": [
+      "SEV-000526"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "hino-liesse-ii-campervan-motorhome"
+  },
+  {
+    "candidate": "register-honda-accord",
+    "name": "Honda Accord",
+    "make": "HONDA",
+    "ids": [
+      "SEV-000778",
+      "MRE-000122",
+      "MRE-000532"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "honda-accord-euro-r"
+  },
+  {
+    "candidate": "register-honda-accordeuror",
+    "name": "Honda Accord Euro R",
+    "make": "HONDA",
+    "ids": [
+      "SEV-000711",
+      "MRE-000791",
+      "MRE-000799"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "honda-accord-euro-r"
+  },
+  {
+    "candidate": "register-honda-acty",
+    "name": "Honda Acty",
+    "make": "HONDA",
+    "ids": [
+      "MRE-000185"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-honda-cbr250rr",
+    "name": "Honda CBR250RR",
+    "make": "HONDA",
+    "ids": [
+      "SEV-001100"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "honda-cbr250rr"
+  },
+  {
+    "candidate": "register-honda-civic",
+    "name": "Honda CIVIC",
+    "make": "HONDA",
+    "ids": [
+      "MRE-000461"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-honda-cl1accordeurorwithh22amotoronly",
+    "name": "Honda CL1 Accord Euro R with H22A motor ONLY",
+    "make": "HONDA",
+    "ids": [
+      "SEV-000626"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "honda-accord-euro-r"
+  },
+  {
+    "candidate": "register-honda-crvehev",
+    "name": "Honda CR-V e-HEV",
+    "make": "HONDA",
+    "ids": [
+      "MRE-000370",
+      "MRE-000569",
+      "MRE-000637",
+      "MRE-000923"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-honda-crzmugenrz",
+    "name": "Honda CR-Z Mugen RZ",
+    "make": "HONDA",
+    "ids": [
+      "MRE-000823",
+      "MRE-000858",
+      "MRE-000956"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-honda-e",
+    "name": "Honda e",
+    "make": "HONDA",
+    "ids": [
+      "SEV-000655",
+      "MRE-000411"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "honda-e"
+  },
+  {
+    "candidate": "register-honda-freedwelfare",
+    "name": "Honda Freed Welfare",
+    "make": "HONDA",
+    "ids": [
+      "SEV-000538",
+      "MRE-000754"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "honda-freed-welfare"
+  },
+  {
+    "candidate": "register-honda-grace",
+    "name": "Honda Grace",
+    "make": "HONDA",
+    "ids": [
+      "MRE-000338",
+      "MRE-000368",
+      "MRE-000781"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-honda-nbox",
+    "name": "Honda N-Box",
+    "make": "HONDA",
+    "ids": [
+      "SEV-001014",
+      "MRE-000186",
+      "MRE-000552",
+      "MRE-000841",
+      "MRE-000847"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000841 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-honda-none",
+    "name": "Honda N-One",
+    "make": "HONDA",
+    "ids": [
+      "SEV-000672",
+      "MRE-000250"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "honda-n-one"
+  },
+  {
+    "candidate": "register-honda-nonee",
+    "name": "Honda N-ONE e",
+    "make": "HONDA",
+    "ids": [
+      "SEV-001102"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "honda-n-one-e"
+  },
+  {
+    "candidate": "register-honda-nsxtypes",
+    "name": "Honda NSX Type S",
+    "make": "HONDA",
+    "ids": [
+      "SEV-000525",
+      "MRE-000412",
+      "MRE-000517",
+      "MRE-000519"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "honda-nsx-type-s"
+  },
+  {
+    "candidate": "register-honda-nvan",
+    "name": "Honda N-Van",
+    "make": "HONDA",
+    "ids": [
+      "SEV-000841"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "honda-n-van"
+  },
+  {
+    "candidate": "register-honda-shuttlehybrid",
+    "name": "Honda Shuttle Hybrid",
+    "make": "HONDA",
+    "ids": [
+      "SEV-000918",
+      "MRE-000163",
+      "MRE-000334",
+      "MRE-000423",
+      "MRE-000609",
+      "MRE-000730"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000730 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-hunterrenault-x62stallionhorsebox",
+    "name": "Hunter Renault X62 Stallion Horsebox",
+    "make": "HUNTER RENAULT",
+    "ids": [
+      "SEV-000955",
+      "MRE-000879"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "hunter-renault-x62-stallion-horsebox"
+  },
+  {
+    "candidate": "register-indianmotorcycles-chief",
+    "name": "INDIAN MOTORCYCLES CHIEF",
+    "make": "INDIAN MOTORCYCLES",
+    "ids": [
+      "SEV-000598",
+      "MRE-000582",
+      "MRE-000899"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000899 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-iveco-eurocargomotorhome",
+    "name": "Iveco Eurocargo Motorhome",
+    "make": "IVECO",
+    "ids": [
+      "SEV-000534",
+      "MRE-000688"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "iveco-eurocargo-motorhome"
+  },
+  {
+    "candidate": "register-jaguar-xkrs",
+    "name": "JAGUAR XKR-S",
+    "make": "JAGUAR",
+    "ids": [
+      "MRE-000494",
+      "MRE-000495"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-jpstardaihatsu-jpstarhijethappy1",
+    "name": "JP Star Daihatsu JP Star Hijet Happy +1",
+    "make": "JP STAR DAIHATSU",
+    "ids": [
+      "SEV-000890"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "jp-star-daihatsu-jp-star-hijet-happy-1"
+  },
+  {
+    "candidate": "register-jpstardaihatsucampervan-jpstarhijethappy1",
+    "name": "JP Star Daihatsu Campervan JP Star Hijet Happy +1",
+    "make": "JP STAR DAIHATSU CAMPERVAN",
+    "ids": [
+      "MRE-000851"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity."
+    ]
+  },
+  {
+    "candidate": "register-kia-ev9",
+    "name": "KIA EV9",
+    "make": "KIA",
+    "ids": [
+      "SEV-000544"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "kia-ev9"
+  },
+  {
+    "candidate": "register-kmhorseboxesdaf-arionelitehorsebox",
+    "name": "KM Horseboxes DAF Arion Elite Horsebox",
+    "make": "KM HORSEBOXES DAF",
+    "ids": [
+      "SEV-000824",
+      "MRE-000936"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "km-horseboxes-daf-arion-elite-horsebox"
+  },
+  {
+    "candidate": "register-koenigsegg-jesko",
+    "name": "KOENIGSEGG Jesko",
+    "make": "KOENIGSEGG",
+    "ids": [
+      "SEV-000600",
+      "MRE-000673"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "koenigsegg-jesko"
+  },
+  {
+    "candidate": "register-koenigsegg-jeskoattack",
+    "name": "KOENIGSEGG Jesko Attack",
+    "make": "KOENIGSEGG",
+    "ids": [
+      "SEV-000585"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "koenigsegg-jesko-attack"
+  },
+  {
+    "candidate": "register-ktm-450rally",
+    "name": "KTM 450 RALLY",
+    "make": "KTM",
+    "ids": [
+      "MRE-000912"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000912 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-ktm-rc8",
+    "name": "KTM RC8",
+    "make": "KTM",
+    "ids": [
+      "MRE-000246"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-ktm-xbow",
+    "name": "KTM X-Bow",
+    "make": "KTM",
+    "ids": [
+      "SEV-001006"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ktm-x-bow"
+  },
+  {
+    "candidate": "register-kuhlmanncars-kcline213hearse",
+    "name": "KUHLMANN CARS KC LINE 213 HEARSE",
+    "make": "KUHLMANN CARS",
+    "ids": [
+      "MRE-000477"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-lamborghini-countachlp8004",
+    "name": "LAMBORGHINI Countach LP 800-4",
+    "make": "LAMBORGHINI",
+    "ids": [
+      "SEV-000845",
+      "MRE-000351"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lamborghini-countach-lp-800-4"
+  },
+  {
+    "candidate": "register-lamborghini-diablo",
+    "name": "LAMBORGHINI Diablo",
+    "make": "LAMBORGHINI",
+    "ids": [
+      "SEV-000649",
+      "MRE-000746"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lamborghini-diablo"
+  },
+  {
+    "candidate": "register-lamborghini-essenzascv12",
+    "name": "LAMBORGHINI Essenza SCV12",
+    "make": "LAMBORGHINI",
+    "ids": [
+      "SEV-000860"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Competition-specific variant; road-use pathway requires specialist confirmation."
+    ]
+  },
+  {
+    "candidate": "register-lamborghini-gallardo",
+    "name": "LAMBORGHINI Gallardo",
+    "make": "LAMBORGHINI",
+    "ids": [
+      "MRE-000365",
+      "MRE-000374"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-lamborghini-murcielago",
+    "name": "LAMBORGHINI Murcielago",
+    "make": "LAMBORGHINI",
+    "ids": [
+      "SEV-000565",
+      "MRE-000457"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lamborghini-murcielago"
+  },
+  {
+    "candidate": "register-lamborghini-sian",
+    "name": "LAMBORGHINI Sian",
+    "make": "LAMBORGHINI",
+    "ids": [
+      "MRE-000352"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-landrover-defender",
+    "name": "LAND ROVER Defender",
+    "make": "LAND ROVER",
+    "ids": [
+      "SEV-000582",
+      "MRE-000341"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "land-rover-defender"
+  },
+  {
+    "candidate": "register-landrover-defenderworksv8",
+    "name": "LAND ROVER Defender Works V8",
+    "make": "LAND ROVER",
+    "ids": [
+      "SEV-001001",
+      "MRE-000917"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "land-rover-defender-works-v8"
+  },
+  {
+    "candidate": "register-lexus-hs",
+    "name": "LEXUS HS",
+    "make": "LEXUS",
+    "ids": [
+      "MRE-000104",
+      "MRE-000257",
+      "MRE-000323"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-lexus-is300h",
+    "name": "LEXUS IS300h",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-000589"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Build field starts August 2022 but written scope says September 2022. Resolve source date conflict."
+    ]
+  },
+  {
+    "candidate": "register-lexus-is350",
+    "name": "LEXUS IS 350",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-000995",
+      "MRE-000205",
+      "MRE-000679"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000679 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-lexus-is350c",
+    "name": "LEXUS IS350C",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-000729",
+      "MRE-000797",
+      "MRE-000820"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lexus-is350c"
+  },
+  {
+    "candidate": "register-lexus-is350fsport",
+    "name": "LEXUS IS350 F-SPORT",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-000590",
+      "MRE-000878",
+      "MRE-000937"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Build field starts August 2022 but written scope says September 2022. Resolve source date conflict."
+    ]
+  },
+  {
+    "candidate": "register-lexus-isf",
+    "name": "LEXUS IS F",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-000965",
+      "MRE-000279",
+      "MRE-000285"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000285 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-lexus-lbxmorizorr",
+    "name": "LEXUS LBX MORIZO RR",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-001074"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lexus-lbx-morizo-rr"
+  },
+  {
+    "candidate": "register-lexus-lfa",
+    "name": "LEXUS LFA",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-000539",
+      "MRE-000469",
+      "MRE-000470"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lexus-lfa"
+  },
+  {
+    "candidate": "register-lexus-ls500",
+    "name": "LEXUS LS500",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-001083",
+      "MRE-000348",
+      "MRE-000648"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lexus-ls500"
+  },
+  {
+    "candidate": "register-lexus-ls500h",
+    "name": "LEXUS LS 500H",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-001063",
+      "MRE-000349",
+      "MRE-000417",
+      "MRE-000427",
+      "MRE-000428",
+      "MRE-000960"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lexus-ls500h"
+  },
+  {
+    "candidate": "register-lexus-ls600hawd",
+    "name": "LEXUS LS600h AWD",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-000549",
+      "MRE-000623",
+      "MRE-000631",
+      "MRE-000749",
+      "MRE-000771"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lexus-ls600h-awd"
+  },
+  {
+    "candidate": "register-lexus-rc300h",
+    "name": "LEXUS RC300h",
+    "make": "LEXUS",
+    "ids": [
+      "MRE-000492",
+      "MRE-000497",
+      "MRE-000514",
+      "MRE-000909"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-lexus-rx450h",
+    "name": "LEXUS RX 450h",
+    "make": "LEXUS",
+    "ids": [
+      "SEV-000899",
+      "MRE-000153",
+      "MRE-000213",
+      "MRE-000230",
+      "MRE-000265",
+      "MRE-000273",
+      "MRE-000337",
+      "MRE-000740"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000153 date window extends beyond its current linked SEVS windows."
+    ]
+  },
+  {
+    "candidate": "register-lincoln-navigator",
+    "name": "LINCOLN Navigator",
+    "make": "LINCOLN",
+    "ids": [
+      "SEV-000518",
+      "MRE-000711"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lincoln-navigator"
+  },
+  {
+    "candidate": "register-liuzhouwulingnewenergyautomotive-go50",
+    "name": "Liuzhou Wuling New Energy Automotive GO50",
+    "make": "LIUZHOU WULING NEW ENERGY AUTOMOTIVE",
+    "ids": [
+      "SEV-000533"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "liuzhou-wuling-new-energy-automotive-go50"
+  },
+  {
+    "candidate": "register-lotus-3eleven",
+    "name": "LOTUS 3-Eleven",
+    "make": "LOTUS",
+    "ids": [
+      "SEV-000852"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lotus-3-eleven"
+  },
+  {
+    "candidate": "register-lotus-espritv8",
+    "name": "LOTUS Esprit V8",
+    "make": "LOTUS",
+    "ids": [
+      "SEV-000607"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "lotus-esprit-v8"
+  },
+  {
+    "candidate": "register-man-hx60",
+    "name": "Man HX60",
+    "make": "MAN",
+    "ids": [
+      "SEV-000601"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "man-hx60"
+  },
+  {
+    "candidate": "register-manse-1994",
+    "name": "Manse 1994",
+    "make": "MANSE",
+    "ids": [
+      "SEV-001062"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "manse-1994"
+  },
+  {
+    "candidate": "register-maserati-3200gt",
+    "name": "MASERATI 3200GT",
+    "make": "MASERATI",
+    "ids": [
+      "SEV-000705"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "maserati-3200gt"
+  },
+  {
+    "candidate": "register-matmanifatturiautomobilitorino-newstratos",
+    "name": "MAT (Manifatturi Automobili Torino) New Stratos",
+    "make": "MAT (MANIFATTURI AUTOMOBILI TORINO)",
+    "ids": [
+      "MRE-000743"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-maybach-s500",
+    "name": "MAYBACH S500",
+    "make": "MAYBACH",
+    "ids": [
+      "MRE-000144",
+      "MRE-000154",
+      "MRE-000206",
+      "MRE-000222",
+      "MRE-000657"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-maybach-sseries",
+    "name": "MAYBACH S Series",
+    "make": "MAYBACH",
+    "ids": [
+      "SEV-000736",
+      "MRE-000807",
+      "MRE-000845"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "maybach-s-series"
+  },
+  {
+    "candidate": "register-mazda-axela",
+    "name": "Mazda Axela",
+    "make": "MAZDA",
+    "ids": [
+      "MRE-000135",
+      "MRE-000150"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-mazda-roadster",
+    "name": "Mazda Roadster",
+    "make": "MAZDA",
+    "ids": [
+      "SEV-001106",
+      "SEV-001107"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mazda-roadster"
+  },
+  {
+    "candidate": "register-mazda-rx8",
+    "name": "Mazda RX-8",
+    "make": "MAZDA",
+    "ids": [
+      "SEV-001077",
+      "SEV-001078",
+      "MRE-000198"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mazda-rx-8"
+  },
+  {
+    "candidate": "register-mclaren-688hs",
+    "name": "MCLAREN 688HS",
+    "make": "MCLAREN",
+    "ids": [
+      "SEV-000625",
+      "MRE-000701"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mclaren-688hs"
+  },
+  {
+    "candidate": "register-mclaren-720s",
+    "name": "MCLAREN 720S",
+    "make": "MCLAREN",
+    "ids": [
+      "SEV-000883"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Competition-specific variant; road-use pathway requires specialist confirmation."
+    ]
+  },
+  {
+    "candidate": "register-mclaren-ma23",
+    "name": "MCLAREN MA23",
+    "make": "MCLAREN",
+    "ids": [
+      "SEV-000685",
+      "MRE-000715"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mclaren-ma23"
+  },
+  {
+    "candidate": "register-mclaren-p1",
+    "name": "MCLAREN P1",
+    "make": "MCLAREN",
+    "ids": [
+      "SEV-000901",
+      "MRE-000268"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mclaren-p1"
+  },
+  {
+    "candidate": "register-mclaren-p14",
+    "name": "MCLAREN P14",
+    "make": "MCLAREN",
+    "ids": [
+      "SEV-001044",
+      "MRE-000180"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mclaren-p14"
+  },
+  {
+    "candidate": "register-mclaren-w1",
+    "name": "MCLAREN W1",
+    "make": "MCLAREN",
+    "ids": [
+      "SEV-001018"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mclaren-w1"
+  },
+  {
+    "candidate": "register-mclouisfusion-motorhome",
+    "name": "McLouis Fusion. Motorhome",
+    "make": "MCLOUIS FUSION.",
+    "ids": [
+      "SEV-000637",
+      "MRE-000696"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mclouis-fusion-motorhome"
+  },
+  {
+    "candidate": "register-mercedesamg-one",
+    "name": "Mercedes-AMG ONE",
+    "make": "MERCEDES-AMG",
+    "ids": [
+      "SEV-000934"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-amg-one"
+  },
+  {
+    "candidate": "register-mercedesamg-purespeed",
+    "name": "Mercedes-AMG PureSpeed",
+    "make": "MERCEDES-AMG",
+    "ids": [
+      "SEV-000998",
+      "MRE-000934"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-amg-purespeed"
+  },
+  {
+    "candidate": "register-mercedesbenz-213series",
+    "name": "Mercedes-Benz 213 Series",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000674",
+      "MRE-000409",
+      "MRE-000410",
+      "MRE-000415",
+      "MRE-000656"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-213-series"
+  },
+  {
+    "candidate": "register-mercedesbenz-221",
+    "name": "Mercedes-Benz 221",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000714",
+      "MRE-000093",
+      "MRE-000239"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000239 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-mercedesbenz-222",
+    "name": "Mercedes-Benz 222",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000712",
+      "MRE-000065",
+      "MRE-000082"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Overlaps S450 Hybrid naming and code; resolve guide identity before publishing."
+    ]
+  },
+  {
+    "candidate": "register-mercedesbenz-airstreaminterstate",
+    "name": "Mercedes-Benz AIRSTREAM INTERSTATE",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000541"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-airstream-interstate"
+  },
+  {
+    "candidate": "register-mercedesbenz-amgcls63s4matic",
+    "name": "Mercedes-Benz AMG CLS 63 S 4MATIC",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000605"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-amg-cls-63-s-4matic"
+  },
+  {
+    "candidate": "register-mercedesbenz-amggt",
+    "name": "Mercedes-Benz AMG GT",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000992",
+      "SEV-000993",
+      "MRE-000913",
+      "MRE-000935",
+      "MRE-000983"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-amg-gt"
+  },
+  {
+    "candidate": "register-mercedesbenz-amggt43",
+    "name": "Mercedes-Benz AMG GT 43",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000967",
+      "MRE-000964"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-amg-gt-43"
+  },
+  {
+    "candidate": "register-mercedesbenz-claclass",
+    "name": "Mercedes-Benz CLA-Class",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-001075",
+      "SEV-001076",
+      "MRE-000755",
+      "MRE-000988"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-cla-class"
+  },
+  {
+    "candidate": "register-mercedesbenz-clkdtm",
+    "name": "Mercedes-Benz CLK DTM",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000578",
+      "SEV-000579",
+      "MRE-000904"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-clk-dtm"
+  },
+  {
+    "candidate": "register-mercedesbenz-cls63",
+    "name": "Mercedes-Benz CLS63",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000669",
+      "MRE-000767"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-cls63"
+  },
+  {
+    "candidate": "register-mercedesbenz-e350",
+    "name": "Mercedes-Benz E350",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000715",
+      "MRE-000050",
+      "MRE-000200",
+      "MRE-000528",
+      "MRE-000563",
+      "MRE-000905"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-e350"
+  },
+  {
+    "candidate": "register-mercedesbenz-e550",
+    "name": "Mercedes-Benz E550",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000611",
+      "SEV-000612",
+      "SEV-000613",
+      "MRE-000698"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-e550"
+  },
+  {
+    "candidate": "register-mercedesbenz-eclass",
+    "name": "Mercedes-Benz E-Class",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000588",
+      "SEV-000994",
+      "SEV-001021",
+      "MRE-000431",
+      "MRE-000436",
+      "MRE-000526",
+      "MRE-000527",
+      "MRE-000902",
+      "MRE-000984"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000436 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-mercedesbenz-eclassstationwagon",
+    "name": "Mercedes-Benz E-Class Station Wagon",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-001031",
+      "MRE-000402",
+      "MRE-000424",
+      "MRE-000561",
+      "MRE-000852"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000561 includes missing or unusable linked bases; exact scope unresolved.",
+      "MRE-000852 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-mercedesbenz-eqs450",
+    "name": "Mercedes-Benz EQS 450+",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000842",
+      "MRE-000976"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-eqs-450"
+  },
+  {
+    "candidate": "register-mercedesbenz-g500cabrioletfinaledition",
+    "name": "Mercedes-Benz G500 CABRIOLET FINAL EDITION",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "MRE-000401"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-mercedesbenz-s400ds450d223023223025",
+    "name": "Mercedes-Benz S400d / S450d (223023 / 223025)",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-001085"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-s400d-s450d"
+  },
+  {
+    "candidate": "register-mercedesbenz-s450hybrid",
+    "name": "Mercedes-Benz S450 Hybrid",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-001079",
+      "MRE-000970"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000970 includes missing or unusable linked bases; exact scope unresolved.",
+      "Overlaps 222 naming and code; resolve guide identity before publishing."
+    ]
+  },
+  {
+    "candidate": "register-mercedesbenz-s63lamg4matic",
+    "name": "Mercedes-Benz S63L AMG 4MATIC",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000864"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-s63l-amg-4matic"
+  },
+  {
+    "candidate": "register-mercedesbenz-sclass",
+    "name": "Mercedes-Benz S Class",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000576",
+      "SEV-000683",
+      "SEV-001070",
+      "MRE-000043",
+      "MRE-000100",
+      "MRE-000123",
+      "MRE-000189",
+      "MRE-000592",
+      "MRE-000760",
+      "MRE-000894",
+      "MRE-000971"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-s-class"
+  },
+  {
+    "candidate": "register-mercedesbenz-sclassphev",
+    "name": "Mercedes-Benz S Class PHEV",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000527",
+      "SEV-000528",
+      "SEV-000529",
+      "MRE-000896",
+      "MRE-000969"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-s-class-phev"
+  },
+  {
+    "candidate": "register-mercedesbenz-sl",
+    "name": "Mercedes-Benz SL",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000628",
+      "SEV-000629",
+      "MRE-000788",
+      "MRE-000882"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-sl"
+  },
+  {
+    "candidate": "register-mercedesbenz-slrmclaren",
+    "name": "Mercedes-Benz SLR McLaren",
+    "make": "MERCEDES-BENZ",
+    "ids": [
+      "SEV-000829",
+      "MRE-000166"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mercedes-benz-slr-mclaren"
+  },
+  {
+    "candidate": "register-mini-coopersjohncooperworksgp",
+    "name": "MINI Cooper S John Cooper Works GP",
+    "make": "MINI",
+    "ids": [
+      "MRE-000235"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-mitsubishi-airtrek",
+    "name": "MITSUBISHI Airtrek",
+    "make": "MITSUBISHI",
+    "ids": [
+      "SEV-000750",
+      "MRE-000042"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mitsubishi-airtrek"
+  },
+  {
+    "candidate": "register-mitsubishi-imiev",
+    "name": "MITSUBISHI i-MiEV",
+    "make": "MITSUBISHI",
+    "ids": [
+      "SEV-000566",
+      "MRE-000430"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mitsubishi-i-miev"
+  },
+  {
+    "candidate": "register-mitsubishi-lancerevolutionvi",
+    "name": "MITSUBISHI Lancer Evolution VI",
+    "make": "MITSUBISHI",
+    "ids": [
+      "MRE-000056"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-mitsubishi-minicabmiev",
+    "name": "MITSUBISHI Minicab MiEV",
+    "make": "MITSUBISHI",
+    "ids": [
+      "SEV-000938",
+      "SEV-001049",
+      "SEV-001050",
+      "MRE-000252"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000252 date window extends beyond its current linked SEVS windows."
+    ]
+  },
+  {
+    "candidate": "register-mitsubishi-minicabmievtruck",
+    "name": "MITSUBISHI Minicab MiEV Truck",
+    "make": "MITSUBISHI",
+    "ids": [
+      "SEV-001098"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mitsubishi-minicab-miev-truck"
+  },
+  {
+    "candidate": "register-mitsubishi-minicabtruck",
+    "name": "MITSUBISHI Minicab Truck",
+    "make": "MITSUBISHI",
+    "ids": [
+      "SEV-001003"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mitsubishi-minicab-truck"
+  },
+  {
+    "candidate": "register-mitsubishi-minicabvan",
+    "name": "MITSUBISHI Minicab Van",
+    "make": "MITSUBISHI",
+    "ids": [
+      "SEV-001004"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mitsubishi-minicab-van"
+  },
+  {
+    "candidate": "register-mitsubishi-pajeromini",
+    "name": "MITSUBISHI Pajero Mini",
+    "make": "MITSUBISHI",
+    "ids": [
+      "MRE-000124",
+      "MRE-000145"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-mitsuoka-leseyde",
+    "name": "Mitsuoka Le-Seyde",
+    "make": "MITSUOKA",
+    "ids": [
+      "SEV-000571"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "mitsuoka-le-seyde"
+  },
+  {
+    "candidate": "register-mokeinternational-mokeev1",
+    "name": "Moke International Moke EV 1",
+    "make": "MOKE INTERNATIONAL",
+    "ids": [
+      "SEV-000939"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "moke-international-moke-ev-1"
+  },
+  {
+    "candidate": "register-moonlightgmc-vaih4",
+    "name": "Moonlight GMC VAI H4",
+    "make": "MOONLIGHT GMC",
+    "ids": [
+      "SEV-000911"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "moonlight-gmc-vai-h4"
+  },
+  {
+    "candidate": "register-morgan-aero8",
+    "name": "MORGAN AERO 8",
+    "make": "MORGAN",
+    "ids": [
+      "SEV-000968",
+      "SEV-001030",
+      "MRE-000168"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "morgan-aero-8"
+  },
+  {
+    "candidate": "register-morgan-fourfour",
+    "name": "MORGAN FOURFOUR",
+    "make": "MORGAN",
+    "ids": [
+      "MRE-000515",
+      "MRE-000516"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-morgan-plus4",
+    "name": "MORGAN Plus 4",
+    "make": "MORGAN",
+    "ids": [
+      "SEV-000570",
+      "SEV-001032",
+      "MRE-000505",
+      "MRE-000507",
+      "MRE-000950"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "One source identifies an individual VIN. Needs assessment separately from model-wide guide."
+    ]
+  },
+  {
+    "candidate": "register-morgan-plusfour",
+    "name": "MORGAN PLUS FOUR",
+    "make": "MORGAN",
+    "ids": [
+      "SEV-000849",
+      "SEV-001082",
+      "MRE-000146"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "morgan-plus-four"
+  },
+  {
+    "candidate": "register-morgan-plussix",
+    "name": "MORGAN Plus Six",
+    "make": "MORGAN",
+    "ids": [
+      "SEV-000788"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "morgan-plus-six"
+  },
+  {
+    "candidate": "register-morgan-roadster",
+    "name": "MORGAN Roadster",
+    "make": "MORGAN",
+    "ids": [
+      "MRE-000098"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-morgan-supersport",
+    "name": "MORGAN Supersport",
+    "make": "MORGAN",
+    "ids": [
+      "SEV-001016"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "morgan-supersport"
+  },
+  {
+    "candidate": "register-mototrek-xciteg",
+    "name": "Moto-Trek X-Cite G",
+    "make": "MOTO-TREK",
+    "ids": [
+      "MRE-000568"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-nissan-ariya",
+    "name": "NISSAN ARIYA",
+    "make": "NISSAN",
+    "ids": [
+      "MRE-000362",
+      "MRE-000466"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-nissan-cima",
+    "name": "NISSAN Cima",
+    "make": "NISSAN",
+    "ids": [
+      "SEV-001039"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nissan-cima"
+  },
+  {
+    "candidate": "register-nissan-civilianmotorhome",
+    "name": "NISSAN CIVILIAN MOTORHOME",
+    "make": "NISSAN",
+    "ids": [
+      "MRE-000613"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-nissan-cube",
+    "name": "NISSAN CUBE",
+    "make": "NISSAN",
+    "ids": [
+      "SEV-000814",
+      "SEV-000862",
+      "MRE-000238",
+      "MRE-000684",
+      "MRE-000821"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nissan-cube"
+  },
+  {
+    "candidate": "register-nissan-e13series",
+    "name": "NISSAN E13 SERIES",
+    "make": "NISSAN",
+    "ids": [
+      "MRE-000249",
+      "MRE-000269",
+      "MRE-000669"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-nissan-env200",
+    "name": "NISSAN e-NV200",
+    "make": "NISSAN",
+    "ids": [
+      "SEV-001069",
+      "MRE-000276"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nissan-e-nv200"
+  },
+  {
+    "candidate": "register-nissan-fuga",
+    "name": "NISSAN Fuga",
+    "make": "NISSAN",
+    "ids": [
+      "SEV-000926",
+      "SEV-000927",
+      "SEV-000928",
+      "MRE-000476"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000476 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-nissan-fugahybrid",
+    "name": "NISSAN FUGA HYBRID",
+    "make": "NISSAN",
+    "ids": [
+      "SEV-000825",
+      "MRE-000345",
+      "MRE-000380"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nissan-fuga-hybrid"
+  },
+  {
+    "candidate": "register-nissan-kicks",
+    "name": "NISSAN Kicks",
+    "make": "NISSAN",
+    "ids": [
+      "MRE-000390",
+      "MRE-000438",
+      "MRE-000487"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-nissan-nt100clippertruck",
+    "name": "NISSAN NT100 Clipper Truck",
+    "make": "NISSAN",
+    "ids": [
+      "SEV-001007",
+      "MRE-000990"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nissan-nt100-clipper-truck"
+  },
+  {
+    "candidate": "register-nissan-nv100clippervan",
+    "name": "NISSAN NV100 Clipper Van",
+    "make": "NISSAN",
+    "ids": [
+      "SEV-001010"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nissan-nv100-clipper-van"
+  },
+  {
+    "candidate": "register-nissan-nv200",
+    "name": "NISSAN NV200",
+    "make": "NISSAN",
+    "ids": [
+      "SEV-000799",
+      "SEV-000903",
+      "MRE-000072",
+      "MRE-000863"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nissan-nv200"
+  },
+  {
+    "candidate": "register-nissan-president",
+    "name": "NISSAN President",
+    "make": "NISSAN",
+    "ids": [
+      "SEV-001038"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nissan-president"
+  },
+  {
+    "candidate": "register-nissan-serenahybrid",
+    "name": "NISSAN SERENA HYBRID",
+    "make": "NISSAN",
+    "ids": [
+      "MRE-000137",
+      "MRE-000243",
+      "MRE-000744"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-nissan-xtrail",
+    "name": "NISSAN X-Trail",
+    "make": "NISSAN",
+    "ids": [
+      "SEV-000652",
+      "MRE-000140",
+      "MRE-000169",
+      "MRE-000231",
+      "MRE-000270",
+      "MRE-000593"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nissan-x-trail"
+  },
+  {
+    "candidate": "register-noble-m12gto3r",
+    "name": "NOBLE M12 GTO 3R",
+    "make": "NOBLE",
+    "ids": [
+      "SEV-000972"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "noble-m12-gto-3r"
+  },
+  {
+    "candidate": "register-norton-v4ss",
+    "name": "NORTON V4 SS",
+    "make": "NORTON",
+    "ids": [
+      "SEV-000853"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "norton-v4-ss"
+  },
+  {
+    "candidate": "register-novitecrosso-novitecf430",
+    "name": "NOVITEC ROSSO NOVITEC F430",
+    "make": "NOVITEC ROSSO",
+    "ids": [
+      "SEV-000704",
+      "MRE-000742"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "novitec-rosso-novitec-f430"
+  },
+  {
+    "candidate": "register-nutsrvtoyota-bordercoastermotorhome",
+    "name": "Nuts RV Toyota Border Coaster Motorhome",
+    "make": "NUTS RV TOYOTA",
+    "ids": [
+      "SEV-000781",
+      "MRE-000860"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nuts-rv-toyota-border-coaster-motorhome"
+  },
+  {
+    "candidate": "register-nutsrvtoyota-camroad",
+    "name": "Nuts RV Toyota Camroad",
+    "make": "NUTS RV TOYOTA",
+    "ids": [
+      "SEV-000782",
+      "SEV-000783",
+      "SEV-000784",
+      "SEV-000785",
+      "SEV-000786",
+      "SEV-000787",
+      "MRE-000916"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "nuts-rv-toyota-camroad"
+  },
+  {
+    "candidate": "register-oakleyvolvo-supremefe",
+    "name": "Oakley Volvo Supreme FE",
+    "make": "OAKLEY VOLVO",
+    "ids": [
+      "SEV-000952"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "oakley-volvo-supreme-fe"
+  },
+  {
+    "candidate": "register-pagani-utopia",
+    "name": "PAGANI UTOPIA",
+    "make": "PAGANI",
+    "ids": [
+      "SEV-000597",
+      "MRE-000639"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "pagani-utopia"
+  },
+  {
+    "candidate": "register-pagani-zonda",
+    "name": "PAGANI Zonda",
+    "make": "PAGANI",
+    "ids": [
+      "SEV-000580"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "pagani-zonda"
+  },
+  {
+    "candidate": "register-petronas-fp1",
+    "name": "PETRONAS FP1",
+    "make": "PETRONAS",
+    "ids": [
+      "MRE-000813"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-peugeot-2008",
+    "name": "PEUGEOT 2008",
+    "make": "PEUGEOT",
+    "ids": [
+      "SEV-000881",
+      "MRE-000361"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "peugeot-2008"
+  },
+  {
+    "candidate": "register-peugeot-e208",
+    "name": "PEUGEOT e208",
+    "make": "PEUGEOT",
+    "ids": [
+      "SEV-000882",
+      "MRE-000375"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "peugeot-e208"
+  },
+  {
+    "candidate": "register-peugeot-eexpert",
+    "name": "PEUGEOT e-Expert",
+    "make": "PEUGEOT",
+    "ids": [
+      "MRE-000397",
+      "MRE-000524"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-peugeot-etraveller",
+    "name": "PEUGEOT e-Traveller",
+    "make": "PEUGEOT",
+    "ids": [
+      "MRE-000400"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-pilato-eclasshearse",
+    "name": "PILATO E-CLASS HEARSE",
+    "make": "PILATO",
+    "ids": [
+      "SEV-000871",
+      "MRE-000389",
+      "MRE-000399"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000389 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-pilato-lyralimousine",
+    "name": "PILATO Lyra Limousine",
+    "make": "PILATO",
+    "ids": [
+      "MRE-000377"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-pinnaclemercedesbenz-sprinterlimobus",
+    "name": "Pinnacle Mercedes Benz Sprinter Limo Bus",
+    "make": "PINNACLE MERCEDES BENZ",
+    "ids": [
+      "SEV-000758"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "pinnacle-mercedes-benz-sprinter-limo-bus"
+  },
+  {
+    "candidate": "register-pinnaclemercedesbenz-sprinterlimobushd",
+    "name": "Pinnacle Mercedes Benz Sprinter Limo Bus HD",
+    "make": "PINNACLE MERCEDES BENZ",
+    "ids": [
+      "SEV-000931",
+      "MRE-000925"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "pinnacle-mercedes-benz-sprinter-limo-bus-hd"
+  },
+  {
+    "candidate": "register-porsche-911",
+    "name": "PORSCHE 911",
+    "make": "PORSCHE",
+    "ids": [
+      "SEV-000789",
+      "MRE-000207"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "porsche-911"
+  },
+  {
+    "candidate": "register-porsche-918spyder",
+    "name": "PORSCHE 918 Spyder",
+    "make": "PORSCHE",
+    "ids": [
+      "SEV-000633",
+      "MRE-000564",
+      "MRE-000603",
+      "MRE-000615"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "SEV-000633 SEVModelCodeName differs from public detail page",
+      "MRE-000564 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-porsche-carreragt",
+    "name": "PORSCHE CARRERA GT",
+    "make": "PORSCHE",
+    "ids": [
+      "SEV-001101",
+      "MRE-000605",
+      "MRE-000621"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "porsche-carrera-gt"
+  },
+  {
+    "candidate": "register-ram-1500gen3",
+    "name": "RAM 1500 GEN3",
+    "make": "RAM",
+    "ids": [
+      "MRE-000266"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-renault-alpine",
+    "name": "Renault Alpine",
+    "make": "RENAULT",
+    "ids": [
+      "SEV-000531"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "renault-alpine"
+  },
+  {
+    "candidate": "register-renner-sl",
+    "name": "Renner SL",
+    "make": "RENNER",
+    "ids": [
+      "SEV-000555"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "renner-sl"
+  },
+  {
+    "candidate": "register-renner-speedster",
+    "name": "Renner Speedster",
+    "make": "RENNER",
+    "ids": [
+      "SEV-000543"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "renner-speedster"
+  },
+  {
+    "candidate": "register-rivian-r1t",
+    "name": "Rivian R1T",
+    "make": "RIVIAN",
+    "ids": [
+      "SEV-000545"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "rivian-r1t"
+  },
+  {
+    "candidate": "register-roarkdesign-magiccarpet",
+    "name": "Roark Design Magic Carpet",
+    "make": "ROARK DESIGN",
+    "ids": [
+      "SEV-000648"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "roark-design-magic-carpet"
+  },
+  {
+    "candidate": "register-ruf-rtr",
+    "name": "RUF RTR",
+    "make": "RUF",
+    "ids": [
+      "SEV-000562"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "ruf-rtr"
+  },
+  {
+    "candidate": "register-rvtrusttoyota-tr500clhhiacecampervan",
+    "name": "RV Trust Toyota TR500 C-LH Hiace Campervan",
+    "make": "RV TRUST TOYOTA",
+    "ids": [
+      "SEV-000720",
+      "MRE-000762"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "rv-trust-toyota-tr500-c-lh-hiace-campervan"
+  },
+  {
+    "candidate": "register-saicmaxusldv-sv3ccev30",
+    "name": "SAIC Maxus (LDV) SV3C-C (EV30)",
+    "make": "SAIC MAXUS (LDV)",
+    "ids": [
+      "SEV-000923",
+      "MRE-000208"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "saic-maxus-ldv-sv3c-c-ev30"
+  },
+  {
+    "candidate": "register-setforthtoyota-hiacecampervan",
+    "name": "Set Forth Toyota Hiace Campervan",
+    "make": "SET FORTH TOYOTA",
+    "ids": [
+      "SEV-001019"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "set-forth-toyota-hiace-campervan"
+  },
+  {
+    "candidate": "register-signaturedaf-signatureluxhorsebox",
+    "name": "Signature DAF Signature LUX Horsebox",
+    "make": "SIGNATURE DAF",
+    "ids": [
+      "SEV-000636",
+      "SEV-000684",
+      "MRE-000783"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "signature-daf-signature-lux-horsebox"
+  },
+  {
+    "candidate": "register-smart-fortwoelectricdrive",
+    "name": "SMART ForTwo Electric Drive",
+    "make": "SMART",
+    "ids": [
+      "SEV-000935"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "smart-fortwo-electric-drive"
+  },
+  {
+    "candidate": "register-spaceshipstoyota-spaceshipsestimacampervan",
+    "name": "Spaceships Toyota Spaceships Estima Campervan",
+    "make": "SPACESHIPS TOYOTA",
+    "ids": [
+      "SEV-000873",
+      "MRE-000857"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "SEV-000873 SEVModelCodeName differs from public detail page"
+    ]
+  },
+  {
+    "candidate": "register-stephexiveco-stralishorsetruck",
+    "name": "Stephex Iveco Stralis Horsetruck",
+    "make": "STEPHEX IVECO",
+    "ids": [
+      "SEV-000867"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "stephex-iveco-stralis-horsetruck"
+  },
+  {
+    "candidate": "register-strattonlotus-evoragt",
+    "name": "Stratton Lotus Evora GT",
+    "make": "STRATTON LOTUS",
+    "ids": [
+      "SEV-000908"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "stratton-lotus-evora-gt"
+  },
+  {
+    "candidate": "register-subaru-imprezasti",
+    "name": "SUBARU IMPREZA STI",
+    "make": "SUBARU",
+    "ids": [
+      "MRE-000627"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-subaru-levorg",
+    "name": "SUBARU Levorg",
+    "make": "SUBARU",
+    "ids": [
+      "MRE-000459",
+      "MRE-000460"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-subaru-sambar",
+    "name": "SUBARU SAMBAR",
+    "make": "SUBARU",
+    "ids": [
+      "MRE-000191"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-subaru-xvhybrid",
+    "name": "SUBARU XV Hybrid",
+    "make": "SUBARU",
+    "ids": [
+      "SEV-000707",
+      "SEV-000884",
+      "MRE-000034",
+      "MRE-000143",
+      "MRE-000187",
+      "MRE-000419",
+      "MRE-000543",
+      "MRE-000594",
+      "MRE-000832",
+      "MRE-000866",
+      "MRE-000992"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "subaru-xv-hybrid"
+  },
+  {
+    "candidate": "register-subaru-xvwelcab",
+    "name": "SUBARU XV Welcab",
+    "make": "SUBARU",
+    "ids": [
+      "SEV-000577",
+      "MRE-000634"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "subaru-xv-welcab"
+  },
+  {
+    "candidate": "register-sunswift-sunswift8",
+    "name": "Sunswift Sunswift 8",
+    "make": "SUNSWIFT",
+    "ids": [
+      "SEV-000651"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "sunswift-sunswift-8"
+  },
+  {
+    "candidate": "register-suzuki-alto",
+    "name": "SUZUKI Alto",
+    "make": "SUZUKI",
+    "ids": [
+      "SEV-000666",
+      "MRE-000109",
+      "MRE-000340",
+      "MRE-000629"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "suzuki-alto"
+  },
+  {
+    "candidate": "register-suzuki-altolapin",
+    "name": "SUZUKI Alto Lapin",
+    "make": "SUZUKI",
+    "ids": [
+      "SEV-000996",
+      "MRE-000433",
+      "MRE-000738"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "suzuki-alto-lapin"
+  },
+  {
+    "candidate": "register-suzuki-carry",
+    "name": "SUZUKI Carry",
+    "make": "SUZUKI",
+    "ids": [
+      "SEV-000914",
+      "MRE-000861",
+      "MRE-000867"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "suzuki-carry"
+  },
+  {
+    "candidate": "register-suzuki-carryevery",
+    "name": "SUZUKI Carry / Every",
+    "make": "SUZUKI",
+    "ids": [
+      "MRE-000112",
+      "MRE-000221",
+      "MRE-000280",
+      "MRE-000558",
+      "MRE-000782"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-suzuki-every",
+    "name": "SUZUKI Every",
+    "make": "SUZUKI",
+    "ids": [
+      "SEV-000930",
+      "MRE-000864"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "suzuki-every"
+  },
+  {
+    "candidate": "register-suzuki-ignis",
+    "name": "SUZUKI Ignis",
+    "make": "SUZUKI",
+    "ids": [
+      "SEV-001015",
+      "MRE-000985"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "suzuki-ignis"
+  },
+  {
+    "candidate": "register-suzuki-soliosoliobandit",
+    "name": "SUZUKI Solio/Solio Bandit",
+    "make": "SUZUKI",
+    "ids": [
+      "MRE-000432",
+      "MRE-000480",
+      "MRE-000481"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-suzuki-spaciacustom",
+    "name": "SUZUKI Spacia Custom",
+    "make": "SUZUKI",
+    "ids": [
+      "SEV-000594"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "suzuki-spacia-custom"
+  },
+  {
+    "candidate": "register-suzuki-swift",
+    "name": "SUZUKI Swift",
+    "make": "SUZUKI",
+    "ids": [
+      "SEV-000692",
+      "MRE-000161",
+      "MRE-000300"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "suzuki-swift"
+  },
+  {
+    "candidate": "register-suzuki-xbee",
+    "name": "SUZUKI Xbee",
+    "make": "SUZUKI",
+    "ids": [
+      "SEV-000627",
+      "MRE-000963"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "suzuki-xbee"
+  },
+  {
+    "candidate": "register-toyota-altezzagita",
+    "name": "Toyota Altezza Gita",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000885",
+      "SEV-000886",
+      "MRE-000084",
+      "MRE-000142"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-altezza-gita"
+  },
+  {
+    "candidate": "register-toyota-altezzars200",
+    "name": "Toyota Altezza RS200",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000647",
+      "MRE-000106",
+      "MRE-000160",
+      "MRE-000298"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-altezza-rs200"
+  },
+  {
+    "candidate": "register-toyota-blade",
+    "name": "Toyota Blade",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000660",
+      "MRE-000113",
+      "MRE-000173",
+      "MRE-000624"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000624 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-toyota-bz4x",
+    "name": "Toyota BZ4X",
+    "make": "TOYOTA",
+    "ids": [
+      "MRE-000732"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-toyota-caldina",
+    "name": "Toyota Caldina",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000846"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-caldina"
+  },
+  {
+    "candidate": "register-toyota-camroad",
+    "name": "Toyota Camroad",
+    "make": "TOYOTA",
+    "ids": [
+      "MRE-000116",
+      "MRE-000118",
+      "MRE-000197"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-toyota-camry",
+    "name": "Toyota Camry",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000913",
+      "MRE-000947"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-camry"
+  },
+  {
+    "candidate": "register-toyota-chr",
+    "name": "Toyota C-HR",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000735",
+      "MRE-000070",
+      "MRE-000152",
+      "MRE-000292",
+      "MRE-000294",
+      "MRE-000475",
+      "MRE-000570",
+      "MRE-000575",
+      "MRE-000626",
+      "MRE-000654",
+      "MRE-000702",
+      "MRE-000734"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000294 includes missing or unusable linked bases; exact scope unresolved.",
+      "MRE-000475 includes missing or unusable linked bases; exact scope unresolved.",
+      "MRE-000575 includes missing or unusable linked bases; exact scope unresolved.",
+      "MRE-000734 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-toyota-coastercampervan",
+    "name": "Toyota COASTER CAMPERVAN",
+    "make": "TOYOTA",
+    "ids": [
+      "MRE-000129"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-toyota-corollaaxiohybrid",
+    "name": "Toyota Corolla Axio Hybrid",
+    "make": "TOYOTA",
+    "ids": [
+      "MRE-000228",
+      "MRE-000339"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-toyota-dynahybrid",
+    "name": "Toyota Dyna Hybrid",
+    "make": "TOYOTA",
+    "ids": [
+      "MRE-000652",
+      "MRE-000670",
+      "MRE-000671",
+      "MRE-000699"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-toyota-dynatoyoace",
+    "name": "Toyota Dyna / Toyoace",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-001013"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Variant and detailed engine lists disagree (3GD-FTV). Resolve source scope."
+    ]
+  },
+  {
+    "candidate": "register-toyota-granvia",
+    "name": "Toyota Granvia",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000568",
+      "MRE-000707",
+      "MRE-000872"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-granvia"
+  },
+  {
+    "candidate": "register-toyota-jpntaxi",
+    "name": "Toyota JPN Taxi",
+    "make": "TOYOTA",
+    "ids": [
+      "MRE-000486",
+      "MRE-000510"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-toyota-pixistruck",
+    "name": "Toyota Pixis Truck",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-001000",
+      "MRE-000943"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-pixis-truck"
+  },
+  {
+    "candidate": "register-toyota-pixisvan",
+    "name": "Toyota Pixis Van",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-001002",
+      "MRE-000966"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-pixis-van"
+  },
+  {
+    "candidate": "register-toyota-proaceelectric",
+    "name": "Toyota Proace Electric",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000896",
+      "MRE-000381"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "SEV-000896 SEVModelCodeName differs from public detail page"
+    ]
+  },
+  {
+    "candidate": "register-toyota-proboxsucceed",
+    "name": "Toyota Probox/Succeed",
+    "make": "TOYOTA",
+    "ids": [
+      "MRE-000453",
+      "MRE-000454",
+      "MRE-000530",
+      "MRE-000533"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-toyota-ractis",
+    "name": "Toyota Ractis",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000718",
+      "MRE-000006",
+      "MRE-000029"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-ractis"
+  },
+  {
+    "candidate": "register-toyota-raizehybrid",
+    "name": "Toyota RAIZE HYBRID",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000961",
+      "MRE-000188",
+      "MRE-000193",
+      "MRE-000585"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000193 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-toyota-rav4",
+    "name": "Toyota RAV4",
+    "make": "TOYOTA",
+    "ids": [
+      "MRE-000391",
+      "MRE-000429",
+      "MRE-000452",
+      "MRE-000458",
+      "MRE-000733"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-toyota-sai",
+    "name": "Toyota SAI",
+    "make": "TOYOTA",
+    "ids": [
+      "MRE-000105",
+      "MRE-000218",
+      "MRE-000324",
+      "MRE-000479"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-toyota-sequoia",
+    "name": "Toyota Sequoia",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000904"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-sequoia"
+  },
+  {
+    "candidate": "register-toyota-sienta",
+    "name": "Toyota Sienta",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000850",
+      "SEV-000891",
+      "SEV-000892",
+      "SEV-000893",
+      "SEV-000894",
+      "MRE-000086",
+      "MRE-000426"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-sienta-welcab"
+  },
+  {
+    "candidate": "register-toyota-sientahybrid",
+    "name": "Toyota Sienta Hybrid",
+    "make": "TOYOTA",
+    "ids": [
+      "MRE-000275",
+      "MRE-000731"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-toyota-sientawelcab",
+    "name": "Toyota Sienta Welcab",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000854",
+      "MRE-000862"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-sienta-welcab"
+  },
+  {
+    "candidate": "register-toyota-sora",
+    "name": "Toyota SORA",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000969"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-sora"
+  },
+  {
+    "candidate": "register-toyota-townace",
+    "name": "Toyota Townace",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000936",
+      "MRE-000911"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Code list and 2WD/4WD description disagree about S403M. Resolve source scope."
+    ]
+  },
+  {
+    "candidate": "register-toyota-tundra",
+    "name": "Toyota TUNDRA",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000734",
+      "SEV-000848",
+      "SEV-000866",
+      "MRE-000290",
+      "MRE-000800"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000290 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-toyota-vitzhybrid",
+    "name": "Toyota VITZ HYBRID",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000906",
+      "MRE-000158",
+      "MRE-000172",
+      "MRE-000295",
+      "MRE-000308",
+      "MRE-000325",
+      "MRE-000544",
+      "MRE-000580",
+      "MRE-000604",
+      "MRE-000649",
+      "MRE-000653",
+      "MRE-000661",
+      "MRE-000677",
+      "MRE-000720"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000172 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-toyota-vitzwelcabonly",
+    "name": "Toyota Vitz Welcab ONLY",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-001081",
+      "MRE-000393"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-vitz-welcab-only"
+  },
+  {
+    "candidate": "register-toyota-yaris",
+    "name": "Toyota Yaris",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-000709",
+      "SEV-000710",
+      "MRE-000785",
+      "MRE-000897",
+      "MRE-000952"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-yaris"
+  },
+  {
+    "candidate": "register-toyota-yariswelcab",
+    "name": "Toyota Yaris Welcab",
+    "make": "TOYOTA",
+    "ids": [
+      "SEV-001040",
+      "MRE-000987"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "toyota-yaris-welcab"
+  },
+  {
+    "candidate": "register-tvr-cerbera",
+    "name": "TVR CERBERA",
+    "make": "TVR",
+    "ids": [
+      "SEV-000949",
+      "SEV-000950",
+      "SEV-000951",
+      "MRE-000938"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "tvr-cerbera"
+  },
+  {
+    "candidate": "register-tvr-chimaera",
+    "name": "TVR CHIMAERA",
+    "make": "TVR",
+    "ids": [
+      "MRE-000201"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-tvr-sagaris",
+    "name": "TVR Sagaris",
+    "make": "TVR",
+    "ids": [
+      "SEV-000869"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "tvr-sagaris"
+  },
+  {
+    "candidate": "register-tvr-tuscan",
+    "name": "TVR Tuscan",
+    "make": "TVR",
+    "ids": [
+      "SEV-000563",
+      "MRE-000693"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "MRE-000693 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-unidentified-sev000861",
+    "name": "Make not recorded: Sprinter",
+    "make": "MAKE NOT RECORDED:",
+    "ids": [
+      "SEV-000861"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Source make is not recorded."
+    ]
+  },
+  {
+    "candidate": "register-unidentified-sev000863",
+    "name": "Make not recorded: Vecotras S-Class Hearse",
+    "make": "MAKE NOT RECORDED:",
+    "ids": [
+      "SEV-000863"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Source make is not recorded."
+    ]
+  },
+  {
+    "candidate": "register-unidentified-sev000872",
+    "name": "Make not recorded: My Time Hiace Campervan",
+    "make": "MAKE NOT RECORDED:",
+    "ids": [
+      "SEV-000872"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "Source make is not recorded."
+    ]
+  },
+  {
+    "candidate": "register-vantechtoyota-camroadzil",
+    "name": "Vantech Toyota Camroad Zil",
+    "make": "VANTECH TOYOTA",
+    "ids": [
+      "SEV-000895"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "vantech-toyota-camroad-zil"
+  },
+  {
+    "candidate": "register-vantechtoyota-vantechcamroadcampervan100series200series",
+    "name": "Vantech Toyota Vantech Camroad campervan 100 series / 200 series",
+    "make": "VANTECH TOYOTA",
+    "ids": [
+      "SEV-000874"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "vantech-toyota-vantech-camroad-campervan-100-series-200-series"
+  },
+  {
+    "candidate": "register-vantechtoyota-vantechcamroadcampervan200series",
+    "name": "Vantech Toyota Vantech Camroad campervan 200 series",
+    "make": "VANTECH TOYOTA",
+    "ids": [
+      "SEV-000870",
+      "MRE-000810",
+      "MRE-000921"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "vantech-toyota-vantech-camroad-campervan-200-series"
+  },
+  {
+    "candidate": "register-vauxhall-comboelectric",
+    "name": "VAUXHALL Combo Electric",
+    "make": "VAUXHALL",
+    "ids": [
+      "MRE-000425"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-vauxhall-corsae",
+    "name": "VAUXHALL Corsa-e",
+    "make": "VAUXHALL",
+    "ids": [
+      "SEV-000910",
+      "MRE-000320"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "vauxhall-corsa-e"
+  },
+  {
+    "candidate": "register-vauxhall-vivaroe",
+    "name": "VAUXHALL VIVARO-e",
+    "make": "VAUXHALL",
+    "ids": [
+      "SEV-000986",
+      "MRE-000369"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "vauxhall-vivaro-e"
+  },
+  {
+    "candidate": "register-volkswagen-egolfev",
+    "name": "VOLKSWAGEN E-Golf EV",
+    "make": "VOLKSWAGEN",
+    "ids": [
+      "MRE-000318"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No usable approvals in the current status snapshot; retain source-only reference."
+    ]
+  },
+  {
+    "candidate": "register-volkswagen-id6crozz",
+    "name": "VOLKSWAGEN ID6 CROZZ",
+    "make": "VOLKSWAGEN",
+    "ids": [
+      "SEV-000586"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "volkswagen-id6-crozz"
+  },
+  {
+    "candidate": "register-volkswagen-passat",
+    "name": "VOLKSWAGEN Passat",
+    "make": "VOLKSWAGEN",
+    "ids": [
+      "SEV-000542"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "volkswagen-passat"
+  },
+  {
+    "candidate": "register-whitehousetoyota-hiacecamper",
+    "name": "Whitehouse Toyota Hiace Camper",
+    "make": "WHITEHOUSE TOYOTA",
+    "ids": [
+      "SEV-001009",
+      "MRE-000955"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "whitehouse-toyota-hiace-camper"
+  },
+  {
+    "candidate": "register-yihau-yheq",
+    "name": "Yihau YH-EQ",
+    "make": "YIHAU",
+    "ids": [
+      "SEV-000522"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "yihau-yh-eq"
+  },
+  {
+    "candidate": "register-zero-dsdsr",
+    "name": "ZERO DS/DSR",
+    "make": "ZERO",
+    "ids": [
+      "MRE-000131"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000131 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-zero-fxfxs",
+    "name": "ZERO FXFXS",
+    "make": "ZERO",
+    "ids": [
+      "MRE-000127"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000127 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  },
+  {
+    "candidate": "register-zero-s",
+    "name": "ZERO S",
+    "make": "ZERO",
+    "ids": [
+      "SEV-000556"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "zero-s"
+  },
+  {
+    "candidate": "register-zero-srs",
+    "name": "ZERO SR/S",
+    "make": "ZERO",
+    "ids": [
+      "SEV-000537"
+    ],
+    "decision": "publish",
+    "reasons": [],
+    "guide_slug": "zero-sr-s"
+  },
+  {
+    "candidate": "register-zero-ssrfsrs",
+    "name": "ZERO SSRFSRS",
+    "make": "ZERO",
+    "ids": [
+      "MRE-000130"
+    ],
+    "decision": "hold",
+    "reasons": [
+      "No current SEVS entry within this name group; confirm report basis and model identity.",
+      "MRE-000130 includes missing or unusable linked bases; exact scope unresolved."
+    ]
+  }
+]

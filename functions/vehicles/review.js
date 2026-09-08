@@ -68,6 +68,7 @@ export async function onRequest() {
   ${c.under_review ? `<span class="warn"><b>${c.under_review}</b> under review</span>` : ""}
 </div>
 <p class="claim">${esc(p.intro_copy || "")}</p>
+${p.review_note ? `<p><strong>Review notes (${esc(p.review_note.date)})</strong></p><ul>${p.review_note.reasons.map(reason => `<li>${esc(reason)}</li>`).join('')}</ul><p>These notes describe that dated review. Recheck current source records before resolving them.</p>` : ''}
 ${
   faqs.length
     ? `<details class="qs"><summary>${faqs.length} question${faqs.length === 1 ? "" : "s"} on the page</summary>

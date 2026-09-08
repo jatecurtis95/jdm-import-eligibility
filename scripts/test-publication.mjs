@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { isLive, renderVehiclePage, renderVehicleIndex } from '../functions/vehicles/_render.js';
+import { catalogueStillReviewed } from './catalogue-review.mjs';
 const root=new URL('../',import.meta.url);
 const read=async path=>JSON.parse(await readFile(new URL(path,root),'utf8'));
 const bundle=await read('functions/_data/vehicle-pages.json');
@@ -8,6 +9,18 @@ const coverage=await read('functions/_data/vehicle-coverage.json');
 const sitemap=await readFile(new URL('sitemap.xml',root),'utf8');
 const snapshot=JSON.parse(await readFile(process.env.REVIEW_SNAPSHOT || new URL('functions/_data/review-snapshot.json',root),'utf8'));
 const source=new Map(snapshot.records.map(r=>[r.approval_number,r]));
+const catalogue=JSON.parse(await readFile(new URL('reviewed-catalogue.json',import.meta.url),'utf8'));
+for (const review of catalogue) {
+  const page=bundle.pages.find(p=>p.slug===review.slug);
+  assert.ok(page,review.slug);
+  const current=catalogueStillReviewed(review,snapshot.records);
+  assert.equal(isLive(page),current,review.slug+' source drift must control publication');
+  if(!current) {
+    assert.equal(page.approvals.length,0);
+    assert.equal(page.availability,'unverified');
+    assert.notEqual(page.intro_copy,review.intro);
+  }
+}
 assert.equal(new Set(bundle.pages.map(p=>p.slug)).size,bundle.pages.length);
 for(const page of bundle.pages){
   assert.equal(sitemap.includes(`/vehicles/${page.slug}</loc>`),isLive(page));
@@ -49,4 +62,5 @@ for(const slug of ['lexus-gs-f','lexus-rc-f','honda-freed','subaru-forester']) {
 }
 const hub=await renderVehicleIndex(bundle.pages,bundle.generated_at).text();
 assert.match(hub,/ItemList/);
+assert.match(hub,/Jump to vehicle make/);
 console.log(`Publication checks passed for ${bundle.pages.length} guides and ${coverage.pages.length} excluded candidates; source fields and sitemap gates match.`);
