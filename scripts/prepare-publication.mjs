@@ -16,7 +16,7 @@ const approval = r => ({approval_number:r.approval_number,scheme:r.scheme,model:
 const catalogueBySlug = new Map(catalogue.map(r => [r.slug, r]));
 for (const [slug,name,make,names,intro] of [...additions, ...catalogue.map(r => [r.slug,r.name,r.make,r.names,r.intro])]) {
   const source = snapshot.records.filter(r => r.make.toUpperCase() === make && names.some(n => n.toLowerCase() === r.model.toLowerCase()));
-  if (!source.length) throw new Error(`No records for ${slug}`);
+  if (!source.length && !catalogueBySlug.has(slug)) throw new Error(`No records for ${slug}`);
   const approvals = source.filter(usable).map(approval);
   const page = {slug,canonical_name:name,make_norm:make,aka_names:names,h1:`${name} import eligibility in Australia`,title_tag:`${name} Import Eligibility Australia | Import Check`,meta_description:`Check ${name} register entries, chassis codes, build dates and variant restrictions. See original ROVER records and ask about your exact car.`,intro_copy:intro,availability:approvals.length?'importable':'no_live_approval',approvals,counts:{usable:approvals.length,sev_basis_gone:source.filter(r=>r.eligibility_status==='sev_basis_gone').length,expired:source.filter(r=>r.eligibility_status==='expired').length},publish_ready:true,reviewed_by:'Codex source review, authorised by site owner',reviewed_at:'2026-09-08T00:00:00Z',intel:{},faqs:[]};
   const review = catalogueBySlug.get(slug);

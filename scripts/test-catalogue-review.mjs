@@ -13,6 +13,7 @@ for(const changed of [
   {...record,eligibility_status:'expired'},
 ]) assert.ok(!catalogueStillReviewed(review,[changed]),'Changed scope or usability must require another review');
 assert.ok(!catalogueStillReviewed(review,[record,{...record,approval_number:'SEV-NEW'}]),'A new approval under the same name is not automatically reviewed');
+assert.ok(!catalogueStillReviewed(review,[]),'Removal of every matching source requires review');
 assert.equal(catalogueRecords(review,[record,{...record,model:'Model Welfare'}]).length,1,'Configuration suffixes stay separate');
 
 const catalogue = JSON.parse(await readFile(new URL('reviewed-catalogue.json',import.meta.url),'utf8'));
