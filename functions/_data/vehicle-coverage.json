@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-09-08T06:36:55.209101+08:00",
-  "matched_records": 616,
-  "candidate_records": 915,
+  "matched_records": 665,
+  "candidate_records": 866,
   "pages": [
     {
       "slug": "register-adambowescommercials-gbb255motorhome",
@@ -4694,55 +4694,6 @@
       "possible_matches": []
     },
     {
-      "slug": "register-honda-s660",
-      "canonical_name": "Honda S660",
-      "make_norm": "HONDA",
-      "h1": "Honda S660: register review",
-      "title_tag": "Honda S660 register review | Import Check",
-      "meta_description": "Review source records for Honda S660. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000990",
-          "model_code": "3BA-JW5",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=637cefdc-f1c4-f011-bbd3-6045bdc43a54"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000225",
-          "model_code": "WIJW51B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=05e869a8-c8d9-ed11-a7c7-00224893ba6c"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000256",
-          "model_code": "RC-JW5S-01C",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=b312be54-f2ee-ed11-8849-00224810679d"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000344",
-          "model_code": "WI-JW5-1A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=35b6808e-7c40-ee11-bdf3-00224812298a"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000658",
-          "model_code": "JW5 2DR 658CC Petrol CVT 2 Seat",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=4c7373fd-e176-ef11-a670-6045bde58b06"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
       "slug": "register-honda-shuttlehybrid",
       "canonical_name": "Honda Shuttle Hybrid",
       "make_norm": "HONDA",
@@ -4793,79 +4744,6 @@
           "approval_number": "MRE-000730",
           "model_code": "JDWIN-GP7-D",
           "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=c970b59c-d7d2-ef11-8eea-002248967996"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
-      "slug": "register-honda-stepwgn",
-      "canonical_name": "Honda Stepwgn",
-      "make_norm": "HONDA",
-      "h1": "Honda Stepwgn: register review",
-      "title_tag": "Honda Stepwgn register review | Import Check",
-      "meta_description": "Review source records for Honda Stepwgn. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000530",
-          "model_code": "RP8",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=1667e5b1-605e-ee11-be6f-00224893341d"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000387",
-          "model_code": "WISTEPWGN02A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=28de7449-4779-ee11-8179-002248933108"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000471",
-          "model_code": "WIRP51B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=fbc66503-fed0-ee11-9079-002248933691"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000490",
-          "model_code": "WISTEPWGN02A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=bc250c9a-5ddb-ee11-904c-002248953910"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000496",
-          "model_code": "WIRP81B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=05742e86-2bdc-ee11-904c-002248926dc4"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000529",
-          "model_code": "WIRP802A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=5dcb7bad-86f7-ee11-a1ff-00224810bb84"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000542",
-          "model_code": "WIRP802A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=121cda41-8a06-ef11-9f89-6045bde68206"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000726",
-          "model_code": "MRWI-RP5-01A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=cb8ca703-37ce-ef11-8ee9-00224893f91b"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000869",
-          "model_code": "RC-RP8-01B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=6c30c7ca-a1af-f011-bbd2-6045bdc272ee"
         }
       ],
       "possible_matches": []
@@ -5716,55 +5594,6 @@
           "approval_number": "MRE-000937",
           "model_code": "WIGSE311C",
           "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=0d579249-a042-f111-88b4-6045bde694c8"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
-      "slug": "register-lexus-is500fsport",
-      "canonical_name": "LEXUS IS 500 F-Sport",
-      "make_norm": "LEXUS",
-      "h1": "LEXUS IS 500 F-Sport: register review",
-      "title_tag": "LEXUS IS 500 F-Sport register review | Import Check",
-      "meta_description": "Review source records for LEXUS IS 500 F-Sport. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000548",
-          "model_code": "USE30",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=f235f5b3-857f-ee11-8179-002248933df6"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000537",
-          "model_code": "WIUSE301B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=684bc99c-1f01-ef11-9f89-000d3ad0ed7c"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000577",
-          "model_code": "WIIS50002A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=5b584b82-f437-ef11-a316-6045bde62768"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000586",
-          "model_code": "WIIS50002A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=2d913db0-8f39-ef11-a316-6045bde62768"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000853",
-          "model_code": "RC-USE30-01B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=fb5dcda2-ec8d-f011-b4cb-002248956af6"
         }
       ],
       "possible_matches": []
@@ -8538,49 +8367,6 @@
       "possible_matches": []
     },
     {
-      "slug": "register-nissan-fairladyz",
-      "canonical_name": "NISSAN Fairlady Z",
-      "make_norm": "NISSAN",
-      "h1": "NISSAN Fairlady Z: register review",
-      "title_tag": "NISSAN Fairlady Z register review | Import Check",
-      "meta_description": "Review source records for NISSAN Fairlady Z. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000690",
-          "model_code": "Version Nismo",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=4eaf02c2-5996-ef11-8a69-000d3ad1fbaf"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000170",
-          "model_code": "WI380RS02A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=0c791043-5aab-ed11-83ff-0022489333a7"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000216",
-          "model_code": "WI380RS1B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=b1cabf9e-a1d2-ed11-a7c7-002248933f8f"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000598",
-          "model_code": "MRWI-Z33N-01B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=6212be18-293f-ef11-a316-6045bde62768"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
       "slug": "register-nissan-fuga",
       "canonical_name": "NISSAN Fuga",
       "make_norm": "NISSAN",
@@ -8854,61 +8640,6 @@
           "approval_number": "MRE-000744",
           "model_code": "WIHFC2601A",
           "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=2f161000-76e3-ef11-9342-00224893f91b"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
-      "slug": "register-nissan-stagea",
-      "canonical_name": "NISSAN STAGEA",
-      "make_norm": "NISSAN",
-      "h1": "NISSAN STAGEA: register review",
-      "title_tag": "NISSAN STAGEA register review | Import Check",
-      "meta_description": "Review source records for NISSAN STAGEA. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-001091",
-          "model_code": "M35 SERIES",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=db812edf-c19a-f111-b8db-70a8a553e896"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-001092",
-          "model_code": "M35 SERIES",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=41822edf-c19a-f111-b8db-70a8a553e896"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-001093",
-          "model_code": "M35 SERIES",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=9c822edf-c19a-f111-b8db-70a8a553e896"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-001094",
-          "model_code": "M35 SERIES",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=16832edf-c19a-f111-b8db-70a8a553e896"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-001095",
-          "model_code": "M35 SERIES",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=7e832edf-c19a-f111-b8db-70a8a553e896"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000565",
-          "model_code": "MRWI-M35S-01A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=a9765f5d-c122-ef11-840a-002248973731"
         }
       ],
       "possible_matches": []
@@ -10086,109 +9817,6 @@
       "possible_matches": []
     },
     {
-      "slug": "register-subaru-legacy",
-      "canonical_name": "SUBARU Legacy",
-      "make_norm": "SUBARU",
-      "h1": "SUBARU Legacy: register review",
-      "title_tag": "SUBARU Legacy register review | Import Check",
-      "meta_description": "Review source records for SUBARU Legacy. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000677",
-          "model_code": "S402",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=c1660055-bd7f-ef11-ac21-000d3acbed23"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000877",
-          "model_code": "BH5",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=3bf74867-0036-f011-8c4c-000d3ad10663"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000897",
-          "model_code": "BRG",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=54db9e35-2152-f011-877b-00224894dd5c"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000958",
-          "model_code": "GH-BES",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=c3ce4c63-cd99-f011-b41c-00224897a93b"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-001041",
-          "model_code": "BL5/BP5",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=335577af-0b24-f111-8342-7ced8da0d515"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-001042",
-          "model_code": "BL5/BP5",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=6d5577af-0b24-f111-8342-7ced8da0d515"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000073",
-          "model_code": "WIBH51B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=149e4fe7-b517-ed11-b83e-00224811dadd"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000204",
-          "model_code": "WIS4021B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=4e132c06-21c9-ed11-b596-00224893b487"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000211",
-          "model_code": "WIBRG01C",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=dadd101d-dcce-ed11-a7c7-00224893b487"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000217",
-          "model_code": "WIB41C",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=a15f9be1-86d3-ed11-a7c7-002248933665"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000407",
-          "model_code": "WILEGACY01A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=ddf007d5-1a88-ee11-be36-00224892b306"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000408",
-          "model_code": "WIBP501C",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=31c7a10a-1b88-ee11-be36-00224892b306"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000727",
-          "model_code": "RC-BRG-01B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=a5bbe6c6-3ece-ef11-8ee9-00224893f91b"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000838",
-          "model_code": "RC-BL5-01A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=3aa79d4a-f073-f011-b4cc-000d3ad1290a"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
       "slug": "register-subaru-levorg",
       "canonical_name": "SUBARU Levorg",
       "make_norm": "SUBARU",
@@ -10830,43 +10458,6 @@
       "possible_matches": []
     },
     {
-      "slug": "register-toyota-aristo",
-      "canonical_name": "Toyota Aristo",
-      "make_norm": "TOYOTA",
-      "h1": "Toyota Aristo: register review",
-      "title_tag": "Toyota Aristo register review | Import Check",
-      "meta_description": "Review source records for Toyota Aristo. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000644",
-          "model_code": "JZS161",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=44c1cf67-7071-ef11-a670-00224897e7db"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000048",
-          "model_code": "MRWI-JZS161-01B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=9d26558c-cbc6-ec11-a30b-0050569e60b7"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000437",
-          "model_code": "WIJZS1611B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=41b6cbd8-abb9-ee11-9078-00224893ba82"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
       "slug": "register-toyota-blade",
       "canonical_name": "Toyota Blade",
       "make_norm": "TOYOTA",
@@ -11306,43 +10897,6 @@
           "approval_number": "MRE-000510",
           "model_code": "WINTP1002A",
           "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=3c460929-52e6-ee11-904c-000d3aca53ac"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
-      "slug": "register-toyota-markiiirv",
-      "canonical_name": "Toyota MARK II IR-V",
-      "make_norm": "TOYOTA",
-      "h1": "Toyota MARK II IR-V: register review",
-      "title_tag": "Toyota MARK II IR-V register review | Import Check",
-      "meta_description": "Review source records for Toyota MARK II IR-V. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000773",
-          "model_code": "JZX110",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=a80cb22e-11e5-ef11-9342-00224893f91b"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000035",
-          "model_code": "WIX1101C",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=d9dba97e-77b9-ec11-a31d-0050569ede77"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000076",
-          "model_code": "MRWI-JZX110-01C",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=cd31d402-751f-ed11-b83d-00224811dadd"
         }
       ],
       "possible_matches": []

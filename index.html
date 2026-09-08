@@ -7,7 +7,7 @@
 <!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5QX9JQ4H');</script><!-- End Google Tag Manager -->
 <!-- Meta Pixel --><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','438613762049767');fbq('track','PageView');</script><!-- End Meta Pixel -->
 
-<title>Is My Car Eligible to Import to Australia? SEVS &amp; MRE Checker</title>
+<title>SEVS List Australia | Live Import Eligibility Checker</title>
 <meta name="description" content="Check if a car is eligible to import into Australia. Search the full SEVS and MRE registers with live Government ROVER data, updated daily by JDM Connect." />
 <link rel="canonical" href="https://importcheck.com.au/" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -17,7 +17,7 @@
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="JDM Connect" />
-<meta property="og:title" content="Is My Car Eligible to Import to Australia? SEVS &amp; MRE Checker" />
+<meta property="og:title" content="SEVS List Australia | Live Import Eligibility Checker" />
 <meta property="og:description" content="Search the full SEVS and MRE import-eligibility registers, live Australian Government ROVER data, updated daily by JDM Connect." />
 <meta property="og:url" content="https://importcheck.com.au/" />
 <meta property="og:image" content="https://importcheck.com.au/og-image.png" />
@@ -427,7 +427,8 @@
 <main>
   <section class="hero wrap">
     <div class="eyebrow"><span class="rule"></span> SEVS + MRE &middot; Live government data<span id="heroUpdated" class="hero-updated"></span></div>
-    <h1 class="title">Can I import it?</h1>
+    <h1 class="title">SEVS list: can I import it?</h1>
+    <p><a href="/vehicles">Browse model eligibility guides</a> · <a href="/guides/import-pathways">Which import pathway applies?</a></p>
     <p class="lead">The full <b>SEVS</b> and <b>Model Report (MRE)</b> registers, live Australian Government ROVER data, updated daily.</p>
     <p class="hero-cta-line">Know the model? Search below. Not sure where to start? <a id="heroQuote" class="hero-cta" href="/enquire" target="_blank" rel="noopener">Get a free eligibility check &rarr;</a></p>
 
@@ -522,6 +523,8 @@
     </div>
   </section>
 <section id="model-guides" class="wrap"><h2>Model eligibility guides</h2><p><a href="/vehicles">Browse all reviewed model guides</a></p></section>
+<section class="wrap"><h2>Understand your import pathway</h2><p><a href="/guides/import-pathways">SEVS and the 25-year pathway</a> · <a href="/methodology">Sources and update method</a> · <a href="/changes">Model guide changes</a></p></section>
+<script id="model-guide-map" type="application/json">{}</script>
 </main>
 
 <footer class="site">
@@ -1115,6 +1118,11 @@ function thumbHTML(r){
   if(ph) return '<img class="thumb" loading="lazy" src="'+esc(safeUrl(ph.url))+'" alt="" onerror="this.outerHTML=\'<div class=&quot;thumb ph&quot;></div>\'">';
   return '<div class="thumb ph"></div>';
 }
+const modelGuideMap = JSON.parse(document.getElementById('model-guide-map')?.textContent || '{}');
+function guideLink(r){
+  const slug = modelGuideMap[r.id];
+  return slug ? '<p><a href="/vehicles/'+esc(slug)+'">'+esc(titleMake(r.make)+' '+r.model)+' eligibility guide →</a></p>' : '';
+}
 function cardHTML(r){
   const st = statusOf(r);
   const name = titleMake(r.make)+' '+r.model;
@@ -1126,7 +1134,7 @@ function cardHTML(r){
     + (dispCodeOf(r)?'<div class="chassis">'+esc(dispCodeOf(r))+'</div>':'')+'</div>'
     + '<div class="right"><span class="badge '+st.cls+'" title="'+esc(st.short)+'">'+st.label+'</span></div></div>'
     + '<div class="meta"><span class="sev">'+esc(r.id)+'</span><span class="range">'+fmtRange(r.from,r.to)+'</span>'+pathHTML(r)+odoChip(r)+'</div>'
-    + variantsLine(r)
+    + variantsLine(r) + guideLink(r)
     + '<div class="foot">'
     + marketCell(r, true)
     + '<span class="wklabel">'+(wn?'<b>'+wn+'</b> model report'+(wn===1?'':'s'):'no model report')+'</span></div>'
@@ -1139,7 +1147,7 @@ function rowHTML(r){
   return '<tr data-i="'+r._ix+'">'
     + '<td><div class="veh">'+thumbHTML(r)+'<div><div class="name">'+esc(name)+'</div>'
       + (r.dispVariant?'<div class="dvar">'+esc(titleVariant(r.dispVariant))+'</div>':'')
-      + '<div class="vsub"><span class="sev">'+esc(r.id)+'</span></div></div></div></td>'
+      + '<div class="vsub"><span class="sev">'+esc(r.id)+'</span></div>'+guideLink(r)+'</div></div></td>'
     + '<td>'+chassisCell(r)+'</td>'
     + '<td>'+variantsCell(r)+'</td>'
     + '<td class="range">'+fmtRange(r.from,r.to)+'</td>'
@@ -1377,7 +1385,7 @@ function openPanel(r, nav){
   h += '<div class="cta"><h4>Want this car landed?</h4><p>JDM Connect sources direct from Japanese auctions, bidding, compliance and delivery handled end to end.</p>'
     +'<div class="cta-actions">'
     +'<a class="btn-gold cta-lead" data-ch="whatsapp" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(waHref(waText))+'" target="_blank" rel="noopener">WhatsApp us about this car</a>'
-    +'<a class="btn-line cta-lead" data-ch="form" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="'+esc(finderHref('detail_panel'))+'" target="_blank" rel="noopener">Request a quote online →</a>'
+    +'<a class="btn-line cta-lead" data-ch="form" data-veh="'+esc(name)+'" data-ref="'+esc(r.id)+'" href="/enquire?vehicle='+esc(encodeURIComponent(name+' '+(r.code||'')+' '+r.id))+'" target="_blank" rel="noopener">Ask about this vehicle →</a>'
     +'</div></div>';
 
   // Send-to-client: a shareable deep link that reopens this exact vehicle.
@@ -1539,13 +1547,13 @@ function wire(){
   });
   $('prevBtn')?.addEventListener('click', ()=>{ currentPage--; render(); scrollToResults(); });
   $('nextBtn')?.addEventListener('click', ()=>{ currentPage++; render(); scrollToResults(); });
-  const openFrom = el=>{ const row = el.closest('[data-i]'); if(row) openPanel(rows[+row.dataset.i]); };
+  const openFrom = el=>{ if(el.closest('a')) return; const row = el.closest('[data-i]'); if(row) openPanel(rows[+row.dataset.i]); };
   $('cards').addEventListener('click', e=>openFrom(e.target));
   $('rows').addEventListener('click', e=>openFrom(e.target));
-  $('cards').addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ const c=e.target.closest('[data-i]'); if(c){ e.preventDefault(); openPanel(rows[+c.dataset.i]); } } });
+  $('cards').addEventListener('keydown', e=>{ if(e.target.closest('a')) return; if(e.key==='Enter'||e.key===' '){ const c=e.target.closest('[data-i]'); if(c){ e.preventDefault(); openPanel(rows[+c.dataset.i]); } } });
   $('pBody').addEventListener('click', e=>{
     const cta=e.target.closest('.cta-lead');
-    if(cta){ track('eligibility_quote_click',{channel:cta.dataset.ch,vehicle:cta.dataset.veh,ref:cta.dataset.ref}); trackFb('Lead',{content_name:cta.dataset.veh,content_category:'eligibility_quote'}); return; }
+    if(cta){ track('eligibility_quote_click',{channel:cta.dataset.ch,vehicle:cta.dataset.veh,ref:cta.dataset.ref});  return; }
     const sh=e.target.closest('[data-share]');
     if(sh){
       if(sh.dataset.share==='native'){ e.preventDefault(); shareVehicleLink(sh); }
@@ -1556,7 +1564,7 @@ function wire(){
   });
   $('pBack').addEventListener('click', ()=>{ const prev = panelStack.pop(); if(prev) openPanel(prev, 'back'); });
   // Persistent header + hero + empty-state quote CTAs.
-  const quoteClick = source => () => { track('eligibility_quote_click',{channel:'form',source:source}); trackFb('Lead',{content_category:'eligibility_quote'}); };
+  const quoteClick = source => () => { track('eligibility_quote_click',{channel:'form',source:source});  };
   const hq=$('headerQuote'); if(hq) hq.addEventListener('click', quoteClick('header'));
   const hrq=$('heroQuote'); if(hrq) hrq.addEventListener('click', quoteClick('hero'));
   const eq=$('emptyQuote'); if(eq) eq.addEventListener('click', quoteClick('empty_state'));

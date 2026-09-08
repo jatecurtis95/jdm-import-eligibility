@@ -35,6 +35,7 @@ scripts/email_config.json
 
 # Local caches / build dirs
 .wrangler/
+functions/_data/review-snapshot.json
 scripts/__pycache__/
 __pycache__/
 

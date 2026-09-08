@@ -1,0 +1,857 @@
+{
+  "pages": {
+    "ford-f150": {
+      "hash": "b2b5930e535f65828c2241247b5fd30a42ab1bd543224248b292dbbacfb713f7",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000194",
+        "MRE-000281",
+        "MRE-000332",
+        "MRE-000435",
+        "MRE-000463",
+        "MRE-000914",
+        "SEV-000693",
+        "SEV-000713",
+        "SEV-000948",
+        "SEV-000983",
+        "SEV-001023",
+        "SEV-001048"
+      ]
+    },
+    "ford-super-duty": {
+      "hash": "a2f01812c40ef4c7b3d6202fcd1480e7445fdca801e9f80c5349e5f45d41e2d3",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000184",
+        "MRE-000190",
+        "MRE-000248",
+        "MRE-000322",
+        "MRE-000335",
+        "MRE-000371",
+        "MRE-000378",
+        "MRE-000498",
+        "MRE-000500",
+        "MRE-000590",
+        "MRE-000826",
+        "MRE-000946",
+        "SEV-000976",
+        "SEV-000977",
+        "SEV-000978",
+        "SEV-000979"
+      ]
+    },
+    "honda-civic-type-r": {
+      "hash": "6b70da014e9d7cd85c7445f5487fcdd64654fd5b65b37716212d0bd58c17b3b6",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000212",
+        "MRE-000346",
+        "MRE-000386",
+        "MRE-000484",
+        "MRE-000944",
+        "SEV-000554",
+        "SEV-000650",
+        "SEV-000659"
+      ]
+    },
+    "honda-fit-jazz": {
+      "hash": "9f4aa6aa946cf99808ab730d33909f110171a278e282bc4ba2c0bc1ccd3b3c44",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000026",
+        "MRE-000049",
+        "MRE-000277",
+        "MRE-000355",
+        "MRE-000612",
+        "MRE-000642",
+        "MRE-000710",
+        "MRE-000837",
+        "SEV-000664",
+        "SEV-000667",
+        "SEV-000668",
+        "SEV-000970"
+      ]
+    },
+    "honda-odyssey-jdm": {
+      "hash": "10ea364571ccf9b1aec775444aef685110afe388a39ae67c6fcab5d7b5a34469",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000108",
+        "MRE-000192",
+        "MRE-000366",
+        "MRE-000602",
+        "MRE-000618",
+        "MRE-000638",
+        "MRE-000761",
+        "MRE-000812",
+        "MRE-000814",
+        "SEV-000575",
+        "SEV-000595",
+        "SEV-000717"
+      ]
+    },
+    "honda-s660": {
+      "hash": "df3c5e2d6a89bec863d99e9f5b98125bd605ee3d5981be1acb019ffd4cc466d3",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000225",
+        "MRE-000256",
+        "SEV-000990"
+      ]
+    },
+    "honda-stepwgn": {
+      "hash": "075d1734a635f47f862c87214b23c026a4bcdee6e0f59061bdc77dcbfced6ef2",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000496",
+        "MRE-000529",
+        "MRE-000542",
+        "MRE-000869",
+        "SEV-000530"
+      ]
+    },
+    "honda-vezel": {
+      "hash": "69c27cfe279d4812fc6d23e43bbfdd533424e6cd80e4a01dd8e01a9a258311bf",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000019",
+        "MRE-000262",
+        "MRE-000472",
+        "MRE-000545",
+        "MRE-000683",
+        "MRE-000859",
+        "SEV-000665"
+      ]
+    },
+    "lexus-is500": {
+      "hash": "943b889e35e9facee5a52b0bcc2721aac9a4b7057ea6c94d3e18f3d15dde055b",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000537",
+        "MRE-000577",
+        "MRE-000586",
+        "MRE-000853",
+        "SEV-000548"
+      ]
+    },
+    "lexus-ls460": {
+      "hash": "44c59078cd2baff96eea10509a3ed969157e55a5fd8f110c71d17f264effd139",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000203",
+        "MRE-000304",
+        "MRE-000574",
+        "MRE-000676",
+        "SEV-000550",
+        "SEV-000920",
+        "SEV-000921"
+      ]
+    },
+    "mazda-rx-7": {
+      "hash": "213ed59095cf651b9ea7fe53c018300b85eeb6c94bd842e9dddd5a442a61e3e5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000011",
+        "MRE-000167",
+        "SEV-000749"
+      ]
+    },
+    "mercedes-benz-sl55-amg": {
+      "hash": "6ff2b617c99eaac508338478e98feb610810b76ace881679c2e0496998222457",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000721",
+        "SEV-000695",
+        "SEV-000751"
+      ]
+    },
+    "mitsubishi-delica": {
+      "hash": "bb9106f7e165589fb7076371f400a39113266fdfdf1ed64b79cdbff37b9743b5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000215",
+        "MRE-000451",
+        "MRE-000839",
+        "MRE-000933",
+        "SEV-000817",
+        "SEV-000818",
+        "SEV-000819",
+        "SEV-000820",
+        "SEV-000821",
+        "SEV-000822",
+        "SEV-000823"
+      ]
+    },
+    "mitsubishi-lancer-evolution": {
+      "hash": "73cc9952871711b7bb3ea98a4eb51b924c9f507eeddb4f7618364f49d6777d0a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000031",
+        "MRE-000046",
+        "MRE-000052",
+        "MRE-000053",
+        "MRE-000063",
+        "MRE-000064",
+        "MRE-000120",
+        "MRE-000133",
+        "MRE-000134",
+        "MRE-000151",
+        "SEV-000678",
+        "SEV-000790",
+        "SEV-000875",
+        "SEV-000876",
+        "SEV-000898",
+        "SEV-000945",
+        "SEV-000946"
+      ]
+    },
+    "nissan-elgrand": {
+      "hash": "e3b2b140ad176098d9b92f1dcb8f6ae35179e847c95d16e7f46348ffddc253c5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000237",
+        "MRE-000299",
+        "MRE-000314",
+        "MRE-000895",
+        "MRE-000910",
+        "MRE-000915",
+        "SEV-000804",
+        "SEV-000836",
+        "SEV-000905",
+        "SEV-001080"
+      ]
+    },
+    "nissan-fairlady-z": {
+      "hash": "821c72e26a3009fd4c3ae22c84720fcff1eadf63c0ccde7e7738e56cb4590cca",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000170",
+        "MRE-000216",
+        "MRE-000598",
+        "SEV-000690"
+      ]
+    },
+    "nissan-gtr-r35": {
+      "hash": "086670d292732b48bd6d1d4fd6a42892215ff19ad37560e4a91c767f03411c10",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000004",
+        "MRE-000223",
+        "MRE-000272",
+        "MRE-000560",
+        "SEV-000520",
+        "SEV-000646"
+      ]
+    },
+    "nissan-leaf": {
+      "hash": "582e8f69432693b23a5f27f5c0d6632593f9dddf249f49de882de47d4e67a765",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000077",
+        "MRE-000099",
+        "MRE-000101",
+        "MRE-000117",
+        "MRE-000147",
+        "MRE-000177",
+        "MRE-000550",
+        "MRE-000667",
+        "SEV-000691",
+        "SEV-000756",
+        "SEV-001061"
+      ]
+    },
+    "nissan-note": {
+      "hash": "84665d05c9c61a69e3e12ab9b796ec61024404233bcac356caea2b376cbe03f1",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": []
+    },
+    "nissan-nv350": {
+      "hash": "ad29432d1ec2755e47ee2d462ba1cdb1903d1861ce154ef01e3f040852fb73d3",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000284",
+        "MRE-000849",
+        "SEV-000793",
+        "SEV-000794",
+        "SEV-000795",
+        "SEV-000796",
+        "SEV-000797",
+        "SEV-000798",
+        "SEV-001073"
+      ]
+    },
+    "nissan-serena": {
+      "hash": "021ca7d497c7b2d72a0aca69f08addd5ec2995424074a4914d352929e831e33a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000041",
+        "MRE-000209",
+        "MRE-000434",
+        "MRE-000668",
+        "MRE-000789",
+        "MRE-000790",
+        "MRE-000811",
+        "MRE-000961",
+        "MRE-000962",
+        "SEV-000800",
+        "SEV-000801",
+        "SEV-000802",
+        "SEV-000803",
+        "SEV-000974",
+        "SEV-000975",
+        "SEV-001055",
+        "SEV-001060"
+      ]
+    },
+    "nissan-silvia-s15": {
+      "hash": "c42eb13ff47477d338b920564c8b48c41e509ac3abf9731787d549cf784b96c0",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000013",
+        "SEV-000767"
+      ]
+    },
+    "nissan-skyline": {
+      "hash": "cf0594708d5d955bc3f919ddeb44f502636e8c2da1f21767eb6e63a5ba3791bd",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000058",
+        "MRE-000060",
+        "MRE-000061",
+        "MRE-000107",
+        "MRE-000254",
+        "MRE-000264",
+        "MRE-000331",
+        "MRE-000478",
+        "MRE-000511",
+        "MRE-000536",
+        "MRE-000562",
+        "MRE-000566",
+        "MRE-000776",
+        "MRE-000930",
+        "SEV-000768",
+        "SEV-000769",
+        "SEV-000770",
+        "SEV-000771",
+        "SEV-000772",
+        "SEV-000776",
+        "SEV-000777",
+        "SEV-001026"
+      ]
+    },
+    "nissan-stagea": {
+      "hash": "11828ed31e7667b9e437ffe4fea5215ee64b7f090148fdd56d8439597730beb3",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001091",
+        "SEV-001092",
+        "SEV-001093",
+        "SEV-001094",
+        "SEV-001095"
+      ]
+    },
+    "ram-1500": {
+      "hash": "5033ec2891fa4e646400e653afb202e11fd2f763e5758c72ef696649e0236e7d",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000870",
+        "MRE-000881",
+        "MRE-000884",
+        "MRE-000926",
+        "MRE-000957",
+        "SEV-000617",
+        "SEV-000619",
+        "SEV-000694",
+        "SEV-000733",
+        "SEV-000754",
+        "SEV-000828",
+        "SEV-001020",
+        "SEV-001022"
+      ]
+    },
+    "ram-2500-3500": {
+      "hash": "52909a033dd055a634df46986c8f7047c356aedb090f9866f1ff2b28bee8639c",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000385",
+        "MRE-000396",
+        "MRE-000939",
+        "MRE-000940",
+        "MRE-000941",
+        "MRE-000942",
+        "MRE-000967",
+        "SEV-000616",
+        "SEV-000838",
+        "SEV-000839",
+        "SEV-000840",
+        "SEV-000984",
+        "SEV-000988",
+        "SEV-000989",
+        "SEV-001008"
+      ]
+    },
+    "subaru-impreza-wrx-sti": {
+      "hash": "056b6945e015e105ab7dc127587cbad456189429d7045c9b751b2b2157bc8874",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000059",
+        "MRE-000159",
+        "MRE-000199",
+        "MRE-000202",
+        "MRE-000240",
+        "MRE-000303",
+        "MRE-000357",
+        "MRE-000540",
+        "MRE-000596",
+        "MRE-000597",
+        "MRE-000632",
+        "MRE-000641",
+        "SEV-000581",
+        "SEV-000708",
+        "SEV-000954",
+        "SEV-000999",
+        "SEV-001017"
+      ]
+    },
+    "subaru-legacy": {
+      "hash": "f9ab293eba87f036aabe7b36d631a2038ac692282a624cec22b5c9d38563beaf",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000073",
+        "MRE-000204",
+        "MRE-000211",
+        "MRE-000217",
+        "MRE-000408",
+        "MRE-000727",
+        "SEV-000677",
+        "SEV-000877",
+        "SEV-000897",
+        "SEV-000958",
+        "SEV-001041",
+        "SEV-001042"
+      ]
+    },
+    "suzuki-jimny": {
+      "hash": "58b1323d097356bf9cb6de9d7682bb4df1d6b639ba2b97cd10c6d2e6d3cd8f19",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000931",
+        "SEV-000654"
+      ]
+    },
+    "toyota-alphard-vellfire": {
+      "hash": "81b0a4ec2b1d7a62b75154729f12077253c2ddc349fecf3feeba8ae4a6325e37",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000003",
+        "MRE-000015",
+        "MRE-000023",
+        "MRE-000028",
+        "MRE-000066",
+        "MRE-000083",
+        "MRE-000091",
+        "MRE-000094",
+        "MRE-000805",
+        "MRE-000854",
+        "MRE-000886",
+        "MRE-000918",
+        "MRE-000928",
+        "MRE-000968",
+        "MRE-000973",
+        "MRE-000982",
+        "SEV-000620",
+        "SEV-000621",
+        "SEV-000622",
+        "SEV-000623",
+        "SEV-000638",
+        "SEV-000639",
+        "SEV-000640",
+        "SEV-000641",
+        "SEV-000676",
+        "SEV-000743",
+        "SEV-000744",
+        "SEV-000745",
+        "SEV-000746",
+        "SEV-000747",
+        "SEV-000748",
+        "SEV-000759",
+        "SEV-000760",
+        "SEV-000761",
+        "SEV-000762",
+        "SEV-000763",
+        "SEV-000765",
+        "SEV-000924",
+        "SEV-001066",
+        "SEV-001068",
+        "SEV-001088",
+        "SEV-001089"
+      ]
+    },
+    "toyota-aqua": {
+      "hash": "2b73380e09cab72a67b0e043a78bf08de4a9d0a249654a599d445d12f7fccbd1",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000555",
+        "MRE-000567",
+        "MRE-000672",
+        "MRE-000948",
+        "MRE-000958",
+        "MRE-000972",
+        "MRE-000974",
+        "SEV-000523",
+        "SEV-001011",
+        "SEV-001012"
+      ]
+    },
+    "toyota-aristo": {
+      "hash": "2c917b42fe1da326f452df5fd84417e25c4658d3d2aa8ee12989e0e7e71dfad6",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000048",
+        "MRE-000437",
+        "SEV-000644"
+      ]
+    },
+    "toyota-century": {
+      "hash": "3b6fe45d1ad13c7baf0ed18c81f0c1957eb268a1f24dd4d7c201ffe9610519f6",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000055",
+        "MRE-000071",
+        "MRE-000327",
+        "MRE-000376",
+        "SEV-000569",
+        "SEV-000645",
+        "SEV-000900"
+      ]
+    },
+    "toyota-chaser": {
+      "hash": "6cefbc3d3ae356ca5760072b274c4da7e07e928f8eeb606fba76795e5ab4db81",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000164",
+        "MRE-000263",
+        "SEV-000963"
+      ]
+    },
+    "toyota-corolla-fielder": {
+      "hash": "d7c7072a09c810c135150b4c07a8b36159dd6346d7d75c3c57b5ec0741eac5c3",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000001",
+        "MRE-000032",
+        "MRE-000057",
+        "MRE-000132",
+        "MRE-000138",
+        "MRE-000179",
+        "MRE-000181",
+        "MRE-000278",
+        "MRE-000354",
+        "MRE-000482",
+        "MRE-000483",
+        "MRE-000548",
+        "MRE-000583",
+        "MRE-000584",
+        "MRE-000600",
+        "MRE-000636",
+        "MRE-000643",
+        "MRE-000646",
+        "MRE-000694",
+        "MRE-000719",
+        "MRE-000724",
+        "MRE-000725",
+        "MRE-000735",
+        "MRE-000786",
+        "MRE-000824",
+        "MRE-000831",
+        "MRE-000844",
+        "MRE-000873",
+        "MRE-000959",
+        "SEV-000536",
+        "SEV-000643",
+        "SEV-000681",
+        "SEV-000730",
+        "SEV-000731",
+        "SEV-000812"
+      ]
+    },
+    "toyota-crown": {
+      "hash": "bc3569bab1807e723502d0acb33a42c48e9ff9d74b77c0cc70323c72edf34958",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000008",
+        "MRE-000009",
+        "MRE-000010",
+        "MRE-000016",
+        "MRE-000017",
+        "MRE-000018",
+        "MRE-000020",
+        "MRE-000022",
+        "MRE-000036",
+        "MRE-000054",
+        "MRE-000067",
+        "MRE-000068",
+        "MRE-000069",
+        "MRE-000075",
+        "MRE-000089",
+        "MRE-000092",
+        "MRE-000110",
+        "MRE-000139",
+        "MRE-000141",
+        "MRE-000242",
+        "MRE-000251",
+        "MRE-000297",
+        "MRE-000310",
+        "MRE-000321",
+        "MRE-000342",
+        "MRE-000367",
+        "MRE-000404",
+        "MRE-000551",
+        "MRE-000608",
+        "MRE-000620",
+        "MRE-000651",
+        "MRE-000675",
+        "MRE-000686",
+        "MRE-000689",
+        "MRE-000690",
+        "MRE-000703",
+        "MRE-000706",
+        "MRE-000728",
+        "MRE-000750",
+        "MRE-000751",
+        "MRE-000779",
+        "MRE-000840",
+        "MRE-000883",
+        "MRE-000888",
+        "MRE-000890",
+        "MRE-000945",
+        "MRE-000953",
+        "MRE-000965",
+        "SEV-000587",
+        "SEV-000602",
+        "SEV-000696",
+        "SEV-000697",
+        "SEV-000698",
+        "SEV-000699",
+        "SEV-000700",
+        "SEV-000721",
+        "SEV-000722",
+        "SEV-000723",
+        "SEV-000724",
+        "SEV-000725",
+        "SEV-000726",
+        "SEV-000727",
+        "SEV-000728",
+        "SEV-000831",
+        "SEV-000832",
+        "SEV-000833",
+        "SEV-000941",
+        "SEV-000942",
+        "SEV-000943",
+        "SEV-001047",
+        "SEV-001058"
+      ]
+    },
+    "toyota-estima": {
+      "hash": "d7fe60ad0b9c99295d26319f74af56acdf9941450ca6a46417f8406b1877d121",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000040",
+        "MRE-000074",
+        "MRE-000855",
+        "MRE-000932",
+        "SEV-000599",
+        "SEV-000662",
+        "SEV-000663",
+        "SEV-000682",
+        "SEV-000912"
+      ]
+    },
+    "toyota-harrier": {
+      "hash": "a5b21626d4bbd452940c43185110b54abd0c45ebc3332fbb26bcb03cd9c8cd89",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000524",
+        "SEV-000957"
+      ]
+    },
+    "toyota-hiace": {
+      "hash": "10b8459bc3d63cbf6db3ae192aed6b41258ae295629c8cf858f2c12ebad388b3",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000038",
+        "MRE-000148",
+        "MRE-000233",
+        "MRE-000523",
+        "MRE-000617",
+        "MRE-000716",
+        "MRE-000741",
+        "MRE-000772",
+        "MRE-000777",
+        "MRE-000778",
+        "MRE-000793",
+        "MRE-000796",
+        "MRE-000798",
+        "MRE-000803",
+        "MRE-000829",
+        "MRE-000835",
+        "MRE-000865",
+        "MRE-000868",
+        "MRE-000875",
+        "MRE-000877",
+        "SEV-000656",
+        "SEV-000657",
+        "SEV-000658",
+        "SEV-000661",
+        "SEV-000686",
+        "SEV-000719",
+        "SEV-000774",
+        "SEV-000813",
+        "SEV-000932",
+        "SEV-000933"
+      ]
+    },
+    "toyota-mark-ii": {
+      "hash": "a81827fcd2cbaa7ae6b790d52b4a63383b5eb6722a4ea9fe92e1e9041fc9dba7",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000035",
+        "MRE-000076",
+        "SEV-000773"
+      ]
+    },
+    "toyota-mark-x": {
+      "hash": "ac1dd61ca8f9bf1b7d0c7c7b4de55942dc53be03944da4adfe8cd3d271a74c0c",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000079",
+        "MRE-000095",
+        "MRE-000245",
+        "MRE-000635",
+        "SEV-000740",
+        "SEV-000741",
+        "SEV-000742"
+      ]
+    },
+    "toyota-noah-voxy": {
+      "hash": "289b42c80496a0aeb393c2836212752b3e812b218094f8f694f624db1f82bb08",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000111",
+        "MRE-000115",
+        "SEV-000634",
+        "SEV-000635",
+        "SEV-000675",
+        "SEV-000738",
+        "SEV-000739",
+        "SEV-000835",
+        "SEV-000887",
+        "SEV-000888",
+        "SEV-000889",
+        "SEV-000902",
+        "SEV-000915",
+        "SEV-000916",
+        "SEV-000917",
+        "SEV-000964",
+        "SEV-000987",
+        "SEV-000991"
+      ]
+    },
+    "toyota-porte-spade": {
+      "hash": "d451906e817b1ca085d7548871e3933a87ae15d4ffa686dfb3476b1497f385a0",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000601",
+        "SEV-000805",
+        "SEV-000806",
+        "SEV-000807",
+        "SEV-000808",
+        "SEV-000809",
+        "SEV-000810",
+        "SEV-000811"
+      ]
+    },
+    "toyota-prius-jdm": {
+      "hash": "d10790330d17b87a04fa4625ab5902e6a3737f41ed9c3d561f5429c7dafa1039",
+      "last_modified": "2026-09-08",
+      "live": false,
+      "approval_ids": [
+        "MRE-000136",
+        "MRE-000309",
+        "MRE-000328",
+        "MRE-000384",
+        "MRE-000525",
+        "MRE-000549",
+        "MRE-000647",
+        "MRE-000712",
+        "MRE-000784",
+        "MRE-000856",
+        "MRE-000880",
+        "SEV-000561",
+        "SEV-000764",
+        "SEV-000919",
+        "SEV-001035",
+        "SEV-001090",
+        "SEV-001096"
+      ]
+    },
+    "toyota-supra": {
+      "hash": "f13a738f62a7da07637c9da2eeba57f8f81c3af616bcf58a6e5134206a54f252",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000311",
+        "MRE-000531",
+        "MRE-000954",
+        "SEV-000567",
+        "SEV-001051",
+        "SEV-001052"
+      ]
+    }
+  },
+  "changes": [],
+  "baseline_date": "2026-09-08"
+}

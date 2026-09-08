@@ -59,15 +59,17 @@ jobs:
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
           DRIFT_MARKER_FILE:    ${{ runner.temp }}/drift.txt
 
-      - name: build full-register review coverage
-        run: node scripts/build-vehicle-coverage.mjs
-
       - name: export source review snapshot
-        if: github.event_name == 'workflow_dispatch'
         run: node scripts/export-review-snapshot.mjs
         env:
           SUPABASE_PAT: ${{ secrets.SUPABASE_PAT }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+
+      - name: prepare reviewed publication and history
+        run: node scripts/prepare-publication.mjs
+
+      - name: build full-register review coverage
+        run: node scripts/build-vehicle-coverage.mjs
 
       - name: retain review evidence
         if: github.event_name == 'workflow_dispatch'
@@ -78,11 +80,14 @@ jobs:
             functions/_data/review-snapshot.json
             functions/_data/vehicle-pages.json
             functions/_data/vehicle-coverage.json
+            functions/_data/publication-history.json
             sitemap.xml
           retention-days: 7
 
       - name: test coverage and enquiries
-        run: node scripts/test-vehicle-coverage.mjs
+        run: |
+          node scripts/test-vehicle-coverage.mjs
+          node scripts/test-publication.mjs
 
       - name: commit
         if: github.ref == 'refs/heads/main'
@@ -90,24 +95,14 @@ jobs:
         run: |
           git config user.email "action@github.com"
           git config user.name "GitHub Actions [Vehicle Pages]"
-          git add functions/_data/vehicle-pages.json functions/_data/vehicle-coverage.json sitemap.xml
+          git add functions/_data/vehicle-pages.json functions/_data/vehicle-coverage.json functions/_data/publication-history.json sitemap.xml
           if git diff --cached --quiet; then
             echo "no change"
             exit 0
           fi
           git commit -m "Auto-update: vehicle pages rebuilt $(date -u +'%Y-%m-%d')"
-          git push || {
-            echo "push rejected, re-syncing and retrying once"
-            cp functions/_data/vehicle-pages.json /tmp/vp.json
-            cp sitemap.xml /tmp/sitemap.xml
-            git fetch origin main
-            git reset --hard origin/main
-            mv /tmp/vp.json functions/_data/vehicle-pages.json
-            mv /tmp/sitemap.xml sitemap.xml
-            git add functions/_data/vehicle-pages.json sitemap.xml
-            git diff --cached --quiet || git commit -m "Auto-update: vehicle pages rebuilt $(date -u +'%Y-%m-%d')"
-            git push
-          }
+          # A concurrent source change must be rebuilt, never overlaid with an old snapshot.
+          git push
 
       # Deliberately AFTER the commit. A page whose register verdict moved is
       # already back on noindex and out of the sitemap by the time this runs,

@@ -260,19 +260,18 @@ function banner(page) {
   const dead = Number(c.sev_basis_gone || 0) + Number(c.expired || 0);
 
   if (page.availability === "importable") {
-    const win = windowText(page.usable_build_from, page.usable_build_to, page.usable_build_open);
     const n = page.approvals.length;
     return `<div class="banner b-ok"><span class="dot"></span><div>
 <strong>On the register right now</strong>
-<p>${n} live approval${n === 1 ? "" : "s"} cover${n === 1 ? "s" : ""} this model${win ? `, across build dates ${esc(win)}` : ""}. Your car has to fall inside one of the specific rows below, not just inside that overall span.</p>
+<p>${n} current register record${n === 1 ? "" : "s"} are shown for this model. Match the exact build dates and conditions within an individual row. A listing is not permission to import your car or confirmation of workshop availability.</p>
 </div></div>`;
   }
 
   if (page.availability === "basis_gone") {
     const n = Number(c.sev_basis_gone || 0);
     return `<div class="banner b-no"><span class="dot"></span><div>
-<strong>Not importable at the moment</strong>
-<p>${n} model report${n === 1 ? "" : "s"} for this car still read In Force on ROVER, which is why you will see it listed as importable elsewhere. Every one of them rests on a SEVS entry that has since left the register, and a model report with nothing live underneath it is not a way in. Checked again every day.</p>
+<strong>No usable linked SEVS basis in this snapshot</strong>
+<p>${n} model report${n === 1 ? "" : "s"} remain recorded but their linked SEVS entries are absent from the active snapshot. An In Force model report alone does not establish a current pathway. Check the original records and <a href="/guides/import-pathways">other import pathways</a> for your exact vehicle.</p>
 </div></div>`;
   }
 
@@ -313,6 +312,7 @@ function approvalsTable(page) {
 <td class="mono">${esc(a.model_code || "")}</td>
 <td>${win}</td>
 <td>${status}</td>
+<td>${approvalScope(a)}</td>
 </tr>`;
     })
     .join("\n");
@@ -325,11 +325,22 @@ function approvalsTable(page) {
 
   return `<h2>Live approvals on the register</h2>
 <div class="tablewrap"><table>
-<thead><tr><th>Approval</th><th>Type</th><th>Listed as</th><th>Code</th><th>Build dates</th><th>Status</th></tr></thead>
+<thead><tr><th>Approval</th><th>Type</th><th>Listed as</th><th>Code</th><th>Build dates</th><th>Status</th><th>Scope to check</th></tr></thead>
 <tbody>${rows}</tbody>
 </table></div>
 ${withheld}
 <p class="note">SEV is a Specialist and Enthusiast Vehicle entry, which is the model being listed as eligible in principle. MRE is a Model Report, which is the workshop-level approval that an importer actually uses. Both are read straight from the public ROVER register.</p>`;
+}
+
+function approvalScope(a) {
+  const facts = [a.source_variant, a.variant_details, a.criterion, a.expiry ? `Entry expiry: ${a.expiry}` : null, a.odometer_limit_km ? `Odometer condition: ${Number(a.odometer_limit_km).toLocaleString('en-AU')} km threshold. Read the exact condition in the source.` : null, a.based_on_sevs?.length ? `Linked SEVS: ${a.based_on_sevs.join(', ')}` : null].filter(Boolean);
+  return `<div style="min-width:200px;max-width:360px;white-space:normal;overflow-wrap:anywhere">${facts.map(f=>`<p>${esc(f)}</p>`).join('') || 'See the original approval for scope.'}<p class="note">This is a summary, not the complete approval conditions.</p></div>`;
+}
+
+function variantNavigation(page) {
+  const groups = [...new Set(page.approvals.map(a=>a.model_code).filter(Boolean))];
+  if (!groups.length) return '';
+  return `<h2>Model codes in these records</h2><p style="overflow-wrap:anywhere">${groups.map(esc).join(' · ')}</p><p class="note">Codes can span generations or grades. Match the listed model, build dates and scope in the same approval row. A SEVS entry is not permission to import an individual car.</p>`;
 }
 
 function specs(page) {
@@ -381,8 +392,11 @@ ${list.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></de
 }
 
 function cta(page) {
+  const calculator = new URL('https://jdmfinder.com.au/tools/calculator');
+  for (const [key,value] of Object.entries({src:'eligibility',utm_source:'importcheck',utm_medium:'model-guide',make:page.make_norm || '',model:page.canonical_name})) calculator.searchParams.set(key,value);
   return `<div class="cta">
 <h3>Check your exact car</h3>
+<p><a href="${esc(calculator.href)}">Estimate import costs</a> · <a href="/guides/import-pathways">Compare import pathways</a> · <a href="/methodology">How we check the records</a></p>
 <p>Compare the exact chassis code, build month and variant with the register. Send the details to JDM Connect for help checking the applicable approval and workshop requirements.</p>
 <a class="btn" href="/enquire?vehicle=${esc(encodeURIComponent(page.canonical_name))}">Ask about this vehicle</a><a class="btn alt" href="/">Open the eligibility checker</a>
 </div>`;
@@ -390,7 +404,8 @@ function cta(page) {
 
 export function modelLinks(pages, current) {
   const live = pages.filter(p => isLive(p) && p.slug !== current?.slug);
-  const related = current ? live.filter(p => p.make_norm === current.make_norm).slice(0, 6) : live.slice(0, 8);
+  const featured = ['nissan-skyline','subaru-impreza-wrx-sti','toyota-alphard-vellfire','toyota-crown','mitsubishi-lancer-evolution','toyota-supra'];
+  const related = current ? live.filter(p => p.make_norm === current.make_norm).slice(0, 6) : featured.map(slug=>live.find(p=>p.slug===slug)).filter(Boolean);
   return `<section class="card"><h2>${current ? 'Explore more models' : 'Browse model eligibility guides'}</h2><ul class="model-links">${related.map(p => `<li><a href="/vehicles/${esc(p.slug)}">${esc(p.canonical_name)}</a></li>`).join('')}</ul><p><a href="/vehicles">View all reviewed model guides &rarr;</a></p></section>`;
 }
 
@@ -465,6 +480,8 @@ export function renderVehiclePage(page, generatedAt, pages = []) {
     `<h1>${esc(page.h1 || page.canonical_name)}</h1>`,
     banner(page),
     lede(page.intro_copy),
+    `<p class="note">Register snapshot checked: ${esc(String(page.register_checked_at || generatedAt || '').slice(0,10))}. Content review: ${esc(page.content_reviewed_at || String(page.reviewed_at || '').slice(0,10))}. <a href="/methodology">Source and review method</a>.</p>`,
+    variantNavigation(page),
     approvalsTable(page),
     sourceRecords(page),
     specs(page),
@@ -510,7 +527,7 @@ export function renderVehicleIndex(pages, generatedAt) {
       return `<tr>
 <td><a href="/vehicles/${esc(p.slug)}"><strong>${esc(p.canonical_name)}</strong></a></td>
 <td>${state}</td>
-<td>${esc(ok ? windowText(p.usable_build_from, p.usable_build_to, p.usable_build_open) || "" : "")}</td>
+<td>${p.approvals.length} records. Check dates and scope on the model page.</td>
 </tr>`;
     })
     .join("\n");
@@ -518,9 +535,9 @@ export function renderVehicleIndex(pages, generatedAt) {
   const body = live.length
     ? `<div class="crumbs"><a href="/">Import Eligibility Register</a> &rsaquo; Models</div>
 <h1>Import eligibility by model</h1>
-<p class="lede">One page per model, read straight from the Australian ROVER register and rechecked every day. Each one shows only the approvals that are actually live, because a model report whose SEVS entry has been removed still reads In Force and will tell you a car is importable when it is not.</p>
+<p class="lede">Reviewed guides to the records listed for each model. Check the exact chassis, build window and conditions on the model page. A listed model is not approval for an individual car. <a href="/methodology">Read how we check the register</a>.</p>
 <div class="tablewrap"><table>
-<thead><tr><th>Model</th><th>Status today</th><th>Build dates covered</th></tr></thead>
+<thead><tr><th>Model</th><th>Register summary</th><th>Approval details</th></tr></thead>
 <tbody>${rows}</tbody>
 </table></div>
 <div class="cta">
@@ -554,6 +571,7 @@ export function renderVehicleIndex(pages, generatedAt) {
       name: page.h1,
       url: `${ORIGIN}/vehicles`,
       description: page.meta_description,
+      mainEntity: { '@type':'ItemList', itemListElement: live.map((p,index)=>({'@type':'ListItem',position:index+1,name:p.canonical_name,url:`${ORIGIN}/vehicles/${p.slug}`})) },
     }),
     generatedAt,
   });
