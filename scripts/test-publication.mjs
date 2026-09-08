@@ -62,5 +62,6 @@ for(const slug of ['lexus-gs-f','lexus-rc-f','honda-freed','subaru-forester']) {
 }
 const hub=await renderVehicleIndex(bundle.pages,bundle.generated_at).text();
 assert.match(hub,/ItemList/);
-assert.match(hub,/Jump to vehicle make/);
+assert.match(hub,/Search make or model/);
+assert.match(hub,/class="make-group"/);
 console.log(`Publication checks passed for ${bundle.pages.length} guides and ${coverage.pages.length} excluded candidates; source fields and sitemap gates match.`);

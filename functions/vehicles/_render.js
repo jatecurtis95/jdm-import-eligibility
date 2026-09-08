@@ -525,11 +525,7 @@ export function renderVehicleIndex(pages, generatedAt) {
       const state = ok
         ? `<span class="pill p-ok">On the register</span>`
         : `<span class="pill" style="background:var(--exp-bg);color:var(--exp-ink)">Not right now</span>`;
-      return `<tr>
-<td><a href="/vehicles/${esc(p.slug)}"><strong>${esc(p.canonical_name)}</strong></a></td>
-<td>${state}</td>
-<td>${p.approvals.length} records. Check dates and scope on the model page.</td>
-</tr>`;
+      return `<li data-model-search="${esc([p.canonical_name, p.make_norm, ...(p.aka_names || []), ...p.approvals.map(a => a.model_code || '')].join(' '))}"><a href="/vehicles/${esc(p.slug)}"><strong>${esc(p.canonical_name)}</strong><span>${state} &middot; ${p.approvals.length} records</span></a></li>`;
     })
     .join("\n");
 
@@ -540,16 +536,53 @@ export function renderVehicleIndex(pages, generatedAt) {
     byMake.get(make).push(model);
   }
   const makes = [...byMake].sort(([a],[b]) => a.localeCompare(b));
-  const directory = `<nav aria-label="Jump to vehicle make"><ul class="model-links">${makes.map(([make,models],i) => `<li><a href="#make-${i}">${esc(make)} (${models.length})</a></li>`).join('')}</ul></nav>`;
-  const tables = makes.map(([make,models],i) => `<section aria-labelledby="make-${i}"><h2 id="make-${i}">${esc(make)}</h2><div class="tablewrap"><table><thead><tr><th>Model</th><th>Register summary</th><th>Approval details</th></tr></thead><tbody>${rowsFor(models)}</tbody></table></div></section>`).join('');
+  const tables = makes.map(([make,models],i) => `<details class="make-group" id="make-${i}"><summary>${esc(make)} <span class="make-count">${models.length}</span></summary><ul class="directory-models">${rowsFor(models)}</ul></details>`).join('');
 
   const body = live.length
     ? `<div class="crumbs"><a href="/">Import Eligibility Register</a> &rsaquo; Models</div>
 <h1>Import eligibility by model</h1>
 <p class="lede">Reviewed guides to the records listed for each model. Check the exact chassis, build window and conditions on the model page. A listed model is not approval for an individual car. <a href="/methodology">Read how we check the register</a>.</p>
-<p>${live.length} reviewed guides. Jump to a make below.</p>
-<details class="card"><summary>Choose from ${makes.length} makes</summary>${directory}</details>
-${tables}
+<style>
+.directory-search{margin:22px 0}.directory-search label{display:block;font-weight:700;margin-bottom:8px}.directory-search-controls{display:flex;gap:8px}.directory-search input{min-width:0;flex:1;font:inherit;padding:12px;border:1px solid var(--line-strong);border-radius:10px;background:white;color:var(--ink)}.directory-search button{font:inherit;padding:10px 14px;border:1px solid var(--line-strong);border-radius:10px;background:var(--panel);cursor:pointer}.directory-status{color:var(--muted);font-size:14px;margin-top:8px}
+.make-directory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}.make-group{min-width:0;border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}.make-group[open]{grid-column:1/-1}.make-group summary{padding:14px 12px;cursor:pointer;font-weight:700;font-size:14px;overflow-wrap:anywhere;min-height:52px}.make-count{color:var(--muted);font-size:12px;font-weight:400}.make-count::before{content:'('}.make-count::after{content:')'}.directory-models{list-style:none;margin:0;padding:0 12px 12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:8px}.directory-models a{display:block;padding:12px;border:1px solid var(--line);border-radius:8px;text-decoration:none;overflow-wrap:anywhere}.directory-models a>span{display:block;font-size:12px;color:var(--muted);margin-top:5px}.directory-models a:hover{border-color:var(--gold)}.make-directory [hidden]{display:none!important}.directory-search :focus-visible,.make-group summary:focus-visible,.directory-models a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}@media(min-width:760px){.make-directory{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+<div class="directory-search" hidden>
+<label for="model-search">Search make or model</label>
+<div class="directory-search-controls"><input id="model-search" type="search" placeholder="Try Toyota, Skyline or R35" autocomplete="off" aria-controls="make-directory" /><button type="button" id="clear-model-search">Clear</button></div>
+<p class="directory-status" id="directory-status" role="status" aria-live="polite"></p>
+</div>
+<p>${live.length} reviewed guides across ${makes.length} makes. Choose a make to see its models.</p>
+<div class="make-directory" id="make-directory">${tables}</div>
+<p id="directory-empty" hidden>No matching guides. Try another make or model, or <a href="/">search the full eligibility register</a>.</p>
+<script>
+(()=>{
+const input=document.getElementById('model-search');
+const groups=[...document.querySelectorAll('.make-group')];
+const normalise=value=>value.toLowerCase().replace(/[^a-z0-9]+/g,'');
+const entries=groups.map(group=>({group,rows:[...group.querySelectorAll('[data-model-search]')].map(row=>({row,text:normalise(row.dataset.modelSearch)}))}));
+let previousOpen=null;
+function filter(){
+const query=normalise(input.value);
+if(query && previousOpen===null) previousOpen=groups.map(group=>group.open);
+let count=0;
+entries.forEach(({group,rows},index)=>{
+let matches=0;
+rows.forEach(({row,text})=>{row.hidden=!!query&&!text.includes(query);if(!row.hidden)matches++;});
+group.hidden=matches===0;
+if(query)group.open=matches>0;
+else if(previousOpen!==null)group.open=previousOpen[index];
+count+=matches;
+});
+if(!query)previousOpen=null;
+document.getElementById('directory-status').textContent=query?count+' matching guide'+(count===1?'':'s'):'';
+document.getElementById('directory-empty').hidden=count!==0;
+}
+input.addEventListener('input',filter);
+document.getElementById('clear-model-search').addEventListener('click',()=>{input.value='';filter();input.focus();});
+document.querySelector('.directory-search').hidden=false;
+filter();
+})();
+</script>
 <div class="cta">
 <h3>Not on the list?</h3>
 <p>These are the models written up so far. The checker covers the whole register, not just these.</p>
