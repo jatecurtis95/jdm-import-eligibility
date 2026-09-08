@@ -62,10 +62,30 @@ jobs:
       - name: build full-register review coverage
         run: node scripts/build-vehicle-coverage.mjs
 
+      - name: export source review snapshot
+        if: github.event_name == 'workflow_dispatch'
+        run: node scripts/export-review-snapshot.mjs
+        env:
+          SUPABASE_PAT: ${{ secrets.SUPABASE_PAT }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+
+      - name: retain review evidence
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-review-evidence
+          path: |
+            functions/_data/review-snapshot.json
+            functions/_data/vehicle-pages.json
+            functions/_data/vehicle-coverage.json
+            sitemap.xml
+          retention-days: 7
+
       - name: test coverage and enquiries
         run: node scripts/test-vehicle-coverage.mjs
 
       - name: commit
+        if: github.ref == 'refs/heads/main'
         shell: bash
         run: |
           git config user.email "action@github.com"
