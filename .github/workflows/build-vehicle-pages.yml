@@ -87,6 +87,7 @@ jobs:
       - name: test coverage and enquiries
         run: |
           node scripts/test-vehicle-coverage.mjs
+          node scripts/test-guide-mapping-integrity.mjs
           node scripts/test-publication.mjs
 
       - name: commit

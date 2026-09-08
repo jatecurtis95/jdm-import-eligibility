@@ -17,13 +17,18 @@ export function buildCoverage(register, editorial) {
   }
   const groups = new Map();
   let matchedRecords = 0;
+  const guideMatches = [];
   for (const scheme of ['sev', 'mre']) {
     for (const row of register[scheme] || []) {
       const recordId = row['SEV #'] || row['Approval number'];
       if (!recordId) throw new Error('Register record missing approval identifier');
       const key = row.Make && row.Model ? `${normalise(row.Make)}:${normalise(row.Model)}` : `unidentified:${normalise(recordId)}`;
       const matches = aliases.get(key);
-      if (matches?.size === 1) { matchedRecords++; continue; }
+      if (matches?.size === 1) {
+        matchedRecords++;
+        guideMatches.push({ scheme: scheme.toUpperCase(), approval_number: recordId, source_make: row.Make, source_model: row.Model, guide_slug: [...matches][0] });
+        continue;
+      }
       if (!groups.has(key)) groups.set(key, { make: row.Make || 'Make not recorded:', model: row.Model || recordId, sources: [], possible_matches: [...(matches || [])] });
       groups.get(key).sources.push({ scheme: scheme.toUpperCase(), approval_number: row['SEV #'] || row['Approval number'], model_code: row['Model code'] || row._variant_description || '', detail_url: row._detail_url });
     }
@@ -37,5 +42,5 @@ export function buildCoverage(register, editorial) {
     const name = `${group.make} ${group.model}`;
     return { slug, canonical_name: name, make_norm: group.make.toUpperCase(), h1: `${name}: register review`, title_tag: `${name} register review | Import Check`, meta_description: `Review source records for ${name}. Eligibility has not yet been verified.`, availability: 'unverified', publish_ready: false, reviewed_by: null, approvals: [], counts: {}, intel: {}, faqs: [], intro_copy: 'These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.', source_records: group.sources, possible_matches: group.possible_matches };
   });
-  return { generated_at: register.fetched_at, matched_records: matchedRecords, candidate_records: pages.reduce((sum,p) => sum + p.source_records.length, 0), pages };
+  return { generated_at: register.fetched_at, matched_records: matchedRecords, guide_matches: guideMatches, candidate_records: pages.reduce((sum,p) => sum + p.source_records.length, 0), pages };
 }
