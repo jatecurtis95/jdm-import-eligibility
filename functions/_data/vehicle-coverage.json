@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-09-08T06:36:55.209101+08:00",
-  "matched_records": 665,
+  "matched_records": 688,
   "guide_matches": [
     {
       "scheme": "SEV",
@@ -172,6 +172,13 @@
     },
     {
       "scheme": "SEV",
+      "approval_number": "SEV-000624",
+      "source_make": "Honda",
+      "source_model": "Freed",
+      "guide_slug": "honda-freed"
+    },
+    {
+      "scheme": "SEV",
       "approval_number": "SEV-000634",
       "source_make": "Toyota",
       "source_model": "70 Series Welcab",
@@ -246,6 +253,13 @@
       "source_make": "Honda",
       "source_model": "Civic Type R",
       "guide_slug": "honda-civic-type-r"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000653",
+      "source_make": "SUBARU",
+      "source_model": "Forester",
+      "guide_slug": "subaru-forester"
     },
     {
       "scheme": "SEV",
@@ -452,6 +466,13 @@
     },
     {
       "scheme": "SEV",
+      "approval_number": "SEV-000701",
+      "source_make": "LEXUS",
+      "source_model": "GS F",
+      "guide_slug": "lexus-gs-f"
+    },
+    {
+      "scheme": "SEV",
       "approval_number": "SEV-000708",
       "source_make": "SUBARU",
       "source_model": "IMPREZA",
@@ -652,6 +673,13 @@
       "source_make": "RAM",
       "source_model": "1500",
       "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000755",
+      "source_make": "Honda",
+      "source_model": "Freed",
+      "guide_slug": "honda-freed"
     },
     {
       "scheme": "SEV",
@@ -1040,6 +1068,13 @@
     },
     {
       "scheme": "SEV",
+      "approval_number": "SEV-000847",
+      "source_make": "Honda",
+      "source_model": "Freed",
+      "guide_slug": "honda-freed"
+    },
+    {
+      "scheme": "SEV",
       "approval_number": "SEV-000875",
       "source_make": "MITSUBISHI",
       "source_model": "Lancer Evolution VIII",
@@ -1114,6 +1149,13 @@
       "source_make": "NISSAN",
       "source_model": "Elgrand",
       "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000909",
+      "source_make": "LEXUS",
+      "source_model": "RC-F",
+      "guide_slug": "lexus-rc-f"
     },
     {
       "scheme": "SEV",
@@ -1530,6 +1572,13 @@
     },
     {
       "scheme": "SEV",
+      "approval_number": "SEV-001084",
+      "source_make": "LEXUS",
+      "source_model": "RC F",
+      "guide_slug": "lexus-rc-f"
+    },
+    {
+      "scheme": "SEV",
       "approval_number": "SEV-001088",
       "source_make": "Toyota",
       "source_model": "Alphard",
@@ -1719,6 +1768,13 @@
     },
     {
       "scheme": "MRE",
+      "approval_number": "MRE-000021",
+      "source_make": "SUBARU",
+      "source_model": "Forester",
+      "guide_slug": "subaru-forester"
+    },
+    {
+      "scheme": "MRE",
       "approval_number": "MRE-000022",
       "source_make": "Toyota",
       "source_model": "Crown",
@@ -1828,6 +1884,13 @@
       "source_make": "NISSAN",
       "source_model": "Serena",
       "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000044",
+      "source_make": "SUBARU",
+      "source_model": "Forester",
+      "guide_slug": "subaru-forester"
     },
     {
       "scheme": "MRE",
@@ -2346,6 +2409,13 @@
       "source_make": "NISSAN",
       "source_model": "Fairlady Z",
       "guide_slug": "nissan-fairlady-z"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000171",
+      "source_make": "SUBARU",
+      "source_model": "Forester",
+      "guide_slug": "subaru-forester"
     },
     {
       "scheme": "MRE",
@@ -3259,6 +3329,20 @@
     },
     {
       "scheme": "MRE",
+      "approval_number": "MRE-000534",
+      "source_make": "SUBARU",
+      "source_model": "FORESTER",
+      "guide_slug": "subaru-forester"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000535",
+      "source_make": "SUBARU",
+      "source_model": "FORESTER",
+      "guide_slug": "subaru-forester"
+    },
+    {
+      "scheme": "MRE",
       "approval_number": "MRE-000536",
       "source_make": "NISSAN",
       "source_model": "Skyline",
@@ -3410,6 +3494,13 @@
       "source_make": "SUBARU",
       "source_model": "Impreza",
       "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000572",
+      "source_make": "SUBARU",
+      "source_model": "FORESTER",
+      "guide_slug": "subaru-forester"
     },
     {
       "scheme": "MRE",
@@ -4029,6 +4120,20 @@
     },
     {
       "scheme": "MRE",
+      "approval_number": "MRE-000774",
+      "source_make": "LEXUS",
+      "source_model": "GS F",
+      "guide_slug": "lexus-gs-f"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000775",
+      "source_make": "LEXUS",
+      "source_model": "GS F",
+      "guide_slug": "lexus-gs-f"
+    },
+    {
+      "scheme": "MRE",
       "approval_number": "MRE-000776",
       "source_make": "NISSAN",
       "source_model": "Skyline",
@@ -4113,6 +4218,13 @@
     },
     {
       "scheme": "MRE",
+      "approval_number": "MRE-000802",
+      "source_make": "LEXUS",
+      "source_model": "GS F",
+      "guide_slug": "lexus-gs-f"
+    },
+    {
+      "scheme": "MRE",
       "approval_number": "MRE-000803",
       "source_make": "Toyota",
       "source_model": "Hiace 200 Series",
@@ -4194,6 +4306,13 @@
       "source_make": "Toyota",
       "source_model": "Corolla Touring Wagon",
       "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000833",
+      "source_make": "Honda",
+      "source_model": "Freed",
+      "guide_slug": "honda-freed"
     },
     {
       "scheme": "MRE",
@@ -4323,10 +4442,24 @@
     },
     {
       "scheme": "MRE",
+      "approval_number": "MRE-000874",
+      "source_make": "Honda",
+      "source_model": "Freed",
+      "guide_slug": "honda-freed"
+    },
+    {
+      "scheme": "MRE",
       "approval_number": "MRE-000875",
       "source_make": "Toyota",
       "source_model": "Hiace",
       "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000876",
+      "source_make": "Honda",
+      "source_model": "Freed",
+      "guide_slug": "honda-freed"
     },
     {
       "scheme": "MRE",
@@ -4372,10 +4505,24 @@
     },
     {
       "scheme": "MRE",
+      "approval_number": "MRE-000887",
+      "source_make": "LEXUS",
+      "source_model": "RC-F",
+      "guide_slug": "lexus-rc-f"
+    },
+    {
+      "scheme": "MRE",
       "approval_number": "MRE-000888",
       "source_make": "Toyota",
       "source_model": "Crown",
       "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000889",
+      "source_make": "LEXUS",
+      "source_model": "RC-F",
+      "guide_slug": "lexus-rc-f"
     },
     {
       "scheme": "MRE",
@@ -4397,6 +4544,13 @@
       "source_make": "NISSAN",
       "source_model": "Elgrand",
       "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000898",
+      "source_make": "LEXUS",
+      "source_model": "GS F",
+      "guide_slug": "lexus-gs-f"
     },
     {
       "scheme": "MRE",
@@ -4645,6 +4799,13 @@
     },
     {
       "scheme": "MRE",
+      "approval_number": "MRE-000981",
+      "source_make": "LEXUS",
+      "source_model": "RC F",
+      "guide_slug": "lexus-rc-f"
+    },
+    {
+      "scheme": "MRE",
       "approval_number": "MRE-000982",
       "source_make": "Toyota",
       "source_model": "Vellfire",
@@ -4658,7 +4819,7 @@
       "guide_slug": "toyota-noah-voxy"
     }
   ],
-  "candidate_records": 866,
+  "candidate_records": 843,
   "pages": [
     {
       "slug": "register-adambowescommercials-gbb255motorhome",
@@ -9055,61 +9216,6 @@
       "possible_matches": []
     },
     {
-      "slug": "register-honda-freed",
-      "canonical_name": "Honda Freed",
-      "make_norm": "HONDA",
-      "h1": "Honda Freed: register review",
-      "title_tag": "Honda Freed register review | Import Check",
-      "meta_description": "Review source records for Honda Freed. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000624",
-          "model_code": "GB7, GB8",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=ad5f8180-5242-ef11-a316-0022489279b9"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000755",
-          "model_code": "GT5, GT6, GT7, GT8",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=0a99da3c-cad3-ef11-8ee9-7c1e52624683"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000847",
-          "model_code": "GB3 / GB4",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=44ff6bf7-df14-f011-998a-6045bde65659"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000833",
-          "model_code": "WIGT1C",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=c9014aa9-d770-f011-b4cd-00224894ce7f"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000874",
-          "model_code": "WIGB1B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=66cd9e94-bfaf-f011-bbd2-7ced8da255df"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000876",
-          "model_code": "WIGB801A\nWIGB701A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=1a9069c1-60b8-f011-bbd2-7ced8da1753f"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
       "slug": "register-honda-freedwelfare",
       "canonical_name": "Honda Freed Welfare",
       "make_norm": "HONDA",
@@ -10034,55 +10140,6 @@
       "possible_matches": []
     },
     {
-      "slug": "register-lexus-gsf",
-      "canonical_name": "LEXUS GS F",
-      "make_norm": "LEXUS",
-      "h1": "LEXUS GS F: register review",
-      "title_tag": "LEXUS GS F register review | Import Check",
-      "meta_description": "Review source records for LEXUS GS F. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000701",
-          "model_code": "URL10",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=37d14472-da9e-ef11-8a6a-000d3acbed23"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000774",
-          "model_code": "WIURL1001B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=3bc0b617-ad0e-f011-9989-6045bdc4ab5f"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000775",
-          "model_code": "WIURL1001A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=a321a335-ad0e-f011-9989-6045bdc4ab5f"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000802",
-          "model_code": "WIURL101A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=8ac9f142-fd47-f011-877a-00224892d1b3"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000898",
-          "model_code": "RC-URL10-01A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=a89ab94f-fdef-f011-8407-6045bde72a1c"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
       "slug": "register-lexus-hs",
       "canonical_name": "LEXUS HS",
       "make_norm": "LEXUS",
@@ -10534,55 +10591,6 @@
           "approval_number": "MRE-000909",
           "model_code": "JDWIN-AVC10-B",
           "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=6ad8c34e-a30b-f111-8407-6045bde55707"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
-      "slug": "register-lexus-rcf",
-      "canonical_name": "LEXUS RC-F",
-      "make_norm": "LEXUS",
-      "h1": "LEXUS RC-F: register review",
-      "title_tag": "LEXUS RC-F register review | Import Check",
-      "meta_description": "Review source records for LEXUS RC-F. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000909",
-          "model_code": "USC10",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=5cb5c02d-e565-f011-bec3-00224897a93b"
-        },
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-001084",
-          "model_code": "USC10",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=4b3e1ed2-6b7f-f111-ab0e-7c1e528a7792"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000887",
-          "model_code": "WIUSC101B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=91faeac1-71bb-f011-bbd2-7ced8d335fa0"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000889",
-          "model_code": "RC-USC10-01A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=a4aae5cf-94c6-f011-bbd3-7c1e5289fc77"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000981",
-          "model_code": "WIUSC101C",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=3929185f-7b9b-f111-b8db-00224812329b"
         }
       ],
       "possible_matches": []
@@ -14383,67 +14391,6 @@
           "approval_number": "SEV-000908",
           "model_code": "Evora GT",
           "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=54e5b753-e465-f011-bec3-00224897a93b"
-        }
-      ],
-      "possible_matches": []
-    },
-    {
-      "slug": "register-subaru-forester",
-      "canonical_name": "SUBARU Forester",
-      "make_norm": "SUBARU",
-      "h1": "SUBARU Forester: register review",
-      "title_tag": "SUBARU Forester register review | Import Check",
-      "meta_description": "Review source records for SUBARU Forester. Eligibility has not yet been verified.",
-      "availability": "unverified",
-      "publish_ready": false,
-      "reviewed_by": null,
-      "approvals": [],
-      "counts": {},
-      "intel": {},
-      "faqs": [],
-      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
-      "source_records": [
-        {
-          "scheme": "SEV",
-          "approval_number": "SEV-000653",
-          "model_code": "SG5, SG9",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=7d377273-5575-ef11-a670-002248127868"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000021",
-          "model_code": "SG5 (CROSS SPORTS & XT) or SG9 ( STI VERSION) 5DR SG5 (1994) or SG9 (2457)CC Petrol",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=adc132ff-4fb1-ec11-a31d-0050569ede77"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000044",
-          "model_code": "RC-SG9STI-01D",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=f3d462b1-35c1-ec11-a30a-0050569e60b7"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000171",
-          "model_code": "WISG51C",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=0019bf7f-5aab-ed11-83ff-0022489333a7"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000534",
-          "model_code": "WISF501A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=ec242ff5-0cfd-ee11-9f89-000d3acac423"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000535",
-          "model_code": "WISF501A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=31c4692a-0dfd-ee11-9f89-000d3acac423"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000572",
-          "model_code": "WISF501A",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=b0951232-572f-ef11-840a-00224897d0d2"
         }
       ],
       "possible_matches": []
