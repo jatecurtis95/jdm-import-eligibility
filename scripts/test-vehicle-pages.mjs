@@ -135,7 +135,7 @@ check("blank lines become separate paragraphs", (lh.match(/<p class="lede">/g) |
 check("paragraph split does not swallow text", lh.includes("Watch the dates."));
 
 console.log("\napprovals table");
-check("build window is spelled out", lh.includes("Dec 1998 to Aug 2000"));
+check("the individual approval build window is shown", lh.includes("12/1998 - 8/2000"));
 check("expiring approvals are labelled", lh.includes("Expiring soon"));
 check("a SEV with no window says so", lh.includes("Not stated on the register"));
 check("withheld dead approvals are counted, not dated", dh.includes("7 model reports") || dh.includes("Not importable at the moment"));

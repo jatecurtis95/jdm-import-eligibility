@@ -1,8 +1,23 @@
+# Search and user-directed retrieval are allowed. Training permission is separate.
 User-agent: *
 Allow: /
 
-# Must match the canonical host in index.html. This line pointed at
-# caniimportit.com.au (the retired domain): Google ignores a sitemap served
-# from one host that lists URLs on another, so the site effectively had no
-# sitemap at all.
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: CCBot
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: Amazonbot
+User-agent: Bytespider
+Disallow: /
+
 Sitemap: https://importcheck.com.au/sitemap.xml
