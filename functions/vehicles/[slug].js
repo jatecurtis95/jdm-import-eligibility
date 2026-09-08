@@ -17,13 +17,14 @@
 // ============================================================================
 
 import bundle from "../_data/vehicle-pages.json";
+import coverage from "../_data/vehicle-coverage.json";
 import { renderVehiclePage, notFound } from "./_render.js";
 
-const BY_SLUG = new Map((bundle.pages || []).map((p) => [p.slug, p]));
+const BY_SLUG = new Map([...coverage.pages, ...bundle.pages].map((p) => [p.slug, p]));
 
 export async function onRequest(context) {
   const slug = String(context.params.slug || "").toLowerCase();
   const page = BY_SLUG.get(slug);
   if (!page) return notFound();
-  return renderVehiclePage(page, bundle.generated_at);
+  return renderVehiclePage(page, page.source_records ? coverage.generated_at : bundle.generated_at, bundle.pages);
 }

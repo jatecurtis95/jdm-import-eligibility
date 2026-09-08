@@ -45,7 +45,7 @@ export function esc(v) {
 // pages arrives as a trickle rather than all at once.
 export function isLive(page) {
   return Boolean(
-    page && page.publish_ready && page.reviewed_by && !page.stale && !page.embargoed,
+    page && page.availability !== 'unverified' && !page.source_records && page.publish_ready && page.reviewed_by && !page.stale && !page.embargoed,
   );
 }
 
@@ -175,7 +175,8 @@ ${robots}
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<style>${CSS}</style>`;
+<style>${CSS}.model-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;list-style:none;padding:0}.model-links a{display:block;padding:12px;border:1px solid var(--line);border-radius:8px;text-decoration:none;overflow-wrap:anywhere}.model-links a:hover{border-color:var(--gold)}
+</style>`;
 }
 
 // Lifted from index.html rather than reinvented. These pages sit on the same
@@ -254,6 +255,7 @@ function windowText(from, to, open) {
 }
 
 function banner(page) {
+  if (page.availability === 'unverified') return '<div class="card"><h2>Eligibility not yet verified</h2><p>This is a review draft. Check the original records and applicable approval conditions before making an eligibility assessment.</p></div>';
   const c = page.counts || {};
   const dead = Number(c.sev_basis_gone || 0) + Number(c.expired || 0);
 
@@ -293,8 +295,9 @@ function approvalsTable(page) {
   const rows = page.approvals
     .map((a) => {
       const cls = a.scheme === "SEV" ? "p-sev" : "p-mre";
-      const win = a.build_date_range
-        ? esc(a.build_date_range)
+      const dateRange = a.build_date_range || windowText(a.build_from, a.build_to, a.build_open);
+      const win = dateRange
+        ? esc(dateRange)
         : `<span style="color:var(--faint)">Not stated on the register</span>`;
       const status =
         a.status === "expiring"
@@ -349,7 +352,8 @@ function specs(page) {
 
   if (!items.length) return "";
 
-  return `<h2>The car itself</h2>
+  return `<h2>${i.generation ? `About the ${esc(i.generation)} generation` : 'Vehicle background'}</h2>
+<p class="note">These specifications describe the vehicle background below. They do not apply automatically to every approval or variant listed above.</p>
 <div class="card"><dl class="specs">
 ${items.map(([k, v]) => `<div class="spec"><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("\n")}
 </dl></div>`;
@@ -379,9 +383,26 @@ ${list.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></de
 function cta(page) {
   return `<div class="cta">
 <h3>Check your exact car</h3>
-<p>This page covers the model. The checker takes your build date and chassis code and tells you which approval, if any, actually covers the car you are looking at.</p>
-<a class="btn" href="/">Open the eligibility checker</a><a class="btn alt" href="https://jdmconnect.com.au">Talk to JDM Connect</a>
+<p>Compare the exact chassis code, build month and variant with the register. Send the details to JDM Connect for help checking the applicable approval and workshop requirements.</p>
+<a class="btn" href="/enquire?vehicle=${esc(encodeURIComponent(page.canonical_name))}">Ask about this vehicle</a><a class="btn alt" href="/">Open the eligibility checker</a>
 </div>`;
+}
+
+export function modelLinks(pages, current) {
+  const live = pages.filter(p => isLive(p) && p.slug !== current?.slug);
+  const related = current ? live.filter(p => p.make_norm === current.make_norm).slice(0, 6) : live.slice(0, 8);
+  return `<section class="card"><h2>${current ? 'Explore more models' : 'Browse model eligibility guides'}</h2><ul class="model-links">${related.map(p => `<li><a href="/vehicles/${esc(p.slug)}">${esc(p.canonical_name)}</a></li>`).join('')}</ul><p><a href="/vehicles">View all reviewed model guides &rarr;</a></p></section>`;
+}
+
+function sourceRecords(page) {
+  if (!page.source_records) return '';
+  const links = page.source_records.map(record => {
+    let url;
+    try { url = new URL(record.detail_url); } catch { return ''; }
+    if (url.protocol !== 'https:' || url.hostname !== 'www.rover.infrastructure.gov.au') return '';
+    return `<li><a href="${esc(url.href)}" target="_blank" rel="nofollow noopener">${esc(record.approval_number)}</a> (${esc(record.scheme)}) ${esc(record.model_code)}</li>`;
+  }).join('');
+  return `<h2>Original register records to review</h2><p>No build windows or eligibility verdict have been inferred from these records.</p><ul style="overflow-wrap:anywhere">${links}</ul>`;
 }
 
 // Structured data is only emitted on signed-off pages. Handing Google a rich
@@ -435,7 +456,7 @@ function lede(text) {
 // can exercise them directly. The route files are thin wrappers that do the
 // lookup and hand the page over.
 
-export function renderVehiclePage(page, generatedAt) {
+export function renderVehiclePage(page, generatedAt, pages = []) {
   const live = isLive(page);
   const canonicalPath = `/vehicles/${page.slug}`;
 
@@ -445,10 +466,12 @@ export function renderVehiclePage(page, generatedAt) {
     banner(page),
     lede(page.intro_copy),
     approvalsTable(page),
+    sourceRecords(page),
     specs(page),
     prose(page),
     faqs(page),
     cta(page),
+    modelLinks(pages, page),
   ]
     .filter(Boolean)
     .join("\n");
@@ -550,7 +573,8 @@ export function notFound() {
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="robots" content="noindex" /><title>Model not found | JDM Connect</title>
 <style>body{font-family:system-ui,sans-serif;background:#F6F2EB;color:#16130D;margin:0;padding:70px 20px;text-align:center}
-a{color:#96762B}</style></head><body>
+a{color:#96762B}.model-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;list-style:none;padding:0}.model-links a{display:block;padding:12px;border:1px solid var(--line);border-radius:8px;text-decoration:none;overflow-wrap:anywhere}.model-links a:hover{border-color:var(--gold)}
+</style></head><body>
 <h1>We do not have a page for that model</h1>
 <p><a href="/vehicles">See the models we cover</a> or <a href="/">run the eligibility checker</a>.</p>
 </body></html>`,

@@ -347,6 +347,7 @@
   .note{margin:18px 22px 0;font-size:11.5px;color:var(--faint);line-height:1.55}
 
   @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto !important} }
+.model-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;list-style:none;padding:0}.model-links a{display:block;padding:12px;border:1px solid var(--line);border-radius:8px;text-decoration:none;overflow-wrap:anywhere}.model-links a:hover{border-color:var(--gold)}
 </style>
 
 <script type="application/ld+json">
@@ -428,7 +429,7 @@
     <div class="eyebrow"><span class="rule"></span> SEVS + MRE &middot; Live government data<span id="heroUpdated" class="hero-updated"></span></div>
     <h1 class="title">Can I import it?</h1>
     <p class="lead">The full <b>SEVS</b> and <b>Model Report (MRE)</b> registers, live Australian Government ROVER data, updated daily.</p>
-    <p class="hero-cta-line">Know the model? Search below. Not sure where to start? <a id="heroQuote" class="hero-cta" href="https://jdmfinder.com.au/signup?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=hero" target="_blank" rel="noopener">Get a free eligibility check &rarr;</a></p>
+    <p class="hero-cta-line">Know the model? Search below. Not sure where to start? <a id="heroQuote" class="hero-cta" href="/enquire" target="_blank" rel="noopener">Get a free eligibility check &rarr;</a></p>
 
     <div class="stats" id="stats">
       <div class="stat"><div class="n" id="stSev" data-count="0"></div><div class="l">SEVS entries</div></div>
@@ -488,7 +489,7 @@
       <h3>No exact match in the register</h3>
       <div id="emptyMsg">Try a shorter search (just the model or chassis code), clear a filter, or untick “Currently eligible” to include models that don’t have a Model Report yet.</div>
       <div class="empty-cta">Can’t find your car? It may still be importable under a new or pending pathway, the register only shows what’s currently approved.
-        <a id="emptyQuote" href="https://jdmfinder.com.au/signup?src=eligibility&amp;utm_source=eligibility&amp;utm_medium=empty_state" target="_blank" rel="noopener">Get a free eligibility check →</a>
+        <a id="emptyQuote" href="/enquire" target="_blank" rel="noopener">Get a free eligibility check →</a>
       </div>
     </div>
     <div id="pagination" class="pagination" style="display:none">
@@ -520,6 +521,7 @@
       </details>
     </div>
   </section>
+<section id="model-guides" class="wrap"><h2>Model eligibility guides</h2><p><a href="/vehicles">Browse all reviewed model guides</a></p></section>
 </main>
 
 <footer class="site">
@@ -1558,6 +1560,10 @@ function wire(){
   const hq=$('headerQuote'); if(hq) hq.addEventListener('click', quoteClick('header'));
   const hrq=$('heroQuote'); if(hrq) hrq.addEventListener('click', quoteClick('hero'));
   const eq=$('emptyQuote'); if(eq) eq.addEventListener('click', quoteClick('empty_state'));
+  for (const link of [hrq, eq]) if (link) link.addEventListener('click', () => {
+    const vehicle = [F.make, F.model, $('q').value.trim()].filter(Boolean).join(' ');
+    link.href = '/enquire' + (vehicle ? '?vehicle=' + encodeURIComponent(vehicle) : '');
+  });
   // "Expiring soon" stat tile toggles a filter to just those approvals.
   const expTile=$('stExpTile');
   if(expTile){

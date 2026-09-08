@@ -13,6 +13,8 @@
 // importcheck.com.au did not appear at all. A canonical link is a hint a
 // crawler may ignore; a 301 is not. Every existing link to the subdomain keeps
 // working, it just lands on the brand we are actually building.
+import bundle from './_data/vehicle-pages.json';
+import { modelLinks } from './vehicles/_render.js';
 const CANONICAL_HOST = "importcheck.com.au";
 const REDIRECT_HOSTS = new Set([
   "www.importcheck.com.au",
@@ -33,5 +35,11 @@ export async function onRequest(context) {
     return Response.redirect(url.toString(), 301);
   }
 
-  return next();
+  const response = await next();
+  if (url.pathname === '/' && response.headers.get('content-type')?.includes('text/html')) {
+    return new HTMLRewriter().on('#model-guides', {
+      element(element) { element.setInnerContent(modelLinks(bundle.pages), { html: true }); }
+    }).transform(response);
+  }
+  return response;
 }

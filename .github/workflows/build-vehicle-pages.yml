@@ -59,12 +59,18 @@ jobs:
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
           DRIFT_MARKER_FILE:    ${{ runner.temp }}/drift.txt
 
+      - name: build full-register review coverage
+        run: node scripts/build-vehicle-coverage.mjs
+
+      - name: test coverage and enquiries
+        run: node scripts/test-vehicle-coverage.mjs
+
       - name: commit
         shell: bash
         run: |
           git config user.email "action@github.com"
           git config user.name "GitHub Actions [Vehicle Pages]"
-          git add functions/_data/vehicle-pages.json sitemap.xml
+          git add functions/_data/vehicle-pages.json functions/_data/vehicle-coverage.json sitemap.xml
           if git diff --cached --quiet; then
             echo "no change"
             exit 0

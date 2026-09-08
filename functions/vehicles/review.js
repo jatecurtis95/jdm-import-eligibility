@@ -18,9 +18,11 @@
 // ============================================================================
 
 import bundle from "../_data/vehicle-pages.json";
+import coverage from "../_data/vehicle-coverage.json";
 import { esc, isLive, shell } from "./_render.js";
 
 const VERDICT = {
+  unverified: ["Source records awaiting eligibility and model grouping review", "p-soon"],
   importable: ["On the register", "p-ok"],
   basis_gone: ["Approvals exist but their SEVS basis is gone", "p-dead"],
   no_live_approval: ["No live approval", "p-dead"],
@@ -28,7 +30,7 @@ const VERDICT = {
 };
 
 export async function onRequest() {
-  const pages = [...(bundle.pages || [])].sort((a, b) =>
+  const pages = [...(bundle.pages || []), ...coverage.pages].sort((a, b) =>
     String(a.slug).localeCompare(String(b.slug)),
   );
   // Three buckets, and the order matters. Drift is the urgent one: those pages
@@ -36,7 +38,13 @@ export async function onRequest() {
   // them, so they are the ones with a real chance of having said something
   // wrong to a real buyer.
   const drifted = pages.filter((p) => p.stale);
-  const drafts = pages.filter((p) => !isLive(p) && !p.stale);
+  const drafts = pages.filter((p) => !isLive(p) && !p.stale && !p.source_records);
+  const candidatesByMake = new Map();
+  for (const page of coverage.pages) {
+    const group = candidatesByMake.get(page.make_norm) || [];
+    group.push(page);
+    candidatesByMake.set(page.make_norm, group);
+  }
   const signed = pages.filter(isLive);
 
   const card = (p) => {
@@ -54,7 +62,7 @@ export async function onRequest() {
 <span class="pill ${cls}">${esc(label)}</span>
 </div>
 <div class="facts">
-  <span><b>${c.usable || 0}</b> live approval${c.usable === 1 ? "" : "s"}</span>
+  <span>${p.source_records ? `<b>${p.source_records.length}</b> source records, eligibility unverified` : `<b>${c.usable || 0}</b> live approval${c.usable === 1 ? "" : "s"}`}</span>
   ${dead ? `<span class="bad"><b>${dead}</b> withheld as dead</span>` : ""}
   ${c.expiring_soon ? `<span class="warn"><b>${c.expiring_soon}</b> expiring soon</span>` : ""}
   ${c.under_review ? `<span class="warn"><b>${c.under_review}</b> under review</span>` : ""}
@@ -67,13 +75,14 @@ ${faqs.map((f) => `<p><b>${esc(f.q)}</b><br />${esc(f.a)}</p>`).join("\n")}
 </details>`
     : ""
 }
-<p class="ask">Read the page, then check one thing: does anything on it claim more than the ${c.usable || 0} live approval${c.usable === 1 ? "" : "s"} actually support?</p>
+<p class="ask">${p.source_records ? 'Check model aliases, exact variants, approval status and linked SEVS basis. Create or extend a reviewed editorial guide before publication.' : `Read the page, then check one thing: does anything on it claim more than the ${c.usable || 0} live approvals actually support?`}</p>
 </div>`;
   };
 
   const body = `<div class="crumbs"><a href="/">Import Eligibility Register</a> &rsaquo; <a href="/vehicles">Models</a> &rsaquo; Review</div>
 <h1>Pages waiting on you</h1>
-<p class="lede">Every one of these is written and live at its own address, and every one is invisible to Google until you say otherwise. Nothing here can be indexed, linked from the models page, or put in the sitemap while it sits in this list.</p>
+<p class="lede">Review editorial drafts and candidate model groups from the full register here. Unreviewed pages carry noindex and are excluded from the public model hub and sitemap. Candidate groups may need merging with an existing model guide.</p>
+<p>${coverage.matched_records} register records match existing guides; ${coverage.candidate_records} records are queued in ${coverage.pages.length} candidate groups.</p>
 <div class="banner b-warn"><span class="dot"></span><div>
 <strong>What you are checking for</strong>
 <p>Not spelling. Whether the page claims a car is importable when the register no longer says so. Approvals that read In Force on ROVER can be resting on a SEVS entry that has been removed, and those are already stripped out of the numbers below. What you are checking is whether the words agree with the numbers.</p>
@@ -98,6 +107,10 @@ ${drifted
 <h2>Drafts (${drafts.length})</h2>
 ${drafts.length ? drafts.map(card).join("\n") : `<div class="card"><p style="margin:0">Nothing waiting.</p></div>`}
 
+<h2>Full-register candidates (${coverage.pages.length})</h2>
+<p>Choose a make to review one batch at a time. These are source groups, not verified model guides.</p>
+${[...candidatesByMake].sort(([a], [b]) => a.localeCompare(b)).map(([make, group]) => `<details class="card"><summary>${esc(make)} (${group.length})</summary>${group.map(card).join('\n')}</details>`).join('\n')}
+
 ${
   signed.length
     ? `<h2>Signed off (${signed.length})</h2>
@@ -114,6 +127,7 @@ ${signed
 
 <div class="cta">
 <h3>To publish one</h3>
+<p>Register candidates are research material. First confirm the model grouping and add verified content to the editorial database, using the existing eligibility view for approval status. Rebuild the coverage file after adding aliases so the candidate is absorbed into its reviewed guide.</p>
 <p>Say which pages you are happy with. Publishing sets two fields on the page record, publish_ready and reviewed_by, and the next daily build lifts the noindex flag and adds it to the sitemap. This page cannot do it on its own, on purpose: it sits on a public address, and anything that could flip the index gate from here could be found and used by anyone.</p>
 </div>`;
 
