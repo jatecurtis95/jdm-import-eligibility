@@ -1,6 +1,4663 @@
 {
   "generated_at": "2026-09-08T06:36:55.209101+08:00",
   "matched_records": 665,
+  "guide_matches": [
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000520",
+      "source_make": "NISSAN",
+      "source_model": "GT-R",
+      "guide_slug": "nissan-gtr-r35"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000523",
+      "source_make": "Toyota",
+      "source_model": "Aqua Welcab",
+      "guide_slug": "toyota-aqua"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000524",
+      "source_make": "Toyota",
+      "source_model": "Harrier Hybrid",
+      "guide_slug": "toyota-harrier"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000530",
+      "source_make": "Honda",
+      "source_model": "Stepwgn",
+      "guide_slug": "honda-stepwgn"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000536",
+      "source_make": "Toyota",
+      "source_model": "Corolla Cross",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000548",
+      "source_make": "LEXUS",
+      "source_model": "IS 500 F-Sport",
+      "guide_slug": "lexus-is500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000550",
+      "source_make": "LEXUS",
+      "source_model": "LS460",
+      "guide_slug": "lexus-ls460"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000554",
+      "source_make": "Honda",
+      "source_model": "Civic Type R",
+      "guide_slug": "honda-civic-type-r"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000561",
+      "source_make": "Toyota",
+      "source_model": "Prius Alpha Welcab",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000567",
+      "source_make": "Toyota",
+      "source_model": "Supra",
+      "guide_slug": "toyota-supra"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000569",
+      "source_make": "Toyota",
+      "source_model": "Century",
+      "guide_slug": "toyota-century"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000575",
+      "source_make": "Honda",
+      "source_model": "Odyssey Welfare",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000581",
+      "source_make": "SUBARU",
+      "source_model": "Impreza WRX STi A-Line",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000587",
+      "source_make": "Toyota",
+      "source_model": "Crown Sport",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000595",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000599",
+      "source_make": "Toyota",
+      "source_model": "Estima Campervan",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000602",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000616",
+      "source_make": "RAM",
+      "source_model": "HD Series",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000617",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000619",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000620",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000621",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000622",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000623",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000634",
+      "source_make": "Toyota",
+      "source_model": "70 Series Welcab",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000635",
+      "source_make": "Toyota",
+      "source_model": "70 Series Welcab",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000638",
+      "source_make": "Toyota",
+      "source_model": "20 Series Welcab",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000639",
+      "source_make": "Toyota",
+      "source_model": "20 Series Welcab",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000640",
+      "source_make": "Toyota",
+      "source_model": "20 Series Welcab",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000641",
+      "source_make": "Toyota",
+      "source_model": "20 Series Welcab",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000643",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Wagon",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000644",
+      "source_make": "Toyota",
+      "source_model": "Aristo",
+      "guide_slug": "toyota-aristo"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000645",
+      "source_make": "Toyota",
+      "source_model": "Century",
+      "guide_slug": "toyota-century"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000646",
+      "source_make": "NISSAN",
+      "source_model": "GT-R",
+      "guide_slug": "nissan-gtr-r35"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000650",
+      "source_make": "Honda",
+      "source_model": "Civic Type R",
+      "guide_slug": "honda-civic-type-r"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000654",
+      "source_make": "SUZUKI",
+      "source_model": "Jimny",
+      "guide_slug": "suzuki-jimny"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000656",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000657",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000658",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000659",
+      "source_make": "Honda",
+      "source_model": "Civic Type R",
+      "guide_slug": "honda-civic-type-r"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000661",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000662",
+      "source_make": "Toyota",
+      "source_model": "Estima",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000663",
+      "source_make": "Toyota",
+      "source_model": "Estima",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000664",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000665",
+      "source_make": "Honda",
+      "source_model": "Vezel",
+      "guide_slug": "honda-vezel"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000667",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000668",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000675",
+      "source_make": "Toyota",
+      "source_model": "70 Series Welcab",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000676",
+      "source_make": "Toyota",
+      "source_model": "20 Series Welcab",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000677",
+      "source_make": "SUBARU",
+      "source_model": "Legacy",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000678",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000681",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Hybrid",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000682",
+      "source_make": "Toyota",
+      "source_model": "Estima",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000686",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000690",
+      "source_make": "NISSAN",
+      "source_model": "Fairlady Z",
+      "guide_slug": "nissan-fairlady-z"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000691",
+      "source_make": "NISSAN",
+      "source_model": "LEAF",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000693",
+      "source_make": "Ford",
+      "source_model": "F-150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000694",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000695",
+      "source_make": "Mercedes-Benz",
+      "source_model": "230",
+      "guide_slug": "mercedes-benz-sl55-amg"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000696",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000697",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000698",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000699",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000700",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000708",
+      "source_make": "SUBARU",
+      "source_model": "IMPREZA",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000713",
+      "source_make": "Ford",
+      "source_model": "F-150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000717",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000719",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000721",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000722",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000723",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000724",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000725",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000726",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000727",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000728",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000730",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000731",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000733",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000738",
+      "source_make": "Toyota",
+      "source_model": "80 Series Welcab",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000739",
+      "source_make": "Toyota",
+      "source_model": "80 Series Welcab",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000740",
+      "source_make": "Toyota",
+      "source_model": "Mark X",
+      "guide_slug": "toyota-mark-x"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000741",
+      "source_make": "Toyota",
+      "source_model": "Mark X",
+      "guide_slug": "toyota-mark-x"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000742",
+      "source_make": "Toyota",
+      "source_model": "Mark X",
+      "guide_slug": "toyota-mark-x"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000743",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000744",
+      "source_make": "Toyota",
+      "source_model": "Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000745",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000746",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000747",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000748",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000749",
+      "source_make": "Mazda",
+      "source_model": "RX-7",
+      "guide_slug": "mazda-rx-7"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000751",
+      "source_make": "Mercedes-Benz",
+      "source_model": "230",
+      "guide_slug": "mercedes-benz-sl55-amg"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000754",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000756",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000759",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000760",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000761",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000762",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000763",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000764",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000765",
+      "source_make": "Toyota",
+      "source_model": "Alphard/Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000767",
+      "source_make": "NISSAN",
+      "source_model": "Silvia",
+      "guide_slug": "nissan-silvia-s15"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000768",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000769",
+      "source_make": "NISSAN",
+      "source_model": "SKYLINE",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000770",
+      "source_make": "NISSAN",
+      "source_model": "SKYLINE",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000771",
+      "source_make": "NISSAN",
+      "source_model": "SKYLINE",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000772",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000773",
+      "source_make": "Toyota",
+      "source_model": "MARK II IR-V",
+      "guide_slug": "toyota-mark-ii"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000774",
+      "source_make": "Toyota",
+      "source_model": "Hiace 200 Series",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000776",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000777",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000790",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer Evolution IX",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000793",
+      "source_make": "NISSAN",
+      "source_model": "NV350",
+      "guide_slug": "nissan-nv350"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000794",
+      "source_make": "NISSAN",
+      "source_model": "NV350",
+      "guide_slug": "nissan-nv350"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000795",
+      "source_make": "NISSAN",
+      "source_model": "NV350",
+      "guide_slug": "nissan-nv350"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000796",
+      "source_make": "NISSAN",
+      "source_model": "NV350",
+      "guide_slug": "nissan-nv350"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000797",
+      "source_make": "NISSAN",
+      "source_model": "NV350",
+      "guide_slug": "nissan-nv350"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000798",
+      "source_make": "NISSAN",
+      "source_model": "NV350",
+      "guide_slug": "nissan-nv350"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000800",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000801",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000802",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000803",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000804",
+      "source_make": "NISSAN",
+      "source_model": "Elgrand",
+      "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000805",
+      "source_make": "Toyota",
+      "source_model": "Porte / Spade",
+      "guide_slug": "toyota-porte-spade"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000806",
+      "source_make": "Toyota",
+      "source_model": "Porte / Spade",
+      "guide_slug": "toyota-porte-spade"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000807",
+      "source_make": "Toyota",
+      "source_model": "Porte / Spade",
+      "guide_slug": "toyota-porte-spade"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000808",
+      "source_make": "Toyota",
+      "source_model": "Porte / Spade",
+      "guide_slug": "toyota-porte-spade"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000809",
+      "source_make": "Toyota",
+      "source_model": "Porte / Spade",
+      "guide_slug": "toyota-porte-spade"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000810",
+      "source_make": "Toyota",
+      "source_model": "Porte / Spade",
+      "guide_slug": "toyota-porte-spade"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000811",
+      "source_make": "Toyota",
+      "source_model": "Porte / Spade",
+      "guide_slug": "toyota-porte-spade"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000812",
+      "source_make": "Toyota",
+      "source_model": "Corolla",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000813",
+      "source_make": "Toyota",
+      "source_model": "Hiace Campervan",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000817",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000818",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000819",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000820",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000821",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000822",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000823",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000828",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000831",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000832",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000833",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000835",
+      "source_make": "Toyota",
+      "source_model": "Noah / Voxy",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000836",
+      "source_make": "NISSAN",
+      "source_model": "Elgrand",
+      "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000838",
+      "source_make": "RAM",
+      "source_model": "2500",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000839",
+      "source_make": "RAM",
+      "source_model": "2500",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000840",
+      "source_make": "RAM",
+      "source_model": "2500",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000875",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer Evolution VIII",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000876",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer Evolution VII",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000877",
+      "source_make": "SUBARU",
+      "source_model": "LEGACY",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000887",
+      "source_make": "Toyota",
+      "source_model": "80 Series Hybrid",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000888",
+      "source_make": "Toyota",
+      "source_model": "80 Series Hybrid",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000889",
+      "source_make": "Toyota",
+      "source_model": "80 Series Hybrid",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000897",
+      "source_make": "SUBARU",
+      "source_model": "Legacy",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000898",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer Evolution X",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000900",
+      "source_make": "Toyota",
+      "source_model": "Century",
+      "guide_slug": "toyota-century"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000902",
+      "source_make": "Toyota",
+      "source_model": "Voxy",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000905",
+      "source_make": "NISSAN",
+      "source_model": "Elgrand",
+      "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000912",
+      "source_make": "Toyota",
+      "source_model": "Estima Campervan",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000915",
+      "source_make": "Toyota",
+      "source_model": "90 SERIES WELCAB",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000916",
+      "source_make": "Toyota",
+      "source_model": "90 SERIES WELCAB",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000917",
+      "source_make": "Toyota",
+      "source_model": "90 SERIES WELCAB",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000919",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000920",
+      "source_make": "LEXUS",
+      "source_model": "LS460",
+      "guide_slug": "lexus-ls460"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000921",
+      "source_make": "LEXUS",
+      "source_model": "LS460",
+      "guide_slug": "lexus-ls460"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000924",
+      "source_make": "Toyota",
+      "source_model": "Alphard/Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000932",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000933",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000941",
+      "source_make": "Toyota",
+      "source_model": "Crown Hybrid",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000942",
+      "source_make": "Toyota",
+      "source_model": "Crown Hybrid",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000943",
+      "source_make": "Toyota",
+      "source_model": "Crown Hybrid",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000945",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000946",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000948",
+      "source_make": "Ford",
+      "source_model": "F-150 RAPTOR",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000954",
+      "source_make": "SUBARU",
+      "source_model": "Impreza WRX STI",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000957",
+      "source_make": "Toyota",
+      "source_model": "Harrier Hybrid",
+      "guide_slug": "toyota-harrier"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000958",
+      "source_make": "SUBARU",
+      "source_model": "LEGACY",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000963",
+      "source_make": "Toyota",
+      "source_model": "Chaser Tourer V",
+      "guide_slug": "toyota-chaser"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000964",
+      "source_make": "Toyota",
+      "source_model": "Noah",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000970",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000974",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000975",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000976",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000977",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000978",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000979",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000983",
+      "source_make": "Ford",
+      "source_model": "F-150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000984",
+      "source_make": "RAM",
+      "source_model": "2500",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000987",
+      "source_make": "Toyota",
+      "source_model": "90 SERIES WELCAB",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000988",
+      "source_make": "RAM",
+      "source_model": "HD Series",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000989",
+      "source_make": "RAM",
+      "source_model": "Commercial",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000990",
+      "source_make": "Honda",
+      "source_model": "S660",
+      "guide_slug": "honda-s660"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000991",
+      "source_make": "Toyota",
+      "source_model": "80 Series Campervan",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-000999",
+      "source_make": "SUBARU",
+      "source_model": "IMPREZA WRX",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001008",
+      "source_make": "RAM",
+      "source_model": "HD SERIES",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001011",
+      "source_make": "Toyota",
+      "source_model": "Aqua",
+      "guide_slug": "toyota-aqua"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001012",
+      "source_make": "Toyota",
+      "source_model": "Aqua",
+      "guide_slug": "toyota-aqua"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001017",
+      "source_make": "SUBARU",
+      "source_model": "WRX STI",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001020",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001022",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001023",
+      "source_make": "Ford",
+      "source_model": "F150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001026",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001035",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001041",
+      "source_make": "SUBARU",
+      "source_model": "LEGACY",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001042",
+      "source_make": "SUBARU",
+      "source_model": "LEGACY",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001047",
+      "source_make": "Toyota",
+      "source_model": "CROWN CROSSOVER",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001048",
+      "source_make": "Ford",
+      "source_model": "F-150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001051",
+      "source_make": "Toyota",
+      "source_model": "Supra",
+      "guide_slug": "toyota-supra"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001052",
+      "source_make": "Toyota",
+      "source_model": "Supra",
+      "guide_slug": "toyota-supra"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001055",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001058",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001060",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001061",
+      "source_make": "NISSAN",
+      "source_model": "LEAF",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001066",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001068",
+      "source_make": "Toyota",
+      "source_model": "Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001073",
+      "source_make": "NISSAN",
+      "source_model": "NV350 Chaircab / Welfare variant",
+      "guide_slug": "nissan-nv350"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001080",
+      "source_make": "NISSAN",
+      "source_model": "Elgrand Campervan",
+      "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001088",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001089",
+      "source_make": "Toyota",
+      "source_model": "Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001090",
+      "source_make": "Toyota",
+      "source_model": "Prius Welcab",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001091",
+      "source_make": "NISSAN",
+      "source_model": "STAGEA",
+      "guide_slug": "nissan-stagea"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001092",
+      "source_make": "NISSAN",
+      "source_model": "STAGEA",
+      "guide_slug": "nissan-stagea"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001093",
+      "source_make": "NISSAN",
+      "source_model": "STAGEA",
+      "guide_slug": "nissan-stagea"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001094",
+      "source_make": "NISSAN",
+      "source_model": "STAGEA",
+      "guide_slug": "nissan-stagea"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001095",
+      "source_make": "NISSAN",
+      "source_model": "STAGEA",
+      "guide_slug": "nissan-stagea"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001096",
+      "source_make": "Toyota",
+      "source_model": "Prius Welcab",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000001",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Wagon",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000002",
+      "source_make": "Toyota",
+      "source_model": "70 Series Welcab",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000003",
+      "source_make": "Toyota",
+      "source_model": "20 Series Welcab",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000004",
+      "source_make": "NISSAN",
+      "source_model": "GT-R",
+      "guide_slug": "nissan-gtr-r35"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000007",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000008",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000009",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000010",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000011",
+      "source_make": "Mazda",
+      "source_model": "RX-7",
+      "guide_slug": "mazda-rx-7"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000012",
+      "source_make": "Toyota",
+      "source_model": "Estima",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000013",
+      "source_make": "NISSAN",
+      "source_model": "Silvia",
+      "guide_slug": "nissan-silvia-s15"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000014",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000015",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000016",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000017",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000018",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000019",
+      "source_make": "Honda",
+      "source_model": "Vezel",
+      "guide_slug": "honda-vezel"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000020",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000022",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000023",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000024",
+      "source_make": "Toyota",
+      "source_model": "Estima",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000025",
+      "source_make": "SUZUKI",
+      "source_model": "Jimny",
+      "guide_slug": "suzuki-jimny"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000026",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000027",
+      "source_make": "Toyota",
+      "source_model": "Mark X",
+      "guide_slug": "toyota-mark-x"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000028",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000030",
+      "source_make": "Toyota",
+      "source_model": "80 Series Welcab",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000031",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000032",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000033",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000035",
+      "source_make": "Toyota",
+      "source_model": "MARK II IR-V",
+      "guide_slug": "toyota-mark-ii"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000036",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000038",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000040",
+      "source_make": "Toyota",
+      "source_model": "Estima",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000041",
+      "source_make": "NISSAN",
+      "source_model": "Serena",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000045",
+      "source_make": "Toyota",
+      "source_model": "Porte / Spade",
+      "guide_slug": "toyota-porte-spade"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000046",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000047",
+      "source_make": "SUBARU",
+      "source_model": "Impreza",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000048",
+      "source_make": "Toyota",
+      "source_model": "Aristo",
+      "guide_slug": "toyota-aristo"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000049",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000051",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer Evolution IX",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000052",
+      "source_make": "MITSUBISHI",
+      "source_model": "LANCER EVOLUTION VIII",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000053",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer Evolution VII",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000054",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000055",
+      "source_make": "Toyota",
+      "source_model": "Century",
+      "guide_slug": "toyota-century"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000057",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000058",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000059",
+      "source_make": "SUBARU",
+      "source_model": "Impreza",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000060",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000061",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000062",
+      "source_make": "Toyota",
+      "source_model": "Porte / Spade",
+      "guide_slug": "toyota-porte-spade"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000063",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer Evolution VIII",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000064",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer Evolution VII",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000066",
+      "source_make": "Toyota",
+      "source_model": "Alphard/Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000067",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000068",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000069",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000071",
+      "source_make": "Toyota",
+      "source_model": "Century",
+      "guide_slug": "toyota-century"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000073",
+      "source_make": "SUBARU",
+      "source_model": "LEGACY",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000074",
+      "source_make": "Toyota",
+      "source_model": "Estima",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000075",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000076",
+      "source_make": "Toyota",
+      "source_model": "MARK II IR-V",
+      "guide_slug": "toyota-mark-ii"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000077",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000078",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000079",
+      "source_make": "Toyota",
+      "source_model": "Mark X",
+      "guide_slug": "toyota-mark-x"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000081",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000083",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000085",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000087",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000089",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000090",
+      "source_make": "Toyota",
+      "source_model": "80 Series Hybrid",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000091",
+      "source_make": "Toyota",
+      "source_model": "Alphard/Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000092",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000094",
+      "source_make": "Toyota",
+      "source_model": "20 Series Welcab",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000095",
+      "source_make": "Toyota",
+      "source_model": "Mark X",
+      "guide_slug": "toyota-mark-x"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000097",
+      "source_make": "NISSAN",
+      "source_model": "NOTE",
+      "guide_slug": "nissan-note"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000099",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000101",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000102",
+      "source_make": "NISSAN",
+      "source_model": "LEAF",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000107",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000108",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000110",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000111",
+      "source_make": "Toyota",
+      "source_model": "70 Series Welcab",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000114",
+      "source_make": "NISSAN",
+      "source_model": "NOTE",
+      "guide_slug": "nissan-note"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000115",
+      "source_make": "Toyota",
+      "source_model": "80 Series Welcab",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000117",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000119",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000120",
+      "source_make": "MITSUBISHI",
+      "source_model": "LANCER EVOLUTION X",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000121",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000125",
+      "source_make": "Toyota",
+      "source_model": "Noah / Voxy",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000126",
+      "source_make": "Toyota",
+      "source_model": "80 Series Hybrid",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000132",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000133",
+      "source_make": "MITSUBISHI",
+      "source_model": "LANCER EVOLUTION X",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000134",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000136",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000138",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000139",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000141",
+      "source_make": "Toyota",
+      "source_model": "Crown Hybrid",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000147",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000148",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000149",
+      "source_make": "NISSAN",
+      "source_model": "LEAF",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000151",
+      "source_make": "MITSUBISHI",
+      "source_model": "Lancer Evolution IX",
+      "guide_slug": "mitsubishi-lancer-evolution"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000155",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000157",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000159",
+      "source_make": "SUBARU",
+      "source_model": "WRX STi",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000162",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000164",
+      "source_make": "Toyota",
+      "source_model": "Chaser Tourer V",
+      "guide_slug": "toyota-chaser"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000167",
+      "source_make": "Mazda",
+      "source_model": "RX-7",
+      "guide_slug": "mazda-rx-7"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000170",
+      "source_make": "NISSAN",
+      "source_model": "Fairlady Z",
+      "guide_slug": "nissan-fairlady-z"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000175",
+      "source_make": "Mazda",
+      "source_model": "RX-7",
+      "guide_slug": "mazda-rx-7"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000177",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000178",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000179",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000181",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Wagon",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000184",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000190",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000192",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000194",
+      "source_make": "Ford",
+      "source_model": "F-150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000196",
+      "source_make": "SUBARU",
+      "source_model": "Impreza",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000199",
+      "source_make": "SUBARU",
+      "source_model": "Impreza WRX STI",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000202",
+      "source_make": "SUBARU",
+      "source_model": "Impreza WRX STI",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000203",
+      "source_make": "LEXUS",
+      "source_model": "LS460",
+      "guide_slug": "lexus-ls460"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000204",
+      "source_make": "SUBARU",
+      "source_model": "Legacy",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000209",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000211",
+      "source_make": "SUBARU",
+      "source_model": "Legacy",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000212",
+      "source_make": "Honda",
+      "source_model": "Civic Type R",
+      "guide_slug": "honda-civic-type-r"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000214",
+      "source_make": "Toyota",
+      "source_model": "Noah",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000215",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000216",
+      "source_make": "NISSAN",
+      "source_model": "Fairlady Z",
+      "guide_slug": "nissan-fairlady-z"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000217",
+      "source_make": "SUBARU",
+      "source_model": "LEGACY",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000223",
+      "source_make": "NISSAN",
+      "source_model": "GT-R",
+      "guide_slug": "nissan-gtr-r35"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000225",
+      "source_make": "Honda",
+      "source_model": "S660",
+      "guide_slug": "honda-s660"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000226",
+      "source_make": "SUBARU",
+      "source_model": "Impreza WRX",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000233",
+      "source_make": "Toyota",
+      "source_model": "Hiace Campervan",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000234",
+      "source_make": "Toyota",
+      "source_model": "Harrier Hybrid",
+      "guide_slug": "toyota-harrier"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000236",
+      "source_make": "SUBARU",
+      "source_model": "WRX STI",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000237",
+      "source_make": "NISSAN",
+      "source_model": "Elgrand",
+      "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000240",
+      "source_make": "SUBARU",
+      "source_model": "Impreza",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000242",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000245",
+      "source_make": "Toyota",
+      "source_model": "Mark X",
+      "guide_slug": "toyota-mark-x"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000247",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000248",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000251",
+      "source_make": "Toyota",
+      "source_model": "Crown Hybrid",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000254",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000256",
+      "source_make": "Honda",
+      "source_model": "S660",
+      "guide_slug": "honda-s660"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000260",
+      "source_make": "Toyota",
+      "source_model": "Harrier Hybrid",
+      "guide_slug": "toyota-harrier"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000262",
+      "source_make": "Honda",
+      "source_model": "Vezel",
+      "guide_slug": "honda-vezel"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000263",
+      "source_make": "Toyota",
+      "source_model": "Chaser Tourer V",
+      "guide_slug": "toyota-chaser"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000264",
+      "source_make": "NISSAN",
+      "source_model": "SKYLINE",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000271",
+      "source_make": "SUZUKI",
+      "source_model": "Jimny",
+      "guide_slug": "suzuki-jimny"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000272",
+      "source_make": "NISSAN",
+      "source_model": "GT-R",
+      "guide_slug": "nissan-gtr-r35"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000277",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000278",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Wagon",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000281",
+      "source_make": "Ford",
+      "source_model": "F-150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000284",
+      "source_make": "NISSAN",
+      "source_model": "NV350",
+      "guide_slug": "nissan-nv350"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000287",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000293",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000297",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000299",
+      "source_make": "NISSAN",
+      "source_model": "Elgrand",
+      "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000301",
+      "source_make": "Ford",
+      "source_model": "F150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000302",
+      "source_make": "RAM",
+      "source_model": "HD SERIES",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000303",
+      "source_make": "SUBARU",
+      "source_model": "WRX STI",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000304",
+      "source_make": "LEXUS",
+      "source_model": "LS460",
+      "guide_slug": "lexus-ls460"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000305",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000307",
+      "source_make": "Toyota",
+      "source_model": "CROWN CROSSOVER",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000309",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000310",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000311",
+      "source_make": "Toyota",
+      "source_model": "Supra",
+      "guide_slug": "toyota-supra"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000312",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000314",
+      "source_make": "NISSAN",
+      "source_model": "Elgrand",
+      "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000316",
+      "source_make": "Toyota",
+      "source_model": "Harrier Hybrid",
+      "guide_slug": "toyota-harrier"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000319",
+      "source_make": "Toyota",
+      "source_model": "Noah",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000321",
+      "source_make": "Toyota",
+      "source_model": "Crown Hybrid",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000322",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000326",
+      "source_make": "NISSAN",
+      "source_model": "NOTE",
+      "guide_slug": "nissan-note"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000327",
+      "source_make": "Toyota",
+      "source_model": "Century",
+      "guide_slug": "toyota-century"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000328",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000330",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000331",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000332",
+      "source_make": "Ford",
+      "source_model": "F-150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000333",
+      "source_make": "NISSAN",
+      "source_model": "LEAF",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000335",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000342",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000344",
+      "source_make": "Honda",
+      "source_model": "S660",
+      "guide_slug": "honda-s660"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000346",
+      "source_make": "Honda",
+      "source_model": "Civic Type R",
+      "guide_slug": "honda-civic-type-r"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000354",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Wagon",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000355",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000357",
+      "source_make": "SUBARU",
+      "source_model": "IMPREZA WRX",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000358",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000363",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000364",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000366",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000367",
+      "source_make": "Toyota",
+      "source_model": "Crown Hybrid",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000371",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000376",
+      "source_make": "Toyota",
+      "source_model": "Century",
+      "guide_slug": "toyota-century"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000378",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000384",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000385",
+      "source_make": "RAM",
+      "source_model": "2500",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000386",
+      "source_make": "Honda",
+      "source_model": "Civic Type R",
+      "guide_slug": "honda-civic-type-r"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000387",
+      "source_make": "Honda",
+      "source_model": "Stepwgn",
+      "guide_slug": "honda-stepwgn"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000396",
+      "source_make": "RAM",
+      "source_model": "HD SERIES",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000404",
+      "source_make": "Toyota",
+      "source_model": "Crown Hybrid",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000407",
+      "source_make": "SUBARU",
+      "source_model": "LEGACY",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000408",
+      "source_make": "SUBARU",
+      "source_model": "LEGACY",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000414",
+      "source_make": "Toyota",
+      "source_model": "Estima Campervan",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000418",
+      "source_make": "Toyota",
+      "source_model": "Prius Welcab",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000421",
+      "source_make": "NISSAN",
+      "source_model": "NOTE",
+      "guide_slug": "nissan-note"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000434",
+      "source_make": "NISSAN",
+      "source_model": "Serena",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000435",
+      "source_make": "Ford",
+      "source_model": "F150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000437",
+      "source_make": "Toyota",
+      "source_model": "Aristo",
+      "guide_slug": "toyota-aristo"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000444",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000445",
+      "source_make": "Toyota",
+      "source_model": "Harrier Hybrid",
+      "guide_slug": "toyota-harrier"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000446",
+      "source_make": "Toyota",
+      "source_model": "Harrier Hybrid",
+      "guide_slug": "toyota-harrier"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000447",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000451",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000463",
+      "source_make": "Ford",
+      "source_model": "F-150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000471",
+      "source_make": "Honda",
+      "source_model": "Stepwgn",
+      "guide_slug": "honda-stepwgn"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000472",
+      "source_make": "Honda",
+      "source_model": "Vezel",
+      "guide_slug": "honda-vezel"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000478",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000482",
+      "source_make": "Toyota",
+      "source_model": "Corolla Cross",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000483",
+      "source_make": "Toyota",
+      "source_model": "Corolla Cross",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000484",
+      "source_make": "Honda",
+      "source_model": "Civic Type R",
+      "guide_slug": "honda-civic-type-r"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000485",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000490",
+      "source_make": "Honda",
+      "source_model": "Stepwgn",
+      "guide_slug": "honda-stepwgn"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000493",
+      "source_make": "Toyota",
+      "source_model": "Noah",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000496",
+      "source_make": "Honda",
+      "source_model": "Stepwgn",
+      "guide_slug": "honda-stepwgn"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000498",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000500",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000501",
+      "source_make": "Toyota",
+      "source_model": "Noah",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000508",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000509",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000511",
+      "source_make": "NISSAN",
+      "source_model": "SKYLINE",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000513",
+      "source_make": "NISSAN",
+      "source_model": "SKYLINE",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000518",
+      "source_make": "Toyota",
+      "source_model": "HIACE campervan",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000520",
+      "source_make": "Toyota",
+      "source_model": "Estima",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000523",
+      "source_make": "Toyota",
+      "source_model": "Hiace Campervan",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000525",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000529",
+      "source_make": "Honda",
+      "source_model": "Stepwgn",
+      "guide_slug": "honda-stepwgn"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000531",
+      "source_make": "Toyota",
+      "source_model": "Supra",
+      "guide_slug": "toyota-supra"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000536",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000537",
+      "source_make": "LEXUS",
+      "source_model": "IS 500 F-Sport",
+      "guide_slug": "lexus-is500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000539",
+      "source_make": "Toyota",
+      "source_model": "Prius Welcab",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000540",
+      "source_make": "SUBARU",
+      "source_model": "Impreza WRX STi A-Line",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000542",
+      "source_make": "Honda",
+      "source_model": "Stepwgn",
+      "guide_slug": "honda-stepwgn"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000545",
+      "source_make": "Honda",
+      "source_model": "Vezel",
+      "guide_slug": "honda-vezel"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000546",
+      "source_make": "Toyota",
+      "source_model": "80 Series Hybrid",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000547",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000548",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000549",
+      "source_make": "Toyota",
+      "source_model": "Prius Alpha Welcab",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000550",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000551",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000553",
+      "source_make": "Toyota",
+      "source_model": "Estima",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000554",
+      "source_make": "Toyota",
+      "source_model": "Estima Campervan",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000555",
+      "source_make": "Toyota",
+      "source_model": "Aqua Welcab",
+      "guide_slug": "toyota-aqua"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000559",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000560",
+      "source_make": "NISSAN",
+      "source_model": "GT-R",
+      "guide_slug": "nissan-gtr-r35"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000562",
+      "source_make": "NISSAN",
+      "source_model": "SKYLINE",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000565",
+      "source_make": "NISSAN",
+      "source_model": "STAGEA",
+      "guide_slug": "nissan-stagea"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000566",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000567",
+      "source_make": "Toyota",
+      "source_model": "Aqua Welcab",
+      "guide_slug": "toyota-aqua"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000571",
+      "source_make": "SUBARU",
+      "source_model": "Impreza",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000573",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000574",
+      "source_make": "LEXUS",
+      "source_model": "LS460",
+      "guide_slug": "lexus-ls460"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000577",
+      "source_make": "LEXUS",
+      "source_model": "IS 500 F-Sport",
+      "guide_slug": "lexus-is500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000579",
+      "source_make": "NISSAN",
+      "source_model": "SERENA e-POWER",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000583",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000584",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Wagon",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000586",
+      "source_make": "LEXUS",
+      "source_model": "IS 500 F-Sport",
+      "guide_slug": "lexus-is500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000589",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000590",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000596",
+      "source_make": "SUBARU",
+      "source_model": "Impreza",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000597",
+      "source_make": "SUBARU",
+      "source_model": "Impreza",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000598",
+      "source_make": "NISSAN",
+      "source_model": "Fairlady Z",
+      "guide_slug": "nissan-fairlady-z"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000600",
+      "source_make": "Toyota",
+      "source_model": "Corolla Cross",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000601",
+      "source_make": "Toyota",
+      "source_model": "Porte / Spade",
+      "guide_slug": "toyota-porte-spade"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000602",
+      "source_make": "Honda",
+      "source_model": "Odyssey Welfare",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000607",
+      "source_make": "Toyota",
+      "source_model": "Hiace Campervan",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000608",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000610",
+      "source_make": "Toyota",
+      "source_model": "Alphard/Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000612",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000614",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000617",
+      "source_make": "Toyota",
+      "source_model": "Hiace Campervan",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000618",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000620",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000630",
+      "source_make": "NISSAN",
+      "source_model": "NV350",
+      "guide_slug": "nissan-nv350"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000632",
+      "source_make": "SUBARU",
+      "source_model": "IMPREZA WRX",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000633",
+      "source_make": "Toyota",
+      "source_model": "80 Series Hybrid",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000635",
+      "source_make": "Toyota",
+      "source_model": "Mark X",
+      "guide_slug": "toyota-mark-x"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000636",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000638",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000641",
+      "source_make": "SUBARU",
+      "source_model": "Impreza WRX STi A-Line",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000642",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000643",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000644",
+      "source_make": "Toyota",
+      "source_model": "80 Series Hybrid",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000645",
+      "source_make": "Toyota",
+      "source_model": "80 Series Hybrid",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000646",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000647",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000650",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000651",
+      "source_make": "Toyota",
+      "source_model": "CROWN CROSSOVER",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000655",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000658",
+      "source_make": "Honda",
+      "source_model": "S660",
+      "guide_slug": "honda-s660"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000659",
+      "source_make": "Toyota",
+      "source_model": "Noah",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000660",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000664",
+      "source_make": "Toyota",
+      "source_model": "90 SERIES WELCAB",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000665",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000667",
+      "source_make": "NISSAN",
+      "source_model": "Leaf",
+      "guide_slug": "nissan-leaf"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000668",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000672",
+      "source_make": "Toyota",
+      "source_model": "Aqua Welcab",
+      "guide_slug": "toyota-aqua"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000674",
+      "source_make": "Toyota",
+      "source_model": "Alphard/Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000675",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000676",
+      "source_make": "LEXUS",
+      "source_model": "LS460",
+      "guide_slug": "lexus-ls460"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000680",
+      "source_make": "Toyota",
+      "source_model": "CROWN",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000681",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000682",
+      "source_make": "NISSAN",
+      "source_model": "NOTE",
+      "guide_slug": "nissan-note"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000683",
+      "source_make": "Honda",
+      "source_model": "Vezel",
+      "guide_slug": "honda-vezel"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000685",
+      "source_make": "NISSAN",
+      "source_model": "NOTE",
+      "guide_slug": "nissan-note"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000686",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000689",
+      "source_make": "Toyota",
+      "source_model": "Crown Sport",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000690",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000694",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000697",
+      "source_make": "Toyota",
+      "source_model": "CROWN CROSSOVER",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000703",
+      "source_make": "Toyota",
+      "source_model": "Crown Sport",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000704",
+      "source_make": "Toyota",
+      "source_model": "Alphard/Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000706",
+      "source_make": "Toyota",
+      "source_model": "Crown Sport",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000710",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000712",
+      "source_make": "Toyota",
+      "source_model": "Prius Alpha Welcab",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000716",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000717",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000718",
+      "source_make": "NISSAN",
+      "source_model": "NOTE",
+      "guide_slug": "nissan-note"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000719",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Wagon",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000721",
+      "source_make": "Mercedes-Benz",
+      "source_model": "230",
+      "guide_slug": "mercedes-benz-sl55-amg"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000723",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000724",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000725",
+      "source_make": "Toyota",
+      "source_model": "Corolla 160 SER",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000726",
+      "source_make": "Honda",
+      "source_model": "Stepwgn",
+      "guide_slug": "honda-stepwgn"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000727",
+      "source_make": "SUBARU",
+      "source_model": "Legacy",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000728",
+      "source_make": "Toyota",
+      "source_model": "Crown Sport",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000735",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Wagon",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000736",
+      "source_make": "SUZUKI",
+      "source_model": "Jimny",
+      "guide_slug": "suzuki-jimny"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000737",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000739",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000741",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000748",
+      "source_make": "Toyota",
+      "source_model": "80 Series Hybrid",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000750",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000751",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000758",
+      "source_make": "Toyota",
+      "source_model": "Alphard/Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000761",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000770",
+      "source_make": "Toyota",
+      "source_model": "Prius Welcab",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000772",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000776",
+      "source_make": "NISSAN",
+      "source_model": "Skyline",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000777",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000778",
+      "source_make": "Toyota",
+      "source_model": "Hiace 200 Series",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000779",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000784",
+      "source_make": "Toyota",
+      "source_model": "Prius Alpha Welcab",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000786",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Hybrid",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000787",
+      "source_make": "Toyota",
+      "source_model": "Prius Welcab",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000789",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000790",
+      "source_make": "NISSAN",
+      "source_model": "Serena",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000793",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000796",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000798",
+      "source_make": "Toyota",
+      "source_model": "Hiace 200 Series",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000803",
+      "source_make": "Toyota",
+      "source_model": "Hiace 200 Series",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000805",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000806",
+      "source_make": "Toyota",
+      "source_model": "90 SERIES WELCAB",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000811",
+      "source_make": "NISSAN",
+      "source_model": "Serena",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000812",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000814",
+      "source_make": "Honda",
+      "source_model": "Odyssey",
+      "guide_slug": "honda-odyssey-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000818",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000824",
+      "source_make": "Toyota",
+      "source_model": "Corolla",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000826",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000828",
+      "source_make": "Toyota",
+      "source_model": "Voxy",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000829",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000831",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Wagon",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000835",
+      "source_make": "Toyota",
+      "source_model": "Hiace 200 Series",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000837",
+      "source_make": "Honda",
+      "source_model": "Fit Hybrid",
+      "guide_slug": "honda-fit-jazz"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000838",
+      "source_make": "SUBARU",
+      "source_model": "LEGACY",
+      "guide_slug": "subaru-legacy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000839",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000840",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000844",
+      "source_make": "Toyota",
+      "source_model": "Corolla",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000846",
+      "source_make": "Toyota",
+      "source_model": "Voxy",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000849",
+      "source_make": "NISSAN",
+      "source_model": "NV350",
+      "guide_slug": "nissan-nv350"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000853",
+      "source_make": "LEXUS",
+      "source_model": "IS 500 F-Sport",
+      "guide_slug": "lexus-is500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000854",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000855",
+      "source_make": "Toyota",
+      "source_model": "Estima Campervan",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000856",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000859",
+      "source_make": "Honda",
+      "source_model": "Vezel",
+      "guide_slug": "honda-vezel"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000865",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000868",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000869",
+      "source_make": "Honda",
+      "source_model": "Stepwgn",
+      "guide_slug": "honda-stepwgn"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000870",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000873",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Wagon",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000875",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000877",
+      "source_make": "Toyota",
+      "source_model": "Hiace",
+      "guide_slug": "toyota-hiace"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000880",
+      "source_make": "Toyota",
+      "source_model": "Prius",
+      "guide_slug": "toyota-prius-jdm"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000881",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000883",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000884",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000886",
+      "source_make": "Toyota",
+      "source_model": "Alphard/Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000888",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000890",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000893",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000895",
+      "source_make": "NISSAN",
+      "source_model": "Elgrand",
+      "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000908",
+      "source_make": "Toyota",
+      "source_model": "80 Series Campervan",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000910",
+      "source_make": "NISSAN",
+      "source_model": "ELGRAND Campervan",
+      "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000914",
+      "source_make": "Ford",
+      "source_model": "F-150",
+      "guide_slug": "ford-f150"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000915",
+      "source_make": "NISSAN",
+      "source_model": "Elgrand",
+      "guide_slug": "nissan-elgrand"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000918",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000922",
+      "source_make": "NISSAN",
+      "source_model": "SERENA e-POWER",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000926",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000928",
+      "source_make": "Toyota",
+      "source_model": "Alphard / Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000930",
+      "source_make": "NISSAN",
+      "source_model": "SKYLINE",
+      "guide_slug": "nissan-skyline"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000931",
+      "source_make": "SUZUKI",
+      "source_model": "Jimny",
+      "guide_slug": "suzuki-jimny"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000932",
+      "source_make": "Toyota",
+      "source_model": "Estima",
+      "guide_slug": "toyota-estima"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000933",
+      "source_make": "MITSUBISHI",
+      "source_model": "Delica",
+      "guide_slug": "mitsubishi-delica"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000939",
+      "source_make": "RAM",
+      "source_model": "HD Series",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000940",
+      "source_make": "RAM",
+      "source_model": "Commercial",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000941",
+      "source_make": "RAM",
+      "source_model": "2500",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000942",
+      "source_make": "RAM",
+      "source_model": "2500",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000944",
+      "source_make": "Honda",
+      "source_model": "Civic Type R",
+      "guide_slug": "honda-civic-type-r"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000945",
+      "source_make": "Toyota",
+      "source_model": "CROWN CROSSOVER",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000946",
+      "source_make": "Ford",
+      "source_model": "Super Duty",
+      "guide_slug": "ford-super-duty"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000948",
+      "source_make": "Toyota",
+      "source_model": "Aqua",
+      "guide_slug": "toyota-aqua"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000953",
+      "source_make": "Toyota",
+      "source_model": "Crown Hybrid",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000954",
+      "source_make": "Toyota",
+      "source_model": "Supra",
+      "guide_slug": "toyota-supra"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000957",
+      "source_make": "RAM",
+      "source_model": "1500",
+      "guide_slug": "ram-1500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000958",
+      "source_make": "Toyota",
+      "source_model": "Aqua",
+      "guide_slug": "toyota-aqua"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000959",
+      "source_make": "Toyota",
+      "source_model": "Corolla Touring Hybrid",
+      "guide_slug": "toyota-corolla-fielder"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000961",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000962",
+      "source_make": "NISSAN",
+      "source_model": "SERENA",
+      "guide_slug": "nissan-serena"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000965",
+      "source_make": "Toyota",
+      "source_model": "Crown",
+      "guide_slug": "toyota-crown"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000967",
+      "source_make": "RAM",
+      "source_model": "2500",
+      "guide_slug": "ram-2500-3500"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000968",
+      "source_make": "Toyota",
+      "source_model": "Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000972",
+      "source_make": "Toyota",
+      "source_model": "Aqua",
+      "guide_slug": "toyota-aqua"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000973",
+      "source_make": "Toyota",
+      "source_model": "Alphard",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000974",
+      "source_make": "Toyota",
+      "source_model": "Aqua",
+      "guide_slug": "toyota-aqua"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000979",
+      "source_make": "Toyota",
+      "source_model": "Voxy",
+      "guide_slug": "toyota-noah-voxy"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000980",
+      "source_make": "Mercedes-Benz",
+      "source_model": "230",
+      "guide_slug": "mercedes-benz-sl55-amg"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000982",
+      "source_make": "Toyota",
+      "source_model": "Vellfire",
+      "guide_slug": "toyota-alphard-vellfire"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000986",
+      "source_make": "Toyota",
+      "source_model": "80 Series Campervan",
+      "guide_slug": "toyota-noah-voxy"
+    }
+  ],
   "candidate_records": 866,
   "pages": [
     {
