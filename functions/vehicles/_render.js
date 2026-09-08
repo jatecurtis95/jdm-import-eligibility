@@ -174,7 +174,8 @@ ${robots}
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Manrope:wght@400;500;600;700&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Manrope:wght@400;500;600;700&display=optional" rel="stylesheet" /></noscript>
 <style>${CSS}.model-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;list-style:none;padding:0}.model-links a{display:block;padding:12px;border:1px solid var(--line);border-radius:8px;text-decoration:none;overflow-wrap:anywhere}.model-links a:hover{border-color:var(--gold)}
 </style>`;
 }
@@ -518,7 +519,7 @@ export function renderVehicleIndex(pages, generatedAt) {
     String(a.canonical_name).localeCompare(String(b.canonical_name)),
   );
 
-  const rows = live
+  const rowsFor = models => models
     .map((p) => {
       const ok = p.availability === "importable";
       const state = ok
@@ -532,14 +533,23 @@ export function renderVehicleIndex(pages, generatedAt) {
     })
     .join("\n");
 
+  const byMake = new Map();
+  for (const model of live) {
+    const make = model.make_norm || 'Other';
+    if (!byMake.has(make)) byMake.set(make, []);
+    byMake.get(make).push(model);
+  }
+  const makes = [...byMake].sort(([a],[b]) => a.localeCompare(b));
+  const directory = `<nav aria-label="Jump to vehicle make"><ul class="model-links">${makes.map(([make,models],i) => `<li><a href="#make-${i}">${esc(make)} (${models.length})</a></li>`).join('')}</ul></nav>`;
+  const tables = makes.map(([make,models],i) => `<section aria-labelledby="make-${i}"><h2 id="make-${i}">${esc(make)}</h2><div class="tablewrap"><table><thead><tr><th>Model</th><th>Register summary</th><th>Approval details</th></tr></thead><tbody>${rowsFor(models)}</tbody></table></div></section>`).join('');
+
   const body = live.length
     ? `<div class="crumbs"><a href="/">Import Eligibility Register</a> &rsaquo; Models</div>
 <h1>Import eligibility by model</h1>
 <p class="lede">Reviewed guides to the records listed for each model. Check the exact chassis, build window and conditions on the model page. A listed model is not approval for an individual car. <a href="/methodology">Read how we check the register</a>.</p>
-<div class="tablewrap"><table>
-<thead><tr><th>Model</th><th>Register summary</th><th>Approval details</th></tr></thead>
-<tbody>${rows}</tbody>
-</table></div>
+<p>${live.length} reviewed guides. Jump to a make below.</p>
+<details class="card"><summary>Choose from ${makes.length} makes</summary>${directory}</details>
+${tables}
 <div class="cta">
 <h3>Not on the list?</h3>
 <p>These are the models written up so far. The checker covers the whole register, not just these.</p>

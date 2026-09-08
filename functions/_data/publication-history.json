@@ -1,5 +1,706 @@
 {
   "pages": {
+    "a-to-z-rv-toyota-a-to-z-rv-camroad": {
+      "hash": "149c1fa8494f05653f6f5f664b7c95b43dd527ac7739d8518111536ae43a413f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000827",
+        "SEV-000879"
+      ]
+    },
+    "adam-bowes-commercials-gbb255-motorhome": {
+      "hash": "c7fe7ce5429d236ca32f2aa351e79e5c539ef167da80225f3ba5741c0326807c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000795",
+        "SEV-000670"
+      ]
+    },
+    "adria-compact-supreme-dl": {
+      "hash": "b30f826ed90c4fecb7e8321d865b65193a8c152744ae57304feaed3a0bee2bc5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000578",
+        "MRE-000611",
+        "SEV-000519"
+      ]
+    },
+    "alfa-romeo-156-sportwagon-gta": {
+      "hash": "2b52dacc11da7cade1334e1e2c8d7ef053e26a34189203b48ff2e4c772c73feb",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000747",
+        "SEV-000631"
+      ]
+    },
+    "alfa-romeo-brera": {
+      "hash": "04bf66a4d86493228cb938362d279db916bb397bae9f7c1a2ac27aec9fdba53e",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000603"
+      ]
+    },
+    "allied-vehicles-anxn-ford-dream": {
+      "hash": "aa853a2122d2323f2eaf0fd86ae773e9d7499468b9f737025017ac07dfe9e693",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001029"
+      ]
+    },
+    "allied-vehicles-anxn-ford-independence": {
+      "hash": "bcc3cddea9627bfa1e458cfa2b8e0e7ccc46d76d346b8f2952a18db781f05159",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001028"
+      ]
+    },
+    "allied-vehicles-anxn-ford-m1-multivan": {
+      "hash": "9a623ae6d3b5acd5b1bf59202993a65123434ca34b1240ac5097e6277fee0cf1",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001027"
+      ]
+    },
+    "alx-horseboxes-alx-21": {
+      "hash": "a26dd56d1c9cf8e597b3b6b829d8d1cf82ab84f8dbe4896c51b8a8489b49cd9d",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000360",
+        "SEV-000997"
+      ]
+    },
+    "ariel-atom": {
+      "hash": "e6b72c9b8b5ac28f236b3c7130f4cda68ae0692889bc932bcbe5d94dae4f08bd",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000439",
+        "SEV-000960",
+        "SEV-001064"
+      ]
+    },
+    "ariel-nomad": {
+      "hash": "ccd384a2857b3685f03a4c85f5a50df14f3fcbdffb8a32ade46f7fc5de99386d",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000816"
+      ]
+    },
+    "aston-martin-db7": {
+      "hash": "96f9551fccec920c0cec4fda47bdc0f18a6c3718cf280eab2d27e25f112775f4",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000599",
+        "SEV-000606"
+      ]
+    },
+    "aston-martin-speedster": {
+      "hash": "3a840e635df01043d61c51843809dae4412140715c8074b0e8a4ca072bb2543c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000708",
+        "SEV-000552"
+      ]
+    },
+    "aston-martin-v12-vantage-s": {
+      "hash": "3b2f3654cae795280e2091121988a2a6190a8d52821623d2e07d29ac15e518c1",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000765",
+        "SEV-000604"
+      ]
+    },
+    "aston-martin-v8-vantage-gt8": {
+      "hash": "554ab90733d3d3431c0a07a5e2a488394f7f181a989fb13c02da1d93436681a0",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001034"
+      ]
+    },
+    "aston-martin-valkyrie": {
+      "hash": "a506692c39cdb3372fe0ac205c7950114c2f679dfcae7e79f948705b8f90d87f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000532"
+      ]
+    },
+    "aston-martin-vanquish": {
+      "hash": "5b8f8da39535a23bb5484dcb09940bfd13442667f44ea32ab67bf09d211d7c43",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000801",
+        "SEV-000553"
+      ]
+    },
+    "audi-8r-sq5": {
+      "hash": "55d6140941dd8be27417e4e48cee2f4e12b0823456b1e4718e706c99590a051b",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000819",
+        "SEV-000843"
+      ]
+    },
+    "audi-q7": {
+      "hash": "bb56119a41f3025e660734900fde193fb002ead0ff150d90c73a41f4c626ca10",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000692",
+        "MRE-000822",
+        "SEV-000880"
+      ]
+    },
+    "audi-r8-type-42": {
+      "hash": "2a1a7b5ed349312eeb4e6cf7dca0d33f1974f8281c0ca0903a2ef0adf554a20c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000576",
+        "MRE-000587",
+        "SEV-000584"
+      ]
+    },
+    "audi-s6-avant": {
+      "hash": "e2030570741972cb8103001fd2b2ea08e70fc986c21f451d026d3c029cef765f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000382",
+        "SEV-001086"
+      ]
+    },
+    "autotrail-f-line": {
+      "hash": "3d3c6d6695dd8778ba783a9fdb1cb5ea8c4ca4e1a7dd849523197f14a0c5de85",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000564"
+      ]
+    },
+    "autotrail-imala": {
+      "hash": "859aa9568f4febdd835c208ed64470e55fada4c2249abb2e8b3f60433a644947",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000792",
+        "SEV-000610"
+      ]
+    },
+    "bac-briggs-automotive-company-mono": {
+      "hash": "8ab1c05d9518cdf9b6f4a48ba24005f30181282ead10c3f169745208ec41a08a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000868"
+      ]
+    },
+    "bentley-azure": {
+      "hash": "c559423803bff320bc901a65cc97741794b0f7769f310faad68bb019f0a526ab",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000745",
+        "SEV-000679"
+      ]
+    },
+    "bentley-continental-gt3-r": {
+      "hash": "ef3ad31476735ef3bc1487e8429842d46f63ac1f43a58027bae55a3b3fb49d17",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001071"
+      ]
+    },
+    "bentley-mulsanne": {
+      "hash": "429d2d250a5f41b9a30a820eed26c834c5e44f253d1def2eed029439b6478ec5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000557"
+      ]
+    },
+    "bessacarr-fiat-e500-series": {
+      "hash": "0372e6a12b2126b3ef914e48e9ca3a165f27ce24415e453e387016746056e9dd",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000949",
+        "SEV-000944"
+      ]
+    },
+    "bloomfields-fiat-ducato-horsebox": {
+      "hash": "cb4a422bd99837e9f98973a6bf2576bb212ede6e29b0d8db8c4da7a4fb83af8e",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000678",
+        "SEV-000642"
+      ]
+    },
+    "bmw-335i-touring": {
+      "hash": "81876ffa25c30ce68f61c9b0be5df9485f8875e620e563ea2125073c01d9027c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001025"
+      ]
+    },
+    "bmw-340i-touring": {
+      "hash": "36afabc55e74da352b6ab9150902edefb94ac1acc12f1b486c60bd9fa6c9056a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001024"
+      ]
+    },
+    "bmw-8-series": {
+      "hash": "d02397486e5ef4388e82e8bb5128dd8c0b067f791a37d88350c2c96bfa4807f3",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000616",
+        "SEV-000572",
+        "SEV-000573",
+        "SEV-000574"
+      ]
+    },
+    "bmw-alpina": {
+      "hash": "4e270be0acde1abd3c5901bc72316dacc6a92eba6e69e85f786bafabd346f79f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000546",
+        "SEV-000547"
+      ]
+    },
+    "bmw-alpina-b6-edition-50": {
+      "hash": "4245ae8239eb550faa475e932d0a53db07caf08e7bf6c1da3037de491c60cc66",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000619",
+        "MRE-000625",
+        "SEV-000535"
+      ]
+    },
+    "bmw-i7": {
+      "hash": "445cff2c74c94be6ce8a2aae0f3fd154bddecc841532da91014d80fc44bec6b9",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000959"
+      ]
+    },
+    "bmw-i8": {
+      "hash": "7ea380247b7896b4bb030529195ebc06654a758ac122623a964b65065e93edb1",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000662",
+        "MRE-000695",
+        "MRE-000769",
+        "SEV-000608",
+        "SEV-000609"
+      ]
+    },
+    "bmw-m140i-3-door": {
+      "hash": "06eebcb8c5d8233af1692592882f69536140d4d4637388a970d3bfe77c2630b7",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000596"
+      ]
+    },
+    "bmw-m3-gts": {
+      "hash": "6fbbec4eac4ef8e3c7310ce2500a2f6053c50de504f99bc173767188753e62ee",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000766",
+        "SEV-000583"
+      ]
+    },
+    "bmw-m340i-xdrive-touring": {
+      "hash": "1ac15198a6d6aabdb7163f7d901abe3bce1a0f9abf6092e986b7dea79f5a228a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000809",
+        "MRE-000907",
+        "SEV-000632"
+      ]
+    },
+    "bmw-m5-estate": {
+      "hash": "c53234a8853a3a12a1c331ff252f13147a96fa9fb189cb8a990edbb52d400e16",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000966"
+      ]
+    },
+    "bmw-x5-m50d": {
+      "hash": "80fd7651a67888743775bb5ffbab93f71ff327972571b0b4d3d10d12622f3f4e",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000885",
+        "SEV-000792"
+      ]
+    },
+    "brabus-bodo": {
+      "hash": "737ffc54639daad7eb0a1b4aead0999cacb3cd04c6f388ca3fba5da6f46b9a2d",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001097"
+      ]
+    },
+    "brabus-g-class": {
+      "hash": "2464babf1e77744e6b8e354666310a6e8241f59f2d9a7b480e902c077e9cefed",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000843",
+        "SEV-000826",
+        "SEV-000827",
+        "SEV-000830",
+        "SEV-000834"
+      ]
+    },
+    "brabus-g700-b63-6x6": {
+      "hash": "3ee778040994b4f249692c44a047689058a93610024548dd1182760d0ed57e36",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000763",
+        "SEV-000757"
+      ]
+    },
+    "brabus-gt-900": {
+      "hash": "7e2cfc8cdcdf9a8d42ee30a0ae3b7bc6b9eed3b507f44650dcc4403c042c1dbf",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001056"
+      ]
+    },
+    "brabus-gtc-900": {
+      "hash": "db09141db180753e36ae8a28eeb47d40bcfea064477a146d6ac23c6ddd44c382",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001057"
+      ]
+    },
+    "brabus-rocket-r": {
+      "hash": "cf3a53f01f2b2bf4883b9d5686b9beaa00446e5b6500cb8962af7c0177394c49",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000560"
+      ]
+    },
+    "brabus-xlp-6x6": {
+      "hash": "2af085e5100a110c84a52e78167eda4ec9a8aefc2990f478264f23992f84d0ea",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000558",
+        "SEV-000559"
+      ]
+    },
+    "bugatti-chiron": {
+      "hash": "72bd0d6feff03ddf77d4adc7de2852956042e0e347d547172dc25acd2f27d279",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001103"
+      ]
+    },
+    "bugatti-veyron": {
+      "hash": "fed31b60dc15fda6b798d7b63c9b7a9298f836223be818e601c70347e0b03757",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000441",
+        "MRE-000442",
+        "SEV-000791"
+      ]
+    },
+    "cadillac-escalade": {
+      "hash": "d2f1093f26944edfb6c7a21329b2be0ee344ddaad7a50136447a4deb965c7b49",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000521"
+      ]
+    },
+    "caparo-t1": {
+      "hash": "3641faa383c290d7e3ddf9cba71ccf978bc78e1dbf99bfcdc2fffd33cf81316c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000980"
+      ]
+    },
+    "caterham-seven": {
+      "hash": "80797e3870b058fb3bc3abdd6333dbf422ed6cc02374d433ca8ecbba8cb737c9",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001053"
+      ]
+    },
+    "chevrolet-ck": {
+      "hash": "f77791bf8e6da656a764ca75ba1250f58fae25564fa813d269ed27b9ec1751bd",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001087"
+      ]
+    },
+    "chevrolet-silverado-ev": {
+      "hash": "f3dbf81f5d702c0107007570379a3c0594835da4856edaf644b4685b137b19fd",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000766"
+      ]
+    },
+    "chevrolet-silverado-hd": {
+      "hash": "6dfb4fed7181874f66a29ad1e02e068f271faf2d63f13b2fcc6c4a99bccc24a3",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000764",
+        "SEV-000706"
+      ]
+    },
+    "chevrolet-suburban": {
+      "hash": "9f6e259b8352153db79cb669c9c125a97ce2f68a6f3eadb0fc37e8f8d07918d8",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000982"
+      ]
+    },
+    "chevrolet-zr1-corvette": {
+      "hash": "cbf01ed193de3350747d5970a0767b32d0e27040f6e8ff3e1ee611739d86e803",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001065"
+      ]
+    },
+    "coleman-milne-etive-hearse": {
+      "hash": "afbd425062eab9555e75ed10cc713ecdb678643118e4629f30375954320038f9",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000817",
+        "SEV-000615"
+      ]
+    },
+    "coleman-milne-ford-cardinal-hearse": {
+      "hash": "c9c7392338ba94f8bd8f749d22c843c3119c18113c2cb62ed5f2a6e47d4a56cc",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001045"
+      ]
+    },
+    "daihatsu-atrai": {
+      "hash": "ebaf14da7bac3f13129bfdfc6380d64431a08a3c18f797820888a56a830e7b47",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000975",
+        "SEV-000971"
+      ]
+    },
+    "daihatsu-canbus": {
+      "hash": "12116b809e75800a5237278c1e718ee08e3ece74c440e9569c6924480c3a3563",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000891",
+        "SEV-000922"
+      ]
+    },
+    "daihatsu-copen": {
+      "hash": "00669aabc52314c348d1bee681e9b413c5d80e621d26225db694850c36833bd3",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000903",
+        "SEV-000940"
+      ]
+    },
+    "daihatsu-e-atrai": {
+      "hash": "123178e91138f312de3a70b7413a736843565d3040082005706f21457b727432",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001104"
+      ]
+    },
+    "daihatsu-e-hijet-cargo": {
+      "hash": "440bcd30f18132d042a69ba1953b89ca01e467ecb6639a15adaa085ae002752a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001105"
+      ]
+    },
+    "daihatsu-move": {
+      "hash": "79f1acf2eb5cc9ab1964f99b00fcf675573eae72db92d39fa91886b92fadf2d7",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001005"
+      ]
+    },
+    "daihatsu-tanto": {
+      "hash": "add87bdada595042deae1e476516eff4b502f5c50ca7949f8bf3adb1eaf7dfc5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000551"
+      ]
+    },
+    "dallara-stradale": {
+      "hash": "baf488c22b8442e89ede801a99b38a8d976b2ba26d24b4a8b32ac62b4c02c348",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001067"
+      ]
+    },
+    "dodge-durango": {
+      "hash": "b66d8bea0202001e5ba651630d6b5db98aa2d955433cd4bd820fc3485ff38340",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000981"
+      ]
+    },
+    "dodge-viper-gen-4": {
+      "hash": "5c243ab2a1af8f7f3fa6962d13958f65b2a0d39f70a524b4cc0ddbfc459586ea",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000618"
+      ]
+    },
+    "dodge-viper-gen-5": {
+      "hash": "ef5a9599f33d73211f6f5ba102badf18ceb0ca6a40042a56be928d9808385d50",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000815",
+        "SEV-000780",
+        "SEV-000985"
+      ]
+    },
+    "dongfeng-motor-co-ltd-box": {
+      "hash": "bfe0f48cbe08b5a0131f26e64df52e613865943de85931c47371479d7119b6b3",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000901",
+        "SEV-000925"
+      ]
+    },
+    "eq-man-tgl-4x2-eq12": {
+      "hash": "caba13cc1cd9096ef9ca56c7ccfeba49f9564cb519c13f15fc6a3ccf82565a5f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000780",
+        "SEV-000614"
+      ]
+    },
+    "farizon-supervan": {
+      "hash": "e06ee38b3a12a7d5bc0679ae3b24835a530ec9bc72f386762b974b34676368ff",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000687"
+      ]
+    },
+    "ferrari-599-sa-aperta": {
+      "hash": "dc04023c20d0475ceccdfefefac26106b83b2a81868ae7d835262f1d55f08e9c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000709",
+        "SEV-000630"
+      ]
+    },
+    "ferrari-daytona-sp3": {
+      "hash": "77d0b9a76b162d8ad3c66a149dc73d9fff8978fb4a2e70f130f8c77c4fe6c2ac",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000705",
+        "MRE-000850",
+        "SEV-000680"
+      ]
+    },
+    "ferrari-enzo": {
+      "hash": "cfd56a44f9d9e451b12c2710f8a03c493e446bec0b41970c448a32d6adf121f9",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000176",
+        "SEV-000775"
+      ]
+    },
+    "ferrari-f12-berlinetta": {
+      "hash": "0135141483ce963c07038e7fb474404d0b50dd58a1de4785deb1edc0102af0fe",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000871",
+        "SEV-000540"
+      ]
+    },
+    "ferrari-f80": {
+      "hash": "d1652f8411d5dd084f77a09a4ac7dd0f55b3181c03f5aef563a5b2bc4a3eefab",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000924",
+        "SEV-000953"
+      ]
+    },
+    "ford-bronco": {
+      "hash": "8cdcba970be0c6ae97365220abea081d3c4212a3c40f64df5aaf009c31c5adc9",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000978",
+        "SEV-000844",
+        "SEV-001043"
+      ]
+    },
     "ford-f150": {
       "hash": "b2b5930e535f65828c2241247b5fd30a42ab1bd543224248b292dbbacfb713f7",
       "last_modified": "2026-09-08",
@@ -17,6 +718,14 @@
         "SEV-000983",
         "SEV-001023",
         "SEV-001048"
+      ]
+    },
+    "ford-gt": {
+      "hash": "9d92950f0e47df312ec0905ea7d03aa8d4959838eb5f578d8aff14c75b6cabce",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000855"
       ]
     },
     "ford-super-duty": {
@@ -42,6 +751,108 @@
         "SEV-000979"
       ]
     },
+    "gmc-hummer-ev": {
+      "hash": "3df886d136ed08cd2f8ee689ccb1950b60e03fbfff237e2d11617ac293fa507c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000977",
+        "SEV-000779"
+      ]
+    },
+    "gmc-sierra-3500-hd": {
+      "hash": "70252dc07b7f7cd6f499190797dc7ad5d118d8feb69026caf4ceae430339b680",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000834",
+        "MRE-000848",
+        "SEV-000857"
+      ]
+    },
+    "gmc-sierra-3500hd-at4": {
+      "hash": "5c932e00a38f246772c81d9690ba83d3ba723298bd41dbb43601007dc4b13ded",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000892",
+        "SEV-000907"
+      ]
+    },
+    "gmc-yukon": {
+      "hash": "5b05f1a31434da455d87b714e961dc4e93694f1f1f582a904d282628bcefb29f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000317",
+        "SEV-000673"
+      ]
+    },
+    "gumpert-apollo": {
+      "hash": "a912e6fff62cc83e0380346724751d055404c6d0c09c52c848a1e9abd834dfab",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001033",
+        "SEV-001046"
+      ]
+    },
+    "hino-300-ser": {
+      "hash": "acf573520539127ec65d96c228518b126ed1bea5d3cb1a734d92e30dbe7ae0b5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000729",
+        "SEV-000702"
+      ]
+    },
+    "hino-700-ser": {
+      "hash": "fe54a9563a6153afe1d2b8ee03163078a11b849abf92ccf6e71f056e36738c5f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000703"
+      ]
+    },
+    "hino-liesse-ii": {
+      "hash": "4f5327e5d43574b783c9dc74f50458ecd661f2e8bbd1021d183648d88b2dc618",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000989",
+        "SEV-001099"
+      ]
+    },
+    "hino-liesse-ii-campervan-motorhome": {
+      "hash": "d70af88a05c047502a6608348a8c7d2982c8766e6c019a7733b91759aa335323",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000526"
+      ]
+    },
+    "honda-accord-euro-r": {
+      "hash": "333d5bfa7a99f97d383ab54b791b19c958bdf644a6ba8a77f475e22b1e734623",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000122",
+        "MRE-000532",
+        "MRE-000791",
+        "MRE-000799",
+        "SEV-000626",
+        "SEV-000711",
+        "SEV-000778"
+      ]
+    },
+    "honda-cbr250rr": {
+      "hash": "f7abe0dd3955000ff2ccb22a8b63fcacc8e2ea405cca7fb51b08e216ce962234",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001100"
+      ]
+    },
     "honda-civic-type-r": {
       "hash": "6b70da014e9d7cd85c7445f5487fcdd64654fd5b65b37716212d0bd58c17b3b6",
       "last_modified": "2026-09-08",
@@ -55,6 +866,15 @@
         "SEV-000554",
         "SEV-000650",
         "SEV-000659"
+      ]
+    },
+    "honda-e": {
+      "hash": "35439f67de983bec861a9ca837ba7f7fe68ed354172b6356921e229df650bfd5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000411",
+        "SEV-000655"
       ]
     },
     "honda-fit-jazz": {
@@ -87,6 +907,51 @@
         "SEV-000624",
         "SEV-000755",
         "SEV-000847"
+      ]
+    },
+    "honda-freed-welfare": {
+      "hash": "a4b01662ac7ccf53150cfc63231432cca256c681973e2babf75b4768707c24eb",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000754",
+        "SEV-000538"
+      ]
+    },
+    "honda-n-one": {
+      "hash": "18b7a93d13b3fd67c3256ffb5720f6c41a6f37eff576d9d8c1a4fbdf209969f3",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000250",
+        "SEV-000672"
+      ]
+    },
+    "honda-n-one-e": {
+      "hash": "b6c0d590da3c66f26c7a24cd50a3f7e356363ccad065b3f9b471694a448fedac",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001102"
+      ]
+    },
+    "honda-n-van": {
+      "hash": "6476c41e40213451053700967c09f27561199f0ecc5fc3c6497a5614321e5c38",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000841"
+      ]
+    },
+    "honda-nsx-type-s": {
+      "hash": "e74f677b24cd545e92a21db70f329aa6608653f40fad810af314b0b411ad1880",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000412",
+        "MRE-000517",
+        "MRE-000519",
+        "SEV-000525"
       ]
     },
     "honda-odyssey-jdm": {
@@ -144,6 +1009,118 @@
         "SEV-000665"
       ]
     },
+    "hunter-renault-x62-stallion-horsebox": {
+      "hash": "663f7de7fbeefbeccfb48e1cf013ef2fc6304edd6a02fa08eb7cd95364eba1ca",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000879",
+        "SEV-000955"
+      ]
+    },
+    "iveco-eurocargo-motorhome": {
+      "hash": "ddd7adfb85d1f35bbb9c6d7b208b821d006665cc922f7bc96d12a3d085b6556e",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000688",
+        "SEV-000534"
+      ]
+    },
+    "jp-star-daihatsu-jp-star-hijet-happy-1": {
+      "hash": "ff570c535e6368d8b194c6115b2fd6275fb817e239fabd591e441c282707ea46",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000890"
+      ]
+    },
+    "kia-ev9": {
+      "hash": "51b0b84bc9bd9d17423ab948de03a726f44778cbd54ff651e3eb963c511df70e",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000544"
+      ]
+    },
+    "km-horseboxes-daf-arion-elite-horsebox": {
+      "hash": "2d030cf29d84e844c21b00d2e3338b54c465a190f52856785d7be91afc7ef027",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000936",
+        "SEV-000824"
+      ]
+    },
+    "koenigsegg-jesko": {
+      "hash": "6fa5e2b5ac015e4cb4395781eb9640215c44e9ff2f37ddbd4f70fc837cd1932f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000673",
+        "SEV-000600"
+      ]
+    },
+    "koenigsegg-jesko-attack": {
+      "hash": "e6a631225a85801f428a3d6e9ddba530c0de397a76c83f8ec60fe8c32237b0e2",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000585"
+      ]
+    },
+    "ktm-x-bow": {
+      "hash": "b0635ac5c5684c30c49498303de6abd8098b5b70b6760b178fc91af16a285881",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001006"
+      ]
+    },
+    "lamborghini-countach-lp-800-4": {
+      "hash": "840e6240371746dda593163f248cf838397946c4cbabd65953af5b8b33cbdaad",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000351",
+        "SEV-000845"
+      ]
+    },
+    "lamborghini-diablo": {
+      "hash": "17536bce7da6ced40f611ca250c7fb2a318ffa4052926b5cede7a87ac07df0ce",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000746",
+        "SEV-000649"
+      ]
+    },
+    "lamborghini-murcielago": {
+      "hash": "6d1ee0bedd95d1e1c916121257d2fb2e55768870f8153cf79be3d03d0ed2cc17",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000457",
+        "SEV-000565"
+      ]
+    },
+    "land-rover-defender": {
+      "hash": "8b4068db36a32bf3f7ab84d1156fe3b5f6a15e1c4667f987cbe631479c20cc3a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000582"
+      ]
+    },
+    "land-rover-defender-works-v8": {
+      "hash": "376569437b99675ec042d2f2b9f53aa4d5a7b363a6d0de96d6b8ed61452fe3f2",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000917",
+        "SEV-001001"
+      ]
+    },
     "lexus-gs-f": {
       "hash": "0be9fd5a24c21c67a061ad0c932f8845559fc272048d572bd407a9e5592a674d",
       "last_modified": "2026-09-08",
@@ -156,6 +1133,16 @@
         "SEV-000701"
       ]
     },
+    "lexus-is350c": {
+      "hash": "9168c65666266b3d332b9cc0b6d23d97e3041fc3d52a2e6895dca2a7a5b4c129",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000797",
+        "MRE-000820",
+        "SEV-000729"
+      ]
+    },
     "lexus-is500": {
       "hash": "943b889e35e9facee5a52b0bcc2721aac9a4b7057ea6c94d3e18f3d15dde055b",
       "last_modified": "2026-09-08",
@@ -166,6 +1153,24 @@
         "MRE-000586",
         "MRE-000853",
         "SEV-000548"
+      ]
+    },
+    "lexus-lbx-morizo-rr": {
+      "hash": "bae7e66aa039dea53c3dc5c12610847b08f5f60f0f6b16581b63aac97af7c23f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001074"
+      ]
+    },
+    "lexus-lfa": {
+      "hash": "bb7d510a3ee302da7a10f61e24d72f1e8889cced4744ef10a965d55d72d6b82d",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000469",
+        "MRE-000470",
+        "SEV-000539"
       ]
     },
     "lexus-ls460": {
@@ -182,6 +1187,39 @@
         "SEV-000921"
       ]
     },
+    "lexus-ls500": {
+      "hash": "e0c333904e8428e8fa7ecfd09a7832eeb3fba4dbea0d71b2878d6c5471b06cf3",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000648",
+        "SEV-001083"
+      ]
+    },
+    "lexus-ls500h": {
+      "hash": "c04e49e4a7ed4974ddaf4d93455817f6e01139f658e527e651c205abcaef5a0d",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000417",
+        "MRE-000427",
+        "MRE-000428",
+        "MRE-000960",
+        "SEV-001063"
+      ]
+    },
+    "lexus-ls600h-awd": {
+      "hash": "8c500a874457936b5309834b59e7b22f9ecc7b97bb58e4ec68560703c9cccaa7",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000623",
+        "MRE-000631",
+        "MRE-000749",
+        "MRE-000771",
+        "SEV-000549"
+      ]
+    },
     "lexus-rc-f": {
       "hash": "e86f0a89cf46749dbc59d4f77120f9cf5a7186d409159da3d45f0260ae0caee5",
       "last_modified": "2026-09-08",
@@ -194,6 +1232,82 @@
         "SEV-001084"
       ]
     },
+    "lincoln-navigator": {
+      "hash": "d1ced638301455fd19e035de98bbf058a10cff72c5eef22176a027e0ab288292",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000711",
+        "SEV-000518"
+      ]
+    },
+    "liuzhou-wuling-new-energy-automotive-go50": {
+      "hash": "cd9b4bfef088d8512beb1452375584c881b6fd373fa206ce6deaeeff1d12da74",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000533"
+      ]
+    },
+    "lotus-3-eleven": {
+      "hash": "b7ffd63b5809337f4635ab2351efe46b287402e366b7d0527812fd0f75dac5c6",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000852"
+      ]
+    },
+    "lotus-esprit-v8": {
+      "hash": "e7c66291dee6e39e9b39218c8c1e7acff200e8553bc4cf27ad4095d1a49bfbb2",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000607"
+      ]
+    },
+    "man-hx60": {
+      "hash": "82122171b6e5c7069f969497ca267045c7bc772aad14d38cad83c3bf97ee5011",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000601"
+      ]
+    },
+    "manse-1994": {
+      "hash": "bea8ef7495355549c4fde136a7e4f865e6dfdd5b01e4be725fa377b01dca135c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001062"
+      ]
+    },
+    "maserati-3200gt": {
+      "hash": "dd157909309f507e38c92bde74e5472e3980cfbd1d7991530a8d2f12e7d331d0",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000705"
+      ]
+    },
+    "maybach-s-series": {
+      "hash": "3fc0dde3c059f8c5690897a3a7853d084cff5fc22d538c8ebf2dae6f5909214b",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000807",
+        "MRE-000845",
+        "SEV-000736"
+      ]
+    },
+    "mazda-roadster": {
+      "hash": "f75b99abfc1cc799646a1eef029b0fe21f0821ac1de4b8083ea1d1bee214bb9c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001106",
+        "SEV-001107"
+      ]
+    },
     "mazda-rx-7": {
       "hash": "213ed59095cf651b9ea7fe53c018300b85eeb6c94bd842e9dddd5a442a61e3e5",
       "last_modified": "2026-09-08",
@@ -204,6 +1318,254 @@
         "SEV-000749"
       ]
     },
+    "mazda-rx-8": {
+      "hash": "e91ebaacb112bb2395b3ae15780aeebaf8bc3dceb97d257f8e43d840b16565ef",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000198",
+        "SEV-001077",
+        "SEV-001078"
+      ]
+    },
+    "mclaren-688hs": {
+      "hash": "7cda3db9cd644e4a724abf1bc6225faca3fdbc183dd59d24466fc5fcb8e4e58b",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000701",
+        "SEV-000625"
+      ]
+    },
+    "mclaren-ma23": {
+      "hash": "3dcd5426695e21603cbaa8629cbae8bcba45c2bd54e4d73d3d2948000aec5fd5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000715",
+        "SEV-000685"
+      ]
+    },
+    "mclaren-p1": {
+      "hash": "0c5ba2e4aab68c15377cc027eca09085f7a7168cc2c64b5dc8c37a31ea94f25c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000268",
+        "SEV-000901"
+      ]
+    },
+    "mclaren-p14": {
+      "hash": "de3eb4736f064bf7d85b4b9822c444bb2d6ea2e024b5ff6d654588b75316fb75",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000180",
+        "SEV-001044"
+      ]
+    },
+    "mclaren-w1": {
+      "hash": "b2ef6d48718603a00ea8dd3fe45c53812368f6aa6bd08db3bfe95e1587297942",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001018"
+      ]
+    },
+    "mclouis-fusion-motorhome": {
+      "hash": "d91795a0b5bdd66a850937475c8d7ff4afec793b51c361fed1774240e794c8c8",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000696",
+        "SEV-000637"
+      ]
+    },
+    "mercedes-amg-one": {
+      "hash": "e9e76daef6a895a69146dccf2c59a58252a79ff2d5241636e30f1b5016bdc22f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000934"
+      ]
+    },
+    "mercedes-amg-purespeed": {
+      "hash": "a3ce3c9729f4fb30ba31611aa8eb1ba12f396033291a9710eb8092e2d4506d62",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000934",
+        "SEV-000998"
+      ]
+    },
+    "mercedes-benz-213-series": {
+      "hash": "e416147fbc318f1d3b70ebeb0af195289f3f227150236f21d092fea95744b205",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000409",
+        "MRE-000410",
+        "MRE-000415",
+        "MRE-000656",
+        "SEV-000674"
+      ]
+    },
+    "mercedes-benz-airstream-interstate": {
+      "hash": "d533633a84473bdf9615436848877aee365c2d81282d3d62578d05bfc81d7067",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000541"
+      ]
+    },
+    "mercedes-benz-amg-cls-63-s-4matic": {
+      "hash": "9099c05a7cde22e811af95577c7083f0a0cfb9c4b0155c09a10c9a54fc3be061",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000605"
+      ]
+    },
+    "mercedes-benz-amg-gt": {
+      "hash": "9fdc90fd8f3cf54aa1b7db452f998167dec0f10cd66cbb3ae817fd164bc7dd3c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000913",
+        "MRE-000935",
+        "MRE-000983",
+        "SEV-000992",
+        "SEV-000993"
+      ]
+    },
+    "mercedes-benz-amg-gt-43": {
+      "hash": "465dda1f6bd0053795a4670059bbf76dc896c3906406badcdcb7f169e90e5360",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000964",
+        "SEV-000967"
+      ]
+    },
+    "mercedes-benz-cla-class": {
+      "hash": "c1dd1103d23f7bb68e2491ebe845a699e3df8c4782df2b69a003b81375fae10a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000755",
+        "MRE-000988",
+        "SEV-001075",
+        "SEV-001076"
+      ]
+    },
+    "mercedes-benz-clk-dtm": {
+      "hash": "09d1f4d8d6438fa90589702b4af74579f8a21befc5726d974f76aa44b251e004",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000904",
+        "SEV-000578",
+        "SEV-000579"
+      ]
+    },
+    "mercedes-benz-cls63": {
+      "hash": "ec8674917016cd772b5febd2c2efbdd24038219dd720fa5a519b7912ad616f5c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000767",
+        "SEV-000669"
+      ]
+    },
+    "mercedes-benz-e350": {
+      "hash": "f02465c7eb69a74ec865610c6f1f1ac9ba1ce652f31d771952ebbc42103d3200",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000050",
+        "MRE-000200",
+        "MRE-000528",
+        "MRE-000563",
+        "MRE-000905",
+        "SEV-000715"
+      ]
+    },
+    "mercedes-benz-e550": {
+      "hash": "cf088939c9a0651032ae36b7b433350e2cf2ca300cddb05106c3b2d7bbf59a20",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000698",
+        "SEV-000611",
+        "SEV-000612",
+        "SEV-000613"
+      ]
+    },
+    "mercedes-benz-eqs-450": {
+      "hash": "f7663c62d90c321f3484f1638fc3ba6c9a7fede878938ade27df469e8b575d3f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000976",
+        "SEV-000842"
+      ]
+    },
+    "mercedes-benz-s-class": {
+      "hash": "34bcebd7be84f181b3f6c2ad52b9e382f5fc8c5ad97b2aaae57a89e610d52a8f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000043",
+        "MRE-000100",
+        "MRE-000123",
+        "MRE-000592",
+        "MRE-000760",
+        "MRE-000894",
+        "MRE-000971",
+        "SEV-000576",
+        "SEV-000683",
+        "SEV-001070"
+      ]
+    },
+    "mercedes-benz-s-class-phev": {
+      "hash": "2a2a14cece44eca2a6363708f4e39615bf31e8a312df5ca37f389dfe3888bafb",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000896",
+        "MRE-000969",
+        "SEV-000527",
+        "SEV-000528",
+        "SEV-000529"
+      ]
+    },
+    "mercedes-benz-s400d-s450d": {
+      "hash": "1d55777420701cd2520aac4eb6e8853f6d09a0586942d678b14832e451b094b0",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001085"
+      ]
+    },
+    "mercedes-benz-s63l-amg-4matic": {
+      "hash": "68f216b0c3614c780f745556dfb17ba5da1939934e2cb1087a8ad135549c4710",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000864"
+      ]
+    },
+    "mercedes-benz-sl": {
+      "hash": "56d3ed18126457d3edafdb62e40aaa126c656633312ebd9480334c72f31abc23",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000788",
+        "MRE-000882",
+        "SEV-000628",
+        "SEV-000629"
+      ]
+    },
     "mercedes-benz-sl55-amg": {
       "hash": "6ff2b617c99eaac508338478e98feb610810b76ace881679c2e0496998222457",
       "last_modified": "2026-09-08",
@@ -212,6 +1574,24 @@
         "MRE-000721",
         "SEV-000695",
         "SEV-000751"
+      ]
+    },
+    "mercedes-benz-slr-mclaren": {
+      "hash": "a4a707041b5f77d44fff35cbd4133a69dfdde53d70d2ac71808aa535ab2d549d",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000166",
+        "SEV-000829"
+      ]
+    },
+    "mitsubishi-airtrek": {
+      "hash": "4c74dbeb6102b729c0a30d2cd5911536430bfcff9e57895d8f6fcb0394e88576",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000042",
+        "SEV-000750"
       ]
     },
     "mitsubishi-delica": {
@@ -230,6 +1610,15 @@
         "SEV-000821",
         "SEV-000822",
         "SEV-000823"
+      ]
+    },
+    "mitsubishi-i-miev": {
+      "hash": "fabd7cf10803dcd540c33a8cf871b27227a33daf04e69400b26478f702efc9e2",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000430",
+        "SEV-000566"
       ]
     },
     "mitsubishi-lancer-evolution": {
@@ -254,6 +1643,116 @@
         "SEV-000898",
         "SEV-000945",
         "SEV-000946"
+      ]
+    },
+    "mitsubishi-minicab-miev-truck": {
+      "hash": "06fa580f80d7072eecbed88399409374fc418364534039f11f22b2a84389eda8",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001098"
+      ]
+    },
+    "mitsubishi-minicab-truck": {
+      "hash": "5e5bca572eb639475178e741a1bbc29c088f09942b3bef4968f3ed345a93b31e",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001003"
+      ]
+    },
+    "mitsubishi-minicab-van": {
+      "hash": "d709ea9a47b2b6685932743fce75c5de2674160af4e4bfd6c05b1b557b1504e9",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001004"
+      ]
+    },
+    "mitsuoka-le-seyde": {
+      "hash": "39a17b2440baef61223e9d17ba9fd7237654adac845c56e9e337ea78164dcc66",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000571"
+      ]
+    },
+    "moke-international-moke-ev-1": {
+      "hash": "33cf837953d862ec7f61e20cfde2c93eb17b3822e1e9bc88a5cc12d685568f1a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000939"
+      ]
+    },
+    "moonlight-gmc-vai-h4": {
+      "hash": "123e192abddd8459023ee19083aa5a9360746b5412f4a809c73c6f75905fada7",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000911"
+      ]
+    },
+    "morgan-aero-8": {
+      "hash": "b7d2f7019e20bde1967a1ab86154668e9649f50ef13887e85d5cfabf5e11a0d0",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000968",
+        "SEV-001030"
+      ]
+    },
+    "morgan-plus-four": {
+      "hash": "d04fe4cc972aec34501ad8aae6e4bfc13a250259d11ee5cce4a3811adcde20c1",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000849",
+        "SEV-001082"
+      ]
+    },
+    "morgan-plus-six": {
+      "hash": "781525e2da5d504848dce30468f79622d818009b54fcf6861d2475c321ba94ea",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000788"
+      ]
+    },
+    "morgan-supersport": {
+      "hash": "bc9014b1f5a9bbb94c9f7454b117160b07539b73748deb03260b64eb325148a6",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001016"
+      ]
+    },
+    "nissan-cima": {
+      "hash": "3a3c173c39c1bccc1dd366505b39c113534dd53cfc17eb2e2544f6582b0f6c9b",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001039"
+      ]
+    },
+    "nissan-cube": {
+      "hash": "e2d0c0990b029ae6a1aab431a03335c8455842b3b4edc07f85cd31a867627a4e",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000238",
+        "MRE-000684",
+        "MRE-000821",
+        "SEV-000814",
+        "SEV-000862"
+      ]
+    },
+    "nissan-e-nv200": {
+      "hash": "1f4989e913e90ac02ca090657c0a80670032c33daefe24fc890a4570b23de19f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001069"
       ]
     },
     "nissan-elgrand": {
@@ -282,6 +1781,16 @@
         "MRE-000216",
         "MRE-000598",
         "SEV-000690"
+      ]
+    },
+    "nissan-fuga-hybrid": {
+      "hash": "e66bcf9afb95121b9aaf5d5a573fe0ebb912de67eb8ee1ca5fb5d4782fe5dc1f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000345",
+        "MRE-000380",
+        "SEV-000825"
       ]
     },
     "nissan-gtr-r35": {
@@ -321,6 +1830,34 @@
       "live": true,
       "approval_ids": []
     },
+    "nissan-nt100-clipper-truck": {
+      "hash": "286cba627a1ba72f3fd5666d6026a04db21c6d4037e1d0eb2a796c44895cf1a5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000990",
+        "SEV-001007"
+      ]
+    },
+    "nissan-nv100-clipper-van": {
+      "hash": "7f37c5eceb0abb188970e99f04ef5813ad5796c45197c0daf8d80de0e558e767",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001010"
+      ]
+    },
+    "nissan-nv200": {
+      "hash": "9951972a3482a288b0041285b00a59ff5177569c6e4822f18da75209bfc2cea8",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000072",
+        "MRE-000863",
+        "SEV-000799",
+        "SEV-000903"
+      ]
+    },
     "nissan-nv350": {
       "hash": "ad29432d1ec2755e47ee2d462ba1cdb1903d1861ce154ef01e3f040852fb73d3",
       "last_modified": "2026-09-08",
@@ -335,6 +1872,14 @@
         "SEV-000797",
         "SEV-000798",
         "SEV-001073"
+      ]
+    },
+    "nissan-president": {
+      "hash": "7ec54cbb2aba5908fab49d0f499472c425f7c8711d6f9bf29822a21c4ff2c98b",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001038"
       ]
     },
     "nissan-serena": {
@@ -411,6 +1956,141 @@
         "SEV-001095"
       ]
     },
+    "nissan-x-trail": {
+      "hash": "3f0599d727c32656ab254d40f7892108485abaf5a466091407390842e7cfcc76",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000169",
+        "SEV-000652"
+      ]
+    },
+    "noble-m12-gto-3r": {
+      "hash": "797bee707ecf25910259789a168294983752a18932eca7a9678e2eb1424fbeff",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000972"
+      ]
+    },
+    "norton-v4-ss": {
+      "hash": "68bbd91fe3bea1c2a596475802d9cd707398e84785f8d958d84c4d5fae2fabfa",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000853"
+      ]
+    },
+    "novitec-rosso-novitec-f430": {
+      "hash": "23482a0fd905b541367451edf7ba6c85f9792bf26398b2a4a9d72673a73ed375",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000742",
+        "SEV-000704"
+      ]
+    },
+    "nuts-rv-toyota-border-coaster-motorhome": {
+      "hash": "c9782c456d505eb91caeea6ab51221059a2e3be34b07782b253454b47a496bc2",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000860",
+        "SEV-000781"
+      ]
+    },
+    "nuts-rv-toyota-camroad": {
+      "hash": "7b088fba653c2fc396df4d441b39760774964d539cd0dbc16068bc77b2f0e6c1",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000916",
+        "SEV-000782",
+        "SEV-000783",
+        "SEV-000784",
+        "SEV-000785",
+        "SEV-000786",
+        "SEV-000787"
+      ]
+    },
+    "oakley-volvo-supreme-fe": {
+      "hash": "7191cdfcac1c259372cec74bc293ea58523bec413ada156a320b4680eb4567a0",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000952"
+      ]
+    },
+    "pagani-utopia": {
+      "hash": "5dcef2479fab556537717a86320353de43b78a50f45f28c199b8fdcbfafaa21b",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000639",
+        "SEV-000597"
+      ]
+    },
+    "pagani-zonda": {
+      "hash": "1d8502523aa1b501b240f797073cd196de53731f54563b80602d778d36beb391",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000580"
+      ]
+    },
+    "peugeot-2008": {
+      "hash": "89091d45152196d551e761abfaec9621551422345f1267e8d24d8b27bba0ac28",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000361",
+        "SEV-000881"
+      ]
+    },
+    "peugeot-e208": {
+      "hash": "82e305ad317f73516498c6a394b02b0b720dd52273aeafec67d9a19f532617a8",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000375",
+        "SEV-000882"
+      ]
+    },
+    "pinnacle-mercedes-benz-sprinter-limo-bus": {
+      "hash": "f3593ecec46a562708a0fb16957d237a86c235f0945d5e4eaf8a225bbbac1924",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000758"
+      ]
+    },
+    "pinnacle-mercedes-benz-sprinter-limo-bus-hd": {
+      "hash": "3a03c67d36d404d60165ddd53b10e74060ef8921bedf10c89af339a0be02c4c8",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000925",
+        "SEV-000931"
+      ]
+    },
+    "porsche-911": {
+      "hash": "d5a46b3af70ce68af8a4f9e579fafcd5138204e842a1b8ad06fd7e36bac11a4e",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000789"
+      ]
+    },
+    "porsche-carrera-gt": {
+      "hash": "0044be990fdc0bbe26af3c2462e28c73d2a01c32cd651f586921caa8a3f54459",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000605",
+        "MRE-000621",
+        "SEV-001101"
+      ]
+    },
     "ram-1500": {
       "hash": "5033ec2891fa4e646400e653afb202e11fd2f763e5758c72ef696649e0236e7d",
       "last_modified": "2026-09-08",
@@ -451,6 +2131,113 @@
         "SEV-000988",
         "SEV-000989",
         "SEV-001008"
+      ]
+    },
+    "renault-alpine": {
+      "hash": "3f9fe71e5d5effb69e027614eb406875210b485e05361210068a128b046ebf5f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000531"
+      ]
+    },
+    "renner-sl": {
+      "hash": "40008e8632b1be9fbcf132697dc2d873ba91d552ae3968789021d91c5b0b06ba",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000555"
+      ]
+    },
+    "renner-speedster": {
+      "hash": "a1563254b86404a8533e65143bb0ba6b8e819b02b0f3eb453ed921d36f3941fc",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000543"
+      ]
+    },
+    "rivian-r1t": {
+      "hash": "53f7e1d42280f6c2f6f07a4cb98b7473ba69bd84ab6d29a4b84d222953b9c16b",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000545"
+      ]
+    },
+    "roark-design-magic-carpet": {
+      "hash": "1e28e41fb77a11ede84672550c807df0c648352bbcf2f46478e2a6a7b2b6a822",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000648"
+      ]
+    },
+    "ruf-rtr": {
+      "hash": "98b9127c8b36a6ed837e213af81d2eb8a4044a0868914ad3b35e196d9f047d78",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000562"
+      ]
+    },
+    "rv-trust-toyota-tr500-c-lh-hiace-campervan": {
+      "hash": "77b20a2f12238ac75993d7a2f383f84fc6a3082ea7c7f9621f7346fdfcadba3f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000762",
+        "SEV-000720"
+      ]
+    },
+    "saic-maxus-ldv-sv3c-c-ev30": {
+      "hash": "aabcf5e5d90b2f6a54ad1c0e0948fa74b249bf7ee792b954de7b32f784a2baef",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000923"
+      ]
+    },
+    "set-forth-toyota-hiace-campervan": {
+      "hash": "a4aa7fe5e40d46f5a8bc717b596a43f0bc90be5f7a21879a1d09df6cfa19e8bd",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-001019"
+      ]
+    },
+    "signature-daf-signature-lux-horsebox": {
+      "hash": "991fea5cd9e4df676bff53b7a456dd88e42406f9fcb07180dc8f853fcaa73025",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000783",
+        "SEV-000636",
+        "SEV-000684"
+      ]
+    },
+    "smart-fortwo-electric-drive": {
+      "hash": "ce1c097dcb126ed3e8699493c2ccf764ffb8ac2c13b2a758813205539f8967f0",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000935"
+      ]
+    },
+    "stephex-iveco-stralis-horsetruck": {
+      "hash": "00e5fa51e1058923c0a808c20f182720e1a30858c47f6878ab8dbadc7486ea7c",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000867"
+      ]
+    },
+    "stratton-lotus-evora-gt": {
+      "hash": "19a3e3c6637152878b44328fef4594db7252b1fd8f67f24f04559bc2fbc92d48",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000908"
       ]
     },
     "subaru-forester": {
@@ -506,6 +2293,87 @@
         "SEV-001042"
       ]
     },
+    "subaru-xv-hybrid": {
+      "hash": "1ebee922869c57adf56f292f0fb935c1c472bf0a506def21e1c33b9ee249d625",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000034",
+        "MRE-000143",
+        "MRE-000187",
+        "MRE-000419",
+        "MRE-000832",
+        "MRE-000866",
+        "MRE-000992",
+        "SEV-000707",
+        "SEV-000884"
+      ]
+    },
+    "subaru-xv-welcab": {
+      "hash": "17d84beae462747f18f49781ce4e79c147a2839128af26d79a89b49fb61fae1f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000634",
+        "SEV-000577"
+      ]
+    },
+    "sunswift-sunswift-8": {
+      "hash": "3e120f7a2ec7893f68ad0e27ce1efcbebbf4e7944dd97dbfac05e2a81f13dee4",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000651"
+      ]
+    },
+    "suzuki-alto": {
+      "hash": "1f49ea30bfea9864b2b3f9ab9a6476aecfa2af4cb5366ac00d3bb203b33cf998",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000109",
+        "MRE-000340",
+        "MRE-000629",
+        "SEV-000666"
+      ]
+    },
+    "suzuki-alto-lapin": {
+      "hash": "210166c1b6ff360d9f9568e81440c1929906461a281ea8a319f2e393c50dba1d",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000433",
+        "SEV-000996"
+      ]
+    },
+    "suzuki-carry": {
+      "hash": "688b7e6a0cc5c3e8c4a8cd6b033e484206d65210881f1f401adf1a7cbc744e2d",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000861",
+        "MRE-000867",
+        "SEV-000914"
+      ]
+    },
+    "suzuki-every": {
+      "hash": "95d6cc1d3e489f668896ff862862bb278a50bee604711ef97588f09e5a091a56",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000864",
+        "SEV-000930"
+      ]
+    },
+    "suzuki-ignis": {
+      "hash": "dda492964ea91cabf526876fdfbbef658b3bc46fbd450d92fbccb59c8a7d43ad",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000985",
+        "SEV-001015"
+      ]
+    },
     "suzuki-jimny": {
       "hash": "58b1323d097356bf9cb6de9d7682bb4df1d6b639ba2b97cd10c6d2e6d3cd8f19",
       "last_modified": "2026-09-08",
@@ -513,6 +2381,33 @@
       "approval_ids": [
         "MRE-000931",
         "SEV-000654"
+      ]
+    },
+    "suzuki-spacia-custom": {
+      "hash": "6ec9cc194f8db6fdf5051222f640a1de505b76a5b1bdb72eebe32fb814e87638",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000594"
+      ]
+    },
+    "suzuki-swift": {
+      "hash": "6ea8e503649c9c2d99127e93510ec4cae917c20093eda4f2d84531453ab2cbf6",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000161",
+        "MRE-000300",
+        "SEV-000692"
+      ]
+    },
+    "suzuki-xbee": {
+      "hash": "3496dca5eeb6634dd3e1faec0520d600eba9e3af0eea13393de27ecd6eb26232",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000963",
+        "SEV-000627"
       ]
     },
     "toyota-alphard-vellfire": {
@@ -564,6 +2459,27 @@
         "SEV-001089"
       ]
     },
+    "toyota-altezza-gita": {
+      "hash": "ff44237b251dd4af2743ed6653a17284774bd54ab447ef8e5d6147afe5dddf48",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000084",
+        "MRE-000142",
+        "SEV-000885",
+        "SEV-000886"
+      ]
+    },
+    "toyota-altezza-rs200": {
+      "hash": "4f4275ef9383230eb9f12300a3a94c351b91e13a1a4c29064f2f90da17780194",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000106",
+        "MRE-000160",
+        "SEV-000647"
+      ]
+    },
     "toyota-aqua": {
       "hash": "2b73380e09cab72a67b0e043a78bf08de4a9d0a249654a599d445d12f7fccbd1",
       "last_modified": "2026-09-08",
@@ -589,6 +2505,23 @@
         "MRE-000048",
         "MRE-000437",
         "SEV-000644"
+      ]
+    },
+    "toyota-caldina": {
+      "hash": "67053ba8e34f2c67f87f009e1e2f340720e308aff70b62843f93bc3b36f37c86",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000846"
+      ]
+    },
+    "toyota-camry": {
+      "hash": "9e83e3cb9b69118ba5cab2eff275b914bc2e3f6ace487c15e1345be039ce5710",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000947",
+        "SEV-000913"
       ]
     },
     "toyota-century": {
@@ -751,6 +2684,16 @@
         "SEV-000912"
       ]
     },
+    "toyota-granvia": {
+      "hash": "a57412a6fe32f28b39fa93200101d36ab8a8d03aec7875fe5d1c0be6db88a6f5",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000707",
+        "MRE-000872",
+        "SEV-000568"
+      ]
+    },
     "toyota-harrier": {
       "hash": "a5b21626d4bbd452940c43185110b54abd0c45ebc3332fbb26bcb03cd9c8cd89",
       "last_modified": "2026-09-08",
@@ -846,6 +2789,24 @@
         "SEV-000991"
       ]
     },
+    "toyota-pixis-truck": {
+      "hash": "f5246e8cee460a58419a5156af88718e27d936e4f2452f1a98db2c0eae34437a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000943",
+        "SEV-001000"
+      ]
+    },
+    "toyota-pixis-van": {
+      "hash": "92ea2e69fc0bacf1601e61d64e6a41fb4b53a102f65d537977a62bbf99485296",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000966",
+        "SEV-001002"
+      ]
+    },
     "toyota-porte-spade": {
       "hash": "d451906e817b1ca085d7548871e3933a87ae15d4ffa686dfb3476b1497f385a0",
       "last_modified": "2026-09-08",
@@ -885,6 +2846,47 @@
         "SEV-001096"
       ]
     },
+    "toyota-ractis": {
+      "hash": "922623cdadcca370a72297cce27bad9071a47c0d91249c138a7e6f2d13d3ce43",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000006",
+        "MRE-000029",
+        "SEV-000718"
+      ]
+    },
+    "toyota-sequoia": {
+      "hash": "72b29ebcb78425174115efb062b7fee0bd732859a52535abb15bdd20b42848ab",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000904"
+      ]
+    },
+    "toyota-sienta-welcab": {
+      "hash": "e5cc440b30e8cf8c16e72aaeca91c413d6e153aedf23735a6609d8c31a3342cf",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000086",
+        "MRE-000862",
+        "SEV-000850",
+        "SEV-000854",
+        "SEV-000891",
+        "SEV-000892",
+        "SEV-000893",
+        "SEV-000894"
+      ]
+    },
+    "toyota-sora": {
+      "hash": "bc30aea70dba2e665760053bfa951889ba7897b9c94c9f5157d580b4ad61ea14",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000969"
+      ]
+    },
     "toyota-supra": {
       "hash": "f13a738f62a7da07637c9da2eeba57f8f81c3af616bcf58a6e5134206a54f252",
       "last_modified": "2026-09-08",
@@ -896,6 +2898,148 @@
         "SEV-000567",
         "SEV-001051",
         "SEV-001052"
+      ]
+    },
+    "toyota-vitz-welcab-only": {
+      "hash": "1485443c0ef486b5c28a8dde7c9bbdc028c93b40f829eaf3978a3f4aaccad631",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000393",
+        "SEV-001081"
+      ]
+    },
+    "toyota-yaris": {
+      "hash": "e8822da9e0c5e18500a56da8f53441353e7fadab73aa5a6aa4876c2fed5533c8",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000785",
+        "MRE-000897",
+        "MRE-000952",
+        "SEV-000709",
+        "SEV-000710"
+      ]
+    },
+    "toyota-yaris-welcab": {
+      "hash": "f1cfccfc9e5788efc03da2bc05f90c602ad61740ff9419d086a92baa73078d5a",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000987",
+        "SEV-001040"
+      ]
+    },
+    "tvr-cerbera": {
+      "hash": "4e998ed43332edee246b9bd66c7ec6d35a60cf428b5beb5f7bb6a8862df9da45",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000938",
+        "SEV-000949",
+        "SEV-000950",
+        "SEV-000951"
+      ]
+    },
+    "tvr-sagaris": {
+      "hash": "2b5e5869149a7f0b28777a262ad810740919329f7f490336a720d111e82e7873",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000869"
+      ]
+    },
+    "vantech-toyota-camroad-zil": {
+      "hash": "fd8ebc9ce49789fe25bf5b0f14772b005023bf16d45a921a6ef47e9410e92f90",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000895"
+      ]
+    },
+    "vantech-toyota-vantech-camroad-campervan-100-series-200-series": {
+      "hash": "9443dbc86cb05dd902bc9bb49f61a4bf179f615eb0e921437b4d4d09cdfbe472",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000874"
+      ]
+    },
+    "vantech-toyota-vantech-camroad-campervan-200-series": {
+      "hash": "1a4675b167ffe5ed4a806d68effdaa6c5160fc43bff9d5ac2925e9b1ec105045",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000810",
+        "MRE-000921",
+        "SEV-000870"
+      ]
+    },
+    "vauxhall-corsa-e": {
+      "hash": "ef0695e51ce0d24180ed84fa329b4f3c47bd8984267fecbd46075874b06747c6",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000320",
+        "SEV-000910"
+      ]
+    },
+    "vauxhall-vivaro-e": {
+      "hash": "c3861362cdef91699ec7f3932e479dfb654134f1375b5330d51b83e4a3ddeea9",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000369",
+        "SEV-000986"
+      ]
+    },
+    "volkswagen-id6-crozz": {
+      "hash": "f957eee4d80313cef49dd50c045d26f1ed0882e880d8a3eaac382763fd1d3370",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000586"
+      ]
+    },
+    "volkswagen-passat": {
+      "hash": "dbca283d87dfd955831e93bcc47c1b7bfa5fcd2f4d01bef87f549e38336fb869",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000542"
+      ]
+    },
+    "whitehouse-toyota-hiace-camper": {
+      "hash": "439463791ef6cb365239da4244f14d93d75b54a12338db5f0346e9830cb82a91",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "MRE-000955",
+        "SEV-001009"
+      ]
+    },
+    "yihau-yh-eq": {
+      "hash": "b45aff128e8e5b85d8d41fac44c6b5a4cc74a643b29ff93dce87536b181d9d14",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000522"
+      ]
+    },
+    "zero-s": {
+      "hash": "1ae3a6756b58c8f16997d3459697d8cc59a33856c16d91b7ee92d2fe3d7ddb4f",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000556"
+      ]
+    },
+    "zero-sr-s": {
+      "hash": "5123c91ac2ebfb908385cc82299234fe276e5854c0e1c87238230a1d102a80a9",
+      "last_modified": "2026-09-08",
+      "live": true,
+      "approval_ids": [
+        "SEV-000537"
       ]
     }
   },

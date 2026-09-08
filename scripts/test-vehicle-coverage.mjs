@@ -11,7 +11,15 @@ assert.equal(coverage.matched_records + coverage.candidate_records, register.sev
 assert.equal(new Set(coverage.pages.map(p => p.slug)).size, coverage.pages.length);
 assert.ok(coverage.pages.every(p => !isLive(p) && p.approvals.length === 0));
 assert.ok(!isLive({...coverage.pages[0],publish_ready:true,reviewed_by:'accidental flag'}));
-assert.deepEqual(coverage, await read('../functions/_data/vehicle-coverage.json'));
+const saved = await read('../functions/_data/vehicle-coverage.json');
+const decisions = await read('../docs/evidence/coverage-decisions-20260908.json');
+for (const page of saved.pages) {
+  const decision = decisions.find(d=>d.candidate===page.slug && d.decision==='hold');
+  if (decision) assert.deepEqual(page.review_note,{date:'2026-09-08',reasons:decision.reasons});
+  else assert.equal(page.review_note,undefined);
+  delete page.review_note;
+}
+assert.deepEqual(coverage, saved);
 const draft = coverage.pages[0];
 const rendered = await renderVehiclePage(draft, coverage.generated_at).text();
 assert.match(rendered, /Eligibility not yet verified/);
