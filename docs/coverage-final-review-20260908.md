@@ -24,7 +24,7 @@ Renderer, publication, coverage, mapping-integrity and catalogue drift tests pas
 
 Warm-cache mobile traces with Fast 4G and 4x CPU slowdown: homepage LCP 690ms, Crown 498ms, hub 415ms, all CLS 0. These are observed lab traces, not field metrics; CrUX data is unavailable.
 
-A cold mobile Lighthouse run on production before the font change scored 62, LCP 7.6s, CLS 0, TBT 190ms. It identified render-blocking Google Fonts. Fonts now load without blocking first paint and use optional font display to avoid late swaps. The initial local check scored 89, LCP 3.0s, CLS 0.024, TBT 260ms; local and production timings are not a controlled comparison. A production post-deployment check is required. Lighthouse completed and wrote valid reports without audit warnings, then its temporary-profile cleanup encountered a Windows EPERM error.
+A cold mobile Lighthouse run on production before the font change scored 62, LCP 7.6s, CLS 0, TBT 190ms. It identified render-blocking Google Fonts. Fonts now load without blocking first paint and use optional font display to avoid late swaps. The post-deployment production run at 06:58 UTC scored 94, LCP 2.0s, CLS 0.026, TBT 230ms and Speed Index 1.7s, using the same Lighthouse 12 mobile configuration. These are individual lab runs, not field guarantees. Both runs wrote valid reports without audit warnings or a report runtime error; temporary-profile cleanup subsequently encountered a Windows EPERM error.
 
 ## Cloudflare inspection
 
@@ -34,6 +34,18 @@ AI Crawl Control last-24-hour table showed allowed requests / unsuccessful: Clau
 
 ## Search Console
 
-Access is now available. Its indexing report is last updated 4 September, before these releases: 4 indexed and 21 excluded. The redirect example is the HTTP homepage. Remaining exact URL inspection results are recorded after live checks.
+Access is now available. Its indexing report is last updated 4 September, before these releases: 4 indexed and 21 excluded. The HTTP homepage redirects with 301 to HTTPS, and the literal search-query URL canonicalises to the homepage; those two exclusions are expected and were not submitted as defects.
+
+The 15 discovered but not indexed examples are Civic Type R, Fit/Jazz, RX-7, Delica, Lancer Evolution, Elgrand, GT-R R35, Note, Serena, Silvia S15, Skyline, Jimny, Hiace, Noah/Voxy and Porte/Spade. The four crawled but not indexed examples are Alphard/Vellfire, Crown, Harrier and Supra, with reported crawl dates of 3-5 September. These reports do not establish a current technical block or guarantee future inclusion.
+
+Live URL inspection on 8 September confirmed Crown and Skyline are available to Google and can be indexed, with valid breadcrumb items. Both indexing requests were accepted into Google's priority crawl queue. Actual indexing remains Google's decision and the historical report will lag.
+
+After all live checks passed, the existing https://importcheck.com.au/sitemap.xml was resubmitted. Search Console confirmed successful submission of the updated sitemap; this is receipt confirmation, not proof that every URL has been indexed.
+
+## Release verification
+
+PR 16 merged as 810cfdf2dded5e210afdcd9258512f0bdca7e0fc and Cloudflare reported its production deployment successful. The final branch workflow 34196549919 passed at 5e1224ee9926933055b0e2469d82f01db2de97fb against freshly exported source records.
+
+At 06:57 UTC, all 277 production sitemap URLs returned 200, matched their canonical URL, remained indexable and contained parseable JSON-LD wherever present. All 128 held candidate URLs returned 200 with noindex, and all 15 scheduled guides retained noindex. No failures were found. The review queue includes dated hold reasons. Local code review covered source-scope invalidation, exact name mapping, output escaping, font fallback and preservation of existing guide data; no blocking findings remain.
 
 CRM remains parked by the owner's instruction. No lead submissions or outreach were sent.
