@@ -185,6 +185,9 @@
   .crit{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink)}
   .crit .cdot{width:9px;height:9px;border-radius:3px;flex:none}
   .sev{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+  .model-guide-link{display:inline-flex;align-items:center;gap:6px;margin-top:4px;min-height:32px;padding:4px 0;font-size:12px;font-weight:600;line-height:1.2;color:var(--muted);text-decoration:none;white-space:nowrap}
+  .model-guide-link:hover{color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px}
+  .model-guide-link:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px;border-radius:3px}
   .cattag{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--muted);background:var(--grey-soft);border-radius:999px;padding:3px 9px;line-height:1}
   .badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;border-radius:999px;padding:4px 10px;white-space:nowrap;line-height:1}
   .badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
@@ -1122,7 +1125,7 @@ function thumbHTML(r){
 const modelGuideMap = JSON.parse(document.getElementById('model-guide-map')?.textContent || '{}');
 function guideLink(r){
   const slug = modelGuideMap[r.id];
-  return slug ? '<p><a href="/vehicles/'+esc(slug)+'">'+esc(titleMake(r.make)+' '+r.model)+' eligibility guide →</a></p>' : '';
+  return slug ? '<a class="model-guide-link" href="/vehicles/'+esc(slug)+'" aria-label="'+esc(titleMake(r.make)+' '+r.model)+' eligibility guide">View guide <span aria-hidden="true">↗</span></a>' : '';
 }
 function cardHTML(r){
   const st = statusOf(r);
