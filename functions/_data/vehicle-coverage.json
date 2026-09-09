@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-08T06:36:55.209101+08:00",
-  "matched_records": 1192,
+  "generated_at": "2026-09-09T06:23:16.871263+08:00",
+  "matched_records": 1191,
   "guide_matches": [
     {
       "scheme": "SEV",
@@ -4712,13 +4712,6 @@
       "source_make": "PORSCHE",
       "source_model": "911",
       "guide_slug": "porsche-911"
-    },
-    {
-      "scheme": "MRE",
-      "approval_number": "MRE-000208",
-      "source_make": "SAIC Maxus (LDV)",
-      "source_model": "SV3C-C (EV30)",
-      "guide_slug": "saic-maxus-ldv-sv3c-c-ev30"
     },
     {
       "scheme": "MRE",

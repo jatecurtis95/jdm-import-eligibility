@@ -2191,8 +2191,8 @@
       ]
     },
     "saic-maxus-ldv-sv3c-c-ev30": {
-      "hash": "aabcf5e5d90b2f6a54ad1c0e0948fa74b249bf7ee792b954de7b32f784a2baef",
-      "last_modified": "2026-09-08",
+      "hash": "1d66d281bd2282be77ac9e3edf131d422b78fff1b1562e0181f939bb2a6aa347",
+      "last_modified": "2026-09-09",
       "live": true,
       "approval_ids": [
         "SEV-000923"
@@ -3043,6 +3043,14 @@
       ]
     }
   },
-  "changes": [],
+  "changes": [
+    {
+      "date": "2026-09-09",
+      "slug": "saic-maxus-ldv-sv3c-c-ev30",
+      "name": "SAIC Maxus (LDV) SV3C-C (EV30)",
+      "added": [],
+      "removed": []
+    }
+  ],
   "baseline_date": "2026-09-08"
 }
