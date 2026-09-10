@@ -620,13 +620,10 @@
       ]
     },
     "dongfeng-motor-co-ltd-box": {
-      "hash": "bfe0f48cbe08b5a0131f26e64df52e613865943de85931c47371479d7119b6b3",
-      "last_modified": "2026-09-08",
-      "live": true,
-      "approval_ids": [
-        "MRE-000901",
-        "SEV-000925"
-      ]
+      "hash": "de7132a50b067fbf9c0fe1d8cf7b6b51ab96ea88690bd07c0d6a7ef2b8531ce5",
+      "last_modified": "2026-09-10",
+      "live": false,
+      "approval_ids": []
     },
     "eq-man-tgl-4x2-eq12": {
       "hash": "caba13cc1cd9096ef9ca56c7ccfeba49f9564cb519c13f15fc6a3ccf82565a5f",
@@ -2411,8 +2408,8 @@
       ]
     },
     "toyota-alphard-vellfire": {
-      "hash": "81b0a4ec2b1d7a62b75154729f12077253c2ddc349fecf3feeba8ae4a6325e37",
-      "last_modified": "2026-09-08",
+      "hash": "51b8247b62f0d0a393eb92103453c2a6d78ddd722960aeeb4274db12630b6662",
+      "last_modified": "2026-09-10",
       "live": true,
       "approval_ids": [
         "MRE-000003",
@@ -2549,8 +2546,8 @@
       ]
     },
     "toyota-corolla-fielder": {
-      "hash": "d7c7072a09c810c135150b4c07a8b36159dd6346d7d75c3c57b5ec0741eac5c3",
-      "last_modified": "2026-09-08",
+      "hash": "9b95d0e01e5b6b2912fb390888eb2939cdc5898b2260990c37c477cefa80be7e",
+      "last_modified": "2026-09-10",
       "live": false,
       "approval_ids": [
         "MRE-000001",
@@ -2823,14 +2820,15 @@
       ]
     },
     "toyota-prius-jdm": {
-      "hash": "d10790330d17b87a04fa4625ab5902e6a3737f41ed9c3d561f5429c7dafa1039",
-      "last_modified": "2026-09-08",
+      "hash": "8c29f60281e36d5b516de17f9487062d88ac61f03d06c3394ce84be6f5659474",
+      "last_modified": "2026-09-10",
       "live": false,
       "approval_ids": [
         "MRE-000136",
         "MRE-000309",
         "MRE-000328",
         "MRE-000384",
+        "MRE-000418",
         "MRE-000525",
         "MRE-000549",
         "MRE-000647",
@@ -3044,6 +3042,13 @@
     }
   },
   "changes": [
+    {
+      "date": "2026-09-10",
+      "slug": "toyota-alphard-vellfire",
+      "name": "Toyota Alphard / Vellfire",
+      "added": [],
+      "removed": []
+    },
     {
       "date": "2026-09-09",
       "slug": "saic-maxus-ldv-sv3c-c-ev30",
