@@ -1,14 +1,7 @@
 {
-  "generated_at": "2026-09-10T06:21:19.049291+08:00",
-  "matched_records": 1191,
+  "generated_at": "2026-09-11T06:22:09.503447+08:00",
+  "matched_records": 1189,
   "guide_matches": [
-    {
-      "scheme": "SEV",
-      "approval_number": "SEV-000518",
-      "source_make": "LINCOLN",
-      "source_model": "Navigator",
-      "guide_slug": "lincoln-navigator"
-    },
     {
       "scheme": "SEV",
       "approval_number": "SEV-000519",
@@ -6605,13 +6598,6 @@
     },
     {
       "scheme": "MRE",
-      "approval_number": "MRE-000681",
-      "source_make": "Toyota",
-      "source_model": "Alphard / Vellfire",
-      "guide_slug": "toyota-alphard-vellfire"
-    },
-    {
-      "scheme": "MRE",
       "approval_number": "MRE-000682",
       "source_make": "NISSAN",
       "source_model": "NOTE",
@@ -8743,6 +8729,31 @@
           "MRE-000666 includes missing or unusable linked bases; exact scope unresolved."
         ]
       }
+    },
+    {
+      "slug": "register-byd-racco",
+      "canonical_name": "BYD RACCO",
+      "make_norm": "BYD",
+      "h1": "BYD RACCO: register review",
+      "title_tag": "BYD RACCO register review | Import Check",
+      "meta_description": "Review source records for BYD RACCO. Eligibility has not yet been verified.",
+      "availability": "unverified",
+      "publish_ready": false,
+      "reviewed_by": null,
+      "approvals": [],
+      "counts": {},
+      "intel": {},
+      "faqs": [],
+      "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
+      "source_records": [
+        {
+          "scheme": "SEV",
+          "approval_number": "SEV-001108",
+          "model_code": "CK66EBS",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=92fda020-cdac-f111-aaab-70a8a5563b9f"
+        }
+      ],
+      "possible_matches": []
     },
     {
       "slug": "register-caterham-cvw7",
@@ -12328,12 +12339,6 @@
           "approval_number": "MRE-000221",
           "model_code": "WIDA171C",
           "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=2979234d-21d8-ed11-a7c7-0022489333a7"
-        },
-        {
-          "scheme": "MRE",
-          "approval_number": "MRE-000280",
-          "model_code": "MRWI-DA16T-01B",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=e776365e-070f-ee11-8f6d-00224892b406"
         },
         {
           "scheme": "MRE",

@@ -1230,13 +1230,10 @@
       ]
     },
     "lincoln-navigator": {
-      "hash": "d1ced638301455fd19e035de98bbf058a10cff72c5eef22176a027e0ab288292",
-      "last_modified": "2026-09-08",
-      "live": true,
-      "approval_ids": [
-        "MRE-000711",
-        "SEV-000518"
-      ]
+      "hash": "2675aa1a15ebc752bb19151b3ed3b4e9fe3afc59039403efa44aef96b562ea60",
+      "last_modified": "2026-09-11",
+      "live": false,
+      "approval_ids": []
     },
     "liuzhou-wuling-new-energy-automotive-go50": {
       "hash": "cd9b4bfef088d8512beb1452375584c881b6fd373fa206ce6deaeeff1d12da74",
@@ -2408,8 +2405,8 @@
       ]
     },
     "toyota-alphard-vellfire": {
-      "hash": "51b8247b62f0d0a393eb92103453c2a6d78ddd722960aeeb4274db12630b6662",
-      "last_modified": "2026-09-10",
+      "hash": "e63d7784ee5c143e6c295a197995533d9e2a8ae8ab4c79c2f82a48df3c80949e",
+      "last_modified": "2026-09-11",
       "live": true,
       "approval_ids": [
         "MRE-000003",
@@ -3042,6 +3039,13 @@
     }
   },
   "changes": [
+    {
+      "date": "2026-09-11",
+      "slug": "toyota-alphard-vellfire",
+      "name": "Toyota Alphard / Vellfire",
+      "added": [],
+      "removed": []
+    },
     {
       "date": "2026-09-10",
       "slug": "toyota-alphard-vellfire",
