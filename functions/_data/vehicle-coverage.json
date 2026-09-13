@@ -1,28 +1,7 @@
 {
-  "generated_at": "2026-09-12T06:19:59.531548+08:00",
-  "matched_records": 1189,
+  "generated_at": "2026-09-13T06:04:28.395051+08:00",
+  "matched_records": 1186,
   "guide_matches": [
-    {
-      "scheme": "SEV",
-      "approval_number": "SEV-000519",
-      "source_make": "ADRIA",
-      "source_model": "Compact Supreme DL",
-      "guide_slug": "adria-compact-supreme-dl"
-    },
-    {
-      "scheme": "SEV",
-      "approval_number": "SEV-000520",
-      "source_make": "NISSAN",
-      "source_model": "GT-R",
-      "guide_slug": "nissan-gtr-r35"
-    },
-    {
-      "scheme": "SEV",
-      "approval_number": "SEV-000521",
-      "source_make": "CADILLAC",
-      "source_model": "Escalade",
-      "guide_slug": "cadillac-escalade"
-    },
     {
       "scheme": "SEV",
       "approval_number": "SEV-000522",

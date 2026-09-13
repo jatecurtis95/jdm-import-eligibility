@@ -19,14 +19,10 @@
       ]
     },
     "adria-compact-supreme-dl": {
-      "hash": "b30f826ed90c4fecb7e8321d865b65193a8c152744ae57304feaed3a0bee2bc5",
-      "last_modified": "2026-09-08",
-      "live": true,
-      "approval_ids": [
-        "MRE-000578",
-        "MRE-000611",
-        "SEV-000519"
-      ]
+      "hash": "0fef8d64c6fd23d75b75724cc46f7bf46ac35044e45329944fa1c285169cabdb",
+      "last_modified": "2026-09-13",
+      "live": false,
+      "approval_ids": []
     },
     "alfa-romeo-156-sportwagon-gta": {
       "hash": "2b52dacc11da7cade1334e1e2c8d7ef053e26a34189203b48ff2e4c772c73feb",
@@ -445,12 +441,10 @@
       ]
     },
     "cadillac-escalade": {
-      "hash": "d2f1093f26944edfb6c7a21329b2be0ee344ddaad7a50136447a4deb965c7b49",
-      "last_modified": "2026-09-08",
-      "live": true,
-      "approval_ids": [
-        "SEV-000521"
-      ]
+      "hash": "d882bcd834e55a92232c69422c257f8f4dd39027794c0abafa93f00f0f8db481",
+      "last_modified": "2026-09-13",
+      "live": false,
+      "approval_ids": []
     },
     "caparo-t1": {
       "hash": "3641faa383c290d7e3ddf9cba71ccf978bc78e1dbf99bfcdc2fffd33cf81316c",
@@ -1788,15 +1782,14 @@
       ]
     },
     "nissan-gtr-r35": {
-      "hash": "086670d292732b48bd6d1d4fd6a42892215ff19ad37560e4a91c767f03411c10",
-      "last_modified": "2026-09-08",
+      "hash": "36030aba8d74f6b3c78edcd05bcc2d42797236fa1faed76d57143bbee65f41bb",
+      "last_modified": "2026-09-13",
       "live": true,
       "approval_ids": [
         "MRE-000004",
         "MRE-000223",
         "MRE-000272",
         "MRE-000560",
-        "SEV-000520",
         "SEV-000646"
       ]
     },
@@ -3039,6 +3032,15 @@
     }
   },
   "changes": [
+    {
+      "date": "2026-09-13",
+      "slug": "nissan-gtr-r35",
+      "name": "Nissan GT-R (R35)",
+      "added": [],
+      "removed": [
+        "SEV-000520"
+      ]
+    },
     {
       "date": "2026-09-11",
       "slug": "toyota-alphard-vellfire",

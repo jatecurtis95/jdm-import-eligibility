@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-12T04:40:40.493Z",
+  "generated_at": "2026-09-13T04:53:49.679Z",
   "page_count": 287,
-  "published_count": 270,
+  "published_count": 268,
   "scheduled_count": 15,
   "drifted_count": 0,
   "pages": [
@@ -73,7 +73,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -144,7 +144,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -157,91 +157,22 @@
       "h1": "ADRIA Compact Supreme DL import eligibility in Australia",
       "title_tag": "ADRIA Compact Supreme DL Import Eligibility Australia | Import Check",
       "meta_description": "Check ADRIA Compact Supreme DL register entries, chassis codes, build dates and variant restrictions. See original ROVER records and ask about your exact car.",
-      "intro_copy": "SEV-000519 lists Compact Supreme DL with model code Compact Supreme DL. Its stated variant scope is: DL and SC variants are covered by this SEVs entry.\n\nMatch the chassis, build month and variant to the same SEVS entry and its linked model report. Each row retains its own dates and conditions; a broader model name or a different report does not extend those limits.\n\nMobility equipment belongs to the specific entry that requires it. A standard passenger version cannot rely on a mobility-only approval. Check the original equipment and conversion requirements with the workshop.\n\nFor a converted vehicle, confirm the named converter, body configuration and vehicle category in the original approval. A listing for a completed conversion does not establish coverage for an unconverted base vehicle.",
-      "availability": "importable",
-      "approvals": [
-        {
-          "approval_number": "MRE-000578",
-          "scheme": "MRE",
-          "model": "Compact Supreme DL",
-          "model_code": "COMPACT",
-          "build_from": "2022-10-01",
-          "build_to": "2025-02-01",
-          "build_open": false,
-          "build_date_range": "10/2022 - 2/2025",
-          "status": "eligible",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=d4fc70cd-f537-ef11-a316-000d3ad12fff",
-          "category": "NA",
-          "source_variant": "WICOMPACT02A",
-          "variant_details": null,
-          "expiry": null,
-          "criterion": null,
-          "odometer_limit_km": null,
-          "based_on_sevs": [
-            "SEV-000519"
-          ],
-          "source_markets": [
-            "United Kingdom"
-          ]
-        },
-        {
-          "approval_number": "MRE-000611",
-          "scheme": "MRE",
-          "model": "Compact Supreme DL",
-          "model_code": "COMPACT",
-          "build_from": "2022-10-01",
-          "build_to": "2025-02-01",
-          "build_open": false,
-          "build_date_range": "10/2022 - 2/2025",
-          "status": "eligible",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=247650ec-304d-ef11-a316-000d3ad15e1a",
-          "category": "NA",
-          "source_variant": "WICOMPACT02A",
-          "variant_details": null,
-          "expiry": null,
-          "criterion": null,
-          "odometer_limit_km": null,
-          "based_on_sevs": [
-            "SEV-000519"
-          ],
-          "source_markets": [
-            "United Kingdom",
-            "Italy"
-          ]
-        },
-        {
-          "approval_number": "SEV-000519",
-          "scheme": "SEV",
-          "model": "Compact Supreme DL",
-          "model_code": "Compact Supreme DL",
-          "build_from": "2022-10-01",
-          "build_to": null,
-          "build_open": true,
-          "build_date_range": null,
-          "status": "expiring",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=936d921d-0b52-ee11-be6f-00224812298a",
-          "category": "NA - Light Goods Vehicle",
-          "source_variant": "ALL",
-          "variant_details": "DL and SC variants are covered by this SEVs entry",
-          "expiry": "12/09/2026",
-          "criterion": "Campervans and Motorhomes Criterion",
-          "odometer_limit_km": null,
-          "based_on_sevs": [],
-          "source_markets": []
-        }
-      ],
+      "intro_copy": "The source records have changed since this guide was reviewed. Check the original register and ask a workshop to assess the exact vehicle while this guide is being reviewed again.",
+      "availability": "unverified",
+      "approvals": [],
       "counts": {
-        "usable": 3,
-        "sev_basis_gone": 0,
+        "usable": 0,
+        "sev_basis_gone": 2,
         "expired": 0
       },
-      "publish_ready": true,
+      "publish_ready": false,
       "reviewed_by": "Codex source review, authorised by site owner",
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
-      "last_modified": "2026-09-08"
+      "stale": true,
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
+      "last_modified": "2026-09-13"
     },
     {
       "slug": "alfa-romeo-156-sportwagon-gta",
@@ -313,7 +244,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -360,7 +291,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -407,7 +338,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -454,7 +385,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -501,7 +432,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -572,7 +503,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -664,7 +595,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -711,7 +642,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -782,7 +713,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -853,7 +784,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -924,7 +855,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -971,7 +902,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1018,7 +949,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1089,7 +1020,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1161,7 +1092,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1257,7 +1188,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1356,7 +1287,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1427,7 +1358,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1474,7 +1405,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1546,7 +1477,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1593,7 +1524,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1664,7 +1595,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1711,7 +1642,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1758,7 +1689,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1830,7 +1761,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1901,7 +1832,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1948,7 +1879,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -1995,7 +1926,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2109,7 +2040,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2176,7 +2107,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2272,7 +2203,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2319,7 +2250,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2466,7 +2397,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2513,7 +2444,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2585,7 +2516,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2682,7 +2613,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2729,7 +2660,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2802,7 +2733,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2849,7 +2780,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -2982,7 +2913,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3054,7 +2985,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3101,7 +3032,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3148,7 +3079,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3195,7 +3126,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3262,7 +3193,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3309,7 +3240,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3406,7 +3337,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3419,42 +3350,22 @@
       "h1": "CADILLAC Escalade import eligibility in Australia",
       "title_tag": "CADILLAC Escalade Import Eligibility Australia | Import Check",
       "meta_description": "Check CADILLAC Escalade register entries, chassis codes, build dates and variant restrictions. See original ROVER records and ask about your exact car.",
-      "intro_copy": "SEV-000521 lists Escalade with model code GMT K2XL.\n\nThe reviewed records under these source model names contain SEVS listings but no current model report. A listing alone does not confirm an available compliance route. Ask a workshop to identify an applicable report and confirm the exact vehicle before purchase.",
-      "availability": "importable",
-      "approvals": [
-        {
-          "approval_number": "SEV-000521",
-          "scheme": "SEV",
-          "model": "Escalade",
-          "model_code": "GMT K2XL",
-          "build_from": "2013-10-01",
-          "build_to": "2020-02-01",
-          "build_open": false,
-          "build_date_range": null,
-          "status": "expiring",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=400b4c8c-0b52-ee11-be6f-00224812298a",
-          "category": "MC - Off-Road Passenger Vehicle",
-          "source_variant": "ALL",
-          "variant_details": null,
-          "expiry": "12/09/2026",
-          "criterion": "Left-Hand Drive Criterion",
-          "odometer_limit_km": null,
-          "based_on_sevs": [],
-          "source_markets": []
-        }
-      ],
+      "intro_copy": "The source records have changed since this guide was reviewed. Check the original register and ask a workshop to assess the exact vehicle while this guide is being reviewed again.",
+      "availability": "unverified",
+      "approvals": [],
       "counts": {
-        "usable": 1,
+        "usable": 0,
         "sev_basis_gone": 0,
         "expired": 0
       },
-      "publish_ready": true,
+      "publish_ready": false,
       "reviewed_by": "Codex source review, authorised by site owner",
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
-      "last_modified": "2026-09-08"
+      "stale": true,
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
+      "last_modified": "2026-09-13"
     },
     {
       "slug": "caparo-t1",
@@ -3500,7 +3411,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3547,7 +3458,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3594,7 +3505,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3641,7 +3552,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3713,7 +3624,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3760,7 +3671,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3807,7 +3718,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3878,7 +3789,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3925,7 +3836,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -3996,7 +3907,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4067,7 +3978,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4138,7 +4049,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4185,7 +4096,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4232,7 +4143,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4279,7 +4190,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4326,7 +4237,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4373,7 +4284,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4420,7 +4331,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4467,7 +4378,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4559,7 +4470,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4586,7 +4497,7 @@
       "intel": {},
       "faqs": [],
       "stale": true,
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-10"
     },
     {
@@ -4657,7 +4568,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4704,7 +4615,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4776,7 +4687,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4872,7 +4783,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -4944,7 +4855,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -5018,7 +4929,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -5089,7 +5000,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -5180,7 +5091,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -5507,7 +5418,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -5554,7 +5465,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -5993,7 +5904,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6065,7 +5976,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6163,7 +6074,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6236,7 +6147,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6308,7 +6219,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6375,7 +6286,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6446,7 +6357,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6493,7 +6404,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6564,7 +6475,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6611,7 +6522,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6796,7 +6707,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -6843,7 +6754,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -7074,7 +6985,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -7145,7 +7056,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -7470,7 +7381,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -7629,7 +7540,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -7700,7 +7611,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -7771,7 +7682,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -7818,7 +7729,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -7865,7 +7776,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -7985,7 +7896,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -8310,7 +8221,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -8407,7 +8318,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -8550,7 +8461,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -8763,7 +8674,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -8834,7 +8745,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -8905,7 +8816,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -8952,7 +8863,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -8999,7 +8910,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9070,7 +8981,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9141,7 +9052,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9188,7 +9099,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9235,7 +9146,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9307,7 +9218,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9379,7 +9290,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9451,7 +9362,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9498,7 +9409,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9569,7 +9480,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9712,7 +9623,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9807,7 +9718,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9950,7 +9861,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -9997,7 +9908,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -10092,7 +10003,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -10304,7 +10215,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -10375,7 +10286,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -10518,7 +10429,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -10661,7 +10572,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -10801,7 +10712,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -10828,7 +10739,7 @@
       "intel": {},
       "faqs": [],
       "stale": true,
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-11"
     },
     {
@@ -10875,7 +10786,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -10922,7 +10833,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -10969,7 +10880,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11016,7 +10927,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11063,7 +10974,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11110,7 +11021,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11205,7 +11116,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11272,7 +11183,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11390,7 +11301,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11483,7 +11394,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11554,7 +11465,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11625,7 +11536,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11696,7 +11607,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11767,7 +11678,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11814,7 +11725,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11885,7 +11796,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -11932,7 +11843,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -12003,7 +11914,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -12146,7 +12057,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -12193,7 +12104,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -12240,7 +12151,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -12383,7 +12294,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -12454,7 +12365,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -12571,7 +12482,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -12662,7 +12573,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -12733,7 +12644,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -12901,7 +12812,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -13013,7 +12924,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -13084,7 +12995,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -13342,7 +13253,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -13477,7 +13388,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -13524,7 +13435,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -13571,7 +13482,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -13688,7 +13599,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -13800,7 +13711,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -13876,7 +13787,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -13947,7 +13858,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -14235,7 +14146,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -14306,7 +14217,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -14738,7 +14649,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -14785,7 +14696,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -14832,7 +14743,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -14879,7 +14790,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -14926,7 +14837,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -14973,7 +14884,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15020,7 +14931,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15087,7 +14998,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15155,7 +15066,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15202,7 +15113,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15249,7 +15160,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15296,7 +15207,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15435,7 +15346,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15482,7 +15393,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15753,7 +15664,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15873,7 +15784,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15968,7 +15879,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -15977,10 +15888,10 @@
       "slug": "nissan-gtr-r35",
       "intel": {},
       "counts": {
-        "usable": 6,
+        "usable": 5,
         "expired": 0,
         "under_review": 0,
-        "expiring_soon": 1,
+        "expiring_soon": 0,
         "sev_basis_gone": 0
       },
       "aka_names": [
@@ -16091,26 +16002,6 @@
           ]
         },
         {
-          "approval_number": "SEV-000520",
-          "scheme": "SEV",
-          "model": "GT-R",
-          "model_code": "4BA-R35",
-          "build_from": "2022-03-01",
-          "build_to": null,
-          "build_open": true,
-          "build_date_range": null,
-          "status": "expiring",
-          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=edeb7e41-0b52-ee11-be6f-00224812298a",
-          "category": "MA - Passenger Vehicle",
-          "source_variant": "ALL",
-          "variant_details": null,
-          "expiry": "12/09/2026",
-          "criterion": "Performance Criterion",
-          "odometer_limit_km": null,
-          "based_on_sevs": [],
-          "source_markets": []
-        },
-        {
           "approval_number": "SEV-000646",
           "scheme": "SEV",
           "model": "GT-R",
@@ -16143,7 +16034,7 @@
       "usable_build_to": "2009-02-01",
       "meta_description": "Can a Nissan GT-R R35 be imported to Australia? Live SEVS and MRE approvals by build date, read from the ROVER register and rechecked daily.",
       "usable_build_from": "2007-11-01",
-      "usable_build_open": true,
+      "usable_build_open": false,
       "secondary_keywords": [
         "r35 gtr import",
         "gtr import eligibility",
@@ -16154,8 +16045,8 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
-      "last_modified": "2026-09-08"
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
+      "last_modified": "2026-09-13"
     },
     {
       "h1": "Is the Nissan Leaf eligible for import to Australia?",
@@ -16457,7 +16348,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -16504,7 +16395,7 @@
       "reviewed_availability": "basis_gone",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -16575,7 +16466,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -16622,7 +16513,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -16737,7 +16628,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -16983,7 +16874,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -17030,7 +16921,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -17456,7 +17347,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -17550,7 +17441,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18110,7 +18001,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18237,7 +18128,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18308,7 +18199,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18355,7 +18246,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18402,7 +18293,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18475,7 +18366,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18546,7 +18437,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18717,7 +18608,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18764,7 +18655,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18835,7 +18726,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18882,7 +18773,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -18954,7 +18845,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -19026,7 +18917,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -19073,7 +18964,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -19144,7 +19035,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -19191,7 +19082,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -19290,7 +19181,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -19629,7 +19520,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20017,7 +19908,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20064,7 +19955,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20111,7 +20002,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20158,7 +20049,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20205,7 +20096,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20252,7 +20143,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20299,7 +20190,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20370,7 +20261,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20417,7 +20308,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-09"
     },
     {
@@ -20464,7 +20355,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20555,7 +20446,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20602,7 +20493,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20649,7 +20540,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20696,7 +20587,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -20791,7 +20682,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -21235,7 +21126,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -21526,7 +21417,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -21761,7 +21652,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -21832,7 +21723,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -21879,7 +21770,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -21998,7 +21889,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -22069,7 +21960,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -22164,7 +22055,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -22235,7 +22126,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -22306,7 +22197,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -22399,7 +22290,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -22446,7 +22337,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -22541,7 +22432,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -22612,7 +22503,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -23579,7 +23470,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-11"
     },
     {
@@ -23695,7 +23586,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -23790,7 +23681,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -24066,7 +23957,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -24161,7 +24052,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -24208,7 +24099,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -24279,7 +24170,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -24483,7 +24374,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -24600,7 +24491,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -25476,7 +25367,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-10"
     },
     {
@@ -27164,7 +27055,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -27410,7 +27301,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -27505,7 +27396,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -27592,7 +27483,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -28322,7 +28213,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -28417,7 +28308,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -28622,7 +28513,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -29044,7 +28935,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -29115,7 +29006,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -29186,7 +29077,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -29402,7 +29293,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -29860,7 +29751,7 @@
       "embargoed": true,
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-10"
     },
     {
@@ -29955,7 +29846,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30002,7 +29893,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30201,7 +30092,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30248,7 +30139,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30431,7 +30322,7 @@
       "reviewed_availability": "importable",
       "content_reviewed_at": "2026-09-08",
       "content_reviewer": "Codex source review, authorised by site owner",
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30502,7 +30393,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30644,7 +30535,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30715,7 +30606,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30826,7 +30717,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30873,7 +30764,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30920,7 +30811,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -30967,7 +30858,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -31062,7 +30953,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -31134,7 +31025,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -31205,7 +31096,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -31252,7 +31143,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -31299,7 +31190,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -31370,7 +31261,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -31417,7 +31308,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -31464,7 +31355,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     },
     {
@@ -31511,7 +31402,7 @@
       "reviewed_at": "2026-09-08T00:00:00Z",
       "intel": {},
       "faqs": [],
-      "register_checked_at": "2026-09-12T04:40:44.384Z",
+      "register_checked_at": "2026-09-13T04:53:53.968Z",
       "last_modified": "2026-09-08"
     }
   ]
