@@ -693,9 +693,9 @@
       ]
     },
     "ford-f150": {
-      "hash": "b2b5930e535f65828c2241247b5fd30a42ab1bd543224248b292dbbacfb713f7",
-      "last_modified": "2026-09-08",
-      "live": false,
+      "hash": "9739f801d62e60869b78a6caec70bebb19840f844c161772448f6cc457ce914a",
+      "last_modified": "2026-09-14",
+      "live": true,
       "approval_ids": [
         "MRE-000194",
         "MRE-000281",
@@ -2810,8 +2810,8 @@
       ]
     },
     "toyota-prius-jdm": {
-      "hash": "8c29f60281e36d5b516de17f9487062d88ac61f03d06c3394ce84be6f5659474",
-      "last_modified": "2026-09-10",
+      "hash": "8c34c500fcea3e99e9104541af76a346e64c19bef76ce9a5cebc2d3e09ae8cb8",
+      "last_modified": "2026-09-14",
       "live": false,
       "approval_ids": [
         "MRE-000136",
@@ -3032,6 +3032,13 @@
     }
   },
   "changes": [
+    {
+      "date": "2026-09-14",
+      "slug": "ford-f150",
+      "name": "Ford F-150",
+      "added": [],
+      "removed": []
+    },
     {
       "date": "2026-09-13",
       "slug": "nissan-gtr-r35",
