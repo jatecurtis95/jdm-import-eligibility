@@ -441,6 +441,12 @@ def score(lot: dict[str, str]) -> tuple:
 
 # ── register targets ─────────────────────────────────────────────────────────
 
+def alnum_key(key: str) -> str:
+    """Normalise a user-typed photos.json key: 's15@nissan' -> 'S15@NISSAN'."""
+    code, _, make = str(key or "").strip().upper().partition("@")
+    return alnum(code) + (f"@{alnum(make)}" if make else "")
+
+
 def make_compatible(a: str, b: str) -> bool:
     """Two register makes name the same manufacturer: identical, or one contains
     the other ("Whitehouse Toyota" is a Toyota camper converter). Mitsuoka and
@@ -570,6 +576,22 @@ class R2:
 
 # ── harvest ──────────────────────────────────────────────────────────────────
 
+VERBOSE = False
+
+
+def feed_selftest(feed: Feed) -> None:
+    """One cheap query that must return a row. A gateway that answers every
+    query with an empty <aj/> looks exactly like "no car matched" — the run
+    that first tried a new SQL clause reported 0/449 with no error — so prove
+    the feed is answering before spending a thousand queries on it."""
+    rows = feed.query("SELECT id, marka_name, kuzov FROM main WHERE images <> '' "
+                      "ORDER BY auction_date DESC LIMIT 1")
+    if not rows:
+        raise RuntimeError("feed self-test returned no rows: the gateway is up but "
+                           "answering empty. Not recording misses from this run.")
+    print(f"feed self-test ok: latest lot {rows[0].get('marka_name')} {rows[0].get('kuzov')}")
+
+
 def kuzov_clause(token: str) -> str:
     """Anchored SQL match for a chassis code.
 
@@ -608,11 +630,18 @@ def find_lot(feed: Feed, target: dict[str, Any], table: str,
             f"auction, auction_date, images FROM {table} "
             f"WHERE {kuzov_clause(token)} AND images <> '' "
             f"AND UPPER(auction) NOT LIKE '{EXCLUDE_HOUSE_PREFIX}%' "
-            f"AND (rate IS NULL OR (UPPER(rate) NOT LIKE '%{EXCLUDE_RATE_CHAR}%' "
-            f"AND rate <> '{UNGRADED_RATE}')) "
+            # The ungraded "99" exclusion is NOT in the SQL: the first run that
+            # added `AND rate <> '99'` here came back with zero rows for every
+            # code, common Alphards included, so the gateway does not take that
+            # clause. presentable() drops 99 lots in code instead.
+            f"AND (rate IS NULL OR UPPER(rate) NOT LIKE '%{EXCLUDE_RATE_CHAR}%') "
             f"ORDER BY auction_date DESC LIMIT {FEED_LIMIT}"
         )
         time.sleep(FEED_DELAY_S)
+        if VERBOSE:
+            print(f"    {table}/{token}: feed returned {len(rows)} rows"
+                  + (f" (e.g. {rows[0].get('marka_name')} {rows[0].get('kuzov')} "
+                     f"{rows[0].get('year')} grade {rows[0].get('rate')})" if rows else ""))
         cands = [
             r for r in rows
             if presentable(r)
@@ -661,6 +690,19 @@ def harvest(args: argparse.Namespace) -> int:
         k for k in sorted(addressable)
         if (args.refresh or needs_photo(k)) and k not in fresh_misses
     ]
+    only = getattr(args, "only", None)
+    if only:
+        # A targeted retake: named keys only, the misses cache ignored, and the
+        # feed's raw row counts printed so a silent empty answer is visible.
+        wanted = [alnum_key(k) for k in only.split(",") if k.strip()]
+        unknown = [k for k in wanted if k not in addressable]
+        if unknown:
+            print(f"ERROR: not a harvestable key on the current register: {', '.join(unknown)}")
+            print("       keys look like BNR34 or, for a code two makes share, S15@NISSAN")
+            return 2
+        todo = wanted
+        global VERBOSE
+        VERBOSE = True
     if args.limit:
         todo = todo[: args.limit]
 
@@ -678,6 +720,7 @@ def harvest(args: argparse.Namespace) -> int:
         print("ERROR: AVTONET_CODE is not set — the feed gateway needs a token.")
         return 2
     feed = Feed(api_base, api_code, os.environ.get("AVTONET_QUERY_PARAM", "q"))
+    feed_selftest(feed)
 
     r2 = None
     if not args.no_upload and not args.dry_run:
@@ -957,6 +1000,9 @@ def main() -> int:
     p.add_argument("--refresh", action="store_true",
                    help="re-match every code, replacing existing auction photos")
     p.add_argument("--limit", type=int, default=0, help="only process the first N codes")
+    p.add_argument("--only", metavar="KEYS",
+                   help="comma-separated photos.json keys to (re)harvest now, ignoring the "
+                        "misses cache, e.g. S15@NISSAN,AAHH40W")
     p.add_argument("--dry-run", action="store_true",
                    help="match and report; write no files and upload nothing")
     p.add_argument("--no-upload", action="store_true",

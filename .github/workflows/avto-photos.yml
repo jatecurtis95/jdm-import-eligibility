@@ -26,6 +26,10 @@ on:
         type: boolean
         required: false
         default: false
+      only:
+        description: 'Retake just these photos.json keys now (comma-separated, e.g. S15@NISSAN,AAHH40W). Ignores the misses cache.'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -67,6 +71,7 @@ jobs:
         run: |
           python scripts/avto_photos.py \
             ${{ github.event.inputs.refresh == 'true' && '--refresh' || '' }} \
+            ${{ github.event.inputs.only != '' && format('--only {0}', github.event.inputs.only) || '' }} \
             --limit ${{ github.event.inputs.limit || 0 }}
 
       - name: Check for photo changes
