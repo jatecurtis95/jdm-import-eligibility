@@ -23,6 +23,10 @@ match here must clear three independent guards before it is accepted:
                      (±1yr for JDM build/model-year drift), so an R32 SEV can
                      never show an R34.
 
+When two different makes share a code (S15: Nissan Silvia and Mitsuoka
+Le-Seyde) each make gets its own target, keyed "CODE@MAKE" in photos.json, and
+the site's photoFor() picks the one whose make matches the row.
+
 Free text is rejected by shape: a chassis code carries both letters and digits,
 so "WELFARE", "200 Series" and the "01C" revision markers never cost a query.
 Non-Japanese makes are skipped entirely — they cannot appear in a Japanese
@@ -100,7 +104,7 @@ MISS_TTL_DAYS = 30
 # Bumped whenever the matching rules change. A miss recorded under older rules
 # says nothing about the new ones, so a bump silently retires the whole cache
 # instead of freezing in yesterday's coverage.
-MATCHER_VERSION = 2
+MATCHER_VERSION = 3
 
 DEFAULT_API_BASE = "https://jdmconnect.com.au/jdm-relay.php"
 # Matches the finder's client (src/avtonet.js) — the gateway is fronted by a
@@ -176,6 +180,13 @@ MIN_IMAGES_FOR_SHEET = 3
 #            so "contains R" is both exact and future-proof against new spellings.
 EXCLUDE_HOUSE_PREFIX = "USS"
 EXCLUDE_RATE_CHAR = "R"
+# Real auction grades run 0-6 (3.5 and 4.5 included). "99" is the feed's
+# ungraded/undisclosed marker, and it is exactly where accident cars hide: the
+# first backfill put a front-ended Alphard (rate 99) on the site because a
+# numeric sort read 99 as the best grade on offer. Anything above this is not a
+# grade, and is excluded like an R.
+MAX_REAL_GRADE = 6
+UNGRADED_RATE = "99"
 
 
 # ── feed ─────────────────────────────────────────────────────────────────────
@@ -396,14 +407,17 @@ def lot_photo_url(lot: dict[str, str]) -> str | None:
 
 
 def presentable(lot: dict[str, str]) -> bool:
-    """Reject USS lots and any R-grade (repair/accident history) car.
+    """Reject USS lots, any R-grade (repair/accident history) car, and ungraded
+    ("99") lots, whose condition is undisclosed.
 
     Also enforced in the SQL, but re-checked here so a gateway that ignores or
     mangles a clause can't quietly put an excluded car on the site.
     """
     if alnum(lot.get("auction")).startswith(EXCLUDE_HOUSE_PREFIX):
         return False
-    return EXCLUDE_RATE_CHAR not in alnum(lot.get("rate"))
+    if EXCLUDE_RATE_CHAR in alnum(lot.get("rate")):
+        return False
+    return grade_rank(lot.get("rate")) <= MAX_REAL_GRADE
 
 
 def grade_rank(rate: str) -> float:
@@ -427,31 +441,58 @@ def score(lot: dict[str, str]) -> tuple:
 
 # ── register targets ─────────────────────────────────────────────────────────
 
+def make_compatible(a: str, b: str) -> bool:
+    """Two register makes name the same manufacturer: identical, or one contains
+    the other ("Whitehouse Toyota" is a Toyota camper converter). Mitsuoka and
+    Nissan are not, however alike their chassis codes. Mirrors makeCompatible()
+    in index.html so the site resolves a key the same way it was written."""
+    a, b = alnum(a), alnum(b)
+    if not a or not b:
+        return True
+    return a == b or a in b or b in a
+
+
+def target_key(code: str, make: str) -> str:
+    return f"{code}@{alnum(make)}"
+
+
 def build_targets(data: dict) -> dict[str, dict[str, Any]]:
     """One target per distinct chassis code on the register.
 
     Keyed by the code the site's `photoFor()` looks up, so an entry written here
     is found by the existing client-side lookup with no change to how MRE rows
     inherit a code from their SEV.
+
+    When two DIFFERENT makes claim the same code — "S15" is both the Nissan
+    Silvia and the Mitsuoka Le-Seyde (a rebodied Silvia) — one key cannot hold
+    both cars, and whichever make was read first used to win: the Silvia sat
+    behind a Mitsuoka target, the feed's Nissan lots failed the make guard, and
+    the site showed the Le-Seyde's Wikipedia photo on the Silvia. Such codes get
+    one target per make, keyed "CODE@MAKE", and the site picks by make.
     """
-    targets: dict[str, dict[str, Any]] = {}
+    claims: dict[str, list[dict[str, Any]]] = {}
 
     def add(code: str, make: str, model: str, y_from, y_to):
         toks = code_tokens(code)
         if not toks:
             return
         key = toks[0]
-        cur = targets.get(key)
-        if cur is None:
-            targets[key] = {"make": make, "model": model, "code": code, "tokens": toks,
-                            "from": y_from, "to": y_to}
+        for cur in claims.setdefault(key, []):
+            if not make_compatible(cur["make"], make):
+                continue
+            # Same manufacturer under a longer name: keep the base make, which is
+            # what the feed's marka_name carries ("TOYOTA", not "Whitehouse Toyota").
+            if len(alnum(make)) < len(alnum(cur["make"])):
+                cur["make"], cur["model"], cur["code"] = make, model, code
+            # Same code, several approvals: widen the year window so a lot valid
+            # for any one of them passes.
+            if y_from and (cur["from"] is None or y_from < cur["from"]):
+                cur["from"] = y_from
+            if cur["to"] is not None:
+                cur["to"] = None if y_to is None else max(cur["to"], y_to)
             return
-        # Same code, several approvals: widen the year window so a lot valid for
-        # any one of them passes.
-        if y_from and (cur["from"] is None or y_from < cur["from"]):
-            cur["from"] = y_from
-        if cur["to"] is not None:
-            cur["to"] = None if y_to is None else max(cur["to"], y_to)
+        claims[key].append({"make": make, "model": model, "code": code, "tokens": toks,
+                            "from": y_from, "to": y_to})
 
     for s in data.get("sev", []):
         add(s.get("_display_model_code") or s.get("Model code") or "",
@@ -466,6 +507,14 @@ def build_targets(data: dict) -> dict[str, dict[str, Any]]:
         if head:
             y_from, y_to = parse_range(m.get("Build date range"))
             add(head, m.get("Make", ""), m.get("Model", ""), y_from, y_to)
+
+    targets: dict[str, dict[str, Any]] = {}
+    for key, group in claims.items():
+        if len(group) == 1:
+            targets[key] = group[0]
+        else:
+            for t in group:
+                targets[target_key(key, t["make"])] = t
     return targets
 
 
@@ -544,11 +593,14 @@ def kuzov_clause(token: str) -> str:
     return "(" + " OR ".join(pats) + ")"
 
 
-def find_lot(feed: Feed, target: dict[str, Any], table: str) -> tuple[dict | None, str | None]:
+def find_lot(feed: Feed, target: dict[str, Any], table: str,
+             rejected: set[str] = frozenset()) -> tuple[dict | None, str | None]:
     """Best lot for a target in `main` (live) or `stats` (sold), or (None, None).
 
     Filters at the gateway on the code, then applies all three guards in code —
     the feed's LIKE is a substring match and cannot express "is this code".
+    `rejected` holds lot ids a human has turned down for this code (a damaged
+    car, a rear-on photo): they can never be picked again.
     """
     for token in target["tokens"]:
         rows = feed.query(
@@ -556,13 +608,15 @@ def find_lot(feed: Feed, target: dict[str, Any], table: str) -> tuple[dict | Non
             f"auction, auction_date, images FROM {table} "
             f"WHERE {kuzov_clause(token)} AND images <> '' "
             f"AND UPPER(auction) NOT LIKE '{EXCLUDE_HOUSE_PREFIX}%' "
-            f"AND (rate IS NULL OR UPPER(rate) NOT LIKE '%{EXCLUDE_RATE_CHAR}%') "
+            f"AND (rate IS NULL OR (UPPER(rate) NOT LIKE '%{EXCLUDE_RATE_CHAR}%' "
+            f"AND rate <> '{UNGRADED_RATE}')) "
             f"ORDER BY auction_date DESC LIMIT {FEED_LIMIT}"
         )
         time.sleep(FEED_DELAY_S)
         cands = [
             r for r in rows
             if presentable(r)
+            and str(r.get("id", "")) not in rejected
             and anchored(r.get("kuzov", ""), token)
             and make_matches(r.get("marka_name", ""), target["make"])
             and year_ok(int(r["year"]) if str(r.get("year", "")).isdigit() else 0,
@@ -582,6 +636,7 @@ def harvest(args: argparse.Namespace) -> int:
 
     targets = build_targets(data)
     addressable = {k: v for k, v in targets.items() if alnum(v["make"]) in JP_MAKES}
+    rejected = rejected_lots()
 
     misses: dict[str, str] = {}
     if MISSES_PATH.exists() and not args.refresh:
@@ -595,10 +650,16 @@ def harvest(args: argparse.Namespace) -> int:
     fresh_misses = {k for k, seen in misses.items()
                     if isinstance(seen, str) and seen >= cutoff}
 
+    def needs_photo(k: str) -> bool:
+        cur = photos.get(k) or {}
+        if cur.get("source") != "avtonet":
+            return True
+        # A human rejected the lot this photo came from: harvest it again.
+        return str((cur.get("lot") or {}).get("id", "")) in rejected.get(k, set())
+
     todo = [
         k for k in sorted(addressable)
-        if (args.refresh or (photos.get(k) or {}).get("source") != "avtonet")
-        and k not in fresh_misses
+        if (args.refresh or needs_photo(k)) and k not in fresh_misses
     ]
     if args.limit:
         todo = todo[: args.limit]
@@ -652,7 +713,7 @@ def harvest(args: argparse.Namespace) -> int:
     try:
         matched, uploaded, failed = run_codes(
             todo, addressable, photos, feed, r2, img_session, review, today, args,
-            save, misses)
+            save, misses, rejected)
     except KeyboardInterrupt:
         print("\ninterrupted — saving what was matched so far")
         save()
@@ -688,8 +749,9 @@ def harvest(args: argparse.Namespace) -> int:
 
 
 def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, args,
-              save, misses):
+              save, misses, rejected=None):
     """The harvest loop. Split out so harvest() can wrap it in save-on-failure."""
+    rejected = rejected or {}
     matched = uploaded = failed = 0
     unmatched: list[str] = []
 
@@ -703,7 +765,7 @@ def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, a
         t = addressable[key]
         lot, token, table = None, None, None
         for tbl in ("main", "stats"):  # live lots first, sold history as backup
-            lot, token = find_lot(feed, t, tbl)
+            lot, token = find_lot(feed, t, tbl, rejected.get(key, set()))
             if lot:
                 table = tbl
                 break
@@ -719,11 +781,15 @@ def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, a
 
         src_url = lot_photo_url(lot)
         digest = hashlib.sha1(src_url.encode()).hexdigest()[:8]
-        obj_key = f"{R2_PREFIX}/{key}-{digest}.jpg"
-        public_url = f"{PUBLIC_PREFIX}/{key}-{digest}.jpg"
+        # "S15@NISSAN" -> "S15_NISSAN": the "@" that separates code from make in
+        # a photos.json key is not welcome in a URL path. KEY_RE in
+        # functions/img/[[path]].js accepts exactly this shape.
+        stem = key.replace("@", "_")
+        obj_key = f"{R2_PREFIX}/{stem}-{digest}.jpg"
+        public_url = f"{PUBLIC_PREFIX}/{stem}-{digest}.jpg"
 
         review.append({
-            "key": key, "src": src_url,
+            "key": key, "src": src_url, "id": lot.get("id", ""),
             "rover": f"{t['make']} {t['model']}",
             "range": f"{t['from'] or '?'}–{t['to'] or 'open'}",
             "feed": f"{lot.get('marka_name','')} {lot.get('model_name','')}",
@@ -763,7 +829,7 @@ def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, a
             # The feed names the model more precisely than ROVER does — ROVER's
             # "20 Series Welcab" is the feed's "ALPHARD" — so keep the feed's.
             "model": lot.get("model_name") or t["model"],
-            "chassis": key,
+            "chassis": key.split("@")[0],
             "source": "avtonet",
             "credit": "Japanese auction listing",
             "lot": {
@@ -825,7 +891,8 @@ def write_review(path: Path, rows: list[dict[str, Any]], session=None) -> None:
         f'<figcaption><b>{esc(r["key"])}</b><br>'
         f'<span class="r">ROVER: {esc(r["rover"])} ({esc(r["range"])})</span><br>'
         f'<span class="f">feed: {esc(r["feed"])}</span><br>'
-        f'<span class="l">{esc(r["lot"])}</span></figcaption></figure>'
+        f'<span class="l">{esc(r["lot"])} · lot {esc(r.get("id", ""))}</span>'
+        f'</figcaption></figure>'
         for r in rows
     )
     path.write_text(
@@ -838,24 +905,48 @@ def write_review(path: Path, rows: list[dict[str, Any]], session=None) -> None:
         "background:#eee}figcaption{padding:8px 10px;line-height:1.5}"
         ".r{color:#6b6355}.f{color:#1a7f4b}.l{color:#9a9183;font-size:11px}</style>"
         f"<h1>AVTONET photo review — {len(cards.split('<figure>')) - 1} matches</h1>"
-        "<p>Check the photo matches the ROVER line. Corrections go in "
-        "<code>scripts/data/photo_overrides.json</code>.</p>"
+        "<p>Check the photo matches the ROVER line and shows an undamaged car, "
+        "front-on. Corrections go in <code>scripts/data/photo_overrides.json</code>: "
+        "<code>null</code> deletes, <code>{\"reject_lot\": \"&lt;lot id&gt;\"}</code> "
+        "makes the next run pick a different car.</p>"
         f"<main>{cards}</main>",
         encoding="utf-8",
     )
 
 
+def load_overrides() -> dict[str, Any]:
+    if not OVERRIDES_PATH.exists():
+        return {}
+    return {k: v for k, v in json.loads(OVERRIDES_PATH.read_text(encoding="utf-8")).items()
+            if not k.startswith("_")}
+
+
+def rejected_lots() -> dict[str, set[str]]:
+    """Per photos.json key, the feed lot ids a human has turned down:
+    `{"AAHH40W": {"reject_lot": "2VyrPwi7kbuAnJG"}}` (a list works too). The
+    harvester treats a photo from a rejected lot as missing and never picks
+    that lot again, so a damaged or rear-on car is swapped for the next-best
+    lot on the following run — and the instruction is idempotent, unlike a
+    bare "retake" flag that would re-harvest every night."""
+    out: dict[str, set[str]] = {}
+    for key, val in load_overrides().items():
+        if isinstance(val, dict) and "reject_lot" in val:
+            ids = val["reject_lot"]
+            ids = ids if isinstance(ids, list) else [ids]
+            out[key] = {str(i) for i in ids if i}
+    return out
+
+
 def apply_overrides(photos: dict[str, Any]) -> dict[str, Any]:
     """Manual corrections win over anything automatic. `null` deletes a key,
-    an object forces one. Keys starting with `_` are comments."""
-    if not OVERRIDES_PATH.exists():
-        return photos
-    overrides = json.loads(OVERRIDES_PATH.read_text(encoding="utf-8"))
-    for key, val in overrides.items():
-        if key.startswith("_"):
-            continue
+    a photo object forces one, and `{"reject_lot": ...}` is an instruction to
+    the harvester (see rejected_lots) rather than a photo — it leaves the entry
+    alone here. Keys starting with `_` are comments."""
+    for key, val in load_overrides().items():
         if val is None:
             photos.pop(key, None)
+        elif isinstance(val, dict) and "reject_lot" in val:
+            continue
         else:
             photos[key] = val
     return photos

@@ -347,3 +347,80 @@ applied last on every run: `null` deletes a bad match, an object forces one.
 - `photoFor()`'s make/model fallback now prefers Wikipedia over auction photos.
   A generic Skyline shot is the right fallback for an unmatched Skyline; the
   R34's auction photo is not.
+
+---
+
+# Addendum (2026-09) — Auction photo audit: shared codes, ungraded lots, misses cache
+
+## What the audit found
+
+The nightly harvest (`avto-photos.yml`) had been running green every night, so
+"it never got done" was really three quieter faults:
+
+1. **A chassis code shared by two makes showed the wrong car.** `photos.json`
+   is keyed by code alone, and `S15` is both the Nissan Silvia and the Mitsuoka
+   Le-Seyde (a rebodied Silvia). Whichever the scraper read first owned the
+   key: the Silvia's target carried make *Mitsuoka*, every Nissan lot in the
+   feed failed the make guard, and the site put the Le-Seyde's Wikipedia photo
+   (a white wedding car) on the Silvia. `WIDA171B` (Honda N-One / Suzuki Every)
+   collided the same way.
+2. **Ungraded lots beat every real grade.** The feed writes `99` for an
+   ungraded/undisclosed car, and the numeric grade sort read that as the best
+   car on offer. 16 photos came from `99` lots; two of them were crash-damaged
+   (a front-ended Alphard on `AAHH40W`/`AAHH4001C`, a smashed Yaris on `MXPH17`).
+3. **The negative cache was never committed.** The workflow only committed
+   `photos.json`, so `avto_misses.json` on `main` stayed frozen at its first
+   17 entries and every night re-queried the same ~445 dead codes — 1,178 feed
+   queries a night, matching nothing.
+
+Orientation was checked too: all 347 stored auction photos were pulled from the
+live bucket and eyeballed on contact sheets. Every one is upright and shows the
+front of the car (a couple are front-right rather than the usual front-left
+three-quarter, which is still the front). No photo needed rotating.
+
+## What changed
+
+- **`scripts/avto_photos.py`**
+  - `build_targets()` groups claims per code by *compatible* make (identical,
+    or one name contains the other, so "Whitehouse Toyota" stays a Toyota).
+    Incompatible makes each get their own target keyed `CODE@MAKE`
+    (`S15@NISSAN`, `S15@MITSUOKA`). Only 4 keys on the current register change.
+  - Grades above 6 (`99`) are excluded in the SQL and in `presentable()`.
+  - `{"reject_lot": "<lot id>"}` in `photo_overrides.json` marks a lot a human
+    turned down: the harvester treats the photo as missing and never picks that
+    lot again. Idempotent, and the id is right there in `photos.json`.
+  - R2 object names use `_` for the `@` (`avto/S15_NISSAN-<hash>.jpg`);
+    `functions/img/[[path]].js` accepts that shape.
+  - `MATCHER_VERSION` → 3, which retires the old misses cache on the first run.
+  - The `--review` contact sheet now prints each lot id.
+- **`index.html`** — `photoIdx` holds a list per code; `photoFor()` only shows
+  a photo whose make is compatible with the row's, preferring an exact make
+  and then an auction photo. The Silvia no longer inherits the Le-Seyde. The
+  same rule quietly fixes two more wrong photos the audit turned up: a Ford
+  Super Duty on the Ferrari F250 and a Renner Speedster on a Toyota (`GEN2`
+  is not a chassis code). Both now fall through to their make/model fallback
+  or the placeholder instead.
+- **`avto-photos.yml`** commits `scripts/data/avto_misses.json` alongside
+  `photos.json`.
+- **`photos.json`** — the three damaged-car entries were removed by hand so the
+  site stops showing them immediately (Alphard falls back to the generic
+  Wikipedia Alphard; Yaris to its Wikipedia photo) rather than waiting a night.
+- **`photo_overrides.json`** — `reject_lot` entries for those two lots.
+
+## What happens on the next nightly run
+
+`S15@NISSAN`, `S15@MITSUOKA`, `AAHH40W`, `AAHH4001C` and `MXPH17` are
+harvested (the rest of the backlog is re-checked once because of the version
+bump, then cached for 30 days). The Silvia gets a real S15 photo; the Alphard
+and Yaris get an undamaged car.
+
+## Rejecting a photo you don't like
+
+Find the key in `functions/_data/photos.json`, copy its `lot.id`, and add to
+`scripts/data/photo_overrides.json`:
+
+```json
+"AAHH40W": {"reject_lot": "2VyrPwi7kbuAnJG"}
+```
+
+Next run swaps it. Use a list to reject several lots for one key.

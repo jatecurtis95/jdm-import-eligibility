@@ -865,13 +865,29 @@ function photoOk(k, ph){
     return words.some(w=>fn.includes(w));
   }catch(e){ return false; }
 }
+// photos.json is keyed by chassis code. When two different makes share a code
+// (the Nissan Silvia and the Mitsuoka Le-Seyde are both "S15") the harvester
+// keys each make's photo as "CODE@MAKE", so one code can hold several photos
+// and photoFor() picks the one whose make matches the row.
+function photoKeyParts(k){
+  const at = String(k).indexOf('@');
+  return at < 0 ? {code:k, make:''} : {code:k.slice(0,at), make:k.slice(at+1)};
+}
+// A photo is only shown on a row of a compatible make: identical, or one
+// contains the other ("Whitehouse Toyota" may show a Toyota photo). Mitsuoka
+// never shows a Nissan and vice versa, however alike the chassis code.
+function makeCompatible(a, b){
+  a = pnorm(a); b = pnorm(b);
+  if(!a || !b) return true;
+  return a===b || a.includes(b) || b.includes(a);
+}
 function buildPhotoIdx(){
   photoIdx = {}; photoList = [];
   for(const k in photos){
     const p = photos[k];
     if(p && typeof p==='object' && p.url && photoOk(k,p)){
-      const n = pnorm(k);
-      if(n) photoIdx[n] = p;
+      const n = pnorm(photoKeyParts(k).code);
+      if(n) (photoIdx[n] = photoIdx[n] || []).push(p);
       photoList.push(p);
     }
   }
@@ -888,8 +904,13 @@ function photoFor(r){
   if(r.sevs) r.sevs.forEach(sn=>{ const s = sevByNum[sn.trim().toUpperCase()]; if(s) pushCode(s.code); });
   if(r.mres) r.mres.forEach(m=>pushCode(m.code));
   for(const c of cands){
-    const p = photoIdx[pnorm(c)];
-    if(p) return p;
+    const list = photoIdx[pnorm(c)];
+    if(!list) continue;
+    // Exact make first, then a compatible one; an auction photo beats a
+    // Wikipedia one at the same rank because it is the specific car.
+    const rank = ph => (pnorm(ph.make)===pnorm(r.make) ? 0 : 2) + (ph.source==='avtonet' ? 0 : 1);
+    const ok = list.filter(ph => makeCompatible(ph.make, r.make)).sort((a,b)=>rank(a)-rank(b));
+    if(ok.length) return ok[0];
   }
   // No chassis-code hit: fall back to any photo of the same make and model.
   // Wikipedia entries are tried first here on purpose. They are generic model
