@@ -1147,26 +1147,6 @@
     "chassis": "AZSH36 AZSH37",
     "source": "wikipedia"
   },
-  "S213": {
-    "url": "/img/avto/S213-b531ba31.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "GLE CLASS",
-    "chassis": "S213",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hihuIOvN6fsJ7ty",
-      "kuzov": "167333",
-      "year": "2024",
-      "grade": "GLE450d 4M Coupe &#65405; 4WD",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "AVE30": {
     "url": "/img/avto/AVE30-05b1b86c.jpg",
     "make": "LEXUS",
@@ -1349,26 +1329,6 @@
     "model": "AMG CLS 63 S 4MATIC",
     "chassis": "X218 - 218976",
     "source": "wikipedia"
-  },
-  "DB7": {
-    "url": "/img/avto/DB7-e72eb00d.jpg",
-    "make": "ASTON MARTIN",
-    "model": "DB9",
-    "chassis": "DB7",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "bePgFizKO8pEzpU",
-      "kuzov": "&#65420;&#65426;&#65394;",
-      "year": "2004",
-      "grade": "DB9",
-      "rate": "4",
-      "auction": "AUCNET",
-      "auction_date": "2026-08-17 12:35:00",
-      "table": "stats",
-      "matched_on": "model:DB"
-    },
-    "harvested_at": "2026-09-15"
   },
   "LOTUS_ESPRITV8": {
     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/1999_Lotus_Esprit_V8_type_918.jpg/960px-1999_Lotus_Esprit_V8_type_918.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
@@ -4444,26 +4404,6 @@
     "chassis": "MA7",
     "source": "wikipedia"
   },
-  "S213261": {
-    "url": "/img/avto/S213261-b531ba31.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "GLE CLASS",
-    "chassis": "S213261",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hihuIOvN6fsJ7ty",
-      "kuzov": "167333",
-      "year": "2024",
-      "grade": "GLE450d 4M Coupe &#65405; 4WD",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "F318H12": null,
   "F313G92": null,
   "RV37": {
@@ -4493,26 +4433,6 @@
     "model": "ANXN Ford Independence",
     "chassis": "BJFA1TAYF",
     "source": "wikipedia"
-  },
-  "S213264": {
-    "url": "/img/avto/S213264-8970e1ce.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "C CLASS WAGON",
-    "chassis": "S213264",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "Nn9PVWh4j2BQX",
-      "kuzov": "205240C",
-      "year": "2019",
-      "grade": "C 180 Wagon AV AMG Line",
-      "rate": "4.5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 13:01:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
   },
   "SA94420K2H0004168": {
     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Morgan_Plus4_Drophead_1963.jpg/960px-Morgan_Plus4_Drophead_1963.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
@@ -9436,106 +9356,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "11865401C": {
-    "url": "/img/avto/11865401C-b531ba31.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "GLE CLASS",
-    "chassis": "11865401C",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hihuIOvN6fsJ7ty",
-      "kuzov": "167333",
-      "year": "2024",
-      "grade": "GLE450d 4M Coupe &#65405; 4WD",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:CLA"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "21326101C": {
-    "url": "/img/avto/21326101C-b531ba31.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "GLE CLASS",
-    "chassis": "21326101C",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hihuIOvN6fsJ7ty",
-      "kuzov": "167333",
-      "year": "2024",
-      "grade": "GLE450d 4M Coupe &#65405; 4WD",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "21326401C": {
-    "url": "/img/avto/21326401C-8970e1ce.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "C CLASS WAGON",
-    "chassis": "21326401C",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "Nn9PVWh4j2BQX",
-      "kuzov": "205240C",
-      "year": "2019",
-      "grade": "C 180 Wagon AV AMG Line",
-      "rate": "4.5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 13:01:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "21328901A": {
-    "url": "/img/avto/21328901A-b531ba31.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "GLE CLASS",
-    "chassis": "21328901A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hihuIOvN6fsJ7ty",
-      "kuzov": "167333",
-      "year": "2024",
-      "grade": "GLE450d 4M Coupe &#65405; 4WD",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "22205701E": {
-    "url": "/img/avto/22205701E-4d517154.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "A CLASS",
-    "chassis": "22205701E",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "MsXav4K5HkDYh",
-      "kuzov": "176042",
-      "year": "2018",
-      "grade": "A 180 AMG&#65405;&#65431;&#65394;&#65433;",
-      "rate": "4.5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 12:59:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "23245001B": {
     "url": "/img/avto/23245001B-e53ae218.jpg",
     "make": "MERCEDES BENZ",
@@ -9553,26 +9373,6 @@
       "auction_date": "2026-09-10 12:32:00",
       "table": "stats",
       "matched_on": "model:SL"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "29065901A": {
-    "url": "/img/avto/29065901A-1e4e7ecc.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "AMG",
-    "chassis": "29065901A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hidRY9MgXl2XeWQ",
-      "kuzov": "232481C",
-      "year": "2025",
-      "grade": "SL63 4 Matic +",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:AMG"
     },
     "harvested_at": "2026-09-15"
   },
@@ -9716,26 +9516,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "C28H01A": {
-    "url": "/img/avto/C28H01A-4bf7c487.jpg",
-    "make": "NISSAN",
-    "model": "SERENA",
-    "chassis": "C28H01A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "2d5xtdtm605mKI0",
-      "kuzov": "HFC27",
-      "year": "2022",
-      "grade": "e- Power - Highway Star -V",
-      "rate": "5",
-      "auction": "TAA Hyogo",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:SERENA"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "CROWNAWS210": {
     "url": "/img/avto/CROWNAWS210-e0b2bedf.jpg",
     "make": "TOYOTA",
@@ -9753,26 +9533,6 @@
       "auction_date": "2026-09-18 11:32:00",
       "table": "main",
       "matched_on": "model:CROWN"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "CT9A801B": {
-    "url": "/img/avto/CT9A801B-bf4bf801.jpg",
-    "make": "MITSUBISHI",
-    "model": "LANCER",
-    "chassis": "CT9A801B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "X5DuhsGW9hg0V9",
-      "kuzov": "CT9W",
-      "year": "2005",
-      "grade": "Evolution GT 6MT",
-      "rate": "4",
-      "auction": "LAA Okayama",
-      "auction_date": "2026-09-11 08:00:00",
-      "table": "stats",
-      "matched_on": "model:LANCER"
     },
     "harvested_at": "2026-09-15"
   },
@@ -9856,26 +9616,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "E26C01E": {
-    "url": "/img/avto/E26C01E-5e877d77.jpg",
-    "make": "NISSAN",
-    "model": "NV200",
-    "chassis": "E26C01E",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "3hehfRGbs61CAl3",
-      "kuzov": "VM20",
-      "year": "2021",
-      "grade": "DX",
-      "rate": "4.5",
-      "auction": "JU Fukushima",
-      "auction_date": "2026-09-17 13:25:00",
-      "table": "main",
-      "matched_on": "model:NV"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "E300E": {
     "url": "/img/avto/E300E-fff9fea6.jpg",
     "make": "MERCEDES BENZ",
@@ -9913,26 +9653,6 @@
       "auction_date": "2026-09-17 00:00:00",
       "table": "main",
       "matched_on": "model:ELGRAND"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "EP3R01B": {
-    "url": "/img/avto/EP3R01B-224ddb67.jpg",
-    "make": "HONDA",
-    "model": "CIVIC",
-    "chassis": "EP3R01B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "3x1K6uJWj0mTl6H",
-      "kuzov": "FD1",
-      "year": "2006",
-      "grade": "1.8GL",
-      "rate": "3.5",
-      "auction": "CAA Chubu",
-      "auction_date": "2026-09-16 11:27:00",
-      "table": "main",
-      "matched_on": "model:CIVIC"
     },
     "harvested_at": "2026-09-15"
   },
@@ -9976,26 +9696,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "FK2R01A": {
-    "url": "/img/avto/FK2R01A-eb844de3.jpg",
-    "make": "HONDA",
-    "model": "CIVIC",
-    "chassis": "FK2R01A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "39imu7pV4TpGT6",
-      "kuzov": "FC1",
-      "year": "2018",
-      "grade": "&#65406; Dan",
-      "rate": "4",
-      "auction": "TAA Chubu",
-      "auction_date": "2026-09-17 00:00:00",
-      "table": "main",
-      "matched_on": "model:CIVIC"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "FM1A1": {
     "url": "/img/avto/FM1A1-c2726f8d.jpg",
     "make": "FORD",
@@ -10036,26 +9736,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "FM2Z": {
-    "url": "/img/avto/FM2Z-84de734a.jpg",
-    "make": "BENTLEY",
-    "model": "CONTINENTAL",
-    "chassis": "FM2Z",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "cTmeMt0kN8TbqXJ",
-      "kuzov": "BFDBD",
-      "year": "2016",
-      "grade": "&#65402;&#65437;&#65409;&#65416;&#65437;&#65408;&#65433; GT &#65405;&#65419;&#65439;-&#65412;&#65438;",
-      "rate": "4.5",
-      "auction": "AUCNET",
-      "auction_date": "2026-09-14 08:40:00",
-      "table": "stats",
-      "matched_on": "model:CONTINENTAL"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "FOBR06V1004": {
     "url": "/img/avto/FOBR06V1004-dd915d43.jpg",
     "make": "FORD",
@@ -10076,26 +9756,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "GDAGGA01C": {
-    "url": "/img/avto/GDAGGA01C-e04f0edb.jpg",
-    "make": "SUBARU",
-    "model": "IMPREZA",
-    "chassis": "GDAGGA01C",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "6UKQrr2qBgSyfR",
-      "kuzov": "GDB",
-      "year": "2006",
-      "grade": "WRX STI A Line 4WD",
-      "rate": "4",
-      "auction": "CAA Gifu",
-      "auction_date": "2026-09-15 08:02:00",
-      "table": "main",
-      "matched_on": "model:IMPREZA"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "GDH2XX": {
     "url": "/img/avto/GDH2XX-ae606c2c.jpg",
     "make": "TOYOTA",
@@ -10113,66 +9773,6 @@
       "auction_date": "2026-09-19 00:00:00",
       "table": "main",
       "matched_on": "model:HIACE"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "GSE21C01A": {
-    "url": "/img/avto/GSE21C01A-bb903786.jpg",
-    "make": "LEXUS",
-    "model": "IS",
-    "chassis": "GSE21C01A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "6ZYYfdh0eY62GMT",
-      "kuzov": "AVE35",
-      "year": "2015",
-      "grade": "IS300h versionL",
-      "rate": "4",
-      "auction": "MIRIVE Saitama",
-      "auction_date": "2026-09-16 13:10:00",
-      "table": "main",
-      "matched_on": "model:IS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "GT3": {
-    "url": "/img/avto/GT3-2a1761e5.jpg",
-    "make": "FERRARI",
-    "model": "296GTS",
-    "chassis": "GT3",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "2G7nequ9qyYBT1V",
-      "kuzov": "171K",
-      "year": "2024",
-      "grade": "F1 DCT",
-      "rate": "6",
-      "auction": "AUCNET",
-      "auction_date": "2026-06-22 00:00:00",
-      "table": "stats",
-      "matched_on": "model:GT"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "GVBGRB01D": {
-    "url": "/img/avto/GVBGRB01D-7e160236.jpg",
-    "make": "SUBARU",
-    "model": "IMPREZA",
-    "chassis": "GVBGRB01D",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "2FlfrFWoMy8gRKo",
-      "kuzov": "GVF",
-      "year": "2012",
-      "grade": "WRX STi A Line Type S 4WD",
-      "rate": "4",
-      "auction": "JU Kanagawa",
-      "auction_date": "2026-09-17 00:00:00",
-      "table": "main",
-      "matched_on": "model:IMPREZA"
     },
     "harvested_at": "2026-09-15"
   },
@@ -10316,26 +9916,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "JDWIN222057A": {
-    "url": "/img/avto/JDWIN222057A-4d517154.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "A CLASS",
-    "chassis": "JDWIN222057A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "MsXav4K5HkDYh",
-      "kuzov": "176042",
-      "year": "2018",
-      "grade": "A 180 AMG&#65405;&#65431;&#65394;&#65433;",
-      "rate": "4.5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 12:59:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "JDWINAAHH4B": {
     "url": "/img/avto/JDWINAAHH4B-57e498c5.jpg",
     "make": "TOYOTA",
@@ -10456,26 +10036,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "MRWI22215801A": {
-    "url": "/img/avto/MRWI22215801A-d13ed11c.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "A CLASS",
-    "chassis": "MRWI22215801A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "pm0CWDb0ca1Z1",
-      "kuzov": "177084",
-      "year": "2021",
-      "grade": "A 180",
-      "rate": "5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 12:31:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "MRWIBYEFP01A": {
     "url": "/img/avto/MRWIBYEFP01A-d090594d.jpg",
     "make": "MAZDA",
@@ -10516,26 +10076,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "MRWICL1R01A": {
-    "url": "/img/avto/MRWICL1R01A-dc2c96ed.jpg",
-    "make": "HONDA",
-    "model": "ACCORD WAGON",
-    "chassis": "MRWICL1R01A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "iLCwZtle6mfJb5",
-      "kuzov": "CH9",
-      "year": "1999",
-      "grade": "SiR VTEC",
-      "rate": "3.5",
-      "auction": "LAA Shikoku",
-      "auction_date": "2026-09-16 14:58:00",
-      "table": "main",
-      "matched_on": "model:ACCORD"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "MRWICR200S01D": {
     "url": "/img/avto/MRWICR200S01D-5e8c7d8d.jpg",
     "make": "TOYOTA",
@@ -10553,26 +10093,6 @@
       "auction_date": "2026-09-15 08:00:00",
       "table": "main",
       "matched_on": "model:CAMROAD"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "MRWICT9A901B": {
-    "url": "/img/avto/MRWICT9A901B-7e306338.jpg",
-    "make": "MITSUBISHI",
-    "model": "LANCER",
-    "chassis": "MRWICT9A901B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "65bVGi1zU1Gx7z",
-      "kuzov": "CZ4A",
-      "year": "2008",
-      "grade": "GSR Evolution 10 4WD",
-      "rate": "3",
-      "auction": "CAA Gifu",
-      "auction_date": "2026-09-15 08:02:00",
-      "table": "main",
-      "matched_on": "model:LANCER"
     },
     "harvested_at": "2026-09-15"
   },
@@ -10693,26 +10213,6 @@
       "auction_date": "2026-09-17 00:00:00",
       "table": "main",
       "matched_on": "model:XV"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "MRWIGRFA01A": {
-    "url": "/img/avto/MRWIGRFA01A-34c21310.jpg",
-    "make": "SUBARU",
-    "model": "IMPREZA",
-    "chassis": "MRWIGRFA01A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "e80wa1xg4jx9c",
-      "kuzov": "GRF",
-      "year": "2011",
-      "grade": "WRX STI A Line 4WD",
-      "rate": "3.5",
-      "auction": "TAA Hiroshima",
-      "auction_date": "2026-09-15 08:01:00",
-      "table": "main",
-      "matched_on": "model:IMPREZA"
     },
     "harvested_at": "2026-09-15"
   },
@@ -10876,26 +10376,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "MRWINKE165A01F": {
-    "url": "/img/avto/MRWINKE165A01F-ffd64142.jpg",
-    "make": "TOYOTA",
-    "model": "COROLLA CROSS",
-    "chassis": "MRWINKE165A01F",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "ohUDO6WqjaXbCJS",
-      "kuzov": "ZVG13",
-      "year": "2024",
-      "grade": "Hybrid Z",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:COROLLA"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "MRWINZE101B": {
     "url": "/img/avto/MRWINZE101B-709607ff.jpg",
     "make": "NISSAN",
@@ -11056,26 +10536,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "NKE165FA": {
-    "url": "/img/avto/NKE165FA-13571d93.jpg",
-    "make": "TOYOTA",
-    "model": "COROLLA CROSS",
-    "chassis": "NKE165FA",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "xIgXOgG6aS2UTo",
-      "kuzov": "ZSG10",
-      "year": "2022",
-      "grade": "Z",
-      "rate": "5",
-      "auction": "TAA Hyogo",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:COROLLA"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "NOTE1": {
     "url": "/img/avto/NOTE1-38b8aaff.jpg",
     "make": "NISSAN",
@@ -11216,26 +10676,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "RX701B": {
-    "url": "/img/avto/RX701B-c8dfa0ed.jpg",
-    "make": "MAZDA",
-    "model": "RX-8",
-    "chassis": "RX701B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "kKS8SqXz33v68c",
-      "kuzov": "SE3P",
-      "year": "2003",
-      "grade": "Type S &#65403;&#65437;&#65433;-&#65420;",
-      "rate": "3.5",
-      "auction": "LAA Shikoku",
-      "auction_date": "2026-09-16 15:26:00",
-      "table": "main",
-      "matched_on": "model:RX"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "RX8": {
     "url": "/img/avto/RX8-419ef3be.jpg",
     "make": "MAZDA",
@@ -11293,86 +10733,6 @@
       "auction_date": "2026-09-17 00:00:00",
       "table": "main",
       "matched_on": "model:CROWN"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "S400H": {
-    "url": "/img/avto/S400H-4d517154.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "A CLASS",
-    "chassis": "S400H",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "MsXav4K5HkDYh",
-      "kuzov": "176042",
-      "year": "2018",
-      "grade": "A 180 AMG&#65405;&#65431;&#65394;&#65433;",
-      "rate": "4.5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 12:59:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "S400H2": {
-    "url": "/img/avto/S400H2-4d517154.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "A CLASS",
-    "chassis": "S400H2",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "MsXav4K5HkDYh",
-      "kuzov": "176042",
-      "year": "2018",
-      "grade": "A 180 AMG&#65405;&#65431;&#65394;&#65433;",
-      "rate": "4.5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 12:59:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "S781VZEDM": {
-    "url": "/img/avto/S781VZEDM-b90cf5e2.jpg",
-    "make": "DAIHATSU",
-    "model": "HIJET TRUCK",
-    "chassis": "S781VZEDM",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "qbkDBpzP2PweV3Q",
-      "kuzov": "S510P",
-      "year": "2026",
-      "grade": "Standard 4WD",
-      "rate": "6",
-      "auction": "TAA Kanto",
-      "auction_date": "2026-09-17 00:00:00",
-      "table": "main",
-      "matched_on": "model:HIJET"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "S781VZEXM": {
-    "url": "/img/avto/S781VZEXM-e6328d1c.jpg",
-    "make": "DAIHATSU",
-    "model": "ATRAI VAN",
-    "chassis": "S781VZEXM",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "4BDAxwpu9EIsR",
-      "kuzov": "S700V",
-      "year": "2025",
-      "grade": "RS",
-      "rate": "6",
-      "auction": "JU Kumamoto",
-      "auction_date": "2026-09-16 12:27:00",
-      "table": "main",
-      "matched_on": "model:ATRAI"
     },
     "harvested_at": "2026-09-15"
   },
@@ -11476,26 +10836,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "VABS01D": {
-    "url": "/img/avto/VABS01D-40bff7c5.jpg",
-    "make": "SUBARU",
-    "model": "WRX",
-    "chassis": "VABS01D",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "ISEKnuEt9qesia",
-      "kuzov": "VAB",
-      "year": "2017",
-      "grade": "STI Type S",
-      "rate": "4.5",
-      "auction": "JU Kumamoto",
-      "auction_date": "2026-09-16 12:22:00",
-      "table": "main",
-      "matched_on": "model:WRX"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "VITZ1": {
     "url": "/img/avto/VITZ1-accca262.jpg",
     "make": "TOYOTA",
@@ -11516,46 +10856,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "WI1561B": {
-    "url": "/img/avto/WI1561B-756abb11.jpg",
-    "make": "ALFAROMEO",
-    "model": "SPORTWAGON",
-    "chassis": "WI1561B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "69p5p8Dayo0E2sz",
-      "kuzov": "932BW",
-      "year": "2004",
-      "grade": "2.5 V6 24V Q&#65404;&#65405;&#65411;&#65425;",
-      "rate": "4",
-      "auction": "AUCNET",
-      "auction_date": "2026-06-22 08:35:00",
-      "table": "stats",
-      "matched_on": "model:SPORTWAGON"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WI1923421A": {
-    "url": "/img/avto/WI1923421A-1e4e7ecc.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "AMG",
-    "chassis": "WI1923421A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hidRY9MgXl2XeWQ",
-      "kuzov": "232481C",
-      "year": "2025",
-      "grade": "SL63 4 Matic +",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:AMG"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "WI2140541D": {
     "url": "/img/avto/WI2140541D-fff9fea6.jpg",
     "make": "MERCEDES BENZ",
@@ -11573,146 +10873,6 @@
       "auction_date": "2026-09-16 10:32:00",
       "table": "main",
       "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WI22205702A": {
-    "url": "/img/avto/WI22205702A-4d517154.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "A CLASS",
-    "chassis": "WI22205702A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "MsXav4K5HkDYh",
-      "kuzov": "176042",
-      "year": "2018",
-      "grade": "A 180 AMG&#65405;&#65431;&#65394;&#65433;",
-      "rate": "4.5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 12:59:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WI2220571C": {
-    "url": "/img/avto/WI2220571C-4d517154.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "A CLASS",
-    "chassis": "WI2220571C",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "MsXav4K5HkDYh",
-      "kuzov": "176042",
-      "year": "2018",
-      "grade": "A 180 AMG&#65405;&#65431;&#65394;&#65433;",
-      "rate": "4.5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 12:59:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WI2221581A": {
-    "url": "/img/avto/WI2221581A-d13ed11c.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "A CLASS",
-    "chassis": "WI2221581A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "pm0CWDb0ca1Z1",
-      "kuzov": "177084",
-      "year": "2021",
-      "grade": "A 180",
-      "rate": "5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 12:31:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WI2231691D": {
-    "url": "/img/avto/WI2231691D-b531ba31.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "GLE CLASS",
-    "chassis": "WI2231691D",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hihuIOvN6fsJ7ty",
-      "kuzov": "167333",
-      "year": "2024",
-      "grade": "GLE450d 4M Coupe &#65405; 4WD",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WI2231821A": {
-    "url": "/img/avto/WI2231821A-b531ba31.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "GLE CLASS",
-    "chassis": "WI2231821A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hihuIOvN6fsJ7ty",
-      "kuzov": "167333",
-      "year": "2024",
-      "grade": "GLE450d 4M Coupe &#65405; 4WD",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WI29066101A": {
-    "url": "/img/avto/WI29066101A-1e4e7ecc.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "AMG",
-    "chassis": "WI29066101A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hidRY9MgXl2XeWQ",
-      "kuzov": "232481C",
-      "year": "2025",
-      "grade": "SL63 4 Matic +",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:AMG"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WI2971231A": {
-    "url": "/img/avto/WI2971231A-f19d3a38.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "MERCEDES AMG EQS",
-    "chassis": "WI2971231A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "2rEZia09UKjVDjc",
-      "kuzov": "297155",
-      "year": "2024",
-      "grade": "MERCEDES AMG EQS53 4 MATIC +",
-      "rate": "6",
-      "auction": "AUCNET",
-      "auction_date": "2026-07-13 00:00:00",
-      "table": "stats",
-      "matched_on": "model:EQS"
     },
     "harvested_at": "2026-09-15"
   },
@@ -11753,26 +10913,6 @@
       "auction_date": "2026-09-16 13:48:00",
       "table": "main",
       "matched_on": "model:FAIRLADY"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WI451391B": {
-    "url": "/img/avto/WI451391B-8ed7a25e.jpg",
-    "make": "SMART",
-    "model": "FORTWO",
-    "chassis": "WI451391B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "n1kva92JqseCtFP",
-      "kuzov": "451380",
-      "year": "2013",
-      "grade": "Coupe mhd&#65418;&#65439;&#65391;&#65404;&#65390;&#65437;",
-      "rate": "4.5",
-      "auction": "MIRIVE Saitama",
-      "auction_date": "2026-09-16 11:16:00",
-      "table": "main",
-      "matched_on": "model:FORTWO"
     },
     "harvested_at": "2026-09-15"
   },
@@ -12033,26 +11173,6 @@
       "auction_date": "2026-09-19 00:00:00",
       "table": "main",
       "matched_on": "model:ALPHARD"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WIAVC101B": {
-    "url": "/img/avto/WIAVC101B-e06991cc.jpg",
-    "make": "LEXUS",
-    "model": "RC",
-    "chassis": "WIAVC101B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "70NwCsTLo6icsJ6",
-      "kuzov": "AVC10",
-      "year": "2023",
-      "grade": "RC300h F Sports",
-      "rate": "4.5",
-      "auction": "TAA Kinki",
-      "auction_date": "2026-09-15 14:28:00",
-      "table": "main",
-      "matched_on": "model:RC"
     },
     "harvested_at": "2026-09-15"
   },
@@ -12353,26 +11473,6 @@
       "auction_date": "2026-09-16 13:07:00",
       "table": "main",
       "matched_on": "model:LEGACY"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WIB601A": {
-    "url": "/img/avto/WIB601A-9c2edd03.jpg",
-    "make": "BMW",
-    "model": "ALPINA",
-    "chassis": "WIB601A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "2f6BrriJuXzSym4",
-      "kuzov": "PP10",
-      "year": "2016",
-      "grade": "&#65419;&#65438; Turbo &#65397;-&#65433;&#65431;&#65391;&#65412;&#65438; 4WD",
-      "rate": "4.5",
-      "auction": "LAA Okayama",
-      "auction_date": "2026-09-11 08:00:00",
-      "table": "stats",
-      "matched_on": "model:ALPINA"
     },
     "harvested_at": "2026-09-15"
   },
@@ -12696,26 +11796,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "WICL101B": {
-    "url": "/img/avto/WICL101B-dc2c96ed.jpg",
-    "make": "HONDA",
-    "model": "ACCORD WAGON",
-    "chassis": "WICL101B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "iLCwZtle6mfJb5",
-      "kuzov": "CH9",
-      "year": "1999",
-      "grade": "SiR VTEC",
-      "rate": "3.5",
-      "auction": "LAA Shikoku",
-      "auction_date": "2026-09-16 14:58:00",
-      "table": "main",
-      "matched_on": "model:ACCORD"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "WICL71C": {
     "url": "/img/avto/WICL71C-8fe1dcd1.jpg",
     "make": "HONDA",
@@ -12736,86 +11816,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "WICLA1E": {
-    "url": "/img/avto/WICLA1E-b531ba31.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "GLE CLASS",
-    "chassis": "WICLA1E",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hihuIOvN6fsJ7ty",
-      "kuzov": "167333",
-      "year": "2024",
-      "grade": "GLE450d 4M Coupe &#65405; 4WD",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:CLA"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WICLK20901F": {
-    "url": "/img/avto/WICLK20901F-31d87068.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "CLK CLASS",
-    "chassis": "WICLK20901F",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "a2dTwuVT9CDsW2",
-      "kuzov": "209456",
-      "year": "2007",
-      "grade": "CLK350 &#65398;&#65438;&#65420;&#65438;&#65432;&#65397;&#65434;",
-      "rate": "4",
-      "auction": "JU Miyagi",
-      "auction_date": "2026-09-11 08:39:00",
-      "table": "stats",
-      "matched_on": "model:CLK"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WICLS631B": {
-    "url": "/img/avto/WICLS631B-345f5589.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "CLS",
-    "chassis": "WICLS631B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "thdQubJEWtwag9",
-      "kuzov": "218359",
-      "year": "2013",
-      "grade": "AMG Sports Package",
-      "rate": "3.5",
-      "auction": "LAA Shikoku",
-      "auction_date": "2026-09-16 13:27:00",
-      "table": "main",
-      "matched_on": "model:CLS"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WICP9AS1A": {
-    "url": "/img/avto/WICP9AS1A-f45c44c2.jpg",
-    "make": "MITSUBISHI",
-    "model": "LANCER",
-    "chassis": "WICP9AS1A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "2KWlwCZgv9xmbe3",
-      "kuzov": "CP9A",
-      "year": "1999",
-      "grade": "",
-      "rate": "-",
-      "auction": "JU Aichi",
-      "auction_date": "2026-09-17 00:00:00",
-      "table": "main",
-      "matched_on": "model:LANCER"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "WICROWN02A": {
     "url": "/img/avto/WICROWN02A-2227558e.jpg",
     "make": "TOYOTA",
@@ -12833,46 +11833,6 @@
       "auction_date": "2026-09-18 11:40:00",
       "table": "main",
       "matched_on": "model:CROWN"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WICT9A1B": {
-    "url": "/img/avto/WICT9A1B-7e306338.jpg",
-    "make": "MITSUBISHI",
-    "model": "LANCER",
-    "chassis": "WICT9A1B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "65bVGi1zU1Gx7z",
-      "kuzov": "CZ4A",
-      "year": "2008",
-      "grade": "GSR Evolution 10 4WD",
-      "rate": "3",
-      "auction": "CAA Gifu",
-      "auction_date": "2026-09-15 08:02:00",
-      "table": "main",
-      "matched_on": "model:LANCER"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WICT9AS1B": {
-    "url": "/img/avto/WICT9AS1B-d80a18db.jpg",
-    "make": "MITSUBISHI",
-    "model": "LANCER",
-    "chassis": "WICT9AS1B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "32uGEXtlS7OeVfk",
-      "kuzov": "CT9A",
-      "year": "2003",
-      "grade": "GSR Evolution &#08551; 4W",
-      "rate": "3.5",
-      "auction": "LAA Okayama",
-      "auction_date": "2026-09-11 08:00:00",
-      "table": "stats",
-      "matched_on": "model:LANCER"
     },
     "harvested_at": "2026-09-15"
   },
@@ -12913,26 +11873,6 @@
       "auction_date": "2026-09-17 00:00:00",
       "table": "main",
       "matched_on": "model:AIRTREK"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WICZ4A1B": {
-    "url": "/img/avto/WICZ4A1B-7e306338.jpg",
-    "make": "MITSUBISHI",
-    "model": "LANCER",
-    "chassis": "WICZ4A1B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "65bVGi1zU1Gx7z",
-      "kuzov": "CZ4A",
-      "year": "2008",
-      "grade": "GSR Evolution 10 4WD",
-      "rate": "3",
-      "auction": "CAA Gifu",
-      "auction_date": "2026-09-15 08:02:00",
-      "table": "main",
-      "matched_on": "model:LANCER"
     },
     "harvested_at": "2026-09-15"
   },
@@ -13056,26 +11996,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "WIDB701A": {
-    "url": "/img/avto/WIDB701A-e72eb00d.jpg",
-    "make": "ASTON MARTIN",
-    "model": "DB9",
-    "chassis": "WIDB701A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "bePgFizKO8pEzpU",
-      "kuzov": "&#65420;&#65426;&#65394;",
-      "year": "2004",
-      "grade": "DB9",
-      "rate": "4",
-      "auction": "AUCNET",
-      "auction_date": "2026-08-17 12:35:00",
-      "table": "stats",
-      "matched_on": "model:DB"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "WIDEF01A": {
     "url": "/img/avto/WIDEF01A-133982a2.jpg",
     "make": "LAND ROVER",
@@ -13093,26 +12013,6 @@
       "auction_date": "2026-09-17 13:27:00",
       "table": "main",
       "matched_on": "model:DEFENDER"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WIDR16T1A": {
-    "url": "/img/avto/WIDR16T1A-96b719f5.jpg",
-    "make": "NISSAN",
-    "model": "CLIPPER TRUCK",
-    "chassis": "WIDR16T1A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "YRcrOlZPtN3ljx",
-      "kuzov": "DR16T",
-      "year": "2025",
-      "grade": "DX",
-      "rate": "4.5",
-      "auction": "JU Hiroshima",
-      "auction_date": "2026-09-17 12:07:00",
-      "table": "main",
-      "matched_on": "model:CLIPPER"
     },
     "harvested_at": "2026-09-15"
   },
@@ -13153,46 +12053,6 @@
       "auction_date": "2026-09-18 00:00:00",
       "table": "main",
       "matched_on": "model:DYNA"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WIE26C1A": {
-    "url": "/img/avto/WIE26C1A-5e877d77.jpg",
-    "make": "NISSAN",
-    "model": "NV200",
-    "chassis": "WIE26C1A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "3hehfRGbs61CAl3",
-      "kuzov": "VM20",
-      "year": "2021",
-      "grade": "DX",
-      "rate": "4.5",
-      "auction": "JU Fukushima",
-      "auction_date": "2026-09-17 13:25:00",
-      "table": "main",
-      "matched_on": "model:NV"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WIE4301A": {
-    "url": "/img/avto/WIE4301A-8970e1ce.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "C CLASS WAGON",
-    "chassis": "WIE4301A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "Nn9PVWh4j2BQX",
-      "kuzov": "205240C",
-      "year": "2019",
-      "grade": "C 180 Wagon AV AMG Line",
-      "rate": "4.5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 13:01:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
     },
     "harvested_at": "2026-09-15"
   },
@@ -13273,26 +12133,6 @@
       "auction_date": "2026-09-17 00:00:00",
       "table": "main",
       "matched_on": "model:ELGRAND"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WIE5303A": {
-    "url": "/img/avto/WIE5303A-b531ba31.jpg",
-    "make": "MERCEDES BENZ",
-    "model": "GLE CLASS",
-    "chassis": "WIE5303A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "hihuIOvN6fsJ7ty",
-      "kuzov": "167333",
-      "year": "2024",
-      "grade": "GLE450d 4M Coupe &#65405; 4WD",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:CLASS"
     },
     "harvested_at": "2026-09-15"
   }
