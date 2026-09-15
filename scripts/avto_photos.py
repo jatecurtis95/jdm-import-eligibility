@@ -27,6 +27,17 @@ When two different makes share a code (S15: Nissan Silvia and Mitsuoka
 Le-Seyde) each make gets its own target, keyed "CODE@MAKE" in photos.json, and
 the site's photoFor() picks the one whose make matches the row.
 
+Second tier — model name + build years. Many register "codes" are not chassis
+codes at all (ROVER revision markers like "AV20SC01A", work-instruction ids
+like "MRWIH200C01C"), so the kuzov join can never find them. For those, the
+feed is asked for the same make, a model name containing the register's model
+word, and a year inside the approval's build range. The year range pins the
+generation, which is what the old Wikipedia lookup could never do; make and
+model are still checked in code. Recorded as `matched_on: "model:<WORD>"`.
+
+Every make is tried. Japanese auctions sell plenty of BMWs, Mercedes and
+Ferraris; campervan converters and UK-only makes simply miss and are cached.
+
 Free text is rejected by shape: a chassis code carries both letters and digits,
 so "WELFARE", "200 Series" and the "01C" revision markers never cost a query.
 Non-Japanese makes are skipped entirely — they cannot appear in a Japanese
@@ -105,7 +116,7 @@ MISS_TTL_DAYS = 30
 # Bumped whenever the matching rules change. A miss recorded under older rules
 # says nothing about the new ones, so a bump silently retires the whole cache
 # instead of freezing in yesterday's coverage.
-MATCHER_VERSION = 3
+MATCHER_VERSION = 4
 
 DEFAULT_API_BASE = "https://jdmconnect.com.au/jdm-relay.php"
 # Matches the finder's client (src/avtonet.js) — the gateway is fronted by a
@@ -126,7 +137,7 @@ CHECKPOINT_EVERY = 25
 # Stop cleanly before the CI job's own timeout kills us. A hard kill loses
 # whatever hasn't been checkpointed and, worse, makes no durable progress — the
 # run must end on its own terms and save.
-DEFAULT_MAX_MINUTES = 35
+DEFAULT_MAX_MINUTES = 110
 # R2's API rate-limits sustained uploads (31 photos were dropped to HTTP 429 on
 # the first full backfill), so uploads retry on their own schedule.
 R2_RETRIES = 4
@@ -385,7 +396,9 @@ def make_matches(feed_make: str, rover_make: str) -> bool:
     if a == b:
         return True
     # The feed writes a handful of makes differently to ROVER.
-    aliases = {"MERCEDESB": "MERCEDESBENZ", "NISSANDIESEL": "NISSAN", "BMWMINI": "MINI"}
+    aliases = {"MERCEDESB": "MERCEDESBENZ", "MERCEDESAMG": "MERCEDESBENZ",
+               "NISSANDIESEL": "NISSAN", "BMWMINI": "MINI", "LANDROVER": "LANDROVER",
+               "RANGEROVER": "LANDROVER"}
     return aliases.get(a, a) == aliases.get(b, b)
 
 
@@ -654,6 +667,86 @@ def kuzov_clause(token: str) -> str:
     return "(" + " OR ".join(pats) + ")"
 
 
+# Words in a ROVER model string that name a body style, trim or conversion
+# rather than the model. "20 Series Welcab" has no model word at all and is
+# left to the chassis-code tier (or Wikipedia).
+MODEL_STOP_WORDS = {
+    "SERIES", "SER", "WELCAB", "WELFARE", "HYBRID", "CAMPERVAN", "CAMPER",
+    "MOTORHOME", "ONLY", "VAN", "WAGON", "TOURING", "TYPE", "EDITION", "GEN",
+    "GENERATION", "POWER", "AND", "THE", "WITH", "II", "III", "IV", "VI", "VII",
+    "VIII", "IX", "XI", "XII", "SEDAN", "COUPE", "CONVERTIBLE", "CABRIOLET",
+    "ROADSTER", "SPIDER", "SPYDER", "TRUCK", "CARGO", "BUS", "MINIBUS", "DIESEL",
+    "PETROL", "TURBO", "AWD", "FWD", "RWD", "LHD", "RHD", "AUTO", "MANUAL",
+    "MOBILITY", "WHEELCHAIR", "ACCESS", "ACCESSIBLE", "LIMITED", "SPORT",
+    "SPORTS", "PLUS", "PRO", "MAX", "LONG", "SHORT", "HIGH", "ROOF", "SUPER",
+    "DUTY", "CREW", "CAB", "DOUBLE", "SINGLE", "EXTENDED", "CHASSIS",
+}
+
+
+def model_words(model: str) -> list[str]:
+    """Distinctive words of a ROVER model name, most specific first.
+
+    "Alphard / Vellfire" -> ["ALPHARD", "VELLFIRE"]; "Lancer Evolution VIII" ->
+    ["LANCER", "EVOLUTION"]; "Civic Type R" -> ["CIVIC"]; "20 Series Welcab"
+    -> []. Two-letter names (XV, RX) are kept only when nothing longer exists.
+    """
+    toks = [t for t in re.findall(r"[A-Z]+", str(model or "").upper())
+            if t not in MODEL_STOP_WORDS]
+    out: list[str] = []
+    for t in toks:
+        if len(t) >= 3 and t not in out:
+            out.append(t)
+    if not out:
+        out = [t for t in toks if len(t) == 2][:1]
+    return out
+
+
+def find_lot_by_model(feed: Feed, target: dict[str, Any], table: str,
+                      rejected: set[str] = frozenset()) -> tuple[dict | None, str | None]:
+    """Tier 2: same make, model name containing the register's model word, and
+    a build year inside the approval's range. Needs at least one end of the
+    range, or any generation could answer."""
+    words = model_words(target["model"])
+    if not words or (target["from"] is None and target["to"] is None):
+        return None, None
+    lo = (target["from"] or 1950) - YEAR_SLACK
+    hi = (target["to"] or dt.date.today().year + 1) + YEAR_SLACK
+    make_head = re.split(r"[^A-Z]", str(target["make"]).upper().strip())[0]
+    if len(make_head) < 3:
+        return None, None
+    rows = feed.query(
+        "SELECT id, marka_name, model_name, year, kuzov, grade, rate, "
+        f"auction, auction_date, images FROM {table} "
+        f"WHERE UPPER(marka_name) LIKE '{sql_like(make_head)}%' "
+        f"AND UPPER(model_name) LIKE '%{sql_like(words[0])}%' "
+        f"AND year >= '{lo}' AND year <= '{hi}' AND images <> '' "
+        f"AND UPPER(auction) NOT LIKE '{EXCLUDE_HOUSE_PREFIX}%' "
+        f"AND (rate IS NULL OR UPPER(rate) NOT LIKE '%{EXCLUDE_RATE_CHAR}%') "
+        f"ORDER BY auction_date DESC LIMIT {FEED_LIMIT}"
+    )
+    time.sleep(FEED_DELAY_S)
+    if VERBOSE:
+        print(f"    {table}/model {words[0]}: feed returned {len(rows)} rows")
+    cands = [
+        r for r in rows
+        if presentable(r)
+        and str(r.get("id", "")) not in rejected
+        and words[0] in alnum(r.get("model_name", ""))
+        and make_matches(r.get("marka_name", ""), target["make"])
+        and year_ok(int(r["year"]) if str(r.get("year", "")).isdigit() else 0,
+                    target["from"], target["to"])
+        and lot_photo_url(r)
+    ]
+    if not cands:
+        return None, None
+
+    def rank(lot):  # more of the model's words in the lot's name/grade first
+        text = alnum(lot.get("model_name", "")) + alnum(lot.get("grade", ""))
+        return (sum(1 for w in words[1:] if w in text), *score(lot))
+
+    return max(cands, key=rank), f"model:{words[0]}"
+
+
 def find_lot(feed: Feed, target: dict[str, Any], table: str,
              rejected: set[str] = frozenset()) -> tuple[dict | None, str | None]:
     """Best lot for a target in `main` (live) or `stats` (sold), or (None, None).
@@ -750,7 +843,9 @@ def harvest(args: argparse.Namespace) -> int:
         photos = json.loads(PHOTOS_PATH.read_text(encoding="utf-8"))
 
     targets = build_targets(data)
-    addressable = {k: v for k, v in targets.items() if alnum(v["make"]) in JP_MAKES}
+    # Every make is tried; the misses cache keeps the ones that never match
+    # (campervan converters, UK-only marques) from costing a query each night.
+    addressable = dict(targets)
     rejected = rejected_lots()
 
     misses: dict[str, str] = {}
@@ -792,8 +887,8 @@ def harvest(args: argparse.Namespace) -> int:
     if args.limit:
         todo = todo[: args.limit]
 
-    print(f"register: {len(targets)} distinct chassis codes, "
-          f"{len(addressable)} on Japanese makes")
+    print(f"register: {len(targets)} distinct chassis codes across "
+          f"{len({alnum(v['make']) for v in targets.values()})} makes")
     if fresh_misses:
         print(f"skipping {len(fresh_misses)} codes the feed had no car for "
               f"(re-checked after {MISS_TTL_DAYS} days)")
@@ -894,10 +989,13 @@ def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, a
             break
         t = addressable[key]
         lot, token, table = None, None, None
-        for tbl in ("main", "stats"):  # live lots first, sold history as backup
-            lot, token = find_lot(feed, t, tbl, rejected.get(key, set()))
+        for finder in (find_lot, find_lot_by_model):  # chassis code first, then model+years
+            for tbl in ("main", "stats"):  # live lots first, sold history as backup
+                lot, token = finder(feed, t, tbl, rejected.get(key, set()))
+                if lot:
+                    table = tbl
+                    break
             if lot:
-                table = tbl
                 break
 
         label = f"[{i}/{len(todo)}] {key:12s} {t['make'][:10]:10s} {t['model'][:24]:24s}"
