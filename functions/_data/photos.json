@@ -9101,5 +9101,125 @@
       "matched_on": "MXPH17"
     },
     "harvested_at": "2026-09-15"
+  },
+  "AZSH3601B": {
+    "url": "/img/avto/AZSH3601B-4ed3a047.jpg",
+    "make": "TOYOTA",
+    "model": "CROWN SPORT",
+    "chassis": "AZSH3601B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "32bEHVmSHmGBNQc",
+      "kuzov": "AZSH36W",
+      "year": "2024",
+      "grade": "4WD 2.5Z E-Four",
+      "rate": "6",
+      "auction": "JU Gunma",
+      "auction_date": "2026-09-17 00:00:00",
+      "table": "main",
+      "matched_on": "AZSH36"
+    },
+    "harvested_at": "2026-09-15"
+  },
+  "FF21S01A": {
+    "url": "/img/avto/FF21S01A-a33a6f2e.jpg",
+    "make": "SUZUKI",
+    "model": "IGNIS",
+    "chassis": "FF21S01A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "24BhwaxpqHXCtpu",
+      "kuzov": "FF21S",
+      "year": "2023",
+      "grade": "Hybrid MF",
+      "rate": "4.5",
+      "auction": "JU Aichi",
+      "auction_date": "2026-09-17 00:00:00",
+      "table": "main",
+      "matched_on": "FF21S"
+    },
+    "harvested_at": "2026-09-15"
+  },
+  "JG5": {
+    "url": "/img/avto/JG5-26853068.jpg",
+    "make": "HONDA",
+    "model": "N ONE E:",
+    "chassis": "JG5",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "mf7520iUX8KVI",
+      "kuzov": "JG5",
+      "year": "2025",
+      "grade": "e: L",
+      "rate": "6",
+      "auction": "CAA Tohoku",
+      "auction_date": "2026-09-15 09:52:00",
+      "table": "main",
+      "matched_on": "JG5"
+    },
+    "harvested_at": "2026-09-15"
+  },
+  "MZRA97": {
+    "url": "/img/avto/MZRA97-93cc44d6.jpg",
+    "make": "TOYOTA",
+    "model": "NOAH",
+    "chassis": "MZRA97",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "YEjSiKoLHFH6Qv",
+      "kuzov": "MZRA97W",
+      "year": "2022",
+      "grade": "Wheelchair way -&#65418;&#65439; 4WD",
+      "rate": "3.5",
+      "auction": "CAA Chubu",
+      "auction_date": "2026-09-16 12:02:00",
+      "table": "main",
+      "matched_on": "MZRA97"
+    },
+    "harvested_at": "2026-09-15"
+  },
+  "U68T": {
+    "url": "/img/avto/U68T-427401b2.jpg",
+    "make": "MITSUBISHI",
+    "model": "MINICAB MIEV",
+    "chassis": "U68T",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "4UhC10UByq5p6Z",
+      "kuzov": "U68T",
+      "year": "2016",
+      "grade": "VX-SE 10.5kWh",
+      "rate": "4.5",
+      "auction": "CAA Chubu",
+      "auction_date": "2026-08-19 08:00:00",
+      "table": "stats",
+      "matched_on": "U68T"
+    },
+    "harvested_at": "2026-09-15"
+  },
+  "VXFA5501C": {
+    "url": "/img/avto/VXFA5501C-2b4e71bd.jpg",
+    "make": "LEXUS",
+    "model": "LS",
+    "chassis": "VXFA5501C",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "Q9hBzSeCTUl88s",
+      "kuzov": "VXFA55",
+      "year": "2023",
+      "grade": "LS500 F Sports 4WD",
+      "rate": "4.5",
+      "auction": "CAA Chubu",
+      "auction_date": "2026-07-08 08:01:00",
+      "table": "stats",
+      "matched_on": "VXFA55"
+    },
+    "harvested_at": "2026-09-15"
   }
 }
