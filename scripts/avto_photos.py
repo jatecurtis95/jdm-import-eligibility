@@ -116,7 +116,7 @@ MISS_TTL_DAYS = 30
 # Bumped whenever the matching rules change. A miss recorded under older rules
 # says nothing about the new ones, so a bump silently retires the whole cache
 # instead of freezing in yesterday's coverage.
-MATCHER_VERSION = 4
+MATCHER_VERSION = 5
 
 DEFAULT_API_BASE = "https://jdmconnect.com.au/jdm-relay.php"
 # Matches the finder's client (src/avtonet.js) — the gateway is fronted by a
@@ -363,7 +363,14 @@ def code_tokens(code: str) -> list[str]:
 
 
 def anchored(feed_kuzov: str, token: str) -> bool:
+    return anchor_kind(feed_kuzov, token) is not None
+
+
+def anchor_kind(feed_kuzov: str, token: str) -> str | None:
     """Guard 1 — the feed's kuzov must BE this code, not merely contain it.
+    Returns how it matched, or None: "exact", "suffix" (a trailing body-style
+    letter, TRH200 -> TRH200V) or "prefix" (leading engine/drivetrain letters,
+    E52 -> TE52). The prefix form is the loose one and is checked further.
 
     Compared against both the raw and prefix-stripped feed value, since either
     side may carry the emissions prefix and `strip_prefix` is deliberately
@@ -371,12 +378,12 @@ def anchored(feed_kuzov: str, token: str) -> bool:
     """
     for k in {alnum(feed_kuzov), alnum(strip_prefix(feed_kuzov))}:
         if k == token:
-            return True
+            return "exact"
         # A trailing body-style letter is the same car: TRH200 -> TRH200V.
         tail = k[len(token):]
         if (k.startswith(token) and 0 < len(tail) <= MAX_BODY_SUFFIX
                 and tail.isalpha()):
-            return True
+            return "suffix"
         # ...and Nissan puts the engine/drivetrain letter in FRONT: the register
         # says "E52" for the Elgrand, the feed says "TE52"/"PE52"; "E26" for the
         # NV350 against "VW2E26". Bounded to MAX_BODY_PREFIX leading characters,
@@ -384,8 +391,8 @@ def anchored(feed_kuzov: str, token: str) -> bool:
         # that this admits cannot survive a NISSAN target.
         head = k[:-len(token)] if k.endswith(token) else None
         if head is not None and 0 < len(head) <= MAX_BODY_PREFIX:
-            return True
-    return False
+            return "prefix"
+    return None
 
 
 def make_matches(feed_make: str, rover_make: str) -> bool:
@@ -677,28 +684,95 @@ MODEL_STOP_WORDS = {
     "VIII", "IX", "XI", "XII", "SEDAN", "COUPE", "CONVERTIBLE", "CABRIOLET",
     "ROADSTER", "SPIDER", "SPYDER", "TRUCK", "CARGO", "BUS", "MINIBUS", "DIESEL",
     "PETROL", "TURBO", "AWD", "FWD", "RWD", "LHD", "RHD", "AUTO", "MANUAL",
-    "MOBILITY", "WHEELCHAIR", "ACCESS", "ACCESSIBLE", "LIMITED", "SPORT",
-    "SPORTS", "PLUS", "PRO", "MAX", "LONG", "SHORT", "HIGH", "ROOF", "SUPER",
+    # "SPORT" is deliberately NOT here: it forms nameplates of its own (Toyota
+    # Crown Sport, Range Rover Sport) far more often than it describes a body,
+    # and treating it as noise put a Crown Sport on a plain Crown approval.
+    "MOBILITY", "WHEELCHAIR", "ACCESS", "ACCESSIBLE", "LIMITED",
+    "PLUS", "PRO", "MAX", "LONG", "SHORT", "HIGH", "ROOF", "SUPER",
+    "STATION", "HATCHBACK", "LIFTBACK", "ESTATE", "SALOON", "TOURER",
     "DUTY", "CREW", "CAB", "DOUBLE", "SINGLE", "EXTENDED", "CHASSIS",
 }
 
 
-def model_words(model: str) -> list[str]:
-    """Distinctive words of a ROVER model name, most specific first.
+def model_tokens(text: str) -> list[str]:
+    """Alphanumeric tokens, digits kept attached to their letters.
 
-    "Alphard / Vellfire" -> ["ALPHARD", "VELLFIRE"]; "Lancer Evolution VIII" ->
-    ["LANCER", "EVOLUTION"]; "Civic Type R" -> ["CIVIC"]; "20 Series Welcab"
-    -> []. Two-letter names (XV, RX) are kept only when nothing longer exists.
+    "E-Class" -> ["E", "CLASS"]; "DB7" -> ["DB7"]; "8 Series" -> ["8", "SERIES"].
+    Keeping "DB7" whole is what stops a DB7 approval matching a DB9 lot.
     """
-    toks = [t for t in re.findall(r"[A-Z]+", str(model or "").upper())
-            if t not in MODEL_STOP_WORDS]
-    out: list[str] = []
-    for t in toks:
-        if len(t) >= 3 and t not in out:
-            out.append(t)
-    if not out:
-        out = [t for t in toks if len(t) == 2][:1]
+    return re.findall(r"[A-Z0-9]+", str(text or "").upper())
+
+
+def model_alternatives(model: str) -> list[list[str]]:
+    """A ROVER model string as one or more token lists, one per alternative.
+
+    "Alphard / Vellfire" is two names for the same approval, so matching either
+    is correct; "Lancer Evolution VIII" is one name whose every word counts.
+    Body-style and trim noise (MODEL_STOP_WORDS) is dropped first.
+    """
+    out = []
+    for part in re.split(r"/", str(model or "")):
+        toks = [t for t in model_tokens(part) if t not in MODEL_STOP_WORDS]
+        if toks:
+            out.append(toks)
     return out
+
+
+def model_matches(rover_model: str, feed_model: str) -> bool:
+    """Guard 4 — the lot's model name really is this register model.
+
+    Accepted two ways, both anchored so a generic shared word cannot carry the
+    match:
+
+      WHOLE TOKENS   every token of one alternative appears as a whole token of
+                     the feed's name. "E-Class" needs an "E": "GLE CLASS" has
+                     "GLE" and "CLASS" and so is refused, which is the Mercedes
+                     version of the Silvia/Le-Seyde bug.
+      NAME PREFIX    the feed's name, run together, starts with the register's.
+                     The feed writes "FAIRLADYZ" for "Fairlady Z". A prefix,
+                     never a substring: "GLECLASS" does not start with "ECLASS".
+
+    Extra trailing words in the lot's name are fine ("HIACE VAN" for "Hiace");
+    a missing word is not ("CIVIC" for "Civic Type R"), because the missing
+    word is usually the trim that makes the approval what it is.
+    """
+    alts = model_alternatives(rover_model)
+    if not alts:
+        return False
+    # The lot's name with body-style and trim noise removed. What is left has
+    # to BE the register's name: a leftover word is a different nameplate
+    # ("CROWN COMFORT" is a taxi, "COROLLA CROSS" an SUV), while "HIACE VAN"
+    # loses only VAN and is the same Hiace.
+    core = [t for t in model_tokens(feed_model) if t not in MODEL_STOP_WORDS]
+    for alt in alts:
+        if set(core) == set(alt):
+            return True
+        # The feed sometimes runs a name together: "Fairlady Z" -> "FAIRLADYZ".
+        if "".join(core) == "".join(alt):
+            return True
+    return False
+
+
+def model_query_tokens(model: str) -> list[str]:
+    """One token per alternative name to filter the feed query on: the longest,
+    as the most selective. "Alphard/Vellfire" gives both, because a lot carries
+    one name or the other and a single query would miss half the cars."""
+    out: list[str] = []
+    for alt in model_alternatives(model):
+        pick = max(alt, key=len)
+        if pick not in out:
+            out.append(pick)
+    return out[:3]
+
+
+def model_words(model: str) -> list[str]:
+    """Every distinctive token of the model name, for ranking."""
+    seen: list[str] = []
+    for alt in model_alternatives(model):
+        for t in alt:
+            if t not in seen:
+                seen.append(t)
+    return seen
 
 
 def find_lot_by_model(feed: Feed, target: dict[str, Any], table: str,
@@ -707,44 +781,76 @@ def find_lot_by_model(feed: Feed, target: dict[str, Any], table: str,
     a build year inside the approval's range. Needs at least one end of the
     range, or any generation could answer."""
     words = model_words(target["model"])
-    if not words or (target["from"] is None and target["to"] is None):
+    queries = model_query_tokens(target["model"])
+    if not queries or (target["from"] is None and target["to"] is None):
         return None, None
     lo = (target["from"] or 1950) - YEAR_SLACK
     hi = (target["to"] or dt.date.today().year + 1) + YEAR_SLACK
     make_head = re.split(r"[^A-Z]", str(target["make"]).upper().strip())[0]
     if len(make_head) < 3:
         return None, None
-    rows = feed.query(
-        "SELECT id, marka_name, model_name, year, kuzov, grade, rate, "
-        f"auction, auction_date, images FROM {table} "
-        f"WHERE UPPER(marka_name) LIKE '{sql_like(make_head)}%' "
-        f"AND UPPER(model_name) LIKE '%{sql_like(words[0])}%' "
-        f"AND year >= '{lo}' AND year <= '{hi}' AND images <> '' "
-        f"AND UPPER(auction) NOT LIKE '{EXCLUDE_HOUSE_PREFIX}%' "
-        f"AND (rate IS NULL OR UPPER(rate) NOT LIKE '%{EXCLUDE_RATE_CHAR}%') "
-        f"ORDER BY auction_date DESC LIMIT {FEED_LIMIT}"
-    )
-    time.sleep(FEED_DELAY_S)
-    if VERBOSE:
-        print(f"    {table}/model {words[0]}: feed returned {len(rows)} rows")
-    cands = [
-        r for r in rows
-        if presentable(r)
-        and str(r.get("id", "")) not in rejected
-        and words[0] in alnum(r.get("model_name", ""))
-        and make_matches(r.get("marka_name", ""), target["make"])
-        and year_ok(int(r["year"]) if str(r.get("year", "")).isdigit() else 0,
-                    target["from"], target["to"])
-        and lot_photo_url(r)
-    ]
-    if not cands:
-        return None, None
 
-    def rank(lot):  # more of the model's words in the lot's name/grade first
+    def rank(lot):
+        # Fewest extra words in the lot's own model name first, so a plain
+        # "CROWN" outranks a "CROWN COMFORT" taxi on a Crown approval.
+        extra = len([t for t in model_tokens(lot.get("model_name", ""))
+                     if t not in set(words)])
         text = alnum(lot.get("model_name", "")) + alnum(lot.get("grade", ""))
-        return (sum(1 for w in words[1:] if w in text), *score(lot))
+        return (-extra, sum(1 for w in words[1:] if w in text), *score(lot))
 
-    return max(cands, key=rank), f"model:{words[0]}"
+    for token in queries:
+        rows = feed.query(
+            "SELECT id, marka_name, model_name, year, kuzov, grade, rate, "
+            f"auction, auction_date, images FROM {table} "
+            f"WHERE UPPER(marka_name) LIKE '{sql_like(make_head)}%' "
+            f"AND UPPER(model_name) LIKE '%{sql_like(token)}%' "
+            f"AND year >= '{lo}' AND year <= '{hi}' AND images <> '' "
+            f"AND UPPER(auction) NOT LIKE '{EXCLUDE_HOUSE_PREFIX}%' "
+            f"AND (rate IS NULL OR UPPER(rate) NOT LIKE '%{EXCLUDE_RATE_CHAR}%') "
+            f"ORDER BY auction_date DESC LIMIT {FEED_LIMIT}"
+        )
+        time.sleep(FEED_DELAY_S)
+        if VERBOSE:
+            print(f"    {table}/model {token}: feed returned {len(rows)} rows")
+        cands = [
+            r for r in rows
+            if presentable(r)
+            and str(r.get("id", "")) not in rejected
+            and model_matches(target["model"], r.get("model_name", ""))
+            and make_matches(r.get("marka_name", ""), target["make"])
+            and year_ok(int(r["year"]) if str(r.get("year", "")).isdigit() else 0,
+                        target["from"], target["to"])
+            and lot_photo_url(r)
+        ]
+        if cands:
+            return max(cands, key=rank), f"model:{token}"
+    return None, None
+
+
+def models_overlap(rover_model: str, feed_model: str) -> bool:
+    """Lenient model agreement: the two names share a distinctive word.
+
+    Used only to sanity-check a LEADING-PREFIX chassis hit, where the feed's
+    code merely ends with the register's. That rule exists for Nissan's engine
+    letters (E52 -> TE52 Elgrand) but it also let a BMW X1 ("JG15") answer an
+    8 Series code ("G15"). Sharing a word keeps the Elgrand and refuses the X1;
+    a lot with no model name at all is not punished.
+
+    A trailing body letter (TRH200 -> TRH200V) is NOT checked this way: it is
+    reliably the same car, and the register often names it by body rather than
+    model ("70 Series Welcab" for what the feed calls a Voxy), so demanding a
+    shared word there would throw away correct matches.
+    """
+    feed_toks = {t for t in model_tokens(feed_model) if t not in MODEL_STOP_WORDS}
+    alts = model_alternatives(rover_model)
+    if not feed_toks or not alts:
+        return True
+    for alt in alts:
+        for t in feed_toks:
+            for a in alt:
+                if t == a or t.startswith(a) or a.startswith(t):
+                    return True
+    return False
 
 
 def find_lot(feed: Feed, target: dict[str, Any], table: str,
@@ -778,7 +884,9 @@ def find_lot(feed: Feed, target: dict[str, Any], table: str,
             r for r in rows
             if presentable(r)
             and str(r.get("id", "")) not in rejected
-            and anchored(r.get("kuzov", ""), token)
+            and (anchor_kind(r.get("kuzov", ""), token) in ("exact", "suffix")
+                 or (anchor_kind(r.get("kuzov", ""), token) == "prefix"
+                     and models_overlap(target["model"], r.get("model_name", ""))))
             and make_matches(r.get("marka_name", ""), target["make"])
             and year_ok(int(r["year"]) if str(r.get("year", "")).isdigit() else 0,
                         target["from"], target["to"])
