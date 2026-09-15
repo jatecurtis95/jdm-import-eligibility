@@ -325,26 +325,6 @@
     },
     "harvested_at": "2026-08-04"
   },
-  "E26": {
-    "url": "/img/avto/E26-a7205382.jpg",
-    "make": "NISSAN",
-    "model": "CARAVAN VAN",
-    "chassis": "E26",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "mtmeTSj51B5mj5",
-      "kuzov": "VN6E26",
-      "year": "2023",
-      "grade": "4WD &#65400;&#65438;&#65431;&#65437;&#65412;&#65438; Premium GX",
-      "rate": "4.5",
-      "auction": "JU Miyagi",
-      "auction_date": "2026-08-07 00:00:00",
-      "table": "main",
-      "matched_on": "E26"
-    },
-    "harvested_at": "2026-08-04"
-  },
   "GMT400": {
     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Chevrolet-CK.jpg/960px-Chevrolet-CK.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "Chevrolet",
@@ -1054,26 +1034,6 @@
     "model": "Le-Seyde",
     "chassis": "S15",
     "source": "wikipedia"
-  },
-  "G14": {
-    "url": "/img/avto/G14-c2bd2443.jpg",
-    "make": "BMW",
-    "model": "X1",
-    "chassis": "G14",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "MV41dv1z1b8UC",
-      "kuzov": "JG15",
-      "year": "2018",
-      "grade": "X1 sDrive 18I",
-      "rate": "4.5",
-      "auction": "ZIP Osaka",
-      "auction_date": "2026-09-17 13:00:00",
-      "table": "main",
-      "matched_on": "G15"
-    },
-    "harvested_at": "2026-09-15"
   },
   "40SERIESRC1": null,
   "222158": {
@@ -2292,26 +2252,6 @@
     "model": "Crown",
     "chassis": "S21",
     "source": "wikipedia"
-  },
-  "S20": {
-    "url": "/img/avto/S20-2227558e.jpg",
-    "make": "TOYOTA",
-    "model": "CROWN COMFORT",
-    "chassis": "S20",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "qmIa8aAy7ZgAmCY",
-      "kuzov": "TSS10",
-      "year": "2014",
-      "grade": "Standard",
-      "rate": "4.5",
-      "auction": "MIRIVE Aichi",
-      "auction_date": "2026-09-18 11:40:00",
-      "table": "main",
-      "matched_on": "model:CROWN"
-    },
-    "harvested_at": "2026-09-15"
   },
   "GSE21": {
     "url": "/img/avto/GSE21-63fcf937.jpg",
@@ -5413,26 +5353,6 @@
       "auction_date": "2026-08-06 00:00:00",
       "table": "main",
       "matched_on": "DS17V"
-    },
-    "harvested_at": "2026-08-04"
-  },
-  "E13A": {
-    "url": "/img/avto/E13A-3b62a600.jpg",
-    "make": "NISSAN",
-    "model": "AURA",
-    "chassis": "E13A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "xGsAtoV2MTB0IE",
-      "kuzov": "FE13",
-      "year": "2025",
-      "grade": "G",
-      "rate": "5",
-      "auction": "JU Miyagi",
-      "auction_date": "2026-08-07 00:00:00",
-      "table": "main",
-      "matched_on": "E13"
     },
     "harvested_at": "2026-08-04"
   },
@@ -9516,26 +9436,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "CROWNAWS210": {
-    "url": "/img/avto/CROWNAWS210-e0b2bedf.jpg",
-    "make": "TOYOTA",
-    "model": "CROWN COMFORT",
-    "chassis": "CROWNAWS210",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "qmIa8aAy7ZgAmCY",
-      "kuzov": "TSS10",
-      "year": "2014",
-      "grade": "STANDARD",
-      "rate": "4.5",
-      "auction": "MIRIVE Aichi",
-      "auction_date": "2026-09-18 11:32:00",
-      "table": "main",
-      "matched_on": "model:CROWN"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "CT9A9GT01C": {
     "url": "/img/avto/CT9A9GT01C-7e306338.jpg",
     "make": "MITSUBISHI",
@@ -9553,26 +9453,6 @@
       "auction_date": "2026-09-15 08:02:00",
       "table": "main",
       "matched_on": "model:LANCER"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "CVD5C01A": {
-    "url": "/img/avto/CVD5C01A-46d73504.jpg",
-    "make": "MITSUBISHI",
-    "model": "DELICA D5",
-    "chassis": "CVD5C01A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "32L13ZhbrmnMXLQ",
-      "kuzov": "CV1W",
-      "year": "2021",
-      "grade": "4WD G Power - Package",
-      "rate": "4",
-      "auction": "JU Miyagi",
-      "auction_date": "2026-09-18 00:00:00",
-      "table": "main",
-      "matched_on": "model:DELICA"
     },
     "harvested_at": "2026-09-15"
   },
@@ -9993,26 +9873,6 @@
       "auction_date": "2026-09-18 11:07:00",
       "table": "main",
       "matched_on": "model:HIJET"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "JDWINZVW211WB": {
-    "url": "/img/avto/JDWINZVW211WB-ffd64142.jpg",
-    "make": "TOYOTA",
-    "model": "COROLLA CROSS",
-    "chassis": "JDWINZVW211WB",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "ohUDO6WqjaXbCJS",
-      "kuzov": "ZVG13",
-      "year": "2024",
-      "grade": "Hybrid Z",
-      "rate": "5",
-      "auction": "TAA Yokohama",
-      "auction_date": "2026-09-19 00:00:00",
-      "table": "main",
-      "matched_on": "model:COROLLA"
     },
     "harvested_at": "2026-09-15"
   },
@@ -10633,26 +10493,6 @@
       "auction_date": "2026-06-20 08:08:00",
       "table": "stats",
       "matched_on": "model:GT"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "RCBRG01B": {
-    "url": "/img/avto/RCBRG01B-d70dd7d3.jpg",
-    "make": "SUBARU",
-    "model": "LEGACY OUTBACK",
-    "chassis": "RCBRG01B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "8shQVRGZgJCC1h6",
-      "kuzov": "BS9",
-      "year": "2015",
-      "grade": "Limited 4WD",
-      "rate": "4",
-      "auction": "TAA Kanto",
-      "auction_date": "2026-09-17 00:00:00",
-      "table": "main",
-      "matched_on": "model:LEGACY"
     },
     "harvested_at": "2026-09-15"
   },
@@ -11376,46 +11216,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "WIAZSH201B": {
-    "url": "/img/avto/WIAZSH201B-d188198d.jpg",
-    "make": "TOYOTA",
-    "model": "CROWN CROSSOVER",
-    "chassis": "WIAZSH201B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "ybJ62RgmP90LSF",
-      "kuzov": "AZSH35",
-      "year": "2023",
-      "grade": "G Advanced Leather -&#65418; 4WD",
-      "rate": "5",
-      "auction": "TAA Chubu",
-      "auction_date": "2026-09-17 00:00:00",
-      "table": "main",
-      "matched_on": "model:CROWN"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WIAZSH211B": {
-    "url": "/img/avto/WIAZSH211B-d188198d.jpg",
-    "make": "TOYOTA",
-    "model": "CROWN CROSSOVER",
-    "chassis": "WIAZSH211B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "ybJ62RgmP90LSF",
-      "kuzov": "AZSH35",
-      "year": "2023",
-      "grade": "G Advanced Leather -&#65418; 4WD",
-      "rate": "5",
-      "auction": "TAA Chubu",
-      "auction_date": "2026-09-17 00:00:00",
-      "table": "main",
-      "matched_on": "model:CROWN"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "WIAZSH301A": {
     "url": "/img/avto/WIAZSH301A-bc46c8cb.jpg",
     "make": "TOYOTA",
@@ -11550,26 +11350,6 @@
       "grade": "4WD",
       "rate": "4",
       "auction": "JU Aichi",
-      "auction_date": "2026-09-17 00:00:00",
-      "table": "main",
-      "matched_on": "model:LEGACY"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WIBRG01C": {
-    "url": "/img/avto/WIBRG01C-d70dd7d3.jpg",
-    "make": "SUBARU",
-    "model": "LEGACY OUTBACK",
-    "chassis": "WIBRG01C",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "8shQVRGZgJCC1h6",
-      "kuzov": "BS9",
-      "year": "2015",
-      "grade": "Limited 4WD",
-      "rate": "4",
-      "auction": "TAA Kanto",
       "auction_date": "2026-09-17 00:00:00",
       "table": "main",
       "matched_on": "model:LEGACY"
@@ -11816,26 +11596,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "WICROWN02A": {
-    "url": "/img/avto/WICROWN02A-2227558e.jpg",
-    "make": "TOYOTA",
-    "model": "CROWN COMFORT",
-    "chassis": "WICROWN02A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "qmIa8aAy7ZgAmCY",
-      "kuzov": "TSS10",
-      "year": "2014",
-      "grade": "Standard",
-      "rate": "4.5",
-      "auction": "MIRIVE Aichi",
-      "auction_date": "2026-09-18 11:40:00",
-      "table": "main",
-      "matched_on": "model:CROWN"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "WICT9W1B": {
     "url": "/img/avto/WICT9W1B-7e306338.jpg",
     "make": "MITSUBISHI",
@@ -11873,26 +11633,6 @@
       "auction_date": "2026-09-17 00:00:00",
       "table": "main",
       "matched_on": "model:AIRTREK"
-    },
-    "harvested_at": "2026-09-15"
-  },
-  "WID51C": {
-    "url": "/img/avto/WID51C-bce46d1f.jpg",
-    "make": "MITSUBISHI",
-    "model": "DELICA D5",
-    "chassis": "WID51C",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "2Q6NRHjiZheMe2g",
-      "kuzov": "CV1W",
-      "year": "2022",
-      "grade": "4WD P",
-      "rate": "4",
-      "auction": "JU Miyagi",
-      "auction_date": "2026-09-18 00:00:00",
-      "table": "main",
-      "matched_on": "model:DELICA"
     },
     "harvested_at": "2026-09-15"
   },

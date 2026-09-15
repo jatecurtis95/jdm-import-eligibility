@@ -363,7 +363,14 @@ def code_tokens(code: str) -> list[str]:
 
 
 def anchored(feed_kuzov: str, token: str) -> bool:
+    return anchor_kind(feed_kuzov, token) is not None
+
+
+def anchor_kind(feed_kuzov: str, token: str) -> str | None:
     """Guard 1 — the feed's kuzov must BE this code, not merely contain it.
+    Returns how it matched, or None: "exact", "suffix" (a trailing body-style
+    letter, TRH200 -> TRH200V) or "prefix" (leading engine/drivetrain letters,
+    E52 -> TE52). The prefix form is the loose one and is checked further.
 
     Compared against both the raw and prefix-stripped feed value, since either
     side may carry the emissions prefix and `strip_prefix` is deliberately
@@ -371,12 +378,12 @@ def anchored(feed_kuzov: str, token: str) -> bool:
     """
     for k in {alnum(feed_kuzov), alnum(strip_prefix(feed_kuzov))}:
         if k == token:
-            return True
+            return "exact"
         # A trailing body-style letter is the same car: TRH200 -> TRH200V.
         tail = k[len(token):]
         if (k.startswith(token) and 0 < len(tail) <= MAX_BODY_SUFFIX
                 and tail.isalpha()):
-            return True
+            return "suffix"
         # ...and Nissan puts the engine/drivetrain letter in FRONT: the register
         # says "E52" for the Elgrand, the feed says "TE52"/"PE52"; "E26" for the
         # NV350 against "VW2E26". Bounded to MAX_BODY_PREFIX leading characters,
@@ -384,8 +391,8 @@ def anchored(feed_kuzov: str, token: str) -> bool:
         # that this admits cannot survive a NISSAN target.
         head = k[:-len(token)] if k.endswith(token) else None
         if head is not None and 0 < len(head) <= MAX_BODY_PREFIX:
-            return True
-    return False
+            return "prefix"
+    return None
 
 
 def make_matches(feed_make: str, rover_make: str) -> bool:
@@ -679,6 +686,7 @@ MODEL_STOP_WORDS = {
     "PETROL", "TURBO", "AWD", "FWD", "RWD", "LHD", "RHD", "AUTO", "MANUAL",
     "MOBILITY", "WHEELCHAIR", "ACCESS", "ACCESSIBLE", "LIMITED", "SPORT",
     "SPORTS", "PLUS", "PRO", "MAX", "LONG", "SHORT", "HIGH", "ROOF", "SUPER",
+    "STATION", "HATCHBACK", "LIFTBACK", "ESTATE", "SALOON", "TOURER",
     "DUTY", "CREW", "CAB", "DOUBLE", "SINGLE", "EXTENDED", "CHASSIS",
 }
 
@@ -728,12 +736,16 @@ def model_matches(rover_model: str, feed_model: str) -> bool:
     alts = model_alternatives(rover_model)
     if not alts:
         return False
-    feed_toks = set(model_tokens(feed_model))
-    feed_run = "".join(model_tokens(feed_model))
+    # The lot's name with body-style and trim noise removed. What is left has
+    # to BE the register's name: a leftover word is a different nameplate
+    # ("CROWN COMFORT" is a taxi, "COROLLA CROSS" an SUV), while "HIACE VAN"
+    # loses only VAN and is the same Hiace.
+    core = [t for t in model_tokens(feed_model) if t not in MODEL_STOP_WORDS]
     for alt in alts:
-        if all(t in feed_toks for t in alt):
+        if set(core) == set(alt):
             return True
-        if feed_run.startswith("".join(alt)):
+        # The feed sometimes runs a name together: "Fairlady Z" -> "FAIRLADYZ".
+        if "".join(core) == "".join(alt):
             return True
     return False
 
@@ -812,6 +824,32 @@ def find_lot_by_model(feed: Feed, target: dict[str, Any], table: str,
     return None, None
 
 
+def models_overlap(rover_model: str, feed_model: str) -> bool:
+    """Lenient model agreement: the two names share a distinctive word.
+
+    Used only to sanity-check a LEADING-PREFIX chassis hit, where the feed's
+    code merely ends with the register's. That rule exists for Nissan's engine
+    letters (E52 -> TE52 Elgrand) but it also let a BMW X1 ("JG15") answer an
+    8 Series code ("G15"). Sharing a word keeps the Elgrand and refuses the X1;
+    a lot with no model name at all is not punished.
+
+    A trailing body letter (TRH200 -> TRH200V) is NOT checked this way: it is
+    reliably the same car, and the register often names it by body rather than
+    model ("70 Series Welcab" for what the feed calls a Voxy), so demanding a
+    shared word there would throw away correct matches.
+    """
+    feed_toks = {t for t in model_tokens(feed_model) if t not in MODEL_STOP_WORDS}
+    alts = model_alternatives(rover_model)
+    if not feed_toks or not alts:
+        return True
+    for alt in alts:
+        for t in feed_toks:
+            for a in alt:
+                if t == a or t.startswith(a) or a.startswith(t):
+                    return True
+    return False
+
+
 def find_lot(feed: Feed, target: dict[str, Any], table: str,
              rejected: set[str] = frozenset()) -> tuple[dict | None, str | None]:
     """Best lot for a target in `main` (live) or `stats` (sold), or (None, None).
@@ -843,7 +881,9 @@ def find_lot(feed: Feed, target: dict[str, Any], table: str,
             r for r in rows
             if presentable(r)
             and str(r.get("id", "")) not in rejected
-            and anchored(r.get("kuzov", ""), token)
+            and (anchor_kind(r.get("kuzov", ""), token) in ("exact", "suffix")
+                 or (anchor_kind(r.get("kuzov", ""), token) == "prefix"
+                     and models_overlap(target["model"], r.get("model_name", ""))))
             and make_matches(r.get("marka_name", ""), target["make"])
             and year_ok(int(r["year"]) if str(r.get("year", "")).isdigit() else 0,
                         target["from"], target["to"])
