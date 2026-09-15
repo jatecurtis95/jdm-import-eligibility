@@ -698,30 +698,46 @@ def find_lot(feed: Feed, target: dict[str, Any], table: str,
 
 IMG_RETRIES = 3
 IMG_BACKOFF_S = 4
+# The lot photo URLs name one CDN host (8.ajes.com) that 302s browsers to a
+# sister host and flatly 403s GitHub runners. The sisters serve the same path
+# directly (verified 2026-09-15: 14 and 7 answer 200, 8/1/6/9 redirect to 14,
+# 13 refuses, the rest 404), so a refused download is retried on them.
+IMG_FALLBACK_HOSTS = ("14.ajes.com", "7.ajes.com")
+
+
+def image_candidates(url: str) -> list[str]:
+    parts = urllib.parse.urlsplit(url)
+    out = [url]
+    for host in IMG_FALLBACK_HOSTS:
+        if host != parts.netloc:
+            out.append(urllib.parse.urlunsplit(parts._replace(netloc=host)))
+    return out
 
 
 def fetch_image(session: requests.Session, url: str) -> bytes:
     """Download a lot photo, riding out the CDN's moods.
 
-    The image host 302s to a sister host (8.ajes.com -> 14.ajes.com) which has
-    answered 403 to GitHub runners on some fetches while serving the same URL
-    to a browser and to other runners minutes apart. Retry with a browser's
-    Accept and a Referer, widening the pause; report the final URL and status
-    when it still fails so the log says which host refused.
+    Tries the URL as given, then the same path on the sister hosts, with a
+    browser's Accept header and (from the second round) a Referer, pausing
+    between rounds. Reports the last URL and status when every route fails,
+    so the log names the host that refused.
     """
     last = ""
     for attempt in range(IMG_RETRIES):
-        headers = {"Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8"}
-        if attempt:
-            headers["Referer"] = "https://" + urllib.parse.urlsplit(url).netloc + "/"
-        res = session.get(url, timeout=30, headers=headers)
-        if res.status_code == 200:
-            return res.content
-        last = f"HTTP {res.status_code} from {res.url}"
-        if res.status_code in (403, 429, 500, 502, 503, 504) and attempt < IMG_RETRIES - 1:
+        for cand in image_candidates(url):
+            headers = {"Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8"}
+            if attempt:
+                headers["Referer"] = "https://" + urllib.parse.urlsplit(cand).netloc + "/"
+            try:
+                res = session.get(cand, timeout=30, headers=headers)
+            except requests.RequestException as e:
+                last = f"{type(e).__name__} from {cand}"
+                continue
+            if res.status_code == 200:
+                return res.content
+            last = f"HTTP {res.status_code} from {res.url}"
+        if attempt < IMG_RETRIES - 1:
             time.sleep(IMG_BACKOFF_S * (2 ** attempt))
-            continue
-        break
     raise RuntimeError(last)
 
 
