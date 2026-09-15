@@ -107,7 +107,11 @@ export async function onRequest(context) {
       "Content-Type": "application/json",
       // Browser-side cache so the same tab doesn't re-hit on navigation.
       // Short TTL — the dataset refreshes on scheduled scrape commits.
-      "Cache-Control": "private, max-age=300"
+      // The register changes once a day. An hour in the browser cache means a
+      // return visit skips the 165 KB download; stale-while-revalidate keeps
+      // the page instant while the fresh copy arrives. `private`: the origin
+      // gate above must still run for every new client.
+      "Cache-Control": "private, max-age=3600, stale-while-revalidate=86400"
     }
   });
 }
