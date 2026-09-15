@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-14T06:34:41.572020+08:00",
-  "matched_records": 1186,
+  "generated_at": "2026-09-15T07:03:25.846078+08:00",
+  "matched_records": 1187,
   "guide_matches": [
     {
       "scheme": "SEV",
@@ -8303,6 +8303,13 @@
       "source_make": "SUBARU",
       "source_model": "XV Hybrid",
       "guide_slug": "subaru-xv-hybrid"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000993",
+      "source_make": "SMART",
+      "source_model": "ForTwo Electric Drive",
+      "guide_slug": "smart-fortwo-electric-drive"
     }
   ],
   "candidate_records": 339,

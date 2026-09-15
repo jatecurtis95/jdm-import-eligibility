@@ -2204,12 +2204,10 @@
       ]
     },
     "smart-fortwo-electric-drive": {
-      "hash": "ce1c097dcb126ed3e8699493c2ccf764ffb8ac2c13b2a758813205539f8967f0",
-      "last_modified": "2026-09-08",
-      "live": true,
-      "approval_ids": [
-        "SEV-000935"
-      ]
+      "hash": "1bc73aebd49ae1fd6300122a934620eadc1d7ded666bc35a31bee96d3274e9fc",
+      "last_modified": "2026-09-15",
+      "live": false,
+      "approval_ids": []
     },
     "stephex-iveco-stralis-horsetruck": {
       "hash": "00e5fa51e1058923c0a808c20f182720e1a30858c47f6878ab8dbadc7486ea7c",
@@ -2334,14 +2332,10 @@
       ]
     },
     "suzuki-carry": {
-      "hash": "688b7e6a0cc5c3e8c4a8cd6b033e484206d65210881f1f401adf1a7cbc744e2d",
-      "last_modified": "2026-09-08",
-      "live": true,
-      "approval_ids": [
-        "MRE-000861",
-        "MRE-000867",
-        "SEV-000914"
-      ]
+      "hash": "cc7733d327de2fefa360e924c07536661ec9b4fae64183ca4666d2feb1a43a03",
+      "last_modified": "2026-09-15",
+      "live": false,
+      "approval_ids": []
     },
     "suzuki-every": {
       "hash": "95d6cc1d3e489f668896ff862862bb278a50bee604711ef97588f09e5a091a56",
@@ -2578,8 +2572,8 @@
       ]
     },
     "toyota-crown": {
-      "hash": "bc3569bab1807e723502d0acb33a42c48e9ff9d74b77c0cc70323c72edf34958",
-      "last_modified": "2026-09-08",
+      "hash": "d8c238bd6ab9528a01a598e73f067a95a69c87569f91383336dd7ff71a36f951",
+      "last_modified": "2026-09-15",
       "live": true,
       "approval_ids": [
         "MRE-000008",
@@ -3032,6 +3026,13 @@
     }
   },
   "changes": [
+    {
+      "date": "2026-09-15",
+      "slug": "toyota-crown",
+      "name": "Toyota Crown",
+      "added": [],
+      "removed": []
+    },
     {
       "date": "2026-09-14",
       "slug": "ford-f150",
