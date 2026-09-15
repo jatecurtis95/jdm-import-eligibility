@@ -45,3 +45,11 @@ __pycache__/
 # Backups (timestamped data.json + template .bak files)
 *.bak
 *.bak-*
+
+# Impeccable design skill (npx impeccable install --providers=claude --scope=project).
+# The skill text and agents are committed so every session has /impeccable; the
+# platform engine binary is not (16MB, per-OS) — the launcher downloads it on
+# first run. settings.local.json holds the per-machine edit hooks the installer
+# writes and is not shared.
+.claude/skills/impeccable/scripts/bin/
+.claude/settings.local.json
