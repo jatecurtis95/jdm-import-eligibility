@@ -61,6 +61,7 @@ Env
     AVTONET_API_BASE      SQL-over-HTTP gateway (default: the jdmconnect relay)
     AVTONET_CODE          relay/provider token                        [required]
     AVTONET_QUERY_PARAM   "q" (base64, relay) or "sql" (direct)  [default: q]
+    AVTONET_IP            public IP to declare to the provider  [default: auto-detect]
     CLOUDFLARE_ACCOUNT_ID Cloudflare account id                  [required to upload]
     CLOUDFLARE_API_TOKEN  API token, "Workers R2 Storage: Edit"  [required to upload]
     R2_BUCKET             R2 bucket name                         [required to upload]
@@ -194,7 +195,7 @@ UNGRADED_RATE = "99"
 class Feed:
     """Thin read-only client for the AVTONET SQL-over-HTTP gateway."""
 
-    def __init__(self, base: str, code: str, mode: str):
+    def __init__(self, base: str, code: str, mode: str, ip: str | None = None):
         self.base = base
         self.code = code
         self.mode = "sql" if mode.lower() == "sql" else "q"
@@ -203,6 +204,11 @@ class Feed:
         self.last_raw = ""  # the gateway's most recent reply, for diagnostics
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": UA, "Accept": "*/*"})
+        # Since August 2026 the provider's endpoint refuses any query that
+        # does not name the caller's public IP ("IP required:
+        # ...?ip=$_SERVER['REMOTE_ADDR']&code=..&sql=.."). It answers HTTP 200
+        # with that notice, which parse_rows read as "no rows" for six weeks.
+        self.ip = ip if ip is not None else public_ip(self.session)
 
     def query(self, sql: str) -> list[dict[str, str]]:
         # The relay base64s the statement into `q` so website firewalls don't
@@ -211,6 +217,8 @@ class Feed:
         payload = urllib.parse.quote(sql if self.mode == "sql"
                                      else base64.b64encode(sql.encode()).decode())
         url = f"{self.base}?code={urllib.parse.quote(self.code)}&{self.mode}={payload}"
+        if self.ip:
+            url += f"&ip={urllib.parse.quote(self.ip)}"
 
         # A full backfill is ~1,500 queries over ~20 minutes, and the gateway
         # will reset a connection or throttle somewhere in there — the first
@@ -238,6 +246,27 @@ class Feed:
                     print(f"    feed error ({type(e).__name__}), retrying in {pause}s")
                     time.sleep(pause)
         raise RuntimeError(f"feed unreachable after {FEED_RETRIES} attempts: {last}")
+
+
+def public_ip(session: requests.Session) -> str:
+    """The address the provider will see this run arriving from. AVTONET_IP
+    overrides it (a relay or a fixed egress); otherwise ask a plain echo
+    service, trying a second one if the first is down. Empty means unknown,
+    and the query goes out without it (which the provider currently refuses,
+    but that is then visible in the self-test rather than guessed at here)."""
+    fixed = os.environ.get("AVTONET_IP", "").strip()
+    if fixed:
+        return fixed
+    for url in ("https://api.ipify.org", "https://checkip.amazonaws.com"):
+        try:
+            res = session.get(url, timeout=10)
+            ip = res.text.strip()
+            if res.ok and re.match(r"^[0-9a-fA-F.:]{7,45}$", ip):
+                return ip
+        except requests.RequestException:
+            continue
+    print("WARNING: could not determine this run's public IP; the feed may refuse queries")
+    return ""
 
 
 def parse_rows(xml: str) -> list[dict[str, str]]:
@@ -730,6 +759,7 @@ def harvest(args: argparse.Namespace) -> int:
         print("ERROR: AVTONET_CODE is not set — the feed gateway needs a token.")
         return 2
     feed = Feed(api_base, api_code, os.environ.get("AVTONET_QUERY_PARAM", "q"))
+    print(f"feed caller ip: {feed.ip or '(unknown)'}")
     feed_selftest(feed)
 
     r2 = None
