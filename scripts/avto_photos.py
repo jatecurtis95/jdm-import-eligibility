@@ -717,15 +717,17 @@ def image_candidates(url: str) -> list[str]:
 def fetch_image(session: requests.Session, url: str) -> bytes:
     """Download a lot photo, riding out the CDN's moods.
 
-    Tries the URL as given, then the same path on the sister hosts, with a
-    browser's Accept header and (from the second round) a Referer, pausing
+    Tries the URL as given, then the same path on the sister hosts, asking
+    for JPEG only and (from the second round) sending a Referer, pausing
     between rounds. Reports the last URL and status when every route fails,
     so the log names the host that refused.
     """
     last = ""
     for attempt in range(IMG_RETRIES):
         for cand in image_candidates(url):
-            headers = {"Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8"}
+            # JPEG only: offered webp/avif, the CDN sends WebP and the run then
+            # rejects it as "not a usable JPEG" (run 47, all six retakes).
+            headers = {"Accept": "image/jpeg,image/*;q=0.8,*/*;q=0.5"}
             if attempt:
                 headers["Referer"] = "https://" + urllib.parse.urlsplit(cand).netloc + "/"
             try:
