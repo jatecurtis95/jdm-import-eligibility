@@ -696,6 +696,35 @@ def find_lot(feed: Feed, target: dict[str, Any], table: str,
     return None, None
 
 
+IMG_RETRIES = 3
+IMG_BACKOFF_S = 4
+
+
+def fetch_image(session: requests.Session, url: str) -> bytes:
+    """Download a lot photo, riding out the CDN's moods.
+
+    The image host 302s to a sister host (8.ajes.com -> 14.ajes.com) which has
+    answered 403 to GitHub runners on some fetches while serving the same URL
+    to a browser and to other runners minutes apart. Retry with a browser's
+    Accept and a Referer, widening the pause; report the final URL and status
+    when it still fails so the log says which host refused.
+    """
+    last = ""
+    for attempt in range(IMG_RETRIES):
+        headers = {"Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8"}
+        if attempt:
+            headers["Referer"] = "https://" + urllib.parse.urlsplit(url).netloc + "/"
+        res = session.get(url, timeout=30, headers=headers)
+        if res.status_code == 200:
+            return res.content
+        last = f"HTTP {res.status_code} from {res.url}"
+        if res.status_code in (403, 429, 500, 502, 503, 504) and attempt < IMG_RETRIES - 1:
+            time.sleep(IMG_BACKOFF_S * (2 ** attempt))
+            continue
+        break
+    raise RuntimeError(last)
+
+
 def harvest(args: argparse.Namespace) -> int:
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     photos: dict[str, Any] = {}
@@ -887,9 +916,7 @@ def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, a
             continue
 
         try:
-            res = img_session.get(src_url, timeout=30)
-            res.raise_for_status()
-            body = res.content
+            body = fetch_image(img_session, src_url)
             # The CDN answers an unsupported rendition with a 32-byte HTML stub
             # at HTTP 200, so status alone is not proof we got an image.
             if not body.startswith(b"\xff\xd8") or len(body) < 2000:
