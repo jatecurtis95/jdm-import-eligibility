@@ -35,12 +35,16 @@
 
 <style>
   :root{
-    --bg:#F6F2EB; --panel:#FFFFFF; --ink:#16130D; --muted:#6E665A; --faint:#9A9183;
+    /* --faint and --gold-deep are text colours and must clear 4.5:1 on the cream
+       (#F6F2EB), white and gold-soft surfaces they sit on: #736B5D reads 4.7 / 5.3
+       / 4.5, #7F5B10 reads 5.5 / 6.2 / 5.2. --gold stays the brighter brand tone
+       for large numerals, rules, borders and focus rings (3:1 is enough there). */
+    --bg:#F6F2EB; --panel:#FFFFFF; --ink:#16130D; --muted:#6E665A; --faint:#736B5D;
     --line:#E7E0D3; --line-strong:#D8CFBE; --gold:#A9781A; --gold-bright:#C79A33;
-    --gold-soft:#F4ECD8; --gold-line:#E0D2A8; --gold-deep:#96762B;
+    --gold-soft:#F4ECD8; --gold-line:#E0D2A8; --gold-deep:#7F5B10;
     --header:#15120D; --header-ink:#F3ECDD;
-    --c-performance:#C0392B; --c-environmental:#1E8E5A; --c-rarity:#7C5CBF;
-    --c-lhd:#5B6B7A; --c-camper:#C06A14; --c-mobility:#2D6CB5; --c-none:#B7AE9E;
+    --c-performance:#C0392B; --c-environmental:#1B7A4D; --c-rarity:#7C5CBF;
+    --c-lhd:#5B6B7A; --c-camper:#A3580C; --c-mobility:#2D6CB5; --c-none:#B7AE9E;
     --ok-bg:#E7F4EC; --ok-ink:#1E7A48; --exp-bg:#F3E7E6; --exp-ink:#A23B30;
     --warn-bg:#F8EFD9; --warn-ink:#8A6410; --rev-bg:#E7ECF6; --rev-ink:#33508A;
     --sev-bg:#EAF1FA; --sev-ink:#3A6EA5; --mre-bg:#EFE9F5; --mre-ink:#6A4B8A;
@@ -65,29 +69,33 @@
 
   header.site{position:sticky;top:0;z-index:40;background:var(--header);color:var(--header-ink);border-bottom:1px solid #000;}
   .site .bar{display:flex;align-items:center;gap:12px;height:56px}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--header-ink)}
+  .brand{display:flex;align-items:center;gap:10px;min-height:44px;text-decoration:none;color:var(--header-ink)}
   .brand-logo{width:190px;max-width:52vw;height:auto;display:block}
-  .brand .sub{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#9d937f;border-left:1px solid #3a342a;padding-left:10px;line-height:1.25;display:none;}
+  .brand .sub{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9d937f;border-left:1px solid #3a342a;padding-left:10px;line-height:1.25;display:none;}
   .header-right{margin-left:auto;display:flex;align-items:center;gap:14px}
-  .updated{display:none;align-items:center;gap:6px;font-size:11.5px;color:#c9bfa8;background:#211b12;border:1px solid #3a342a;border-radius:999px;padding:0 13px;min-height:40px;white-space:nowrap;line-height:1;}
+  .updated{display:none;align-items:center;gap:6px;font-size:12px;color:#c9bfa8;background:#211b12;border:1px solid #3a342a;border-radius:999px;padding:0 13px;min-height:40px;white-space:nowrap;line-height:1;}
   .updated b{color:var(--header-ink);font-weight:600}
-  .btn-quote{display:inline-flex;align-items:center;gap:7px;background:var(--gold-bright);color:#1a1407;border:1px solid var(--gold-bright);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;min-height:40px;text-decoration:none;white-space:nowrap;transition:filter .15s ease, transform .08s ease;}
+  .btn-quote{display:inline-flex;align-items:center;gap:7px;background:var(--gold-bright);color:#1a1407;border:1px solid var(--gold-bright);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;min-height:44px;text-decoration:none;white-space:nowrap;transition:filter .15s ease, transform .08s ease;}
   .btn-quote:hover{filter:brightness(1.06)}
   .btn-quote:active{transform:scale(.97)}
   @media (min-width:560px){ .brand .sub{display:block} .brand-logo{width:225px;max-width:none} }
   @media (min-width:900px){ .updated{display:inline-flex} }
 
   .hero{padding:26px 0 8px}
-  .eyebrow{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  .eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);font-weight:600;}
   .eyebrow .rule{height:1px;width:46px;background:var(--line-strong)}
   h1.title{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,4.2vw,42px);line-height:1.08;letter-spacing:-.01em;margin:.28em 0 .1em;}
   h1.title em{font-style:italic;color:var(--gold);font-weight:500}
   .title-jp{color:var(--faint);font-size:11px;letter-spacing:.3em}
-  .hero-updated{color:var(--gold-deep);font-weight:600}
+  .hero-updated{color:var(--gold-deep);font-weight:600;white-space:nowrap}
+  @media (max-width:559px){ .eyebrow .rule{display:none} }
   @media (min-width:900px){ .hero-updated{display:none} }
   .lead{max-width:64ch;margin:12px 0 0;color:var(--muted);font-size:15px;line-height:1.55}
   .hero-cta-line{max-width:64ch;margin:10px 0 0;color:var(--muted);font-size:13.5px;line-height:1.5}
   .hero-cta{color:var(--gold-deep);font-weight:700;text-decoration:none;border-bottom:1px solid var(--gold-line);white-space:nowrap}
+  /* Inline text links keep their place in the line but tap at 44px: the block
+     padding grows the hit area and the negative margin gives the rhythm back. */
+  .hero p a, .hero-cta, #model-guides a, main > .wrap p a, footer.site p a{display:inline-block;padding:12px 0;margin:-12px 0}
   .hero-cta:hover{border-bottom-color:var(--gold-deep)}
   /* Skip link — hidden until keyboard-focused. */
   .skip-link{position:absolute;left:12px;top:-48px;z-index:100;background:var(--ink);color:#F6F2EB;padding:9px 14px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:top .15s ease}
@@ -125,26 +133,29 @@
   .stat.warn .n{color:var(--gold)}
   .stat.clickable{cursor:pointer;transition:border-color .15s ease, background .15s ease, box-shadow .15s ease}
   .stat.clickable:hover{border-color:var(--gold-line);box-shadow:0 4px 12px -8px rgba(20,16,10,.25)}
-  .stat.clickable .l{display:flex;align-items:center;gap:6px}
-  .stat.clickable .l::after{content:"filter \2192";font-size:9px;letter-spacing:.04em;color:var(--faint);border:1px solid var(--line-strong);border-radius:999px;padding:1px 6px}
+  .stat.clickable .l{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px}
+  .stat.clickable .l::after{content:"filter \2192";font-size:11px;white-space:nowrap;letter-spacing:.04em;color:var(--faint);border:1px solid var(--line-strong);border-radius:999px;padding:1px 6px}
   .stat.warn.active{background:var(--warn-bg);border-color:var(--gold)}
   .stat.warn.active .l::after{content:"clear \2715";color:var(--gold-deep);border-color:var(--gold-line)}
   @media (max-width:520px){ .stat .n{font-size:22px} }
   @media (min-width:720px){ .stats{grid-template-columns:repeat(4,1fr);gap:16px} }
 
-  .filters{position:sticky;top:56px;z-index:30;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line-strong);box-shadow:0 6px 14px -10px rgba(20,16,10,.18);padding:14px 0;margin-top:16px;}
+  /* Sticky only where there is room for it. On a phone the header plus this
+     block covered 396 of 844px while scrolling results, so it scrolls away
+     there and the search sits one flick up. */
+  .filters{position:static;z-index:30;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line-strong);box-shadow:0 6px 14px -10px rgba(20,16,10,.18);padding:14px 0;margin-top:16px;}
   .filters .wrap{display:flex;flex-direction:column;gap:10px}
   .search{position:relative}
   .search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--faint)}
   .search input{width:100%;height:44px;padding:0 14px 0 40px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-size:16px;color:var(--ink);}
   .selects{display:grid;grid-template-columns:1fr 1fr;gap:10px 8px}
   .fld{display:flex;flex-direction:column;gap:4px;min-width:0}
-  .fld>span{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700;padding-left:2px}
-  .selects select, .selects input{width:100%;height:42px;padding:0 12px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);font-size:14px;color:var(--ink);-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239A9183' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
+  .fld>span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:700;padding-left:2px}
+  .selects select, .selects input{width:100%;height:44px;padding:0 12px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);font-size:14px;color:var(--ink);-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239A9183' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
   .selects input{background-image:none}
-  .ith{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;margin-left:5px;border-radius:50%;border:1px solid var(--line-strong);color:var(--faint);font-size:9px;font-weight:700;font-style:normal;cursor:help;vertical-align:middle;font-family:var(--font-text)}
+  .ith{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-left:5px;border-radius:50%;border:1px solid var(--line-strong);color:var(--faint);font-size:10px;font-weight:700;font-style:normal;cursor:help;vertical-align:middle;font-family:var(--font-text)}
   .toggles{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-  .toggle{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);padding:0 14px;height:42px;font-size:13px;color:var(--muted);user-select:none;cursor:pointer;transition:border-color .15s ease, background .15s ease, color .15s ease;}
+  .toggle{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);padding:0 14px;height:44px;font-size:13px;color:var(--muted);user-select:none;cursor:pointer;transition:border-color .15s ease, background .15s ease, color .15s ease;}
   .toggle:hover{border-color:var(--line-strong)}
   .toggle:has(input:checked){border-color:var(--gold-line);background:var(--gold-soft);color:var(--gold-deep);font-weight:600}
   .toggle input{accent-color:var(--gold-bright);width:16px;height:16px}
@@ -185,11 +196,11 @@
   .crit{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink)}
   .crit .cdot{width:9px;height:9px;border-radius:3px;flex:none}
   .sev{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
-  .model-guide-link{display:inline-flex;align-items:center;gap:6px;margin-top:4px;min-height:32px;padding:4px 0;font-size:12px;font-weight:600;line-height:1.2;color:var(--muted);text-decoration:none;white-space:nowrap}
+  .model-guide-link{display:inline-flex;align-items:center;gap:6px;margin-top:0;min-height:44px;padding:4px 0;font-size:12px;font-weight:600;line-height:1.2;color:var(--muted);text-decoration:none;white-space:nowrap}
   .model-guide-link:hover{color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px}
   .model-guide-link:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px;border-radius:3px}
   .cattag{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--muted);background:var(--grey-soft);border-radius:999px;padding:3px 9px;line-height:1}
-  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;border-radius:999px;padding:4px 10px;white-space:nowrap;line-height:1}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;border-radius:999px;padding:4px 10px;white-space:nowrap;line-height:1}
   .badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
   .b-ok{background:var(--ok-bg);color:var(--ok-ink)}
   .b-warn{background:var(--warn-bg);color:var(--warn-ink)}
@@ -197,7 +208,7 @@
   .b-rev{background:var(--rev-bg);color:var(--rev-ink)}
   /* Compact status marker for the table — colour AND shape (tick/cross/dash) so
      it reads without relying on colour alone; label kept for screen readers. */
-  .sglyph{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;font-size:11.5px;font-weight:700;cursor:help;white-space:nowrap}
+  .sglyph{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;cursor:help;white-space:nowrap}
   .sglyph .sg-ico{font-size:12px;font-weight:800;line-height:1}
   .sglyph.b-ok{background:var(--ok-bg);color:var(--ok-ink)}
   .sglyph.b-warn{background:var(--warn-bg);color:var(--warn-ink)}
@@ -208,10 +219,10 @@
   .wnone{font-size:12px;color:var(--faint)}
   /* Source market. Comes from the Model Report, so a model with no report has none. */
   .mk{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink);white-space:nowrap}
-  .mkmore{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);background:var(--grey-soft);border-radius:999px;padding:2px 6px;line-height:1}
+  .mkmore{font-family:var(--font-mono);font-size:11px;color:var(--muted);background:var(--grey-soft);border-radius:999px;padding:2px 6px;line-height:1}
   /* Odometer condition — a real constraint on what you may buy, so it reads as a
      warning rather than a neutral fact. Only rendered where one actually applies. */
-  .odo{display:inline-block;margin-left:6px;font-family:var(--font-mono);font-size:10.5px;color:var(--gold-deep);background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:999px;padding:2px 7px;line-height:1;white-space:nowrap;cursor:help}
+  .odo{display:inline-block;margin-left:6px;font-family:var(--font-mono);font-size:11px;color:var(--gold-deep);background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:999px;padding:2px 7px;line-height:1;white-space:nowrap;cursor:help}
   .card .meta .odo{margin-left:0}
   .cat{font-size:12px;font-family:var(--font-mono);color:var(--muted)}
 
@@ -227,7 +238,7 @@
   .card .right{margin-left:auto;text-align:right;flex:none}
   .card .meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
   .card .vars{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:10px}
-  .varhead{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-right:2px}
+  .varhead{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-right:2px}
   .varname{font-size:12px;color:var(--muted);background:var(--grey-soft);border-radius:6px;padding:2px 8px;white-space:nowrap}
   .varlist{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
   /* Was max-width:170px + overflow:hidden + text-overflow:ellipsis, which cut
@@ -246,7 +257,7 @@
   .table-wrap{display:none}
   /* At 900-1023px the 9-column table is wider than the viewport — let it scroll
      inside its own container so the page body never scrolls sideways. */
-  @media (min-width:900px){ .table-wrap{display:block;overflow-x:auto} }
+  @media (min-width:900px){ .table-wrap{display:block;overflow-x:auto} .filters{position:sticky;top:56px} }
   table.reg{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
   table.reg thead th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:600;padding:13px 16px;border-bottom:1px solid var(--line);background:#FCFAF5;white-space:nowrap;}
   table.reg tbody td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:middle;font-size:14px}
@@ -256,14 +267,19 @@
   table.reg tbody tr:last-child td{border-bottom:none}
   .veh{display:flex;align-items:center;gap:12px}
   .veh .name{font-weight:700}
+  /* The vehicle name is a real button so a keyboard user can open the row;
+     the mouse keeps the whole row. Styled as the text it replaces. */
+  .rowbtn{font:inherit;font-weight:700;color:inherit;background:none;border:0;padding:12px 0;margin:-12px 0;text-align:left;cursor:pointer;line-height:inherit}
+  .rowbtn:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+  .panel:focus{outline:none}
   .veh .vsub{margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-  .veh .vsub .sev{font-size:11.5px}
+  .veh .vsub .sev{font-size:12px}
   .chassiscode{font-family:var(--font-mono);font-size:12.5px;color:var(--ink);word-break:break-word}
   .codelist{display:flex;flex-wrap:wrap;gap:3px 8px}
   .chev{color:var(--faint);font-size:18px}
 
   .pagination{display:flex;align-items:center;justify-content:center;gap:14px;margin:28px auto 0;padding:14px 0}
-  .pag-btn{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px;padding:10px 16px;background:var(--panel);border:1px solid var(--line-strong);border-radius:10px;cursor:pointer;color:var(--ink);transition:border-color .15s, background .15s}
+  .pag-btn{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px;min-height:44px;padding:10px 18px;background:var(--panel);border:1px solid var(--line-strong);border-radius:10px;cursor:pointer;color:var(--ink);transition:border-color .15s, background .15s}
   .pag-btn:hover:not(:disabled){border-color:var(--gold-line);background:var(--gold-soft)}
   .pag-btn:disabled{opacity:.4;cursor:not-allowed}
   .pag-info{font-size:13px;color:var(--muted);font-weight:500;min-width:140px;text-align:center}
@@ -281,7 +297,7 @@
   footer.site p{max-width:640px;margin:0 auto 6px;line-height:1.6}
   footer.site a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px}
   footer.site .powered{display:inline-flex;flex-direction:column;align-items:center;gap:8px;margin:0 auto 18px;text-decoration:none}
-  footer.site .powered .lbl{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint)}
+  footer.site .powered .lbl{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint)}
   footer.site .powered img{width:240px;max-width:74vw;height:auto;display:block}
   footer.site .powered:hover .lbl{color:var(--muted)}
 
@@ -292,17 +308,18 @@
   .panel.open{right:0}
   .phead{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line);flex-shrink:0}
   .phead .pk{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-  .pclose{background:none;border:1px solid var(--line-strong);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;color:var(--ink);transition:border-color .15s;margin-left:auto;flex:none}
+  .pclose{background:none;border:1px solid var(--line-strong);width:44px;height:44px;border-radius:10px;cursor:pointer;font-size:16px;color:var(--ink);transition:border-color .15s;margin-left:auto;flex:none}
   .pclose:hover{border-color:var(--ink)}
-  .pback{background:none;border:1px solid var(--line-strong);height:34px;padding:0 12px;border-radius:8px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;flex:none;transition:border-color .15s}
+  .pback{background:none;border:1px solid var(--line-strong);height:44px;padding:0 14px;border-radius:10px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;flex:none;transition:border-color .15s}
   .pback:hover{border-color:var(--ink)}
   .pbody{overflow-y:auto;flex:1;padding:0 0 30px}
   .pphoto{width:100%;height:230px;object-fit:cover;display:block;background:var(--grey-soft)}
-  .pcredit{font-family:var(--font-mono);font-size:9.5px;color:var(--faint);text-align:right;padding:4px 22px 0}
+  .pcredit{font-family:var(--font-mono);font-size:11px;color:var(--faint);text-align:right;padding:4px 22px 0}
   .psec{padding:20px 22px 0}
   .ptitle{font-family:var(--font-display);font-size:29px;font-weight:600;line-height:1.1;letter-spacing:-.01em}
   .pchips{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
   .chip{font-family:var(--font-mono);font-size:11px;padding:4px 10px;border-radius:6px;background:var(--grey-soft);color:var(--ink)}
+  .chip.vlink{min-height:32px;display:inline-flex;align-items:center}
   .verdict{margin-top:16px;background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:10px;padding:13px 16px;font-size:13.5px;line-height:1.55}
   .verdict b{font-weight:700}
   .verdict.v-bad{background:var(--exp-bg);border-color:#EBC7BF}
@@ -310,11 +327,11 @@
   .kv{margin-top:18px;border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:hidden}
   .kv .row{display:flex;border-bottom:1px solid var(--line);padding:11px 15px;gap:14px}
   .kv .row:last-child{border-bottom:none}
-  .kv .k{font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:128px;flex-shrink:0;padding-top:2px}
+  .kv .k{font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:128px;flex-shrink:0;padding-top:2px}
   .kv .v{font-size:13.5px;flex:1}
   .kv .v.mono{font-family:var(--font-mono);font-size:12.5px}
   .kv .v a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:3px}
-  .sechead{font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);margin:26px 0 0;display:flex;align-items:center;gap:10px;padding:0 22px}
+  .sechead{font-weight:700;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);margin:26px 0 0;display:flex;align-items:center;gap:10px;padding:0 22px}
   .sechead::after{content:"";height:1px;flex:1;background:var(--line-strong)}
   .varcard{margin:12px 22px 0;border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:14px 16px}
   .varcard .vn{font-weight:700;font-size:14px;margin-bottom:9px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
@@ -322,10 +339,10 @@
   .chip.vlink{cursor:pointer;transition:background .15s ease,color .15s ease}
   .chip.vlink:hover{background:var(--gold-soft);color:var(--gold-deep)}
   .specgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:9px 14px}
-  .spec .k{font-weight:700;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  .spec .k{font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
   .spec .v{font-family:var(--font-mono);font-size:12px;margin-top:1px}
   .linklist{padding:10px 22px 0;display:flex;flex-direction:column;gap:8px}
-  .linkrow{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px 14px;cursor:pointer;transition:border-color .12s}
+  .linkrow{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:9px;min-height:44px;padding:10px 14px;cursor:pointer;transition:border-color .12s}
   .linkrow:hover{border-color:var(--ink)}
   .linkrow .ln{font-family:var(--font-mono);font-size:12.5px;margin-right:auto}
   .linkrow .ls{font-size:12px;color:var(--muted)}
@@ -348,7 +365,7 @@
   .btn-share.copied{background:var(--ok-ink);border-color:var(--ok-ink)}
   .btn-share-line{display:inline-flex;align-items:center;gap:7px;background:#fff;color:var(--ink);border:1px solid var(--line-strong);border-radius:999px;padding:9px 16px;font-size:12.5px;font-weight:600;text-decoration:none;transition:border-color .15s}
   .btn-share-line:hover{border-color:var(--ink)}
-  .note{margin:18px 22px 0;font-size:11.5px;color:var(--faint);line-height:1.55}
+  .note{margin:18px 22px 0;font-size:12px;color:var(--faint);line-height:1.55}
 
   @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto !important} }
 .model-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;list-style:none;padding:0}.model-links a{display:block;padding:12px;border:1px solid var(--line);border-radius:8px;text-decoration:none;overflow-wrap:anywhere}.model-links a:hover{border-color:var(--gold)}
@@ -545,7 +562,7 @@
 </footer>
 
 <div class="scrim" id="scrim"></div>
-<aside class="panel" id="panel" aria-label="Vehicle details">
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Vehicle details" tabindex="-1">
   <div class="phead">
     <button class="pback" id="pBack" type="button" hidden>← Back</button>
     <span class="pk" id="pType">Record</span>
@@ -1170,7 +1187,7 @@ function rowHTML(r){
   const name = titleMake(r.make)+' '+r.model;
   const wn = wkCount(r);
   return '<tr data-i="'+r._ix+'">'
-    + '<td><div class="veh">'+thumbHTML(r)+'<div><div class="name">'+esc(name)+'</div>'
+    + '<td><div class="veh">'+thumbHTML(r)+'<div><div class="name"><button type="button" class="rowbtn" aria-label="'+esc(name)+', open details">'+esc(name)+'</button></div>'
       + (r.dispVariant?'<div class="dvar">'+esc(titleVariant(r.dispVariant))+'</div>':'')
       + '<div class="vsub"><span class="sev">'+esc(r.id)+'</span></div>'+guideLink(r)+'</div></div></td>'
     + '<td>'+chassisCell(r)+'</td>'
@@ -1276,7 +1293,18 @@ function verdictHTML(r, st){
 // panel, 'back' = returning via the back button, anything else = fresh open
 // from the list / a deep link (clears the trail).
 let panelStack = [], panelCurrent = null;
+let panelReturnFocus = null;
+// Everything behind the open panel is inert (unreachable by Tab and hidden
+// from assistive tech); on close, focus goes back to the control that opened
+// it. Older browsers without `inert` still get Escape, the scrim and a
+// focused panel; they just do not lose the page behind it.
+function setBackgroundInert(on){
+  for(const el of document.querySelectorAll('header.site, main, footer.site')){
+    if(on) el.setAttribute('inert',''); else el.removeAttribute('inert');
+  }
+}
 function openPanel(r, nav){
+  if(!$('panel').classList.contains('open')) panelReturnFocus = document.activeElement;
   if(nav==='push' && panelCurrent && panelCurrent!==r) panelStack.push(panelCurrent);
   else if(nav!=='push' && nav!=='back') panelStack = [];
   panelCurrent = r;
@@ -1437,6 +1465,8 @@ function openPanel(r, nav){
   $('panel').classList.add('open');
   $('scrim').classList.add('open');
   document.body.style.overflow = 'hidden';
+  setBackgroundInert(true);
+  $('panel').focus({preventScroll:true});
   // Reflect the open vehicle in the URL so it's directly shareable/bookmarkable
   // (and the "Share link" button always matches what's on screen). replaceState
   // does NOT fire hashchange, so this can't re-enter applyDeepLink.
@@ -1445,10 +1475,16 @@ function openPanel(r, nav){
   trackFb('ViewContent', {content_name:name, content_category:'eligibility_'+r.type, content_ids:[r.id]});
 }
 function closePanel(){
+  const wasOpen = $('panel').classList.contains('open');
   panelStack = []; panelCurrent = null;
   $('panel').classList.remove('open');
   $('scrim').classList.remove('open');
   document.body.style.overflow = '';
+  setBackgroundInert(false);
+  if(wasOpen && panelReturnFocus && document.contains(panelReturnFocus)){
+    try{ panelReturnFocus.focus({preventScroll:true}); }catch(e){}
+  }
+  panelReturnFocus = null;
   // Drop the vehicle hash so a refresh/share of the closed page is the register,
   // not a re-opened panel.
   try{ if(location.hash) history.replaceState(null,'',location.pathname+location.search); }catch(e){}
