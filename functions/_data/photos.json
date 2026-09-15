@@ -11236,26 +11236,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "WIAZSH3201C": {
-    "url": "/img/avto/WIAZSH3201C-bc46c8cb.jpg",
-    "make": "TOYOTA",
-    "model": "CROWN SPORT",
-    "chassis": "WIAZSH3201C",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "ZuCDnIfXUTs1ng",
-      "kuzov": "AZSH36W",
-      "year": "2025",
-      "grade": "Z &#65418;&#65439;&#65417;&#65431;&#65423;&#65433;-&#65420; &#20869;&#35013;&#33590;",
-      "rate": "6",
-      "auction": "LAA Okayama",
-      "auction_date": "2026-09-18 13:14:00",
-      "table": "main",
-      "matched_on": "model:CROWN"
-    },
-    "harvested_at": "2026-09-15"
-  },
   "WIB41C": {
     "url": "/img/avto/WIB41C-3c4f4587.jpg",
     "make": "SUBARU",

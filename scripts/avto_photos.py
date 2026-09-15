@@ -684,8 +684,11 @@ MODEL_STOP_WORDS = {
     "VIII", "IX", "XI", "XII", "SEDAN", "COUPE", "CONVERTIBLE", "CABRIOLET",
     "ROADSTER", "SPIDER", "SPYDER", "TRUCK", "CARGO", "BUS", "MINIBUS", "DIESEL",
     "PETROL", "TURBO", "AWD", "FWD", "RWD", "LHD", "RHD", "AUTO", "MANUAL",
-    "MOBILITY", "WHEELCHAIR", "ACCESS", "ACCESSIBLE", "LIMITED", "SPORT",
-    "SPORTS", "PLUS", "PRO", "MAX", "LONG", "SHORT", "HIGH", "ROOF", "SUPER",
+    # "SPORT" is deliberately NOT here: it forms nameplates of its own (Toyota
+    # Crown Sport, Range Rover Sport) far more often than it describes a body,
+    # and treating it as noise put a Crown Sport on a plain Crown approval.
+    "MOBILITY", "WHEELCHAIR", "ACCESS", "ACCESSIBLE", "LIMITED",
+    "PLUS", "PRO", "MAX", "LONG", "SHORT", "HIGH", "ROOF", "SUPER",
     "STATION", "HATCHBACK", "LIFTBACK", "ESTATE", "SALOON", "TOURER",
     "DUTY", "CREW", "CAB", "DOUBLE", "SINGLE", "EXTENDED", "CHASSIS",
 }
