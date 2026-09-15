@@ -200,6 +200,7 @@ class Feed:
         self.mode = "sql" if mode.lower() == "sql" else "q"
         self.queries = 0
         self.retries = 0
+        self.last_raw = ""  # the gateway's most recent reply, for diagnostics
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": UA, "Accept": "*/*"})
 
@@ -224,7 +225,8 @@ class Feed:
                     raise requests.HTTPError(f"HTTP {res.status_code}")
                 res.raise_for_status()
                 self.queries += 1
-                return parse_rows(res.content.decode("utf-8", "replace"))
+                self.last_raw = res.content.decode("utf-8", "replace")
+                return parse_rows(self.last_raw)
             except (requests.ConnectionError, requests.Timeout, requests.HTTPError) as e:
                 last = e
                 if isinstance(e, requests.HTTPError) and getattr(
@@ -584,12 +586,20 @@ def feed_selftest(feed: Feed) -> None:
     query with an empty <aj/> looks exactly like "no car matched" — the run
     that first tried a new SQL clause reported 0/449 with no error — so prove
     the feed is answering before spending a thousand queries on it."""
-    rows = feed.query("SELECT id, marka_name, kuzov FROM main WHERE images <> '' "
-                      "ORDER BY auction_date DESC LIMIT 1")
-    if not rows:
-        raise RuntimeError("feed self-test returned no rows: the gateway is up but "
-                           "answering empty. Not recording misses from this run.")
-    print(f"feed self-test ok: latest lot {rows[0].get('marka_name')} {rows[0].get('kuzov')}")
+    for table in ("main", "stats"):
+        rows = feed.query(f"SELECT id, marka_name, kuzov FROM {table} WHERE images <> '' "
+                          "ORDER BY auction_date DESC LIMIT 1")
+        if rows:
+            print(f"feed self-test ok ({table}): latest lot "
+                  f"{rows[0].get('marka_name')} {rows[0].get('kuzov')}")
+            return
+        # Show what the gateway actually said: an auth refusal, a throttle
+        # notice and a genuinely empty table all arrive as HTTP 200.
+        raw = re.sub(r"\s+", " ", feed.last_raw).strip()
+        print(f"feed self-test: {table} returned no rows; gateway said: "
+              f"{raw[:300] or '(empty body)'}")
+    raise RuntimeError("feed self-test returned no rows from main or stats: the gateway "
+                       "is up but answering empty. Not recording misses from this run.")
 
 
 def kuzov_clause(token: str) -> str:
