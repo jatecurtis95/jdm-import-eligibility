@@ -9041,5 +9041,65 @@
       "matched_on": "R34"
     },
     "harvested_at": "2026-08-04"
+  },
+  "S15@NISSAN": {
+    "url": "/img/avto/S15_NISSAN-0e2cd981.jpg",
+    "make": "NISSAN",
+    "model": "SILVIA",
+    "chassis": "S15",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2qbshFmjcVU5mnC",
+      "kuzov": "S15",
+      "year": "1999",
+      "grade": "Specification R",
+      "rate": "3.5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-12 08:02:00",
+      "table": "stats",
+      "matched_on": "S15"
+    },
+    "harvested_at": "2026-09-15"
+  },
+  "AAHH40W": {
+    "url": "/img/avto/AAHH40W-5fe2e862.jpg",
+    "make": "TOYOTA",
+    "model": "ALPHARD",
+    "chassis": "AAHH40W",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "ZwlywFBoWJVM6v",
+      "kuzov": "AAHH40W",
+      "year": "2026",
+      "grade": "Hybrid Z",
+      "rate": "6",
+      "auction": "MIRIVE Osaka",
+      "auction_date": "2026-09-17 11:13:00",
+      "table": "main",
+      "matched_on": "AAHH40W"
+    },
+    "harvested_at": "2026-09-15"
+  },
+  "MXPH17": {
+    "url": "/img/avto/MXPH17-cc2bd21c.jpg",
+    "make": "TOYOTA",
+    "model": "YARIS",
+    "chassis": "MXPH17",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "AMAu0jnMxvxkrF",
+      "kuzov": "MXPH17",
+      "year": "2026",
+      "grade": "Hybrid Z &#65395;&#65433;&#65418;&#65438;-&#65417; 4WD",
+      "rate": "6",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-07-21 08:11:00",
+      "table": "stats",
+      "matched_on": "MXPH17"
+    },
+    "harvested_at": "2026-09-15"
   }
 }
