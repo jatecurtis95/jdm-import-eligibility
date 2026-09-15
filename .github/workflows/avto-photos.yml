@@ -73,7 +73,7 @@ jobs:
         id: changes
         if: ${{ !cancelled() }}
         run: |
-          git diff --quiet functions/_data/photos.json \
+          git diff --quiet functions/_data/photos.json scripts/data/avto_misses.json \
             && echo "changed=false" >> $GITHUB_OUTPUT \
             || echo "changed=true" >> $GITHUB_OUTPUT
 
@@ -81,28 +81,35 @@ jobs:
       # scripts/data/photo_overrides.json and are re-applied on every run), so
       # the fresh harvest always wins — same reset-and-restore dance as
       # .github/actions/commit-data uses for data.json.
+      #
+      # avto_misses.json travels with it. It is the negative cache of codes the
+      # feed had no car for; when it was not committed, every nightly run
+      # re-queried the same ~445 dead codes (1,178 feed queries a night for
+      # nothing) because the runner always started from the stale copy on main.
       - name: Commit and push updated photos
         if: ${{ !cancelled() && steps.changes.outputs.changed == 'true' }}
         run: |
           git config user.email "action@github.com"
           git config user.name "GitHub Actions [AVTONET Photos]"
-          cp functions/_data/photos.json /tmp/photos.json.new
+          stash() { cp functions/_data/photos.json /tmp/photos.json.new; cp scripts/data/avto_misses.json /tmp/avto_misses.json.new; }
+          restore() { mv /tmp/photos.json.new functions/_data/photos.json; mv /tmp/avto_misses.json.new scripts/data/avto_misses.json; }
+          stash
           git fetch origin main
           git reset --hard origin/main
-          mv /tmp/photos.json.new functions/_data/photos.json
-          git add functions/_data/photos.json
+          restore
+          git add functions/_data/photos.json scripts/data/avto_misses.json
           if git diff --cached --quiet; then
-            echo "photos.json identical to origin/main after refetch — nothing to commit"
+            echo "photos.json and avto_misses.json identical to origin/main after refetch — nothing to commit"
             exit 0
           fi
           git commit -m "Auto-update: auction photos refreshed $(date -u +'%Y-%m-%d')"
           git push || {
             echo "push rejected — re-syncing and retrying once"
-            cp functions/_data/photos.json /tmp/photos.json.retry
+            stash
             git fetch origin main
             git reset --hard origin/main
-            mv /tmp/photos.json.retry functions/_data/photos.json
-            git add functions/_data/photos.json
+            restore
+            git add functions/_data/photos.json scripts/data/avto_misses.json
             git diff --cached --quiet || git commit -m "Auto-update: auction photos refreshed $(date -u +'%Y-%m-%d')"
             git push
           }

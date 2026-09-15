@@ -1,5 +1,16 @@
 {
-  "_comment": "Manual photo corrections, applied last by scripts/avto_photos.py (and fetch_images.py) on every run. Key = photos.json key (normalised: uppercase, no spaces/dashes). Value = null to DELETE a bad auto-match, or a full photo object {url, source, make, model} to force one. Keys starting with _ are ignored.",
+  "_comment": "Manual photo corrections, applied last by scripts/avto_photos.py on every run. Key = photos.json key (normalised: uppercase, no spaces/dashes; 'CODE@MAKE' where two makes share a code). Value = null to DELETE a bad auto-match, a full photo object {url, source, make, model} to force one, or {\"reject_lot\": \"<lot id>\"} (string or list) to tell the harvester the auction lot behind the current photo is unacceptable (damaged car, rear-on shot, wrong car) so the next nightly run swaps it for a different lot. The lot id is photos.json -> <key>.lot.id. Keys starting with _ are ignored.",
   "_GGA10_reason": "GGA10 is the Toyota Mark X ZiO minivan. SEV-000740/741/742 are all 'Toyota Mark X' but publish 'GGA10, GRX121, GRX133' as their code, and GGA10 leads — so a code-first lookup puts a minivan on all three. Still required after the move to auction photos (2026-08): the feed matches GGA10 to a real ZiO, which is right for the code but wrong for the register entry. Deleting the key now falls through to GRX121, which has its own exact Mark X sedan photo from the feed — a better result than the old make/model fallback.",
-  "GGA10": null
+  "GGA10": null,
+  "_AAHH40W_reason": "Lot 2VyrPwi7kbuAnJG (CAA Chubu, 2026-08-05) is a 2023 Alphard with a crushed bonnet and front end. It was chosen because its rate '99' (ungraded) sorted above every real grade; the harvester now excludes '99', and this rejection makes the next run replace the photo. AAHH4001C resolved to the same lot.",
+  "AAHH40W": {
+    "reject_lot": "2VyrPwi7kbuAnJG"
+  },
+  "AAHH4001C": {
+    "reject_lot": "2VyrPwi7kbuAnJG"
+  },
+  "_MXPH17_reason": "Lot 3ubjlHVPJjNUu7h is a Yaris with a smashed front bumper and bonnet (another ungraded '99' lot). Rejected for the same reason as AAHH40W.",
+  "MXPH17": {
+    "reject_lot": "3ubjlHVPJjNUu7h"
+  }
 }

@@ -465,26 +465,6 @@
     "chassis": "W1E",
     "source": "wikipedia"
   },
-  "AAHH40W": {
-    "url": "/img/avto/AAHH40W-925b1249.jpg",
-    "make": "TOYOTA",
-    "model": "ALPHARD",
-    "chassis": "AAHH40W",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "2VyrPwi7kbuAnJG",
-      "kuzov": "AAHH40W",
-      "year": "2023",
-      "grade": "Z",
-      "rate": "99",
-      "auction": "CAA Chubu",
-      "auction_date": "2026-08-05 15:28:00",
-      "table": "main",
-      "matched_on": "AAHH40W"
-    },
-    "harvested_at": "2026-08-04"
-  },
   "F21ONLY": {
     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/BMW_M135i_%28F21%29_in_Uruguay_-_front.jpg/960px-BMW_M135i_%28F21%29_in_Uruguay_-_front.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "make": "BMW",
@@ -4642,26 +4622,6 @@
     },
     "harvested_at": "2026-08-04"
   },
-  "AAHH4001C": {
-    "url": "/img/avto/AAHH4001C-925b1249.jpg",
-    "make": "TOYOTA",
-    "model": "ALPHARD",
-    "chassis": "AAHH4001C",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "2VyrPwi7kbuAnJG",
-      "kuzov": "AAHH40W",
-      "year": "2023",
-      "grade": "Z",
-      "rate": "99",
-      "auction": "CAA Chubu",
-      "auction_date": "2026-08-05 15:28:00",
-      "table": "main",
-      "matched_on": "AAHH40"
-    },
-    "harvested_at": "2026-08-04"
-  },
   "AGH40": {
     "url": "/img/avto/AGH40-8b5c3594.jpg",
     "make": "TOYOTA",
@@ -7719,26 +7679,6 @@
       "auction_date": "2026-08-06 00:00:00",
       "table": "main",
       "matched_on": "MXPH15"
-    },
-    "harvested_at": "2026-08-04"
-  },
-  "MXPH17": {
-    "url": "/img/avto/MXPH17-a27684d8.jpg",
-    "make": "TOYOTA",
-    "model": "YARIS",
-    "chassis": "MXPH17",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "3ubjlHVPJjNUu7h",
-      "kuzov": "MXPH17",
-      "year": "2024",
-      "grade": "Hybrid Z 4WD",
-      "rate": "99",
-      "auction": "CAA Gifu",
-      "auction_date": "2026-08-04 08:13:00",
-      "table": "main",
-      "matched_on": "MXPH17"
     },
     "harvested_at": "2026-08-04"
   },
