@@ -424,3 +424,33 @@ Find the key in `functions/_data/photos.json`, copy its `lot.id`, and add to
 ```
 
 Next run swaps it. Use a list to reject several lots for one key.
+
+### Follow-up, same day: the feed had been refusing every query since 5 August
+
+The first harvest after the fixes above matched 0 of 449 codes, Alphard and
+Yaris included. A new feed self-test (one query that must return a row,
+printing the gateway's raw reply if it doesn't) showed why:
+
+```
+IP required: <base>?ip=$_SERVER['REMOTE_ADDR']&code=..&sql=..
+```
+
+The provider changed its endpoint in early August to require the caller's
+public IP as an `ip=` query parameter, and answers HTTP 200 with that notice
+otherwise. The harvester read that as "no rows" on every nightly run since
+5 August, which is why no photo on the site was newer than that date.
+
+- `Feed` now looks up the run's public IP once (`AVTONET_IP` overrides it)
+  and sends `ip=...` on every query. Fixed in #23; the Silvia, Alphard and
+  Yaris were retaken minutes later.
+- The self-test (#21, #22) aborts the run before any misses are recorded if
+  the feed answers empty, so this failure mode can no longer hide.
+- `--only KEY,KEY` (workflow input `only`) retakes named keys immediately,
+  ignoring the misses cache and printing the feed's raw row counts.
+- The ungraded "99" exclusion lives in `presentable()` only; it is not in the
+  SQL (that was briefly suspected as the cause and reverted in #21).
+- The misses cache recorded during the outage was discarded so the next full
+  run re-checks every code with a working feed.
+
+If the finder Worker (`jdm-vehicle-finder`) queries the same endpoint, it
+needs the same `ip=` parameter.
