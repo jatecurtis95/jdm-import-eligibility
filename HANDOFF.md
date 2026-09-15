@@ -454,3 +454,22 @@ otherwise. The harvester read that as "no rows" on every nightly run since
 
 If the finder Worker (`jdm-vehicle-finder`) queries the same endpoint, it
 needs the same `ip=` parameter.
+
+### Same day, later: the photo CDN refuses GitHub runners on its primary host
+
+With the feed answering again, the first full run matched cars whose photo
+download then failed with HTTP 403. The lot URLs name `8.ajes.com`, which
+302s browsers to `14.ajes.com` but refuses GitHub runners outright. The
+sister hosts serve the same path directly (`14` and `7` answer 200; `1`, `6`,
+`9` redirect to 14; `13` refuses; the rest 404), so `fetch_image()` tries the
+URL as given and then those two hosts, over three rounds (#25, #26).
+
+One more trap: offer `webp`/`avif` in `Accept` and the CDN sends WebP, which
+the harvester correctly rejects as "not a usable JPEG". It asks for JPEG only
+(#27). All six previously refused cars were retaken and checked by eye.
+
+State at hand-off (15 Sept): 353 auction photos, 304 Wikipedia. The nightly
+run is rebuilding the misses cache about 150 codes a night (the feed now
+answers slowly, roughly 4 s a query); the remaining backlog is the same
+register artefacts that never matched on 4 August, so expect few new photos
+from it. `--only` is the tool for a targeted retake.
