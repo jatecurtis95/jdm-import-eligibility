@@ -5096,26 +5096,6 @@
     },
     "harvested_at": "2026-08-04"
   },
-  "CT9A01B": {
-    "url": "/img/avto/CT9A01B-2da6e1c7.jpg",
-    "make": "MITSUBISHI",
-    "model": "LANCER",
-    "chassis": "CT9A01B",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "2nROsf9TTZxJh70",
-      "kuzov": "CT9A",
-      "year": "2003",
-      "grade": "4WD Evolution 8 GSR",
-      "rate": "4",
-      "auction": "JU Gifu",
-      "auction_date": "2026-07-25 08:04:00",
-      "table": "stats",
-      "matched_on": "CT9A"
-    },
-    "harvested_at": "2026-08-04"
-  },
   "CV1W": {
     "url": "/img/avto/CV1W-c606eee3.jpg",
     "make": "MITSUBISHI",

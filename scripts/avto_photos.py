@@ -116,7 +116,7 @@ MISS_TTL_DAYS = 30
 # Bumped whenever the matching rules change. A miss recorded under older rules
 # says nothing about the new ones, so a bump silently retires the whole cache
 # instead of freezing in yesterday's coverage.
-MATCHER_VERSION = 5
+MATCHER_VERSION = 6
 
 DEFAULT_API_BASE = "https://jdmconnect.com.au/jdm-relay.php"
 # Matches the finder's client (src/avtonet.js) — the gateway is fronted by a
@@ -409,13 +409,14 @@ def make_matches(feed_make: str, rover_make: str) -> bool:
     return aliases.get(a, a) == aliases.get(b, b)
 
 
-def year_ok(lot_year: int, y_from: int | None, y_to: int | None) -> bool:
+def year_ok(lot_year: int, y_from: int | None, y_to: int | None,
+            slack: int = YEAR_SLACK) -> bool:
     """Guard 3 — lot must sit inside the approval's build-date range."""
     if not lot_year:
         return True  # feed encodes unknown build year as 0; don't punish it
-    if y_from and lot_year < y_from - YEAR_SLACK:
+    if y_from and lot_year < y_from - slack:
         return False
-    if y_to and lot_year > y_to + YEAR_SLACK:
+    if y_to and lot_year > y_to + slack:
         return False
     return True
 
@@ -494,8 +495,12 @@ def score(lot: dict[str, str]) -> tuple:
 
 def alnum_key(key: str) -> str:
     """Normalise a user-typed photos.json key: 's15@nissan' -> 'S15@NISSAN'."""
-    code, _, make = str(key or "").strip().upper().partition("@")
-    return alnum(code) + (f"@{alnum(make)}" if make else "")
+    raw = str(key or "").strip().upper()
+    code, _, rest = raw.partition("@")
+    make, _, year = rest.partition("~")
+    if not rest:
+        code, _, year = code.partition("~")
+    return alnum(code) + (f"@{alnum(make)}" if make else "") + (f"~{alnum(year)}" if year else "")
 
 
 def make_compatible(a: str, b: str) -> bool:
@@ -509,8 +514,26 @@ def make_compatible(a: str, b: str) -> bool:
     return a == b or a in b or b in a
 
 
-def target_key(code: str, make: str) -> str:
-    return f"{code}@{alnum(make)}"
+def target_key(code: str, make: str, year_from=None) -> str:
+    """photos.json key: CODE, plus @MAKE when two makes share the code, plus
+    ~YYYY when one code covers several generations with their own build ranges.
+    The site indexes on the CODE part and picks between candidates by make and
+    by whether the lot's year fits the row's own range."""
+    key = f"{code}@{alnum(make)}" if make else code
+    return f"{key}~{year_from}" if year_from else key
+
+
+def ranges_overlap(a_from, a_to, b_from, b_to) -> bool:
+    """Do two build-date ranges share a year? Overlap only, never adjacency:
+    consecutive years are the normal gap BETWEEN generations (the Evolution VII
+    ends in 2002 and the VIII starts in 2003), so treating them as one range is
+    exactly the merge that has to be avoided. An open end (None) runs forever
+    in that direction."""
+    if a_to is not None and b_from is not None and a_to < b_from:
+        return False
+    if b_to is not None and a_from is not None and b_to < a_from:
+        return False
+    return True
 
 
 def build_targets(data: dict) -> dict[str, dict[str, Any]]:
@@ -537,12 +560,18 @@ def build_targets(data: dict) -> dict[str, dict[str, Any]]:
         for cur in claims.setdefault(key, []):
             if not make_compatible(cur["make"], make):
                 continue
+            # Same code and make, but a build range that does not touch this
+            # one: a different generation, so it needs its own photo. CT9A is
+            # the Lancer Evolution VII (2001-2002), VIII (2003-2004) and IX
+            # (2006-2007); merging them into one 2001-2007 window is what let a
+            # single 2003 car stand in for all three.
+            if not ranges_overlap(cur["from"], cur["to"], y_from, y_to):
+                continue
             # Same manufacturer under a longer name: keep the base make, which is
             # what the feed's marka_name carries ("TOYOTA", not "Whitehouse Toyota").
             if len(alnum(make)) < len(alnum(cur["make"])):
                 cur["make"], cur["model"], cur["code"] = make, model, code
-            # Same code, several approvals: widen the year window so a lot valid
-            # for any one of them passes.
+            # Overlapping approvals for the same generation: widen to cover both.
             if y_from and (cur["from"] is None or y_from < cur["from"]):
                 cur["from"] = y_from
             if cur["to"] is not None:
@@ -569,9 +598,17 @@ def build_targets(data: dict) -> dict[str, dict[str, Any]]:
     for key, group in claims.items():
         if len(group) == 1:
             targets[key] = group[0]
-        else:
-            for t in group:
-                targets[target_key(key, t["make"])] = t
+            continue
+        # More than one claim on this code: qualify by make, and by first build
+        # year as well when one make holds several generations of it.
+        by_make: dict[str, list] = {}
+        for t in group:
+            by_make.setdefault(alnum(t["make"]), []).append(t)
+        for make_key, same_make in by_make.items():
+            multi_make = len(by_make) > 1
+            for t in same_make:
+                year = t["from"] if len(same_make) > 1 else None
+                targets[target_key(key, t["make"] if multi_make else "", year)] = t
     return targets
 
 
@@ -784,8 +821,12 @@ def find_lot_by_model(feed: Feed, target: dict[str, Any], table: str,
     queries = model_query_tokens(target["model"])
     if not queries or (target["from"] is None and target["to"] is None):
         return None, None
-    lo = (target["from"] or 1950) - YEAR_SLACK
-    hi = (target["to"] or dt.date.today().year + 1) + YEAR_SLACK
+    # No slack here, unlike the chassis-code tier: that tier already knows
+    # which car it is and only tolerates build/model-year drift, while here the
+    # year is the only thing separating an Evo IX from the Evo X that replaced
+    # it (a 2008 CZ4A had answered a 2005-2007 "Lancer" approval).
+    lo = target["from"] or 1950
+    hi = target["to"] or (dt.date.today().year + 1)
     make_head = re.split(r"[^A-Z]", str(target["make"]).upper().strip())[0]
     if len(make_head) < 3:
         return None, None
@@ -819,7 +860,7 @@ def find_lot_by_model(feed: Feed, target: dict[str, Any], table: str,
             and model_matches(target["model"], r.get("model_name", ""))
             and make_matches(r.get("marka_name", ""), target["make"])
             and year_ok(int(r["year"]) if str(r.get("year", "")).isdigit() else 0,
-                        target["from"], target["to"])
+                        target["from"], target["to"], slack=0)
             and lot_photo_url(r)
         ]
         if cands:
@@ -1120,7 +1161,7 @@ def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, a
         # "S15@NISSAN" -> "S15_NISSAN": the "@" that separates code from make in
         # a photos.json key is not welcome in a URL path. KEY_RE in
         # functions/img/[[path]].js accepts exactly this shape.
-        stem = key.replace("@", "_")
+        stem = key.replace("@", "_").replace("~", "_")
         obj_key = f"{R2_PREFIX}/{stem}-{digest}.jpg"
         public_url = f"{PUBLIC_PREFIX}/{stem}-{digest}.jpg"
 
@@ -1163,7 +1204,7 @@ def run_codes(todo, addressable, photos, feed, r2, img_session, review, today, a
             # The feed names the model more precisely than ROVER does — ROVER's
             # "20 Series Welcab" is the feed's "ALPHARD" — so keep the feed's.
             "model": lot.get("model_name") or t["model"],
-            "chassis": key.split("@")[0],
+            "chassis": re.split(r"[@~]", key)[0],
             "source": "avtonet",
             "credit": "Japanese auction listing",
             "lot": {

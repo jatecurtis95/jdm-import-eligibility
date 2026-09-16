@@ -19,9 +19,10 @@
 const MAX_AGE = 60 * 60 * 24 * 365; // 1 year — keys are immutable
 // The harvester only ever writes avto/<CODE>-<hash>.jpg, or
 // avto/<CODE>_<MAKE>-<hash>.jpg when two makes share a chassis code (S15 is
-// both a Nissan Silvia and a Mitsuoka Le-Seyde). Anything else is a probe,
-// not a real request.
-const KEY_RE = /^avto\/[A-Z0-9]+(?:_[A-Z0-9]+)?-[0-9a-f]{8}\.jpg$/;
+// both a Nissan Silvia and a Mitsuoka Le-Seyde), with a further _<YEAR> when
+// one code spans several generations (CT9A is the Evo VII, VIII and IX).
+// Anything else is a probe, not a real request.
+const KEY_RE = /^avto\/[A-Z0-9]+(?:_[A-Z0-9]+)*-[0-9a-f]{8}\.jpg$/;
 
 function notFound() {
   return new Response("Not found", {
