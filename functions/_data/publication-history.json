@@ -2079,9 +2079,9 @@
       ]
     },
     "ram-1500": {
-      "hash": "5033ec2891fa4e646400e653afb202e11fd2f763e5758c72ef696649e0236e7d",
-      "last_modified": "2026-09-08",
-      "live": false,
+      "hash": "5ac70da890460424e6527c550f75739f73aed1986511246bb03c135dd35191a5",
+      "last_modified": "2026-09-16",
+      "live": true,
       "approval_ids": [
         "MRE-000870",
         "MRE-000881",
@@ -3026,6 +3026,13 @@
     }
   },
   "changes": [
+    {
+      "date": "2026-09-16",
+      "slug": "ram-1500",
+      "name": "RAM 1500",
+      "added": [],
+      "removed": []
+    },
     {
       "date": "2026-09-15",
       "slug": "toyota-crown",
