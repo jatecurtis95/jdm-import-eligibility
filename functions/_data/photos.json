@@ -13815,5 +13815,105 @@
       "matched_on": "model:JIMNY"
     },
     "harvested_at": "2026-09-15"
+  },
+  "CT9A~2001": {
+    "url": "/img/avto/CT9A_2001-2647fe5b.jpg",
+    "make": "MITSUBISHI",
+    "model": "LANCER",
+    "chassis": "CT9A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "326Lu64afe6GmuI",
+      "kuzov": "CT9A",
+      "year": "2003",
+      "grade": "GSR Evolution &#08551; 4W",
+      "rate": "3.5",
+      "auction": "LAA Okayama",
+      "auction_date": "2026-09-18 11:32:00",
+      "table": "main",
+      "matched_on": "CT9A"
+    },
+    "harvested_at": "2026-09-16"
+  },
+  "CT9A~2003": {
+    "url": "/img/avto/CT9A_2003-2647fe5b.jpg",
+    "make": "MITSUBISHI",
+    "model": "LANCER",
+    "chassis": "CT9A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "326Lu64afe6GmuI",
+      "kuzov": "CT9A",
+      "year": "2003",
+      "grade": "GSR Evolution &#08551; 4W",
+      "rate": "3.5",
+      "auction": "LAA Okayama",
+      "auction_date": "2026-09-18 11:32:00",
+      "table": "main",
+      "matched_on": "CT9A"
+    },
+    "harvested_at": "2026-09-16"
+  },
+  "CT9A~2005": {
+    "url": "/img/avto/CT9A_2005-c484f830.jpg",
+    "make": "MITSUBISHI",
+    "model": "LANCER",
+    "chassis": "CT9A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "Zju8eyvjuw9lI0",
+      "kuzov": "CT9A",
+      "year": "2006",
+      "grade": "GSR Evolution 9 4WD",
+      "rate": "3.5",
+      "auction": "CAA Chubu",
+      "auction_date": "2026-08-26 08:00:00",
+      "table": "stats",
+      "matched_on": "CT9A"
+    },
+    "harvested_at": "2026-09-16"
+  },
+  "USC10~2014": {
+    "url": "/img/avto/USC10_2014-02127652.jpg",
+    "make": "LEXUS",
+    "model": "RC F",
+    "chassis": "USC10",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2fyRCvm3aIbhQaA",
+      "kuzov": "USC10",
+      "year": "2016",
+      "grade": "Base Grade",
+      "rate": "4.5",
+      "auction": "CAA Tokyo",
+      "auction_date": "2026-09-15 08:00:00",
+      "table": "stats",
+      "matched_on": "USC10"
+    },
+    "harvested_at": "2026-09-16"
+  },
+  "USC10~2021": {
+    "url": "/img/avto/USC10_2021-42b2b58c.jpg",
+    "make": "LEXUS",
+    "model": "RC F",
+    "chassis": "USC10",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "7a1dfOY5PxyCpV8",
+      "kuzov": "USC10",
+      "year": "2023",
+      "grade": "&#65398;-&#65422;&#65438;&#65437;&#65396;&#65400;&#65405;&#65411;&#65432;&#65393; Package",
+      "rate": "5",
+      "auction": "TAA Yokohama",
+      "auction_date": "2026-07-11 08:00:00",
+      "table": "stats",
+      "matched_on": "USC10"
+    },
+    "harvested_at": "2026-09-16"
   }
 }
