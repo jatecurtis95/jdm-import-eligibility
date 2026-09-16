@@ -116,7 +116,7 @@ MISS_TTL_DAYS = 30
 # Bumped whenever the matching rules change. A miss recorded under older rules
 # says nothing about the new ones, so a bump silently retires the whole cache
 # instead of freezing in yesterday's coverage.
-MATCHER_VERSION = 6
+MATCHER_VERSION = 7
 
 DEFAULT_API_BASE = "https://jdmconnect.com.au/jdm-relay.php"
 # Matches the finder's client (src/avtonet.js) — the gateway is fronted by a
@@ -481,6 +481,25 @@ def grade_rank(rate: str) -> float:
         return -1.0
 
 
+def year_fits(lot_year: int, target: dict[str, Any]) -> bool:
+    """Guard 3, in target terms. A car built inside the approval's own range
+    always passes. Outside it, the usual year of build/model-year slack applies
+    UNLESS another generation this make built under the same chassis code claims
+    that year outright: on CT9A a 2003 car is the Evolution VIII's, not the
+    VII's, however close 2002 and 2003 look. Mirrors yearFits() in index.html."""
+    if not lot_year:
+        return True
+    y_from, y_to = target["from"], target["to"]
+    if (y_from is None or lot_year >= y_from) and (y_to is None or lot_year <= y_to):
+        return True
+    if not year_ok(lot_year, y_from, y_to):
+        return False
+    for a, b in target.get("sibling_spans", ()):
+        if (a is None or lot_year >= a) and (b is None or lot_year <= b):
+            return False
+    return True
+
+
 def score(lot: dict[str, str]) -> tuple:
     """Rank candidate lots. Prefer a clean 2-image [front, rear] listing (no
     inspection sheet to mis-pick), then a tidier car, then a newer one, then a
@@ -606,8 +625,13 @@ def build_targets(data: dict) -> dict[str, dict[str, Any]]:
             by_make.setdefault(alnum(t["make"]), []).append(t)
         for make_key, same_make in by_make.items():
             multi_make = len(by_make) > 1
-            for t in same_make:
+            spans = [(x["from"], x["to"]) for x in same_make]
+            for i, t in enumerate(same_make):
                 year = t["from"] if len(same_make) > 1 else None
+                # The other generations this make built under the same code.
+                # year_fits() uses them to tell model-year drift from a year that
+                # belongs to the car next door.
+                t["sibling_spans"] = [sp for j, sp in enumerate(spans) if j != i]
                 targets[target_key(key, t["make"] if multi_make else "", year)] = t
     return targets
 
@@ -929,8 +953,8 @@ def find_lot(feed: Feed, target: dict[str, Any], table: str,
                  or (anchor_kind(r.get("kuzov", ""), token) == "prefix"
                      and models_overlap(target["model"], r.get("model_name", ""))))
             and make_matches(r.get("marka_name", ""), target["make"])
-            and year_ok(int(r["year"]) if str(r.get("year", "")).isdigit() else 0,
-                        target["from"], target["to"])
+            and year_fits(int(r["year"]) if str(r.get("year", "")).isdigit() else 0,
+                          target)
             and lot_photo_url(r)
         ]
         if cands:

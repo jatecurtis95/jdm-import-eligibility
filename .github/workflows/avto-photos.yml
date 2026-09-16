@@ -60,6 +60,11 @@ jobs:
       - name: Install dependencies
         run: pip install "requests==2.32.3"
 
+      # Fails before a single feed query if the matching rules have drifted.
+      # A broken matcher does not error, it quietly harvests the wrong cars.
+      - name: Check the matching rules
+        run: python scripts/test_photo_targets.py
+
       - name: Harvest auction photos
         env:
           AVTONET_API_BASE: ${{ secrets.AVTONET_API_BASE }}

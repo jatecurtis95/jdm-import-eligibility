@@ -13816,26 +13816,6 @@
     },
     "harvested_at": "2026-09-15"
   },
-  "CT9A~2001": {
-    "url": "/img/avto/CT9A_2001-2647fe5b.jpg",
-    "make": "MITSUBISHI",
-    "model": "LANCER",
-    "chassis": "CT9A",
-    "source": "avtonet",
-    "credit": "Japanese auction listing",
-    "lot": {
-      "id": "326Lu64afe6GmuI",
-      "kuzov": "CT9A",
-      "year": "2003",
-      "grade": "GSR Evolution &#08551; 4W",
-      "rate": "3.5",
-      "auction": "LAA Okayama",
-      "auction_date": "2026-09-18 11:32:00",
-      "table": "main",
-      "matched_on": "CT9A"
-    },
-    "harvested_at": "2026-09-16"
-  },
   "CT9A~2003": {
     "url": "/img/avto/CT9A_2003-2647fe5b.jpg",
     "make": "MITSUBISHI",
