@@ -25,9 +25,37 @@ const REDIRECT_HOSTS = new Set([
   "www.caniimportit.com"
 ]);
 
+// Cloudflare Pages publishes every file in the repo that is not under
+// functions/, so the scraper source, the internal review notes and the
+// project docs were all reachable on the public site:
+//   /scripts/avto_photos.py, /HANDOFF.md, /ARCHITECTURE.md, /docs/*.md,
+//   /.gitignore ...
+// None of them is part of the product, and HANDOFF.md in particular names
+// infrastructure. They 404 rather than serve. This is a denylist of paths
+// that are never product routes; every real route (/vehicles, /guides,
+// /enquire, /api/data, /img/avto/*, the icons, robots.txt, sitemap.xml) is
+// untouched.
+const PRIVATE_PREFIXES = ["/scripts/", "/docs/", "/brain/", "/supabase/", "/.github/"];
+const PRIVATE_SUFFIX = /\.(md|py|ya?ml|toml|lock|sql|sh|bak|mjs|ts)$/i;
+
+function isPrivatePath(pathname) {
+  const p = pathname.toLowerCase();
+  // A dot-file or dot-directory anywhere in the path (/.gitignore, /.github/..).
+  if (p.split("/").some(seg => seg.startsWith("."))) return true;
+  if (PRIVATE_PREFIXES.some(prefix => p.startsWith(prefix))) return true;
+  return PRIVATE_SUFFIX.test(p);
+}
+
 export async function onRequest(context) {
   const { request, next } = context;
   const url = new URL(request.url);
+
+  if (isPrivatePath(url.pathname)) {
+    return new Response("Not found", {
+      status: 404,
+      headers: { "Content-Type": "text/plain", "Cache-Control": "no-store" },
+    });
+  }
 
   if (REDIRECT_HOSTS.has(url.hostname.toLowerCase())) {
     url.protocol = "https:";
