@@ -543,3 +543,17 @@ exercises them, including the CT9A case. It runs in `build-vehicle-pages.yml`.
 The Evolution VII and IX rows have no photo until the nightly harvest fills
 their new keys. A blank thumbnail is the intended state there; the wrong car
 is not.
+
+**Follow-up the same day.** The first targeted harvest under the new keys put a
+2003 Evolution VIII on `CT9A~2001`: the split produced the right targets, but
+`year_ok()` still allowed a year of slack on the chassis tier, and 2003 is one
+year off 2002. `year_fits()` now carries the site's rule into the harvester —
+each split target knows its `sibling_spans`, the other generations the same
+make built under that code, and a slack year that falls inside one of them is
+refused. A generation split only by paperwork keeps its slack: `USC10` is the
+RC F approved 2014-2015 and again 2021-2025, and a 2016 car still answers the
+first of those because no sibling window claims 2016. `MATCHER_VERSION` 7.
+
+`scripts/test_photo_targets.py` covers the harvester half and runs as the first
+step of `avto-photos.yml`, before any feed query, because a broken matcher does
+not error — it quietly harvests the wrong cars.
