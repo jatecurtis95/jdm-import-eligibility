@@ -473,3 +473,26 @@ run is rebuilding the misses cache about 150 codes a night (the feed now
 answers slowly, roughly 4 s a query); the remaining backlog is the same
 register artefacts that never matched on 4 August, so expect few new photos
 from it. `--only` is the tool for a targeted retake.
+
+---
+
+# Addendum (2026-09-16) — Internal files are no longer served publicly
+
+Cloudflare Pages publishes every file in the repo that is not under
+`functions/`, so the whole working tree was reachable on the live site:
+`/HANDOFF.md`, `/ARCHITECTURE.md`, `/PRODUCT.md`, `/docs/*.md`,
+`/scripts/avto_photos.py`, `/scripts/rover_scraper.py`,
+`/scripts/data/*.json` and `/.gitignore` all returned 200. No credential
+was exposed (tokens are Actions secrets), but this file names the R2
+bucket and the secret names, and ARCHITECTURE.md lists local paths.
+
+`functions/_middleware.js` now 404s a denylist of paths that are never
+product routes: the `/scripts/`, `/docs/`, `/brain/`, `/supabase/` and
+`/.github/` prefixes, any dot-file or dot-directory, and the `.md`, `.py`,
+`.yml`, `.toml`, `.lock`, `.sql`, `.sh`, `.bak`, `.mjs` and `.ts`
+extensions. Every real route is untouched: `/vehicles`, `/guides/*`,
+`/enquire`, `/methodology`, `/changes`, `/api/data`, `/img/avto/*`, the
+icons, `robots.txt` and `sitemap.xml`.
+
+If a future asset needs one of those extensions at a public URL, add it to
+the site as a Pages Function or rename it; do not widen the denylist.
