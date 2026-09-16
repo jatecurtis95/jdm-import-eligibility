@@ -886,9 +886,13 @@ function photoOk(k, ph){
 // (the Nissan Silvia and the Mitsuoka Le-Seyde are both "S15") the harvester
 // keys each make's photo as "CODE@MAKE", so one code can hold several photos
 // and photoFor() picks the one whose make matches the row.
+// A photos.json key is CODE, or CODE@MAKE when two makes share a code, or
+// CODE@MAKE~YYYY / CODE~YYYY when one code covers several generations with
+// their own build ranges (CT9A is the Lancer Evolution VII, VIII and IX).
+// Only the CODE part is indexed; make and year pick between the candidates.
 function photoKeyParts(k){
-  const at = String(k).indexOf('@');
-  return at < 0 ? {code:k, make:''} : {code:k.slice(0,at), make:k.slice(at+1)};
+  const m = /^([^@~]*)(?:@([^~]*))?(?:~(.*))?$/.exec(String(k)) || [];
+  return {code: m[1] || String(k), make: m[2] || '', from: m[3] || ''};
 }
 // A photo is only shown on a row of a compatible make: identical, or one
 // contains the other ("Whitehouse Toyota" may show a Toyota photo). Mitsuoka
@@ -897,6 +901,44 @@ function makeCompatible(a, b){
   a = pnorm(a); b = pnorm(b);
   if(!a || !b) return true;
   return a===b || a.includes(b) || b.includes(a);
+}
+// A photo is only shown on a row whose own build range covers the year of the
+// car in it. One chassis code can span several generations (CT9A is the Evo
+// VII, VIII and IX), and without this the newest lot found for that code sat
+// on all of them. A chassis-code match may drift a year, since JDM build and
+// model years disagree and the code already pins the car; a model-name match
+// gets no slack, because nothing but the year separates one generation from
+// the next.
+function yearFits(ph, r, spans){
+  const y = parseInt((ph.lot||{}).year, 10);
+  if(!y) return true;
+  const from = r.from ? r.from.y : null, to = r.to ? r.to.y : null;
+  if(!from && !to) return true;
+  if(y >= (from || y) && y <= (to || y)) return true;
+  // Outside the row's own range. A model-name match has no chassis code behind
+  // it, so the year is the whole match and there is nothing to spare.
+  if(String((ph.lot||{}).matched_on || '').indexOf('model:') === 0) return false;
+  // A chassis-code match may drift a year either way, since JDM build and model
+  // years disagree and the code already pins the car. The one exception is a
+  // year another entry on this same code covers outright: on CT9A a 2003 car is
+  // the Evolution VIII's, not the VII's, however close 2002 and 2003 look.
+  if(y < (from || y) - 1 || y > (to || y) + 1) return false;
+  for(const sp of (spans || [])) if(y >= sp[0] && y <= sp[1]) return false;
+  return true;
+}
+// Every build range the register claims for each chassis code. One code can
+// cover several generations (CT9A is the Lancer Evolution VII, VIII and IX), so
+// yearFits() uses these to tell "a year of model-year drift" from "a year that
+// belongs to the next car along".
+let codeSpans = {};
+function buildCodeSpans(){
+  codeSpans = {};
+  for(const r of rows){
+    const from = r.from ? r.from.y : null, to = r.to ? r.to.y : null;
+    if(!from && !to) continue;
+    const span = [from || to, to || from];
+    codesOf(r).forEach(c=>{ const n = pnorm(c); if(n) (codeSpans[n] = codeSpans[n] || []).push(span); });
+  }
 }
 function buildPhotoIdx(){
   photoIdx = {}; photoList = [];
@@ -909,7 +951,10 @@ function buildPhotoIdx(){
     }
   }
 }
-function photoFor(r){
+// Every chassis code a row can be matched on: its own, plus the codes of the
+// SEVs and model reports it is built from. A code field may list several
+// ("E51, NE51, ME51"), so each piece counts on its own too.
+function codesOf(r){
   const cands = [];
   const pushCode = c => {
     if(!c) return;
@@ -920,13 +965,18 @@ function photoFor(r){
   pushCode(r.code);
   if(r.sevs) r.sevs.forEach(sn=>{ const s = sevByNum[sn.trim().toUpperCase()]; if(s) pushCode(s.code); });
   if(r.mres) r.mres.forEach(m=>pushCode(m.code));
+  return cands;
+}
+function photoFor(r){
+  const cands = codesOf(r);
   for(const c of cands){
     const list = photoIdx[pnorm(c)];
     if(!list) continue;
     // Exact make first, then a compatible one; an auction photo beats a
     // Wikipedia one at the same rank because it is the specific car.
     const rank = ph => (pnorm(ph.make)===pnorm(r.make) ? 0 : 2) + (ph.source==='avtonet' ? 0 : 1);
-    const ok = list.filter(ph => makeCompatible(ph.make, r.make)).sort((a,b)=>rank(a)-rank(b));
+    const ok = list.filter(ph => makeCompatible(ph.make, r.make) && yearFits(ph, r, codeSpans[pnorm(c)]))
+                   .sort((a,b)=>rank(a)-rank(b));
     if(ok.length) return ok[0];
   }
   // No chassis-code hit: fall back to any photo of the same make and model.
@@ -939,7 +989,12 @@ function photoFor(r){
     for(const generic of [true, false]){
       for(const ph of photoList){
         if((ph.source!=='avtonet')!==generic) continue;
-        if(pnorm(ph.make)===mk && pnorm(ph.model)===md) return ph;
+        if(pnorm(ph.make)!==mk || pnorm(ph.model)!==md) continue;
+        // The year still has to fit. Without it this fallback quietly undid the
+        // work above: an Odyssey entry that had just rejected a 2022 car on its
+        // chassis code would take a 2025 one here instead.
+        if(!yearFits(ph, r, null)) continue;
+        return ph;
       }
     }
   }
@@ -1666,6 +1721,7 @@ async function fetchFirst(urls){
     buildPhotoIdx();
     rows = build(data);
     rows.forEach((r,i)=>r._ix=i);
+    buildCodeSpans();
     // stats
     const setStat = (id,n)=>{ const el=$(id); if(el){ el.dataset.count=n; el.textContent=Number(n).toLocaleString(); } };
     setStat('stSev', (data.sev||[]).length);

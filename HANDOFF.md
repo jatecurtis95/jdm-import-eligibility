@@ -496,3 +496,50 @@ icons, `robots.txt` and `sitemap.xml`.
 
 If a future asset needs one of those extensions at a public URL, add it to
 the site as a Pages Function or rename it; do not widen the denylist.
+
+---
+
+# Addendum (2026-09-16) — One chassis code, several generations
+
+Reported from the live site: the Lancer Evolution VII, VIII and IX rows all
+showed the same car. All three carry chassis code `CT9A`, and both halves of
+the pipeline treated a chassis code as if it named one car.
+
+**Harvester.** `build_targets()` merged every claim on a code into a single
+target and widened the build window to cover all of them, so `CT9A` became a
+2001-2007 target and took whichever lot it found first. Claims are now grouped
+only when their build ranges actually overlap (`ranges_overlap()`; adjacency is
+not overlap, so 2001-2002 and 2003-2004 stay apart), and a code that ends up
+with more than one group is keyed per generation: `CODE~YYYY`, or
+`CODE@MAKE~YYYY` where a code is also shared between makes. `CT9A` is now
+three targets (`CT9A~2001`, `CT9A~2003`, `CT9A~2005`) and `USC10` is two
+(the 2014 RC-F and the 2021 RC F). `MATCHER_VERSION` went to 6, which retires
+the misses cache so every target is tried again.
+
+**Site.** `yearFits()` in index.html decides whether a photo may sit on a row.
+A photo whose car was built inside the row's own range always passes. Outside
+it, a model-name match is rejected outright (the year is the whole match), and
+a chassis-code match may drift one year either way — JDM build and model years
+disagree, and the code already pins the car — unless that year falls inside
+another range the register claims for the same code. That last clause is what
+keeps a 2003 car off the Evolution VII: 2003 is the Evolution VIII's outright.
+`buildCodeSpans()` collects those ranges from the register itself rather than
+from how many photos happened to be harvested.
+
+The same check now also guards the make-and-model fallback at the bottom of
+`photoFor()`. Without it that fallback quietly undid the work above: an Odyssey
+row that had just rejected a 2022 car on its chassis code took a 2025 one
+instead.
+
+Measured against the previous build over all 1,526 rows: 26 rows lost a wrong
+photo outright and 27 fell back to a generic Wikipedia shot or a better auction
+lot. Nothing gained a wrong one. A stricter rule was tried (the build range
+with no slack at all) and was worse: it dropped correct cars such as the 2008
+LS600h and the 2009 Evolution X, and replaced a 2019 Prius with a 2015 one.
+
+`scripts/test-photo-matching.mjs` lifts these rules out of index.html and
+exercises them, including the CT9A case. It runs in `build-vehicle-pages.yml`.
+
+The Evolution VII and IX rows have no photo until the nightly harvest fills
+their new keys. A blank thumbnail is the intended state there; the wrong car
+is not.
