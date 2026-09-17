@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-16T06:45:35.749856+08:00",
-  "matched_records": 1187,
+  "generated_at": "2026-09-17T06:44:59.080057+08:00",
+  "matched_records": 1190,
   "guide_matches": [
     {
       "scheme": "SEV",
@@ -8310,9 +8310,30 @@
       "source_make": "SMART",
       "source_model": "ForTwo Electric Drive",
       "guide_slug": "smart-fortwo-electric-drive"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000994",
+      "source_make": "SUZUKI",
+      "source_model": "Ignis",
+      "guide_slug": "suzuki-ignis"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000995",
+      "source_make": "SUBARU",
+      "source_model": "WRX STI",
+      "guide_slug": "subaru-impreza-wrx-sti"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000997",
+      "source_make": "Toyota",
+      "source_model": "Camry",
+      "guide_slug": "toyota-camry"
     }
   ],
-  "candidate_records": 339,
+  "candidate_records": 340,
   "pages": [
     {
       "slug": "register-astonmartin-dbsgtzagato",
@@ -10654,6 +10675,12 @@
           "approval_number": "SEV-000589",
           "model_code": "AVE30, AVE35",
           "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=602cf62d-27ea-ee11-a1fd-002248969682"
+        },
+        {
+          "scheme": "MRE",
+          "approval_number": "MRE-000996",
+          "model_code": "RC-AVE30-01A",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/ModelReportDetails/?id=a787b620-84b1-f111-aaac-7c1e522abea1"
         }
       ],
       "possible_matches": [],

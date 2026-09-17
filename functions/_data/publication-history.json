@@ -1415,16 +1415,10 @@
       ]
     },
     "mercedes-benz-amg-gt": {
-      "hash": "9fdc90fd8f3cf54aa1b7db452f998167dec0f10cd66cbb3ae817fd164bc7dd3c",
-      "last_modified": "2026-09-08",
-      "live": true,
-      "approval_ids": [
-        "MRE-000913",
-        "MRE-000935",
-        "MRE-000983",
-        "SEV-000992",
-        "SEV-000993"
-      ]
+      "hash": "2f0c5fea69abdfbf4a5835d9b7b1142e64f9fed15d0eef14ff1e7b97e81d21f8",
+      "last_modified": "2026-09-17",
+      "live": false,
+      "approval_ids": []
     },
     "mercedes-benz-amg-gt-43": {
       "hash": "465dda1f6bd0053795a4670059bbf76dc896c3906406badcdcb7f169e90e5360",
@@ -2236,8 +2230,8 @@
       ]
     },
     "subaru-impreza-wrx-sti": {
-      "hash": "056b6945e015e105ab7dc127587cbad456189429d7045c9b751b2b2157bc8874",
-      "last_modified": "2026-09-08",
+      "hash": "9cddf7a629f5aa8c42524d9c6d40154b83928b9acb1eec6e86af3cd71b372562",
+      "last_modified": "2026-09-17",
       "live": true,
       "approval_ids": [
         "MRE-000059",
@@ -2252,6 +2246,7 @@
         "MRE-000597",
         "MRE-000632",
         "MRE-000641",
+        "MRE-000995",
         "SEV-000581",
         "SEV-000708",
         "SEV-000954",
@@ -2347,13 +2342,10 @@
       ]
     },
     "suzuki-ignis": {
-      "hash": "dda492964ea91cabf526876fdfbbef658b3bc46fbd450d92fbccb59c8a7d43ad",
-      "last_modified": "2026-09-08",
-      "live": true,
-      "approval_ids": [
-        "MRE-000985",
-        "SEV-001015"
-      ]
+      "hash": "67d52bb6e942f8b7045911a51deef43c37d2063ecbe33a269f4a80d047ba556d",
+      "last_modified": "2026-09-17",
+      "live": false,
+      "approval_ids": []
     },
     "suzuki-jimny": {
       "hash": "58b1323d097356bf9cb6de9d7682bb4df1d6b639ba2b97cd10c6d2e6d3cd8f19",
@@ -2497,13 +2489,10 @@
       ]
     },
     "toyota-camry": {
-      "hash": "9e83e3cb9b69118ba5cab2eff275b914bc2e3f6ace487c15e1345be039ce5710",
-      "last_modified": "2026-09-08",
-      "live": true,
-      "approval_ids": [
-        "MRE-000947",
-        "SEV-000913"
-      ]
+      "hash": "d1d7d20b6d037a2b19f13a818d77e8f56005493e7497afc15d66706828167100",
+      "last_modified": "2026-09-17",
+      "live": false,
+      "approval_ids": []
     },
     "toyota-century": {
       "hash": "3b6fe45d1ad13c7baf0ed18c81f0c1957eb268a1f24dd4d7c201ffe9610519f6",
@@ -2804,8 +2793,8 @@
       ]
     },
     "toyota-prius-jdm": {
-      "hash": "8c34c500fcea3e99e9104541af76a346e64c19bef76ce9a5cebc2d3e09ae8cb8",
-      "last_modified": "2026-09-14",
+      "hash": "aadf63c73376398ef1d0c6cb31a85d5d04d4ece11280f4e524580eff8bf45dfe",
+      "last_modified": "2026-09-17",
       "live": false,
       "approval_ids": [
         "MRE-000136",
@@ -2817,6 +2806,7 @@
         "MRE-000549",
         "MRE-000647",
         "MRE-000712",
+        "MRE-000770",
         "MRE-000784",
         "MRE-000856",
         "MRE-000880",
@@ -3026,6 +3016,15 @@
     }
   },
   "changes": [
+    {
+      "date": "2026-09-17",
+      "slug": "subaru-impreza-wrx-sti",
+      "name": "Subaru Impreza WRX STI",
+      "added": [
+        "MRE-000995"
+      ],
+      "removed": []
+    },
     {
       "date": "2026-09-16",
       "slug": "ram-1500",
