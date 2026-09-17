@@ -3130,11 +3130,24 @@
     "source": "wikipedia"
   },
   "Z11": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Nissan_Cube_%28Z12%29_%E2%80%93_Frontansicht%2C_25._August_2013%2C_D%C3%BCsseldorf.jpg/960px-Nissan_Cube_%28Z12%29_%E2%80%93_Frontansicht%2C_25._August_2013%2C_D%C3%BCsseldorf.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "/img/avto/Z11-245e3382.jpg",
     "make": "NISSAN",
     "model": "CUBE",
     "chassis": "Z11",
-    "source": "wikipedia"
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "Gk4OqCJnduQMn0",
+      "kuzov": "YZ11",
+      "year": "2007",
+      "grade": "15M",
+      "rate": "3.5",
+      "auction": "ARAI Bayside",
+      "auction_date": "2026-09-18 12:55:00",
+      "table": "main",
+      "matched_on": "Z11"
+    },
+    "harvested_at": "2026-09-17"
   },
   "222178": null,
   "S550": {
@@ -3406,11 +3419,24 @@
     "source": "wikipedia"
   },
   "ZWR9": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/2022_Toyota_Noah_Hybrid_S-G.jpg/960px-2022_Toyota_Noah_Hybrid_S-G.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "make": "Toyota",
-    "model": "Voxy",
+    "url": "/img/avto/ZWR9-941c4b98.jpg",
+    "make": "TOYOTA",
+    "model": "VOXY",
     "chassis": "ZWR9",
-    "source": "wikipedia"
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "xMlOjIDtEzCQIq",
+      "kuzov": "ZWR90W",
+      "year": "2023",
+      "grade": "Hybrid S-Z",
+      "rate": "5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:VOXY"
+    },
+    "harvested_at": "2026-09-17"
   },
   "M20": {
     "url": "/img/avto/M20-cbf415b8.jpg",
@@ -4456,11 +4482,24 @@
     "harvested_at": "2026-08-04"
   },
   "XPA1": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg/960px-Toyota_Sienta_XP80_Light_Yellow_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "make": "Toyota",
-    "model": "Yaris Welcab",
+    "url": "/img/avto/XPA1-68710146.jpg",
+    "make": "TOYOTA",
+    "model": "YARIS",
     "chassis": "XPA1",
-    "source": "wikipedia"
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "4sbMhIE8dXGUKx",
+      "kuzov": "KSP210",
+      "year": "2025",
+      "grade": "G",
+      "rate": "5",
+      "auction": "TAA Hiroshima",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:YARIS"
+    },
+    "harvested_at": "2026-09-17"
   },
   "BL5": {
     "url": "/img/avto/BL5-710afb2f.jpg",
@@ -4633,11 +4672,24 @@
     "source": "wikipedia"
   },
   "ZE2": {
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Nissan_Leaf_%28ZE2%29_autoMOBIL_T%C3%BCbingen_2025_DSC_2752.jpg/960px-Nissan_Leaf_%28ZE2%29_autoMOBIL_T%C3%BCbingen_2025_DSC_2752.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "url": "/img/avto/ZE2-7fed3f44.jpg",
     "make": "NISSAN",
     "model": "LEAF",
     "chassis": "ZE2",
-    "source": "wikipedia"
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "28iz9fdVZbeQazO",
+      "kuzov": "ZE1",
+      "year": "2025",
+      "grade": "X",
+      "rate": "6",
+      "auction": "NAA Tokyo",
+      "auction_date": "2026-07-17 09:52:00",
+      "table": "stats",
+      "matched_on": "model:LEAF"
+    },
+    "harvested_at": "2026-09-17"
   },
   "MANSE_1994": {
     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Historic_Leaskdale_Church%2C_the_Home_of_Lucy_Maud_Montgomery_02.jpg/960px-Historic_Leaskdale_Church%2C_the_Home_of_Lucy_Maud_Montgomery_02.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
@@ -15835,5 +15887,1225 @@
       "matched_on": "model:SL"
     },
     "harvested_at": "2026-09-16"
+  },
+  "FT2E1": {
+    "url": "/img/avto/FT2E1-43144e87.jpg",
+    "make": "FORD",
+    "model": "F150",
+    "chassis": "FT2E1",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "9cosP2qGalk6no",
+      "kuzov": "&#65420;&#65426;&#65394;",
+      "year": "2022",
+      "grade": "F-150",
+      "rate": "4",
+      "auction": "ZIP Tokyo",
+      "auction_date": "2026-06-27 12:41:00",
+      "table": "stats",
+      "matched_on": "model:150"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIT3201A": {
+    "url": "/img/avto/WIT3201A-803fefb4.jpg",
+    "make": "NISSAN",
+    "model": "X-TRAIL",
+    "chassis": "WIT3201A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "5rWbUjPecICTHb",
+      "kuzov": "T32",
+      "year": "2019",
+      "grade": "20Xi",
+      "rate": "4.5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:TRAIL"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIT321A": {
+    "url": "/img/avto/WIT321A-803fefb4.jpg",
+    "make": "NISSAN",
+    "model": "X-TRAIL",
+    "chassis": "WIT321A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "5rWbUjPecICTHb",
+      "kuzov": "T32",
+      "year": "2019",
+      "grade": "20Xi",
+      "rate": "4.5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:TRAIL"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WITAHA401B": {
+    "url": "/img/avto/WITAHA401B-305539d1.jpg",
+    "make": "TOYOTA",
+    "model": "VELLFIRE",
+    "chassis": "WITAHA401B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "pk1B4w2eFX5gnZQ",
+      "kuzov": "TAHA40W",
+      "year": "2025",
+      "grade": "Z &#65420;&#65439;&#65434;&#65424;&#65393;",
+      "rate": "6",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:VELLFIRE"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WITC35S1A": {
+    "url": "/img/avto/WITC35S1A-c3bf3eb8.jpg",
+    "make": "TOYOTA",
+    "model": "CROWN CROSSOVER",
+    "chassis": "WITC35S1A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "ySM2gX3DstrLNz",
+      "kuzov": "TZSH35",
+      "year": "2024",
+      "grade": "RS 4WD",
+      "rate": "4.5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:CROSSOVER"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WITRH2001F": {
+    "url": "/img/avto/WITRH2001F-425bba52.jpg",
+    "make": "TOYOTA",
+    "model": "HIACE",
+    "chassis": "WITRH2001F",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "5iSjdZ2UqDHeSp",
+      "kuzov": "TRH214W",
+      "year": "2019",
+      "grade": "DX",
+      "rate": "4.5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:HIACE"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WITVR01A": {
+    "url": "/img/avto/WITVR01A-ad7bc73e.jpg",
+    "make": "TVR",
+    "model": "CHIMAERA",
+    "chassis": "WITVR01A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "53yVcbcm4nFiYY",
+      "kuzov": "&#65420;&#65426;&#65394;",
+      "year": "1996",
+      "grade": "Key &#65424;-&#65431;&#65400;&#65431;&#65420;&#65438;&#65423;&#65437;",
+      "rate": "3.5",
+      "auction": "ZIP Tokyo",
+      "auction_date": "2026-08-08 12:28:00",
+      "table": "stats",
+      "matched_on": "model:CHIMAERA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WITZSH351B": {
+    "url": "/img/avto/WITZSH351B-c3bf3eb8.jpg",
+    "make": "TOYOTA",
+    "model": "CROWN CROSSOVER",
+    "chassis": "WITZSH351B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "ySM2gX3DstrLNz",
+      "kuzov": "TZSH35",
+      "year": "2024",
+      "grade": "RS 4WD",
+      "rate": "4.5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:CROSSOVER"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIU681E": {
+    "url": "/img/avto/WIU681E-a15beaba.jpg",
+    "make": "MITSUBISHI",
+    "model": "MINICAB MIEV",
+    "chassis": "WIU681E",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "31Rgto86Jddg8O2",
+      "kuzov": "U68V",
+      "year": "2016",
+      "grade": "",
+      "rate": "-",
+      "auction": "JU Niigata",
+      "auction_date": "2026-09-18 13:57:00",
+      "table": "main",
+      "matched_on": "model:MINICAB"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIURL1001A": {
+    "url": "/img/avto/WIURL1001A-c744cd5f.jpg",
+    "make": "LEXUS",
+    "model": "GS F",
+    "chassis": "WIURL1001A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "YH9VgFUlFIF2Dd",
+      "kuzov": "URL10",
+      "year": "2016",
+      "grade": "",
+      "rate": "4",
+      "auction": "CAA Chubu",
+      "auction_date": "2026-09-09 08:01:00",
+      "table": "stats",
+      "matched_on": "model:GS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIURL1001B": {
+    "url": "/img/avto/WIURL1001B-c744cd5f.jpg",
+    "make": "LEXUS",
+    "model": "GS F",
+    "chassis": "WIURL1001B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "YH9VgFUlFIF2Dd",
+      "kuzov": "URL10",
+      "year": "2016",
+      "grade": "",
+      "rate": "4",
+      "auction": "CAA Chubu",
+      "auction_date": "2026-09-09 08:01:00",
+      "table": "stats",
+      "matched_on": "model:GS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIURL101A": {
+    "url": "/img/avto/WIURL101A-c744cd5f.jpg",
+    "make": "LEXUS",
+    "model": "GS F",
+    "chassis": "WIURL101A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "YH9VgFUlFIF2Dd",
+      "kuzov": "URL10",
+      "year": "2016",
+      "grade": "",
+      "rate": "4",
+      "auction": "CAA Chubu",
+      "auction_date": "2026-09-09 08:01:00",
+      "table": "stats",
+      "matched_on": "model:GS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIUSC101C": {
+    "url": "/img/avto/WIUSC101C-42b2b58c.jpg",
+    "make": "LEXUS",
+    "model": "RC F",
+    "chassis": "WIUSC101C",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "7a1dfOY5PxyCpV8",
+      "kuzov": "USC10",
+      "year": "2023",
+      "grade": "&#65398;-&#65422;&#65438;&#65437;&#65396;&#65400;&#65405;&#65411;&#65432;&#65393; Package",
+      "rate": "5",
+      "auction": "TAA Yokohama",
+      "auction_date": "2026-07-11 08:00:00",
+      "table": "stats",
+      "matched_on": "model:RC"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIUSER1C": {
+    "url": "/img/avto/WIUSER1C-7cdc8d1d.jpg",
+    "make": "TOYOTA",
+    "model": "DYNA",
+    "chassis": "WIUSER1C",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "A0CopFyVlTQsMz",
+      "kuzov": "GDY231",
+      "year": "2022",
+      "grade": "Just Low - D-TB Long",
+      "rate": "4",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 14:36:00",
+      "table": "main",
+      "matched_on": "model:DYNA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIUWG601B": {
+    "url": "/img/avto/WIUWG601B-f4b1dcd7.jpg",
+    "make": "TOYOTA",
+    "model": "CENTURY",
+    "chassis": "WIUWG601B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "3COl6GaqgzyCwp",
+      "kuzov": "UWG60",
+      "year": "2024",
+      "grade": "Base Grade",
+      "rate": "4.5",
+      "auction": "TAA Hiroshima",
+      "auction_date": "2026-09-08 13:05:00",
+      "table": "stats",
+      "matched_on": "model:CENTURY"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIV3501A": {
+    "url": "/img/avto/WIV3501A-ca4b4e7f.jpg",
+    "make": "NISSAN",
+    "model": "SKYLINE",
+    "chassis": "WIV3501A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "ILpf32CcqlXUAF",
+      "kuzov": "HV37",
+      "year": "2014",
+      "grade": "350GT Type P",
+      "rate": "4.5",
+      "auction": "NAA Osaka",
+      "auction_date": "2026-09-17 13:05:00",
+      "table": "main",
+      "matched_on": "model:SKYLINE"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIV3602A": {
+    "url": "/img/avto/WIV3602A-43ec544a.jpg",
+    "make": "NISSAN",
+    "model": "SKYLINE",
+    "chassis": "WIV3602A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "4BDAxwoAVVTOM",
+      "kuzov": "CKV36",
+      "year": "2011",
+      "grade": "370GT Type SP",
+      "rate": "4",
+      "auction": "NAA Osaka",
+      "auction_date": "2026-09-17 13:05:00",
+      "table": "main",
+      "matched_on": "model:SKYLINE"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIVAB01A": {
+    "url": "/img/avto/WIVAB01A-c5e4cab9.jpg",
+    "make": "SUBARU",
+    "model": "WRX STI",
+    "chassis": "WIVAB01A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "tykOym52leKK3q2",
+      "kuzov": "VAB",
+      "year": "2017",
+      "grade": "STi 4D",
+      "rate": "4",
+      "auction": "Honda AA Kansai",
+      "auction_date": "2026-09-14 11:59:00",
+      "table": "stats",
+      "matched_on": "model:WRX"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIVAB1B": {
+    "url": "/img/avto/WIVAB1B-c5e4cab9.jpg",
+    "make": "SUBARU",
+    "model": "WRX STI",
+    "chassis": "WIVAB1B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "tykOym52leKK3q2",
+      "kuzov": "VAB",
+      "year": "2017",
+      "grade": "STi 4D",
+      "rate": "4",
+      "auction": "Honda AA Kansai",
+      "auction_date": "2026-09-14 11:59:00",
+      "table": "stats",
+      "matched_on": "model:WRX"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIVCH221A": {
+    "url": "/img/avto/WIVCH221A-20cc09be.jpg",
+    "make": "TOYOTA",
+    "model": "GRANVIA",
+    "chassis": "WIVCH221A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2Qr7hTZYuBMH1gu",
+      "kuzov": "VCH10W",
+      "year": "1999",
+      "grade": "G&#65400;&#65433;-&#65404;&#65438;&#65437;&#65400;&#65438; Selection",
+      "rate": "4",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 12:17:00",
+      "table": "main",
+      "matched_on": "model:GRANVIA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIVCH22C1B": {
+    "url": "/img/avto/WIVCH22C1B-20cc09be.jpg",
+    "make": "TOYOTA",
+    "model": "GRANVIA",
+    "chassis": "WIVCH22C1B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2Qr7hTZYuBMH1gu",
+      "kuzov": "VCH10W",
+      "year": "1999",
+      "grade": "G&#65400;&#65433;-&#65404;&#65438;&#65437;&#65400;&#65438; Selection",
+      "rate": "4",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 12:17:00",
+      "table": "main",
+      "matched_on": "model:GRANVIA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIVITZ01A": {
+    "url": "/img/avto/WIVITZ01A-0fe95358.jpg",
+    "make": "TOYOTA",
+    "model": "VITZ",
+    "chassis": "WIVITZ01A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2nykpnjZsYtkvDU",
+      "kuzov": "KSP130",
+      "year": "2019",
+      "grade": "F",
+      "rate": "4.5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 13:40:00",
+      "table": "main",
+      "matched_on": "model:VITZ"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIVITZ01B": {
+    "url": "/img/avto/WIVITZ01B-0fe95358.jpg",
+    "make": "TOYOTA",
+    "model": "VITZ",
+    "chassis": "WIVITZ01B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2nykpnjZsYtkvDU",
+      "kuzov": "KSP130",
+      "year": "2019",
+      "grade": "F",
+      "rate": "4.5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 13:40:00",
+      "table": "main",
+      "matched_on": "model:VITZ"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIVITZ02B": {
+    "url": "/img/avto/WIVITZ02B-0fe95358.jpg",
+    "make": "TOYOTA",
+    "model": "VITZ",
+    "chassis": "WIVITZ02B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2nykpnjZsYtkvDU",
+      "kuzov": "KSP130",
+      "year": "2019",
+      "grade": "F",
+      "rate": "4.5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 13:40:00",
+      "table": "main",
+      "matched_on": "model:VITZ"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIVITZ03A": {
+    "url": "/img/avto/WIVITZ03A-0fe95358.jpg",
+    "make": "TOYOTA",
+    "model": "VITZ",
+    "chassis": "WIVITZ03A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2nykpnjZsYtkvDU",
+      "kuzov": "KSP130",
+      "year": "2019",
+      "grade": "F",
+      "rate": "4.5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 13:40:00",
+      "table": "main",
+      "matched_on": "model:VITZ"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIVTIZ01A": {
+    "url": "/img/avto/WIVTIZ01A-0fe95358.jpg",
+    "make": "TOYOTA",
+    "model": "VITZ",
+    "chassis": "WIVTIZ01A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2nykpnjZsYtkvDU",
+      "kuzov": "KSP130",
+      "year": "2019",
+      "grade": "F",
+      "rate": "4.5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 13:40:00",
+      "table": "main",
+      "matched_on": "model:VITZ"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIW411A": {
+    "url": "/img/avto/WIW411A-efab1ed8.jpg",
+    "make": "NISSAN",
+    "model": "CIVILIAN",
+    "chassis": "WIW411A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "YD0wX9mAfULL1U",
+      "kuzov": "DHW41",
+      "year": "2015",
+      "grade": "SV 29 Person",
+      "rate": "4.5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 14:43:00",
+      "table": "main",
+      "matched_on": "model:CIVILIAN"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIXV1": {
+    "url": "/img/avto/WIXV1-33e8ac06.jpg",
+    "make": "SUBARU",
+    "model": "XV",
+    "chassis": "WIXV1",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "37FvhwWIaaULz7L",
+      "kuzov": "GT3",
+      "year": "2017",
+      "grade": "1.6i-L Eyesite",
+      "rate": "4.5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 10:19:00",
+      "table": "main",
+      "matched_on": "model:XV"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIXW601E": {
+    "url": "/img/avto/WIXW601E-53f8da1a.jpg",
+    "make": "TOYOTA",
+    "model": "PRIUS",
+    "chassis": "WIXW601E",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "IHkowzENSIikus",
+      "kuzov": "MXWH61",
+      "year": "2025",
+      "grade": "Z",
+      "rate": "5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:PRIUS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIXZB501B": {
+    "url": "/img/avto/WIXZB501B-aebec7f8.jpg",
+    "make": "TOYOTA",
+    "model": "COASTER",
+    "chassis": "WIXZB501B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "pdqkgXd14jsSJqh",
+      "kuzov": "XZB50",
+      "year": "2014",
+      "grade": "Wheelchair &#65404;&#65388;",
+      "rate": "4",
+      "auction": "TAA Shikoku",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:COASTER"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZ111B": {
+    "url": "/img/avto/WIZ111B-245e3382.jpg",
+    "make": "NISSAN",
+    "model": "CUBE",
+    "chassis": "WIZ111B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "Gk4OqCJnduQMn0",
+      "kuzov": "YZ11",
+      "year": "2007",
+      "grade": "15M",
+      "rate": "3.5",
+      "auction": "ARAI Bayside",
+      "auction_date": "2026-09-18 12:55:00",
+      "table": "main",
+      "matched_on": "model:CUBE"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZ121B": {
+    "url": "/img/avto/WIZ121B-99905240.jpg",
+    "make": "NISSAN",
+    "model": "CUBE",
+    "chassis": "WIZ121B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "5fHEnXX41vLRi3",
+      "kuzov": "Z12",
+      "year": "2019",
+      "grade": "15X V Selection",
+      "rate": "4",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:CUBE"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZE101A": {
+    "url": "/img/avto/WIZE101A-d1c1ace3.jpg",
+    "make": "NISSAN",
+    "model": "LEAF",
+    "chassis": "WIZE101A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "JrxZBGvVP4RVke",
+      "kuzov": "ZE1",
+      "year": "2019",
+      "grade": "e+ G",
+      "rate": "5",
+      "auction": "NAA Tokyo",
+      "auction_date": "2026-09-18 13:12:00",
+      "table": "main",
+      "matched_on": "model:LEAF"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZE12C": {
+    "url": "/img/avto/WIZE12C-d1c1ace3.jpg",
+    "make": "NISSAN",
+    "model": "LEAF",
+    "chassis": "WIZE12C",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "JrxZBGvVP4RVke",
+      "kuzov": "ZE1",
+      "year": "2019",
+      "grade": "e+ G",
+      "rate": "5",
+      "auction": "NAA Tokyo",
+      "auction_date": "2026-09-18 13:12:00",
+      "table": "main",
+      "matched_on": "model:LEAF"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZE211C": {
+    "url": "/img/avto/WIZE211C-38548348.jpg",
+    "make": "TOYOTA",
+    "model": "COROLLA",
+    "chassis": "WIZE211C",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "4s49kSONQkvxeh",
+      "kuzov": "ZWE219",
+      "year": "2022",
+      "grade": "Hybrid G",
+      "rate": "4",
+      "auction": "TAA Hiroshima",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:COROLLA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZVG1101A": {
+    "url": "/img/avto/WIZVG1101A-ef34e390.jpg",
+    "make": "TOYOTA",
+    "model": "COROLLA CROSS",
+    "chassis": "WIZVG1101A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "xXGaaDD8SaMVeT",
+      "kuzov": "ZSG10",
+      "year": "2022",
+      "grade": "Z",
+      "rate": "5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:COROLLA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZVG1A": {
+    "url": "/img/avto/WIZVG1A-ef34e390.jpg",
+    "make": "TOYOTA",
+    "model": "COROLLA CROSS",
+    "chassis": "WIZVG1A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "xXGaaDD8SaMVeT",
+      "kuzov": "ZSG10",
+      "year": "2022",
+      "grade": "Z",
+      "rate": "5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:COROLLA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZVW01C": {
+    "url": "/img/avto/WIZVW01C-6efdeb06.jpg",
+    "make": "TOYOTA",
+    "model": "PRIUS",
+    "chassis": "WIZVW01C",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "5q8Ozs5afveXVP",
+      "kuzov": "ZVW51",
+      "year": "2021",
+      "grade": "S Touring Selection Black ED",
+      "rate": "4.5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:PRIUS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZVW1": {
+    "url": "/img/avto/WIZVW1-dedb4ad6.jpg",
+    "make": "TOYOTA",
+    "model": "PRIUS",
+    "chassis": "WIZVW1",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "IClmlGOSvmZ29J",
+      "kuzov": "MXWH60",
+      "year": "2025",
+      "grade": "Z",
+      "rate": "5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:PRIUS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZVW301C": {
+    "url": "/img/avto/WIZVW301C-4fd645f5.jpg",
+    "make": "TOYOTA",
+    "model": "PRIUS",
+    "chassis": "WIZVW301C",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "3cncZynjF6U0SR",
+      "kuzov": "ZVW51",
+      "year": "2015",
+      "grade": "A",
+      "rate": "4",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:PRIUS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZVW41B": {
+    "url": "/img/avto/WIZVW41B-5efb3776.jpg",
+    "make": "TOYOTA",
+    "model": "PRIUS ALPHA",
+    "chassis": "WIZVW41B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "qmroDj5hgYUZNnU",
+      "kuzov": "ZVW41W",
+      "year": "2014",
+      "grade": "S Tune Black",
+      "rate": "4",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:PRIUS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZVW51A": {
+    "url": "/img/avto/WIZVW51A-6efdeb06.jpg",
+    "make": "TOYOTA",
+    "model": "PRIUS",
+    "chassis": "WIZVW51A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "5q8Ozs5afveXVP",
+      "kuzov": "ZVW51",
+      "year": "2021",
+      "grade": "S Touring Selection Black ED",
+      "rate": "4.5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:PRIUS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZVW551B": {
+    "url": "/img/avto/WIZVW551B-6efdeb06.jpg",
+    "make": "TOYOTA",
+    "model": "PRIUS",
+    "chassis": "WIZVW551B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "5q8Ozs5afveXVP",
+      "kuzov": "ZVW51",
+      "year": "2021",
+      "grade": "S Touring Selection Black ED",
+      "rate": "4.5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:PRIUS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZWE21101A": {
+    "url": "/img/avto/WIZWE21101A-38548348.jpg",
+    "make": "TOYOTA",
+    "model": "COROLLA",
+    "chassis": "WIZWE21101A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "4s49kSONQkvxeh",
+      "kuzov": "ZWE219",
+      "year": "2022",
+      "grade": "Hybrid G",
+      "rate": "4",
+      "auction": "TAA Hiroshima",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:COROLLA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZWE21102C": {
+    "url": "/img/avto/WIZWE21102C-38548348.jpg",
+    "make": "TOYOTA",
+    "model": "COROLLA",
+    "chassis": "WIZWE21102C",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "4s49kSONQkvxeh",
+      "kuzov": "ZWE219",
+      "year": "2022",
+      "grade": "Hybrid G",
+      "rate": "4",
+      "auction": "TAA Hiroshima",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:COROLLA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZWE211D": {
+    "url": "/img/avto/WIZWE211D-38548348.jpg",
+    "make": "TOYOTA",
+    "model": "COROLLA",
+    "chassis": "WIZWE211D",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "4s49kSONQkvxeh",
+      "kuzov": "ZWE219",
+      "year": "2022",
+      "grade": "Hybrid G",
+      "rate": "4",
+      "auction": "TAA Hiroshima",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:COROLLA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZWE211E": {
+    "url": "/img/avto/WIZWE211E-38548348.jpg",
+    "make": "TOYOTA",
+    "model": "COROLLA",
+    "chassis": "WIZWE211E",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "4s49kSONQkvxeh",
+      "kuzov": "ZWE219",
+      "year": "2022",
+      "grade": "Hybrid G",
+      "rate": "4",
+      "auction": "TAA Hiroshima",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:COROLLA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZWR901A": {
+    "url": "/img/avto/WIZWR901A-941c4b98.jpg",
+    "make": "TOYOTA",
+    "model": "VOXY",
+    "chassis": "WIZWR901A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "xMlOjIDtEzCQIq",
+      "kuzov": "ZWR90W",
+      "year": "2023",
+      "grade": "Hybrid S-Z",
+      "rate": "5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:VOXY"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZWR901B": {
+    "url": "/img/avto/WIZWR901B-9a371aee.jpg",
+    "make": "TOYOTA",
+    "model": "NOAH",
+    "chassis": "WIZWR901B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "38FAaO9XB9yJJ2a",
+      "kuzov": "ZWR90W",
+      "year": "2025",
+      "grade": "Hybrid S-Z",
+      "rate": "5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 10:51:00",
+      "table": "main",
+      "matched_on": "model:NOAH"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZWR91D": {
+    "url": "/img/avto/WIZWR91D-941c4b98.jpg",
+    "make": "TOYOTA",
+    "model": "VOXY",
+    "chassis": "WIZWR91D",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "xMlOjIDtEzCQIq",
+      "kuzov": "ZWR90W",
+      "year": "2023",
+      "grade": "Hybrid S-Z",
+      "rate": "5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:VOXY"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "WIZWR91E": {
+    "url": "/img/avto/WIZWR91E-9a371aee.jpg",
+    "make": "TOYOTA",
+    "model": "NOAH",
+    "chassis": "WIZWR91E",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "38FAaO9XB9yJJ2a",
+      "kuzov": "ZWR90W",
+      "year": "2025",
+      "grade": "Hybrid S-Z",
+      "rate": "5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 10:51:00",
+      "table": "main",
+      "matched_on": "model:NOAH"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "X118": {
+    "url": "/img/avto/X118-732f9d52.jpg",
+    "make": "MERCEDES BENZ",
+    "model": "CLA CLASS",
+    "chassis": "X118",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "6xUj2PN9K13MOF",
+      "kuzov": "118612M",
+      "year": "2020",
+      "grade": "CLA 200 d SB AMG Line",
+      "rate": "4.5",
+      "auction": "ZIP Tokyo",
+      "auction_date": "2026-09-19 14:02:00",
+      "table": "main",
+      "matched_on": "model:CLASS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "XK50": {
+    "url": "/img/avto/XK50-62381cdb.jpg",
+    "make": "TOYOTA",
+    "model": "TUNDRA",
+    "chassis": "XK50",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "YSOSZGtho5oJ6a",
+      "kuzov": "...",
+      "year": "2013",
+      "grade": "CREW MAX SR5 5.7",
+      "rate": "3.5",
+      "auction": "MIRIVE Osaka",
+      "auction_date": "2026-07-16 13:11:00",
+      "table": "stats",
+      "matched_on": "model:TUNDRA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "XKU60001B": {
+    "url": "/img/avto/XKU60001B-9cf3b5af.jpg",
+    "make": "TOYOTA",
+    "model": "TOYOACE",
+    "chassis": "XKU60001B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "l6b858w7EFutFF7",
+      "kuzov": "XKU600",
+      "year": "2017",
+      "grade": "",
+      "rate": "3.5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-08-25 08:01:00",
+      "table": "stats",
+      "matched_on": "XKU600"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "XPA1W01A": {
+    "url": "/img/avto/XPA1W01A-68710146.jpg",
+    "make": "TOYOTA",
+    "model": "YARIS",
+    "chassis": "XPA1W01A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "4sbMhIE8dXGUKx",
+      "kuzov": "KSP210",
+      "year": "2025",
+      "grade": "G",
+      "rate": "5",
+      "auction": "TAA Hiroshima",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:YARIS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "Y50F01B": {
+    "url": "/img/avto/Y50F01B-edf08322.jpg",
+    "make": "NISSAN",
+    "model": "FUGA",
+    "chassis": "Y50F01B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "9ezGE3ozocrMbDH",
+      "kuzov": "PY50",
+      "year": "2007",
+      "grade": "350GT",
+      "rate": "3.5",
+      "auction": "MIRIVE Aichi",
+      "auction_date": "2026-09-18 10:52:00",
+      "table": "main",
+      "matched_on": "model:FUGA"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "Z12W01B": {
+    "url": "/img/avto/Z12W01B-99905240.jpg",
+    "make": "NISSAN",
+    "model": "CUBE",
+    "chassis": "Z12W01B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "5fHEnXX41vLRi3",
+      "kuzov": "Z12",
+      "year": "2019",
+      "grade": "15X V Selection",
+      "rate": "4",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:CUBE"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "ZVW30W01C": {
+    "url": "/img/avto/ZVW30W01C-4fd645f5.jpg",
+    "make": "TOYOTA",
+    "model": "PRIUS",
+    "chassis": "ZVW30W01C",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "3cncZynjF6U0SR",
+      "kuzov": "ZVW51",
+      "year": "2015",
+      "grade": "A",
+      "rate": "4",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:PRIUS"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "ZWR80B": {
+    "url": "/img/avto/ZWR80B-0c78df5b.jpg",
+    "make": "TOYOTA",
+    "model": "ESQUIRE",
+    "chassis": "ZWR80B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "5GTiqYl1kKyPKm",
+      "kuzov": "ZWR80G",
+      "year": "2021",
+      "grade": "HVGi&#65420;&#65439;&#65434;&#65424;&#65393;P Black &#65411;-&#65431;&#65412;&#65438;",
+      "rate": "4.5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "ZWR80"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "ZWR90N01C": {
+    "url": "/img/avto/ZWR90N01C-9a371aee.jpg",
+    "make": "TOYOTA",
+    "model": "NOAH",
+    "chassis": "ZWR90N01C",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "38FAaO9XB9yJJ2a",
+      "kuzov": "ZWR90W",
+      "year": "2025",
+      "grade": "Hybrid S-Z",
+      "rate": "5",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 10:51:00",
+      "table": "main",
+      "matched_on": "model:NOAH"
+    },
+    "harvested_at": "2026-09-17"
+  },
+  "ZWR90V01A": {
+    "url": "/img/avto/ZWR90V01A-941c4b98.jpg",
+    "make": "TOYOTA",
+    "model": "VOXY",
+    "chassis": "ZWR90V01A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "xMlOjIDtEzCQIq",
+      "kuzov": "ZWR90W",
+      "year": "2023",
+      "grade": "Hybrid S-Z",
+      "rate": "5",
+      "auction": "TAA Kinki",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:VOXY"
+    },
+    "harvested_at": "2026-09-17"
   }
 }
