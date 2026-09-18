@@ -693,8 +693,8 @@
       ]
     },
     "ford-f150": {
-      "hash": "9739f801d62e60869b78a6caec70bebb19840f844c161772448f6cc457ce914a",
-      "last_modified": "2026-09-14",
+      "hash": "eeab6e110d7f9f4776ab010eef71fbbb38340a856a61bb861cb753cbdffe1f29",
+      "last_modified": "2026-09-18",
       "live": true,
       "approval_ids": [
         "MRE-000194",
@@ -720,9 +720,9 @@
       ]
     },
     "ford-super-duty": {
-      "hash": "a2f01812c40ef4c7b3d6202fcd1480e7445fdca801e9f80c5349e5f45d41e2d3",
-      "last_modified": "2026-09-08",
-      "live": false,
+      "hash": "a0bc0596542a9c4bc6ef2a984592e6442042aeddd287f0bead59c9fbeb3bb624",
+      "last_modified": "2026-09-18",
+      "live": true,
       "approval_ids": [
         "MRE-000184",
         "MRE-000190",
@@ -3016,6 +3016,20 @@
     }
   },
   "changes": [
+    {
+      "date": "2026-09-18",
+      "slug": "ford-super-duty",
+      "name": "Ford Super Duty (F-250 to F-600)",
+      "added": [],
+      "removed": []
+    },
+    {
+      "date": "2026-09-18",
+      "slug": "ford-f150",
+      "name": "Ford F-150",
+      "added": [],
+      "removed": []
+    },
     {
       "date": "2026-09-17",
       "slug": "subaru-impreza-wrx-sti",
