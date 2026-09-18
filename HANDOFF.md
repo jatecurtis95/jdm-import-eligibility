@@ -557,3 +557,48 @@ first of those because no sibling window claims 2016. `MATCHER_VERSION` 7.
 `scripts/test_photo_targets.py` covers the harvester half and runs as the first
 step of `avto-photos.yml`, before any feed query, because a broken matcher does
 not error — it quietly harvests the wrong cars.
+
+---
+
+# Addendum (2026-09-18) — Public-exposure audit, and one hole closed
+
+A full audit of what the live site will serve, not the spot check of 16 September.
+Every one of the 132 tracked files outside `functions/` was requested on both
+`importcheck.com.au` and `rover-eligibility.pages.dev`, along with 29 deliberate
+bypass spellings, and every publishable file was scanned for credential patterns.
+
+**Findings.**
+- No tracked file leaked under its own name. The nine product files served; the
+  other 123 returned 404.
+- No credential of any kind is in a publishable file. HANDOFF.md names the R2
+  bucket, the account-id prefix, the relay URL and the secret *names*, and notes
+  a PAT revoked from a different repo; that is the extent of it.
+- **`/HANDOFF%2Emd` served the whole file** on both hosts. Pages percent-decodes
+  the path before it looks up an asset; the middleware tested the raw path,
+  where `%2E` is not a dot, so the `.md` rule never fired. The same spelling
+  reached ARCHITECTURE.md and PRODUCT.md.
+- **The GitHub repository is public.** Every file this middleware hides is
+  readable at github.com regardless, and the site relies on that: index.html
+  fetches `photos.json` from `raw.githubusercontent.com` as its primary source
+  and `data.json` from there as a fallback. Making the repo private is the
+  owner's call and would need those two fetches moved to same-origin routes
+  first (an `/api/photos` alongside `/api/data`), or the site would lose its
+  photos. Until then the middleware is a courtesy, not a boundary.
+
+**Fix.** The rules moved to `functions/_paths.js` so they can be unit-tested,
+and now run on the decoded, lower-cased, slash-normalised path. The check is
+an allowlist: only a route served by a Function (`/vehicles`, `/guides`,
+`/enquire`, `/methodology`, `/changes`, `/api`, `/img`, `/cdn-cgi`) or one of
+the nine static product files serves; everything else is refused, whatever it
+is called. The old denylist stays as a second layer, extended to any
+underscore-led segment (Pages' `_headers`, `_redirects`, `_routes.json`,
+`_worker.js`, and this codebase's helper modules) and to `.json`/`.jsonc`.
+Malformed percent-encoding is refused outright. The refusal now returns the
+site's own 404 page with a 404 status, so a blocked path is indistinguishable
+from a missing one.
+
+`scripts/test-private-paths.mjs` covers the encoded spellings, every trailing-
+and doubled-slash variant, the control files, and, self-updating from
+`git ls-files`, every tracked file that is not the product. It runs in
+`build-vehicle-pages.yml`. If a new static asset is ever needed at a public
+URL, add it to `PUBLIC_FILES` deliberately; do not loosen the rules.

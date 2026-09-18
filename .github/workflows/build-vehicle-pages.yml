@@ -91,6 +91,7 @@ jobs:
           node scripts/test-publication.mjs
           node scripts/test-catalogue-review.mjs
           node scripts/test-photo-matching.mjs
+          node scripts/test-private-paths.mjs
 
       - name: commit
         if: github.ref == 'refs/heads/main'
