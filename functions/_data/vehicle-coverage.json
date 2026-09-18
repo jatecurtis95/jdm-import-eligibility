@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-18T06:44:56.595164+08:00",
-  "matched_records": 1190,
+  "generated_at": "2026-09-19T06:19:42.435965+08:00",
+  "matched_records": 1192,
   "guide_matches": [
     {
       "scheme": "SEV",
@@ -3599,6 +3599,13 @@
       "source_make": "Mazda",
       "source_model": "Roadster",
       "guide_slug": "mazda-roadster"
+    },
+    {
+      "scheme": "SEV",
+      "approval_number": "SEV-001110",
+      "source_make": "Toyota",
+      "source_model": "Aqua Welcab",
+      "guide_slug": "toyota-aqua"
     },
     {
       "scheme": "MRE",
@@ -8331,9 +8338,16 @@
       "source_make": "Toyota",
       "source_model": "Camry",
       "guide_slug": "toyota-camry"
+    },
+    {
+      "scheme": "MRE",
+      "approval_number": "MRE-000998",
+      "source_make": "SUBARU",
+      "source_model": "Impreza WRX STI",
+      "guide_slug": "subaru-impreza-wrx-sti"
     }
   ],
-  "candidate_records": 340,
+  "candidate_records": 341,
   "pages": [
     {
       "slug": "register-astonmartin-dbsgtzagato",
@@ -10121,6 +10135,12 @@
       "faqs": [],
       "intro_copy": "These source records need to be checked and grouped before a model guide can be published. A record appearing here does not confirm that a particular vehicle can be imported.",
       "source_records": [
+        {
+          "scheme": "SEV",
+          "approval_number": "SEV-001109",
+          "model_code": "Mugen RZ",
+          "detail_url": "https://www.rover.infrastructure.gov.au/PublishedApprovals/SEVDetails/?id=55a4c879-13b3-f111-aaac-6045bdc3d6cd"
+        },
         {
           "scheme": "MRE",
           "approval_number": "MRE-000823",
