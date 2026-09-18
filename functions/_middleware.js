@@ -15,6 +15,7 @@
 // working, it just lands on the brand we are actually building.
 import bundle from './_data/vehicle-pages.json';
 import { modelLinks, isLive } from './vehicles/_render.js';
+import { shouldServe } from './_paths.js';
 const CANONICAL_HOST = "importcheck.com.au";
 const REDIRECT_HOSTS = new Set([
   "www.importcheck.com.au",
@@ -25,37 +26,29 @@ const REDIRECT_HOSTS = new Set([
   "www.caniimportit.com"
 ]);
 
-// Cloudflare Pages publishes every file in the repo that is not under
-// functions/, so the scraper source, the internal review notes and the
-// project docs were all reachable on the public site:
-//   /scripts/avto_photos.py, /HANDOFF.md, /ARCHITECTURE.md, /docs/*.md,
-//   /.gitignore ...
-// None of them is part of the product, and HANDOFF.md in particular names
-// infrastructure. They 404 rather than serve. This is a denylist of paths
-// that are never product routes; every real route (/vehicles, /guides,
-// /enquire, /api/data, /img/avto/*, the icons, robots.txt, sitemap.xml) is
-// untouched.
-const PRIVATE_PREFIXES = ["/scripts/", "/docs/", "/brain/", "/supabase/", "/.github/"];
-const PRIVATE_SUFFIX = /\.(md|py|ya?ml|toml|lock|sql|sh|bak|mjs|ts)$/i;
-
-function isPrivatePath(pathname) {
-  const p = pathname.toLowerCase();
-  // A dot-file or dot-directory anywhere in the path (/.gitignore, /.github/..).
-  if (p.split("/").some(seg => seg.startsWith("."))) return true;
-  if (PRIVATE_PREFIXES.some(prefix => p.startsWith(prefix))) return true;
-  return PRIVATE_SUFFIX.test(p);
+// Everything outside functions/ is published by Pages, so only a product route
+// or one of the site's own static files may serve; the rules, and the story of
+// why, live in _paths.js. The refusal is the site's normal 404 page, so a
+// blocked path looks exactly like a missing one and tells a prober nothing.
+async function notFound(context, url) {
+  const headers = { "Cache-Control": "no-store" };
+  try {
+    const page = await context.env.ASSETS.fetch(new Request(new URL("/404.html", url), { method: "GET" }));
+    if (page.ok) {
+      return new Response(page.body, {
+        status: 404,
+        headers: { ...headers, "Content-Type": page.headers.get("Content-Type") || "text/html; charset=utf-8" },
+      });
+    }
+  } catch {}
+  return new Response("Not found", { status: 404, headers: { ...headers, "Content-Type": "text/plain" } });
 }
 
 export async function onRequest(context) {
   const { request, next } = context;
   const url = new URL(request.url);
 
-  if (isPrivatePath(url.pathname)) {
-    return new Response("Not found", {
-      status: 404,
-      headers: { "Content-Type": "text/plain", "Cache-Control": "no-store" },
-    });
-  }
+  if (!shouldServe(url.pathname)) return notFound(context, url);
 
   if (REDIRECT_HOSTS.has(url.hostname.toLowerCase())) {
     url.protocol = "https:";
