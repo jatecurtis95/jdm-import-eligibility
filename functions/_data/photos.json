@@ -17107,5 +17107,105 @@
       "matched_on": "model:VOXY"
     },
     "harvested_at": "2026-09-17"
+  },
+  "WIUSC101B": {
+    "url": "/img/avto/WIUSC101B-a7cda8e5.jpg",
+    "make": "LEXUS",
+    "model": "RC F",
+    "chassis": "WIUSC101B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "70TpQjdtQmhe0Bw",
+      "kuzov": "USC10",
+      "year": "2015",
+      "grade": "Base Grade",
+      "rate": "4.5",
+      "auction": "TAA Hyogo",
+      "auction_date": "2026-09-19 10:55:00",
+      "table": "main",
+      "matched_on": "model:RC"
+    },
+    "harvested_at": "2026-09-18"
+  },
+  "WIV351B": {
+    "url": "/img/avto/WIV351B-02ecbc5a.jpg",
+    "make": "NISSAN",
+    "model": "SKYLINE",
+    "chassis": "WIV351B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "mRJCvb7yFcgzrCT",
+      "kuzov": "PV36",
+      "year": "2007",
+      "grade": "350GT Type P",
+      "rate": "4",
+      "auction": "JU Gifu",
+      "auction_date": "2026-09-19 13:38:00",
+      "table": "main",
+      "matched_on": "model:SKYLINE"
+    },
+    "harvested_at": "2026-09-18"
+  },
+  "WIVEZEL02A": {
+    "url": "/img/avto/WIVEZEL02A-7e78456c.jpg",
+    "make": "HONDA",
+    "model": "VEZEL",
+    "chassis": "WIVEZEL02A",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "cU0D3ohgNMv0tad",
+      "kuzov": "RV3",
+      "year": "2021",
+      "grade": "G",
+      "rate": "4.5",
+      "auction": "MIRIVE Saitama",
+      "auction_date": "2026-09-23 10:02:00",
+      "table": "main",
+      "matched_on": "model:VEZEL"
+    },
+    "harvested_at": "2026-09-18"
+  },
+  "WIXP1001B": {
+    "url": "/img/avto/WIXP1001B-0aca1506.jpg",
+    "make": "TOYOTA",
+    "model": "RACTIS",
+    "chassis": "WIXP1001B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "26HMCoY51qvqLGI",
+      "kuzov": "NSP122",
+      "year": "2015",
+      "grade": "X",
+      "rate": "4",
+      "auction": "TAA Kyushu",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:RACTIS"
+    },
+    "harvested_at": "2026-09-18"
+  },
+  "WIZYX101B": {
+    "url": "/img/avto/WIZYX101B-cd57a327.jpg",
+    "make": "TOYOTA",
+    "model": "C-HR",
+    "chassis": "WIZYX101B",
+    "source": "avtonet",
+    "credit": "Japanese auction listing",
+    "lot": {
+      "id": "2eGLCj1USOY5Eit",
+      "kuzov": "NGX50",
+      "year": "2019",
+      "grade": "G-T 4WD",
+      "rate": "5",
+      "auction": "CAA Tokyo",
+      "auction_date": "2026-09-22 00:00:00",
+      "table": "main",
+      "matched_on": "model:HR"
+    },
+    "harvested_at": "2026-09-18"
   }
 }
