@@ -2454,8 +2454,8 @@
       ]
     },
     "toyota-aqua": {
-      "hash": "2b73380e09cab72a67b0e043a78bf08de4a9d0a249654a599d445d12f7fccbd1",
-      "last_modified": "2026-09-08",
+      "hash": "90b8c143e012bc41010480df649918887d0a95c6b6d281b0885efe2e0bbc0b01",
+      "last_modified": "2026-09-19",
       "live": false,
       "approval_ids": [
         "MRE-000555",
@@ -2467,7 +2467,8 @@
         "MRE-000974",
         "SEV-000523",
         "SEV-001011",
-        "SEV-001012"
+        "SEV-001012",
+        "SEV-001110"
       ]
     },
     "toyota-aristo": {
